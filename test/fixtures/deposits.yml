@@ -1,0 +1,31 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  amount: 9.99
+  network: 
+  payment_method: 
+  balance_before: 9.99
+  balance_after: 9.99
+  ext_transaction_id: MyString
+  transaction_id: MyString
+  resource_id: MyString
+  receiving_fri: 
+  status: MyString
+  message: 
+  currency: 
+  phone_number: MyString
+
+two:
+  amount: 9.99
+  network: 
+  payment_method: 
+  balance_before: 9.99
+  balance_after: 9.99
+  ext_transaction_id: MyString
+  transaction_id: MyString
+  resource_id: MyString
+  receiving_fri: 
+  status: MyString
+  message: 
+  currency: 
+  phone_number: MyString

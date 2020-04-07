@@ -1,13 +1,23 @@
 require 'rails_helper'
+require 'faker'
 
-RSpec.describe User, type: :model do
-
+RSpec.describe Deposit, type: :model do
    subject {
-      described_class.new(first_name: "first_name",
-         last_name: "last name",
+      described_class.new(amount: 5000,
+         network: "MTN Uganda",
          phone_number: "256776582036",
-         password: "Pa$$word5",
-         password_confirmation: "Pa$$word5",
+         payment_method: "mobile money",
+         balance_after: "1000",
+         balance_before: "6000",
+         ext_transaction_id: Faker::IDNumber.valid ,
+         transaction_id: Faker::IDNumber.valid ,
+         resource_id: Faker::IDNumber.valid ,
+         user_id: 5,
+         receiving_fri: "2345@supa",
+         status: "PENDING",
+         message: "",
+         currency: "UGX",
+         phone_number: "256776582036",
          id: 1)
    }
 
@@ -31,14 +41,8 @@ RSpec.describe User, type: :model do
       subject.password = ""
       expect(subject).to_not be_valid
    end
-   it "is invalid if password and password confirmation do not matched" do
-      subject.password = "Password6"
-      expect(subject).to_not be_valid
-   end
-
-   it "is invalid if password is not complex" do
+   it "is invalid if password and password confirmation do not matche" do
       subject.password = "password"
-      subject.password_confirmation = "password"
       expect(subject).to_not be_valid
    end
 end

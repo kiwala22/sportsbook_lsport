@@ -10,10 +10,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_07_131227) do
+ActiveRecord::Schema.define(version: 2020_04_07_203516) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "deposits", force: :cascade do |t|
+    t.decimal "amount", precision: 12, scale: 2
+    t.string "network"
+    t.string "payment_method"
+    t.decimal "balance_before", precision: 12, scale: 2
+    t.decimal "balance_after", precision: 12, scale: 2
+    t.string "ext_transaction_id"
+    t.string "transaction_id"
+    t.string "resource_id"
+    t.string "receiving_fri"
+    t.string "status"
+    t.string "message"
+    t.string "currency"
+    t.string "phone_number"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
+    t.index ["ext_transaction_id"], name: "index_deposits_on_ext_transaction_id", unique: true
+    t.index ["phone_number"], name: "index_deposits_on_phone_number"
+    t.index ["resource_id"], name: "index_deposits_on_resource_id", unique: true
+    t.index ["transaction_id"], name: "index_deposits_on_transaction_id", unique: true
+    t.index ["user_id"], name: "index_deposits_on_user_id"
+  end
 
   create_table "managers", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -68,4 +92,31 @@ ActiveRecord::Schema.define(version: 2020_04_07_131227) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
+  create_table "withdraws", force: :cascade do |t|
+    t.decimal "amount", precision: 12, scale: 2
+    t.string "network"
+    t.string "payment_method"
+    t.decimal "balance_before", precision: 12, scale: 2
+    t.decimal "balance_after", precision: 12, scale: 2
+    t.string "ext_transaction_id"
+    t.string "transaction_id"
+    t.string "resource_id"
+    t.string "receiving_fri"
+    t.string "status"
+    t.string "message"
+    t.string "currency"
+    t.string "phone_number"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
+    t.index ["ext_transaction_id"], name: "index_withdraws_on_ext_transaction_id", unique: true
+    t.index ["phone_number"], name: "index_withdraws_on_phone_number"
+    t.index ["resource_id"], name: "index_withdraws_on_resource_id", unique: true
+    t.index ["status"], name: "index_withdraws_on_status"
+    t.index ["transaction_id"], name: "index_withdraws_on_transaction_id", unique: true
+    t.index ["user_id"], name: "index_withdraws_on_user_id"
+  end
+
+  add_foreign_key "deposits", "users"
+  add_foreign_key "withdraws", "users"
 end

@@ -5,8 +5,8 @@ RSpec.describe Manager, type: :model do
       described_class.new(first_name: "first_name",
          last_name: "last name",
          email: "acacia@bengo.com",
-         password: "pa$$word",
-         password_confirmation: "pa$$word",
+         password: "Pa$$word5",
+         password_confirmation: "Pa$$word5",
          id: 1)
    }
 
@@ -31,7 +31,13 @@ RSpec.describe Manager, type: :model do
       expect(subject).to_not be_valid
    end
    it "is invalid if password and password confirmation do not matche" do
+      subject.password = "Pass&word"
+      expect(subject).to_not be_valid
+   end
+
+   it "is invalid if password is not complex" do
       subject.password = "password"
+      subject.password_confirmation = "password"
       expect(subject).to_not be_valid
    end
 end
