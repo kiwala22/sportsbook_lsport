@@ -1,13 +1,13 @@
 class User < ApplicationRecord
-   #attr_writer :login
+   attr_writer :login
    # Include default devise modules. Others available are:
    # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
    devise :database_authenticatable, :registerable, :recoverable, :rememberable,
-   :validatable, :timeoutable, :trackable, authentication_keys: [:phone_number]
+   :validatable, :timeoutable, :trackable, authentication_keys: [:login]
 
-   # def login
-   #    @login || self.phone_number
-   # end
+   def login
+      @login || self.phone_number
+   end
 
    validates :phone_number, presence: true
    validates :phone_number, uniqueness: true
