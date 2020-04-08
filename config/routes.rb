@@ -1,5 +1,14 @@
 Rails.application.routes.draw do
-  devise_for :managers
-  devise_for :users
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
+  devise_for :users, path: 'users',  controllers: {
+      sessions: 'users/sessions'
+   }
+   constraints subdomain: 'intnet' do
+      root to: "admin/sessions#new"
+      devise_for :admins, path: 'admins',  controllers:{
+         sessions: 'admins/sessions'
+      }
+
+   end
+   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
