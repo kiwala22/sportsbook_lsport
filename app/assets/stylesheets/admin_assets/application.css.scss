@@ -20,13 +20,13 @@
  * ------------------------------
  * --- Assets paths redefinition
  * ------------------------------
- *= require fonts
- *= require vendor.assets
+ *= require admin_assets/fonts
+ *= require admin_assets/vendor.assets
  *
  * ------------------------------
  * --- Angle Main Stylesheet
  * ------------------------------
- *= require angle/bootstrap
- *= require angle/app
+ *= require admin_assets/bootstrap
+ *= require admin_assets/app
  *
  */

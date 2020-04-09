@@ -11,7 +11,7 @@
    <!-- =============== VIEW STYLES ===============-->
    <%= stylesheet_link_tag params[:controller] %>
    <!-- =============== APP STYLES ===============-->
-   <%= stylesheet_link_tag 'application', media: 'all', id: "maincss" %>
+   <%= stylesheet_link_tag 'admin_assets/application', media: 'all', id: "maincss" %>
 
    <%= yield :vendor_css_area %>
 
@@ -47,7 +47,7 @@
    </div>
 
    <!-- =============== APP SCRIPTS ===============-->
-   <%= javascript_packs_with_chunks_tag 'application', params[:controller] if pack_exists?(params[:controller]) %>
+   <%= javascript_packs_with_chunks_tag 'admin_assets/application', params[:controller] if pack_exists?(params[:controller]) %>
 
    <%= yield :vendor_js_area %>
 

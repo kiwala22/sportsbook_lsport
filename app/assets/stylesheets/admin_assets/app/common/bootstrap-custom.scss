@@ -5,7 +5,14 @@
 // Use this file to add custom css that may
 // depend on Bootstrap styles
 
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1140px
+) !default;
 
+$text-muted:                  #909FA7;
 
 // Different container size to wrap content
 .container-sm {
