@@ -6,7 +6,7 @@
    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
    <meta name="description" content="Bootstrap Admin App + Ruby on Rails">
    <meta name="keywords" content="app, responsive, jquery, bootstrap, dashboard, admin">
-   <title>Angle - Bootstrap Admin Template</title>
+   <title>Skyline SportsBook</title>
 
    <!-- =============== APP STYLES ===============-->
    <%= stylesheet_link_tag 'admin_assets/application', media: 'all', id: "maincss" %>
@@ -19,15 +19,22 @@
 
 <body>
    <div class="wrapper">
-      <%= yield %>
-   </div>
-   <div class="p-lg text-center">
-      <span>&copy;</span>
-      <span>2016</span>
-      <span>-</span>
-      <span>Angle</span>
-      <br>
-      <span>Bootstrap Admin Template</span>
+       <!-- top navbar-->
+    <header class="topnavbar-wrapper">
+      <%= render partial: "layouts/devise_partials/topnavbar" %>
+    </header>
+    <div>
+        <%= render partial: "layouts/partials/flash" %>
+        <%= yield %>
+    </div>
+    <div class="p-lg text-center">
+       <span>&copy;</span>
+       <span>2016</span>
+       <span>-</span>
+       <span>Angle</span>
+       <br>
+       <span>Bootstrap Admin Template</span>
+    </div>
    </div>
 
    <!-- =============== APP SCRIPTS ===============-->
