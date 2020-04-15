@@ -10,10 +10,6 @@
         "postinstall": "npm run modernizr"
     },
     "dependencies": {
-        "@rails/actioncable": "6.0.0-alpha",
-        "@rails/activestorage": "6.0.0-alpha",
-        "@rails/ujs": "6.0.0-alpha",
-        "@rails/webpacker": "4.2.2",
         "@fortawesome/fontawesome-free": "5.5.0",
         "@fullcalendar/bootstrap": "4.3.0",
         "@fullcalendar/core": "4.3.1",
@@ -21,6 +17,10 @@
         "@fullcalendar/interaction": "4.3.0",
         "@fullcalendar/list": "4.3.0",
         "@fullcalendar/timegrid": "4.3.0",
+        "@rails/actioncable": "6.0.0-alpha",
+        "@rails/activestorage": "6.0.0-alpha",
+        "@rails/ujs": "6.0.0-alpha",
+        "@rails/webpacker": "4.2.2",
         "@ttskch/select2-bootstrap4-theme": "1.0.4",
         "animate.css": "3.7.0",
         "bootstrap": "4.4.1",
@@ -48,9 +48,12 @@
         "dropzone": "5.5.1",
         "easy-pie-chart": "2.1.7",
         "fastclick": "1.0.6",
+        "flot": "themicon/flot",
         "html5sortable": "0.9.8",
         "i18next": "12.0.0",
         "i18next-xhr-backend": "1.5.1",
+        "ika.jvectormap": "themicon/ika.jvectormap",
+        "imports-loader": "0.8.0",
         "inputmask": "4.0.3",
         "jqcloud2": "2.0.3",
         "jquery": "3.4.1",
@@ -62,6 +65,7 @@
         "jquery-ui-touch-punch": "0.2.3",
         "jquery-validation": "1.18.0",
         "jquery.easing": "1.4.1",
+        "jquery.flot.spline": "themicon/jquery.flot.spline",
         "jquery.flot.tooltip": "github:krzysu/flot.tooltip",
         "jquery.gmap": "github:marioestrada/jQuery-gMap",
         "js-storage": "1.0.4",
@@ -71,6 +75,7 @@
         "modernizr": "3.7.1",
         "moment": "2.22.2",
         "morris.js.so": "0.5.1",
+        "nestable": "themicon/nestable",
         "parsleyjs": "2.8.1",
         "pdfmake": "0.1.56",
         "popper.js": "1.16.0",
@@ -82,14 +87,9 @@
         "sweetalert": "2.1.2",
         "weather-icons": "github:erikflowers/weather-icons",
         "whirl": "github:themicon/whirl",
-        "x-editable": "1.5.1",
-        "flot": "themicon/flot",
-        "ika.jvectormap": "themicon/ika.jvectormap",
-        "jquery.flot.spline": "themicon/jquery.flot.spline",
-        "nestable": "themicon/nestable",
-        "imports-loader": "0.8.0"
+        "x-editable": "1.5.1"
     },
     "devDependencies": {
-        "webpack-dev-server": "3.8.1"
+        "webpack-dev-server": "^3.10.3"
     }
 }

@@ -91,3 +91,4 @@ gem "audited", "~> 4.9"
 gem "roo", "~> 2.8.0"
 gem "brakeman"
 gem "sentry-raven"
+gem 'webpacker', '~> 4.0'
