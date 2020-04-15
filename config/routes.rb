@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :deposits, only: [:index]
+  resources :withdraws, only: [:index]
    devise_for :users, path: 'users',  controllers: {
       sessions: 'users/sessions'
    }

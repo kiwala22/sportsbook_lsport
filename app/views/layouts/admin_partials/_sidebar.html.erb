@@ -4,7 +4,7 @@
       <!-- START sidebar nav-->
       <ul class="sidebar-nav">
          <!-- Iterates over all sidebar items-->
-         <li class="">
+         <li class="<%= 'active' if controller.controller_name == 'admin_landing' %>">
             <a href="#dashboard" title="Dashboard" data-toggle="collapse">
                <em class="icon-home"></em>
                <span data-localize="sidebar.nav.DASHBOARD">Admin Dashboard</span>
@@ -18,13 +18,13 @@
             </a>
             <ul id="finances" class="sidebar-nav sidebar-subnav collapse">
                <li class="sidebar-subnav-header">Finances</li>
-               <li>
-                  <a href="#" title="Withdraws">
+               <li class="<%= 'active' if controller.controller_name == 'withdraws' %>">
+                  <a href="<%= withdraws_path %>" title="Withdraws">
                      <span>Withdraws</span>
                   </a>
                </li>
-               <li>
-                  <a href="#" title="Deposits">
+               <li class="<%= 'active' if controller.controller_name == 'deposits' %>">
+                  <a href="<%= deposits_path %>" title="Deposits">
                      <span>Deposits</span>
                   </a>
                </li>
