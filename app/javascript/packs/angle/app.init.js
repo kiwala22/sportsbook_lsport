@@ -13,7 +13,7 @@ import $ from 'jquery';
 
 import initScreenFull from './modules/common/fullscreen';
 import initLoadCSS from './modules/common/load-css';
-import initTranslation from './modules/common/localize';
+// import initTranslation from './modules/common/localize';
 import initNavbarSearch from './modules/common/navbar-search';
 import initSidebar from './modules/common/sidebar';
 import initTableCheckAll from './modules/common/table-checkall';
@@ -27,7 +27,7 @@ export default function initApp() {
     initBootstrap();
     initScreenFull();
     initLoadCSS();
-    initTranslation();
+    // initTranslation();
     initNavbarSearch();
     initSidebar();
     initTableCheckAll();

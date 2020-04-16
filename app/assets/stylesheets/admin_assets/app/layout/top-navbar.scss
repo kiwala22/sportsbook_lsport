@@ -12,17 +12,24 @@ $nav-header-wd-toggled:         $aside-wd-collapsed;
 
 $nav-header-wd-toggled-text:    $aside-wd-collapsed-text;
 
-$nav-top-bg:                    $info;
+// $nav-top-bg:                    $info;
+// $nav-top-bg-start:              $nav-top-bg;
+// $nav-top-bg-end:                $info-light;
+// $nav-header-bg:                 transparent;
+
+$nav-top-bg:                    $danger-dark;
 $nav-top-bg-start:              $nav-top-bg;
-$nav-top-bg-end:                $info-light;
+$nav-top-bg-end:                $danger;
 $nav-header-bg:                 transparent;
+
+$nav-top-item:                  #fff;
+$nav-top-item-active:           darken($nav-top-bg, 20%);
 
 $nav-top-item-mobile:           $nav-top-bg;
 $nav-top-item-mobile-active:    darken($nav-top-item-mobile, 20%);
 
 $nav-top-item-desktop:          #fff;
 $nav-top-item-desktop-active:   $nav-top-item-mobile-active;
-
 
 // Navbar top layout
 .topnavbar {
