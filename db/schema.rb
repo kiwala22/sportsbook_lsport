@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_07_203516) do
+ActiveRecord::Schema.define(version: 2020_04_16_051658) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,20 @@ ActiveRecord::Schema.define(version: 2020_04_07_203516) do
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
 
+  create_table "betstop_reasons", force: :cascade do |t|
+    t.integer "betstop_reason_id"
+    t.string "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "betting_statuses", force: :cascade do |t|
+    t.integer "betting_status_id"
+    t.string "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "deposits", force: :cascade do |t|
     t.decimal "amount", precision: 12, scale: 2
     t.string "network"
@@ -59,6 +73,42 @@ ActiveRecord::Schema.define(version: 2020_04_07_203516) do
     t.index ["resource_id"], name: "index_deposits_on_resource_id", unique: true
     t.index ["transaction_id"], name: "index_deposits_on_transaction_id", unique: true
     t.index ["user_id"], name: "index_deposits_on_user_id"
+  end
+
+  create_table "fixtures", force: :cascade do |t|
+    t.integer "event_id"
+    t.datetime "scheduled_time"
+    t.string "live_odds"
+    t.string "status"
+    t.string "tournament_round"
+    t.integer "betradar_id"
+    t.integer "season_id"
+    t.string "season_name"
+    t.integer "tournament_id"
+    t.string "tournament_name"
+    t.integer "sport_id"
+    t.string "sport"
+    t.integer "category_id"
+    t.string "category"
+    t.integer "venue_id"
+    t.string "venue"
+    t.integer "comp_one_id"
+    t.string "comp_one"
+    t.string "comp_one_gender"
+    t.string "comp_one_abb"
+    t.integer "comp_two_id"
+    t.string "comp_two"
+    t.string "comp_two_gender"
+    t.string "comp_two_abb"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "match_statuses", force: :cascade do |t|
+    t.integer "match_status_id", default: [], array: true
+    t.string "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -90,6 +140,13 @@ ActiveRecord::Schema.define(version: 2020_04_07_203516) do
     t.index ["phone_number"], name: "index_users_on_phone_number", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
+  end
+
+  create_table "void_reasons", force: :cascade do |t|
+    t.integer "void_reason_id"
+    t.string "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "withdraws", force: :cascade do |t|
