@@ -105,8 +105,9 @@ ActiveRecord::Schema.define(version: 2020_04_16_051658) do
   end
 
   create_table "match_statuses", force: :cascade do |t|
-    t.integer "match_status_id", default: [], array: true
+    t.integer "match_status_id"
     t.string "description"
+    t.string "sports", default: [], array: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
