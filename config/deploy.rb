@@ -49,7 +49,7 @@ set :rvm_ruby_version, '2.4.0'      # Defaults to: 'default'
 set :rvm_custom_path, '/usr/local/rvm/'  # only needed if not detected
 
 #Passenger rvm
-set :passenger_rvm_ruby_version, '2.4.0'
+set :passenger_rvm_ruby_version, '2.7.0'
 
 namespace :deploy do
 
