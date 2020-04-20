@@ -45,7 +45,7 @@ set :keep_releases, 5
 
 # rvm
 set :rvm_type, :system                     # Defaults to: :auto
-set :rvm_ruby_version, '2.4.0'      # Defaults to: 'default'
+set :rvm_ruby_version, '2.7.0'      # Defaults to: 'default'
 set :rvm_custom_path, '/usr/local/rvm/'  # only needed if not detected
 
 #Passenger rvm
