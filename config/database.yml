@@ -11,6 +11,10 @@ development:
   <<: *default
   database: sportsbook_development
 
+production:
+  <<: *default
+  database: sportsbook_development
+
 test:
   <<: *default
   database: sportsbook_test
