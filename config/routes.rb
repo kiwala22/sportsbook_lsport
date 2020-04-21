@@ -1,14 +1,18 @@
 Rails.application.routes.draw do
 
-   resources :deposits, only: [:index]
-   resources :withdraws, only: [:index]
+   scope '/backend' do
+      resources :deposits, only: [:index]
+      resources :withdraws, only: [:index]
+   end
+
    devise_for :users, path: 'users',  controllers: {
       sessions: 'users/sessions'
    }
    devise_for :admins, path: 'admins',  controllers:{
       sessions: 'admins/sessions'
+
    }
-   devise_scope :admin do
+   devise_scope :admins do
 
       authenticated :admin do
          root :to => 'admin_landing#index', as: :authenticated_root
