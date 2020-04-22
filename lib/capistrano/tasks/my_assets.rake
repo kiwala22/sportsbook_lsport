@@ -62,13 +62,13 @@ namespace :deploy do
   end
 end
 
-namespace :load do
-  task :defaults do
-    set :packs_dir, 'public/packs'
-    set :rsync_cmd, 'rsync -av --delete'
-
-    after 'bundler:install', 'deploy:my_assets:local_precompile'
-    after 'bundler:install', 'deploy:my_assets:rsync'
-    after 'bundler:install', 'deploy:my_assets:local_cleanup'
-  end
-end
+# namespace :load do
+#   task :defaults do
+#     set :packs_dir, 'public/packs'
+#     set :rsync_cmd, 'rsync -av --delete'
+#
+#     after 'bundler:install', 'deploy:my_assets:local_precompile'
+#     after 'bundler:install', 'deploy:my_assets:rsync'
+#     after 'bundler:install', 'deploy:my_assets:local_cleanup'
+#   end
+# end
