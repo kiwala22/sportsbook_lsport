@@ -13,4 +13,4 @@
 //= require rails-ujs
 //= require activestorage
 //= require turbolinks
-//= require_tree ./admin_assets/
+//= require ./admin_assets/application

@@ -13,7 +13,7 @@ require("modernizr/modernizr.custom.js");
 //--- Bootstrap
 import 'bootstrap';
 
-import appInit from 'admin_assets/angle/app.init.js';
+import appInit from './angle/app.init.js';
 document.addEventListener('DOMContentLoaded', appInit);
 
 // Uncomment to copy all static images under ../images to the output folder and reference
