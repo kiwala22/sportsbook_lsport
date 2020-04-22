@@ -12,7 +12,7 @@ Rails.application.routes.draw do
       sessions: 'admins/sessions'
 
    }
-   devise_scope :admins do
+   devise_scope :admin do
 
       authenticated :admin do
          root :to => 'admin_landing#index', as: :authenticated_root
