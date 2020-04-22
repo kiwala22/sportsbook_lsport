@@ -43,6 +43,10 @@ set :keep_releases, 5
 # Uncomment the following to require manually verifying the host key before first deploy.
 # set :ssh_options, verify_host_key: :secure
 
+set :assets_prefix, 'packs'
+
+set :copy_files, %w[node_modules]
+
 # rvm
 set :rvm_type, :system                     # Defaults to: :auto
 set :rvm_ruby_version, '2.7.0'      # Defaults to: 'default'
