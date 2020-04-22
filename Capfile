@@ -4,7 +4,6 @@ require "capistrano/setup"
 # Include default deployment tasks
 require "capistrano/deploy"
 
-require 'capistrano/rails/assets'
 
 # Load the SCM plugin appropriate to your project:
 #
@@ -28,13 +27,13 @@ install_plugin Capistrano::SCM::Git
 #   https://github.com/capistrano/rails
 #   https://github.com/capistrano/passenger
 #
-# require "capistrano/rvm"
+require "capistrano/rvm"
 # require "capistrano/rbenv"
 # require "capistrano/chruby"
-# require "capistrano/bundler"
-# require "capistrano/rails/assets"
-# require "capistrano/rails/migrations"
-# require "capistrano/passenger"
+require "capistrano/bundler"
+require "capistrano/rails/assets"
+require "capistrano/rails/migrations"
+require "capistrano/passenger"
 
 # Load custom tasks from `lib/capistrano/tasks` if you have any defined
 Dir.glob("lib/capistrano/tasks/*.rake").each { |r| import r }
