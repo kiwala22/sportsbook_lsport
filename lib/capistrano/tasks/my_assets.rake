@@ -67,8 +67,8 @@ namespace :load do
     set :packs_dir, 'public/packs'
     set :rsync_cmd, 'rsync -av --delete'
 
-    after 'bundle:install', 'deploy:my_assets:local_precompile'
-    after 'bundle:install', 'deploy:my_assets:rsync'
-    after 'bundle:install', 'deploy:my_assets:local_cleanup'
+    after 'bundler:install', 'deploy:my_assets:local_precompile'
+    after 'bundler:install', 'deploy:my_assets:rsync'
+    after 'bundler:install', 'deploy:my_assets:local_cleanup'
   end
 end
