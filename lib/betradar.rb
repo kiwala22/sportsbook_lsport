@@ -39,8 +39,8 @@ module Betradar
                fixture.season_name = event["season"]["name"]
                fixture.tournament_id = event["tournament"]["id"]
                fixture.tournament_name = event["tournament"]["name"]
-               fixture.sport_id = event["sport"]["id"]
-               fixture.sport_name = event["sport"]["name"]
+               fixture.sport_id = event["sport"]["tournament"]["id"]
+               fixture.sport_name = event["sport"]["tournament"]["name"]
                fixture.category_id = event["category"]["id"]
                fixture.category_name = event["category"]["name"]
                fixture.comp_one_id = event["competitors"]["competitor"][0]["id"]
@@ -173,13 +173,14 @@ module Betradar
       request['x-access-token'] = 'ANRL2tQf8N40oGQ4Ye'
       http.use_ssl = true
       #http.verify_mode = OpenSSL::SSL::VERIFY_PEER
-      #http.set_debug_output($stdout)
+      http.set_debug_output($stdout)
       response = http.request(request)
       #check the status of response and return a response or log an error
       if response.code == "200"
          #Update the db, read the xml
          reasons = Hash.from_xml(response.body)
          reasons['match_status_descriptions']['match_status'].each do  |status|
+            puts status
             #extract the attached sports
             sports = status["sports"]["sport"].map{|f| f["id"].gsub("sr:sport:", "").to_i}
             if MatchStatus.exists?(match_status_id: status['id'])
