@@ -42,7 +42,7 @@ module Betradar
                fixture.sport_id = event["tournament"]["sport"]["id"]
                fixture.sport = event["tournament"]["sport"]["name"]
                fixture.category_id = event["tournament"]["category"]["id"]
-               fixture.category_name = event["tournament"]["category"]["name"]
+               fixture.category = event["tournament"]["category"]["name"]
                fixture.comp_one_id = event["competitors"]["competitor"][0]["id"]
                fixture.comp_one_name = event["competitors"]["competitor"][0]["name"]
                fixture.comp_one_abb = event["competitors"]["competitor"][0]["abbreviation"]
