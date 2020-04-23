@@ -39,8 +39,8 @@ module Betradar
                fixture.season_name = event["season"]["name"]
                fixture.tournament_id = event["tournament"]["id"]
                fixture.tournament_name = event["tournament"]["name"]
-               fixture.sport_id = event["sport"]["tournament"]["id"]
-               fixture.sport_name = event["sport"]["tournament"]["name"]
+               fixture.sport_id = event["tournament"]["sport"]["id"]
+               fixture.sport_name = event["tournament"]["sport"]["name"]
                fixture.category_id = event["category"]["id"]
                fixture.category_name = event["category"]["name"]
                fixture.comp_one_id = event["competitors"]["competitor"][0]["id"]
@@ -182,7 +182,7 @@ module Betradar
          reasons['match_status_descriptions']['match_status'].each do  |status|
             puts status
             #extract the attached sports
-            sports = status["sports"]["sport"].map{|f| f["id"].gsub("sr:sport:", "").to_i}
+            #sports = status["sports"]["sport"].map{|f| f["id"].gsub("sr:sport:", "").to_i}
             if MatchStatus.exists?(match_status_id: status['id'])
                #check if the description is the same as well
                match_status = MatchStatus.find_by(match_status_id: status['id'])
@@ -191,7 +191,7 @@ module Betradar
                end
             else
                #creare the betstop reason
-               MatchStatus.create(match_status_id: status['id'], description: status['description'], sports: sports)
+               MatchStatus.create(match_status_id: status['id'], description: status['description'])
             end
          end
          return response.code
