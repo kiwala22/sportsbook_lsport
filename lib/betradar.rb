@@ -28,7 +28,7 @@ module Betradar
       if response.code == "200"
          events = Hash.from_xml(response)
          events["schedule"]["sport_event"].each do |event|
-            Fixture.find_or_create_by(event_id: event["event"] ) do |fixture|
+            Fixture.find_or_create_by(event_id: event["id"] ) do |fixture|
                fixture.scheduled_time = event["scheduled"]
                fixture.status = event["status"]
                fixture.live_odds = event["liveodds"]
