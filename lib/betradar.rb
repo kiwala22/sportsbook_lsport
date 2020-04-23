@@ -61,8 +61,8 @@ module Betradar
          return response.body
       end
 
-   rescue StandardError => e
-      @@logger.error(e.message)
+   # rescue StandardError => e
+   #    @@logger.error(e.message)
    end
 
    def fetch_fixture_changes
@@ -199,8 +199,8 @@ module Betradar
          return response.body
       end
 
-   rescue StandardError => e
-      @@logger.error(e.message)
+   # rescue StandardError => e
+   #    @@logger.error(e.message)
 
    end
 
