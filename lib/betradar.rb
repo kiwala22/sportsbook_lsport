@@ -26,7 +26,35 @@ module Betradar
       response = http.request(request)
       #check the status of response and return a response or log an error
       if response.code == "200"
-         return response.body
+         events = Hash.from_xml(response)
+         events["schedule"]["sport_event"].each do |event|
+            Fixture.find_or_create_by(event_id: ) do |fixture|
+               fixture.scheduled_time = fixture["scheduled"]
+               fixture.status = fixture["status"]
+               fixture.live_odds = fixture["liveodds"]
+               fixture.tournament_round = fixture["tournament_round"]["group_long_name"]
+               fixture.betradar_id = fixture["tournament_round"]["betradar_id"]
+               fixture.season_id = fixture["season"]["id"]
+               fixture.season_name = fixture["season"]["name"]
+               fixture.toutnament_id = fixture["tournament"]["id"]
+               fixture.toutnament_name = fixture["tournament"]["name"]
+               fixture.sport_id = fixture["sport"]["id"]
+               fixture.sport_name = fixture["sport"]["name"]
+               fixture.category_id = fixture["category"]["id"]
+               fixture.category_name = fixture["category"]["name"]
+               fixture.comp_one_id = fixture["competitors"]["competitor"][0]["id"]
+               fixture.comp_one_name = fixture["competitors"]["competitor"][0]["name"]
+               fixture.comp_one_abb = fixture["competitors"]["competitor"][0]["abbreviation"]
+               fixture.comp_one_gender = fixture["competitors"]["competitor"][0]["gender"]
+               fixture.comp_one_qualifier = fixture["competitors"]["competitor"][0]["qualifier"]
+               fixture.comp_two_id = fixture["competitors"]["competitor"][1]["id"]
+               fixture.comp_two_name = fixture["competitors"]["competitor"][1]["name"]
+               fixture.comp_two_abb = fixture["competitors"]["competitor"][1]["abbreviation"]
+               fixture.comp_two_gender = fixture["competitors"]["competitor"][1]["gender"]
+               fixture.comp_two_qualifier = fixture["competitors"]["competitor"][1]["qualifier"]
+            end
+         end
+         return response.code
       else
          @@logger.error(response.body)
          return response.body
