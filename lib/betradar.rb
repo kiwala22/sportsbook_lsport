@@ -22,12 +22,13 @@ module Betradar
       request['x-access-token'] = 'ANRL2tQf8N40oGQ4Ye'
       http.use_ssl = true
       #http.verify_mode = OpenSSL::SSL::VERIFY_PEER
-      http.set_debug_output($stdout)
+      #http.set_debug_output($stdout)
       response = http.request(request)
       #check the status of response and return a response or log an error
       if response.code == "200"
          events = Hash.from_xml(response)
          events["schedule"]["sport_event"].each do |event|
+            puts event
             Fixture.find_or_create_by(event_id: event["id"] ) do |fixture|
                fixture.scheduled_time = event["scheduled"]
                fixture.status = event["status"]
@@ -73,7 +74,7 @@ module Betradar
       request['x-access-token'] = 'ANRL2tQf8N40oGQ4Ye'
       http.use_ssl = true
       #http.verify_mode = OpenSSL::SSL::VERIFY_PEER
-      http.set_debug_output($stdout)
+      #http.set_debug_output($stdout)
       response = http.request(request)
       #check the status of response and return a response or log an error
       if response.code == "200"
@@ -96,7 +97,7 @@ module Betradar
       request['x-access-token'] = 'ANRL2tQf8N40oGQ4Ye'
       http.use_ssl = true
       #http.verify_mode = OpenSSL::SSL::VERIFY_PEER
-      http.set_debug_output($stdout)
+      #http.set_debug_output($stdout)
       response = http.request(request)
       #check the status of response and return a response or log an error
       if response.code == "200"
@@ -134,7 +135,7 @@ module Betradar
       request['x-access-token'] = 'ANRL2tQf8N40oGQ4Ye'
       http.use_ssl = true
       #http.verify_mode = OpenSSL::SSL::VERIFY_PEER
-      http.set_debug_output($stdout)
+      #http.set_debug_output($stdout)
       response = http.request(request)
       #check the status of response and return a response or log an error
       if response.code == "200"
@@ -172,7 +173,7 @@ module Betradar
       request['x-access-token'] = 'ANRL2tQf8N40oGQ4Ye'
       http.use_ssl = true
       #http.verify_mode = OpenSSL::SSL::VERIFY_PEER
-      http.set_debug_output($stdout)
+      #http.set_debug_output($stdout)
       response = http.request(request)
       #check the status of response and return a response or log an error
       if response.code == "200"
@@ -212,7 +213,7 @@ module Betradar
       request['x-access-token'] = 'ANRL2tQf8N40oGQ4Ye'
       http.use_ssl = true
       #http.verify_mode = OpenSSL::SSL::VERIFY_PEER
-      http.set_debug_output($stdout)
+      #http.set_debug_output($stdout)
       response = http.request(request)
       #check the status of response and return a response or log an error
       if response.code == "200"
