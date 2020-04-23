@@ -26,7 +26,7 @@ module Betradar
       response = http.request(request)
       #check the status of response and return a response or log an error
       if response.code == "200"
-         events = Hash.from_xml(response)
+         events = Hash.from_xml(response.body)
          events["schedule"]["sport_event"].each do |event|
             puts event
             Fixture.find_or_create_by(event_id: event["id"] ) do |fixture|
