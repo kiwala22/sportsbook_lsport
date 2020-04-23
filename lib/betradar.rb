@@ -35,8 +35,8 @@ module Betradar
                fixture.live_odds = event["liveodds"]
                fixture.tournament_round = event["tournament_round"]["group_long_name"]
                fixture.betradar_id = event["tournament_round"]["betradar_id"]
-               fixture.season_id = event["season"]["id"]
-               fixture.season_name = event["season"]["name"]
+               fixture.season_id = event["season"]["id"] if event.has_key?("season")
+               fixture.season_name = event["season"]["name"] if event.has_key?("season")
                fixture.tournament_id = event["tournament"]["id"]
                fixture.tournament_name = event["tournament"]["name"]
                fixture.sport_id = event["tournament"]["sport"]["id"]
