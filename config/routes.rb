@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
    scope '/backend' do
       resources :deposits, only: [:index]
       resources :withdraws, only: [:index]
@@ -22,4 +21,6 @@ Rails.application.routes.draw do
       end
    end
    # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+   devise_for :admin_users, ActiveAdmin::Devise.config
+   ActiveAdmin.routes(self)
 end
