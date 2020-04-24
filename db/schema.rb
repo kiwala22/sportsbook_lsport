@@ -102,37 +102,38 @@ ActiveRecord::Schema.define(version: 2020_04_24_082717) do
   end
 
   create_table "fixtures", force: :cascade do |t|
-    t.integer "event_id"
+    t.string "event_id"
     t.datetime "scheduled_time"
     t.string "live_odds"
     t.string "status"
     t.string "tournament_round"
-    t.integer "betradar_id"
+    t.string "betradar_id"
     t.integer "season_id"
     t.string "season_name"
     t.integer "tournament_id"
     t.string "tournament_name"
-    t.integer "sport_id"
+    t.string "sport_id"
     t.string "sport"
-    t.integer "category_id"
+    t.string "category_id"
     t.string "category"
-    t.integer "venue_id"
-    t.string "venue"
-    t.integer "comp_one_id"
-    t.string "comp_one"
+    t.string "comp_one_id"
+    t.string "comp_one_name"
     t.string "comp_one_gender"
     t.string "comp_one_abb"
-    t.integer "comp_two_id"
-    t.string "comp_two"
+    t.string "comp_one_qualifier"
+    t.string "comp_two_id"
+    t.string "comp_two_name"
     t.string "comp_two_gender"
     t.string "comp_two_abb"
+    t.string "comp_two_qualifier"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "match_statuses", force: :cascade do |t|
-    t.integer "match_status_id", default: [], array: true
+    t.integer "match_status_id"
     t.string "description"
+    t.string "sports", default: [], array: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
