@@ -15,7 +15,6 @@ module Betradar
    def fetch_fixtures(date)
       url = @@end_point + "sports/en/schedules/#{date}/schedule.xml"
       uri = URI(url)
-      puts uri
       http = Net::HTTP.new(uri.host, uri.port)
       http.read_timeout = 180
       request = Net::HTTP::Get.new(uri.request_uri)
@@ -28,7 +27,6 @@ module Betradar
       if response.code == "200"
          events = Hash.from_xml(response.body)
          events["schedule"]["sport_event"].each do |event|
-            puts event
             Fixture.find_or_create_by(event_id: event["id"] ) do |fixture|
                fixture.scheduled_time = event["scheduled"]
                fixture.status = event["status"]
@@ -78,14 +76,17 @@ module Betradar
       response = http.request(request)
       #check the status of response and return a response or log an error
       if response.code == "200"
-         return response.body
+         events = Hash.from_xml(response.body)
+         events["fixture_changes"]["fixture_change"].each do |event|
+            UpdateFixtureWorker.perform_async(even["sport_event_id"], event["update_time"])
+         end
       else
          @@logger.error(response.body)
          return response.body
       end
 
-   # rescue StandardError => e
-   #    @@logger.error(e.message)
+   rescue StandardError => e
+      @@logger.error(e.message)
    end
 
    def update_betstop_reasons
@@ -200,8 +201,8 @@ module Betradar
          return response.body
       end
 
-   # rescue StandardError => e
-   #    @@logger.error(e.message)
+   rescue StandardError => e
+      @@logger.error(e.message)
 
    end
 
