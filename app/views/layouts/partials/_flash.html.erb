@@ -1,16 +1,18 @@
-<% if notice %>
-   <div role="alert" class="alert alert-success">
-      <button type="button" data-dismiss="alert" aria-label="Close" class="close">
-         <span aria-hidden="true">&times;</span>
-      </button>
-      <p class="notice center text-center"><%= notice %></p>
-   </div>
-<% end %>
-<% if alert %>
-   <div role="alert" class="alert alert-danger">
-      <button type="button" data-dismiss="alert" aria-label="Close" class="close">
-         <span aria-hidden="true">&times;</span>
-      </button>
-      <p class="alert center text-center"><%= alert %></p>
-   </div>
-<% end %>
+<div class="container">
+  <% if notice %>
+     <div role="alert" class="alert alert-success alert-dismissible fade show" style="margin-top: 10px;">
+        <button type="button" data-dismiss="alert" aria-label="Close" class="close">
+           <span aria-hidden="true">&times;</span>
+        </button>
+        <p class="notice center text-center"><strong><%= notice %></strong></p>
+     </div>
+  <% end -%>
+  <% if alert %>
+     <div role="alert" class="alert alert-danger alert-dismissible alert-bottom fade show" style="margin-top: 10px;">
+        <button type="button" data-dismiss="alert" aria-label="Close" class="close">
+           <span aria-hidden="true">&times;</span>
+        </button>
+        <p class="alert center text-center alert-bottom alert-top"><strong><%= alert %></strong></p>
+     </div>
+  <% end -%>
+</div>
