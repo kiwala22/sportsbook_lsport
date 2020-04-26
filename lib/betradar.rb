@@ -18,7 +18,7 @@ module Betradar
       http = Net::HTTP.new(uri.host, uri.port)
       http.read_timeout = 180
       request = Net::HTTP::Get.new(uri.request_uri)
-      request['x-access-token'] = 'ANRL2tQf8N40oGQ4Ye'
+      request['x-access-token'] = @@auth_token
       http.use_ssl = true
       #http.verify_mode = OpenSSL::SSL::VERIFY_PEER
       #http.set_debug_output($stdout)
@@ -69,7 +69,7 @@ module Betradar
       http = Net::HTTP.new(uri.host, uri.port)
       http.read_timeout = 180
       request = Net::HTTP::Get.new(uri.request_uri)
-      request['x-access-token'] = 'ANRL2tQf8N40oGQ4Ye'
+      request['x-access-token'] = @@auth_token
       http.use_ssl = true
       #http.verify_mode = OpenSSL::SSL::VERIFY_PEER
       #http.set_debug_output($stdout)
@@ -95,7 +95,7 @@ module Betradar
       http = Net::HTTP.new(uri.host, uri.port)
       http.read_timeout = 180
       request = Net::HTTP::Get.new(uri.request_uri)
-      request['x-access-token'] = 'ANRL2tQf8N40oGQ4Ye'
+      request['x-access-token'] = @@auth_token
       http.use_ssl = true
       #http.verify_mode = OpenSSL::SSL::VERIFY_PEER
       #http.set_debug_output($stdout)
@@ -133,7 +133,7 @@ module Betradar
       http = Net::HTTP.new(uri.host, uri.port)
       http.read_timeout = 180
       request = Net::HTTP::Get.new(uri.request_uri)
-      request['x-access-token'] = 'ANRL2tQf8N40oGQ4Ye'
+      request['x-access-token'] = @@auth_token
       http.use_ssl = true
       #http.verify_mode = OpenSSL::SSL::VERIFY_PEER
       #http.set_debug_output($stdout)
@@ -171,7 +171,7 @@ module Betradar
       http = Net::HTTP.new(uri.host, uri.port)
       http.read_timeout = 180
       request = Net::HTTP::Get.new(uri.request_uri)
-      request['x-access-token'] = 'ANRL2tQf8N40oGQ4Ye'
+      request['x-access-token'] = @@auth_token
       http.use_ssl = true
       #http.verify_mode = OpenSSL::SSL::VERIFY_PEER
       http.set_debug_output($stdout)
@@ -212,7 +212,7 @@ module Betradar
       http = Net::HTTP.new(uri.host, uri.port)
       http.read_timeout = 180
       request = Net::HTTP::Get.new(uri.request_uri)
-      request['x-access-token'] = 'ANRL2tQf8N40oGQ4Ye'
+      request['x-access-token'] = @@auth_token
       http.use_ssl = true
       #http.verify_mode = OpenSSL::SSL::VERIFY_PEER
       #http.set_debug_output($stdout)
