@@ -18,7 +18,7 @@ module Betradar
       http = Net::HTTP.new(uri.host, uri.port)
       http.read_timeout = 180
       request = Net::HTTP::Get.new(uri.request_uri)
-      request['x-access-token'] = 'ANRL2tQf8N40oGQ4Ye'
+      request['x-access-token'] = @@auth_token
       http.use_ssl = true
       #http.verify_mode = OpenSSL::SSL::VERIFY_PEER
       #http.set_debug_output($stdout)
@@ -69,7 +69,7 @@ module Betradar
       http = Net::HTTP.new(uri.host, uri.port)
       http.read_timeout = 180
       request = Net::HTTP::Get.new(uri.request_uri)
-      request['x-access-token'] = 'ANRL2tQf8N40oGQ4Ye'
+      request['x-access-token'] = @@auth_token
       http.use_ssl = true
       #http.verify_mode = OpenSSL::SSL::VERIFY_PEER
       #http.set_debug_output($stdout)
@@ -77,8 +77,10 @@ module Betradar
       #check the status of response and return a response or log an error
       if response.code == "200"
          events = Hash.from_xml(response.body)
+         puts events
          events["fixture_changes"]["fixture_change"].each do |event|
-            UpdateFixtureWorker.perform_async(even["sport_event_id"], event["update_time"])
+            puts "here"
+            UpdateFixtureWorker.perform_async(event["sport_event_id"], event["update_time"])
          end
       else
          @@logger.error(response.body)
@@ -95,7 +97,7 @@ module Betradar
       http = Net::HTTP.new(uri.host, uri.port)
       http.read_timeout = 180
       request = Net::HTTP::Get.new(uri.request_uri)
-      request['x-access-token'] = 'ANRL2tQf8N40oGQ4Ye'
+      request['x-access-token'] = @@auth_token
       http.use_ssl = true
       #http.verify_mode = OpenSSL::SSL::VERIFY_PEER
       #http.set_debug_output($stdout)
@@ -133,7 +135,7 @@ module Betradar
       http = Net::HTTP.new(uri.host, uri.port)
       http.read_timeout = 180
       request = Net::HTTP::Get.new(uri.request_uri)
-      request['x-access-token'] = 'ANRL2tQf8N40oGQ4Ye'
+      request['x-access-token'] = @@auth_token
       http.use_ssl = true
       #http.verify_mode = OpenSSL::SSL::VERIFY_PEER
       #http.set_debug_output($stdout)
@@ -171,7 +173,7 @@ module Betradar
       http = Net::HTTP.new(uri.host, uri.port)
       http.read_timeout = 180
       request = Net::HTTP::Get.new(uri.request_uri)
-      request['x-access-token'] = 'ANRL2tQf8N40oGQ4Ye'
+      request['x-access-token'] = @@auth_token
       http.use_ssl = true
       #http.verify_mode = OpenSSL::SSL::VERIFY_PEER
       http.set_debug_output($stdout)
@@ -212,7 +214,7 @@ module Betradar
       http = Net::HTTP.new(uri.host, uri.port)
       http.read_timeout = 180
       request = Net::HTTP::Get.new(uri.request_uri)
-      request['x-access-token'] = 'ANRL2tQf8N40oGQ4Ye'
+      request['x-access-token'] = @@auth_token
       http.use_ssl = true
       #http.verify_mode = OpenSSL::SSL::VERIFY_PEER
       #http.set_debug_output($stdout)
