@@ -47,13 +47,18 @@ set :assets_prefix, 'packs'
 
 set :copy_files, %w[node_modules]
 
-# rvm
-set :rvm_type, :system                     # Defaults to: :auto
-set :rvm_ruby_version, '2.7.0'      # Defaults to: 'default'
-set :rvm_custom_path, '/usr/local/rvm/'  # only needed if not detected
+# /root/.rbenv/shims/ruby
+set :rbenv_type, :user # or :system, depends on your rbenv setup
+set :rbenv_ruby, '2.7.0'
 
-#Passenger rvm
-set :passenger_rvm_ruby_version, '2.7.0'
+# in case you want to set ruby version from the file:
+# set :rbenv_ruby, File.read('.ruby-version').strip
+
+set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
+set :rbenv_map_bins, %w{rake gem bundle ruby rails}
+set :rbenv_roles, :all # default value
+
+
 
 namespace :deploy do
 
