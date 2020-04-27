@@ -55,10 +55,11 @@ class UpdateFixtureWorker
                comp_two_gender: event["fixtures_fixture"]["fixture"]["competitors"]["competitor"][1]["gender"],
                comp_two_qualifier: event["fixtures_fixture"]["fixture"]["competitors"]["competitor"][1]["qualifier"]
             )
-         return response.code
-      else
-         @@logger.error(response.body)
-         return response.body
+            return response.code
+         else
+            @@logger.error(response.body)
+            return response.body
+         end
       end
    end
 end
