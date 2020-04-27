@@ -47,7 +47,7 @@ set :assets_prefix, 'packs'
 
 set :copy_files, %w[node_modules]
 
-rbenv_custom_path: " $HOME/.rbenv/shims/ruby"
+set :rbenv_custom_path, "$HOME/.rbenv/shims/ruby"
 set :rbenv_type, :user # or :system, depends on your rbenv setup
 set :rbenv_ruby, '2.7.0'
 
