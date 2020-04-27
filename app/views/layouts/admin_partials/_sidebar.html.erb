@@ -30,6 +30,43 @@
                </li>
             </ul>
          </li>
+
+         <li class="<%= 'active' if controller.controller_name == 'bet_users' %>">
+            <a href="<%= users_path %>" title="Users">
+               <em class="fas fa-users"></em>
+               <span data-localize="sidebar.nav.DASHBOARD">Users</span>
+            </a>
+         </li>
+
+         <li class="">
+            <a href="#descriptions" title="Descriptions" data-toggle="collapse">
+               <em class="fas fa-info-circle"></em>
+               <span data-localize="sidebar.nav.DASHBOARD">Descriptions</span>
+            </a>
+            <ul id="finances" class="sidebar-nav sidebar-subnav collapse">
+               <li class="sidebar-subnav-header">Descriptions</li>
+               <li class="<%= 'active' if controller.controller_name == 'betstop_reasons' %>">
+                  <a href="<%= betstop_reasons_path %>" title="Betstop Reasons">
+                     <span>Betstop Reasons</span>
+                  </a>
+               </li>
+               <li class="<%= 'active' if controller.controller_name == 'betting_statuses' %>">
+                  <a href="<%= betting_statuses_path %>" title="Betting Statuses">
+                     <span>Betting Statuses</span>
+                  </a>
+               </li>
+               <li class="<%= 'active' if controller.controller_name == 'void_reasons' %>">
+                  <a href="<%= void_reasons_path %>" title="Void Reasons">
+                     <span>Void Reasons</span>
+                  </a>
+               </li>
+               <li class="<%= 'active' if controller.controller_name == 'match_statuses' %>">
+                  <a href="<%= match_statuses_path %>" title="Match Statuses">
+                     <span>Match Statuses</span>
+                  </a>
+               </li>
+            </ul>
+         </li>
       </ul>
       <!-- END sidebar nav-->
    </nav>

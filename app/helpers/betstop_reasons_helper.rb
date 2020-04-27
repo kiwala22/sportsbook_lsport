@@ -1,0 +1,2 @@
+module BetstopReasonsHelper
+end
