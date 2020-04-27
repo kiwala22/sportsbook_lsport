@@ -80,7 +80,7 @@ module Betradar
          puts events
          events["fixture_changes"]["fixture_change"].each do |event|
             puts "here"
-            UpdateFixtureWorker.perform_async(even["sport_event_id"], event["update_time"])
+            UpdateFixtureWorker.perform_async(event["sport_event_id"], event["update_time"])
          end
       else
          @@logger.error(response.body)
