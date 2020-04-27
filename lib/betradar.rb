@@ -77,7 +77,9 @@ module Betradar
       #check the status of response and return a response or log an error
       if response.code == "200"
          events = Hash.from_xml(response.body)
+         puts events
          events["fixture_changes"]["fixture_change"].each do |event|
+            puts "here"
             UpdateFixtureWorker.perform_async(even["sport_event_id"], event["update_time"])
          end
       else
