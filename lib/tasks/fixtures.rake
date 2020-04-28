@@ -1,5 +1,5 @@
 desc "Run Fixture Update Code"
-task :pull_fixture :environment do
+task pull_fixture: :environment do
    date_today = Date.today.strftime("%F")
    date_one = (Date.today + 1.day).strftime("%F")
    date_two = (Date.today + 2.day).strftime("%F")
