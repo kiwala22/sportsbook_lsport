@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
    scope '/backend' do
       resources :deposits, only: [:index]
       resources :withdraws, only: [:index]
@@ -8,6 +7,7 @@ Rails.application.routes.draw do
       match 'betting_statuses' => "betting_statuses#index", via: [:get]
       match 'void_reasons' => "void_reasons#index", via: [:get]
       match 'match_statuses' => "match_statuses#index", via: [:get]
+      match 'fixtures' => "fixtures#index", via: [:get]
    end
 
    devise_for :users, path: 'users',  controllers: {
