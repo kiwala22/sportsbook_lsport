@@ -37,6 +37,12 @@
                <span data-localize="sidebar.nav.DASHBOARD">Users</span>
             </a>
          </li>
+         <li class="<%= 'active' if controller.controller_name == 'fixtures' %>">
+            <a href="<%= fixtures_path %>" title="Users">
+               <em class="fas fa-futbol"></em>
+               <span data-localize="sidebar.nav.DASHBOARD">Fixtures</span>
+            </a>
+         </li>
 
          <li class="">
             <a href="#descriptions" title="Descriptions" data-toggle="collapse">
