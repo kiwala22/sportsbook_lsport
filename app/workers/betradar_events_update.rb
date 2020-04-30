@@ -6,12 +6,18 @@ class BetradarEventsUpdate
       :connection => Bunny.new(
          :host => "stgmq.betradar.com",
          :port => 5671,
-         :user => ENV['BETRADAR_TOKEN'],
+         :user => "s5X0wAgEmHCxDqrPnI",
          :pass => "",
          :heartbeat => 5,
          :vhost => "/unifiedfeed/30819",
          :log_file => 'sneakers.log',
-         :log_level => 'WARN'
+         :log_level => 'WARN',
+         :exchange => 'unifiedfeed',
+         :exchange_type => :direct,
+         :daemonize => true,
+         :workers => 10,
+         :log  => 'sneakers.log',
+         :pid_path => 'sneakers.pid'
       ),
       # :amqp => 'amqp://ANRL2tQf8N40oGQ4Ye:guest@mq.betradar.com:5672',
       # :vhost => '/unifiedfeed/30819',
