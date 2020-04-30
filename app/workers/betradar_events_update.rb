@@ -6,7 +6,7 @@ class BetradarEventsUpdate
       :connection => Bunny.new(
          :host => "stgmq.betradar.com",
          :port => 5671,
-         :user => "ANRL2tQf8N40oGQ4Ye",
+         :user => ENV['BETRADAR_TOKEN'],
          :pass => "",
          :heartbeat => 5,
          :vhost => "/unifiedfeed/30819",

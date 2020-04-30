@@ -1,7 +1,7 @@
 require "sneakers"
 
 Sneakers.configure( :heartbeat => 5,
-   :amqp => 'amqp://ANRL2tQf8N40oGQ4Ye:@mq.betradar.com:5672',
+   :amqp => 'amqp://s5X0wAgEmHCxDqrPnI:@mq.betradar.com:5672',
    :vhost => '/unifiedfeed/30819',
    :exchange => 'unifiedfeed',
    :exchange_type => :direct,
