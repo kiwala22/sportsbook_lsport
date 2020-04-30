@@ -4,12 +4,12 @@ class BetradarEventsUpdate
    from_queue QUEUE_NAME,
       :heartbeat => 5,
       :connection => Bunny.new(
-         :host => mq.betradar.com:5672,
+         :host => "stgmq.betradar.com",
          :port => 5671,
-         :user => ANRL2tQf8N40oGQ4Ye,
-         :pass => '',
+         :user => "ANRL2tQf8N40oGQ4Ye",
+         :pass => "",
          :heartbeat => 5,
-         :vhost => '/unifiedfeed/30819',
+         :vhost => "/unifiedfeed/30819",
          :log_file => 'sneakers.log',
          :log_level => 'WARN'
       ),
