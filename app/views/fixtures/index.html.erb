@@ -15,6 +15,7 @@
         <th>Time</th>
         <th>Live Odds</th>
         <th>Status</th>
+        <th>Booked</th>
         <th>Tournament Round</th>
         <th>Betradar ID</th>
         <th>Season ID</th>
@@ -29,10 +30,12 @@
         <th>Comp One Name</th>
         <th>Comp One Gender</th>
         <th>Comp One Abb</th>
+        <th>Comp One Qualifier</th>
         <th>Comp Two ID</th>
         <th>Comp Two Name</th>
         <th>Comp Two Gender</th>
         <th>Comp Two Abb</th>
+        <th>Comp Two Qualifier</th>
         <th>Action</th>
       </tr>
     </thead>
@@ -44,6 +47,7 @@
 					<td><%= fixture.scheduled_time.to_datetime.strftime("%b %d, %Y %I:%M%P") %></td>
 					<td><%= fixture.live_odds %></td>
 					<td><%= fixture.status %></td>
+          <td><%= fixture.booked %></td>
 					<td><%= fixture.tournament_round %></td>
           <td><%= fixture.betradar_id%></td>
 					<td><%= fixture.season_id%></td>
@@ -55,14 +59,20 @@
 					<td><%= fixture.category_id %></td>
           <td><%= fixture.category%></td>
           <td><%= fixture.comp_one_id%></td>
-          <td><%= fixture.comp_one%></td>
+          <td><%= fixture.comp_one_name%></td>
           <td><%= fixture.comp_one_gender%></td>
           <td><%= fixture.comp_one_abb%></td>
+          <td><%= fixture.comp_one_qualifier%></td>
           <td><%= fixture.comp_two_id%></td>
-          <td><%= fixture.comp_two%></td>
+          <td><%= fixture.comp_two_name%></td>
           <td><%= fixture.comp_two_gender%></td>
           <td><%= fixture.comp_two_abb%></td>
-          <td>Action</td>
+          <td><%= fixture.comp_two_qualifier%></td>
+          <% if fixture.live_odds == "bookable" && fixture.booked == false %>
+            <td><%= button_to "Book", fixture_path(fixture.id), method: :put, :class => 'btn btn-xs btn-success' %></td>
+          <% else %>
+            <td></td>
+          <% end %>
 				</tr>
 			<% end %>
     </tbody>
