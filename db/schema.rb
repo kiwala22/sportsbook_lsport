@@ -101,7 +101,23 @@ ActiveRecord::Schema.define(version: 2020_05_03_234213) do
     t.index ["user_id"], name: "index_deposits_on_user_id"
   end
 
-  create_table "fixtures", force: :cascade do |t|
+  create_table "market_alerts", force: :cascade do |t|
+    t.bigint "timestamp"
+    t.integer "product"
+    t.integer "subscribed"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "match_statuses", force: :cascade do |t|
+    t.integer "match_status_id"
+    t.string "description"
+    t.string "sports", default: [], array: true
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "soccer_fixtures", force: :cascade do |t|
     t.string "event_id"
     t.datetime "scheduled_time"
     t.string "live_odds"
@@ -126,25 +142,69 @@ ActiveRecord::Schema.define(version: 2020_05_03_234213) do
     t.string "comp_two_gender"
     t.string "comp_two_abb"
     t.string "comp_two_qualifier"
+    t.string "pre_1x2_ht_status", default: "closed"
+    t.string "pre_1x2_ft_status", default: "closed"
+    t.string "live_1x2_ht_status", default: "closed"
+    t.string "live_1x2f_t_status", default: "closed"
+    t.string "pre_dc_ht_status", default: "closed"
+    t.string "pre_dc_ft_status", default: "closed"
+    t.string "live_dc_ht_status", default: "closed"
+    t.string "live_dc_ft_status", default: "closed"
+    t.string "pre_total25_ht_status", default: "closed"
+    t.string "pre_total25_ft_status", default: "closed"
+    t.string "live_total25_ht_status", default: "closed"
+    t.string "live_total25_ft_status", default: "closed"
+    t.string "pre_bs_ht_status", default: "closed"
+    t.string "pre_bs_ft_status", default: "closed"
+    t.string "live_bs_ht_status", default: "closed"
+    t.string "live_bs_ft_status", default: "closed"
+    t.string "pre_hc1_ht_status", default: "closed"
+    t.string "pre_hc1_ft_status", default: "closed"
+    t.string "live_hc1_ht_status", default: "closed"
+    t.string "live_hc1_ft_status", default: "closed"
+    t.string "pre_1x2_ht_1"
+    t.string "pre_1x2_ht_x"
+    t.string "pre_1x2_ht_2"
+    t.string "pre_1x2_ft_1"
+    t.string "pre_1x2_ft_x"
+    t.string "pre_1x2f_t_2"
+    t.string "live_1x2_ht_1"
+    t.string "live_1x2_ht_x"
+    t.string "live_1x2_ht_2"
+    t.string "live_1x2_ft_1"
+    t.string "live_1x2_ft_x"
+    t.string "live_1x2_ft_2"
+    t.string "pre_total25_ht_under"
+    t.string "pre_total25_ht_over"
+    t.string "pre_total25_ft_under"
+    t.string "pre_total25_ft_over"
+    t.string "live_total25_ht_under"
+    t.string "live_total25_ht_over"
+    t.string "live_total25_ft_under"
+    t.string "live_total25_ft_over"
+    t.string "pre_bs_ft_yes"
+    t.string "pre_bs_ft_no"
+    t.string "live_bs_ft_yes"
+    t.string "live_bs_ft_no"
+    t.string "pre_bs_ht_yes"
+    t.string "pre_bs_ht_no"
+    t.string "live_bs_ht_yes"
+    t.string "live_bs_ht_no"
+    t.string "pre_hc1_ht_1"
+    t.string "pre_hc1_ht_x"
+    t.string "pre_hc1_ht_2"
+    t.string "pre_hc1_ft_1"
+    t.string "pre_hc1_ft_x"
+    t.string "pre_hc1_ft_2"
+    t.string "live_hc1_ht_1"
+    t.string "live_hc1_ht_x"
+    t.string "live_hc1_ht_2"
+    t.string "live_hc1_ft_1"
+    t.string "live_hc1_ft_x"
+    t.string "live_hc1_ft_2"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "booked", default: false
-  end
-
-  create_table "market_alerts", force: :cascade do |t|
-    t.bigint "timestamp"
-    t.integer "product"
-    t.integer "subscribed"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "match_statuses", force: :cascade do |t|
-    t.integer "match_status_id"
-    t.string "description"
-    t.string "sports", default: [], array: true
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", force: :cascade do |t|

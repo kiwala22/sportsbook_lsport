@@ -2,7 +2,7 @@ Rails.application.routes.draw do
    scope '/backend' do
       resources :deposits, only: [:index]
       resources :withdraws, only: [:index]
-      resources :fixtures, only: [:index, :update]
+      resources :soccer_fixtures, only: [:index, :update]
       match 'users' => "bet_users#index", via: [:get]
       match 'betstop_reasons' => "betstop_reasons#index", via: [:get]
       match 'betting_statuses' => "betting_statuses#index", via: [:get]
