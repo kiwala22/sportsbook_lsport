@@ -1,4 +1,4 @@
-class UpdateFixtureWorker
+class Soccer::UpdateFixtureWorker
    include Sidekiq::Worker
    sidekiq_options queue: "high"
    sidekiq_options retry: false
@@ -36,8 +36,8 @@ class UpdateFixtureWorker
                live_odds: event["fixtures_fixture"]["fixture"]["liveodds"],
                tournament_round: event["fixtures_fixture"]["fixture"]["tournament_round"]["group_long_name"],
                betradar_id: event["fixtures_fixture"]["fixture"]["tournament_round"]["betradar_id"],
-               season_id: event["fixtures_fixture"]["fixture"].has_key?("season") ? event["fixtures_fixture"]["fixture"]["season"]["id"] :  "",
-               season_name: event["fixtures_fixture"]["fixture"].has_key?("season") ? event["fixtures_fixture"]["fixture"]["season"]["name"] :  "",
+               season_id: event["fixtures_fixture"]["fixture"]["season"]["id"] if event["fixtures_fixture"]["fixture"].has_key?("season") #? event["fixtures_fixture"]["fixture"]["season"]["id"] :  "",
+               season_name: event["fixtures_fixture"]["fixture"]["season"]["name"] if event["fixtures_fixture"]["fixture"].has_key?("season") #? event["fixtures_fixture"]["fixture"]["season"]["name"] :  "",
                tournament_id: event["fixtures_fixture"]["fixture"]["tournament"]["id"],
                tournament_name: event["fixtures_fixture"]["fixture"]["tournament"]["name"],
                sport_id: event["fixtures_fixture"]["fixture"]["tournament"]["sport"]["id"],

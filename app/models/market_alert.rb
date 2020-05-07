@@ -1,0 +1,2 @@
+class MarketAlert < ApplicationRecord
+end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_30_172220) do
+ActiveRecord::Schema.define(version: 2020_05_03_234213) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -129,6 +129,14 @@ ActiveRecord::Schema.define(version: 2020_04_30_172220) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "booked", default: false
+  end
+
+  create_table "market_alerts", force: :cascade do |t|
+    t.bigint "timestamp"
+    t.integer "product"
+    t.integer "subscribed"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "match_statuses", force: :cascade do |t|

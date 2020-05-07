@@ -27,30 +27,9 @@ module Betradar
       if response.code == "200"
          events = Hash.from_xml(response.body)
          events["schedule"]["sport_event"].each do |event|
-            Fixture.find_or_create_by(event_id: event["id"] ) do |fixture|
-               fixture.scheduled_time = event["scheduled"]
-               fixture.status = event["status"]
-               fixture.live_odds = event["liveodds"]
-               fixture.tournament_round = event["tournament_round"]["group_long_name"]
-               fixture.betradar_id = event["tournament_round"]["betradar_id"]
-               fixture.season_id = event["season"]["id"] if event.has_key?("season")
-               fixture.season_name = event["season"]["name"] if event.has_key?("season")
-               fixture.tournament_id = event["tournament"]["id"]
-               fixture.tournament_name = event["tournament"]["name"]
-               fixture.sport_id = event["tournament"]["sport"]["id"]
-               fixture.sport = event["tournament"]["sport"]["name"]
-               fixture.category_id = event["tournament"]["category"]["id"]
-               fixture.category = event["tournament"]["category"]["name"]
-               fixture.comp_one_id = event["competitors"]["competitor"][0]["id"]
-               fixture.comp_one_name = event["competitors"]["competitor"][0]["name"]
-               fixture.comp_one_abb = event["competitors"]["competitor"][0]["abbreviation"]
-               fixture.comp_one_gender = event["competitors"]["competitor"][0]["gender"]
-               fixture.comp_one_qualifier = event["competitors"]["competitor"][0]["qualifier"]
-               fixture.comp_two_id = event["competitors"]["competitor"][1]["id"]
-               fixture.comp_two_name = event["competitors"]["competitor"][1]["name"]
-               fixture.comp_two_abb = event["competitors"]["competitor"][1]["abbreviation"]
-               fixture.comp_two_gender = event["competitors"]["competitor"][1]["gender"]
-               fixture.comp_two_qualifier = event["competitors"]["competitor"][1]["qualifier"]
+            case event["tournament"]["sport"]["id"]
+            when "1"
+               Soccer::CreateFixtureWorker.perform_async(event)
             end
          end
          return response.code
@@ -78,7 +57,10 @@ module Betradar
       if response.code == "200"
          events = Hash.from_xml(response.body)
          events["fixture_changes"]["fixture_change"].each do |event|
-            UpdateFixtureWorker.perform_async(event["sport_event_id"], event["update_time"])
+            case event["tournament"]["sport"]["id"]
+            when "1"
+               Soccer::UpdateFixtureWorker.perform_async(event["sport_event_id"], event["update_time"])
+            end
          end
       else
          @@logger.error(response.body)
@@ -243,5 +225,10 @@ module Betradar
       @@logger.error(e.message)
 
    end
+
+   def book_live_event(event_id)
+      
+   end
+   
 
 end
