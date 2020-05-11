@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_03_234213) do
+ActiveRecord::Schema.define(version: 2020_05_11_050727) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,6 +63,28 @@ ActiveRecord::Schema.define(version: 2020_05_03_234213) do
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
 
+  create_table "bet_slips", force: :cascade do |t|
+    t.integer "bet_count"
+    t.decimal "stake", precision: 12, scale: 2
+    t.decimal "win_amount", precision: 12, scale: 2
+    t.decimal "odds", precision: 10, scale: 2
+    t.decimal "potential_win_amount", precision: 12, scale: 2
+    t.string "status"
+    t.boolean "paid"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "bets", force: :cascade do |t|
+    t.string "event"
+    t.string "sport"
+    t.string "type"
+    t.decimal "odds", precision: 5, scale: 2
+    t.string "status"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "betstop_reasons", force: :cascade do |t|
     t.integer "betstop_reason_id"
     t.string "description"
@@ -101,12 +123,167 @@ ActiveRecord::Schema.define(version: 2020_05_03_234213) do
     t.index ["user_id"], name: "index_deposits_on_user_id"
   end
 
+  create_table "market10_lives", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "competitor1_draw", precision: 6, scale: 2
+    t.decimal "competitior1_competitior2", precision: 6, scale: 2
+    t.decimal "draw_competitor2", precision: 6, scale: 2
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "market10_pres", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "competitor1_draw", precision: 6, scale: 2
+    t.decimal "competitior1_competitior2", precision: 6, scale: 2
+    t.decimal "draw_competitor2", precision: 6, scale: 2
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "market16_lives", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "competitor1", precision: 6, scale: 2
+    t.decimal "competitior2", precision: 6, scale: 2
+    t.integer "threshold"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "market16_pres", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "competitor1", precision: 6, scale: 2
+    t.decimal "competitior2", precision: 6, scale: 2
+    t.integer "threshold"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "market18_lives", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "under", precision: 6, scale: 2
+    t.decimal "over", precision: 6, scale: 2
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "market18_pres", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "under", precision: 6, scale: 2
+    t.decimal "over", precision: 6, scale: 2
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "market1_lives", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "competitor1", precision: 6, scale: 2
+    t.decimal "draw", precision: 6, scale: 2
+    t.decimal "competitor2", precision: 6, scale: 2
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "market1_pres", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "competitor1", precision: 6, scale: 2
+    t.decimal "draw", precision: 6, scale: 2
+    t.decimal "competitor2", precision: 6, scale: 2
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "market29_lives", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "yes", precision: 6, scale: 2
+    t.decimal "no", precision: 6, scale: 2
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "market29_pres", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "yes", precision: 6, scale: 2
+    t.decimal "no", precision: 6, scale: 2
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "market63_lives", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "competitor1_draw", precision: 6, scale: 2
+    t.decimal "competitior1_competitior2", precision: 6, scale: 2
+    t.decimal "draw_competitor2", precision: 6, scale: 2
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "market63_pres", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "competitor1_draw", precision: 6, scale: 2
+    t.decimal "competitior1_competitior2", precision: 6, scale: 2
+    t.decimal "draw_competitor2", precision: 6, scale: 2
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "market66_lives", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "competitor1", precision: 6, scale: 2
+    t.decimal "competitior2", precision: 6, scale: 2
+    t.integer "threshold"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "market66_pres", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "competitor1", precision: 6, scale: 2
+    t.decimal "competitior2", precision: 6, scale: 2
+    t.integer "threshold"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "market68_lives", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "under", precision: 6, scale: 2
+    t.decimal "over", precision: 6, scale: 2
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "market68_pres", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "under", precision: 6, scale: 2
+    t.decimal "over", precision: 6, scale: 2
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "market75_lives", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "yes", precision: 6, scale: 2
+    t.decimal "no", precision: 6, scale: 2
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "market75_pres", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "yes", precision: 6, scale: 2
+    t.decimal "no", precision: 6, scale: 2
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "market_alerts", force: :cascade do |t|
     t.bigint "timestamp"
     t.integer "product"
     t.integer "subscribed"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "status", default: false
   end
 
   create_table "match_statuses", force: :cascade do |t|
@@ -142,66 +319,6 @@ ActiveRecord::Schema.define(version: 2020_05_03_234213) do
     t.string "comp_two_gender"
     t.string "comp_two_abb"
     t.string "comp_two_qualifier"
-    t.string "pre_1x2_ht_status", default: "closed"
-    t.string "pre_1x2_ft_status", default: "closed"
-    t.string "live_1x2_ht_status", default: "closed"
-    t.string "live_1x2f_t_status", default: "closed"
-    t.string "pre_dc_ht_status", default: "closed"
-    t.string "pre_dc_ft_status", default: "closed"
-    t.string "live_dc_ht_status", default: "closed"
-    t.string "live_dc_ft_status", default: "closed"
-    t.string "pre_total25_ht_status", default: "closed"
-    t.string "pre_total25_ft_status", default: "closed"
-    t.string "live_total25_ht_status", default: "closed"
-    t.string "live_total25_ft_status", default: "closed"
-    t.string "pre_bs_ht_status", default: "closed"
-    t.string "pre_bs_ft_status", default: "closed"
-    t.string "live_bs_ht_status", default: "closed"
-    t.string "live_bs_ft_status", default: "closed"
-    t.string "pre_hc1_ht_status", default: "closed"
-    t.string "pre_hc1_ft_status", default: "closed"
-    t.string "live_hc1_ht_status", default: "closed"
-    t.string "live_hc1_ft_status", default: "closed"
-    t.string "pre_1x2_ht_1"
-    t.string "pre_1x2_ht_x"
-    t.string "pre_1x2_ht_2"
-    t.string "pre_1x2_ft_1"
-    t.string "pre_1x2_ft_x"
-    t.string "pre_1x2f_t_2"
-    t.string "live_1x2_ht_1"
-    t.string "live_1x2_ht_x"
-    t.string "live_1x2_ht_2"
-    t.string "live_1x2_ft_1"
-    t.string "live_1x2_ft_x"
-    t.string "live_1x2_ft_2"
-    t.string "pre_total25_ht_under"
-    t.string "pre_total25_ht_over"
-    t.string "pre_total25_ft_under"
-    t.string "pre_total25_ft_over"
-    t.string "live_total25_ht_under"
-    t.string "live_total25_ht_over"
-    t.string "live_total25_ft_under"
-    t.string "live_total25_ft_over"
-    t.string "pre_bs_ft_yes"
-    t.string "pre_bs_ft_no"
-    t.string "live_bs_ft_yes"
-    t.string "live_bs_ft_no"
-    t.string "pre_bs_ht_yes"
-    t.string "pre_bs_ht_no"
-    t.string "live_bs_ht_yes"
-    t.string "live_bs_ht_no"
-    t.string "pre_hc1_ht_1"
-    t.string "pre_hc1_ht_x"
-    t.string "pre_hc1_ht_2"
-    t.string "pre_hc1_ft_1"
-    t.string "pre_hc1_ft_x"
-    t.string "pre_hc1_ft_2"
-    t.string "live_hc1_ht_1"
-    t.string "live_hc1_ht_x"
-    t.string "live_hc1_ht_2"
-    t.string "live_hc1_ft_1"
-    t.string "live_hc1_ft_x"
-    t.string "live_hc1_ft_2"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "booked", default: false
