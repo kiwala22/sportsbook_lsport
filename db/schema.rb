@@ -140,6 +140,7 @@ ActiveRecord::Schema.define(version: 2020_05_13_023014) do
     t.decimal "competitor1_draw", precision: 6, scale: 2
     t.decimal "competitior1_competitior2", precision: 6, scale: 2
     t.decimal "draw_competitor2", precision: 6, scale: 2
+    t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -149,6 +150,7 @@ ActiveRecord::Schema.define(version: 2020_05_13_023014) do
     t.decimal "competitor1_draw", precision: 6, scale: 2
     t.decimal "competitior1_competitior2", precision: 6, scale: 2
     t.decimal "draw_competitor2", precision: 6, scale: 2
+    t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -158,6 +160,7 @@ ActiveRecord::Schema.define(version: 2020_05_13_023014) do
     t.decimal "competitor1", precision: 6, scale: 2
     t.decimal "competitior2", precision: 6, scale: 2
     t.integer "threshold"
+    t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -167,6 +170,7 @@ ActiveRecord::Schema.define(version: 2020_05_13_023014) do
     t.decimal "competitor1", precision: 6, scale: 2
     t.decimal "competitior2", precision: 6, scale: 2
     t.integer "threshold"
+    t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -175,6 +179,7 @@ ActiveRecord::Schema.define(version: 2020_05_13_023014) do
     t.string "event_id"
     t.decimal "under", precision: 6, scale: 2
     t.decimal "over", precision: 6, scale: 2
+    t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -183,6 +188,7 @@ ActiveRecord::Schema.define(version: 2020_05_13_023014) do
     t.string "event_id"
     t.decimal "under", precision: 6, scale: 2
     t.decimal "over", precision: 6, scale: 2
+    t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -192,6 +198,7 @@ ActiveRecord::Schema.define(version: 2020_05_13_023014) do
     t.decimal "competitor1", precision: 6, scale: 2
     t.decimal "draw", precision: 6, scale: 2
     t.decimal "competitor2", precision: 6, scale: 2
+    t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -201,6 +208,7 @@ ActiveRecord::Schema.define(version: 2020_05_13_023014) do
     t.decimal "competitor1", precision: 6, scale: 2
     t.decimal "draw", precision: 6, scale: 2
     t.decimal "competitor2", precision: 6, scale: 2
+    t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -209,6 +217,7 @@ ActiveRecord::Schema.define(version: 2020_05_13_023014) do
     t.string "event_id"
     t.decimal "yes", precision: 6, scale: 2
     t.decimal "no", precision: 6, scale: 2
+    t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -217,6 +226,7 @@ ActiveRecord::Schema.define(version: 2020_05_13_023014) do
     t.string "event_id"
     t.decimal "yes", precision: 6, scale: 2
     t.decimal "no", precision: 6, scale: 2
+    t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -246,6 +256,7 @@ ActiveRecord::Schema.define(version: 2020_05_13_023014) do
     t.decimal "competitor1_draw", precision: 6, scale: 2
     t.decimal "competitior1_competitior2", precision: 6, scale: 2
     t.decimal "draw_competitor2", precision: 6, scale: 2
+    t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -255,6 +266,7 @@ ActiveRecord::Schema.define(version: 2020_05_13_023014) do
     t.decimal "competitor1_draw", precision: 6, scale: 2
     t.decimal "competitior1_competitior2", precision: 6, scale: 2
     t.decimal "draw_competitor2", precision: 6, scale: 2
+    t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -264,6 +276,7 @@ ActiveRecord::Schema.define(version: 2020_05_13_023014) do
     t.decimal "competitor1", precision: 6, scale: 2
     t.decimal "competitior2", precision: 6, scale: 2
     t.integer "threshold"
+    t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -273,6 +286,7 @@ ActiveRecord::Schema.define(version: 2020_05_13_023014) do
     t.decimal "competitor1", precision: 6, scale: 2
     t.decimal "competitior2", precision: 6, scale: 2
     t.integer "threshold"
+    t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -281,6 +295,7 @@ ActiveRecord::Schema.define(version: 2020_05_13_023014) do
     t.string "event_id"
     t.decimal "under", precision: 6, scale: 2
     t.decimal "over", precision: 6, scale: 2
+    t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -289,6 +304,7 @@ ActiveRecord::Schema.define(version: 2020_05_13_023014) do
     t.string "event_id"
     t.decimal "under", precision: 6, scale: 2
     t.decimal "over", precision: 6, scale: 2
+    t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -297,6 +313,7 @@ ActiveRecord::Schema.define(version: 2020_05_13_023014) do
     t.string "event_id"
     t.decimal "yes", precision: 6, scale: 2
     t.decimal "no", precision: 6, scale: 2
+    t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -305,6 +322,7 @@ ActiveRecord::Schema.define(version: 2020_05_13_023014) do
     t.string "event_id"
     t.decimal "yes", precision: 6, scale: 2
     t.decimal "no", precision: 6, scale: 2
+    t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
