@@ -1,0 +1,2 @@
+class AddReasonToBet < ApplicationRecord
+end

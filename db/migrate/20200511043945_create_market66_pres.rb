@@ -5,6 +5,7 @@ class CreateMarket66Pres < ActiveRecord::Migration[6.0]
       t.decimal :competitor1, precision: 6, scale: 2
       t.decimal :competitior2, precision: 6, scale: 2
       t.integer :threshold
+      t.string :status
       t.timestamps
     end
   end

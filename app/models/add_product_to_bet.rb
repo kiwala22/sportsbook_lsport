@@ -1,0 +1,2 @@
+class AddProductToBet < ApplicationRecord
+end
