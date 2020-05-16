@@ -28,16 +28,13 @@ class Soccer::UpdateFixtureWorker
       response = http.request(request)
       if response.code == "200"
          event = Hash.from_xml(response.body)
-         fixture = Fixture.where(event_id: event_id)
+         fixture = SoccerFixture.where(event_id: event_id)
          if fixture && (fixture.updated_at < update_time)
-            fixture.update_attributes(
-               scheduled_time: event["fixtures_fixture"]["fixture"]["scheduled"],
+            update_attr = {scheduled_time: event["fixtures_fixture"]["fixture"]["scheduled"],
                status: event["fixtures_fixture"]["fixture"]["status"],
                live_odds: event["fixtures_fixture"]["fixture"]["liveodds"],
                tournament_round: event["fixtures_fixture"]["fixture"]["tournament_round"]["group_long_name"],
                betradar_id: event["fixtures_fixture"]["fixture"]["tournament_round"]["betradar_id"],
-               season_id: event["fixtures_fixture"]["fixture"]["season"]["id"] if event["fixtures_fixture"]["fixture"].has_key?("season") #? event["fixtures_fixture"]["fixture"]["season"]["id"] :  "",
-               season_name: event["fixtures_fixture"]["fixture"]["season"]["name"] if event["fixtures_fixture"]["fixture"].has_key?("season") #? event["fixtures_fixture"]["fixture"]["season"]["name"] :  "",
                tournament_id: event["fixtures_fixture"]["fixture"]["tournament"]["id"],
                tournament_name: event["fixtures_fixture"]["fixture"]["tournament"]["name"],
                sport_id: event["fixtures_fixture"]["fixture"]["tournament"]["sport"]["id"],
@@ -54,7 +51,12 @@ class Soccer::UpdateFixtureWorker
                comp_two_abb: event["fixtures_fixture"]["fixture"]["competitors"]["competitor"][1]["abbreviation"],
                comp_two_gender: event["fixtures_fixture"]["fixture"]["competitors"]["competitor"][1]["gender"],
                comp_two_qualifier: event["fixtures_fixture"]["fixture"]["competitors"]["competitor"][1]["qualifier"]
-            )
+            }
+            if event["fixtures_fixture"]["fixture"].has_key?("season")
+               update_attr[season_id:] event["fixtures_fixture"]["fixture"]["season"]["id"] 
+               update_attr[season_name:] event["fixtures_fixture"]["fixture"]["season"]["name"]
+            end   
+            fixture.update_attributes(update_attr)
             return response.code
          else
             @@logger.error(response.body)
