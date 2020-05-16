@@ -53,8 +53,8 @@ class Soccer::UpdateFixtureWorker
                comp_two_qualifier: event["fixtures_fixture"]["fixture"]["competitors"]["competitor"][1]["qualifier"]
             }
             if event["fixtures_fixture"]["fixture"].has_key?("season")
-               update_attr[season_id:] event["fixtures_fixture"]["fixture"]["season"]["id"] 
-               update_attr[season_name:] event["fixtures_fixture"]["fixture"]["season"]["name"]
+               update_attr[season_id:] = event["fixtures_fixture"]["fixture"]["season"]["id"] 
+               update_attr[season_name:] = event["fixtures_fixture"]["fixture"]["season"]["name"]
             end   
             fixture.update_attributes(update_attr)
             return response.code
