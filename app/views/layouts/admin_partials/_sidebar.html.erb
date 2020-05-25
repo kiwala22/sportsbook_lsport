@@ -37,11 +37,29 @@
                <span data-localize="sidebar.nav.DASHBOARD">Users</span>
             </a>
          </li>
-         <li class="<%= 'active' if controller.controller_name == 'fixtures' %>">
-            <a href="<%= soccer_fixtures_path %>" title="Users">
+
+         <li class="">
+             <a href="soccer_fixtures" title="Users">
                <em class="fas fa-futbol"></em>
                <span data-localize="sidebar.nav.DASHBOARD">Soccer Fixtures</span>
             </a>
+            <ul id="#soccer_fixtures" class="sidebar-nav sidebar-subnav collapse">
+               <li class="<%= 'active' if controller.controller_name == 'Soccer::Fixtures::live_match_fixtures' %>">
+                  <a href="<%= fixtures_soccer_live_path %>" title="Live">
+                     <span>Live</span>
+                  </a>
+               </li>
+               <li class="<%= 'active' if controller.controller_name == 'Soccer::Fixtures::pre_match_fixtures' %>">
+                  <a href="<%= fixtures_soccer_pre_match_path %>" title="Pre Match">
+                     <span>Pre Match</span>
+                  </a>
+               </li>
+               <li class="<%= 'active' if controller.controller_name == 'Soccer::Fixtures::virtual_fixtures' %>">
+                  <a href="<%= fixtures_soccer_virtual_path %>" title="Virtual">
+                     <span>Virtual</span>
+                  </a>
+               </li>
+            </ul>
          </li>
 
          <li class="">

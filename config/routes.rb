@@ -1,5 +1,12 @@
 Rails.application.routes.draw do
    scope '/backend' do
+      namespace :fixtures do
+         namespace :soccer do
+            match 'live' => "live_match_fixtures#index", via: [:get]
+            match 'pre_match' => "pre_match_fixtures#index", via: [:get]
+            match 'virtual' => "virtual_fixtures#index", via: [:get]
+         end
+      end
       resources :deposits, only: [:index]
       resources :withdraws, only: [:index]
       resources :soccer_fixtures, only: [:index, :update]
