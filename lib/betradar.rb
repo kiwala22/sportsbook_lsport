@@ -227,6 +227,29 @@ module Betradar
    end
 
    def book_live_event(event_id)
+      url = @@end_point + "liveodds/booking-calendar/events/#{event_id}/book"
+      uri = URI(url)
+      http = Net::HTTP.new(uri.host, uri.port)
+      http.read_timeout = 180
+      request = Net::HTTP::Post.new(uri.request_uri)
+      request['x-access-token'] = @@auth_token
+      http.use_ssl = true
+      #http.verify_mode = OpenSSL::SSL::VERIFY_PEER
+      #http.set_debug_output($stdout)
+      response = http.request(request)
+      if response.code == "200"
+         event = Hash.from_xml(response.body)
+         if event["response_code"] == "OK"
+            fixture = SoccerFixture.find_by(event_id: event_id)
+            if fixture
+               fixture.update_attributes(booked: true)
+            end
+         end
+         return response.code
+      else
+         @@logger.error(response.body)
+         return response.body
+      end
       
    end
    
