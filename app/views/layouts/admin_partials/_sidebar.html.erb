@@ -45,17 +45,17 @@
             </a>
             <ul id="#soccer_fixtures" class="sidebar-nav sidebar-subnav collapse">
                <li class="<%= 'active' if controller.controller_name == 'Soccer::Fixtures::live_match_fixtures' %>">
-                  <a href="<%= fixtures_soccer_live_path %>" title="Live">
+                  <a href="<%= fixtures_soccer_live_match_fixtures_path %>" title="Live">
                      <span>Live</span>
                   </a>
                </li>
                <li class="<%= 'active' if controller.controller_name == 'Soccer::Fixtures::pre_match_fixtures' %>">
-                  <a href="<%= fixtures_soccer_pre_match_path %>" title="Pre Match">
+                  <a href="<%= fixtures_soccer_pre_match_fixtures_path %>" title="Pre Match">
                      <span>Pre Match</span>
                   </a>
                </li>
                <li class="<%= 'active' if controller.controller_name == 'Soccer::Fixtures::virtual_fixtures' %>">
-                  <a href="<%= fixtures_soccer_virtual_path %>" title="Virtual">
+                  <a href="<%= fixtures_soccer_virtual_fixtures_path %>" title="Virtual">
                      <span>Virtual</span>
                   </a>
                </li>

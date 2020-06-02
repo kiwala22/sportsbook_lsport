@@ -237,18 +237,13 @@ module Betradar
       #http.verify_mode = OpenSSL::SSL::VERIFY_PEER
       #http.set_debug_output($stdout)
       response = http.request(request)
-      if response.code == "200"
-         event = Hash.from_xml(response.body)
-         if event["response_code"] == "OK"
-            fixture = SoccerFixture.find_by(event_id: event_id)
-            if fixture
-               fixture.update_attributes(booked: true)
-            end
-         end
-         return response.code
+      event = Hash.from_xml(response.body)
+
+      if response.code == "200" && event["response"]["response_code"] == "OK"
+         return 200
       else
          @@logger.error(response.body)
-         return response.body
+         return 400
       end
       
    end

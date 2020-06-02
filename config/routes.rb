@@ -2,20 +2,21 @@ Rails.application.routes.draw do
    scope '/backend' do
       namespace :fixtures do
          namespace :soccer do
-            match 'live' => "live_match_fixtures#index", via: [:get]
-            match 'pre_match' => "pre_match_fixtures#index", via: [:get]
-            match 'virtual' => "virtual_fixtures#index", via: [:get]
+            match 'live_match_fixtures' => "live_match_fixtures#index", via: [:get]
+            match 'pre_match_fixtures' => "pre_match_fixtures#index", via: [:get]
+            match 'virtual_fixtures' => "virtual_fixtures#index", via: [:get]
+            patch 'live_match_fixtures' => "live_match_fixtures#update"
+            patch 'pre_match_fixtures' => "pre_match_fixtures#update"
+            patch 'virtual_fixtures' => "virtual_fixtures#update"
          end
       end
       resources :deposits, only: [:index]
       resources :withdraws, only: [:index]
-      resources :soccer_fixtures, only: [:index, :update]
       match 'users' => "bet_users#index", via: [:get]
       match 'betstop_reasons' => "betstop_reasons#index", via: [:get]
       match 'betting_statuses' => "betting_statuses#index", via: [:get]
       match 'void_reasons' => "void_reasons#index", via: [:get]
       match 'match_statuses' => "match_statuses#index", via: [:get]
-      #match 'fixtures' => "fixtures#index", via: [:get]
    end
 
    devise_for :users, path: 'users',  controllers: {

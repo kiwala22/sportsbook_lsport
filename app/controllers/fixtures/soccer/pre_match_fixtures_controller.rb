@@ -1,4 +1,5 @@
 class Fixtures::Soccer::PreMatchFixturesController < ApplicationController
+  include Betradar
   before_action :authenticate_admin!
 
 
@@ -10,8 +11,14 @@ class Fixtures::Soccer::PreMatchFixturesController < ApplicationController
 
   def update
     @fixture = SoccerFixture.find(params[:id])
-    @fixture.update_attributes(booked: true)
-    flash[:notice] = 'Fixture Booked.'
-    redirect_to action: "index"
+    response = book_live_event(@fixture.event_id)
+    if response == 200
+      @fixture.update_attributes(booked: true)
+      flash[:notice] = 'Fixture Booked.'
+      redirect_to action: "index"
+    else
+      flash[:alert] = 'Oops! Something went wrong'
+      redirect_to action: "index"
+    end
   end
 end
