@@ -19,6 +19,16 @@ Rails.application.routes.draw do
       match 'match_statuses' => "match_statuses#index", via: [:get]
    end
 
+   namespace :amqp do
+      namespace :v1  do
+         match 'alerts' => 'alerts#create', via: [:post]
+         
+         namespace :sports do
+            match 'soccer' => 'soccer#create', via: [:post]
+         end
+      end
+   end
+
    devise_for :users, path: 'users',  controllers: {
       sessions: 'users/sessions'
    }
