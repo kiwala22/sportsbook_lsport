@@ -7,7 +7,6 @@ class BetCancelWorker
     sidekiq_options retry: false
 
     def perform(payload)
-        db = connect_to_database
         #convert the message from the xml to an easr ruby Hash using active support
         start_time = nil
         end_time = nil
@@ -51,13 +50,8 @@ class BetCancelWorker
 
         wheres.insert(0, conditions)
         
-        bets = db[:bets].where(wheres)
-        db.transaction do 
-            bets.update_all(status: "Cancelled", updated_at: Time.now)
-        end
-
-        db.disconnect
-
+        bets = Bet.where(wheres)
+        bets.update_all(status: "Cancelled", updated_at: Time.now)
     end
     
 end

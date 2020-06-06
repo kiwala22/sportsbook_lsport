@@ -27,9 +27,7 @@ class OddsChangeWorker
             "-3" => "Settled"
         }
 
-        db = connect_to_database 
-
-        #convert the message from the xml to an easr ruby Hash using active support
+       #convert the message from the xml to an easr ruby Hash using active support
         message = Hash.from_xml(payload)
         event_id = message["odds_change"]["event_id"]
         product = message["odds_change"]["product"]

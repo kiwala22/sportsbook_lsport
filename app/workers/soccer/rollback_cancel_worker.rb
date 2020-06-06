@@ -51,12 +51,8 @@ class RollbackCancelWorker
 
         wheres.insert(0, conditions)
         
-        bets = db[:bets].where(wheres)
-        db.transaction do 
-            bets.update_all(status: "Cancelled", updated_at: Time.now)
-        end
-
-        db.disconnect
+        bets = Bet.where(wheres)
+        bets.update_all(status: "Cancelled", updated_at: Time.now)
        
     end
     
