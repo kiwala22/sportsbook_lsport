@@ -1,4 +1,4 @@
-class Amqp::V1::AlertsController < ApplicationController
+class Amqp::V1::AlertsController < ActionController::API
    before_action :authenticate
 	require 'uri'
    require 'cgi'

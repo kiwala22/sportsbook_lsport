@@ -1,4 +1,4 @@
-class Amqp::V1::Sports::SoccerController < ApplicationController
+class Amqp::V1::Sports::SoccerController < ActionController::API
    before_action :authenticate
 	require 'uri'
    require 'cgi'
