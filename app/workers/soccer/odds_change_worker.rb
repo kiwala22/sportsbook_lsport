@@ -50,7 +50,7 @@ class Soccer::OddsChangeWorker
                     "3" => "Pre"
                 }
                 
-                table_sym = "Market" + market["id"] + "_" + producer_type[product].
+                table_sym = "Market" + market["id"] + "_" + producer_type[product]
                 # table_sym = table_name.to_sym
                 
                 #hard code market with similar outcomes
