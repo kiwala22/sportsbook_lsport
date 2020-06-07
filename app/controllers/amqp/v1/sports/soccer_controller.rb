@@ -48,7 +48,7 @@ class Amqp::V1::Sports::SoccerController < ApplicationController
    end
 
    def authenticate
-      auth_token = EVN['AUTH_TOKEN']
+      auth_token = ENV['AUTH_TOKEN']
       token = request.headers['access-token']
       render json: {status: "Unauthorized. Invalid token"}  unless token == auth_token
    end
