@@ -17,9 +17,7 @@ class Amqp::V1::AlertsController < ApplicationController
          AlertsWorker.perform_async(payload)
       end
 
-      render status: 200
-
-      
+      render status: 200, json: {response: "OK"}
    end
 
    private
