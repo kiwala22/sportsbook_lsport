@@ -1,5 +1,5 @@
 class Amqp::V1::Sports::SoccerController < ApplicationController
-   before_filter :authenticate
+   before_action :authenticate
 	require 'uri'
    require 'cgi'
 
@@ -36,7 +36,7 @@ class Amqp::V1::Sports::SoccerController < ApplicationController
           RollbackCancelWorker.perfom_async(payload)
       
       end
-      
+
       render status: 200
    end
 

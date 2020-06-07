@@ -1,5 +1,5 @@
 class Amqp::V1::AlertsController < ApplicationController
-   before_filter :authenticate
+   before_action :authenticate
 	require 'uri'
    require 'cgi'
 
