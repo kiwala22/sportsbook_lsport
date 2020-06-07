@@ -1,6 +1,6 @@
 require 'sidekiq'
 
-class RollbackSettlementWorker
+class Soccer::RollbackSettlementWorker
     include Sidekiq::Worker
     sidekiq_options queue: "default"
     sidekiq_options retry: false

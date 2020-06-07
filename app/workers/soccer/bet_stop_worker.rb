@@ -1,6 +1,6 @@
 require 'sidekiq'
 
-class BetStopWorker
+class Soccer::BetStopWorker
     include Sidekiq::Worker
     sidekiq_options queue: "critical"
     sidekiq_options retry: false
