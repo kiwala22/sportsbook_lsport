@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_18_082136) do
+ActiveRecord::Schema.define(version: 2020_06_09_200424) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -184,6 +184,7 @@ ActiveRecord::Schema.define(version: 2020_05_18_082136) do
     t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.decimal "threshold", precision: 5, scale: 2
   end
 
   create_table "market18_pres", force: :cascade do |t|
@@ -193,6 +194,7 @@ ActiveRecord::Schema.define(version: 2020_05_18_082136) do
     t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.decimal "threshold", precision: 5, scale: 2
   end
 
   create_table "market1_lives", force: :cascade do |t|
@@ -300,6 +302,7 @@ ActiveRecord::Schema.define(version: 2020_05_18_082136) do
     t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.decimal "threshold", precision: 5, scale: 2
   end
 
   create_table "market68_pres", force: :cascade do |t|
@@ -309,6 +312,7 @@ ActiveRecord::Schema.define(version: 2020_05_18_082136) do
     t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.decimal "threshold", precision: 5, scale: 2
   end
 
   create_table "market75_lives", force: :cascade do |t|

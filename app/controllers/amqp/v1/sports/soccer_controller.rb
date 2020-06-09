@@ -8,6 +8,9 @@ class Amqp::V1::Sports::SoccerController < ApplicationController
       payload = soccer_params[:payload]
       routing_key = soccer_params[:routing_key]
 
+      out = Hash.from_xml(payload)
+      puts out
+
       #extract message and sport
       message = routing_key.split('.')[3]
       sport = routing_key.split('.')[4]
