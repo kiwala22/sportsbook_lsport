@@ -145,12 +145,10 @@ class Soccer::OddsChangeWorker
                     
                 end
                 
+                yes_odds = no_odds = nil
                 if market["id"] == "29" || market["id"] == "75"
                     #update or create markets both to score half time and fulltime
-                    print "\n"
-                    print market["id"]
-                    print market["outcome"]
-                    print "\n"
+                    
                     market["outcome"].each do |out|
                         if out["id"] == "74"
                             yes_odds = out["odds"].to_f
@@ -169,12 +167,10 @@ class Soccer::OddsChangeWorker
                     end
                 end
                 
+                comp1_odds = comp2_odds = nil
                 if (market["id"] == "16" ||  "66") && market["specifiers"] == "hcp=1"
                     #update or create markets under and over half time and fulltime
-                    print "\n"
-                    print market["id"]
-                    print market["outcome"]
-                    print "\n"
+                    
                     market["outcome"].each do |out|
                         if out["id"] == "1714"
                             comp1_odds = out["odds"].to_f
