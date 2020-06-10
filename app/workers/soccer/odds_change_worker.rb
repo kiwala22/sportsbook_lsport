@@ -16,7 +16,12 @@ class Soccer::OddsChangeWorker
             "1" => "Live",
             "2" => "Suspended",
             "3" => "Ended",
-            "4" => "closed"
+            "4" => "closed", 
+            "5" => "Cancelled",
+            "6" => "Delayed",
+            "7" => "Interrupted"
+            "8" => "Postponed",
+            "9" => "Abandoned"
         }
         
         market_status = {
