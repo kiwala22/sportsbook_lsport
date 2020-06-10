@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_10_180737) do
+ActiveRecord::Schema.define(version: 2020_06_10_201900) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -160,7 +160,7 @@ ActiveRecord::Schema.define(version: 2020_06_10_180737) do
   create_table "market16_lives", force: :cascade do |t|
     t.string "event_id"
     t.decimal "competitor1", precision: 6, scale: 2
-    t.decimal "competitior2", precision: 6, scale: 2
+    t.decimal "competitor2", precision: 6, scale: 2
     t.integer "threshold"
     t.string "status"
     t.datetime "created_at", precision: 6, null: false
@@ -170,7 +170,7 @@ ActiveRecord::Schema.define(version: 2020_06_10_180737) do
   create_table "market16_pres", force: :cascade do |t|
     t.string "event_id"
     t.decimal "competitor1", precision: 6, scale: 2
-    t.decimal "competitior2", precision: 6, scale: 2
+    t.decimal "competitor2", precision: 6, scale: 2
     t.integer "threshold"
     t.string "status"
     t.datetime "created_at", precision: 6, null: false
