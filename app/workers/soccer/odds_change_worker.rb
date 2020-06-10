@@ -66,13 +66,13 @@ class Soccer::OddsChangeWorker
         
         #extract fixture information and update the fixtures with score and match status
         if message["odds_change"].has_key?("odds")
-            if message["odds_change"]["odds"]["market"].is_a?("Array")
+            if message["odds_change"]["odds"]["market"].is_a?(Array)
                 message["odds_change"]["odds"]["market"].each do |market|
                     process_market(market)  
                 end
             end
 
-            if message["odds_change"]["odds"]["market"].is_a?("Hash")
+            if message["odds_change"]["odds"]["market"].is_a?(Hash)
                 process_market(message["odds_change"]["odds"]["market"])  
             end
 
