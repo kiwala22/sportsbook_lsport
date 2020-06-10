@@ -68,19 +68,19 @@ class Soccer::OddsChangeWorker
         if message["odds_change"].has_key?("odds")
             if message["odds_change"]["odds"]["market"].is_a?(Array)
                 message["odds_change"]["odds"]["market"].each do |market|
-                    process_market(market)  
+                    process_market(market, product, event_id)  
                 end
             end
 
             if message["odds_change"]["odds"]["market"].is_a?(Hash)
-                process_market(message["odds_change"]["odds"]["market"])  
+                process_market(message["odds_change"]["odds"]["market"], product, event_id)  
             end
 
         end
         
     end
 
-    def process_market(market)
+    def process_market(market, product, event_id)
         producer_type = {
             "1" => "Live",
             "3" => "Pre"
