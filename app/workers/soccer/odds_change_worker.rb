@@ -24,14 +24,6 @@ class Soccer::OddsChangeWorker
             "9" => "Abandoned"
         }
         
-        market_status = {
-            "1" => "Active",
-            "-1" => "Suspended",
-            "0" => "Deactivated",
-            "-4" => "Cancelled",
-            "-3" => "Settled"
-        }
-        
         #convert the message from the xml to an easr ruby Hash using active support
         message = Hash.from_xml(payload)
         print
@@ -81,6 +73,15 @@ class Soccer::OddsChangeWorker
     end
 
     def process_market(market, product, event_id)
+        
+        market_status = {
+            "1" => "Active",
+            "-1" => "Suspended",
+            "0" => "Deactivated",
+            "-4" => "Cancelled",
+            "-3" => "Settled"
+        }
+
         producer_type = {
             "1" => "Live",
             "3" => "Pre"
