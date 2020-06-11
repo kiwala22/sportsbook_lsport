@@ -26,9 +26,6 @@ class Soccer::OddsChangeWorker
         
         #convert the message from the xml to an easr ruby Hash using active support
         message = Hash.from_xml(payload)
-        print
-        print message
-        print
         event_id = message["odds_change"]["event_id"]
         product = message["odds_change"]["product"]
         match_status = nil
