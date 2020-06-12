@@ -12,16 +12,16 @@ class Soccer::OddsChangeWorker
         soccer_markets = []
         
         soccer_status = {
-            "0" => "Not Started",
-            "1" => "Live",
-            "2" => "Suspended",
-            "3" => "Ended",
+            "0" => "not started",
+            "1" => "live",
+            "2" => "suspended",
+            "3" => "ended",
             "4" => "closed", 
-            "5" => "Cancelled",
-            "6" => "Delayed",
-            "7" => "Interrupted",
-            "8" => "Postponed",
-            "9" => "Abandoned"
+            "5" => "cancelled",
+            "6" => "delayed",
+            "7" => "interrupted",
+            "8" => "postponed",
+            "9" => "abandoned"
         }
         
         #convert the message from the xml to an easr ruby Hash using active support
