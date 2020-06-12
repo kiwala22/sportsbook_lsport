@@ -15,6 +15,15 @@ class Soccer::FixtureChangeWorker
         end
 
         #call the api to update the fixture on the main sportsbook application
+        #pull fixture date from server
+        
+        #find the fixture in the database
+        fixture = SoccerFixture.find_by(event_id: event_id)
+        if fixture
+
+        else
+
+        end
         
     end
     

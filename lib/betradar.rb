@@ -247,6 +247,25 @@ module Betradar
       end
       
    end
+
+   def fetch_fixture(event_id)
+      url = @@end_point + "sports/en/sport_events/#{event_id}/fixture.xmll"
+      uri = URI(url)
+      http = Net::HTTP.new(uri.host, uri.port)
+      http.read_timeout = 180
+      request = Net::HTTP::Get.new(uri.request_uri)
+      request['x-access-token'] = @@auth_token
+      http.use_ssl = true
+      #http.verify_mode = OpenSSL::SSL::VERIFY_PEER
+      #http.set_debug_output($stdout)
+      response = http.request(request)
+      #check the status of response and return a response or log an error
+      if response.code == "200"
+
+      end
+      
+   end
+   
    
 
 end

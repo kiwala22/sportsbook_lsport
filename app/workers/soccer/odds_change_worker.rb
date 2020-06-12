@@ -38,11 +38,11 @@ class Soccer::OddsChangeWorker
             end
             
             if message["odds_change"]["sport_event_status"].has_key?('home_score')
-                home_score = ["odds_change"]["sport_event_status"]["home_score"]
+                home_score = message["odds_change"]["sport_event_status"]["home_score"]
             end
             
             if message["odds_change"]["sport_event_status"].has_key?('away_score')
-                away_score = ["odds_change"]["sport_event_status"]["away_score"]
+                away_score = message["odds_change"]["sport_event_status"]["away_score"]
             end
         end
         
