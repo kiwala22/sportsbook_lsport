@@ -249,7 +249,7 @@ module Betradar
    end
    
    def fetch_fixture(event_id)
-      url = @@end_point + "sports/en/sport_events/#{event_id}/fixture.xmll"
+      url = @@end_point + "sports/en/sport_events/#{event_id}/fixture.xml"
       uri = URI(url)
       http = Net::HTTP.new(uri.host, uri.port)
       http.read_timeout = 180
