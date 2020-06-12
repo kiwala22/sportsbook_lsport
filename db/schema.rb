@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_10_201900) do
+ActiveRecord::Schema.define(version: 2020_06_12_200341) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -140,7 +140,7 @@ ActiveRecord::Schema.define(version: 2020_06_10_201900) do
   create_table "market10_lives", force: :cascade do |t|
     t.string "event_id"
     t.decimal "competitor1_draw", precision: 6, scale: 2
-    t.decimal "competitior1_competitior2", precision: 6, scale: 2
+    t.decimal "competitor1_competitor2", precision: 6, scale: 2
     t.decimal "draw_competitor2", precision: 6, scale: 2
     t.string "status"
     t.datetime "created_at", precision: 6, null: false
@@ -150,7 +150,7 @@ ActiveRecord::Schema.define(version: 2020_06_10_201900) do
   create_table "market10_pres", force: :cascade do |t|
     t.string "event_id"
     t.decimal "competitor1_draw", precision: 6, scale: 2
-    t.decimal "competitior1_competitior2", precision: 6, scale: 2
+    t.decimal "competitor1_competitor2", precision: 6, scale: 2
     t.decimal "draw_competitor2", precision: 6, scale: 2
     t.string "status"
     t.datetime "created_at", precision: 6, null: false
@@ -258,7 +258,7 @@ ActiveRecord::Schema.define(version: 2020_06_10_201900) do
   create_table "market63_lives", force: :cascade do |t|
     t.string "event_id"
     t.decimal "competitor1_draw", precision: 6, scale: 2
-    t.decimal "competitior1_competitior2", precision: 6, scale: 2
+    t.decimal "competitor1_competitor2", precision: 6, scale: 2
     t.decimal "draw_competitor2", precision: 6, scale: 2
     t.string "status"
     t.datetime "created_at", precision: 6, null: false
@@ -268,7 +268,7 @@ ActiveRecord::Schema.define(version: 2020_06_10_201900) do
   create_table "market63_pres", force: :cascade do |t|
     t.string "event_id"
     t.decimal "competitor1_draw", precision: 6, scale: 2
-    t.decimal "competitior1_competitior2", precision: 6, scale: 2
+    t.decimal "competitor1_competitor2", precision: 6, scale: 2
     t.decimal "draw_competitor2", precision: 6, scale: 2
     t.string "status"
     t.datetime "created_at", precision: 6, null: false
@@ -278,7 +278,7 @@ ActiveRecord::Schema.define(version: 2020_06_10_201900) do
   create_table "market66_lives", force: :cascade do |t|
     t.string "event_id"
     t.decimal "competitor1", precision: 6, scale: 2
-    t.decimal "competitior2", precision: 6, scale: 2
+    t.decimal "competitor2", precision: 6, scale: 2
     t.integer "threshold"
     t.string "status"
     t.datetime "created_at", precision: 6, null: false
@@ -288,7 +288,7 @@ ActiveRecord::Schema.define(version: 2020_06_10_201900) do
   create_table "market66_pres", force: :cascade do |t|
     t.string "event_id"
     t.decimal "competitor1", precision: 6, scale: 2
-    t.decimal "competitior2", precision: 6, scale: 2
+    t.decimal "competitor2", precision: 6, scale: 2
     t.integer "threshold"
     t.string "status"
     t.datetime "created_at", precision: 6, null: false
