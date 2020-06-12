@@ -136,7 +136,7 @@ class Soccer::OddsChangeWorker
             #update or create markets 1X2 half time and fulltime
             model_name.constantize.find_or_create_by(event_id: event_id)  do |mkt|
                 mkt.competitor1_draw =  comp1_draw_odds
-                mkt.competitior1_competitior2 = comp1_comp2_odds
+                mkt.competitor1_competitor2 = comp1_comp2_odds
                 mkt.draw_competitor2 =  draw_comp2_odds
                 mkt.status = market_status[market["status"]]
                 
