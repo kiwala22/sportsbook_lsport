@@ -33,6 +33,10 @@ class Soccer::OddsChangeWorker
         away_score = nil
         
         if message["odds_change"].has_key?("sport_event_status")
+            if message["odds_change"]["sport_event_status"].has_key?('status')
+                status = message["odds_change"]["sport_event_status"]["status"]
+            end
+
             if message["odds_change"]["sport_event_status"].has_key?('match_status')
                 match_status = message["odds_change"]["sport_event_status"]["match_status"]
             end
@@ -50,7 +54,7 @@ class Soccer::OddsChangeWorker
         #find the fixture and update the fixture
         fixture = SoccerFixture.where(event_id: event_id).order("created_at DESC").first
         if fixture
-            fixture.update(home_score: home_score, away_score: away_score, match_status: soccer_status[match_status])
+            fixture.update(home_score: home_score, away_score: away_score, match_status: match_status, status: soccer_status[status] )
             #extract fixture information and update the fixtures with score and match status
             if message["odds_change"].has_key?("odds")
                 if message["odds_change"]["odds"]["market"].is_a?(Array)
