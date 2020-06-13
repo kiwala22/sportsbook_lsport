@@ -108,7 +108,7 @@ class Soccer::OddsChangeWorker
             end
             #update or create markets 1X2 half time and fulltime
             mkt_entry = model_name.constantize.find_by(event_id: event_id)
-            update_att = {
+            update_attr = {
                 competitor1:  comp1_odds,
                 competitor2: comp2_odds,
                 draw: draw_odds,
@@ -144,7 +144,7 @@ class Soccer::OddsChangeWorker
             #update or create markets 1X2 half time and fulltime
             #update or create markets 1X2 half time and fulltime
             mkt_entry = model_name.constantize.find_by(event_id: event_id)
-            update_att = {
+            update_attr = {
                 competitor1_draw:  comp1_draw_odds,
                 competitor1_competitor2: comp1_comp2_odds,
                 draw_competitor2:  draw_comp2_odds,
@@ -177,7 +177,7 @@ class Soccer::OddsChangeWorker
             end
             #update or create markets 1X2 half time and fulltime
             mkt_entry = model_name.constantize.find_by(event_id: event_id)
-            update_att = {
+            update_attr = {
                 under:  under_odds,
                 over: over_odds,
                 threshold: 2.5,
@@ -210,7 +210,7 @@ class Soccer::OddsChangeWorker
             end
             #update or create markets 1X2 half time and fulltime
             mkt_entry = model_name.constantize.find_by(event_id: event_id)
-            update_att = {
+            update_attr = {
                 yes:  yes_odds,
                 no: no_odds,
                 status: market_status[market["status"]]
@@ -241,7 +241,7 @@ class Soccer::OddsChangeWorker
             end
             #update or create markets 1X2 half time and fulltime
             mkt_entry = model_name.constantize.find_by(event_id: event_id)
-            update_att = {
+            update_attr = {
                 competitor1:  comp1_odds,
                 competitor2: comp2_odds,
                 threshold: 1,
