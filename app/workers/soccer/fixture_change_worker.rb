@@ -55,8 +55,7 @@ class Soccer::FixtureChangeWorker
         else
             fixture = SoccerFixture.new(update_attr)
             fixture.event_id = event["id"]
-            
-
+            fixture.save
         end
         
     end
