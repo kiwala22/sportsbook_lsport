@@ -118,7 +118,7 @@ class Soccer::OddsChangeWorker
                 mkt_entry.update_attributes(update_attr)
             else
                 mkt_entry = model_name.constantize.new(update_attr)
-                mkt_entry.event_id = event["id"]
+                mkt_entry.event_id = event_id
                 mkt_entry.save
             end
             
@@ -154,7 +154,7 @@ class Soccer::OddsChangeWorker
                 mkt_entry.update_attributes(update_attr)
             else
                 mkt_entry = model_name.constantize.new(update_attr)
-                mkt_entry.event_id = event["id"]
+                mkt_entry.event_id = event_id
                 mkt_entry.save
             end
             
@@ -187,7 +187,7 @@ class Soccer::OddsChangeWorker
                 mkt_entry.update_attributes(update_attr)
             else
                 mkt_entry = model_name.constantize.new(update_attr)
-                mkt_entry.event_id = event["id"]
+                mkt_entry.event_id = event_id
                 mkt_entry.save
             end
             
@@ -219,7 +219,7 @@ class Soccer::OddsChangeWorker
                 mkt_entry.update_attributes(update_attr)
             else
                 mkt_entry = model_name.constantize.new(update_attr)
-                mkt_entry.event_id = event["id"]
+                mkt_entry.event_id = event_id
                 mkt_entry.save
             end
         end
@@ -251,7 +251,7 @@ class Soccer::OddsChangeWorker
                 mkt_entry.update_attributes(update_attr)
             else
                 mkt_entry = model_name.constantize.new(update_attr)
-                mkt_entry.event_id = event["id"]
+                mkt_entry.event_id = event_id
                 mkt_entry.save
             end    
         end
