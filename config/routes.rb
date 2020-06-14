@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  match 'resend_verify' => "verify#create", via: [:post]
+  match 'new_verify' => "verify#new", via: [:get]
+  match 'verify' => "verify#update", via: [:put]
    scope '/backend' do
       namespace :fixtures do
          namespace :soccer do
@@ -22,7 +25,7 @@ Rails.application.routes.draw do
    namespace :amqp do
       namespace :v1  do
          match 'alerts' => 'alerts#create', via: [:post]
-         
+
          namespace :sports do
             match 'soccer' => 'soccer#create', via: [:post]
          end
@@ -36,6 +39,16 @@ Rails.application.routes.draw do
       sessions: 'admins/sessions'
 
    }
+
+   devise_scope :user do
+
+      authenticated :user do
+         get '/', to: 'home#index', as: :authenticated_user_root
+      end
+      unauthenticated :user do
+         get '/', to: "users/sessions#new"
+      end
+   end
    devise_scope :admin do
 
       authenticated :admin do

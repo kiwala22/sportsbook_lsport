@@ -5,6 +5,9 @@ class User < ApplicationRecord
    devise :database_authenticatable, :registerable, :recoverable, :rememberable,
    :validatable, :timeoutable, :trackable, authentication_keys: [:phone_number]
 
+
+   after_save :send_pin!
+   
    def login
       @login || self.phone_number
    end
@@ -23,6 +26,22 @@ class User < ApplicationRecord
       errors.add :password, 'Complexity requirement not met. Length should be 8-70 characters and include: 1 uppercase, 1 lowercase, 1 digit and 1 special character'
    end
 
+
+    def reset_pin!
+      self.update_column(:pin, rand(1000..9999))
+    end
+
+    def unverify!
+      self.update_column(:verified, false)
+    end
+
+    def send_pin!
+      if saved_change_to_attribute?(:phone_number)
+        reset_pin!
+        unverify!
+        self.touch(:pin_sent_at)
+      end
+    end
 
    def email_required?
       false
