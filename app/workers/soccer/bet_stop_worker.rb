@@ -27,6 +27,13 @@ class Soccer::BetStopWorker
                 end
             end
         end
+        if product == "3"
+            fixture = Fixture.find_by(event_id: event_id)
+            if fixture
+                fixture.update_attributes(status: "closed")
+            end
+        end
+        
 
     end
     
