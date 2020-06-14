@@ -5,12 +5,12 @@ ActiveAdmin.register Market63Pre do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  # permit_params :event_id, :competitor1_draw, :competitior1_competitior2, :draw_competitor2, :status
+  # permit_params :event_id, :competitor1_draw, :competitor1_competitor2, :draw_competitor2, :status
   #
   # or
   #
   # permit_params do
-  #   permitted = [:event_id, :competitor1_draw, :competitior1_competitior2, :draw_competitor2, :status]
+  #   permitted = [:event_id, :competitor1_draw, :competitor1_competitor2, :draw_competitor2, :status]
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end

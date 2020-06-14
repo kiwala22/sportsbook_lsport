@@ -12,16 +12,16 @@ class Soccer::OddsChangeWorker
         soccer_markets = []
         
         soccer_status = {
-            "0" => "Not Started",
-            "1" => "Live",
-            "2" => "Suspended",
-            "3" => "Ended",
+            "0" => "not started",
+            "1" => "live",
+            "2" => "suspended",
+            "3" => "ended",
             "4" => "closed", 
-            "5" => "Cancelled",
-            "6" => "Delayed",
-            "7" => "Interrupted",
-            "8" => "Postponed",
-            "9" => "Abandoned"
+            "5" => "cancelled",
+            "6" => "delayed",
+            "7" => "interrupted",
+            "8" => "postponed",
+            "9" => "abandoned"
         }
         
         #convert the message from the xml to an easr ruby Hash using active support
@@ -33,16 +33,20 @@ class Soccer::OddsChangeWorker
         away_score = nil
         
         if message["odds_change"].has_key?("sport_event_status")
+            if message["odds_change"]["sport_event_status"].has_key?('status')
+                status = message["odds_change"]["sport_event_status"]["status"]
+            end
+
             if message["odds_change"]["sport_event_status"].has_key?('match_status')
                 match_status = message["odds_change"]["sport_event_status"]["match_status"]
             end
             
             if message["odds_change"]["sport_event_status"].has_key?('home_score')
-                home_score = ["odds_change"]["sport_event_status"]["home_score"]
+                home_score = message["odds_change"]["sport_event_status"]["home_score"]
             end
             
             if message["odds_change"]["sport_event_status"].has_key?('away_score')
-                away_score = ["odds_change"]["sport_event_status"]["away_score"]
+                away_score = message["odds_change"]["sport_event_status"]["away_score"]
             end
         end
         
@@ -50,7 +54,7 @@ class Soccer::OddsChangeWorker
         #find the fixture and update the fixture
         fixture = SoccerFixture.where(event_id: event_id).order("created_at DESC").first
         if fixture
-            fixture.update(home_score: home_score, away_score: away_score, match_status: soccer_status[match_status])
+            fixture.update(home_score: home_score, away_score: away_score, match_status: match_status, status: soccer_status[status] )
             #extract fixture information and update the fixtures with score and match status
             if message["odds_change"].has_key?("odds")
                 if message["odds_change"]["odds"]["market"].is_a?(Array)
@@ -103,13 +107,21 @@ class Soccer::OddsChangeWorker
                 end
             end
             #update or create markets 1X2 half time and fulltime
-            model_name.constantize.find_or_create_by(event_id: event_id)  do |mkt|
-                mkt.competitor1 =  comp1_odds
-                mkt.competitor2 = comp2_odds
-                mkt.draw =  draw_odds
-                mkt.status = market_status[market["status"]]
-                
+            mkt_entry = model_name.constantize.find_by(event_id: event_id)
+            update_attr = {
+                competitor1:  comp1_odds,
+                competitor2: comp2_odds,
+                draw: draw_odds,
+                status: market_status[market["status"]]
+            }
+            if mkt_entry
+                mkt_entry.update_attributes(update_attr)
+            else
+                mkt_entry = model_name.constantize.new(update_attr)
+                mkt_entry.event_id = event_id
+                mkt_entry.save
             end
+            
         end
         
         comp1_draw_odds = comp1_comp2_odds = draw_comp2_odds = nil
@@ -130,12 +142,20 @@ class Soccer::OddsChangeWorker
                 end
             end
             #update or create markets 1X2 half time and fulltime
-            model_name.constantize.find_or_create_by(event_id: event_id)  do |mkt|
-                mkt.competitor1_draw =  comp1_draw_odds
-                mkt.competitior1_competitior2 = comp1_comp2_odds
-                mkt.draw_competitor2 =  draw_comp2_odds
-                mkt.status = market_status[market["status"]]
-                
+            #update or create markets 1X2 half time and fulltime
+            mkt_entry = model_name.constantize.find_by(event_id: event_id)
+            update_attr = {
+                competitor1_draw:  comp1_draw_odds,
+                competitor1_competitor2: comp1_comp2_odds,
+                draw_competitor2:  draw_comp2_odds,
+                status: market_status[market["status"]]
+            }
+            if mkt_entry
+                mkt_entry.update_attributes(update_attr)
+            else
+                mkt_entry = model_name.constantize.new(update_attr)
+                mkt_entry.event_id = event_id
+                mkt_entry.save
             end
             
         end
@@ -156,12 +176,19 @@ class Soccer::OddsChangeWorker
                 end
             end
             #update or create markets 1X2 half time and fulltime
-            model_name.constantize.find_or_create_by(event_id: event_id)  do |mkt|
-                mkt.under =  under_odds
-                mkt.over = over_odds
-                mkt.threshold = 2.5
-                mkt.status = market_status[market["status"]]
-                
+            mkt_entry = model_name.constantize.find_by(event_id: event_id)
+            update_attr = {
+                under:  under_odds,
+                over: over_odds,
+                threshold: 2.5,
+                status: market_status[market["status"]]
+            }
+            if mkt_entry
+                mkt_entry.update_attributes(update_attr)
+            else
+                mkt_entry = model_name.constantize.new(update_attr)
+                mkt_entry.event_id = event_id
+                mkt_entry.save
             end
             
         end
@@ -182,11 +209,18 @@ class Soccer::OddsChangeWorker
                 end
             end
             #update or create markets 1X2 half time and fulltime
-            model_name.constantize.find_or_create_by(event_id: event_id)  do |mkt|
-                mkt.yes =  yes_odds
-                mkt.no = no_odds
-                mkt.status = market_status[market["status"]]
-                
+            mkt_entry = model_name.constantize.find_by(event_id: event_id)
+            update_attr = {
+                yes:  yes_odds,
+                no: no_odds,
+                status: market_status[market["status"]]
+            }
+            if mkt_entry
+                mkt_entry.update_attributes(update_attr)
+            else
+                mkt_entry = model_name.constantize.new(update_attr)
+                mkt_entry.event_id = event_id
+                mkt_entry.save
             end
         end
         
@@ -206,14 +240,20 @@ class Soccer::OddsChangeWorker
                 end
             end
             #update or create markets 1X2 half time and fulltime
-            model_name.constantize.find_or_create_by(event_id: event_id)  do |mkt|
-                mkt.competitor1 =  comp1_odds
-                mkt.competitor2 = comp2_odds
-                mkt.threshold = 1
-                mkt.status = market_status[market["status"]]
-                
-            end
-            
+            mkt_entry = model_name.constantize.find_by(event_id: event_id)
+            update_attr = {
+                competitor1:  comp1_odds,
+                competitor2: comp2_odds,
+                threshold: 1,
+                status: market_status[market["status"]]
+            }
+            if mkt_entry
+                mkt_entry.update_attributes(update_attr)
+            else
+                mkt_entry = model_name.constantize.new(update_attr)
+                mkt_entry.event_id = event_id
+                mkt_entry.save
+            end    
         end
     end
 end
