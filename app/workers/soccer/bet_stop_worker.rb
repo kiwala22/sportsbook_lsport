@@ -10,11 +10,24 @@ class Soccer::BetStopWorker
         message = Hash.from_xml(payload)
         event_id = message["bet_stop"]["event_id"]
         product =  message["bet_stop"]["product"]
+        groups = message["bet_stop"]["groups"]
 
-        fixtures = SoccerFixture.where(event_id: event_id, status: "Active")
-        if fixtures
-           fixtures.update_all(status: "Suspended")
+        producer_type = {
+            "1" => "Live",
+            "3" => "Pre"
+        }
+
+        if groups == "all"
+            markets = ["1","60", "10", "63", "18","68", "29", "75", "16", "66"]
+            markets.each do |market|
+                model_name = "Market" + market + producer_type[product]
+                market_entry = model_name.constantize.where("status = ? AND event_id = ?", "Active", event_id).first
+                if market_entry
+                    market_entry.update_attributes(status: "Suspended")
+                end
+            end
         end
+
     end
     
 end

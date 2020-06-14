@@ -6,7 +6,7 @@ class Fixtures::Soccer::PreMatchFixturesController < ApplicationController
   layout "admin_application.html.erb"
 
   def index
-    @fixtures = SoccerFixture.where("status IN (?) AND category_id != ? ", ["not_started", "interrupted", "delayed" ], "sr:category:1033").order(:scheduled_time).page params[:page]
+    @fixtures = SoccerFixture.where("status IN (?) AND category_id != ? ", ["not_started", "not started", "interrupted", "delayed" ], "sr:category:1033").order(:scheduled_time).page params[:page]
   end
 
   def update
