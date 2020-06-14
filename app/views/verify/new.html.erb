@@ -1,0 +1,8 @@
+<%= form_tag(verify_path, :method => "put") do %>
+  <%= label_tag(:pin, "Pin") %>
+  <%= text_field_tag(:pin) %>
+  <%= submit_tag("Verify") %>
+<% end %>
+
+
+<%= link_to 'Resend code', resend_verify_path, method: :post %>

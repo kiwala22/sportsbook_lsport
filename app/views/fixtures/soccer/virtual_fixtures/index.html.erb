@@ -30,9 +30,11 @@
           <td><%= fixture.event_id %></td>
           <td><%= fixture.status %></td>
           <td><%= fixture.booked.to_s.capitalize %></td>
-          <% if fixture.live_odds == "bookable" && fixture.booked == false %>
-            <td><%= button_to "Book", fixtures_soccer_virtual_fixtures_path(id: fixture.id), method: :patch, :class => 'btn btn-xs btn-success' %></td>
-          <% end %>
+          <td>
+            <% if fixture.live_odds == "bookable" && fixture.booked == false %>
+              <%= button_to "Book", fixtures_soccer_virtual_fixtures_path(id: fixture.id), method: :patch, :class => 'btn btn-xs btn-success' %>
+            <% end %>
+          </td>
 				</tr>
 			<% end %>
     </tbody>
