@@ -17,7 +17,6 @@
                <span data-localize="sidebar.nav.DASHBOARD">Finances</span>
             </a>
             <ul id="finances" class="sidebar-nav sidebar-subnav collapse">
-               <li class="sidebar-subnav-header">Finances</li>
                <li class="<%= 'active' if controller.controller_name == 'withdraws' %>">
                   <a href="<%= withdraws_path %>" title="Withdraws">
                      <span>Withdraws</span>
@@ -39,24 +38,14 @@
          </li>
 
          <li class="">
-             <a href="soccer_fixtures" title="Users">
+             <a href="fixtures" title="Fixtures">
                <em class="fas fa-futbol"></em>
-               <span data-localize="sidebar.nav.DASHBOARD">Soccer Fixtures</span>
+               <span data-localize="sidebar.nav.DASHBOARD">Fixtures</span>
             </a>
-            <ul id="#soccer_fixtures" class="sidebar-nav sidebar-subnav collapse">
-               <li class="<%= 'active' if controller.controller_name == 'Soccer::Fixtures::live_match_fixtures' %>">
-                  <a href="<%= fixtures_soccer_live_match_fixtures_path %>" title="Live">
-                     <span>Live</span>
-                  </a>
-               </li>
-               <li class="<%= 'active' if controller.controller_name == 'Soccer::Fixtures::pre_match_fixtures' %>">
-                  <a href="<%= fixtures_soccer_pre_match_fixtures_path %>" title="Pre Match">
-                     <span>Pre Match</span>
-                  </a>
-               </li>
-               <li class="<%= 'active' if controller.controller_name == 'Soccer::Fixtures::virtual_fixtures' %>">
-                  <a href="<%= fixtures_soccer_virtual_fixtures_path %>" title="Virtual">
-                     <span>Virtual</span>
+            <ul id="#fixtures" class="sidebar-nav sidebar-subnav collapse">
+               <li class="<%= 'active' if controller.controller_name == 'Fixtures::soccer_fixtures' %>">
+                  <a href="<%= fixtures_soccer_fixtures_path %>" title="Soccer">
+                     <span>Soccer</span>
                   </a>
                </li>
             </ul>
@@ -68,7 +57,6 @@
                <span data-localize="sidebar.nav.DASHBOARD">Descriptions</span>
             </a>
             <ul id="finances" class="sidebar-nav sidebar-subnav collapse">
-               <li class="sidebar-subnav-header">Descriptions</li>
                <li class="<%= 'active' if controller.controller_name == 'betstop_reasons' %>">
                   <a href="<%= betstop_reasons_path %>" title="Betstop Reasons">
                      <span>Betstop Reasons</span>

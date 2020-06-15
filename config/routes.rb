@@ -4,14 +4,8 @@ Rails.application.routes.draw do
   match 'verify' => "verify#update", via: [:put]
    scope '/backend' do
       namespace :fixtures do
-         namespace :soccer do
-            match 'live_match_fixtures' => "live_match_fixtures#index", via: [:get]
-            match 'pre_match_fixtures' => "pre_match_fixtures#index", via: [:get]
-            match 'virtual_fixtures' => "virtual_fixtures#index", via: [:get]
-            patch 'live_match_fixtures' => "live_match_fixtures#update"
-            patch 'pre_match_fixtures' => "pre_match_fixtures#update"
-            patch 'virtual_fixtures' => "virtual_fixtures#update"
-         end
+         match 'soccer_fixtures' => "soccer_fixtures#index", via: [:get]
+         patch 'soccer_fixtures' => "soccer_fixtures#update", via: [:update]
       end
       resources :deposits, only: [:index]
       resources :withdraws, only: [:index]
@@ -43,19 +37,19 @@ Rails.application.routes.draw do
    devise_scope :user do
 
       authenticated :user do
-         get '/', to: 'home#index', as: :authenticated_user_root
+         root to: 'home#index', as: :authenticated_user_root
       end
       unauthenticated :user do
-         get '/', to: "users/sessions#new"
+         root to: "users/sessions#new", as: :unauthenticated_root
       end
    end
    devise_scope :admin do
 
       authenticated :admin do
-         root :to => 'admin_landing#index', as: :authenticated_root
+         get '/backend' => 'admin_landing#index', as: :authenticated_admins_root
       end
       unauthenticated :admin do
-         get '/', to: "admins/sessions#new"
+         get '/backend', to: "admins/sessions#new",as: :unauthenticated_admins_root
       end
    end
    # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

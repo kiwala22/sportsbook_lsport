@@ -12,7 +12,7 @@ class Soccer::OddsChangeWorker
         soccer_markets = []
         
         soccer_status = {
-            "0" => "not started",
+            "0" => "not_started",
             "1" => "live",
             "2" => "suspended",
             "3" => "ended",
