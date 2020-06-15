@@ -1,5 +1,6 @@
 class User < ApplicationRecord
    attr_writer :login
+   require 'send_sms'
    # Include default devise modules. Others available are:
    # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
    devise :database_authenticatable, :registerable, :recoverable, :rememberable,
@@ -7,7 +8,7 @@ class User < ApplicationRecord
 
 
    after_save :send_pin!
-   
+
    def login
       @login || self.phone_number
    end
@@ -28,7 +29,7 @@ class User < ApplicationRecord
 
 
     def reset_pin!
-      self.update_column(:pin, rand(1000..9999))
+      self.update_column(:pin, rand(000000..999999))
     end
 
     def unverify!
@@ -39,6 +40,8 @@ class User < ApplicationRecord
       if saved_change_to_attribute?(:phone_number)
         reset_pin!
         unverify!
+        message = "Your verification code is #{self.pin}"
+        SendSMS.process_sms_now(receiver: self.phone_number, content: message, sender_id: "Notify")
         self.touch(:pin_sent_at)
       end
     end
