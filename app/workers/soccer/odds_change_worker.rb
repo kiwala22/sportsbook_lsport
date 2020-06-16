@@ -28,33 +28,35 @@ class Soccer::OddsChangeWorker
         message = Hash.from_xml(payload)
         event_id = message["odds_change"]["event_id"]
         product = message["odds_change"]["product"]
-        match_status = nil
-        home_score = nil
-        away_score = nil
+        
+        update_attr = {
+
+        }
         
         if message["odds_change"].has_key?("sport_event_status")
             if message["odds_change"]["sport_event_status"].has_key?('status')
                 status = message["odds_change"]["sport_event_status"]["status"]
+                update_attr.status = soccer_status[status] 
             end
 
             if message["odds_change"]["sport_event_status"].has_key?('match_status')
-                match_status = message["odds_change"]["sport_event_status"]["match_status"]
+                update_attr.match_status = message["odds_change"]["sport_event_status"]["match_status"]
             end
             
             if message["odds_change"]["sport_event_status"].has_key?('home_score')
-                home_score = message["odds_change"]["sport_event_status"]["home_score"]
+                update_attr.home_score = message["odds_change"]["sport_event_status"]["home_score"]
             end
             
             if message["odds_change"]["sport_event_status"].has_key?('away_score')
-                away_score = message["odds_change"]["sport_event_status"]["away_score"]
+                update_attr.away_score = message["odds_change"]["sport_event_status"]["away_score"]
             end
         end
         
         
         #find the fixture and update the fixture
-        fixture = SoccerFixture.where(event_id: event_id).order("created_at DESC").first
+        fixture = SoccerFixture.find_by(event_id: event_id)
         if fixture
-            fixture.update(home_score: home_score, away_score: away_score, match_status: match_status, status: soccer_status[status] )
+            fixture.update(update_attr)
             #extract fixture information and update the fixtures with score and match status
             if message["odds_change"].has_key?("odds")
                 if message["odds_change"]["odds"]["market"].is_a?(Array)
