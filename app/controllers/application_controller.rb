@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
    before_action :configure_permitted_parameters, if: :devise_controller?
    before_action :set_raven_context
-   #before_action :redirect_if_unverified
+   before_action :redirect_if_unverified
 
    protected
 
