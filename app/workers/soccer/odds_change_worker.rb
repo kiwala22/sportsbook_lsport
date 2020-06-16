@@ -36,7 +36,7 @@ class Soccer::OddsChangeWorker
         if message["odds_change"].has_key?("sport_event_status")
             if message["odds_change"]["sport_event_status"].has_key?('status')
                 status = message["odds_change"]["sport_event_status"]["status"]
-                update_attr.status = soccer_status[status] 
+                update_attr["status"] = soccer_status[status] 
             end
 
             if message["odds_change"]["sport_event_status"].has_key?('match_status')
