@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_14_185332) do
+ActiveRecord::Schema.define(version: 2020_06_16_125617) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -145,6 +145,8 @@ ActiveRecord::Schema.define(version: 2020_06_14_185332) do
     t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_market10_lives_on_event_id"
+    t.index ["status"], name: "index_market10_lives_on_status"
   end
 
   create_table "market10_pres", force: :cascade do |t|
@@ -155,6 +157,8 @@ ActiveRecord::Schema.define(version: 2020_06_14_185332) do
     t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_market10_pres_on_event_id"
+    t.index ["status"], name: "index_market10_pres_on_status"
   end
 
   create_table "market16_lives", force: :cascade do |t|
@@ -165,6 +169,8 @@ ActiveRecord::Schema.define(version: 2020_06_14_185332) do
     t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_market16_lives_on_event_id"
+    t.index ["status"], name: "index_market16_lives_on_status"
   end
 
   create_table "market16_pres", force: :cascade do |t|
@@ -175,6 +181,8 @@ ActiveRecord::Schema.define(version: 2020_06_14_185332) do
     t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_market16_pres_on_event_id"
+    t.index ["status"], name: "index_market16_pres_on_status"
   end
 
   create_table "market18_lives", force: :cascade do |t|
@@ -185,6 +193,8 @@ ActiveRecord::Schema.define(version: 2020_06_14_185332) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.decimal "threshold", precision: 5, scale: 2
+    t.index ["event_id"], name: "index_market18_lives_on_event_id"
+    t.index ["status"], name: "index_market18_lives_on_status"
   end
 
   create_table "market18_pres", force: :cascade do |t|
@@ -195,6 +205,8 @@ ActiveRecord::Schema.define(version: 2020_06_14_185332) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.decimal "threshold", precision: 5, scale: 2
+    t.index ["event_id"], name: "index_market18_pres_on_event_id"
+    t.index ["status"], name: "index_market18_pres_on_status"
   end
 
   create_table "market1_lives", force: :cascade do |t|
@@ -205,6 +217,8 @@ ActiveRecord::Schema.define(version: 2020_06_14_185332) do
     t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_market1_lives_on_event_id"
+    t.index ["status"], name: "index_market1_lives_on_status"
   end
 
   create_table "market1_pres", force: :cascade do |t|
@@ -215,6 +229,8 @@ ActiveRecord::Schema.define(version: 2020_06_14_185332) do
     t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_market1_pres_on_event_id"
+    t.index ["status"], name: "index_market1_pres_on_status"
   end
 
   create_table "market29_lives", force: :cascade do |t|
@@ -224,6 +240,8 @@ ActiveRecord::Schema.define(version: 2020_06_14_185332) do
     t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_market29_lives_on_event_id"
+    t.index ["status"], name: "index_market29_lives_on_status"
   end
 
   create_table "market29_pres", force: :cascade do |t|
@@ -233,6 +251,8 @@ ActiveRecord::Schema.define(version: 2020_06_14_185332) do
     t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_market29_pres_on_event_id"
+    t.index ["status"], name: "index_market29_pres_on_status"
   end
 
   create_table "market60_lives", force: :cascade do |t|
@@ -243,6 +263,8 @@ ActiveRecord::Schema.define(version: 2020_06_14_185332) do
     t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_market60_lives_on_event_id"
+    t.index ["status"], name: "index_market60_lives_on_status"
   end
 
   create_table "market60_pres", force: :cascade do |t|
@@ -253,6 +275,8 @@ ActiveRecord::Schema.define(version: 2020_06_14_185332) do
     t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_market60_pres_on_event_id"
+    t.index ["status"], name: "index_market60_pres_on_status"
   end
 
   create_table "market63_lives", force: :cascade do |t|
@@ -263,6 +287,8 @@ ActiveRecord::Schema.define(version: 2020_06_14_185332) do
     t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_market63_lives_on_event_id"
+    t.index ["status"], name: "index_market63_lives_on_status"
   end
 
   create_table "market63_pres", force: :cascade do |t|
@@ -273,6 +299,8 @@ ActiveRecord::Schema.define(version: 2020_06_14_185332) do
     t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_market63_pres_on_event_id"
+    t.index ["status"], name: "index_market63_pres_on_status"
   end
 
   create_table "market66_lives", force: :cascade do |t|
@@ -283,6 +311,8 @@ ActiveRecord::Schema.define(version: 2020_06_14_185332) do
     t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_market66_lives_on_event_id"
+    t.index ["status"], name: "index_market66_lives_on_status"
   end
 
   create_table "market66_pres", force: :cascade do |t|
@@ -293,6 +323,8 @@ ActiveRecord::Schema.define(version: 2020_06_14_185332) do
     t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_market66_pres_on_event_id"
+    t.index ["status"], name: "index_market66_pres_on_status"
   end
 
   create_table "market68_lives", force: :cascade do |t|
@@ -303,6 +335,8 @@ ActiveRecord::Schema.define(version: 2020_06_14_185332) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.decimal "threshold", precision: 5, scale: 2
+    t.index ["event_id"], name: "index_market68_lives_on_event_id"
+    t.index ["status"], name: "index_market68_lives_on_status"
   end
 
   create_table "market68_pres", force: :cascade do |t|
@@ -313,6 +347,8 @@ ActiveRecord::Schema.define(version: 2020_06_14_185332) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.decimal "threshold", precision: 5, scale: 2
+    t.index ["event_id"], name: "index_market68_pres_on_event_id"
+    t.index ["status"], name: "index_market68_pres_on_status"
   end
 
   create_table "market75_lives", force: :cascade do |t|
@@ -322,6 +358,8 @@ ActiveRecord::Schema.define(version: 2020_06_14_185332) do
     t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_market75_lives_on_event_id"
+    t.index ["status"], name: "index_market75_lives_on_status"
   end
 
   create_table "market75_pres", force: :cascade do |t|
@@ -331,6 +369,8 @@ ActiveRecord::Schema.define(version: 2020_06_14_185332) do
     t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_market75_pres_on_event_id"
+    t.index ["status"], name: "index_market75_pres_on_status"
   end
 
   create_table "market_alerts", force: :cascade do |t|
@@ -340,6 +380,9 @@ ActiveRecord::Schema.define(version: 2020_06_14_185332) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "status", default: false
+    t.index ["product"], name: "index_market_alerts_on_product"
+    t.index ["subscribed"], name: "index_market_alerts_on_subscribed"
+    t.index ["timestamp"], name: "index_market_alerts_on_timestamp"
   end
 
   create_table "match_statuses", force: :cascade do |t|
@@ -381,6 +424,13 @@ ActiveRecord::Schema.define(version: 2020_06_14_185332) do
     t.string "home_score"
     t.string "away_score"
     t.string "match_status"
+    t.index ["booked"], name: "index_soccer_fixtures_on_booked"
+    t.index ["category"], name: "index_soccer_fixtures_on_category"
+    t.index ["event_id"], name: "index_soccer_fixtures_on_event_id"
+    t.index ["match_status"], name: "index_soccer_fixtures_on_match_status"
+    t.index ["scheduled_time"], name: "index_soccer_fixtures_on_scheduled_time"
+    t.index ["sport"], name: "index_soccer_fixtures_on_sport"
+    t.index ["status"], name: "index_soccer_fixtures_on_status"
   end
 
   create_table "users", force: :cascade do |t|
