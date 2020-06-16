@@ -96,3 +96,5 @@ gem 'webpacker', '~> 4.0'
 gem "sentry-raven"
 gem "bunny", ">= 2.9.2"
 gem 'sneakers'
+gem 'httparty', '~> 0.13.7'
+gem 'rb-readline'
