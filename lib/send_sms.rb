@@ -2,7 +2,7 @@ module SendSMS
    require 'net/http'
    require 'uri'
    require "cgi"
-   require "httparty"
+   # require "httparty"
 
    def self.process_sms_now(receiver:, content:, sender_id:, args: {})
 
