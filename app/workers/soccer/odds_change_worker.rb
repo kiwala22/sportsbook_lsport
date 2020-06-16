@@ -40,15 +40,15 @@ class Soccer::OddsChangeWorker
             end
 
             if message["odds_change"]["sport_event_status"].has_key?('match_status')
-                update_attr.match_status = message["odds_change"]["sport_event_status"]["match_status"]
+                update_attr["match_status"] = message["odds_change"]["sport_event_status"]["match_status"]
             end
             
             if message["odds_change"]["sport_event_status"].has_key?('home_score')
-                update_attr.home_score = message["odds_change"]["sport_event_status"]["home_score"]
+                update_attr["home_score"] = message["odds_change"]["sport_event_status"]["home_score"]
             end
             
             if message["odds_change"]["sport_event_status"].has_key?('away_score')
-                update_attr.away_score = message["odds_change"]["sport_event_status"]["away_score"]
+                update_attr["away_score"] = message["odds_change"]["sport_event_status"]["away_score"]
             end
         end
         
