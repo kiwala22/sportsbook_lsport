@@ -1,4 +1,4 @@
-class Fixtures::SoccerFixturesController < ApplicationController
+class Fixtures::VirtualSoccerFixturesController < ApplicationController
   include Betradar
   before_action :authenticate_admin!
 
@@ -6,7 +6,7 @@ class Fixtures::SoccerFixturesController < ApplicationController
   layout "admin_application.html.erb"
 
   def index
-    @q = Fixture.where("sport_id = ? AND category_id != ?","sr:sport:1" ,"sr:category:1033").ransack(params[:q])
+    @q = Fixture.where("sport_id = ? AND category_id = ?","sr:sport:1" ,"sr:category:1033" ).ransack(params[:q])
     @fixtures = @q.result.order(:scheduled_time).page params[:page]
   end
 

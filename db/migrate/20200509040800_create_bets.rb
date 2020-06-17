@@ -6,6 +6,8 @@ class CreateBets < ActiveRecord::Migration[6.0]
       t.string :type
       t.decimal :odds, precision: 5, scale: 2
       t.string :status
+      t.string :product
+      t.string :reason
 
       t.timestamps
     end

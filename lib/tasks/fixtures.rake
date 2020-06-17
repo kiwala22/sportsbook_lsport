@@ -5,8 +5,8 @@ task pull_fixture: :environment do
    date_two = (Date.today + 2.day).strftime("%F")
    date_three = (Date.today + 2.day).strftime("%F")
 
-   fixture_today = SoccerFixture.new.fetch_fixtures(date_today)
-   fixture_one =   SoccerFixture.new.fetch_fixtures(date_one)
-   fixture_two =   SoccerFixture.new.fetch_fixtures(date_two)
-   fixture_two =   SoccerFixture.new.fetch_fixtures(date_three)
+   fixture_today = Fixture.new.fetch_fixtures(date_today)
+   fixture_one =   Fixture.new.fetch_fixtures(date_one)
+   fixture_two =   Fixture.new.fetch_fixtures(date_two)
+   fixture_two =   Fixture.new.fetch_fixtures(date_three)
 end

@@ -1,0 +1,118 @@
+<div class="content-heading">
+    <div>
+        <span>Fixtures</span>
+        <small>Virtual Soccer Fixtures</small>
+    </div>
+</div>
+
+<div class="card card-default">
+   <div class="card-body">
+		 <%= search_form_for @q, url: fixtures_soccer_fixtures_path, html: { method: :get } do |f| %>
+      <fieldset>
+          <div class="form-row">
+              <div class="col-sm-6 col-md-4">
+                    <%= f.label :status, "Status", class:"col-md-4 col-form-label" %>
+                    <div class="col-lg-8">
+                      <%= f.select :status_eq, options_for_select(["not_started","live","suspended","ended","closed", "cancelled","delayed","interrupted","postponed","abandoned"]) , {include_blank: true} ,{ class: "form-control", id: "status"} %>
+                    </div>
+              </div>
+              <div class="col-sm-6 col-md-4">
+                    <%= f.label :event_id, "Event", class:"col-md-4 col-form-label" %>
+                    <div class="col-lg-8">
+                      <%= f.search_field :event_id_eq, { include_blank: true, :class=>"form-control", id: "event_id"}%>
+                    </div>
+              </div>
+              <div class="col-sm-6 col-md-4">
+                    <%= f.label :booked, "Booking Status", class:"col-md-4 col-form-label" %>
+                    <div class="col-lg-8">
+                      <%= f.select :booked_eq, options_for_select(["true", "false"]), {include_blank: true} ,{ class: "form-control", id: "status"} %>
+                    </div>
+              </div>
+          </div>
+          <div class="form-row">
+              <div class="col-sm-6 col-md-4">
+                    <%= f.label :category, "Category", class:"col-md-4 col-form-label" %>
+                    <div class="col-lg-8">
+                      <%= f.search_field :category_i_cont, {include_blank: true, class: "form-control", id: "category"} %>
+                    </div>
+              </div>
+              <div class="col-sm-6 col-md-4">
+                    <%= f.label :tournament_name, "Tournament", class:"col-md-4 col-form-label" %>
+                    <div class="col-lg-8">
+                      <%= f.search_field :tournament_name_i_cont, { include_blank: true, :class=>"form-control", id: "tournament_name"}%>
+                    </div>
+              </div>
+              <div class="col-sm-6 col-md-4">
+                    <%= f.label :booked, "Team", class:"col-md-4 col-form-label" %>
+                    <div class="col-lg-8">
+                      <%= f.search_field :comp_one_name_or_comp_two_name_i_cont, { include_blank: true, :class=>"form-control", id: "team"}%>
+                    </div>
+              </div>
+          </div>
+          <div class="form-row">
+              <div class="col-sm-6 col-md-4">
+                    <%= f.label :scheduled_time, "Kick-Off After", class:"col-md-4 col-form-label" %>
+                    <div class="col-lg-8">
+                      <%= f.search_field :scheduled_time_gteq, {include_blank: true, class: "form-control", id: "kick_off_after"} %>
+                    </div>
+              </div>
+              <div class="col-sm-6 col-md-4">
+                    <%= f.label :scheduled_time, "Kick-Off Before", class:"col-md-4 col-form-label" %>
+                    <div class="col-lg-8">
+                      <%= f.search_field :scheduled_time_lteq, { include_blank: true, :class=>"form-control", id: "kick_off_before"}%>
+                    </div>
+              </div>
+          </div>
+      </fieldset>
+			
+      <!-- <div class="card-footer"> -->
+         <div class="clearfix">
+            <div class="float-right">
+               <%= f.submit 'Search', :class=>'btn btn-danger mb-2' %>
+            </div>
+         </div>
+      <!-- </div> -->
+			<% end %>
+   </div>
+</div>
+
+<div class="table-responsive container-fluid">
+  <!-- table table-striped table-bordered table-hover -->
+  <table class="fixture table table-striped table-bordered table-hoverlarge-12 columns large-centered">
+    <thead>
+      <tr>
+        <th >No</th>
+        <th >Time</th>
+        <th >Game</th>
+        <th >Tournament Name</th>
+        <th >Category</th>
+        <th >Event ID</th>
+        <th >Status</th>
+        <th >Booked</th>
+        <th >Action</th>
+        <th >Score</th>
+      </tr>
+    </thead>
+    <tbody>
+			<% @fixtures.each_with_index do |fixture, i| %>
+				<tr>
+					<td><%= (i+1)%></td>
+          <td><%= fixture.scheduled_time.to_datetime.strftime("%b %d, %Y %I:%M%P") %></td>
+          <td><%= fixture.comp_one_name %>  - <%= fixture.comp_two_name%> </td>
+          <td><%= fixture.tournament_name %></td>
+           <td><%= fixture.category %></td>
+          <td><%= fixture.event_id %></td>
+          <td><%= fixture.status %></td>
+          <td><%= fixture.booked.to_s.capitalize %></td>
+          <td>
+            <% if fixture.live_odds == "bookable" && fixture.booked == false %>
+              <%= button_to "Book", fixtures_soccer_fixtures_path(id: fixture.id), method: :patch, :class => 'btn btn-xs btn-success' %>
+            <% end %>
+          </td>
+          <td><%= "#{fixture.home_score} - #{fixture.away_score} " %></td>
+				</tr>
+			<% end %>
+    </tbody>
+  </table>
+	<%= paginate @fixtures %>
+</div>

@@ -28,7 +28,7 @@ class Soccer::UpdateFixtureWorker
       response = http.request(request)
       if response.code == "200"
          event = Hash.from_xml(response.body)
-         fixture = SoccerFixture.where(event_id: event_id)
+         fixture = Fixture.where(event_id: event_id)
          if fixture && (fixture.updated_at < update_time)
             update_attr = {scheduled_time: event["fixtures_fixture"]["fixture"]["scheduled"],
                status: event["fixtures_fixture"]["fixture"]["status"],

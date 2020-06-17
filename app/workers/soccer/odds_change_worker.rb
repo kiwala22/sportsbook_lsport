@@ -54,7 +54,7 @@ class Soccer::OddsChangeWorker
         
         
         #find the fixture and update the fixture
-        fixture = SoccerFixture.find_by(event_id: event_id)
+        fixture = Fixture.find_by(event_id: event_id)
         if fixture
             fixture.update(update_attr)
             #extract fixture information and update the fixtures with score and match status

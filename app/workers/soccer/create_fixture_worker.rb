@@ -16,7 +16,7 @@ class Soccer::CreateFixtureWorker
     @@auth_token = ENV['BETRADAR_TOKEN']
  
     def perform(event)
-        SoccerFixture.find_or_create_by(event_id: event["id"] ) do |fixture|
+        Fixture.find_or_create_by(event_id: event["id"] ) do |fixture|
             fixture.scheduled_time = event["scheduled"]
             fixture.status = event["status"]
             fixture.live_odds = event["liveodds"]

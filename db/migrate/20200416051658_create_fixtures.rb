@@ -1,6 +1,6 @@
-class CreateSoccerFixtures < ActiveRecord::Migration[6.0]
+class CreateFixtures < ActiveRecord::Migration[6.0]
   def change
-    create_table :soccer_fixtures do |t|
+    create_table :fixtures do |t|
       t.string :event_id
       t.timestamp :scheduled_time
       t.string :live_odds
@@ -25,6 +25,9 @@ class CreateSoccerFixtures < ActiveRecord::Migration[6.0]
       t.string :comp_two_gender
       t.string :comp_two_abb
       t.string :comp_two_qualifier
+      t.string :home_score
+      t.string :away_score
+      t.string :match_status
       
       t.timestamps
     end

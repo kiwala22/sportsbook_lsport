@@ -49,11 +49,11 @@ class Soccer::FixtureChangeWorker
          end   
 
         #find the fixture in the database
-        fixture = SoccerFixture.find_by(event_id: event_id)
+        fixture = Fixture.find_by(event_id: event_id)
         if fixture
             fixture.update_attributes(update_attr)
         else
-            fixture = SoccerFixture.new(update_attr)
+            fixture = Fixture.new(update_attr)
             fixture.event_id = event["id"]
             fixture.save
         end
