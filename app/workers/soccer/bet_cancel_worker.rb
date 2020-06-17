@@ -16,12 +16,13 @@ class Soccer::BetCancelWorker
         market_id =  message["bet_cancel"]["market"]["id"]
         product = message["bet_cancel"]["product"]
         #extract the cancel start and end time if they are present
+
         if message["bet_cancel"].has_key?("end_time")
-            end_time = message["bet_cancel"]["end_time"]
+            end_time = message["bet_cancel"]["end_time"].to_datetime
         end
 
         if message["bet_cancel"].has_key?("start_time")
-            start_time = message["bet_cancel"]["start_time"]
+            start_time = message["bet_cancel"]["start_time"].to_datetime
         end
 
         #create a dynamic query
