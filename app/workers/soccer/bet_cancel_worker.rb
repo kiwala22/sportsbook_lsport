@@ -1,6 +1,5 @@
 require 'sidekiq'
 
-
 class Soccer::BetCancelWorker
     include Sidekiq::Worker
     sidekiq_options queue: "default"
@@ -18,11 +17,11 @@ class Soccer::BetCancelWorker
         #extract the cancel start and end time if they are present
 
         if message["bet_cancel"].has_key?("end_time")
-            end_time = message["bet_cancel"]["end_time"].to_datetime
+            end_time = message["bet_cancel"]["end_time"]
         end
 
         if message["bet_cancel"].has_key?("start_time")
-            start_time = message["bet_cancel"]["start_time"].to_datetime
+            start_time = message["bet_cancel"]["start_time"]
         end
 
         #create a dynamic query
@@ -50,9 +49,9 @@ class Soccer::BetCancelWorker
         end
 
         wheres.insert(0, conditions)
-        
-        bets = Bet.where(wheres)
-        bets.update_all(status: "Cancelled", updated_at: Time.now)
+
+        #search and update all the bets
+        bets = Bet.where(wheres).update_all(status: "Cancelled")
     end
     
 end

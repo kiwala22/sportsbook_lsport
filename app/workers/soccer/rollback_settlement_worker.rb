@@ -24,6 +24,8 @@ class Soccer::RollbackSettlementWorker
                 if mkt_entry
                     mkt_entry.update_attributes(status: "Deactivated", outcome: nil) 
                 end
+
+                #rollback the settlement on the bets
                       
             end
         end
@@ -40,6 +42,8 @@ class Soccer::RollbackSettlementWorker
                 if mkt_entry
                     mkt_entry.update_attributes(status: "Deactivated", outcome: nil)
                 end
+
+                #rollback the settlement on the bets
 
         end
         
