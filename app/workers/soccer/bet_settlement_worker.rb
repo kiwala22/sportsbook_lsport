@@ -22,8 +22,8 @@ class Soccer::BetSettlementWorker
             end
             
             #iterate over the outcomes and mark the markets as settled
-            if message["bet_settlement"].has_key?("outcomes")
-                if message["bet_settlement"]["outcomes"].has_key?("market")
+            if message["bet_settlement"].has_key?("outcomes") && message["bet_settlement"]["outcomes"].present?
+                if message["bet_settlement"]["outcomes"].has_key?("market") && message["bet_settlement"]["outcomes"]["market"].present?
                     if message["bet_settlement"]["outcomes"]["market"].is_a?(Array)
                         message["bet_settlement"]["outcomes"]["market"].each do |market|
                             #record the match outcomes
@@ -33,19 +33,19 @@ class Soccer::BetSettlementWorker
                             #call bet settlement worker        
                         end
                     end
+
+                    if message["bet_settlement"]["outcomes"]["market"].is_a?(Hash)
+                        #record the match outcomes
+                        process_market(message["bet_settlement"]["outcomes"]["market"], product, event_id)  
+                        
+                        #run through all the bets with event_id and settle them
+                        #call bet settlement worker        
+                    end
                 end
-                
-                if message["bet_settlement"]["outcomes"].has_key?("market") && message["bet_settlement"]["outcomes"]["market"].is_a?(Hash)
-                    #record the match outcomes
-                    process_market(message["bet_settlement"]["outcomes"]["market"], product, event_id)  
-                    
-                    #run through all the bets with event_id and settle them
-                    #call bet settlement worker        
-                end
-                
+                                
             end
             
-            def process_markets(market, product, event_id)
+            def process_market(market, product, event_id)
                 producer_type = {
                     "1" => "Live",
                     "3" => "Pre"
