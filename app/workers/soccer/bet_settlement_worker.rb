@@ -14,7 +14,7 @@ class Soccer::BetSettlementWorker
         
         if message["bet_settlement"]["certainty"] == "2"
             #check if there are nay voided
-
+            
             #update fixture as ended
             fixture = Fixture.find_by(event_id: event_id)
             if fixture
@@ -33,7 +33,7 @@ class Soccer::BetSettlementWorker
                             #call bet settlement worker        
                         end
                     end
-
+                    
                     if message["bet_settlement"]["outcomes"]["market"].is_a?(Hash)
                         #record the match outcomes
                         process_market(message["bet_settlement"]["outcomes"]["market"], product, event_id)  
@@ -42,190 +42,188 @@ class Soccer::BetSettlementWorker
                         #call bet settlement worker        
                     end
                 end
-                                
-            end
-            
-            def process_market(market, product, event_id)
-                producer_type = {
-                    "1" => "Live",
-                    "3" => "Pre"
-                }
-
-                outcome_attr = {}
                 
-                update_attr = {}
-
-                model_name = "Market" + market["id"] + producer_type[product]
-                
-                #hard code market with similar outcomes
-                if market["id"] == "1" || market["id"] == "60"
-                    
-                    if market.has_key?("outcome")
-                        market["outcome"].each do |out|
-                            if out["id"] == "1"
-                                outcome_attr["1"] = out["result"]
-                            end
-                            if out["id"] == "2"
-                                outcome_attr["2"] = out["result"]
-                            end
-                            if out["id"] == "3"
-                                outcome_attr["3"] = out["result"]
-                            end
-                        end
-                    end
-
-                    if market.has_key?("void_reason")
-                        update_attr["void_reasons"] = out["result"]
-                    end
-
-                    update_attr["outcome"] = outcome_attr.to_json
-
-                    #update or create markets 1X2 half time and fulltime
-                    mkt_entry = model_name.constantize.find_by(event_id: event_id)
-                    if mkt_entry
-                        mkt_entry.update_attributes(update_attr)
-                    else
-                        mkt_entry = model_name.constantize.new(update_attr)
-                        mkt_entry.event_id = event_id
-                        mkt_entry.save
-                    end
-                    
-                end
-                
-                if market["id"] == "10" || market["id"] == "63"
-                    #update or create markets double chance half time and fulltime
-                    
-                    if market.has_key?("outcome")
-                        market["outcome"].each do |out|
-                            if out["id"] == "9"
-                                outcome_attr["9"] = out["result"]
-                            end
-                            if out["id"] == "10"
-                                coutcome_attr["10"] = out["result"]
-                            end
-                            if out["id"] == "11"
-                                outcome_attr["11"] = out["result"]
-                            end
-                        end
-                    end
-
-                    if market.has_key?("void_reason")
-                        update_attr["void_reasons"] = out["result"]
-                    end
-
-                    update_attr["outcome"] = outcome_attr.to_json
-
-                    #update or create markets 1X2 half time and fulltime
-                    mkt_entry = model_name.constantize.find_by(event_id: event_id)
-                    
-                    if mkt_entry
-                        mkt_entry.update_attributes(update_attr)
-                    else
-                        mkt_entry = model_name.constantize.new(update_attr)
-                        mkt_entry.event_id = event_id
-                        mkt_entry.save
-                    end
-                    
-                end
-                
-                if (market["id"] == "18" || market["id"] == "68") && market["specifiers"] == "total=2.5"
-                    #update or create markets under and over half time and fulltime
-                    
-                    if market.has_key?("outcome")
-                        market["outcome"].each do |out|
-                            if out["id"] == "12"
-                                outcome_attr["12"] = out["result"]
-                            end
-                            if out["id"] == "13"
-                                uoutcome_attr["13"] = out["result"]
-                            end
-                            
-                        end
-                    end
-
-                    if market.has_key?("void_reason")
-                        update_attr["void_reasons"] = out["result"]
-                    end
-
-                    update_attr["outcome"] = outcome_attr.to_json
-
-                    #update or create markets 1X2 half time and fulltime
-                    mkt_entry = model_name.constantize.find_by(event_id: event_id)
-                    if mkt_entry
-                        mkt_entry.update_attributes(update_attr)
-                    else
-                        mkt_entry = model_name.constantize.new(update_attr)
-                        mkt_entry.event_id = event_id
-                        mkt_entry.save
-                    end
-                    
-                end
-                
-                if market["id"] == "29" || market["id"] == "75"
-                    #update or create markets both to score half time and fulltime
-                    
-                    if market.has_key?("outcome")
-                        market["outcome"].each do |out|
-                            if out["id"] == "74"
-                                outcome_attr["74"] = out["result"]
-                            end
-                            if out["id"] == "76"
-                            outcome_attr["76"] = out["result"]
-                            end
-                            
-                        end
-                    end
-                    #update or create markets 1X2 half time and fulltime
-                    if market.has_key?("void_reason")
-                        update_attr["void_reasons"] = out["result"]
-                    end
-
-                    update_attr["outcome"] = outcome_attr.to_json
-
-                    mkt_entry = model_name.constantize.find_by(event_id: event_id)
-                    if mkt_entry
-                        mkt_entry.update_attributes(update_attr)
-                    else
-                        mkt_entry = model_name.constantize.new(update_attr)
-                        mkt_entry.event_id = event_id
-                        mkt_entry.save
-                    end
-                end
-                
-                if (market["id"] == "16" ||  "66") && market["specifiers"] == "hcp=1"
-                    #update or create markets under and over half time and fulltime
-                    
-                    if market.has_key?("outcome")
-                        market["outcome"].each do |out|
-                            if out["id"] == "1714"
-                                outcome_attr["1714"] = out["result"]
-                            end
-                            if out["id"] == "1715"
-                                outcome_attr["1715"] = out["result"]
-                            end 
-                            
-                        end
-                    end
-
-                    if market.has_key?("void_reason")
-                        update_attr["void_reasons"] = out["result"]
-                    end
-
-                    update_attr["outcome"] = outcome_attr.to_json
-
-                    #update or create markets 1X2 half time and fulltime
-                    mkt_entry = model_name.constantize.find_by(event_id: event_id)
-                    if mkt_entry
-                        mkt_entry.update_attributes(update_attr)
-                    else
-                        mkt_entry = model_name.constantize.new(update_attr)
-                        mkt_entry.event_id = event_id
-                        mkt_entry.save
-                    end    
-                end
             end
             
         end
     end
-    
+    def process_market(market, product, event_id)
+        producer_type = {
+            "1" => "Live",
+            "3" => "Pre"
+        }
+
+        outcome_attr = {}
+        
+        update_attr = {}
+
+        model_name = "Market" + market["id"] + producer_type[product]
+        
+        #hard code market with similar outcomes
+        if market["id"] == "1" || market["id"] == "60"
+            
+            if market.has_key?("outcome")
+                market["outcome"].each do |out|
+                    if out["id"] == "1"
+                        outcome_attr["1"] = out["result"]
+                    end
+                    if out["id"] == "2"
+                        outcome_attr["2"] = out["result"]
+                    end
+                    if out["id"] == "3"
+                        outcome_attr["3"] = out["result"]
+                    end
+                end
+            end
+
+            if market.has_key?("void_reason")
+                update_attr["void_reasons"] = out["result"]
+            end
+
+            update_attr["outcome"] = outcome_attr.to_json
+
+            #update or create markets 1X2 half time and fulltime
+            mkt_entry = model_name.constantize.find_by(event_id: event_id)
+            if mkt_entry
+                mkt_entry.update_attributes(update_attr)
+            else
+                mkt_entry = model_name.constantize.new(update_attr)
+                mkt_entry.event_id = event_id
+                mkt_entry.save
+            end
+            
+        end
+        
+        if market["id"] == "10" || market["id"] == "63"
+            #update or create markets double chance half time and fulltime
+            
+            if market.has_key?("outcome")
+                market["outcome"].each do |out|
+                    if out["id"] == "9"
+                        outcome_attr["9"] = out["result"]
+                    end
+                    if out["id"] == "10"
+                        coutcome_attr["10"] = out["result"]
+                    end
+                    if out["id"] == "11"
+                        outcome_attr["11"] = out["result"]
+                    end
+                end
+            end
+
+            if market.has_key?("void_reason")
+                update_attr["void_reasons"] = out["result"]
+            end
+
+            update_attr["outcome"] = outcome_attr.to_json
+
+            #update or create markets 1X2 half time and fulltime
+            mkt_entry = model_name.constantize.find_by(event_id: event_id)
+            
+            if mkt_entry
+                mkt_entry.update_attributes(update_attr)
+            else
+                mkt_entry = model_name.constantize.new(update_attr)
+                mkt_entry.event_id = event_id
+                mkt_entry.save
+            end
+            
+        end
+        
+        if (market["id"] == "18" || market["id"] == "68") && market["specifiers"] == "total=2.5"
+            #update or create markets under and over half time and fulltime
+            
+            if market.has_key?("outcome")
+                market["outcome"].each do |out|
+                    if out["id"] == "12"
+                        outcome_attr["12"] = out["result"]
+                    end
+                    if out["id"] == "13"
+                        uoutcome_attr["13"] = out["result"]
+                    end
+                    
+                end
+            end
+
+            if market.has_key?("void_reason")
+                update_attr["void_reasons"] = out["result"]
+            end
+
+            update_attr["outcome"] = outcome_attr.to_json
+
+            #update or create markets 1X2 half time and fulltime
+            mkt_entry = model_name.constantize.find_by(event_id: event_id)
+            if mkt_entry
+                mkt_entry.update_attributes(update_attr)
+            else
+                mkt_entry = model_name.constantize.new(update_attr)
+                mkt_entry.event_id = event_id
+                mkt_entry.save
+            end
+            
+        end
+        
+        if market["id"] == "29" || market["id"] == "75"
+            #update or create markets both to score half time and fulltime
+            
+            if market.has_key?("outcome")
+                market["outcome"].each do |out|
+                    if out["id"] == "74"
+                        outcome_attr["74"] = out["result"]
+                    end
+                    if out["id"] == "76"
+                    outcome_attr["76"] = out["result"]
+                    end
+                    
+                end
+            end
+            #update or create markets 1X2 half time and fulltime
+            if market.has_key?("void_reason")
+                update_attr["void_reasons"] = out["result"]
+            end
+
+            update_attr["outcome"] = outcome_attr.to_json
+
+            mkt_entry = model_name.constantize.find_by(event_id: event_id)
+            if mkt_entry
+                mkt_entry.update_attributes(update_attr)
+            else
+                mkt_entry = model_name.constantize.new(update_attr)
+                mkt_entry.event_id = event_id
+                mkt_entry.save
+            end
+        end
+        
+        if (market["id"] == "16" ||  "66") && market["specifiers"] == "hcp=1"
+            #update or create markets under and over half time and fulltime
+            
+            if market.has_key?("outcome")
+                market["outcome"].each do |out|
+                    if out["id"] == "1714"
+                        outcome_attr["1714"] = out["result"]
+                    end
+                    if out["id"] == "1715"
+                        outcome_attr["1715"] = out["result"]
+                    end 
+                    
+                end
+            end
+
+            if market.has_key?("void_reason")
+                update_attr["void_reasons"] = out["result"]
+            end
+
+            update_attr["outcome"] = outcome_attr.to_json
+
+            #update or create markets 1X2 half time and fulltime
+            mkt_entry = model_name.constantize.find_by(event_id: event_id)
+            if mkt_entry
+                mkt_entry.update_attributes(update_attr)
+            else
+                mkt_entry = model_name.constantize.new(update_attr)
+                mkt_entry.event_id = event_id
+                mkt_entry.save
+            end    
+        end
+    end
 end
