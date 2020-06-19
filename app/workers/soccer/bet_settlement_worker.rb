@@ -12,7 +12,7 @@ class Soccer::BetSettlementWorker
         event_id = message["bet_settlement"]["event_id"]
         product =  message["bet_settlement"]["product"]
         
-        if message["bet_settlement"]["certainity"] == "2"
+        if message["bet_settlement"]["certainty"] == "2"
             #check if there are nay voided
 
             #update fixture as ended
@@ -23,13 +23,15 @@ class Soccer::BetSettlementWorker
             
             #iterate over the outcomes and mark the markets as settled
             if message["bet_settlement"].has_key?("outcomes")
-                if message["bet_settlement"]["outcomes"].has_key?("market") && message["bet_settlement"]["outcomes"]["market"].is_a?(Array)
-                    message["bet_settlement"]["outcomes"]["market"].each do |market|
-                        #record the match outcomes
-                        process_market(market, product, event_id)  
-                        
-                        #run through all the bets with event_id and settle them
-                        #call bet settlement worker        
+                if message["bet_settlement"]["outcomes"].has_key?("market")
+                    if message["bet_settlement"]["outcomes"]["market"].is_a?(Array)
+                        message["bet_settlement"]["outcomes"]["market"].each do |market|
+                            #record the match outcomes
+                            process_market(market, product, event_id)  
+                            
+                            #run through all the bets with event_id and settle them
+                            #call bet settlement worker        
+                        end
                     end
                 end
                 
