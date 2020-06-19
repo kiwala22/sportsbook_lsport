@@ -12,21 +12,23 @@ class Soccer::RollbackSettlementWorker
         product =  message["rollback_ bet_settlement"]["product"]
         
         #iterate over the outcomes and mark the markets as settled
-        if message["rollback_bet_settlement"].has_key?("market") && message["rollback_bet_settlement"]["market"].is_a?(Array)
-            message["rollback_bet_settlement"]["market"].each do |market|
-                producer_type = {
-                    "1" => "Live",
-                    "3" => "Pre"
-                }
+        if message["rollback_bet_settlement"].has_key?("market")
+            if message["rollback_bet_settlement"]["market"].is_a?(Array)
+                message["rollback_bet_settlement"]["market"].each do |market|
+                    producer_type = {
+                        "1" => "Live",
+                        "3" => "Pre"
+                    }
 
-                model_name = "Market" + market["id"] + producer_type[product]
-                mkt_entry = model_name.constantize.find_by(event_id: event_id, status: "Settled")
-                if mkt_entry
-                    mkt_entry.update_attributes(status: "Deactivated", outcome: nil) 
+                    model_name = "Market" + market["id"] + producer_type[product]
+                    mkt_entry = model_name.constantize.find_by(event_id: event_id, status: "Settled")
+                    if mkt_entry
+                        mkt_entry.update_attributes(status: "Deactivated", outcome: nil) 
+                    end
+
+                    #rollback the settlement on the bets
+                        
                 end
-
-                #rollback the settlement on the bets
-                      
             end
         end
         

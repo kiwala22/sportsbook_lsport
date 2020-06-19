@@ -30,7 +30,7 @@ class Soccer::OddsChangeWorker
         product = message["odds_change"]["product"]
         
         update_attr = {
-
+            
         }
         
         if message["odds_change"].has_key?("sport_event_status")
@@ -38,7 +38,7 @@ class Soccer::OddsChangeWorker
                 status = message["odds_change"]["sport_event_status"]["status"]
                 update_attr["status"] = soccer_status[status] 
             end
-
+            
             if message["odds_change"]["sport_event_status"].has_key?('match_status')
                 update_attr["match_status"] = message["odds_change"]["sport_event_status"]["match_status"]
             end
@@ -59,19 +59,23 @@ class Soccer::OddsChangeWorker
             fixture.update(update_attr)
             #extract fixture information and update the fixtures with score and match status
             if message["odds_change"].has_key?("odds")
-                if message["odds_change"]["odds"].has_key?("market") && message["odds_change"]["odds"]["market"].is_a?(Array)
-                    message["odds_change"]["odds"]["market"].each do |market|
-                        process_market(market, product, event_id)  
+                if message["odds_change"]["odds"].has_key?("market")
+                    if message["odds_change"]["odds"]["market"].is_a?(Array)
+                        message["odds_change"]["odds"]["market"].each do |market|
+                            process_market(market, product, event_id)  
+                        end
                     end
                 end
-                
-                if message["odds_change"]["odds"].has_key?("market") && message["odds_change"]["odds"]["market"].is_a?(Hash)
+            end
+            
+            
+            
+            if message["odds_change"]["odds"].has_key?("market")
+                if message["odds_change"]["odds"]["market"].is_a?(Hash)
                     process_market(message["odds_change"]["odds"]["market"], product, event_id)  
                 end
-                
             end
         end
-        
     end
     
     def process_market(market, product, event_id)
