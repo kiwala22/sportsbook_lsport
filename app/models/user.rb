@@ -42,6 +42,8 @@ class User < ApplicationRecord
         unverify!
         message = "Your verification code is #{self.pin}"
         SendSMS.process_sms_now(receiver: self.phone_number, content: message, sender_id: "Notify")
+        #In scenarios of automatic emails, uncomment the line below
+        #VerifyMailer.with(id: self.id).verification_email.deliver_now
         self.touch(:pin_sent_at)
       end
     end

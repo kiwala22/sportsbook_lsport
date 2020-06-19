@@ -1,0 +1,10 @@
+<%= form_tag(deposit_path, :method => "post") do %>
+  <%= label_tag(:phone_number, "Phone Number") %>
+  <%= text_field_tag(:phone_number) %>
+  <%= label_tag(:amount, "Amount") %>
+  <%= number_field_tag(:amount) %>
+  <%= submit_tag("Deposit Amount") %>
+<% end %>
+
+
+<p><%= link_to 'Home', authenticated_user_root_path %></p>

@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
+  resources :transactions, only: [:new]
+  match 'deposit' => "transactions#deposit", via: [:post]
   match 'resend_verify' => "verify#create", via: [:post]
   match 'new_verify' => "verify#new", via: [:get]
+  match 'send_verification' => "verify#verify_via_email", via: [:get]
   match 'verify' => "verify#update", via: [:put]
    scope '/backend' do
       namespace :fixtures do
