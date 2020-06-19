@@ -139,7 +139,7 @@ class Soccer::BetSettlementWorker
                         outcome_attr["12"] = out["result"]
                     end
                     if out["id"] == "13"
-                        uoutcome_attr["13"] = out["result"]
+                        outcome_attr["13"] = out["result"]
                     end
                     
                 end
@@ -172,7 +172,7 @@ class Soccer::BetSettlementWorker
                         outcome_attr["74"] = out["result"]
                     end
                     if out["id"] == "76"
-                    outcome_attr["76"] = out["result"]
+                        outcome_attr["76"] = out["result"]
                     end
                     
                 end
