@@ -20,4 +20,11 @@ class VerifyController < ApplicationController
       render :new
     end
   end
+
+  def verify_via_email
+    #method to veirfy phone number via email
+    VerifyMailer.with(id: current_user.id).verification_email.deliver_now
+    flash.now[:notice] = "A Code has been sent to your email address."
+    render :new and return
+  end
 end

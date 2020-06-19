@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_16_125617) do
+ActiveRecord::Schema.define(version: 2020_06_19_133106) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,18 @@ ActiveRecord::Schema.define(version: 2020_06_16_125617) do
     t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id"
     t.index ["namespace"], name: "index_active_admin_comments_on_namespace"
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
+  end
+
+  create_table "add_product_to_bets", force: :cascade do |t|
+    t.string "product"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "add_reason_to_bets", force: :cascade do |t|
+    t.string "product"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "admin_users", force: :cascade do |t|
@@ -81,10 +93,10 @@ ActiveRecord::Schema.define(version: 2020_06_16_125617) do
     t.string "type"
     t.decimal "odds", precision: 5, scale: 2
     t.string "status"
-    t.string "product"
-    t.string "reason"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "product"
+    t.string "reason"
   end
 
   create_table "betstop_reasons", force: :cascade do |t|
@@ -125,56 +137,12 @@ ActiveRecord::Schema.define(version: 2020_06_16_125617) do
     t.index ["user_id"], name: "index_deposits_on_user_id"
   end
 
-  create_table "fixtures", force: :cascade do |t|
-    t.string "event_id"
-    t.datetime "scheduled_time"
-    t.string "live_odds"
-    t.string "status"
-    t.string "tournament_round"
-    t.string "betradar_id"
-    t.integer "season_id"
-    t.string "season_name"
-    t.integer "tournament_id"
-    t.string "tournament_name"
-    t.string "sport_id"
-    t.string "sport"
-    t.string "category_id"
-    t.string "category"
-    t.string "comp_one_id"
-    t.string "comp_one_name"
-    t.string "comp_one_gender"
-    t.string "comp_one_abb"
-    t.string "comp_one_qualifier"
-    t.string "comp_two_id"
-    t.string "comp_two_name"
-    t.string "comp_two_gender"
-    t.string "comp_two_abb"
-    t.string "comp_two_qualifier"
-    t.string "home_score"
-    t.string "away_score"
-    t.string "match_status"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.boolean "booked", default: false
-    t.index ["booked"], name: "index_fixtures_on_booked"
-    t.index ["category"], name: "index_fixtures_on_category"
-    t.index ["category_id"], name: "index_fixtures_on_category_id"
-    t.index ["event_id"], name: "index_fixtures_on_event_id"
-    t.index ["match_status"], name: "index_fixtures_on_match_status"
-    t.index ["scheduled_time"], name: "index_fixtures_on_scheduled_time"
-    t.index ["sport"], name: "index_fixtures_on_sport"
-    t.index ["sport_id"], name: "index_fixtures_on_sport_id"
-    t.index ["status"], name: "index_fixtures_on_status"
-  end
-
   create_table "market10_lives", force: :cascade do |t|
     t.string "event_id"
     t.decimal "competitor1_draw", precision: 6, scale: 2
     t.decimal "competitor1_competitor2", precision: 6, scale: 2
     t.decimal "draw_competitor2", precision: 6, scale: 2
     t.string "status"
-    t.string "void_reason"
-    t.json "outcome"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["event_id"], name: "index_market10_lives_on_event_id"
@@ -187,8 +155,6 @@ ActiveRecord::Schema.define(version: 2020_06_16_125617) do
     t.decimal "competitor1_competitor2", precision: 6, scale: 2
     t.decimal "draw_competitor2", precision: 6, scale: 2
     t.string "status"
-    t.string "void_reason"
-    t.json "outcome"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["event_id"], name: "index_market10_pres_on_event_id"
@@ -201,8 +167,6 @@ ActiveRecord::Schema.define(version: 2020_06_16_125617) do
     t.decimal "competitor2", precision: 6, scale: 2
     t.integer "threshold"
     t.string "status"
-    t.string "void_reason"
-    t.json "outcome"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["event_id"], name: "index_market16_lives_on_event_id"
@@ -215,8 +179,6 @@ ActiveRecord::Schema.define(version: 2020_06_16_125617) do
     t.decimal "competitor2", precision: 6, scale: 2
     t.integer "threshold"
     t.string "status"
-    t.string "void_reason"
-    t.json "outcome"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["event_id"], name: "index_market16_pres_on_event_id"
@@ -228,11 +190,9 @@ ActiveRecord::Schema.define(version: 2020_06_16_125617) do
     t.decimal "under", precision: 6, scale: 2
     t.decimal "over", precision: 6, scale: 2
     t.string "status"
-    t.decimal "threshold", precision: 5, scale: 2
-    t.string "void_reason"
-    t.json "outcome"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.decimal "threshold", precision: 5, scale: 2
     t.index ["event_id"], name: "index_market18_lives_on_event_id"
     t.index ["status"], name: "index_market18_lives_on_status"
   end
@@ -242,11 +202,9 @@ ActiveRecord::Schema.define(version: 2020_06_16_125617) do
     t.decimal "under", precision: 6, scale: 2
     t.decimal "over", precision: 6, scale: 2
     t.string "status"
-    t.decimal "threshold", precision: 5, scale: 2
-    t.string "void_reason"
-    t.json "outcome"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.decimal "threshold", precision: 5, scale: 2
     t.index ["event_id"], name: "index_market18_pres_on_event_id"
     t.index ["status"], name: "index_market18_pres_on_status"
   end
@@ -257,8 +215,6 @@ ActiveRecord::Schema.define(version: 2020_06_16_125617) do
     t.decimal "draw", precision: 6, scale: 2
     t.decimal "competitor2", precision: 6, scale: 2
     t.string "status"
-    t.string "void_reason"
-    t.json "outcome"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["event_id"], name: "index_market1_lives_on_event_id"
@@ -271,8 +227,6 @@ ActiveRecord::Schema.define(version: 2020_06_16_125617) do
     t.decimal "draw", precision: 6, scale: 2
     t.decimal "competitor2", precision: 6, scale: 2
     t.string "status"
-    t.string "void_reason"
-    t.json "outcome"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["event_id"], name: "index_market1_pres_on_event_id"
@@ -284,8 +238,6 @@ ActiveRecord::Schema.define(version: 2020_06_16_125617) do
     t.decimal "yes", precision: 6, scale: 2
     t.decimal "no", precision: 6, scale: 2
     t.string "status"
-    t.string "void_reason"
-    t.json "outcome"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["event_id"], name: "index_market29_lives_on_event_id"
@@ -297,8 +249,6 @@ ActiveRecord::Schema.define(version: 2020_06_16_125617) do
     t.decimal "yes", precision: 6, scale: 2
     t.decimal "no", precision: 6, scale: 2
     t.string "status"
-    t.string "void_reason"
-    t.json "outcome"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["event_id"], name: "index_market29_pres_on_event_id"
@@ -311,8 +261,6 @@ ActiveRecord::Schema.define(version: 2020_06_16_125617) do
     t.decimal "draw", precision: 6, scale: 2
     t.decimal "competitor2", precision: 6, scale: 2
     t.string "status"
-    t.string "void_reason"
-    t.json "outcome"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["event_id"], name: "index_market60_lives_on_event_id"
@@ -325,8 +273,6 @@ ActiveRecord::Schema.define(version: 2020_06_16_125617) do
     t.decimal "draw", precision: 6, scale: 2
     t.decimal "competitor2", precision: 6, scale: 2
     t.string "status"
-    t.string "void_reason"
-    t.json "outcome"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["event_id"], name: "index_market60_pres_on_event_id"
@@ -339,8 +285,6 @@ ActiveRecord::Schema.define(version: 2020_06_16_125617) do
     t.decimal "competitor1_competitor2", precision: 6, scale: 2
     t.decimal "draw_competitor2", precision: 6, scale: 2
     t.string "status"
-    t.string "void_reason"
-    t.json "outcome"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["event_id"], name: "index_market63_lives_on_event_id"
@@ -353,8 +297,6 @@ ActiveRecord::Schema.define(version: 2020_06_16_125617) do
     t.decimal "competitor1_competitor2", precision: 6, scale: 2
     t.decimal "draw_competitor2", precision: 6, scale: 2
     t.string "status"
-    t.string "void_reason"
-    t.json "outcome"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["event_id"], name: "index_market63_pres_on_event_id"
@@ -367,8 +309,6 @@ ActiveRecord::Schema.define(version: 2020_06_16_125617) do
     t.decimal "competitor2", precision: 6, scale: 2
     t.integer "threshold"
     t.string "status"
-    t.string "void_reason"
-    t.json "outcome"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["event_id"], name: "index_market66_lives_on_event_id"
@@ -381,8 +321,6 @@ ActiveRecord::Schema.define(version: 2020_06_16_125617) do
     t.decimal "competitor2", precision: 6, scale: 2
     t.integer "threshold"
     t.string "status"
-    t.string "void_reason"
-    t.json "outcome"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["event_id"], name: "index_market66_pres_on_event_id"
@@ -394,11 +332,9 @@ ActiveRecord::Schema.define(version: 2020_06_16_125617) do
     t.decimal "under", precision: 6, scale: 2
     t.decimal "over", precision: 6, scale: 2
     t.string "status"
-    t.decimal "threshold", precision: 5, scale: 2
-    t.string "void_reason"
-    t.json "outcome"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.decimal "threshold", precision: 5, scale: 2
     t.index ["event_id"], name: "index_market68_lives_on_event_id"
     t.index ["status"], name: "index_market68_lives_on_status"
   end
@@ -408,11 +344,9 @@ ActiveRecord::Schema.define(version: 2020_06_16_125617) do
     t.decimal "under", precision: 6, scale: 2
     t.decimal "over", precision: 6, scale: 2
     t.string "status"
-    t.decimal "threshold", precision: 5, scale: 2
-    t.string "void_reason"
-    t.json "outcome"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.decimal "threshold", precision: 5, scale: 2
     t.index ["event_id"], name: "index_market68_pres_on_event_id"
     t.index ["status"], name: "index_market68_pres_on_status"
   end
@@ -422,8 +356,6 @@ ActiveRecord::Schema.define(version: 2020_06_16_125617) do
     t.decimal "yes", precision: 6, scale: 2
     t.decimal "no", precision: 6, scale: 2
     t.string "status"
-    t.string "void_reason"
-    t.json "outcome"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["event_id"], name: "index_market75_lives_on_event_id"
@@ -435,8 +367,6 @@ ActiveRecord::Schema.define(version: 2020_06_16_125617) do
     t.decimal "yes", precision: 6, scale: 2
     t.decimal "no", precision: 6, scale: 2
     t.string "status"
-    t.string "void_reason"
-    t.json "outcome"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["event_id"], name: "index_market75_pres_on_event_id"
@@ -461,6 +391,58 @@ ActiveRecord::Schema.define(version: 2020_06_16_125617) do
     t.string "sports", default: [], array: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "soccer_fixtures", force: :cascade do |t|
+    t.string "event_id"
+    t.datetime "scheduled_time"
+    t.string "live_odds"
+    t.string "status"
+    t.string "tournament_round"
+    t.string "betradar_id"
+    t.integer "season_id"
+    t.string "season_name"
+    t.integer "tournament_id"
+    t.string "tournament_name"
+    t.string "sport_id"
+    t.string "sport"
+    t.string "category_id"
+    t.string "category"
+    t.string "comp_one_id"
+    t.string "comp_one_name"
+    t.string "comp_one_gender"
+    t.string "comp_one_abb"
+    t.string "comp_one_qualifier"
+    t.string "comp_two_id"
+    t.string "comp_two_name"
+    t.string "comp_two_gender"
+    t.string "comp_two_abb"
+    t.string "comp_two_qualifier"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.boolean "booked", default: false
+    t.string "home_score"
+    t.string "away_score"
+    t.string "match_status"
+    t.index ["booked"], name: "index_soccer_fixtures_on_booked"
+    t.index ["category"], name: "index_soccer_fixtures_on_category"
+    t.index ["event_id"], name: "index_soccer_fixtures_on_event_id"
+    t.index ["match_status"], name: "index_soccer_fixtures_on_match_status"
+    t.index ["scheduled_time"], name: "index_soccer_fixtures_on_scheduled_time"
+    t.index ["sport"], name: "index_soccer_fixtures_on_sport"
+    t.index ["status"], name: "index_soccer_fixtures_on_status"
+  end
+
+  create_table "transactions", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "category"
+    t.integer "amount"
+    t.string "reference"
+    t.string "currency"
+    t.string "status"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "phone_number"
   end
 
   create_table "users", force: :cascade do |t|

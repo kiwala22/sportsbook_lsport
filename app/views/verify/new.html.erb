@@ -4,5 +4,6 @@
   <%= submit_tag("Verify") %>
 <% end %>
 
+<p><%= link_to 'Receive code via Email', send_verification_path %></p>
 
-<%= link_to 'Resend code', resend_verify_path, method: :post %>
+<p><%= link_to 'Resend code', resend_verify_path, method: :post %></p>
