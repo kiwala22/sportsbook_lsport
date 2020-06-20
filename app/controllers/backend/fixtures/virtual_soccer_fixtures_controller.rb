@@ -1,4 +1,4 @@
-class Fixtures::VirtualSoccerFixturesController < ApplicationController
+class Backend::Fixtures::VirtualSoccerFixturesController < ApplicationController
   include Betradar
   before_action :authenticate_admin!
 

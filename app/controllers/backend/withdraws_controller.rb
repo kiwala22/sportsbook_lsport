@@ -1,4 +1,4 @@
-class WithdrawsController < ApplicationController
+class Backend::WithdrawsController < ApplicationController
   before_action :authenticate_admin!
 
   layout "admin_application.html.erb"

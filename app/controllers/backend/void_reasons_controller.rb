@@ -1,4 +1,4 @@
-class VoidReasonsController < ApplicationController
+class Backend::VoidReasonsController < ApplicationController
   before_action :authenticate_admin!
 
 

@@ -1,4 +1,4 @@
-class BetUsersController < ApplicationController
+class Backend::BetUsersController < ApplicationController
   before_action :authenticate_admin!
 
 
