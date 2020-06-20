@@ -8,8 +8,8 @@ class Soccer::RollbackSettlementWorker
     def perform(payload)
         #convert the message from the xml to an easr ruby Hash using active support
         message = Hash.from_xml(payload)
-        event_id = message["rollback_ bet_settlement"]["event_id"]
-        product =  message["rollback_ bet_settlement"]["product"]
+        event_id = message["rollback_bet_settlement"]["event_id"]
+        product =  message["rollback_bet_settlement"]["product"]
         
         #iterate over the outcomes and mark the markets as settled
         if message["rollback_bet_settlement"].has_key?("market")
