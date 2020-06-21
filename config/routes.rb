@@ -9,21 +9,22 @@ Rails.application.routes.draw do
   match 'new_verify' => "verify#new", via: [:get]
   match 'send_verification' => "verify#verify_via_email", via: [:get]
   match 'verify' => "verify#update", via: [:put]
-   scope '/backend' do
-      namespace :fixtures do
-         match 'soccer_fixtures' => "soccer_fixtures#index", via: [:get]
-         patch 'soccer_fixtures' => "soccer_fixtures#update", via: [:update]
-         match 'virtual_soccer_fixtures' => "virtual_soccer_fixtures#index", via: [:get]
-         patch 'virtual_soccer_fixtures' => "virtual_soccer_fixtures#update", via: [:update]
-      end
-      resources :deposits, only: [:index]
-      resources :withdraws, only: [:index]
-      match 'users' => "bet_users#index", via: [:get]
-      match 'betstop_reasons' => "betstop_reasons#index", via: [:get]
-      match 'betting_statuses' => "betting_statuses#index", via: [:get]
-      match 'void_reasons' => "void_reasons#index", via: [:get]
-      match 'match_statuses' => "match_statuses#index", via: [:get]
-   end
+
+  namespace :backend do
+     namespace :fixtures do
+        match 'soccer_fixtures' => "soccer_fixtures#index", via: [:get]
+        patch 'soccer_fixtures' => "soccer_fixtures#update", via: [:update]
+        match 'virtual_soccer_fixtures' => "virtual_soccer_fixtures#index", via: [:get]
+        patch 'virtual_soccer_fixtures' => "virtual_soccer_fixtures#update", via: [:update]
+     end
+     resources :deposits, only: [:index]
+     resources :withdraws, only: [:index]
+     match 'users' => "bet_users#index", via: [:get]
+     match 'betstop_reasons' => "betstop_reasons#index", via: [:get]
+     match 'betting_statuses' => "betting_statuses#index", via: [:get]
+     match 'void_reasons' => "void_reasons#index", via: [:get]
+     match 'match_statuses' => "match_statuses#index", via: [:get]
+  end
 
    namespace :amqp do
       namespace :v1  do

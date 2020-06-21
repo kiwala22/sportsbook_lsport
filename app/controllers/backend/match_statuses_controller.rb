@@ -1,4 +1,4 @@
-class MatchStatusesController < ApplicationController
+class Backend::MatchStatusesController < ApplicationController
   before_action :authenticate_admin!
 
 

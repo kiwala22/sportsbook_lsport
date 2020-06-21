@@ -1,13 +1,13 @@
 <div class="content-heading">
     <div>
-        <span>Withdraws</span>
-        <small>Withdraws</small>
+        <span>Deposits</span>
+        <small>Deposits</small>
     </div>
 </div>
 
 <div class="card card-default">
    <div class="card-body">
-		 <%= search_form_for @q, url: withdraws_path, html: { method: :get } do |f| %>
+		 <%= search_form_for @q, url: backend_deposits_path, html: { method: :get } do |f| %>
       <fieldset>
           <div class="form-row">
               <div class="col-lg-6">
@@ -73,25 +73,25 @@
       </tr>
     </thead>
     <tbody>
-			<% @withdraws.each_with_index do |withdraw, i| %>
+			<% @deposits.each_with_index do |deposit, i| %>
 				<tr>
 					<td><%= (i+1)%></td>
-					<td><%= withdraw.ext_transaction_id %></td>
-					<td><%= withdraw.transaction_id %></td>
-					<td><%= withdraw.resource_id %></td>
-					<td><%= withdraw.amount %></td>
-					<td><%= withdraw.phone_number %></td>
-          <td><%= withdraw.network%></td>
-					<td><%= withdraw.status%></td>
-					<td><%= withdraw.message %></td>
-					<td><%= withdraw.currency %></td>
-          <td><%= withdraw.payment_method %></td>
-          <td><%= withdraw.balance_before %></td>
-          <td><%= withdraw.balance_after %></td>
-					<td><%= withdraw.created_at.to_datetime.strftime("%b %d, %Y %I:%M%P") %></td>
+					<td><%= deposit.ext_transaction_id %></td>
+					<td><%= deposit.transaction_id %></td>
+					<td><%= deposit.resource_id %></td>
+					<td><%= deposit.amount %></td>
+					<td><%= deposit.phone_number %></td>
+          <td><%= deposit.network%></td>
+					<td><%= deposit.status%></td>
+					<td><%= deposit.message %></td>
+					<td><%= deposit.currency %></td>
+          <td><%= deposit.payment_method %></td>
+          <td><%= deposit.balance_before %></td>
+          <td><%= deposit.balance_after %></td>
+					<td><%= deposit.created_at.to_datetime.strftime("%b %d, %Y %I:%M%P") %></td>
 				</tr>
 			<% end %>
     </tbody>
   </table>
-	<%= paginate @withdraws %>
+	<%= paginate @deposits %>
 </div>

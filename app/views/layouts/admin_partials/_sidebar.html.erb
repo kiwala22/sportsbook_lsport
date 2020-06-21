@@ -18,12 +18,12 @@
             </a>
             <ul id="finances" class="sidebar-nav sidebar-subnav collapse">
                <li class="<%= 'active' if controller.controller_name == 'withdraws' %>">
-                  <a href="<%= withdraws_path %>" title="Withdraws">
+                  <a href="<%= backend_withdraws_path %>" title="Withdraws">
                      <span>Withdraws</span>
                   </a>
                </li>
                <li class="<%= 'active' if controller.controller_name == 'deposits' %>">
-                  <a href="<%= deposits_path %>" title="Deposits">
+                  <a href="<%= backend_deposits_path %>" title="Deposits">
                      <span>Deposits</span>
                   </a>
                </li>
@@ -31,7 +31,7 @@
          </li>
 
          <li class="<%= 'active' if controller.controller_name == 'bet_users' %>">
-            <a href="<%= users_path %>" title="Users">
+            <a href="<%= backend_users_path %>" title="Users">
                <em class="fas fa-users"></em>
                <span data-localize="sidebar.nav.DASHBOARD">Users</span>
             </a>
@@ -44,12 +44,12 @@
             </a>
             <ul id="#fixtures" class="sidebar-nav sidebar-subnav collapse">
                <li class="<%= 'active' if controller.controller_name == 'Fixtures::soccer_fixtures' %>">
-                  <a href="<%= fixtures_soccer_fixtures_path %>" title="Soccer">
+                  <a href="<%= backend_fixtures_soccer_fixtures_path %>" title="Soccer">
                      <span>Soccer</span>
                   </a>
                </li>
                <li class="<%= 'active' if controller.controller_name == 'Fixtures::virtual_soccer_fixtures' %>">
-                  <a href="<%= fixtures_virtual_soccer_fixtures_path %>" title="Soccer">
+                  <a href="<%= backend_fixtures_virtual_soccer_fixtures_path %>" title="Soccer">
                      <span>Virtual Soccer</span>
                   </a>
                </li>
@@ -63,22 +63,22 @@
             </a>
             <ul id="finances" class="sidebar-nav sidebar-subnav collapse">
                <li class="<%= 'active' if controller.controller_name == 'betstop_reasons' %>">
-                  <a href="<%= betstop_reasons_path %>" title="Betstop Reasons">
+                  <a href="<%= backend_betstop_reasons_path %>" title="Betstop Reasons">
                      <span>Betstop Reasons</span>
                   </a>
                </li>
                <li class="<%= 'active' if controller.controller_name == 'betting_statuses' %>">
-                  <a href="<%= betting_statuses_path %>" title="Betting Statuses">
+                  <a href="<%= backend_betting_statuses_path %>" title="Betting Statuses">
                      <span>Betting Statuses</span>
                   </a>
                </li>
                <li class="<%= 'active' if controller.controller_name == 'void_reasons' %>">
-                  <a href="<%= void_reasons_path %>" title="Void Reasons">
+                  <a href="<%= backend_void_reasons_path %>" title="Void Reasons">
                      <span>Void Reasons</span>
                   </a>
                </li>
                <li class="<%= 'active' if controller.controller_name == 'match_statuses' %>">
-                  <a href="<%= match_statuses_path %>" title="Match Statuses">
+                  <a href="<%= backend_match_statuses_path %>" title="Match Statuses">
                      <span>Match Statuses</span>
                   </a>
                </li>

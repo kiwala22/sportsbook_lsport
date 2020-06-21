@@ -29,18 +29,6 @@ ActiveRecord::Schema.define(version: 2020_06_21_090717) do
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
   end
 
-  create_table "add_product_to_bets", force: :cascade do |t|
-    t.string "product"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "add_reason_to_bets", force: :cascade do |t|
-    t.string "product"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "admin_users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -104,10 +92,10 @@ ActiveRecord::Schema.define(version: 2020_06_21_090717) do
     t.string "type"
     t.decimal "odds", precision: 5, scale: 2
     t.string "status"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
     t.string "product"
     t.string "reason"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "betstop_reasons", force: :cascade do |t|
@@ -148,263 +136,7 @@ ActiveRecord::Schema.define(version: 2020_06_21_090717) do
     t.index ["user_id"], name: "index_deposits_on_user_id"
   end
 
-  create_table "market10_lives", force: :cascade do |t|
-    t.string "event_id"
-    t.decimal "competitor1_draw", precision: 6, scale: 2
-    t.decimal "competitor1_competitor2", precision: 6, scale: 2
-    t.decimal "draw_competitor2", precision: 6, scale: 2
-    t.string "status"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["event_id"], name: "index_market10_lives_on_event_id"
-    t.index ["status"], name: "index_market10_lives_on_status"
-  end
-
-  create_table "market10_pres", force: :cascade do |t|
-    t.string "event_id"
-    t.decimal "competitor1_draw", precision: 6, scale: 2
-    t.decimal "competitor1_competitor2", precision: 6, scale: 2
-    t.decimal "draw_competitor2", precision: 6, scale: 2
-    t.string "status"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["event_id"], name: "index_market10_pres_on_event_id"
-    t.index ["status"], name: "index_market10_pres_on_status"
-  end
-
-  create_table "market16_lives", force: :cascade do |t|
-    t.string "event_id"
-    t.decimal "competitor1", precision: 6, scale: 2
-    t.decimal "competitor2", precision: 6, scale: 2
-    t.integer "threshold"
-    t.string "status"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["event_id"], name: "index_market16_lives_on_event_id"
-    t.index ["status"], name: "index_market16_lives_on_status"
-  end
-
-  create_table "market16_pres", force: :cascade do |t|
-    t.string "event_id"
-    t.decimal "competitor1", precision: 6, scale: 2
-    t.decimal "competitor2", precision: 6, scale: 2
-    t.integer "threshold"
-    t.string "status"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["event_id"], name: "index_market16_pres_on_event_id"
-    t.index ["status"], name: "index_market16_pres_on_status"
-  end
-
-  create_table "market18_lives", force: :cascade do |t|
-    t.string "event_id"
-    t.decimal "under", precision: 6, scale: 2
-    t.decimal "over", precision: 6, scale: 2
-    t.string "status"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.decimal "threshold", precision: 5, scale: 2
-    t.index ["event_id"], name: "index_market18_lives_on_event_id"
-    t.index ["status"], name: "index_market18_lives_on_status"
-  end
-
-  create_table "market18_pres", force: :cascade do |t|
-    t.string "event_id"
-    t.decimal "under", precision: 6, scale: 2
-    t.decimal "over", precision: 6, scale: 2
-    t.string "status"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.decimal "threshold", precision: 5, scale: 2
-    t.index ["event_id"], name: "index_market18_pres_on_event_id"
-    t.index ["status"], name: "index_market18_pres_on_status"
-  end
-
-  create_table "market1_lives", force: :cascade do |t|
-    t.string "event_id"
-    t.decimal "competitor1", precision: 6, scale: 2
-    t.decimal "draw", precision: 6, scale: 2
-    t.decimal "competitor2", precision: 6, scale: 2
-    t.string "status"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["event_id"], name: "index_market1_lives_on_event_id"
-    t.index ["status"], name: "index_market1_lives_on_status"
-  end
-
-  create_table "market1_pres", force: :cascade do |t|
-    t.string "event_id"
-    t.decimal "competitor1", precision: 6, scale: 2
-    t.decimal "draw", precision: 6, scale: 2
-    t.decimal "competitor2", precision: 6, scale: 2
-    t.string "status"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["event_id"], name: "index_market1_pres_on_event_id"
-    t.index ["status"], name: "index_market1_pres_on_status"
-  end
-
-  create_table "market29_lives", force: :cascade do |t|
-    t.string "event_id"
-    t.decimal "yes", precision: 6, scale: 2
-    t.decimal "no", precision: 6, scale: 2
-    t.string "status"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["event_id"], name: "index_market29_lives_on_event_id"
-    t.index ["status"], name: "index_market29_lives_on_status"
-  end
-
-  create_table "market29_pres", force: :cascade do |t|
-    t.string "event_id"
-    t.decimal "yes", precision: 6, scale: 2
-    t.decimal "no", precision: 6, scale: 2
-    t.string "status"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["event_id"], name: "index_market29_pres_on_event_id"
-    t.index ["status"], name: "index_market29_pres_on_status"
-  end
-
-  create_table "market60_lives", force: :cascade do |t|
-    t.string "event_id"
-    t.decimal "competitor1", precision: 6, scale: 2
-    t.decimal "draw", precision: 6, scale: 2
-    t.decimal "competitor2", precision: 6, scale: 2
-    t.string "status"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["event_id"], name: "index_market60_lives_on_event_id"
-    t.index ["status"], name: "index_market60_lives_on_status"
-  end
-
-  create_table "market60_pres", force: :cascade do |t|
-    t.string "event_id"
-    t.decimal "competitor1", precision: 6, scale: 2
-    t.decimal "draw", precision: 6, scale: 2
-    t.decimal "competitor2", precision: 6, scale: 2
-    t.string "status"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["event_id"], name: "index_market60_pres_on_event_id"
-    t.index ["status"], name: "index_market60_pres_on_status"
-  end
-
-  create_table "market63_lives", force: :cascade do |t|
-    t.string "event_id"
-    t.decimal "competitor1_draw", precision: 6, scale: 2
-    t.decimal "competitor1_competitor2", precision: 6, scale: 2
-    t.decimal "draw_competitor2", precision: 6, scale: 2
-    t.string "status"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["event_id"], name: "index_market63_lives_on_event_id"
-    t.index ["status"], name: "index_market63_lives_on_status"
-  end
-
-  create_table "market63_pres", force: :cascade do |t|
-    t.string "event_id"
-    t.decimal "competitor1_draw", precision: 6, scale: 2
-    t.decimal "competitor1_competitor2", precision: 6, scale: 2
-    t.decimal "draw_competitor2", precision: 6, scale: 2
-    t.string "status"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["event_id"], name: "index_market63_pres_on_event_id"
-    t.index ["status"], name: "index_market63_pres_on_status"
-  end
-
-  create_table "market66_lives", force: :cascade do |t|
-    t.string "event_id"
-    t.decimal "competitor1", precision: 6, scale: 2
-    t.decimal "competitor2", precision: 6, scale: 2
-    t.integer "threshold"
-    t.string "status"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["event_id"], name: "index_market66_lives_on_event_id"
-    t.index ["status"], name: "index_market66_lives_on_status"
-  end
-
-  create_table "market66_pres", force: :cascade do |t|
-    t.string "event_id"
-    t.decimal "competitor1", precision: 6, scale: 2
-    t.decimal "competitor2", precision: 6, scale: 2
-    t.integer "threshold"
-    t.string "status"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["event_id"], name: "index_market66_pres_on_event_id"
-    t.index ["status"], name: "index_market66_pres_on_status"
-  end
-
-  create_table "market68_lives", force: :cascade do |t|
-    t.string "event_id"
-    t.decimal "under", precision: 6, scale: 2
-    t.decimal "over", precision: 6, scale: 2
-    t.string "status"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.decimal "threshold", precision: 5, scale: 2
-    t.index ["event_id"], name: "index_market68_lives_on_event_id"
-    t.index ["status"], name: "index_market68_lives_on_status"
-  end
-
-  create_table "market68_pres", force: :cascade do |t|
-    t.string "event_id"
-    t.decimal "under", precision: 6, scale: 2
-    t.decimal "over", precision: 6, scale: 2
-    t.string "status"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.decimal "threshold", precision: 5, scale: 2
-    t.index ["event_id"], name: "index_market68_pres_on_event_id"
-    t.index ["status"], name: "index_market68_pres_on_status"
-  end
-
-  create_table "market75_lives", force: :cascade do |t|
-    t.string "event_id"
-    t.decimal "yes", precision: 6, scale: 2
-    t.decimal "no", precision: 6, scale: 2
-    t.string "status"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["event_id"], name: "index_market75_lives_on_event_id"
-    t.index ["status"], name: "index_market75_lives_on_status"
-  end
-
-  create_table "market75_pres", force: :cascade do |t|
-    t.string "event_id"
-    t.decimal "yes", precision: 6, scale: 2
-    t.decimal "no", precision: 6, scale: 2
-    t.string "status"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["event_id"], name: "index_market75_pres_on_event_id"
-    t.index ["status"], name: "index_market75_pres_on_status"
-  end
-
-  create_table "market_alerts", force: :cascade do |t|
-    t.bigint "timestamp"
-    t.integer "product"
-    t.integer "subscribed"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.boolean "status", default: false
-    t.index ["product"], name: "index_market_alerts_on_product"
-    t.index ["subscribed"], name: "index_market_alerts_on_subscribed"
-    t.index ["timestamp"], name: "index_market_alerts_on_timestamp"
-  end
-
-  create_table "match_statuses", force: :cascade do |t|
-    t.integer "match_status_id"
-    t.string "description"
-    t.string "sports", default: [], array: true
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "soccer_fixtures", force: :cascade do |t|
+  create_table "fixtures", force: :cascade do |t|
     t.string "event_id"
     t.datetime "scheduled_time"
     t.string "live_odds"
@@ -429,19 +161,317 @@ ActiveRecord::Schema.define(version: 2020_06_21_090717) do
     t.string "comp_two_gender"
     t.string "comp_two_abb"
     t.string "comp_two_qualifier"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.boolean "booked", default: false
     t.string "home_score"
     t.string "away_score"
     t.string "match_status"
-    t.index ["booked"], name: "index_soccer_fixtures_on_booked"
-    t.index ["category"], name: "index_soccer_fixtures_on_category"
-    t.index ["event_id"], name: "index_soccer_fixtures_on_event_id"
-    t.index ["match_status"], name: "index_soccer_fixtures_on_match_status"
-    t.index ["scheduled_time"], name: "index_soccer_fixtures_on_scheduled_time"
-    t.index ["sport"], name: "index_soccer_fixtures_on_sport"
-    t.index ["status"], name: "index_soccer_fixtures_on_status"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.boolean "booked", default: false
+    t.index ["booked"], name: "index_fixtures_on_booked"
+    t.index ["category"], name: "index_fixtures_on_category"
+    t.index ["category_id"], name: "index_fixtures_on_category_id"
+    t.index ["event_id"], name: "index_fixtures_on_event_id"
+    t.index ["match_status"], name: "index_fixtures_on_match_status"
+    t.index ["scheduled_time"], name: "index_fixtures_on_scheduled_time"
+    t.index ["sport"], name: "index_fixtures_on_sport"
+    t.index ["sport_id"], name: "index_fixtures_on_sport_id"
+    t.index ["status"], name: "index_fixtures_on_status"
+  end
+
+  create_table "market10_lives", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "competitor1_draw", precision: 6, scale: 2
+    t.decimal "competitor1_competitor2", precision: 6, scale: 2
+    t.decimal "draw_competitor2", precision: 6, scale: 2
+    t.string "status"
+    t.string "void_reason"
+    t.json "outcome"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_market10_lives_on_event_id"
+    t.index ["status"], name: "index_market10_lives_on_status"
+  end
+
+  create_table "market10_pres", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "competitor1_draw", precision: 6, scale: 2
+    t.decimal "competitor1_competitor2", precision: 6, scale: 2
+    t.decimal "draw_competitor2", precision: 6, scale: 2
+    t.string "status"
+    t.string "void_reason"
+    t.json "outcome"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_market10_pres_on_event_id"
+    t.index ["status"], name: "index_market10_pres_on_status"
+  end
+
+  create_table "market16_lives", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "competitor1", precision: 6, scale: 2
+    t.decimal "competitor2", precision: 6, scale: 2
+    t.integer "threshold"
+    t.string "status"
+    t.string "void_reason"
+    t.json "outcome"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_market16_lives_on_event_id"
+    t.index ["status"], name: "index_market16_lives_on_status"
+  end
+
+  create_table "market16_pres", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "competitor1", precision: 6, scale: 2
+    t.decimal "competitor2", precision: 6, scale: 2
+    t.integer "threshold"
+    t.string "status"
+    t.string "void_reason"
+    t.json "outcome"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_market16_pres_on_event_id"
+    t.index ["status"], name: "index_market16_pres_on_status"
+  end
+
+  create_table "market18_lives", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "under", precision: 6, scale: 2
+    t.decimal "over", precision: 6, scale: 2
+    t.string "status"
+    t.decimal "threshold", precision: 5, scale: 2
+    t.string "void_reason"
+    t.json "outcome"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_market18_lives_on_event_id"
+    t.index ["status"], name: "index_market18_lives_on_status"
+  end
+
+  create_table "market18_pres", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "under", precision: 6, scale: 2
+    t.decimal "over", precision: 6, scale: 2
+    t.string "status"
+    t.decimal "threshold", precision: 5, scale: 2
+    t.string "void_reason"
+    t.json "outcome"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_market18_pres_on_event_id"
+    t.index ["status"], name: "index_market18_pres_on_status"
+  end
+
+  create_table "market1_lives", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "competitor1", precision: 6, scale: 2
+    t.decimal "draw", precision: 6, scale: 2
+    t.decimal "competitor2", precision: 6, scale: 2
+    t.string "status"
+    t.string "void_reason"
+    t.json "outcome"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_market1_lives_on_event_id"
+    t.index ["status"], name: "index_market1_lives_on_status"
+  end
+
+  create_table "market1_pres", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "competitor1", precision: 6, scale: 2
+    t.decimal "draw", precision: 6, scale: 2
+    t.decimal "competitor2", precision: 6, scale: 2
+    t.string "status"
+    t.string "void_reason"
+    t.json "outcome"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_market1_pres_on_event_id"
+    t.index ["status"], name: "index_market1_pres_on_status"
+  end
+
+  create_table "market29_lives", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "yes", precision: 6, scale: 2
+    t.decimal "no", precision: 6, scale: 2
+    t.string "status"
+    t.string "void_reason"
+    t.json "outcome"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_market29_lives_on_event_id"
+    t.index ["status"], name: "index_market29_lives_on_status"
+  end
+
+  create_table "market29_pres", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "yes", precision: 6, scale: 2
+    t.decimal "no", precision: 6, scale: 2
+    t.string "status"
+    t.string "void_reason"
+    t.json "outcome"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_market29_pres_on_event_id"
+    t.index ["status"], name: "index_market29_pres_on_status"
+  end
+
+  create_table "market60_lives", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "competitor1", precision: 6, scale: 2
+    t.decimal "draw", precision: 6, scale: 2
+    t.decimal "competitor2", precision: 6, scale: 2
+    t.string "status"
+    t.string "void_reason"
+    t.json "outcome"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_market60_lives_on_event_id"
+    t.index ["status"], name: "index_market60_lives_on_status"
+  end
+
+  create_table "market60_pres", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "competitor1", precision: 6, scale: 2
+    t.decimal "draw", precision: 6, scale: 2
+    t.decimal "competitor2", precision: 6, scale: 2
+    t.string "status"
+    t.string "void_reason"
+    t.json "outcome"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_market60_pres_on_event_id"
+    t.index ["status"], name: "index_market60_pres_on_status"
+  end
+
+  create_table "market63_lives", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "competitor1_draw", precision: 6, scale: 2
+    t.decimal "competitor1_competitor2", precision: 6, scale: 2
+    t.decimal "draw_competitor2", precision: 6, scale: 2
+    t.string "status"
+    t.string "void_reason"
+    t.json "outcome"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_market63_lives_on_event_id"
+    t.index ["status"], name: "index_market63_lives_on_status"
+  end
+
+  create_table "market63_pres", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "competitor1_draw", precision: 6, scale: 2
+    t.decimal "competitor1_competitor2", precision: 6, scale: 2
+    t.decimal "draw_competitor2", precision: 6, scale: 2
+    t.string "status"
+    t.string "void_reason"
+    t.json "outcome"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_market63_pres_on_event_id"
+    t.index ["status"], name: "index_market63_pres_on_status"
+  end
+
+  create_table "market66_lives", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "competitor1", precision: 6, scale: 2
+    t.decimal "competitor2", precision: 6, scale: 2
+    t.integer "threshold"
+    t.string "status"
+    t.string "void_reason"
+    t.json "outcome"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_market66_lives_on_event_id"
+    t.index ["status"], name: "index_market66_lives_on_status"
+  end
+
+  create_table "market66_pres", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "competitor1", precision: 6, scale: 2
+    t.decimal "competitor2", precision: 6, scale: 2
+    t.integer "threshold"
+    t.string "status"
+    t.string "void_reason"
+    t.json "outcome"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_market66_pres_on_event_id"
+    t.index ["status"], name: "index_market66_pres_on_status"
+  end
+
+  create_table "market68_lives", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "under", precision: 6, scale: 2
+    t.decimal "over", precision: 6, scale: 2
+    t.string "status"
+    t.decimal "threshold", precision: 5, scale: 2
+    t.string "void_reason"
+    t.json "outcome"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_market68_lives_on_event_id"
+    t.index ["status"], name: "index_market68_lives_on_status"
+  end
+
+  create_table "market68_pres", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "under", precision: 6, scale: 2
+    t.decimal "over", precision: 6, scale: 2
+    t.string "status"
+    t.decimal "threshold", precision: 5, scale: 2
+    t.string "void_reason"
+    t.json "outcome"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_market68_pres_on_event_id"
+    t.index ["status"], name: "index_market68_pres_on_status"
+  end
+
+  create_table "market75_lives", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "yes", precision: 6, scale: 2
+    t.decimal "no", precision: 6, scale: 2
+    t.string "status"
+    t.string "void_reason"
+    t.json "outcome"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_market75_lives_on_event_id"
+    t.index ["status"], name: "index_market75_lives_on_status"
+  end
+
+  create_table "market75_pres", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "yes", precision: 6, scale: 2
+    t.decimal "no", precision: 6, scale: 2
+    t.string "status"
+    t.string "void_reason"
+    t.json "outcome"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_market75_pres_on_event_id"
+    t.index ["status"], name: "index_market75_pres_on_status"
+  end
+
+  create_table "market_alerts", force: :cascade do |t|
+    t.bigint "timestamp"
+    t.integer "product"
+    t.integer "subscribed"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.boolean "status", default: false
+    t.index ["product"], name: "index_market_alerts_on_product"
+    t.index ["subscribed"], name: "index_market_alerts_on_subscribed"
+    t.index ["timestamp"], name: "index_market_alerts_on_timestamp"
+  end
+
+  create_table "match_statuses", force: :cascade do |t|
+    t.integer "match_status_id"
+    t.string "description"
+    t.string "sports", default: [], array: true
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "transactions", force: :cascade do |t|
