@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
+  get '/api_user_keys/:id', to: 'api_users#generate_api_keys', as: 'user_keys'
+  resources :api_users, only: [:new, :index, :create]
   resources :transactions, only: [:new]
   match 'deposit' => "transactions#deposit", via: [:post]
+  match 'transfer' => "transactions#transfer", via: [:get]
+  match 'withdraw' => "transactions#withdraw", via: [:post]
   match 'resend_verify' => "verify#create", via: [:post]
   match 'new_verify' => "verify#new", via: [:get]
   match 'send_verification' => "verify#verify_via_email", via: [:get]
