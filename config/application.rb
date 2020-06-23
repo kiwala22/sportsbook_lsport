@@ -18,8 +18,15 @@ module SkylineSportsbook
       # Application configuration can go into files in config/initializers
       # -- all .rb files in that directory are automatically loaded after loading
       # the framework and any gems in your application.
-
+      
       config.time_zone = 'Nairobi'
       config.active_record.default_timezone = :local
+      
+      #add fonts to assets path
+      config.assets.paths << Rails.root.join("app", "assets", "fonts")
+      # fonts
+      config.assets.precompile << /\.(?:svg|eot|woff|ttf)$/
+      # images
+      config.assets.precompile << /\.(?:png|jpg)$/
    end
 end

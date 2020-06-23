@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+   
+   root to: 'fixtures#index'
+   
    resources :transactions, only: [:new]
    match 'deposit' => "transactions#deposit", via: [:post]
    match 'resend_verify' => "verify#create", via: [:post]
@@ -39,15 +42,6 @@ Rails.application.routes.draw do
       
    }
    
-   devise_scope :user do
-      
-      authenticated :user do
-         root to: 'home#index', as: :authenticated_user_root
-      end
-      unauthenticated :user do
-         root to: "users/sessions#new", as: :unauthenticated_root
-      end
-   end
    devise_scope :admin do
       
       authenticated :admin do

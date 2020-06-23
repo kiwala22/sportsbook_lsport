@@ -1,16 +1,175 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>SkylineSportbook</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<html lang="en">
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="Skyline Sportsbook">
+    <meta name="keywords" content="">
+    <title>Skyline SportsBook |
+        <%= yield(:title) %>
+    </title>
+
+    <!-- =============== APP STYLES ===============-->
+    <%= stylesheet_link_tag 'user_assets/application', media: 'all', id: "maincss" %>
+        <!-- =============== VIEW STYLES ===============-->
+        <!-- <#%= stylesheet_link_tag params[:controller] %> -->
+        <%= yield :vendor_css_area %>
+            <%= csrf_meta_tags %>
+                <%= csp_meta_tag %>
+</head>
+
+<body>
+    <!-- Preloader -->
+    <!--
+	<div class="preloader">
+		<div class="spinner">
+		   <span class="spinner-rotate"></span>
+		</div>
+	</div> -->
+    <!-- /Preloader -->
+
+    <!--Header Area-->
+    <header class="header-area">
+        <nav class="navbar navbar-expand-lg main-menu">
+            <div class="container-fluid">
+
+                <a class="navbar-brand" href="index.html"><img src="assets/images/logo.png" class="d-inline-block align-top" alt=""></a>
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="menu-toggle"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav m-auto"></ul>
+                    <div class="header-btn justify-content-end">
+                        <a href=<%=new_user_registration_path %> class="bttn-small btn-fill"><i class="fa fa-key"></i>Signup</a>
+                        <a href=<%=new_user_session_path %> class="bttn-small btn-fill ml-2"><i class="fa fa-lock"></i>Login</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!--/Header Area-->
+
+    <!--Full Search-->
+    <div class="search-full">
+        <button type="submit" class="search-close"><i class="flaticon-cancel"></i></button>
+        <div class="search-full--inner">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-xl-6 col-lg-6 col-md-10 col-sm-10">
+                        <form class="main-search-form">
+                            <input type="search" name="main_search" id="main_search" placeholder="Search anything">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/Full Search-->
+
+    <section>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xl-2 col-lg-2 col-md-3 col-sm-6">
+                    <aside class="content-sidebar">
+                        <h3>Leagues</h3>
+                        <ul>
+                            <li><a href=""> Premier League</a></li>
+                            <li><a href=""> LaLiga</a></li>
+                            <li><a href=""> UEFA Champions League</a></li>
+                            <li><a href=""> Premier League</a></li>
+                            <li><a href=""> LaLiga</a></li>
+                            <li><a href=""> UEFA Champions League</a></li>
+                            <li><a href=""> Premier League</a></li>
+                            <li><a href=""> LaLiga</a></li>
+                            <li><a href=""> UEFA Champions League</a></li>
+                            <li><a href=""> Premier League</a></li>
+                            <li><a href=""> LaLiga</a></li>
+                            <li><a href=""> UEFA Champions League</a></li>
+                        </ul>
+                    </aside>
+                    <aside class="content-sidebar">
+                        <h3>Countries</h3>
+                        <ul>
+                            <li><a href=""> England</a></li>
+                            <li><a href=""> Spain</a></li>
+                            <li><a href=""> Germany</a></li>
+                            <li><a href=""> Italy</a></li>
+                            <li><a href=""> France</a></li>
+                            <li><a href=""> Netherlands</a></li>
+                            <li><a href=""> England</a></li>
+                            <li><a href=""> Spain</a></li>
+                            <li><a href=""> Germany</a></li>
+                            <li><a href=""> Italy</a></li>
+                            <li><a href=""> France</a></li>
+                            <li><a href=""> Netherlands</a></li>
+                        </ul>
+                    </aside>
+                </div>
+                <div class="col-xl-7 col-lg-7 col-md-7 col-sm-7 mt-40">
+                    <div>
+                        <%= yield %>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6">
+
+                    <div class="web-sidebar-widget">
+                        <div class="widget-head">
+                            <h3>Betsb info</h3>
+                        </div>
+                        <div class="widget-body">
+                            <p><strong>Register:</strong> SMS 'JOIN' to 26587</p>
+                            <p><strong>Customer care:</strong> 987654123</p>
+                            <p><strong>Customer care 2:</strong> 987654123</p>
+                            <p><strong>Email:</strong> info@betsb.com</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--Copyright Area-->
+    <div class="copyright">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-6">
+                    <ul>
+                        <li><a href="">Faq</a></li>
+                        <li><a href="">Privacy</a></li>
+                        <li><a href="">Game Rules</a></li>
+                        <li><a href="">Terms and Service</a></li>
+                        <li><a href="">Support contact</a></li>
+                        <li><a href="">Cookie policy</a></li>
+                        <li><a href="">Responsible Gaming</a></li>
+                        <li><a href="">Faq</a></li>
+                        <li><a href="">Privacy</a></li>
+                        <li><a href="">Game Rules</a></li>
+                        <li><a href="">Terms and Service</a></li>
+                        <li><a href="">Support contact</a></li>
+                        <li><a href="">Cookie policy</a></li>
+                        <li><a href="">Responsible Gaming</a></li>
+                        <li><a href="">Faq</a></li>
+                        <li><a href="">Privacy</a></li>
+                        <li><a href="">Game Rules</a></li>
+                        <li><a href="">Terms and Service</a></li>
+                        <li><a href="">Support contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/Copyright Area-->
+
+
+    <!-- =============== APP SCRIPTS ===============-->
     <%= javascript_packs_with_chunks_tag 'application' %>
-  </head>
+        <%= yield :vendor_js_area %>
 
-  <body>
-    <%= render partial: "layouts/partials/flash" %>
-    <%= yield %>
-  </body>
+            <%= yield :body_area %>
+
+</body>
+
 </html>

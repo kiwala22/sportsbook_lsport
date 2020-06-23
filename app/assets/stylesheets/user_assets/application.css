@@ -1,0 +1,16 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ 
+ *= require user_assets/bootstrap.min
+ *= require user_assets/font-awesome.min
+ *= require user_assets/magnific-popup
+ *= require user_assets/jquery-ui
+ *= require user_assets/animate
+ *= require user_assets/owl.carousel.min
+ *= require user_assets/main
+ 
+ 
+ *
+ */

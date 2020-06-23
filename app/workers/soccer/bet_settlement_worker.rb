@@ -66,18 +66,21 @@ class Soccer::BetSettlementWorker
                 market["outcome"].each do |out|
                     if out["id"] == "1"
                         outcome_attr["1"] = out["result"]
+                        outcome_attr["void_factor"] = out["void_factor"]
                     end
                     if out["id"] == "2"
                         outcome_attr["2"] = out["result"]
+                        outcome_attr["void_factor"] = out["void_factor"]
                     end
                     if out["id"] == "3"
                         outcome_attr["3"] = out["result"]
+                        outcome_attr["void_factor"] = out["void_factor"]
                     end
                 end
             end
 
             if market.has_key?("void_reason")
-                update_attr["void_reasons"] = out["result"]
+                update_attr["void_reasons"] = market["void_reason"]
             end
 
             update_attr["outcome"] = outcome_attr.to_json
@@ -101,18 +104,21 @@ class Soccer::BetSettlementWorker
                 market["outcome"].each do |out|
                     if out["id"] == "9"
                         outcome_attr["9"] = out["result"]
+                        outcome_attr["void_factor"] = out["void_factor"]
                     end
                     if out["id"] == "10"
                         outcome_attr["10"] = out["result"]
+                        outcome_attr["void_factor"] = out["void_factor"]
                     end
                     if out["id"] == "11"
                         outcome_attr["11"] = out["result"]
+                        outcome_attr["void_factor"] = out["void_factor"]
                     end
                 end
             end
 
             if market.has_key?("void_reason")
-                update_attr["void_reasons"] = out["result"]
+                update_attr["void_reasons"] = market["void_reason"]
             end
 
             update_attr["outcome"] = outcome_attr.to_json
@@ -137,16 +143,18 @@ class Soccer::BetSettlementWorker
                 market["outcome"].each do |out|
                     if out["id"] == "12"
                         outcome_attr["12"] = out["result"]
+                        outcome_attr["void_factor"] = out["void_factor"]
                     end
                     if out["id"] == "13"
                         outcome_attr["13"] = out["result"]
+                        outcome_attr["void_factor"] = out["void_factor"]
                     end
                     
                 end
             end
 
             if market.has_key?("void_reason")
-                update_attr["void_reasons"] = out["result"]
+                update_attr["void_reasons"] = market["void_reason"]
             end
 
             update_attr["outcome"] = outcome_attr.to_json
@@ -170,16 +178,18 @@ class Soccer::BetSettlementWorker
                 market["outcome"].each do |out|
                     if out["id"] == "74"
                         outcome_attr["74"] = out["result"]
+                        outcome_attr["void_factor"] = out["void_factor"]
                     end
                     if out["id"] == "76"
                         outcome_attr["76"] = out["result"]
+                        outcome_attr["void_factor"] = out["void_factor"]
                     end
                     
                 end
             end
             #update or create markets 1X2 half time and fulltime
             if market.has_key?("void_reason")
-                update_attr["void_reasons"] = out["result"]
+                update_attr["void_reasons"] = market["void_reason"]
             end
 
             update_attr["outcome"] = outcome_attr.to_json
@@ -201,16 +211,18 @@ class Soccer::BetSettlementWorker
                 market["outcome"].each do |out|
                     if out["id"] == "1714"
                         outcome_attr["1714"] = out["result"]
+                        outcome_attr["void_factor"] = out["void_factor"]
                     end
                     if out["id"] == "1715"
                         outcome_attr["1715"] = out["result"]
+                        outcome_attr["void_factor"] = out["void_factor"]
                     end 
                     
                 end
             end
 
             if market.has_key?("void_reason")
-                update_attr["void_reasons"] = out["result"]
+                update_attr["void_reasons"] = market["void_reason"]
             end
 
             update_attr["outcome"] = outcome_attr.to_json

@@ -62,11 +62,11 @@ class Soccer::OddsChangeWorker
                 if message["odds_change"]["odds"].has_key?("market") && message["odds_change"]["odds"]["market"].present?
                     if message["odds_change"]["odds"]["market"].is_a?(Array)
                         message["odds_change"]["odds"]["market"].each do |market|
-                            process_market(market, product, event_id)  
+                            process_market(fixture.id, market, product)  
                         end
                     end
                     if message["odds_change"]["odds"]["market"].is_a?(Hash)
-                        process_market(message["odds_change"]["odds"]["market"], product, event_id)  
+                        process_market(fixture.id,message["odds_change"]["odds"]["market"], product)  
                     end
                 end
             end
@@ -75,7 +75,7 @@ class Soccer::OddsChangeWorker
         end
     end
     
-    def process_market(market, product, event_id)
+    def process_market(fixture_id, market, product)
         
         market_status = {
             "1" => "Active",
@@ -110,7 +110,7 @@ class Soccer::OddsChangeWorker
                 end
             end
             #update or create markets 1X2 half time and fulltime
-            mkt_entry = model_name.constantize.find_by(event_id: event_id)
+            mkt_entry = model_name.constantize.find_by(fixture_id: fixture_id)
             update_attr = {
                 competitor1:  comp1_odds,
                 competitor2: comp2_odds,
@@ -121,6 +121,7 @@ class Soccer::OddsChangeWorker
                 mkt_entry.update_attributes(update_attr)
             else
                 mkt_entry = model_name.constantize.new(update_attr)
+                mkt_entry.fixture_id = fixture_id
                 mkt_entry.event_id = event_id
                 mkt_entry.save
             end
@@ -146,7 +147,7 @@ class Soccer::OddsChangeWorker
             end
             #update or create markets 1X2 half time and fulltime
             #update or create markets 1X2 half time and fulltime
-            mkt_entry = model_name.constantize.find_by(event_id: event_id)
+            mkt_entry = model_name.constantize.find_by(fixture_id: fixture_id)
             update_attr = {
                 competitor1_draw:  comp1_draw_odds,
                 competitor1_competitor2: comp1_comp2_odds,
@@ -157,6 +158,7 @@ class Soccer::OddsChangeWorker
                 mkt_entry.update_attributes(update_attr)
             else
                 mkt_entry = model_name.constantize.new(update_attr)
+                mkt_entry.fixture_id = fixture_id
                 mkt_entry.event_id = event_id
                 mkt_entry.save
             end
@@ -179,7 +181,7 @@ class Soccer::OddsChangeWorker
                 end
             end
             #update or create markets 1X2 half time and fulltime
-            mkt_entry = model_name.constantize.find_by(event_id: event_id)
+            mkt_entry = model_name.constantize.find_by(fixture_id: fixture_id)
             update_attr = {
                 under:  under_odds,
                 over: over_odds,
@@ -190,6 +192,7 @@ class Soccer::OddsChangeWorker
                 mkt_entry.update_attributes(update_attr)
             else
                 mkt_entry = model_name.constantize.new(update_attr)
+                mkt_entry.fixture_id = fixture_id
                 mkt_entry.event_id = event_id
                 mkt_entry.save
             end
@@ -212,7 +215,7 @@ class Soccer::OddsChangeWorker
                 end
             end
             #update or create markets 1X2 half time and fulltime
-            mkt_entry = model_name.constantize.find_by(event_id: event_id)
+            mkt_entry = model_name.constantize.find_by(fixture_id: fixture_id)
             update_attr = {
                 yes:  yes_odds,
                 no: no_odds,
@@ -222,6 +225,7 @@ class Soccer::OddsChangeWorker
                 mkt_entry.update_attributes(update_attr)
             else
                 mkt_entry = model_name.constantize.new(update_attr)
+                mkt_entry.fixture_id = fixture_id
                 mkt_entry.event_id = event_id
                 mkt_entry.save
             end
@@ -243,7 +247,7 @@ class Soccer::OddsChangeWorker
                 end
             end
             #update or create markets 1X2 half time and fulltime
-            mkt_entry = model_name.constantize.find_by(event_id: event_id)
+            mkt_entry = model_name.constantize.find_by(fixture_id: fixture_id)
             update_attr = {
                 competitor1:  comp1_odds,
                 competitor2: comp2_odds,
@@ -254,6 +258,7 @@ class Soccer::OddsChangeWorker
                 mkt_entry.update_attributes(update_attr)
             else
                 mkt_entry = model_name.constantize.new(update_attr)
+                mkt_entry.fixture_id = fixture_id
                 mkt_entry.event_id = event_id
                 mkt_entry.save
             end    
