@@ -14,3 +14,66 @@
  
  *
  */
+
+.form-group {
+    display: flex;
+    flex: 0 0 auto;
+    flex-flow: row wrap;
+    align-items: center;
+    margin-bottom: 0;
+}
+
+.login>.content-center,
+.registration>.content-center {
+    background-color: transparent;
+}
+
+.login,
+.registration {
+    margin-top: -40px important!;
+}
+
+.cl-grey {
+    background-color: #e8e8e8;
+}
+
+.web-sidebar-widget.login-widget {
+    margin-top: 0px;
+}
+
+.new_user>.form-group>.form-control {
+    background-color: #e8e8e8;
+    border: 1px solid #F6AE2D;
+}
+
+.new_user>.form-group>.form-control:focus {
+    background-color: #e8e8e8;
+    border: 1px solid #F6AE2D;
+    box-shadow: 0 0 0 0.1rem #F6AE2D;
+}
+
+input.btn.btn-block.btn-primary.mt-lg.login-btn {
+    background-color: #F6AE2D;
+    border-color: #F6AE2D;
+    color: black;
+}
+
+input.btn.btn-block.btn-primary.mt-lg.login-btn:hover,
+input.btn.btn-block.btn-primary.mt-lg.login-btn:focus {
+    background-color: #F6AE2D;
+    border-color: #F6AE2D;
+    box-shadow: 0 0 0 0.1rem #F6AE2D;
+}
+
+#label_remember_me {
+    margin-bottom: 0px;
+    padding-left: 10px;
+}
+
+#remember_me {
+    padding-top: 1rem;
+}
+
+form>.actions {
+    margin: 1rem 0rem;
+}
