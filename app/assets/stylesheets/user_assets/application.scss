@@ -1,26 +1,33 @@
 /*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- 
- *= require user_assets/bootstrap.min
- *= require user_assets/font-awesome.min
- *= require user_assets/magnific-popup
- *= require user_assets/jquery-ui
- *= require user_assets/animate
- *= require user_assets/owl.carousel.min
- *= require user_assets/main
- 
- 
- *
- */
+* This is a manifest file that'll be compiled into application.css, which will include all the files
+* listed below.
+*
+
+*= require user_assets/bootstrap.min
+*= require user_assets/font-awesome.min
+*= require user_assets/magnific-popup
+*= require user_assets/jquery-ui
+*= require user_assets/animate
+*= require user_assets/owl.carousel.min
+*= require user_assets/main
+
+
+*
+*/
 
 .form-group {
     display: flex;
     flex: 0 0 auto;
     flex-flow: row wrap;
     align-items: center;
-    margin-bottom: 0;
+    margin-bottom: 10px;
+    .field_with_errors {
+        width: 100%;
+        .form-control {
+            background-color: #e8e8e8;
+            border: 1px solid red;
+        }
+    }
 }
 
 .login>.content-center,
@@ -30,7 +37,7 @@
 
 .login,
 .registration {
-    margin-top: -40px important!;
+    margin-top: -40px !important;
 }
 
 .cl-grey {
@@ -76,4 +83,12 @@ input.btn.btn-block.btn-primary.mt-lg.login-btn:focus {
 
 form>.actions {
     margin: 1rem 0rem;
+}
+
+a.devise_forms {
+    font-weight: bold;
+}
+
+a.devise_forms:hover {
+    text-decoration: underline;
 }

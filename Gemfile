@@ -97,3 +97,4 @@ gem "bunny", ">= 2.9.2"
 gem 'sneakers'
 # gem 'httparty', '~> 0.13.7'
 # gem 'rb-readline'
+gem 'active_model_serializers', '~> 0.10.0'
