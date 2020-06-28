@@ -1,51 +1,53 @@
 Rails.application.routes.draw do
-  get '/api_user_keys/:id', to: 'api_users#generate_api_keys', as: 'user_keys'
-  resources :api_users, only: [:new, :index, :create]
-  resources :transactions, only: [:new]
-  match 'deposit' => "transactions#deposit", via: [:post]
-  match 'transfer' => "transactions#transfer", via: [:get]
-  match 'withdraw' => "transactions#withdraw", via: [:post]
-  match 'resend_verify' => "verify#create", via: [:post]
-  match 'new_verify' => "verify#new", via: [:get]
-  match 'send_verification' => "verify#verify_via_email", via: [:get]
-  match 'verify' => "verify#update", via: [:put]
+   root to: 'fixtures#index'
 
-  namespace :backend do
-     namespace :fixtures do
-        match 'soccer_fixtures' => "soccer_fixtures#index", via: [:get]
-        patch 'soccer_fixtures' => "soccer_fixtures#update", via: [:update]
-        match 'virtual_soccer_fixtures' => "virtual_soccer_fixtures#index", via: [:get]
-        patch 'virtual_soccer_fixtures' => "virtual_soccer_fixtures#update", via: [:update]
-     end
-     resources :deposits, only: [:index]
-     resources :withdraws, only: [:index]
-     match 'users' => "bet_users#index", via: [:get]
-     match 'betstop_reasons' => "betstop_reasons#index", via: [:get]
-     match 'betting_statuses' => "betting_statuses#index", via: [:get]
-     match 'void_reasons' => "void_reasons#index", via: [:get]
-     match 'match_statuses' => "match_statuses#index", via: [:get]
-  end
-
+   get '/api_user_keys/:id', to: 'api_users#generate_api_keys', as: 'user_keys'
+   resources :api_users, only: [:new, :index, :create]
+   resources :transactions, only: [:new]
+   match 'deposit' => "transactions#deposit", via: [:post]
+   match 'transfer' => "transactions#transfer", via: [:get]
+   match 'withdraw' => "transactions#withdraw", via: [:post]
+   match 'resend_verify' => "verify#create", via: [:post]
+   match 'new_verify' => "verify#new", via: [:get]
+   match 'send_verification' => "verify#verify_via_email", via: [:get]
+   match 'verify' => "verify#update", via: [:put]
+   
+   namespace :backend do
+      namespace :fixtures do
+         match 'soccer_fixtures' => "soccer_fixtures#index", via: [:get]
+         patch 'soccer_fixtures' => "soccer_fixtures#update", via: [:update]
+         match 'virtual_soccer_fixtures' => "virtual_soccer_fixtures#index", via: [:get]
+         patch 'virtual_soccer_fixtures' => "virtual_soccer_fixtures#update", via: [:update]
+      end
+      resources :deposits, only: [:index]
+      resources :withdraws, only: [:index]
+      match 'users' => "bet_users#index", via: [:get]
+      match 'betstop_reasons' => "betstop_reasons#index", via: [:get]
+      match 'betting_statuses' => "betting_statuses#index", via: [:get]
+      match 'void_reasons' => "void_reasons#index", via: [:get]
+      match 'match_statuses' => "match_statuses#index", via: [:get]
+   end
+   
    namespace :amqp do
       namespace :v1  do
          match 'alerts' => 'alerts#create', via: [:post]
-
+         
          namespace :sports do
             match 'soccer' => 'soccer#create', via: [:post]
          end
       end
    end
-
+   
    devise_for :users, path: 'users',  controllers: {
       sessions: 'users/sessions'
    }
    devise_for :admins, path: 'admins',  controllers:{
       sessions: 'admins/sessions'
-
+      
    }
    
    devise_scope :admin do
-
+      
       authenticated :admin do
          get '/backend' => 'admin_landing#index', as: :authenticated_admins_root
       end
@@ -56,8 +58,8 @@ Rails.application.routes.draw do
    # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
    devise_for :admin_users, ActiveAdmin::Devise.config
    ActiveAdmin.routes(self)
-
+   
    require 'sidekiq/web'
    mount Sidekiq::Web => '/rabbit'
-
+   
 end
