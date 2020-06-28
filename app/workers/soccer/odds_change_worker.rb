@@ -62,11 +62,11 @@ class Soccer::OddsChangeWorker
                 if message["odds_change"]["odds"].has_key?("market") && message["odds_change"]["odds"]["market"].present?
                     if message["odds_change"]["odds"]["market"].is_a?(Array)
                         message["odds_change"]["odds"]["market"].each do |market|
-                            process_market(fixture, market, product)  
+                            process_market(fixture.id, market, product, event_id)  
                         end
                     end
                     if message["odds_change"]["odds"]["market"].is_a?(Hash)
-                        process_market(fixture,message["odds_change"]["odds"]["market"], product)  
+                        process_market(fixture.id,message["odds_change"]["odds"]["market"], product, event_id)  
                     end
                 end
             end
@@ -75,7 +75,7 @@ class Soccer::OddsChangeWorker
         end
     end
     
-    def process_market(fixture, market, product)
+    def process_market(fixture, market, product, event_id)
         
         market_status = {
             "1" => "Active",
@@ -121,8 +121,8 @@ class Soccer::OddsChangeWorker
                 mkt_entry.update_attributes(update_attr)
             else
                 mkt_entry = model_name.constantize.new(update_attr)
-                mkt_entry.fixture_id = fixture.id
-                mkt_entry.event_id = fixture.event_id
+                mkt_entry.fixture_id = fixture_id
+                mkt_entry.event_id = event_id
                 mkt_entry.save
             end
             
@@ -158,8 +158,8 @@ class Soccer::OddsChangeWorker
                 mkt_entry.update_attributes(update_attr)
             else
                 mkt_entry = model_name.constantize.new(update_attr)
-                mkt_entry.fixture_id = fixture.id
-                mkt_entry.event_id = fixture.event_id
+                mkt_entry.fixture_id = fixture_id
+                mkt_entry.event_id = event_id
                 mkt_entry.save
             end
             
@@ -192,8 +192,8 @@ class Soccer::OddsChangeWorker
                 mkt_entry.update_attributes(update_attr)
             else
                 mkt_entry = model_name.constantize.new(update_attr)
-                mkt_entry.fixture_id = fixture.id
-                mkt_entry.event_id = fixture.event_id
+                mkt_entry.fixture_id = fixture_id
+                mkt_entry.event_id = event_id
                 mkt_entry.save
             end
             
@@ -225,8 +225,8 @@ class Soccer::OddsChangeWorker
                 mkt_entry.update_attributes(update_attr)
             else
                 mkt_entry = model_name.constantize.new(update_attr)
-                mkt_entry.fixture_id = fixture.id
-                mkt_entry.event_id = fixture.event_id
+                mkt_entry.fixture_id = fixture_id
+                mkt_entry.event_id = event_id
                 mkt_entry.save
             end
         end
@@ -258,8 +258,8 @@ class Soccer::OddsChangeWorker
                 mkt_entry.update_attributes(update_attr)
             else
                 mkt_entry = model_name.constantize.new(update_attr)
-                mkt_entry.fixture_id = fixture.id
-                mkt_entry.event_id = fixture.event_id
+                mkt_entry.fixture_id = fixture_id
+                mkt_entry.event_id = event_id
                 mkt_entry.save
             end    
         end
