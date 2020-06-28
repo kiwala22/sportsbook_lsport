@@ -6,12 +6,12 @@ module MobileMoney
 		require 'uri'
 		require 'net/http'
 
-		@@collection_sub_key  = ""#"12e0c6ecfb5f4a4788f44bd1fc65f81c"
-		@@transfer_sub_key= ""#"53e3bdbf26a747469dde718aa722689c"
-		@@collection_user_id =  ""#ApiUser.where(user_type: "collections").last.api_id
-		@@transfer_user_id =  ""#ApiUser.where(user_type: "transfer").last.api_id
+		@@collection_sub_key  = "d62ba8e2507e4e4bb54aba82fa826839"#"12e0c6ecfb5f4a4788f44bd1fc65f81c"
+		@@transfer_sub_key		= "34a48a79a06940d5907ff4244456df5e"#"53e3bdbf26a747469dde718aa722689c"
+		@@collection_user_id 	=  ApiUser.where(user_type: "collections").last.api_id if ApiUser.where(user_type: "collections").present?
+		@@transfer_user_id 		=  ApiUser.where(user_type: "transfer").last.api_id if ApiUser.where(user_type: "transfer").present?
 
-		def self.request_payments(amount, ext_reference, phone_number )
+		def self.request_payments(amount, ext_reference, phone_number)
 			token = process_request_token(@@collection_user_id)
 			if token
 				url = "https://sandbox.momodeveloper.mtn.com/collection/v1_0/requesttopay"
@@ -26,7 +26,7 @@ module MobileMoney
 				req['Authorization'] = "Bearer #{token}"
 
 				#set transactions callback url
-				req['X-Callback-Url'""] = callback_url
+				#req['X-Callback-Url'""] = callback_url
 
 				#set the transaction reference
 				req['X-Reference-Id'] = ext_reference
@@ -60,7 +60,7 @@ module MobileMoney
 
 				end
 
-				return res.code
+				return res.code #Expecting code to be 202 on successfull transaction
 			else
 				return nil
 			end
@@ -146,7 +146,7 @@ module MobileMoney
 				req['Authorization'] = "Bearer #{token}"
 
 				#set transactions callback url
-				req['X-Callback-Url'] = callback_url
+				#req['X-Callback-Url'] = callback_url
 
 				#set the transaction reference
 				req['X-Reference-Id'] = ext_reference
@@ -181,7 +181,6 @@ module MobileMoney
 				end
 
 				return res.code
-				p res
 
 			else
 				return nil
@@ -361,7 +360,7 @@ module MobileMoney
 			req['Ocp-Apim-Subscription-Key'] = sub_key
 
 			request_body = {
-				providerCallbackHost: "betcity.co.ug"
+				providerCallbackHost: "example.com"
 			}
 
 			req.body = request_body.to_json

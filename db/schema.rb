@@ -63,6 +63,17 @@ ActiveRecord::Schema.define(version: 2020_06_23_092308) do
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
 
+  create_table "api_users", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "api_id"
+    t.string "api_key"
+    t.boolean "registered", default: false
+    t.string "user_type"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "bet_slips", force: :cascade do |t|
     t.integer "bet_count"
     t.decimal "stake", precision: 12, scale: 2
