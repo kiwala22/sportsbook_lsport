@@ -11,8 +11,8 @@ class FixturesController < ApplicationController
       #.includes(:market1_pre).where("scheduled_time >= ? AND scheduled_time = ? AND status = ?", Time.now, Date.today, "not_started" )
       @fixtures = @q.result.includes(:market1_pre)
 
-      p @q
-      p @fixtures
+      p "q: #{@q}"
+      p "fixtures: #{@fixtures}"
    end
 
    def show

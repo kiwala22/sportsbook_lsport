@@ -75,7 +75,7 @@ class Soccer::OddsChangeWorker
         end
     end
     
-    def process_market(fixture, market, product, event_id)
+    def process_market(fixture_id, market, product, event_id)
         
         market_status = {
             "1" => "Active",
