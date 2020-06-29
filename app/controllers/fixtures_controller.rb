@@ -4,7 +4,7 @@ class FixturesController < ApplicationController
       if params[:q].present?
          @q = Fixture.ransack(params[:q])
       else
-         params[:q] = {"scheduled_time_gteq": Time.now, "scheduled_time_lteq": Date.today.end_of_day, "status_eq": "not_started"}
+         params[:q] = {"scheduled_time_gteq": Time.now, "scheduled_time_lteq": Date.today.end_of_day, "status_eq": "not_started", "sport_id_eq": "sr:sport:1", "category_id_not_eq": "sr:category:1033" }
          @q = Fixture.ransack(params[:q])
       end
       

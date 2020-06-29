@@ -92,3 +92,20 @@ a.devise_forms {
 a.devise_forms:hover {
     text-decoration: underline;
 }
+
+.fixture-table {
+    table {
+        thead {
+            tr {
+                font-size: 10px !important;
+                line-height: 1rem;
+            }
+        }
+        tbody {
+            tr {
+                font-size: 10px !important;
+                line-height: 1rem;
+            }
+        }
+    }
+}
