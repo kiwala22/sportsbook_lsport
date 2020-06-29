@@ -35,14 +35,16 @@
                         </thead>
                         <tbody>
                             <% @fixtures.each do |fixture| %>
-                                <tr>
-                                    <td><%= fixture.scheduled_time %></td>
-                                    <td><%= fixture.comp_one_name %> - <%= fixture.comp_two_name %></td>
-                                    <td><%= fixture.market1_pre.competitor1 %></td>
-                                    <td><%= fixture.market1_pre.draw %></td>
-                                    <td><%= fixture.market1_pre.competitor2 %></td>
+                                <% if fixture.market1_pre.present? %>
+                                    <tr>
+                                        <td><%= fixture.scheduled_time %></td>
+                                        <td><%= fixture.comp_one_name %> - <%= fixture.comp_two_name %></td>
+                                        <td><%= fixture.market1_pre.competitor1 %></td>
+                                        <td><%= fixture.market1_pre.draw %></td>
+                                        <td><%= fixture.market1_pre.competitor2 %></td>
 
-                                </tr>
+                                    </tr>
+                                <% end %>
                             <% end %>
                         </tbody>
                     </table>
