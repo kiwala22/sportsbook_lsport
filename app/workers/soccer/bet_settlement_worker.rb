@@ -80,7 +80,7 @@ class Soccer::BetSettlementWorker
             end
 
             if market.has_key?("void_reason")
-                update_attr["void_reasons"] = market["void_reason"]
+                update_attr["void_reason"] = market["void_reason"]
             end
 
             update_attr["outcome"] = outcome_attr.to_json
@@ -118,7 +118,7 @@ class Soccer::BetSettlementWorker
             end
 
             if market.has_key?("void_reason")
-                update_attr["void_reasons"] = market["void_reason"]
+                update_attr["void_reason"] = market["void_reason"]
             end
 
             update_attr["outcome"] = outcome_attr.to_json
@@ -154,7 +154,7 @@ class Soccer::BetSettlementWorker
             end
 
             if market.has_key?("void_reason")
-                update_attr["void_reasons"] = market["void_reason"]
+                update_attr["void_reason"] = market["void_reason"]
             end
 
             update_attr["outcome"] = outcome_attr.to_json
@@ -189,7 +189,7 @@ class Soccer::BetSettlementWorker
             end
             #update or create markets 1X2 half time and fulltime
             if market.has_key?("void_reason")
-                update_attr["void_reasons"] = market["void_reason"]
+                update_attr["void_reason"] = market["void_reason"]
             end
 
             update_attr["outcome"] = outcome_attr.to_json
@@ -222,7 +222,7 @@ class Soccer::BetSettlementWorker
             end
 
             if market.has_key?("void_reason")
-                update_attr["void_reasons"] = market["void_reason"]
+                update_attr["void_reason"] = market["void_reason"]
             end
 
             update_attr["outcome"] = outcome_attr.to_json
