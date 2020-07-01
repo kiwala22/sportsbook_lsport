@@ -2713,17 +2713,17 @@ Site Sidebar
 }
 
 .game-box .card .card-body table tr th {
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 700;
-    text-transform: uppercase;
-    text-align: center;
+    text-transform: capitalize;
+    // text-align: center;
 }
 
 .game-box .card .card-body table tr td {
     font-size: 12px;
     font-weight: 700;
-    text-transform: uppercase;
-    text-align: center;
+    text-transform: capitalize;
+    // text-align: center;
 }
 
 .game-box .card .card-body table tr td img {
