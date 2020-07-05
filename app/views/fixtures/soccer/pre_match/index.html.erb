@@ -1,0 +1,69 @@
+<div class="game-box">
+    <div class="card">
+        <div class="card-header">
+            <h3>Fixtures</h3>
+            <span>Live Play</span><input type="checkbox" id="switch" /><label for="switch">Toggle</label>
+        </div>
+        <div class="card-body">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Today</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Tomorrow</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Live Matches</a>
+                </li>
+
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <table class="table table-hover table-borderless table-striped">
+                        <thead>
+                            <tr>
+                                <th class="col-2">Date</th>
+                                <th class="col-4">Teams</th>
+                                <th class="col-3">Tournament</th>
+                                <th class="col-1">1</th>
+                                <th class="col-1">X</th>
+                                <th class="col-1">2</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% @fixtures.each do |fixture| %>
+                                <% if fixture.market1_pre.present? && fixture.market1_pre.status == "Active" %>
+                                    <tr>
+                                        <td>
+                                            <a href=<%= fixtures_soccer_path(id: fixture.id) %>>
+                                                <%= fixture.scheduled_time.strftime("%H:%M:%S ") %> <br>
+                                                    <%= fixture.scheduled_time.strftime("%d/%m/%y") %>
+                                            </a>
+                                        </td>
+                                        <td><a href=<%= fixtures_soccer_path(id: fixture.id) %>><strong><%= fixture.comp_one_name %></strong>  <strong><%= fixture.comp_two_name %></strong> </a> </td>
+                                        <td>
+                                            <a href=<%= fixtures_soccer_path(id: fixture.id) %>>
+                                                <%= fixture.tournament_name %> <br>
+                                                    <%= fixture.category %>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <%= link_to(fixture.market1_pre.competitor1, "#", class: "btnn" )%>
+                                        </td>
+                                        <td>
+                                            <%= link_to(fixture.market1_pre.draw, "#", class: "btnn" )%>
+                                        </td>
+                                        <td>
+                                            <%= link_to(fixture.market1_pre.competitor2, "#", class: "btnn" )%>
+                                        </td>
+                                    </tr>
+
+                                    <% end %>
+                                        <% end %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

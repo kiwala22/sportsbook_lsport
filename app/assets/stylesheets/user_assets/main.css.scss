@@ -521,11 +521,11 @@ body {
     color: #292929;
     line-height: 1.7em;
     font-weight: 400;
-    background: #231f20;
+    background: #1D2228;
     -webkit-font-smoothing: antialiased;
     -moz-font-smoothing: antialiased;
     font-family: "Open Sans", sans-serif;
-    background: #231f20;
+    background: #1D2228;
 }
 
 a {
@@ -551,7 +551,7 @@ h4,
 h5,
 h6 {
     position: relative;
-    font-weight: 700;
+    font-weight: 500;
     margin: 0px;
     background: none;
     line-height: 1.2em;
@@ -710,11 +710,11 @@ img {
 }
 
 .cl-blue {
-    color: #231F20;
+    color: #1D2228;
 }
 
 .cl-blue-2 {
-    color: #231F20;
+    color: #1D2228;
 }
 
 .cl-green {
@@ -1065,7 +1065,7 @@ img {
 }
 
 .blue-bg {
-    background: #231F20;
+    background: #1D2228;
 }
 
 .light-blue-bg {
@@ -1276,7 +1276,7 @@ img {
     flex-flow: row nowrap;
     justify-content: center;
     align-items: center;
-    background: none repeat scroll 0 0 #231F20;
+    background: none repeat scroll 0 0 #1D2228;
 }
 
 .spinner {
@@ -1426,9 +1426,9 @@ a#scrollUp {
 
 .acc-tab-btn {
     width: 100%;
-    background: #231F20;
+    background: #1D2228;
     text-align: center;
-    border: 3px solid #231F20;
+    border: 3px solid #1D2228;
 }
 
 .acc-tab-btn li {
@@ -1480,7 +1480,7 @@ a#scrollUp {
 }
 
 .acc-form input:focus {
-    border: 2px solid #231F20;
+    border: 2px solid #1D2228;
 }
 
 .acc-form button {
@@ -2094,7 +2094,7 @@ Copyright Area
 
 .copyright {
     padding: 20px 0;
-    background: #231F20;
+    background: #1D2228;
 }
 
 .copyright p {
@@ -2231,7 +2231,7 @@ Hero Area
 }
 
 .hero-section .hero-area-1 .owl-dots .owl-dot span {
-    color: #231F20;
+    color: #1D2228;
 }
 
 .hero-section .hero-area-1 .owl-dots .owl-dot:hover,
@@ -2351,7 +2351,7 @@ Hero Area
     display: inline-block;
     background: #ffffff;
     border-radius: 50%;
-    color: #231F20;
+    color: #1D2228;
 }
 
 .hero-section .hero-area-2 .single-hero .hero-sub .table-cell .hero-left .video-play:hover {
@@ -2397,7 +2397,7 @@ Site Sidebar
 */
 
 .content-sidebar {
-    background: #231F20;
+    background: #1D2228;
     padding: 40px 0;
     color: #ffffff;
 }
@@ -2470,7 +2470,7 @@ Site Sidebar
 
 .web-sidebar-widget .widget-body {
     padding: 30px;
-    color: #231F20;
+    color: #1D2228;
     font-size: 14px;
     background-color: #e8e8e8;
 }
@@ -2609,7 +2609,7 @@ Site Sidebar
 }
 
 .main-content-slider .owl-dots .owl-dot span {
-    color: #231F20;
+    color: #1D2228;
 }
 
 .main-content-slider .owl-dots .owl-dot:hover,
@@ -2679,17 +2679,17 @@ Site Sidebar
 
 .game-box .card .card-body ul li a {
     border: 0;
-    font-weight: 700;
+    font-weight: 600;
     font-size: 12px;
     text-transform: uppercase;
 }
 
 .game-box .card .card-body ul li a:hover {
-    color: #231F20;
+    color: #1D2228;
 }
 
 .game-box .card .card-body ul li a.active {
-    border-bottom: 2px solid #231F20;
+    border-bottom: 2px solid #1D2228;
 }
 
 .game-box .card .card-body ul li.search-game {
@@ -2709,19 +2709,19 @@ Site Sidebar
 }
 
 .game-box .card .card-body ul li.search-game input:focus {
-    border-color: #231F20;
+    border-color: #1D2228;
 }
 
 .game-box .card .card-body table tr th {
-    font-size: 14px;
-    font-weight: 700;
+    font-size: 12px;
+    font-weight: 600;
     text-transform: capitalize;
     // text-align: center;
 }
 
 .game-box .card .card-body table tr td {
     font-size: 12px;
-    font-weight: 700;
+    font-weight: 600;
     text-transform: capitalize;
     // text-align: center;
 }
@@ -2921,7 +2921,7 @@ Blog Area
     height: 100%;
     left: 0;
     top: 0;
-    background: #231F20;
+    background: #1D2228;
     opacity: 0;
     transition: 0.4s;
 }
@@ -2929,7 +2929,7 @@ Blog Area
 .blog-area .single-blog-2 .single-blog-content {
     box-shadow: 0px 0px 16px 4px rgba(0, 0, 0, 0.05);
     padding: 30px;
-    background: #231F20;
+    background: #1D2228;
     position: relative;
 }
 
@@ -3145,7 +3145,7 @@ Blog Area
     margin-bottom: 40px;
     padding: 30px 40px;
     overflow: hidden;
-    background: #231F20;
+    background: #1D2228;
 }
 
 .blog-area .blog-all-comments .blog-comments div {
@@ -3501,7 +3501,7 @@ Loan area
     font-size: 30px;
     margin-bottom: 45px;
     font-weight: 300;
-    color: #231F20;
+    color: #1D2228;
 }
 
 .loan-area .loan-confirm-form p strong {
@@ -3748,7 +3748,7 @@ Contact area
 
 .contact-form form input:focus,
 .contact-form form textarea:focus {
-    border: 2px solid #231F20;
+    border: 2px solid #1D2228;
 }
 
 .contact-form form input {
@@ -3975,7 +3975,7 @@ MIssion Vission area
     line-height: 50px;
     padding: 0 4px;
     text-align: center;
-    color: #231F20;
+    color: #1D2228;
     box-shadow: 0px 0px 15px 0px rgba(72, 67, 211, 0.12);
 }
 
@@ -3999,7 +3999,7 @@ MIssion Vission area
 
 .right-sticky-wapper .right-sticky-content form input:focus,
 .right-sticky-wapper .right-sticky-content form textarea:focus {
-    border: 2px solid #231F20;
+    border: 2px solid #1D2228;
 }
 
 .right-sticky-wapper .right-sticky-content form input {
@@ -4197,7 +4197,7 @@ Job Post Area
 }
 
 .single-job:hover {
-    border-color: #231F20;
+    border-color: #1D2228;
 }
 
 .single-job .job-des {
@@ -4222,7 +4222,7 @@ Job Post Area
 }
 
 .single-job .job-des h3 a:hover {
-    color: #231F20;
+    color: #1D2228;
 }
 
 .single-job .job-des p {
@@ -4284,7 +4284,7 @@ Online Apply Form
     line-height: 35px;
     color: #ffffff;
     border-radius: 50%;
-    background: #231F20;
+    background: #1D2228;
     margin-right: 8px;
     display: inline-block;
     text-align: center;
@@ -4313,12 +4313,12 @@ Online Apply Form
 }
 
 .select-bar:focus {
-    border: 2px solid #231F20;
+    border: 2px solid #1D2228;
 }
 
 .select-bar .list {
     width: 100%;
-    border: 2px solid #231F20;
+    border: 2px solid #1D2228;
 }
 
 .select-bar:after {
@@ -4342,7 +4342,7 @@ Online Apply Form
 .apply-form input:focus,
 .apply-form select:focus,
 .apply-form textarea:focus {
-    border: 2px solid #231F20;
+    border: 2px solid #1D2228;
 }
 
 .apply-form input[type="checkbox"] {
@@ -4358,7 +4358,7 @@ Online Apply Form
 
 .apply-form a {
     display: block;
-    color: #231F20;
+    color: #1D2228;
     margin-bottom: 10px;
     font-size: 14px;
     font-weight: 500;

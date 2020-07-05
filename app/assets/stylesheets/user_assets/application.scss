@@ -191,3 +191,56 @@ table.fixture-table {
         text-decoration: underline;
     }
 }
+
+.markets-table .btn {
+    width: 100%;
+}
+
+.markets-table {
+    tbody {
+        tr {
+            td {
+                a.btn {
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+}
+
+.wagger-btn {
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+    flex-basis: 100%;
+    width: 100%;
+    background-color: #eaecee;
+    border-color: #eaecee;
+    line-height: 1.2rem;
+    font-size: 12px;
+    font-weight: 600;
+    .wagger-amt {
+        font-weight: 600;
+        margin-top: 5px;
+    }
+}
+
+strong {
+    font-weight: 600;
+}
+
+.market-odds {
+    padding: 11px 15px;
+    border-left: 1px solid #e1e1e1;
+    border-right: 1px solid #e1e1e1;
+    border-bottom: 1px solid #e1e1e1;
+}
+
+.market-label {
+    padding: 0px 15px;
+    background-color: #eaecee;
+    border-left: 1px solid #e1e1e1;
+    border-right: 1px solid #e1e1e1;
+    border-top: 1px solid #e1e1e1;
+    font-size: 12px;
+}

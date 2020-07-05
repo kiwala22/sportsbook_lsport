@@ -1,5 +1,21 @@
 Rails.application.routes.draw do
-   root to: 'fixtures#index'
+   root to: 'fixtures/soccer/pre_match#index'
+
+   namespace :fixtures do
+      namespace :soccer do
+         match 'pres' => 'pre_match#index', via: [:get]
+         match 'pres/:id' => 'pre_match#show', via: [:get]
+         match 'lives' => 'live_match#index', via: [:get]
+         match 'lives/:id' => 'live_match#show', via: [:get]
+      end
+      namespace :virtual_soccer do
+         match 'pres' => 'pre_match#index', via: [:get]
+         match 'pres/:id' => 'pre_match#show', via: [:get]
+         match 'lives' => 'live_match#index', via: [:get]
+         match 'lives/:id' => 'live_match#show', via: [:get]
+      end
+   end
+
 
    get '/api_user_keys/:id', to: 'api_users#generate_api_keys', as: 'user_keys'
    resources :api_users, only: [:new, :index, :create]

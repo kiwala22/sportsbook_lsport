@@ -1,0 +1,120 @@
+<div class="game-box">
+    <div class="card">
+        <div class="card-header">
+            <h6>
+               <%= @fixture.comp_one_name %>  - <%= @fixture.comp_two_name %>,
+               <%= @fixture.tournament_name %>  <%= @fixture.category %>
+            </h6>
+        </div>
+        <div class="card-body">
+            <div class='row'>
+                <div class="col-lg-12">
+                    <% if @fixture.market1_pre.present? && @fixture.market1_pre.status == "Active" %>
+                        <div class="market-label">
+                            <div class="row">
+                                <div class="col-lg-12 market-label">
+                                    1X2
+                                </div>
+                            </div>
+                        </div>
+                        <div class="market-odds mb-5">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <a href = "#" class="btn btn-light wagger-btn"> <span>Home Win</span> <span class="wagger-amt"> <%= @fixture.market1_pre.competitor1 %>  </span> </a>  
+                                </div> 
+                                <div class="col-lg-4">
+                                    <a href = "#" class="btn btn-light wagger-btn"> <span>Draw</span> <span class="wagger-amt"> <%= @fixture.market1_pre.draw %>  </span> </a>  
+                                </div> 
+                                <div class="col-lg-4">
+                                    <a href = "#" class="btn btn-light wagger-btn"> <span>Away Win</span> <span class="wagger-amt"> <%= @fixture.market1_pre.competitor2 %>  </span> </a>  
+                                </div>                               
+                            </div>
+                        </div>
+                    <% end %>
+                    <% if @fixture.market10_pre.present? && @fixture.market10_pre.status == "Active" %>
+                        <div class="market-label">
+                            <div class="row">
+                                <div class="col-lg-12 market-label">
+                                    Double Chance
+                                </div>
+                            </div>
+                        </div>
+                        <div class="market-odds mb-5">
+                            <div class="row market">
+                                <div class="col-lg-4">
+                                    <a href = "#" class="btn btn-light wagger-btn"> <span>Home Win / Draw</span> <span class="wagger-amt"> <%= @fixture.market10_pre.competitor1_draw %>  </span> </a>  
+                                </div> 
+                                <div class="col-lg-4">
+                                    <a href = "#" class="btn btn-light wagger-btn"> <span>Home / Away</span> <span class="wagger-amt"> <%= @fixture.market10_pre.competitor1_competitor2 %>  </span> </a>  
+                                </div> 
+                                <div class="col-lg-4">
+                                    <a href = "#" class="btn btn-light wagger-btn"> <span>Draw / Away Win</span> <span class="wagger-amt"> <%= @fixture.market10_pre.draw_competitor2 %>  </span> </a>  
+                                </div>                               
+                            </div>
+                        </div>
+                    <% end %>
+                    <% if @fixture.market16_pre.present? && @fixture.market16_pre.status == "Active" %>
+                        <div class="market-label">
+                            <div class="row">
+                                <div class="col-lg-12 market-label">
+                                    Handicap 1 Goal
+                                </div>
+                            </div>
+                        </div>
+                        <div class="market-odds mb-5">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <a href = "#" class="btn btn-light wagger-btn"> <span>Home -1</span> <span class="wagger-amt"> <%= @fixture.market16_pre.competitor1 %>  </span> </a>  
+                                </div> 
+                                <div class="col-lg-6">
+                                    <a href = "#" class="btn btn-light wagger-btn"> <span>Away + 1</span> <span class="wagger-amt"> <%= @fixture.market16_pre.competitor2 %>  </span> </a>  
+                                </div> 
+                                    
+                            </div>
+                        </div>
+                    <% end %>
+                    <% if @fixture.market18_pre.present? && @fixture.market18_pre.status == "Active" %>
+                        <div class="market-label">
+                            <div class="row">
+                                <div class="col-lg-12 market-label">
+                                    Under 2.5 / Over 2.5
+                                </div>
+                            </div>
+                        </div>
+                        <div class="market-odds mb-5">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <a href = "#" class="btn btn-light wagger-btn"> <span>Under 2.5</span> <span class="wagger-amt"> <%= @fixture.market18_pre.under %> </span> </a>  
+                                </div> 
+                                <div class="col-lg-6">
+                                    <a href = "#" class="btn btn-light wagger-btn"> <span>Over 2.5</span> <span class="wagger-amt"> <%= @fixture.market18_pre.over %>  </span> </a>  
+                                </div>                          
+                            </div>
+                        </div>
+                        
+                    <% end %>
+                    <% if @fixture.market29_pre.present? && @fixture.market29_pre.status == "Active" %>
+                        <div class="market-label">
+                            <div class="row">
+                                <div class="col-lg-12 market-label">
+                                    Both to Score
+                                </div>
+                            </div>
+                        </div>
+                        <div class="market-odds mb-5">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <a href = "#" class="btn btn-light wagger-btn"> <span>Yes</span> <span class="wagger-amt">  <%= @fixture.market29_pre.yes %> </span> </a>  
+                                </div> 
+                                <div class="col-lg-6">
+                                    <a href = "#" class="btn btn-light wagger-btn"> <span>No</span> <span class="wagger-amt">  <%= @fixture.market29_pre.no %>  </span> </a>  
+                                </div>                            
+                            </div>
+                        </div>
+                    <% end %>
+                </div>
+            </div>
+        
+        </div>
+    </div>
+</div>
