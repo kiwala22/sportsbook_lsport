@@ -17,7 +17,7 @@ Rails.application.routes.draw do
    end
 
    namespace :cookies do
-      match 'bets_lips', to: "bet_slips#create", via: [:post]
+      match 'bet_slips', to: "bet_slips#create", via: [:post]
    end
 
 
