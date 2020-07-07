@@ -48,13 +48,13 @@
                                             </a>
                                         </td>
                                         <td>
-                                            <%= link_to(fixture.market1_pre.competitor1, "#", class: "btnn" )%>
+                                            <%= link_to(fixture.market1_pre.competitor1, cookies_bet_slips_path(outcome_id: "1"), remote: true , class: "btnn" )%>
                                         </td>
                                         <td>
-                                            <%= link_to(fixture.market1_pre.draw, "#", class: "btnn" )%>
+                                            <%= link_to(fixture.market1_pre.draw, cookies_bet_slips_path(outcome_id: "2"), remote: true , class: "btnn" )%>
                                         </td>
                                         <td>
-                                            <%= link_to(fixture.market1_pre.competitor2, "#", class: "btnn" )%>
+                                            <%= link_to(fixture.market1_pre.competitor2, cookies_bet_slips_path(outcome_id: "3"), remote: true , class: "btnn" )%>
                                         </td>
                                     </tr>
 

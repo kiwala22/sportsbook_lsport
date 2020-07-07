@@ -16,6 +16,10 @@ Rails.application.routes.draw do
       end
    end
 
+   namespace :cookies do
+      match 'bets_lips', to: "bet_slips#create", via: [:post]
+   end
+
 
    get '/api_user_keys/:id', to: 'api_users#generate_api_keys', as: 'user_keys'
    resources :api_users, only: [:new, :index, :create]
