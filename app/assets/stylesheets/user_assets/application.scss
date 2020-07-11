@@ -244,3 +244,42 @@ strong {
     border-top: 1px solid #e1e1e1;
     font-size: 12px;
 }
+
+.clear-slip {
+    padding: 5px 10px;
+    display: flex;
+    justify-content: flex-end;
+    a {
+        text-decoration: underline;
+        text-transform: lowercase;
+    }
+    a:focus,
+    a:hover {
+        color: inherit;
+    }
+}
+
+.single-bet {
+    padding: 5px 10px;
+    display: flex;
+    justify-content: space-between;
+    #comp-names {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.widget-body#betslip {
+    padding: 10px 15px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.total-bet {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid grey;
+    border-bottom: 1px solid grey;
+    margin: 10px 0px;
+    padding: 5px 10px;
+}

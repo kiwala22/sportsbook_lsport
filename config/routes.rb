@@ -1,12 +1,16 @@
 Rails.application.routes.draw do
    root to: 'fixtures/soccer/pre_match#index'
-
+   
+   match '/add_bet', to: "line_bets#create", via: [:post]
+   match '/clear_slip', to: "line_bets#destroy", via: [:delete]
+   
    namespace :fixtures do
       namespace :soccer do
          match 'pres' => 'pre_match#index', via: [:get]
          match 'pres/:id' => 'pre_match#show', via: [:get]
          match 'lives' => 'live_match#index', via: [:get]
          match 'lives/:id' => 'live_match#show', via: [:get]
+         
       end
       namespace :virtual_soccer do
          match 'pres' => 'pre_match#index', via: [:get]
@@ -15,12 +19,13 @@ Rails.application.routes.draw do
          match 'lives/:id' => 'live_match#show', via: [:get]
       end
    end
-
-   namespace :cookies do
-      match 'bet_slips', to: "bet_slips#create", via: [:post]
-   end
-
-
+   
+   # namespace :cookies  , defaults: {format: 'js'} do
+   #    match '/add_bet', to: "bet_slips#add_bet", via: [:get]
+   #    match '/clear_slip', to: "bet_slips#clear_slip", via: [:get]
+   # end
+   
+   
    get '/api_user_keys/:id', to: 'api_users#generate_api_keys', as: 'user_keys'
    resources :api_users, only: [:new, :index, :create]
    resources :transactions, only: [:new]

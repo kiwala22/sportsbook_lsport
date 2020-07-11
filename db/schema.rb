@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_23_092308) do
+ActiveRecord::Schema.define(version: 2020_07_11_125646) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -112,6 +112,11 @@ ActiveRecord::Schema.define(version: 2020_06_23_092308) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "carts", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "deposits", force: :cascade do |t|
     t.decimal "amount", precision: 12, scale: 2
     t.string "network"
@@ -176,6 +181,19 @@ ActiveRecord::Schema.define(version: 2020_06_23_092308) do
     t.index ["sport"], name: "index_fixtures_on_sport"
     t.index ["sport_id"], name: "index_fixtures_on_sport_id"
     t.index ["status"], name: "index_fixtures_on_status"
+  end
+
+  create_table "line_bets", force: :cascade do |t|
+    t.bigint "cart_id", null: false
+    t.bigint "fixture_id", null: false
+    t.decimal "odd", precision: 5, scale: 2
+    t.string "description"
+    t.string "market"
+    t.string "outcome"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["cart_id"], name: "index_line_bets_on_cart_id"
+    t.index ["fixture_id"], name: "index_line_bets_on_fixture_id"
   end
 
   create_table "market10_lives", force: :cascade do |t|
@@ -593,6 +611,8 @@ ActiveRecord::Schema.define(version: 2020_06_23_092308) do
   end
 
   add_foreign_key "deposits", "users"
+  add_foreign_key "line_bets", "carts"
+  add_foreign_key "line_bets", "fixtures"
   add_foreign_key "market10_lives", "fixtures"
   add_foreign_key "market10_pres", "fixtures"
   add_foreign_key "market16_lives", "fixtures"

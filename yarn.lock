@@ -862,10 +862,10 @@
   dependencies:
     spark-md5 "^3.0.0"
 
-"@rails/ujs@6.0.0-alpha":
-  version "6.0.0-alpha"
-  resolved "https://registry.yarnpkg.com/@rails/ujs/-/ujs-6.0.0-alpha.tgz#d5761d93e19215f5f342229f934d5ca8f6dd22a5"
-  integrity sha512-6AZcab77PeJQv8RdfryDYh6tAGcndcRnqYaciLiFclADBPFE9Ip978pGCPiKcKGgCg8S1P1nZII+1GNIrUrx+g==
+"@rails/ujs@^6.0.3-2":
+  version "6.0.3-2"
+  resolved "https://registry.yarnpkg.com/@rails/ujs/-/ujs-6.0.3-2.tgz#e14c1f29086858215ce7ccd9ad6d8888c458b4a3"
+  integrity sha512-WcpIEftNCfGDEgk6KerOugiet75Mir5q/HT1yt3dDhpBI91BaZ15lfSQIsZwMw2nyeDz9A9QBz8dAFAd4gXIzg==
 
 "@rails/webpacker@4.2.2":
   version "4.2.2"
@@ -4627,6 +4627,11 @@ jquery-knob@1.2.11:
   resolved "https://registry.yarnpkg.com/jquery-knob/-/jquery-knob-1.2.11.tgz#f37c39dbc1c7a6a6c12cdb2ed4f6bffb683f10d6"
   integrity sha1-83w528HHpqbBLNsu1Pa/+2g/ENY=
 
+jquery-migrate@^3.3.1:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/jquery-migrate/-/jquery-migrate-3.3.1.tgz#0f8e2b7531228fda5d88be58dc0e7d5848e52fd1"
+  integrity sha512-QAXfshB6xqaANDX8OPExKnnooLtX0cSDCKfRnqhdv+3CVEVD9L1v3zNAhZum/4AukKlWUWUoxM6ywJJcLMXLSA==
+
 jquery-mousewheel@~3.1.13:
   version "3.1.13"
   resolved "https://registry.yarnpkg.com/jquery-mousewheel/-/jquery-mousewheel-3.1.13.tgz#06f0335f16e353a695e7206bf50503cb523a6ee5"
@@ -4692,12 +4697,7 @@ jquery.flot.spline@themicon/jquery.flot.spline:
   dependencies:
     jquery ">= 1.6.1"
 
-jquery@3.4.1:
-  version "3.4.1"
-  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.4.1.tgz#714f1f8d9dde4bdfa55764ba37ef214630d80ef2"
-  integrity sha512-36+AdBzCL+y6qjw5Tx7HgzeGCzC81MDDgaUP8ld2zhx58HdqXGoBd+tHdrBMiyjGQs0Hxs/MLZTu/eHNJJuWPw==
-
-"jquery@>= 1.6.1", "jquery@>= 1.7", "jquery@>= 1.9.0", jquery@>=1.7, "jquery@>=1.7.1 <4.0.0", jquery@>=1.8.0, jquery@>=1.9.0, jquery@>=2.1.0, "jquery@^1.7 || ^2.0 || ^3.1", jquery@^3.4.1:
+"jquery@>= 1.6.1", "jquery@>= 1.7", "jquery@>= 1.9.0", jquery@>=1.7, "jquery@>=1.7.1 <4.0.0", jquery@>=1.8.0, jquery@>=1.9.0, jquery@>=2.1.0, "jquery@^1.7 || ^2.0 || ^3.1", jquery@^3.4.1, jquery@^3.5.1:
   version "3.5.1"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.5.1.tgz#d7b4d08e1bfdb86ad2f1a3d039ea17304717abb5"
   integrity sha512-XwIBPqcMn57FxfT+Go5pzySnm4KWkT1Tv7gjrpT1srtf8Weynl6R273VJ5GjkRb51IzMp5nbaPjJXMWeju2MKg==
@@ -5032,6 +5032,11 @@ magic-string@^0.22.4:
   integrity sha512-oreip9rJZkzvA8Qzk9HFs8fZGF/u7H/gtrE8EN6RjKJ9kh2HlC+yQ2QezifqTZfGyiuAV0dRv5a+y/8gBb1m9w==
   dependencies:
     vlq "^0.2.2"
+
+magnific-popup@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/magnific-popup/-/magnific-popup-1.1.0.tgz#3e7362c5bd18f6785fe99e59d013e20af33d3049"
+  integrity sha1-PnNixb0Y9nhf6Z5Z0BPiCvM9MEk=
 
 make-dir@^2.0.0:
   version "2.1.0"
@@ -8167,6 +8172,11 @@ tunnel-agent@^0.6.0:
   integrity sha1-J6XeoGs2sEoKmWZ3SykIaPD8QP0=
   dependencies:
     safe-buffer "^5.0.1"
+
+turbolinks@^5.2.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/turbolinks/-/turbolinks-5.2.0.tgz#e6877a55ea5c1cb3bb225f0a4ae303d6d32ff77c"
+  integrity sha512-pMiez3tyBo6uRHFNNZoYMmrES/IaGgMhQQM+VFF36keryjb5ms0XkVpmKHkfW/4Vy96qiGW3K9bz0tF5sK9bBw==
 
 tweetnacl@^0.14.3, tweetnacl@~0.14.0:
   version "0.14.5"

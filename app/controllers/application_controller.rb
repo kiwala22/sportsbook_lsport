@@ -22,4 +22,5 @@ class ApplicationController < ActionController::Base
        redirect_to new_verify_url, notice: "Please verify your phone number"
      end
    end
+
 end

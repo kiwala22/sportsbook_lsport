@@ -1,0 +1,18 @@
+<div class="clear-slip"><%= link_to  "Clear Slip", clear_slip_path , remote: true, method: :delete %></div>
+<div class="bets" id = "bets-row">
+   <% if !@cart.nil?  %>
+      <% @cart.line_bets.each do |bet| %>
+            <div class="single-bet">
+               <span id="comp-names"><span> <%= bet.fixture.comp_one_name %></span><span> <%= bet.fixture.comp_two_name %></span></span>
+               <span><%= bet.odd %></span>
+            </div>
+      <% end %>
+      <div class="total-bet">
+         <span> Stake <span>amount</span> </span>
+         <span><%= @cart.line_bets.pluck(:odd).map(&:to_f).inject(:*).round(2) %></span>
+      </div>
+      <div class="btn btn-block btn-primary mt-lg login-btn">
+         <button>Place Bet</button>
+      </div>
+   <% end %>
+</div>

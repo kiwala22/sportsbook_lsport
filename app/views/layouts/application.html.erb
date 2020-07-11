@@ -93,11 +93,8 @@
                         <div class="widget-head">
                             <h3>Betsb info</h3>
                         </div>
-                        <div class="widget-body">
-                            <p><strong>Register:</strong> SMS 'JOIN' to 26587</p>
-                            <p><strong>Customer care:</strong> 987654123</p>
-                            <p><strong>Customer care 2:</strong> 987654123</p>
-                            <p><strong>Email:</strong> info@betsb.com</p>
+                        <div class="widget-body" id="betslip">
+                            <%= render 'layouts/partials/betslip.html.erb' %>
                         </div>
                     </div>
                 </div>
@@ -125,7 +122,7 @@
 
 
     <!-- =============== APP SCRIPTS ===============-->
-    <%= javascript_packs_with_chunks_tag 'application' %>
+    <%= javascript_packs_with_chunks_tag 'user_application' %>
         <%= yield :vendor_js_area %>
 
             <%= yield :body_area %>

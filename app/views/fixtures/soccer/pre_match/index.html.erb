@@ -35,26 +35,26 @@
                                 <% if fixture.market1_pre.present? && fixture.market1_pre.status == "Active" %>
                                     <tr>
                                         <td>
-                                            <a href=<%= fixtures_soccer_path(id: fixture.id) %>>
+                                            <a href=<%=fixtures_soccer_path(id: fixture.id) %>>
                                                 <%= fixture.scheduled_time.strftime("%H:%M:%S ") %> <br>
                                                     <%= fixture.scheduled_time.strftime("%d/%m/%y") %>
                                             </a>
                                         </td>
-                                        <td><a href=<%= fixtures_soccer_path(id: fixture.id) %>><strong><%= fixture.comp_one_name %></strong>  <strong><%= fixture.comp_two_name %></strong> </a> </td>
+                                        <td><a href=<%=fixtures_soccer_path(id: fixture.id) %>><strong><%= fixture.comp_one_name %></strong>  <strong><%= fixture.comp_two_name %></strong> </a> </td>
                                         <td>
-                                            <a href=<%= fixtures_soccer_path(id: fixture.id) %>>
+                                            <a href=<%=fixtures_soccer_path(id: fixture.id) %>>
                                                 <%= fixture.tournament_name %> <br>
                                                     <%= fixture.category %>
                                             </a>
                                         </td>
                                         <td>
-                                            <%= link_to(fixture.market1_pre.competitor1, cookies_bet_slips_path(outcome_id: "1"), remote: true , class: "btnn" )%>
+                                            <%= link_to(fixture.market1_pre.competitor1, add_bet_path(outcome_id: "competitor1", fixture_id: fixture.id, market: "Market1Pre") , class: "btnn", remote: true, method: :post )%>
                                         </td>
                                         <td>
-                                            <%= link_to(fixture.market1_pre.draw, cookies_bet_slips_path(outcome_id: "2"), remote: true , class: "btnn" )%>
+                                            <%= link_to(fixture.market1_pre.draw, add_bet_path(outcome_id: "draw", fixture_id: fixture.id, market: "Market1Pre") , class: "btnn", remote: true, method: :post )%>
                                         </td>
                                         <td>
-                                            <%= link_to(fixture.market1_pre.competitor2, cookies_bet_slips_path(outcome_id: "3"), remote: true , class: "btnn" )%>
+                                            <%= link_to(fixture.market1_pre.competitor2, add_bet_path(outcome_id: "competitor2", fixture_id: fixture.id, market: "Market1Pre") , class: "btnn", remote: true, method: :post )%>
                                         </td>
                                     </tr>
 
