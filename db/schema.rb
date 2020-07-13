@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_11_125646) do
+ActiveRecord::Schema.define(version: 2020_07_13_100228) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -84,6 +84,8 @@ ActiveRecord::Schema.define(version: 2020_07_11_125646) do
     t.boolean "paid"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_bet_slips_on_user_id"
   end
 
   create_table "bets", force: :cascade do |t|
@@ -96,6 +98,8 @@ ActiveRecord::Schema.define(version: 2020_07_11_125646) do
     t.string "reason"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_bets_on_user_id"
   end
 
   create_table "betstop_reasons", force: :cascade do |t|
@@ -610,6 +614,8 @@ ActiveRecord::Schema.define(version: 2020_07_11_125646) do
     t.index ["user_id"], name: "index_withdraws_on_user_id"
   end
 
+  add_foreign_key "bet_slips", "users"
+  add_foreign_key "bets", "users"
   add_foreign_key "deposits", "users"
   add_foreign_key "line_bets", "carts"
   add_foreign_key "line_bets", "fixtures"
