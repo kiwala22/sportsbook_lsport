@@ -22,7 +22,7 @@
          <% if user_signed_in? %>
             <%= button_to "Place Bet", bet_slips_path, method: "post", remote: true, params: {cart: @cart.id}, class: "btn btn-block btn-primary mt-lg login-btn"  %>
          <% else %>
-            <%= button_to "Login", new_user_session_path, method: "post", remote: true, params: {cart: @cart.id}, class: "btn btn-block btn-primary mt-lg login-btn"  %>
+            <%= button_to "Login", new_user_session_path, method: "post", params: {cart: @cart.id}, class: "btn btn-block btn-primary mt-lg login-btn"  %>
          <% end %>
       </div>
    <% end %>
