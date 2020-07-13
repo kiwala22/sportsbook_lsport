@@ -3,6 +3,11 @@ class ApplicationController < ActionController::Base
    before_action :set_raven_context
    before_action :redirect_if_unverified
 
+
+    def after_sign_in_path_for(resource)
+      stored_location_for(resource) || user_root_path
+    end
+
    protected
 
    def configure_permitted_parameters

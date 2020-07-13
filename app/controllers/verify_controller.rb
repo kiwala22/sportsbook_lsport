@@ -14,7 +14,7 @@ class VerifyController < ApplicationController
       render :new and return
     elsif params[:pin].try(:to_i) == current_user.pin
       current_user.update_attribute(:verified, true)
-      redirect_to authenticated_user_root_path, notice: "Your phone number has been verified!"
+      redirect_to user_root_path, notice: "Your phone number has been verified!"
     else
       flash.now[:alert] = "The code you entered is invalid."
       render :new

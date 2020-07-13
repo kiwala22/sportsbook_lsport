@@ -1,16 +1,17 @@
 Rails.application.routes.draw do
    root to: 'fixtures/soccer/pre_match#index'
-   
+   get '/home' => 'home#index', as: :user_root
+
    match '/add_bet', to: "line_bets#create", via: [:post]
    match '/clear_slip', to: "line_bets#destroy", via: [:delete]
-   
+
    namespace :fixtures do
       namespace :soccer do
          match 'pres' => 'pre_match#index', via: [:get]
          match 'pres/:id' => 'pre_match#show', via: [:get]
          match 'lives' => 'live_match#index', via: [:get]
          match 'lives/:id' => 'live_match#show', via: [:get]
-         
+
       end
       namespace :virtual_soccer do
          match 'pres' => 'pre_match#index', via: [:get]
@@ -19,13 +20,13 @@ Rails.application.routes.draw do
          match 'lives/:id' => 'live_match#show', via: [:get]
       end
    end
-   
+
    # namespace :cookies  , defaults: {format: 'js'} do
    #    match '/add_bet', to: "bet_slips#add_bet", via: [:get]
    #    match '/clear_slip', to: "bet_slips#clear_slip", via: [:get]
    # end
-   
-   
+
+
    get '/api_user_keys/:id', to: 'api_users#generate_api_keys', as: 'user_keys'
    resources :api_users, only: [:new, :index, :create]
    resources :transactions, only: [:new]
@@ -36,7 +37,7 @@ Rails.application.routes.draw do
    match 'new_verify' => "verify#new", via: [:get]
    match 'send_verification' => "verify#verify_via_email", via: [:get]
    match 'verify' => "verify#update", via: [:put]
-   
+
    namespace :backend do
       namespace :fixtures do
          match 'soccer_fixtures' => "soccer_fixtures#index", via: [:get]
@@ -52,27 +53,28 @@ Rails.application.routes.draw do
       match 'void_reasons' => "void_reasons#index", via: [:get]
       match 'match_statuses' => "match_statuses#index", via: [:get]
    end
-   
+
    namespace :amqp do
       namespace :v1  do
          match 'alerts' => 'alerts#create', via: [:post]
-         
+
          namespace :sports do
             match 'soccer' => 'soccer#create', via: [:post]
          end
       end
    end
-   
+
    devise_for :users, path: 'users',  controllers: {
       sessions: 'users/sessions'
    }
+
    devise_for :admins, path: 'admins',  controllers:{
       sessions: 'admins/sessions'
-      
+
    }
-   
+
    devise_scope :admin do
-      
+
       authenticated :admin do
          get '/backend' => 'admin_landing#index', as: :authenticated_admins_root
       end
@@ -83,8 +85,8 @@ Rails.application.routes.draw do
    # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
    devise_for :admin_users, ActiveAdmin::Devise.config
    ActiveAdmin.routes(self)
-   
+
    require 'sidekiq/web'
    mount Sidekiq::Web => '/rabbit'
-   
+
 end
