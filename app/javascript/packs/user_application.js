@@ -1,6 +1,6 @@
 import Rails from '@rails/ujs';
 Rails.start();
-var Turbolinks = require("turbolinks")
-Turbolinks.start()
+import Turbolinks from 'turbolinks'
+Turbolinks.start();
 
-require("packs/user_assets/application")
+require("packs/user_assets/application");
