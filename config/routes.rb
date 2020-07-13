@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
    root to: 'fixtures/soccer/pre_match#index'
-   get '/home' => 'home#index', as: :user_root
 
    match '/add_bet', to: "line_bets#create", via: [:post]
    match '/clear_slip', to: "line_bets#destroy", via: [:delete]
