@@ -50,7 +50,7 @@ Primary Use:      Sports Betting HTML Template
 -------------------------------------------*/
 
 
-/*** 
+/***
 
 ================
 	Fonts
@@ -492,7 +492,7 @@ font-family: 'Open Sans', sans-serif;
 }
 
 
-/*** 
+/***
 
 ===============
 	Reset Css
@@ -508,7 +508,7 @@ font-family: 'Open Sans', sans-serif;
 }
 
 
-/*** 
+/***
 
 ===================
 	Global Settings
@@ -521,11 +521,10 @@ body {
     color: #292929;
     line-height: 1.7em;
     font-weight: 400;
-    background: #1D2228;
+    background: #252F5A;
     -webkit-font-smoothing: antialiased;
     -moz-font-smoothing: antialiased;
     font-family: "Open Sans", sans-serif;
-    background: #1D2228;
 }
 
 a {
@@ -689,7 +688,7 @@ img {
 }
 
 
-/*** 
+/***
 
 ==================
     Color Classes
@@ -778,7 +777,7 @@ img {
 }
 
 
-/*** 
+/***
 
 ==================
     Section Styles
@@ -866,7 +865,7 @@ img {
 }
 
 
-/*** 
+/***
 
 =======================
     Margin and Padding
@@ -875,7 +874,7 @@ img {
 ***/
 
 
-/* 
+/*
     Margin Top styles
 */
 
@@ -908,7 +907,7 @@ img {
 }
 
 
-/* 
+/*
     Margin Bottom Styles
 */
 
@@ -937,7 +936,7 @@ img {
 }
 
 
-/* 
+/*
     Margin Right Styles
 */
 
@@ -966,7 +965,7 @@ img {
 }
 
 
-/* 
+/*
     Padding Top Styles
 */
 
@@ -999,7 +998,7 @@ img {
 }
 
 
-/* 
+/*
     Padding Bottom Styles
 */
 
@@ -1028,7 +1027,7 @@ img {
 }
 
 
-/*** 
+/***
 
 ============================
     Background and Overlay
@@ -1181,7 +1180,7 @@ img {
 }
 
 
-/*** 
+/***
 
 ===================
     Buttons Style
@@ -1308,10 +1307,10 @@ img {
 }
 
 
-/* 
+/*
 ==============================
-    ScrollUp Button 
-============================== 
+    ScrollUp Button
+==============================
 */
 
 a#scrollUp {
@@ -2093,8 +2092,13 @@ Copyright Area
 */
 
 .copyright {
-    padding: 20px 0;
-    background: #1D2228;
+    padding: 20px;
+    margin-bottom: 0;
+    //background: #18253C;
+    background: #252F5A;
+    //position: fixed;
+    bottom: 0;
+    width: 100%;
 }
 
 .copyright p {
@@ -2397,7 +2401,7 @@ Site Sidebar
 */
 
 .content-sidebar {
-    background: #1D2228;
+    background: #252F5A;
     padding: 40px 0;
     color: #ffffff;
 }
