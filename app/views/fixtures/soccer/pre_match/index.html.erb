@@ -48,18 +48,18 @@
                                             </a>
                                         </td>
                                         <td>
-                                            <%= link_to(fixture.market1_pre.competitor1, add_bet_path(outcome_id: "competitor1", fixture_id: fixture.id, market: "Market1Pre") , class: "btnn", remote: true, method: :post )%>
+                                            <%= link_to(fixture.market1_pre.outcome_1, add_bet_path(outcome_id: "1", fixture_id: fixture.id, market: "Market1Pre") , class: "btnn", remote: true, method: :post )%>
                                         </td>
                                         <td>
-                                            <%= link_to(fixture.market1_pre.draw, add_bet_path(outcome_id: "draw", fixture_id: fixture.id, market: "Market1Pre") , class: "btnn", remote: true, method: :post )%>
+                                            <%= link_to(fixture.market1_pre.outcome_2, add_bet_path(outcome_id: "2", fixture_id: fixture.id, market: "Market1Pre") , class: "btnn", remote: true, method: :post )%>
                                         </td>
                                         <td>
-                                            <%= link_to(fixture.market1_pre.competitor2, add_bet_path(outcome_id: "competitor2", fixture_id: fixture.id, market: "Market1Pre") , class: "btnn", remote: true, method: :post )%>
+                                            <%= link_to(fixture.market1_pre.outcome_3, add_bet_path(outcome_id: "3", fixture_id: fixture.id, market: "Market1Pre") , class: "btnn", remote: true, method: :post )%>
                                         </td>
                                     </tr>
 
                                     <% end %>
-                                        <% end %>
+                                <% end %>
                         </tbody>
                     </table>
                 </div>
