@@ -1,5 +1,7 @@
 class VerifyController < ApplicationController
   skip_before_action :redirect_if_unverified
+  before_action :verification_access
+
   def new
   end
 
@@ -26,5 +28,12 @@ class VerifyController < ApplicationController
     VerifyMailer.with(id: current_user.id).verification_email.deliver_now
     flash.now[:notice] = "A Code has been sent to your email address."
     render :new and return
+  end
+
+  protected
+  def verification_access
+    if (!user_signed_in? || current_user.verified?)
+      redirect_to root_path, notice: "Page you requested can not be found."
+    end
   end
 end

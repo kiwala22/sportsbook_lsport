@@ -84,6 +84,26 @@
                </li>
             </ul>
          </li>
+
+         <li class="<%= 'active' if controller.controller_name == 'api_users' %>">
+            <a href="#ai_developer" title="ApiUsers" data-toggle="collapse">
+               <em class="fa fa-code"></em>
+               <span>Developer</span>
+            </a>
+            <ul id="ai_developer" class="sidebar-nav sidebar-subnav collapse">
+               <li>
+                  <a href="<%= backend_api_users_path %>" title="Api Users">
+                     <span>API Users</span>
+                  </a>
+               </li>
+               <li>
+                  <a href="<%= new_backend_api_user_path %>" title="New Api User">
+                     <span>Create API Users</span>
+                  </a>
+               </li>
+
+            </ul>
+         </li>
       </ul>
       <!-- END sidebar nav-->
    </nav>

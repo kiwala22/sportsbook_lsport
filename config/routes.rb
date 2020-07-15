@@ -26,8 +26,7 @@ Rails.application.routes.draw do
    # end
 
 
-   get '/api_user_keys/:id', to: 'api_users#generate_api_keys', as: 'user_keys'
-   resources :api_users, only: [:new, :index, :create]
+
    resources :transactions, only: [:new]
    match 'deposit' => "transactions#deposit", via: [:post]
    match 'transfer' => "transactions#transfer", via: [:get]
@@ -46,6 +45,8 @@ Rails.application.routes.draw do
       end
       resources :deposits, only: [:index]
       resources :withdraws, only: [:index]
+      get '/api_user_keys/:id', to: 'api_users#generate_api_keys', as: 'user_keys'
+      resources :api_users, only: [:new, :index, :create]
       match 'users' => "bet_users#index", via: [:get]
       match 'betstop_reasons' => "betstop_reasons#index", via: [:get]
       match 'betting_statuses' => "betting_statuses#index", via: [:get]

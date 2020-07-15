@@ -1,6 +1,8 @@
-class ApiUsersController < ApplicationController
-  before_action :authenticate_user!
+class Backend::ApiUsersController < ApplicationController
+  before_action :authenticate_admin!
 	#load_and_authorize_resource
+
+  layout "admin_application.html.erb"
 
 	require 'mobile_money/mtn_open_api'
 

@@ -22,10 +22,10 @@ class TransactionsController < ApplicationController
     )
     if @transaction.save
       DepositsWorker.perform_async(@transaction.id)
-      flash.now[:notice] = "Please wait while we process your payment.."
-      render :new and return
+      redirect_to root_path
+      flash[:notice] = "Please wait while we process your transaction.."
     else
-      flash.now[:alert] = "Something went wrong. Please try again."
+      flash[:alert] = "Something went wrong. Please try again."
       render :new and return
     end
   end
@@ -53,15 +53,15 @@ class TransactionsController < ApplicationController
     #Before saving transaction check if requested amount is more than user balance
     user_balance = current_user.balance
     if (@transaction.amount > user_balance)
-      flash.now[:alert] = "You have insufficient funds on your account."
-      render :transfer and return
+      redirect_to root_path
+      flash[:alert] = "You have insufficient funds on your account."
     else
       if @transaction.save
         WithdrawsWorker.perform_async(@transaction.id)
-        flash.now[:notice] = "Please wait while we process your payment.."
-        render :transfer and return
+        redirect_to root_path
+        flash[:notice] = "Please wait while we process your payment.."
       else
-        flash.now[:alert] = "Something went wrong. Please try again."
+        flash[:alert] = "Something went wrong. Please try again."
         render :transfer and return
       end
     end
