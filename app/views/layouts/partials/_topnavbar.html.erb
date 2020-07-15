@@ -32,7 +32,7 @@
                     <li class="dropdown bttn-small btn-fill">
                       <a href="#" data-toggle="dropdown" class="dropdown-toggle"><%= current_user.first_name %> <i class="fa fa-caret-down"></i></a>
                         <ul class="dropdown-menu" style="padding: 15px;">
-                            <li><a href="#"><i class="fa fa-exchange"></i>Transactions</a></li>
+                            <li><a href=<%= transactions_path %>><i class="fa fa-exchange"></i>Transactions</a></li>
                             <li><a href="#"><i class="fa fa-ticket"></i>Tickets</a></li>
                             <li><a href=<%= transfer_path %> class=""><i class="fa fa-share"></i>Withdraw</a></li>
                             <li class="divider"></li>

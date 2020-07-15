@@ -27,7 +27,7 @@ Rails.application.routes.draw do
 
 
 
-   resources :transactions, only: [:new]
+   resources :transactions, only: [:new, :index]
    match 'deposit' => "transactions#deposit", via: [:post]
    match 'transfer' => "transactions#transfer", via: [:get]
    match 'withdraw' => "transactions#withdraw", via: [:post]

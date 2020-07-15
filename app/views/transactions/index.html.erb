@@ -1,0 +1,48 @@
+<div class="game-box">
+    <div class="card">
+        <div class="card-header">
+            <h3>Transactions</h3>
+        </div>
+        <div class="card-body">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#" role="tab" aria-controls="home" aria-selected="true">All Transactions</a>
+                </li>
+
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <table class="table table-hover table-borderless table-striped">
+                        <thead>
+                            <tr>
+                              <th>#No</th>
+                              <th>Phone Number</th>
+                              <th>Amount</th>
+                              <th>Category</th>
+                              <th>Status</th>
+                              <th>Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                          <% @transactions.each_with_index do |transaction, i| %>
+                            <tr>
+                              <td><%= (i+1) %></td>
+                              <td><%= transaction.phone_number %></td>
+                              <% if transaction.category == "Deposit" %>
+                                <td class="deposit">+<%= transaction.amount %></td>
+                              <% elsif transaction.category == "Withdraw" %>
+                                <td class="withdraw">-<%= transaction.amount %></td>
+                              <% end %>
+                              <td><%= transaction.category %></td>
+                              <td><%= transaction.status %></td>
+                              <td><%= transaction.created_at.to_datetime.strftime("%b %d, %Y %I:%M%P") %></td>
+                            </tr>
+                          <% end %>
+                        </tbody>
+                    </table>
+                    <%= paginate @transactions %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

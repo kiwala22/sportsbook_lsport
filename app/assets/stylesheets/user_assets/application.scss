@@ -299,3 +299,26 @@ strong {
 #stake-input {
     padding: 0px 10px
 }
+
+.pagination {
+    clear: both;
+    color: #60605F !important;
+    font-size: 14px !important;
+    margin-bottom: 10px;
+    margin-top: 15px;
+}
+.pagination span {
+    margin-right: 4px;
+}
+.pagination a {
+    color: skyblue;
+    text-decoration: none;
+}
+
+.withdraw {
+  color: red;
+}
+
+.deposit {
+  color: green;
+}
