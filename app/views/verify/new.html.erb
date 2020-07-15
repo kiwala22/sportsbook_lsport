@@ -1,9 +1,32 @@
-<%= form_tag(verify_path, :method => "put") do %>
-  <%= label_tag(:pin, "Pin") %>
-  <%= text_field_tag(:pin) %>
-  <%= submit_tag("Verify") %>
-<% end %>
+
+<div class="login">
+   <div class="content-center cl-grey">
+      <div class="row justify-content-center">
+         <div class="col-xl-7 col-lg-7 col-md-7 col-sm-12">
+
+            <div class="web-sidebar-widget login-widget">
+               <div class="widget-head">
+                     <h3 style="text-align: center;">Verify your account</h3>
+               </div>
+               <div class="widget-body">
+
+
+			<%= form_tag(verify_path, :method => "put") do %>
+				<div class="form-control">
+				  <%= label_tag(:pin, "Pin : ") %>
+				  <%= text_field_tag(:pin) %>
+			  	</div>
+			  <hr>
+			  	<%= submit_tag("Verify", class: 'btn btn-block btn-primary mt-lg login-btn') %>
+			<% end %>
 
 <!-- <p><#%= link_to 'Receive code via Email', send_verification_path %></p> -->
+				<hr>
+			<p style="text-align: center;"><%= link_to 'Resend code', resend_verify_path, method: :post %></p>
 
-<p><%= link_to 'Resend code', resend_verify_path, method: :post %></p>
+    			</div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
