@@ -5,26 +5,25 @@
 
             <div class="web-sidebar-widget login-widget">
                <div class="widget-head">
-                     <h3 >Deposit money </h3>
+                     <h3 >Deposit</h3>
                </div>
 				<div class="widget-body">
 					<%= form_tag(deposit_path, :method => "post") do %>
-						
+
 
 						<div class="form-group">
 							  <%= label_tag(:phone_number, "Phone Number : ") %>
 							  <br>
-							 <%= text_field :phone_number, autofocus: true, class: "form-control", id: 'phone_number',required: true %>
+							 <%= text_field :phone_number, params[:phone_number], autofocus: true, class: "form-control", id: 'phone_number',required: true %>
 						</div>
 
-						<hr>
 
 						<div class="form-group" >
 							  <%= label_tag(:amount, "Amount :") %> <br>
-							  <%= number_field_tag(:amount , class: "form-control") %>
+							  <%= number_field_tag :amount, params[:amount] , class: "form-control" %>
 						</div>
 
-						  
+            <hr>
 						<div>
 						  	<%= submit_tag("Deposit Money", class: 'btn btn-block btn-primary mt-lg login-btn') %>
 						</div>
