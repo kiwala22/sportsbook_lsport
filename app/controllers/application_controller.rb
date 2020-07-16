@@ -4,6 +4,17 @@ class ApplicationController < ActionController::Base
    before_action :redirect_if_unverified
 
 
+   private
+
+   def after_sign_out_path_for(resource_or_scope)
+    if resource_or_scope == :admin
+      unauthenticated_admins_root_path
+    else
+      root_path
+    end
+  end
+
+
    protected
 
    def configure_permitted_parameters

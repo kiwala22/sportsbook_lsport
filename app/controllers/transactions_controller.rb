@@ -29,7 +29,7 @@ class TransactionsController < ApplicationController
       redirect_to root_path
       flash[:notice] = "Please wait while we process your transaction.."
     else
-      flash[:alert] = "Something went wrong. Please try again."
+      flash[:alert] = @transaction.errors.full_messages.first
       render :new and return
     end
   end
@@ -65,7 +65,7 @@ class TransactionsController < ApplicationController
         redirect_to root_path
         flash[:notice] = "Please wait while we process your payment.."
       else
-        flash[:alert] = "Something went wrong. Please try again."
+        flash[:alert] = @transaction.errors.full_messages.first
         render :transfer and return
       end
     end
