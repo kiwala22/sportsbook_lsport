@@ -6,26 +6,36 @@ class BetSlipsController < ApplicationController
    
    def create
       @cart = Cart.find(bet_slips_params[:cart_id])
-
+      stake = bet_slips_params[:stake]
+      
       #check if the account has money
 
       #deduct the money from the account
 
       #start betslip creation process all under a transaction
       #create the betslip
-      bet_slip = @current_user.create()
+      bet_slip = current_user.bet_slips.create()
       @cart.line_bets.each do |bet|
+         product = bet.market.include?("Pre") ? "Pre Market" : "Live"
+         market_id = bet.market.scan(/\d/).join('').to_i #extract only the numbers in the market number
          if fetch_market_status(bet.market, bet.fixture_id) == "Active"
-            odd = fetch_current_odd(bet.market, bet.fixture_id, bet.outcome).to_f
-            user_bet = @current_user.bets.build(bet_slip_id: bet_slip,fixture_id: bet.fixture_id, odds: odd, status: "Active", market: "", bet_outcome: "" )
+            odd = fetch_current_odd(bet.market, bet.fixture_id, "outcome_#{bet.outcome}").to_f
+            user_bet = current_user.bets.build(bet_slip_id: bet_slip.id,fixture_id: bet.fixture_id,outcome_id: bet.outcome,market_id: market_id , odds: odd, status: "Active", product: product )
             user_bet.save
          end
       end
 
       #create the betslip
       @bets = bet_slip.bets
-      bet_slip.update_attributes(bet_count: @bets.count, stake: "", odds: "", status: "Active", potential_win_amount: "" )
+      odds = []
+      total_odds = 
+      potential_win_amount = (stake.to_f * total_odds )
+      bet_slip.update_attributes(bet_count: @bets.count, stake: stake, odds: "", status: "Active", potential_win_amount: "" )
 
+      #delete the session and also delete the cart
+      @cart.destroy if @cart.id == session[:cart_id] 
+      session[:cart_id] = nil
+   
       #redirect to home page with a notification
       redirect_to authenticated_root_path, notice: "Thank You! Bets have been placed. "
 
@@ -40,7 +50,7 @@ class BetSlipsController < ApplicationController
    
    private
    def bet_slips_params
-      params.require(:bet_slip).permit(:cart_id)
+      params.permit(:cart_id,:stake)
    end
    
    def fetch_market_status(market, fixture_id)

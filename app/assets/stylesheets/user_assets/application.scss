@@ -187,7 +187,7 @@ table.fixture-table {
 
 .table td {
     a:hover {
-        color: #292929;
+        color: #ffffff;
         text-decoration: underline;
     }
 }
@@ -278,8 +278,8 @@ strong {
 .total-bet {
     display: flex;
     justify-content: space-between;
-    border-top: 1px solid grey;
-    border-bottom: 1px solid grey;
+    border-top: 1px solid #ffffff;
+    border-bottom: 1px solid #ffffff;
     margin: 10px 0px;
     padding: 5px 10px;
 }
@@ -287,7 +287,7 @@ strong {
 .total-wins {
     display: flex;
     justify-content: space-between;
-    border-bottom: 1px solid grey;
+    border-bottom: 1px solid #ffffff;
     margin-top: -5px;
     margin-bottom: 10px;
     padding-left: 10px;
@@ -298,4 +298,35 @@ strong {
 
 #stake-input {
     padding: 0px 10px
+}
+
+.card-header {
+    background: #7690A7;
+}
+
+.card {
+    background: #5f7b95;
+}
+
+.table {
+    color: #ffffff;
+    thead {
+        tr {
+            border-bottom: 1px solid #9baebf;
+            background: #7690a7;
+        }
+    }
+    tbody {
+        tr {
+            border-bottom: 1px solid #9baebf;
+        }
+    }
+}
+
+.card-body {
+    padding: 0px;
+}
+
+#myTab {
+    background: #a8b8c7;
 }
