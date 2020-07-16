@@ -27,17 +27,16 @@ class BetSlipsController < ApplicationController
 
       #create the betslip
       @bets = bet_slip.bets
-      odds = []
-      total_odds = 
+      total_odds = @bets.pluck(:odds).map(&:to_f).inject(:*).round(2)
       potential_win_amount = (stake.to_f * total_odds )
-      bet_slip.update_attributes(bet_count: @bets.count, stake: stake, odds: "", status: "Active", potential_win_amount: "" )
+      bet_slip.update_attributes(bet_count: @bets.count, stake: stake, odds: total_odds, status: "Active", potential_win_amount: potential_win_amount)
 
       #delete the session and also delete the cart
       @cart.destroy if @cart.id == session[:cart_id] 
       session[:cart_id] = nil
    
       #redirect to home page with a notification
-      redirect_to authenticated_root_path, notice: "Thank You! Bets have been placed. "
+      redirect_to root_path, notice: "Thank You! Bets have been placed. "
 
       
    end
