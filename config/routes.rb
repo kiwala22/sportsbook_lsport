@@ -68,7 +68,7 @@ Rails.application.routes.draw do
       sessions: 'users/sessions'
    }
 
-   devise_for :admins, path: 'admins',  controllers:{
+   devise_for :admins, :skip => [:registrations], path: 'admins',  controllers:{
       sessions: 'admins/sessions'
 
    }
@@ -76,7 +76,7 @@ Rails.application.routes.draw do
    devise_scope :admin do
 
       authenticated :admin do
-         get '/backend' => 'admin_landing#index', as: :authenticated_admins_root
+         get '/backend' => 'backend/admin_landing#index', as: :authenticated_admins_root
       end
       unauthenticated :admin do
          get '/backend', to: "admins/sessions#new",as: :unauthenticated_admins_root

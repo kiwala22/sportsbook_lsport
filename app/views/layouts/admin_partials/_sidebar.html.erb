@@ -5,7 +5,7 @@
       <ul class="sidebar-nav">
          <!-- Iterates over all sidebar items-->
          <li class="<%= 'active' if controller.controller_name == 'admin_landing' %>">
-            <a href="/" title="Dashboard">
+            <a href="<%= authenticated_admins_root_path %>" title="Dashboard">
                <em class="icon-home"></em>
                <span data-localize="sidebar.nav.DASHBOARD">Dashboard</span>
             </a>
@@ -38,11 +38,11 @@
          </li>
 
          <li class="">
-             <a href="fixtures" title="Fixtures">
+             <a href="#fixtures" title="Fixtures">
                <em class="fas fa-futbol"></em>
                <span data-localize="sidebar.nav.DASHBOARD">Fixtures</span>
             </a>
-            <ul id="#fixtures" class="sidebar-nav sidebar-subnav collapse">
+            <ul id="fixtures" class="sidebar-nav sidebar-subnav collapse">
                <li class="<%= 'active' if controller.controller_name == 'Fixtures::soccer_fixtures' %>">
                   <a href="<%= backend_fixtures_soccer_fixtures_path %>" title="Soccer">
                      <span>Soccer</span>
@@ -61,7 +61,7 @@
                <em class="fas fa-info-circle"></em>
                <span data-localize="sidebar.nav.DASHBOARD">Descriptions</span>
             </a>
-            <ul id="finances" class="sidebar-nav sidebar-subnav collapse">
+            <ul id="descriptions" class="sidebar-nav sidebar-subnav collapse">
                <li class="<%= 'active' if controller.controller_name == 'betstop_reasons' %>">
                   <a href="<%= backend_betstop_reasons_path %>" title="Betstop Reasons">
                      <span>Betstop Reasons</span>
