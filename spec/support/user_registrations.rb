@@ -28,10 +28,12 @@ RSpec.shared_context 'Registrations' do
 		click_button 'Sign up'
 
 		passcode = User.last.pin
+		
 		fill_in 'Pin', with: passcode
 		click_button 'Verify'
 		
 		visit '/users/sign_out'
 	end
+
 
 end	

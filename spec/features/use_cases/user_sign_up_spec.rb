@@ -57,12 +57,12 @@ RSpec.describe User, type: :system, js: true do
 
 			expect(page.current_path).to eq '/new_verify'
 			passcode = User.last.pin
-			fill_in 'Pin', with: passcode
+			fill_in 'pin', with: passcode
 			click_button 'Verify'
 			expect(page.current_path).to eq '/'
-			expect(page).to have_content 'DEPOSIT'
+			expect(page).to have_content 'deposit'.upcase
 			expect(page).to have_content user.first_name.upcase
-			sleep(2)
+						#sleep(2)
 		end
 
 		##We expect clicking sign up to bring up path /verify
