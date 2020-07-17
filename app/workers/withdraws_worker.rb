@@ -41,7 +41,21 @@ class WithdrawsWorker
         end
       when /^(25675|25670)/
         #process Airtel transaction
-        #result = MobileMoney::AirtelUganda.
+        result = MobileMoney::AirtelUganda.make_disbursement(@transaction.phone_number, @transaction.amount, @transaction.reference)
+        if result
+          if result[:status] == '200'
+            balance_after = (balance_before - @transaction.amount)
+            @withdraw.update(ext_transaction_id: result[:ext_transaction_id], network: "Airtel Uganda", status: "SUCCESS", balance_after: balance_after)
+            user.update(balance: balance_after)
+            @transaction.update(status: "COMPLETED")
+          else
+            @withdraw.update(network: "Airtel Uganda", status: "FAILED")
+            @transaction.update(status: "FAILED")
+          end
+        else
+          @withdraw.update(network: "Airtel Uganda", status: "FAILED")
+          @transaction.update(status: "FAILED")
+        end
       end
     end
   end
