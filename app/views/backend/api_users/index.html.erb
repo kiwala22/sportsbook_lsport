@@ -29,7 +29,7 @@
 				<td><%= api_user.api_id %></td>
 				<% if api_user.api_key.blank? %>
 					<!-- add a link -->
-					<td><%= link_to 'Generate API Key', backend_user_keys_path(api_user.id) %></td>
+					<td><%= link_to 'Generate API Key', backend_user_keys_path(api_user.id), id: 'api_key' %></td>
 				<% else %>
 					<td><%= api_user.api_key %></td>
 				<% end %>
