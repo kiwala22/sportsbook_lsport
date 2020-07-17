@@ -72,7 +72,7 @@ Rails.application.routes.draw do
       sessions: 'admins/sessions'
 
    }
-
+      get 'admins/sign_up' => redirect('/404.html')
    devise_scope :admin do
 
       authenticated :admin do
