@@ -8,7 +8,7 @@ class Soccer::CloseSettledBetsWorker
    def perform(fixture_id, product, market_id, outcome)
       #find the fixture
       fixture = Fixture.find(fixture_id)
-      bets = fixture.bets.where(product: product, market_id: market_id)
+      bets = fixture.bets.where(product: product, market_id: market_id, status: "Active")
       outcome = ActiveSupport::JSON.decode(outcome)
       winning_bets = outcome.select {|key, value| value == "1"}.keys.map(&:to_i)
       
