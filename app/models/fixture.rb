@@ -24,6 +24,8 @@ class Fixture < ApplicationRecord
    has_one :market66_pre
    has_one :market68_pre
    has_one :market75_pre
+
+   has_many :bets
    
 
 

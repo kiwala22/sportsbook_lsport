@@ -698,7 +698,7 @@ img {
 ***/
 
 .cl-black {
-    color: #39393A;
+    color: #28333e;
 }
 
 .cl-primary {
@@ -1041,7 +1041,7 @@ img {
 }
 
 .black-bg {
-    background: #39393A;
+    background: #28333e;
 }
 
 .black-bg-2 {
@@ -1223,7 +1223,7 @@ img {
 }
 
 .btn-fill {
-    color: #39393A;
+    color: #28333e;
     background: #F6AE2D;
 }
 
@@ -1252,12 +1252,12 @@ img {
 
 .btn-wht {
     background: #ffffff;
-    color: #39393A;
+    color: #28333e;
 }
 
 .btn-wht:hover {
     background: #F6AE2D;
-    color: #39393A;
+    color: #28333e;
 }
 
 
@@ -1337,7 +1337,7 @@ a#scrollUp {
 */
 
 .header-top {
-    color: #39393A;
+    color: #28333e;
     padding: 10px 0;
 }
 
@@ -1357,7 +1357,7 @@ a#scrollUp {
 }
 
 .header-top .single-header-top p span a {
-    color: #39393A;
+    color: #28333e;
 }
 
 .header-top .single-header-top p span a:hover {
@@ -1492,7 +1492,7 @@ a#scrollUp {
     transition: 0.4s;
     width: 100%;
     z-index: 11;
-    background: #39393A;
+    background: #28333e;
 }
 
 .header-area.fixed-header {
@@ -1506,7 +1506,7 @@ a#scrollUp {
 }
 
 .header-area.fixed-header ul li::before {
-    color: #39393A;
+    color: #28333e;
 }
 
 .header-area.fixed-header ul li:hover::before {
@@ -1514,7 +1514,7 @@ a#scrollUp {
 }
 
 .header-area.fixed-header ul li a {
-    color: #39393A;
+    color: #28333e;
 }
 
 @media (max-width: 991px) {
@@ -1528,7 +1528,7 @@ a#scrollUp {
 }
 
 .header-area.fixed-header .header-btn button {
-    color: #39393A;
+    color: #28333e;
 }
 
 .header-sticky {
@@ -1610,7 +1610,7 @@ li.nav-item.dropdown .dropdown-toggle:before {
     right: 15px;
     top: 48%;
     transform: translateY(-48%) rotate(-90deg);
-    color: #39393A;
+    color: #28333e;
 }
 
 .dropdown a {
@@ -1641,7 +1641,7 @@ li.nav-item.dropdown .dropdown-toggle:before {
     padding-top: 7px;
     padding-bottom: 7px;
     font-size: 14px;
-    color: #39393A !important;
+    color: #28333e !important;
 }
 
 .dropdown-menu a:hover {
@@ -1677,9 +1677,9 @@ ul.dropdown-menu li .dropdown-menu {
     width: 25px;
     height: 20px;
     background: transparent;
-    border-top: 2px solid #39393A;
-    border-bottom: 2px solid #39393A;
-    color: #39393A;
+    border-top: 2px solid #28333e;
+    border-bottom: 2px solid #28333e;
+    color: #28333e;
     font-size: 0;
     -webkit-transition: all 0.25s ease-in-out;
     -o-transition: all 0.25s ease-in-out;
@@ -1695,7 +1695,7 @@ ul.dropdown-menu li .dropdown-menu {
     position: absolute;
     top: 50%;
     left: 50%;
-    background: #39393A;
+    background: #28333e;
     -webkit-transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
@@ -1913,7 +1913,7 @@ span.is-active:after {
         padding-left: 15px;
         max-height: 450px;
         overflow: auto;
-        background: #39393A;
+        background: #28333e;
         padding-bottom: 20px;
     }
     .cart-btn {
@@ -2095,7 +2095,7 @@ Copyright Area
 
 .copyright {
     padding: 20px 0;
-    background: #39393A;
+    background: #28333e;
 }
 
 .copyright p {
@@ -2369,7 +2369,7 @@ Hero Area
     top: 50%;
     transform: translateY(-50%);
     font-size: 20px;
-    color: #39393A;
+    color: #28333e;
     height: 80px;
     width: 80px;
     border-radius: 50%;
@@ -2411,7 +2411,7 @@ Site Sidebar
     font-weight: 700;
     text-transform: uppercase;
     font-family: "Open Sans", sans-serif;
-    color: #F6AE2D;
+    color: #ffffff;
 }
 
 .content-sidebar h3::before {
@@ -2434,14 +2434,14 @@ Site Sidebar
 
 .content-sidebar ul li a {
     color: #ffffff;
-    font-weight: 700;
+    font-weight: 600;
     font-size: 14px;
     /* text-transform: uppercase; */
-    letter-spacing: 0.5px;
+    // letter-spacing: 0.5px;
 }
 
 .content-sidebar ul li a:hover {
-    color: #F6AE2D;
+    color: #ffffff;
     text-decoration: underline;
 }
 
@@ -2826,7 +2826,7 @@ Blog Area
     height: 100%;
     left: 0;
     top: 0;
-    background: #39393A;
+    background: #28333e;
     opacity: 0;
     transition: 0.4s;
     border-radius: 8px;
@@ -2872,7 +2872,7 @@ Blog Area
 }
 
 .blog-area .single-blog .single-blog-content h3 a {
-    color: #39393A;
+    color: #28333e;
 }
 
 .blog-area .single-blog .single-blog-content h3 a:hover {
@@ -3023,7 +3023,7 @@ Blog Area
     height: 100%;
     left: 0;
     top: 0;
-    background: #39393A;
+    background: #28333e;
     opacity: 0;
     transition: 0.4s;
 }
@@ -3044,7 +3044,7 @@ Blog Area
 }
 
 .blog-area .single-blog-3 .single-blog-content h3 a {
-    color: #39393A;
+    color: #28333e;
 }
 
 .blog-area .single-blog-3 .single-blog-content h3 a:hover {
@@ -3069,7 +3069,7 @@ Blog Area
 
 .blog-area .styled-pagination li.previous a,
 .blog-area .styled-pagination li.next a {
-    color: #39393A;
+    color: #28333e;
 }
 
 .blog-area .styled-pagination li a {
@@ -3080,7 +3080,7 @@ Blog Area
     font-size: 16px;
     min-width: 40px;
     border-radius: 50%;
-    color: #39393A;
+    color: #28333e;
     text-align: center;
     text-transform: capitalize;
     transition: all 500ms ease;
@@ -3093,7 +3093,7 @@ Blog Area
 
 .blog-area .styled-pagination li a:hover,
 .blog-area .styled-pagination li a.active {
-    color: #39393A;
+    color: #28333e;
     background-color: #F6AE2D;
 }
 
@@ -3478,7 +3478,7 @@ Loan area
 .loan-area label {
     display: block;
     font-size: 18px;
-    color: #39393A;
+    color: #28333e;
     margin-bottom: 10px;
 }
 
@@ -3538,7 +3538,7 @@ feature area
 
 .feature-area .single-feature h4 {
     font-weight: 300;
-    color: #39393A;
+    color: #28333e;
     margin-bottom: 15px;
     text-transform: capitalize;
 }
@@ -4276,7 +4276,7 @@ Online Apply Form
     text-transform: uppercase;
     font-weight: 500;
     letter-spacing: 2px;
-    color: #39393A;
+    color: #28333e;
     margin-bottom: 25px;
 }
 
@@ -4506,7 +4506,7 @@ Sidebar
     display: block;
     margin-bottom: 15px;
     font-family: "Open Sans", sans-serif;
-    color: #39393A;
+    color: #28333e;
 }
 
 .site-sidebar .single-sidebar .archives a:hover {
