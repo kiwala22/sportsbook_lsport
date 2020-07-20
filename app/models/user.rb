@@ -6,6 +6,11 @@ class User < ApplicationRecord
    devise :database_authenticatable, :registerable, :recoverable, :rememberable,
    :validatable, :timeoutable, :trackable, authentication_keys: [:phone_number]
 
+   has_many :bet_slips
+   has_many :bets
+   has_many :transactions
+   has_many :deposits
+   has_many :withdraws
 
    after_save :send_pin!
 
@@ -27,9 +32,22 @@ class User < ApplicationRecord
       errors.add :password, 'Complexity requirement not met. Length should be 8-70 characters and include: 1 uppercase, 1 lowercase, 1 digit and 1 special character'
    end
 
+   def generate_password_reset
+     verification_code = generate_codes()
+     self.update(password_reset_code: verification_code)
+     send_password_reset_code
+   end
+
+   def send_password_reset_code
+     message = "Your Password Reset Code is #{self.password_reset_code}"
+     SendSMS.process_sms_now(receiver: self.phone_number, content: message, sender_id: "Notify")
+     self.touch(:password_reset_sent_at)
+   end
+
 
     def reset_pin!
-      self.update_column(:pin, rand(000000..999999))
+      pin = generate_codes()
+      self.update_column(pin: pin)
     end
 
     def unverify!
@@ -46,6 +64,13 @@ class User < ApplicationRecord
         #VerifyMailer.with(id: self.id).verification_email.deliver_now
         self.touch(:pin_sent_at)
       end
+    end
+
+    def generate_codes
+      loop {
+        code = rand(000000..999999).to_s
+        break code = code unless code.length != 6
+       }
     end
 
    def email_required?

@@ -1,8 +1,16 @@
 Rails.application.routes.draw do
+
    root to: 'fixtures/soccer/pre_match#index'
+
+   resources :bet_slips, only: [:index, :create, :show]
 
    match '/add_bet', to: "line_bets#create", via: [:post]
    match '/clear_slip', to: "line_bets#destroy", via: [:delete]
+
+   match 'password_reset' => "password_reset#new", via: [:post, :get]
+   match 'reset_code' => "password_reset#create", via: [:put]
+   match 'verify_reset_code' => "password_reset#edit", via: [:post, :get]
+   match 'password_update' => "password_reset#update", via: [:put]
 
    namespace :fixtures do
       namespace :soccer do

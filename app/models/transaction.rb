@@ -3,4 +3,6 @@ class Transaction < ApplicationRecord
 	validates_format_of :phone_number, :with => /\A[256]/, :message => "number should start with 256."
 
   paginates_per 10
+
+  belongs_to :user
 end

@@ -1,0 +1,26 @@
+
+<div class="login">
+   <div class="content-center cl-grey">
+      <div class="row justify-content-center">
+         <div class="col-xl-7 col-lg-7 col-md-7 col-sm-12">
+
+          <div class="web-sidebar-widget login-widget">
+            <div class="widget-head">
+              <h3 style="text-align: center;">Enter Reset Code</h3>
+            </div>
+            <div class="widget-body">
+            <%= form_tag(password_update_path, :method => "put") do %>
+              <div class="form-group">
+                <%= label_tag(:reset_code, "Reset Code") %>
+                <%= text_field_tag :reset_code, params[:reset_code], class: "form-control", required: true, id: 'reset_code' %>
+              </div>
+            <hr>
+            <%= submit_tag("Verify Code", class: 'btn btn-block btn-primary mt-lg login-btn') %>
+            <% end %>
+
+            </div>
+          </div>
+         </div>
+      </div>
+   </div>
+</div>

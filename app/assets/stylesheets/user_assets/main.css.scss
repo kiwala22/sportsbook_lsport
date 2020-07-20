@@ -517,22 +517,23 @@ font-family: 'Open Sans', sans-serif;
  ***/
 
 body {
-    font-size: 16px;
-    color: #292929;
-    overflow-x: hidden;
-    line-height: 1.7em;
+    font-size: 12px;
+    color: #ffffff;
+    line-height: 1.5em;
     font-weight: 400;
-    background: #1B4965;
+    background: #50677C;
     -webkit-font-smoothing: antialiased;
     -moz-font-smoothing: antialiased;
     font-family: "Open Sans", sans-serif;
+    background: #50677C;
+    overflow-x: hidden;
 }
 
 a {
     text-decoration: none;
     cursor: pointer;
     transition: .3s;
-    color: #292929;
+    color: #ffffff;
 }
 
 button,
@@ -698,7 +699,7 @@ img {
 ***/
 
 .cl-black {
-    color: #292929;
+    color: #28333e;
 }
 
 .cl-primary {
@@ -710,11 +711,11 @@ img {
 }
 
 .cl-blue {
-    color: #1D2228;
+    color: #50677C;
 }
 
 .cl-blue-2 {
-    color: #1D2228;
+    color: #50677C;
 }
 
 .cl-green {
@@ -1041,7 +1042,7 @@ img {
 }
 
 .black-bg {
-    background: #292929;
+    background: #28333e;
 }
 
 .black-bg-2 {
@@ -1065,7 +1066,7 @@ img {
 }
 
 .blue-bg {
-    background: #1D2228;
+    background: #50677C;
 }
 
 .light-blue-bg {
@@ -1223,7 +1224,7 @@ img {
 }
 
 .btn-fill {
-    color: #292929;
+    color: #28333e;
     background: #F6AE2D;
 }
 
@@ -1252,12 +1253,12 @@ img {
 
 .btn-wht {
     background: #ffffff;
-    color: #292929;
+    color: #28333e;
 }
 
 .btn-wht:hover {
     background: #F6AE2D;
-    color: #292929;
+    color: #28333e;
 }
 
 
@@ -1276,7 +1277,7 @@ img {
     flex-flow: row nowrap;
     justify-content: center;
     align-items: center;
-    background: none repeat scroll 0 0 #1D2228;
+    background: none repeat scroll 0 0 #50677C;
 }
 
 .spinner {
@@ -1337,7 +1338,7 @@ a#scrollUp {
 */
 
 .header-top {
-    color: #292929;
+    color: #28333e;
     padding: 10px 0;
 }
 
@@ -1357,7 +1358,7 @@ a#scrollUp {
 }
 
 .header-top .single-header-top p span a {
-    color: #292929;
+    color: #28333e;
 }
 
 .header-top .single-header-top p span a:hover {
@@ -1426,9 +1427,9 @@ a#scrollUp {
 
 .acc-tab-btn {
     width: 100%;
-    background: #1D2228;
+    background: #50677C;
     text-align: center;
-    border: 3px solid #1D2228;
+    border: 3px solid #50677C;
 }
 
 .acc-tab-btn li {
@@ -1480,7 +1481,7 @@ a#scrollUp {
 }
 
 .acc-form input:focus {
-    border: 2px solid #1D2228;
+    border: 2px solid #50677C;
 }
 
 .acc-form button {
@@ -1492,6 +1493,7 @@ a#scrollUp {
     transition: 0.4s;
     width: 100%;
     z-index: 11;
+    background: #28333e;
 }
 
 .header-area.fixed-header {
@@ -1505,7 +1507,7 @@ a#scrollUp {
 }
 
 .header-area.fixed-header ul li::before {
-    color: #292929;
+    color: #28333e;
 }
 
 .header-area.fixed-header ul li:hover::before {
@@ -1513,7 +1515,7 @@ a#scrollUp {
 }
 
 .header-area.fixed-header ul li a {
-    color: #292929;
+    color: #28333e;
 }
 
 @media (max-width: 991px) {
@@ -1527,7 +1529,7 @@ a#scrollUp {
 }
 
 .header-area.fixed-header .header-btn button {
-    color: #292929;
+    color: #28333e;
 }
 
 .header-sticky {
@@ -1609,7 +1611,7 @@ li.nav-item.dropdown .dropdown-toggle:before {
     right: 15px;
     top: 48%;
     transform: translateY(-48%) rotate(-90deg);
-    color: #292929;
+    color: #28333e;
 }
 
 .dropdown a {
@@ -1640,7 +1642,7 @@ li.nav-item.dropdown .dropdown-toggle:before {
     padding-top: 7px;
     padding-bottom: 7px;
     font-size: 14px;
-    color: #292929 !important;
+    color: #28333e !important;
 }
 
 .dropdown-menu a:hover {
@@ -1676,9 +1678,9 @@ ul.dropdown-menu li .dropdown-menu {
     width: 25px;
     height: 20px;
     background: transparent;
-    border-top: 2px solid #292929;
-    border-bottom: 2px solid #292929;
-    color: #292929;
+    border-top: 2px solid #28333e;
+    border-bottom: 2px solid #28333e;
+    color: #28333e;
     font-size: 0;
     -webkit-transition: all 0.25s ease-in-out;
     -o-transition: all 0.25s ease-in-out;
@@ -1694,7 +1696,7 @@ ul.dropdown-menu li .dropdown-menu {
     position: absolute;
     top: 50%;
     left: 50%;
-    background: #292929;
+    background: #28333e;
     -webkit-transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
@@ -1912,7 +1914,7 @@ span.is-active:after {
         padding-left: 15px;
         max-height: 450px;
         overflow: auto;
-        background: #292929;
+        background: #28333e;
         padding-bottom: 20px;
     }
     .cart-btn {
@@ -2093,14 +2095,12 @@ Copyright Area
 */
 
 .copyright {
-    padding: 20px;
-    margin-bottom: 0;
-    bottom: 0;
-    width: 100%;
+    padding: 20px 0;
+    background: #28333e;
 }
 
 .copyright p {
-    color: #ffffff;
+    color: #F18701;
     margin: 0;
     font-size: 12px;
 }
@@ -2233,7 +2233,7 @@ Hero Area
 }
 
 .hero-section .hero-area-1 .owl-dots .owl-dot span {
-    color: #1D2228;
+    color: #50677C;
 }
 
 .hero-section .hero-area-1 .owl-dots .owl-dot:hover,
@@ -2353,7 +2353,7 @@ Hero Area
     display: inline-block;
     background: #ffffff;
     border-radius: 50%;
-    color: #1D2228;
+    color: #50677C;
 }
 
 .hero-section .hero-area-2 .single-hero .hero-sub .table-cell .hero-left .video-play:hover {
@@ -2370,7 +2370,7 @@ Hero Area
     top: 50%;
     transform: translateY(-50%);
     font-size: 20px;
-    color: #292929;
+    color: #28333e;
     height: 80px;
     width: 80px;
     border-radius: 50%;
@@ -2399,6 +2399,7 @@ Site Sidebar
 */
 
 .content-sidebar {
+    background: #50677C;
     padding: 40px 0;
     color: #ffffff;
 }
@@ -2411,7 +2412,7 @@ Site Sidebar
     font-weight: 700;
     text-transform: uppercase;
     font-family: "Open Sans", sans-serif;
-    color: #F6AE2D;
+    color: #ffffff;
 }
 
 .content-sidebar h3::before {
@@ -2434,14 +2435,14 @@ Site Sidebar
 
 .content-sidebar ul li a {
     color: #ffffff;
-    font-weight: 700;
+    font-weight: 600;
     font-size: 14px;
     /* text-transform: uppercase; */
-    letter-spacing: 0.5px;
+    // letter-spacing: 0.5px;
 }
 
 .content-sidebar ul li a:hover {
-    color: #F6AE2D;
+    color: #ffffff;
     text-decoration: underline;
 }
 
@@ -2454,26 +2455,26 @@ Site Sidebar
 .web-sidebar-widget {
     margin-top: 40px;
     margin-bottom: 40px;
-    border: 2px solid #F6AE2D;
+    border: 2px solid #7690A7;
     border-radius: 5px;
 }
 
 .web-sidebar-widget .widget-head {
-    background: #F6AE2D;
+    background: #7690A7;
     padding: 15px;
 }
 
 .web-sidebar-widget .widget-head h3 {
-    font-size: 16px;
-    font-weight: 700;
-    color: #292929;
+    font-size: 15px;
+    font-weight: 600;
+    color: #ffffff;
 }
 
 .web-sidebar-widget .widget-body {
     padding: 30px;
-    color: #1D2228;
+    color: #ffffff;
     font-size: 14px;
-    background-color: #e8e8e8;
+    background-color: #5F7b95;
 }
 
 .web-sidebar-widget .widget-body .chat-boxed {
@@ -2610,7 +2611,7 @@ Site Sidebar
 }
 
 .main-content-slider .owl-dots .owl-dot span {
-    color: #1D2228;
+    color: #50677C;
 }
 
 .main-content-slider .owl-dots .owl-dot:hover,
@@ -2627,8 +2628,9 @@ Site Sidebar
 }
 
 .game-box .card .card-header h3 {
-    font-size: 22px;
+    font-size: 16px;
     display: inline-block;
+    font-weight: 700;
 }
 
 .game-box .card .card-header span {
@@ -2680,17 +2682,17 @@ Site Sidebar
 
 .game-box .card .card-body ul li a {
     border: 0;
-    font-weight: 600;
+    font-weight: 700;
     font-size: 12px;
-    text-transform: uppercase;
 }
 
 .game-box .card .card-body ul li a:hover {
-    color: #1D2228;
+    text-decoration: underline;
+    color: #ffffff;
 }
 
 .game-box .card .card-body ul li a.active {
-    border-bottom: 2px solid #1D2228;
+    border-bottom: 2px solid #50677C;
 }
 
 .game-box .card .card-body ul li.search-game {
@@ -2710,7 +2712,7 @@ Site Sidebar
 }
 
 .game-box .card .card-body ul li.search-game input:focus {
-    border-color: #1D2228;
+    border-color: #50677C;
 }
 
 .game-box .card .card-body table tr th {
@@ -2740,8 +2742,8 @@ Site Sidebar
     padding: 3px 17px;
     border-radius: 5px;
     display: inline-block;
-    color: #292929;
-    background: #ffffff;
+    color: #ffffff;
+    background: #7690a7;
     box-shadow: 0px 7px 20px -14px rgba(34, 54, 60, 0.74);
     margin-top: 10px;
 }
@@ -2825,7 +2827,7 @@ Blog Area
     height: 100%;
     left: 0;
     top: 0;
-    background: #292929;
+    background: #28333e;
     opacity: 0;
     transition: 0.4s;
     border-radius: 8px;
@@ -2871,7 +2873,7 @@ Blog Area
 }
 
 .blog-area .single-blog .single-blog-content h3 a {
-    color: #292929;
+    color: #28333e;
 }
 
 .blog-area .single-blog .single-blog-content h3 a:hover {
@@ -2922,7 +2924,7 @@ Blog Area
     height: 100%;
     left: 0;
     top: 0;
-    background: #1D2228;
+    background: #50677C;
     opacity: 0;
     transition: 0.4s;
 }
@@ -2930,7 +2932,7 @@ Blog Area
 .blog-area .single-blog-2 .single-blog-content {
     box-shadow: 0px 0px 16px 4px rgba(0, 0, 0, 0.05);
     padding: 30px;
-    background: #1D2228;
+    background: #50677C;
     position: relative;
 }
 
@@ -3022,7 +3024,7 @@ Blog Area
     height: 100%;
     left: 0;
     top: 0;
-    background: #292929;
+    background: #28333e;
     opacity: 0;
     transition: 0.4s;
 }
@@ -3043,7 +3045,7 @@ Blog Area
 }
 
 .blog-area .single-blog-3 .single-blog-content h3 a {
-    color: #292929;
+    color: #28333e;
 }
 
 .blog-area .single-blog-3 .single-blog-content h3 a:hover {
@@ -3068,7 +3070,7 @@ Blog Area
 
 .blog-area .styled-pagination li.previous a,
 .blog-area .styled-pagination li.next a {
-    color: #292929;
+    color: #28333e;
 }
 
 .blog-area .styled-pagination li a {
@@ -3079,7 +3081,7 @@ Blog Area
     font-size: 16px;
     min-width: 40px;
     border-radius: 50%;
-    color: #292929;
+    color: #28333e;
     text-align: center;
     text-transform: capitalize;
     transition: all 500ms ease;
@@ -3092,7 +3094,7 @@ Blog Area
 
 .blog-area .styled-pagination li a:hover,
 .blog-area .styled-pagination li a.active {
-    color: #292929;
+    color: #28333e;
     background-color: #F6AE2D;
 }
 
@@ -3146,7 +3148,7 @@ Blog Area
     margin-bottom: 40px;
     padding: 30px 40px;
     overflow: hidden;
-    background: #1D2228;
+    background: #50677C;
 }
 
 .blog-area .blog-all-comments .blog-comments div {
@@ -3477,7 +3479,7 @@ Loan area
 .loan-area label {
     display: block;
     font-size: 18px;
-    color: #292929;
+    color: #28333e;
     margin-bottom: 10px;
 }
 
@@ -3502,7 +3504,7 @@ Loan area
     font-size: 30px;
     margin-bottom: 45px;
     font-weight: 300;
-    color: #1D2228;
+    color: #50677C;
 }
 
 .loan-area .loan-confirm-form p strong {
@@ -3537,7 +3539,7 @@ feature area
 
 .feature-area .single-feature h4 {
     font-weight: 300;
-    color: #292929;
+    color: #28333e;
     margin-bottom: 15px;
     text-transform: capitalize;
 }
@@ -3749,7 +3751,7 @@ Contact area
 
 .contact-form form input:focus,
 .contact-form form textarea:focus {
-    border: 2px solid #1D2228;
+    border: 2px solid #50677C;
 }
 
 .contact-form form input {
@@ -3976,7 +3978,7 @@ MIssion Vission area
     line-height: 50px;
     padding: 0 4px;
     text-align: center;
-    color: #1D2228;
+    color: #50677C;
     box-shadow: 0px 0px 15px 0px rgba(72, 67, 211, 0.12);
 }
 
@@ -4000,7 +4002,7 @@ MIssion Vission area
 
 .right-sticky-wapper .right-sticky-content form input:focus,
 .right-sticky-wapper .right-sticky-content form textarea:focus {
-    border: 2px solid #1D2228;
+    border: 2px solid #50677C;
 }
 
 .right-sticky-wapper .right-sticky-content form input {
@@ -4198,7 +4200,7 @@ Job Post Area
 }
 
 .single-job:hover {
-    border-color: #1D2228;
+    border-color: #50677C;
 }
 
 .single-job .job-des {
@@ -4223,7 +4225,7 @@ Job Post Area
 }
 
 .single-job .job-des h3 a:hover {
-    color: #1D2228;
+    color: #50677C;
 }
 
 .single-job .job-des p {
@@ -4275,7 +4277,7 @@ Online Apply Form
     text-transform: uppercase;
     font-weight: 500;
     letter-spacing: 2px;
-    color: #292929;
+    color: #28333e;
     margin-bottom: 25px;
 }
 
@@ -4285,7 +4287,7 @@ Online Apply Form
     line-height: 35px;
     color: #ffffff;
     border-radius: 50%;
-    background: #1D2228;
+    background: #50677C;
     margin-right: 8px;
     display: inline-block;
     text-align: center;
@@ -4314,12 +4316,12 @@ Online Apply Form
 }
 
 .select-bar:focus {
-    border: 2px solid #1D2228;
+    border: 2px solid #50677C;
 }
 
 .select-bar .list {
     width: 100%;
-    border: 2px solid #1D2228;
+    border: 2px solid #50677C;
 }
 
 .select-bar:after {
@@ -4343,7 +4345,7 @@ Online Apply Form
 .apply-form input:focus,
 .apply-form select:focus,
 .apply-form textarea:focus {
-    border: 2px solid #1D2228;
+    border: 2px solid #50677C;
 }
 
 .apply-form input[type="checkbox"] {
@@ -4359,7 +4361,7 @@ Online Apply Form
 
 .apply-form a {
     display: block;
-    color: #1D2228;
+    color: #50677C;
     margin-bottom: 10px;
     font-size: 14px;
     font-weight: 500;
@@ -4505,7 +4507,7 @@ Sidebar
     display: block;
     margin-bottom: 15px;
     font-family: "Open Sans", sans-serif;
-    color: #292929;
+    color: #28333e;
 }
 
 .site-sidebar .single-sidebar .archives a:hover {

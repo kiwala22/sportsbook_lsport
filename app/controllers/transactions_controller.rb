@@ -44,30 +44,36 @@ class TransactionsController < ApplicationController
     amount = params[:amount].to_i
     phone_number = params[:phone_number]
 
-    #create a withdrawal transaction
-    @transaction = Transaction.new(
-      reference: ext_reference,
-      amount: amount,
-      phone_number: phone_number,
-      category: "Withdraw",
-      status: "PENDING",
-      currency: "UGX",
-      user_id: current_user.id
-    )
-    #Before saving transaction check if requested amount is more than user balance
-    user_balance = current_user.balance
-    if (@transaction.amount > user_balance)
-      redirect_to root_path
-      flash[:alert] = "You have insufficient funds on your account."
-    else
-      if @transaction.save
-        WithdrawsWorker.perform_async(@transaction.id)
+    ##First check if user has any deposit and bet
+    if current_user.deposits.any? # && current_user.bets.any?
+      #create a withdrawal transaction
+      @transaction = Transaction.new(
+        reference: ext_reference,
+        amount: amount,
+        phone_number: phone_number,
+        category: "Withdraw",
+        status: "PENDING",
+        currency: "UGX",
+        user_id: current_user.id
+      )
+      #Before saving transaction check if requested amount is more than user balance
+      user_balance = current_user.balance
+      if (@transaction.amount > user_balance)
         redirect_to root_path
-        flash[:notice] = "Please wait while we process your payment.."
+        flash[:alert] = "You have insufficient funds on your account."
       else
-        flash[:alert] = @transaction.errors.full_messages.first
-        render :transfer and return
+        if @transaction.save
+          WithdrawsWorker.perform_async(@transaction.id)
+          redirect_to root_path
+          flash[:notice] = "Please wait while we process your payment.."
+        else
+          flash[:alert] = @transaction.errors.full_messages.first
+          render :transfer and return
+        end
       end
+    else
+      flash[:alert] = "You need to make a Deposit or place a bet before any withdraw."
+      redirect_to root_path
     end
   end
 

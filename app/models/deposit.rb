@@ -1,5 +1,7 @@
 class Deposit < ApplicationRecord
 
+  belongs_to :user
+
    #Commented code is just a temporary change as we get fix
    validates :amount, presence: true
    # #validates :network, presence: true

@@ -187,7 +187,7 @@ table.fixture-table {
 
 .table td {
     a:hover {
-        color: #292929;
+        color: #ffffff;
         text-decoration: underline;
     }
 }
@@ -278,8 +278,8 @@ strong {
 .total-bet {
     display: flex;
     justify-content: space-between;
-    border-top: 1px solid grey;
-    border-bottom: 1px solid grey;
+    border-top: 1px solid #ffffff;
+    border-bottom: 1px solid #ffffff;
     margin: 10px 0px;
     padding: 5px 10px;
 }
@@ -287,7 +287,7 @@ strong {
 .total-wins {
     display: flex;
     justify-content: space-between;
-    border-bottom: 1px solid grey;
+    border-bottom: 1px solid #ffffff;
     margin-top: -5px;
     margin-bottom: 10px;
     padding-left: 10px;
@@ -302,7 +302,7 @@ strong {
 
 .pagination {
     clear: both;
-    color: #60605F !important;
+    color: #7FBEEB !important;
     font-size: 14px !important;
     margin-bottom: 10px;
     margin-top: 15px;
@@ -311,14 +311,46 @@ strong {
     margin-right: 4px;
 }
 .pagination a {
-    color: #3C6997;
+    color: #7EE8FA;
     text-decoration: none;
 }
 
 .withdraw {
-  color: red;
+  //color: #9B1D20;
+  color: #8C1C13;
 }
 
 .deposit {
-  color: green;
+  color: #7DDF64;
+}
+
+.card-header {
+    background: #7690A7;
+}
+
+.card {
+    background: #5f7b95;
+}
+
+.table {
+    color: #ffffff;
+    thead {
+        tr {
+            border-bottom: 1px solid #9baebf;
+            background: #7690a7;
+        }
+    }
+    tbody {
+        tr {
+            border-bottom: 1px solid #9baebf;
+        }
+    }
+}
+
+.card-body {
+    padding: 0px;
+}
+
+#myTab {
+    background: #a8b8c7;
 }

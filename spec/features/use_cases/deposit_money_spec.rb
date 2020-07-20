@@ -3,9 +3,9 @@ require 'sidekiq/testing'
 
 RSpec.describe User, type: :system, js: true do
 
-	
 
-	describe "login" do
+
+	describe "Deposit" do
 		include_context 'Deposit_Api_Generation'
 
 		user = User.create({
@@ -27,7 +27,7 @@ RSpec.describe User, type: :system, js: true do
 		end
 
 
-		it 'should login successfully and deposit money to his account' do
+		it 'should succeed' do
 			#generate_api_keys(api_user1.id)
 			visit '/'
 			click_link('login')
@@ -36,8 +36,8 @@ RSpec.describe User, type: :system, js: true do
 			expect(page).to have_content 'DEPOSIT'
 			expect(page).to have_content user.first_name.upcase
 			expect(page).to have_content user.balance
-			click_link 'Deposit'		
-			fill_in 'phone_number', with: user.phone_number
+			click_link 'Deposit'
+			fill_in 'Phone Number', with: user.phone_number
 			fill_in 'amount', with: random_amount
 			expect{
 				click_button 'Deposit Money'
@@ -47,13 +47,13 @@ RSpec.describe User, type: :system, js: true do
 			Sidekiq::Testing.inline! do
 				DepositsWorker.drain
 			end
-			
+
 			sleep(2)
 			expect(Deposit.last.status).to eq('SUCCESS')
 			expect(Transaction.last.status).to eq('COMPLETED')
 		end
 
-		it 'login should fail on wrong phone number(without 256)' do
+		it 'should fail on wrong phone number(without 256)' do
 			#generate_api_keys(api_user1.id)
 			visit '/'
 			click_link('login')
@@ -62,18 +62,18 @@ RSpec.describe User, type: :system, js: true do
 			expect(page).to have_content 'DEPOSIT'
 			expect(page).to have_content user.first_name.upcase
 			expect(page).to have_content user.balance
-			click_link 'Deposit'		
-			fill_in 'phone_number', with: '0783467552'
+			click_link 'Deposit'
+			fill_in 'Phone Number', with: '0783467552'
 			fill_in 'amount', with: random_amount
 			click_button 'Deposit Money'
-			
+
 			expect(page).not_to have_content "Please wait while we process your transaction.."
 			expect(page).to have_content "Phone number number should be 12 digits long."
 			sleep(4)
-			
+
 		end
 
-		it 'login should fail on incomplete phone_number' do
+		it 'should fail on incomplete phone_number' do
 			#generate_api_keys(api_user1.id)
 			visit '/'
 			click_link('login')
@@ -82,16 +82,15 @@ RSpec.describe User, type: :system, js: true do
 			expect(page).to have_content 'DEPOSIT'
 			expect(page).to have_content user.first_name.upcase
 			expect(page).to have_content user.balance
-			click_link 'Deposit'		
-			fill_in 'phone_number', with: '25678346755'
+			click_link 'Deposit'
+			fill_in 'Phone Number', with: '25678346755'
 			fill_in 'amount', with: random_amount
 			click_button 'Deposit Money'
-			
+
 			expect(page).not_to have_content "Please wait while we process your transaction.."
 			expect(page).to have_content "Phone number number should be 12 digits long."
 			sleep(4)
-			
+
 		end
 	end
 end
-
