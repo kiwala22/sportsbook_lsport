@@ -10,7 +10,7 @@ RSpec.describe User, type: :system, js: true do
 
 		user = User.create({
 					email: Faker::Internet.email,
-					phone_number: '25677'+ rand(0000000..9999999).to_s,
+					phone_number: '25677'+ rand(1000000..9999999).to_s,
 					first_name: Faker::Name.first_name,
 					last_name: Faker::Name.last_name,
 					password: "Jtwitw@c2016",
@@ -30,6 +30,7 @@ RSpec.describe User, type: :system, js: true do
 
 		it "should allow successful login and withdraw money from a user's account" do
 			#generate_api_keys(api_user1.id)
+###should first deposit money to pass withdraw check
 			visit '/'
 			click_link('login')
 			login_form(user.phone_number, user.password)
@@ -43,16 +44,13 @@ RSpec.describe User, type: :system, js: true do
 			 expect{
 			 	click_button 'Withdraw Money'
 			 }.to change(WithdrawsWorker.jobs, :size).by(1)
-
 			expect(page).to have_content "Please wait while we process your payment.."
 			
 			Sidekiq::Testing.inline! do
 				WithdrawsWorker.drain
 			end
-			sleep(2)
-			
-			expect(Transaction.last.status).to eq('COMPLETED')
 			expect(Withdraw.last.status).to eq('SUCCESS')
+			expect(Transaction.last.status).to eq('COMPLETED')
 			
 		end
 

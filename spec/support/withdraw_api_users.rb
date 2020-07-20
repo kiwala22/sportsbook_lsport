@@ -6,8 +6,8 @@ RSpec.shared_context 'Withdraw_Api_Generation' do
 		api_generation
 	end
 
-
 	def api_generation
+
 		@api_user = ApiUser.create({
 			first_name: Faker::Name.first_name,
 			last_name: Faker::Name.last_name,

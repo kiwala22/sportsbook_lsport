@@ -10,7 +10,7 @@ RSpec.describe User, type: :system, js: true do
 
 		user = User.create({
 					email: Faker::Internet.email,
-					phone_number: '25677'+ rand(0000000..9999999).to_s,
+					phone_number: '25677'+ rand(1000000..9999999).to_s,
 					first_name: Faker::Name.first_name,
 					last_name: Faker::Name.last_name,
 					password: "Jtwitw@c2016",

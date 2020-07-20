@@ -1,22 +1,23 @@
 require 'rails_helper'
-
+require 'faker'
 RSpec.describe User, type: :system, js: true do
-	user = User.new(
-				email:'mutsivan@exam.com' ,
-				phone_number:'256701864607',
-				first_name:'Ivo',
-				last_name:'Muts',
-				password:'Tugende@12',
-				password_confirmation:'Tugende@12')
+	user = User.new({
+			email: Faker::Internet.email,
+			phone_number: '25677'+ rand(1000000..9999999).to_s,
+			first_name: Faker::Name.first_name,
+			last_name: Faker::Name.last_name,
+			password: "Jtwitw@c2016",
+			password_confirmation: "Jtwitw@c2016"
+			})
 	
 	user_false = User.new(
-			email:'mutsivan@exam.com' ,
+			email:'mutsivan@ex.com' ,
 			phone_number:'0701864607',
 			first_name:'Ivo',
 			last_name:'Muts',
 			password:'Tugende',
 			password_confirmation:'Tugende'
-		)
+			)
 
 
 
@@ -38,7 +39,7 @@ RSpec.describe User, type: :system, js: true do
 
 
 		##user clicks on sign up button and fills form
-		it 'should allow a user to create a Betsb account after clicking signup and accept otp' do
+		it 'should signup successfully and the accept otp' do
 			visit '/'
 			click_link('signup')
 
@@ -63,7 +64,7 @@ RSpec.describe User, type: :system, js: true do
 			expect(page.current_path).to eq '/'
 			expect(page).to have_content 'deposit'.upcase
 			expect(page).to have_content user.first_name.upcase
-						#sleep(2)
+			#sleep(2)
 		end
 
 		##We expect clicking sign up to bring up path /verify
@@ -77,10 +78,10 @@ RSpec.describe User, type: :system, js: true do
 			expect(page).to have_content('Phone number')
 			expect(page).to have_content('First name')
 			fill_in 'Email', with: user.email
-			fill_in 'Phone number', with:user.phone_number
-			fill_in 'First name', with: user.first_name
-			fill_in 'Last name', with: user.last_name
-			fill_in 'Password', with: user.password
+			fill_in 'Phone number', with:user_false.phone_number
+			fill_in 'First name', with: user_false.first_name
+			fill_in 'Last name', with: user_false.last_name
+			fill_in 'Password', with: user_false.password
 			fill_in 'Password confirmation', with: 'juMong&209'
 			click_button 'Sign up'
 
