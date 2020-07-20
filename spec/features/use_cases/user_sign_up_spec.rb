@@ -1,22 +1,35 @@
 require 'rails_helper'
+require 'faker'
 
 RSpec.describe User, type: :system, js: true do
 	user = User.new(
-				email:'mutsivan@exam.com' ,
-				phone_number:'256701864607',
+				email: Faker::Internet.email,
+				phone_number: "256786481312",
 				first_name:'Ivo',
 				last_name:'Muts',
 				password:'Tugende@12',
 				password_confirmation:'Tugende@12')
-	
+
 	user_false = User.new(
-			email:'mutsivan@exam.com' ,
-			phone_number:'0701864607',
+			email:'mutsivan@exam1.com' ,
+			phone_number:"0786481312",
 			first_name:'Ivo',
 			last_name:'Muts',
 			password:'Tugende',
 			password_confirmation:'Tugende'
 		)
+
+		# let(:valid_user_params) do
+		# 		{
+		# 				first_name: Faker::Name.name,
+		# 				last_name: Faker::Name.name,
+		# 				email: Faker::Internet.email,
+		# 				phone_number: "256786481312",
+		# 				password: "Jtwitw@c2016",
+		# 				password_confirmation: "Jtwitw@c2016"
+		# 		}
+		# end
+
 
 
 
@@ -47,22 +60,23 @@ RSpec.describe User, type: :system, js: true do
 			expect(page).to have_content('Email')
 			expect(page).to have_content('Phone number')
 			expect(page).to have_content('First name')
-			fill_in 'Email', with: user.email
-			fill_in 'Phone number', with:user.phone_number
-			fill_in 'First name', with: user.first_name
-			fill_in 'Last name', with: user.last_name
-			fill_in 'Password', with: user.password
-			fill_in 'Password confirmation', with: user.password_confirmation
+			fill_in 'Email', with: user.email #valid_user_params[:email]
+			fill_in 'Phone number', with: user.phone_number #valid_user_params[:phone_number]
+			fill_in 'First name', with: user.first_name #valid_user_params[:first_name]
+			fill_in 'Last name', with: user.last_name #valid_user_params[:last_name]
+			fill_in 'Password', with: user.password #valid_user_params[:password]
+			fill_in 'Password confirmation', with: user.password_confirmation #valid_user_params[:password_confirmation]
 			click_button 'Sign up'
+
+			sleep(3)
 
 			expect(page.current_path).to eq '/new_verify'
 			passcode = User.last.pin
 			fill_in 'pin', with: passcode
 			click_button 'Verify'
-			sleep(1)
 			expect(page.current_path).to eq '/'
 			expect(page).to have_content 'deposit'.upcase
-			expect(page).to have_content user.first_name.upcase
+			expect(page).to have_content User.last.first_name.upcase
 						#sleep(2)
 		end
 
@@ -76,13 +90,15 @@ RSpec.describe User, type: :system, js: true do
 			expect(page).to have_content('Email')
 			expect(page).to have_content('Phone number')
 			expect(page).to have_content('First name')
-			fill_in 'Email', with: user.email
-			fill_in 'Phone number', with:user.phone_number
-			fill_in 'First name', with: user.first_name
-			fill_in 'Last name', with: user.last_name
-			fill_in 'Password', with: user.password
+			fill_in 'Email', with: user.email #valid_user_params[:email]
+			fill_in 'Phone number', with: user.phone_number #valid_user_params[:phone_number]
+			fill_in 'First name', with: user.first_name #valid_user_params[:first_name]
+			fill_in 'Last name', with: user.last_name #valid_user_params[:last_name]
+			fill_in 'Password', with: user.password #valid_user_params[:password]
 			fill_in 'Password confirmation', with: 'juMong&209'
 			click_button 'Sign up'
+
+			sleep(3)
 
 			expect(page).to have_content("doesn't match Password")
 			expect(page.current_path).to eq('/users')

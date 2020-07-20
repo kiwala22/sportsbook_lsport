@@ -3,14 +3,14 @@ require 'sidekiq/testing'
 
 RSpec.describe User, type: :system, js: true do
 
-	
+
 
 	describe "withdraw" do
 		include_context 'Withdraw_Api_Generation'
 
 		user = User.create({
 					email: Faker::Internet.email,
-					phone_number: '25677'+ rand(0000000..9999999).to_s,
+					phone_number: '25677'+ rand(1000000..9999999).to_s,
 					first_name: Faker::Name.first_name,
 					last_name: Faker::Name.last_name,
 					password: "Jtwitw@c2016",
@@ -45,15 +45,15 @@ RSpec.describe User, type: :system, js: true do
 			 }.to change(WithdrawsWorker.jobs, :size).by(1)
 
 			expect(page).to have_content "Please wait while we process your payment.."
-			
+
 			Sidekiq::Testing.inline! do
 				WithdrawsWorker.drain
 			end
 			sleep(2)
-			
+
 			expect(Transaction.last.status).to eq('COMPLETED')
 			expect(Withdraw.last.status).to eq('SUCCESS')
-			
+
 		end
 
 		it 'should fail on low account balance' do
@@ -64,7 +64,7 @@ RSpec.describe User, type: :system, js: true do
 			expect(page).to have_content 'DEPOSIT'
 			expect(page).to have_content user.first_name.upcase
 			expect(page).to have_content user.balance
-			visit '/transfer'	
+			visit '/transfer'
 			#expect(user.phone_number).to eq('Phone Number')
 			fill_in 'amount', with: 20000
 			 expect{
@@ -74,4 +74,3 @@ RSpec.describe User, type: :system, js: true do
 		 end
 	end
 end
-
