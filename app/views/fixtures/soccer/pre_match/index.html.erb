@@ -1,30 +1,20 @@
 <div class="game-box">
     <div class="card">
         <div class="card-header">
-            <h3>Fixtures</h3>
-            <span>Live Play</span><input type="checkbox" id="switch" /><label for="switch">Toggle</label>
+            <h3>Pre-Match Fixtures</h3>
         </div>
         <div class="card-body">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
-                <li class="nav-item">
-                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Today</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Tomorrow</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Live Matches</a>
-                </li>
-
+                <%= render "fixtures/date_nav" %>
             </ul>
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                    <table class="table table-hover table-borderless table-striped">
+                    <table class="table table-borderless ">
                         <thead>
                             <tr>
-                                <th class="col-2">Date</th>
+                                <th class="col-1">Date</th>
                                 <th class="col-4">Teams</th>
-                                <th class="col-3">Tournament</th>
+                                <th class="col-4">Tournament</th>
                                 <th class="col-1">1</th>
                                 <th class="col-1">X</th>
                                 <th class="col-1">2</th>
@@ -48,18 +38,18 @@
                                             </a>
                                         </td>
                                         <td>
-                                            <%= link_to(fixture.market1_pre.competitor1, add_bet_path(outcome_id: "competitor1", fixture_id: fixture.id, market: "Market1Pre") , class: "btnn", remote: true, method: :post )%>
+                                            <%= link_to(fixture.market1_pre.outcome_1, add_bet_path(outcome_id: "1", fixture_id: fixture.id, market: "Market1Pre") , class: "btnn", remote: true, method: :post )%>
                                         </td>
                                         <td>
-                                            <%= link_to(fixture.market1_pre.draw, add_bet_path(outcome_id: "draw", fixture_id: fixture.id, market: "Market1Pre") , class: "btnn", remote: true, method: :post )%>
+                                            <%= link_to(fixture.market1_pre.outcome_2, add_bet_path(outcome_id: "2", fixture_id: fixture.id, market: "Market1Pre") , class: "btnn", remote: true, method: :post )%>
                                         </td>
                                         <td>
-                                            <%= link_to(fixture.market1_pre.competitor2, add_bet_path(outcome_id: "competitor2", fixture_id: fixture.id, market: "Market1Pre") , class: "btnn", remote: true, method: :post )%>
+                                            <%= link_to(fixture.market1_pre.outcome_3, add_bet_path(outcome_id: "3", fixture_id: fixture.id, market: "Market1Pre") , class: "btnn", remote: true, method: :post )%>
                                         </td>
                                     </tr>
 
                                     <% end %>
-                                        <% end %>
+                                <% end %>
                         </tbody>
                     </table>
                 </div>

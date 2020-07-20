@@ -1,7 +1,11 @@
 class VerifyController < ApplicationController
+<<<<<<< HEAD
   skip_before_action :redirect_if_unverified
   before_action :verification_access
 
+=======
+  # skip_before_action :redirect_if_unverified
+>>>>>>> master
   def new
   end
 

@@ -269,6 +269,39 @@ module Betradar
       
    end
    
+   def fetch_markets
+      url = @@end_point + "descriptions/en/markets.xml?include_mappings=true"
+      uri = URI(url)
+      http = Net::HTTP.new(uri.host, uri.port)
+      http.read_timeout = 180
+      request = Net::HTTP::Get.new(uri.request_uri)
+      request['x-access-token'] = @@auth_token
+      http.use_ssl = true
+      #http.verify_mode = OpenSSL::SSL::VERIFY_PEER
+      #http.set_debug_output($stdout)
+      response = http.request(request)
+      #check the status of response and return a response or log an error
+      if response.code == "200"
+         markets = Hash.from_xml(response.body)
+         markets["market_descriptions"]["market"].each do |market|
+            Market.create(market_id: market["id"].to_i, description: market["name"])
+            if (market.has_key?("outcomes") && market["outcomes"].has_key?("outcome"))
+               if market["outcomes"]["outcome"].is_a?(Array)
+                  market["outcomes"]["outcome"].each do |outcome|
+                     Outcome.create(outcome_id: outcome["id"].to_i, description: outcome["name"])
+                  end
+               else
+                  Outcome.create(outcome_id: market["outcomes"]["outcome"]["id"].to_i, description: market["outcomes"]["outcome"]["name"])
+               end
+            end
+
+         end
+         return response.code
+      else
+         @@logger.error(response.body)
+         return response.body
+      end
+   end
    
    
 end

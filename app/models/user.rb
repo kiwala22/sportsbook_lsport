@@ -6,6 +6,8 @@ class User < ApplicationRecord
    devise :database_authenticatable, :registerable, :recoverable, :rememberable,
    :validatable, :timeoutable, :trackable, authentication_keys: [:phone_number]
 
+   has_many :bet_slips
+   has_many :bets
 
    after_save :send_pin!
 

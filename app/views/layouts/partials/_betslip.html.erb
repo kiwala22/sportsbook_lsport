@@ -9,17 +9,32 @@
                </div>
             <% end %>
       <% end %>
-      <div class="total-bet">
-         <span > <%= text_field_tag "Stake", nil, placeholder: " Stake Amount" ,id: "stake-input" %> </span>
-         <span id="total-odds"><%= @cart.line_bets.pluck(:odd).map(&:to_f).inject(:*).round(2) unless @cart.line_bets.count == 0  %></span>
-      </div>
-      <div class="total-wins">
-         <span>Pssoble Win Amount</span>
-         <span id="total-wins"> </span>
-         
-      </div>
-      <div clas="actions">
-         <button class="btn btn-block btn-primary mt-lg login-btn">Place Bet</button>
-      </div>
+      <% if user_signed_in? %>
+         <%= form_with(url: bet_slips_path, method: "post", remote: true) do %>
+         <div class="total-bet">
+            <span > <%= text_field_tag :stake, nil, placeholder: " Stake Amount" ,id: "stake-input" %> </span>
+            <span id="total-odds"><%= @cart.line_bets.pluck(:odd).map(&:to_f).inject(:*).round(2) unless @cart.line_bets.count == 0  %></span>
+         </div>
+         <div class="total-wins">
+            <span>Possible Win Amount</span>
+            <span id="total-wins"> </span>
+         </div>
+         <%= hidden_field_tag(:cart_id, @cart.id) %>
+         <div clas="actions">
+            <%= submit_tag "Place Bet", class: "btn btn-block btn-primary mt-lg login-btn"  %>
+         </div>
+         <% end %>
+      <% else %>
+         <div class="total-bet">
+            <span > <%= text_field_tag :stake, nil, placeholder: " Stake Amount" ,id: "stake-input", required: true %> </span>
+            <span id="total-odds"><%= @cart.line_bets.pluck(:odd).map(&:to_f).inject(:*).round(2) unless @cart.line_bets.count == 0  %></span>
+         </div>
+         <div class="total-wins">
+            <span>Possible Win Amount</span>
+            <span id="total-wins"> </span>
+         </div>
+         <%= button_to "Login", new_user_session_path, method: "get", class: "btn btn-block btn-primary mt-lg login-btn"  %>
+      <% end %>
+
    <% end %>
 </div>

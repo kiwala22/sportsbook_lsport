@@ -27,7 +27,7 @@ class Soccer::BetSettlementWorker
                     if message["bet_settlement"]["outcomes"]["market"].is_a?(Array)
                         message["bet_settlement"]["outcomes"]["market"].each do |market|
                             #record the match outcomes
-                            process_market(market, product, event_id)  
+                            process_market(market, product, event_id, fixture.id)  
                             
                             #run through all the bets with event_id and settle them
                             #call bet settlement worker        
@@ -36,7 +36,7 @@ class Soccer::BetSettlementWorker
                     
                     if message["bet_settlement"]["outcomes"]["market"].is_a?(Hash)
                         #record the match outcomes
-                        process_market(message["bet_settlement"]["outcomes"]["market"], product, event_id)  
+                        process_market(message["bet_settlement"]["outcomes"]["market"], product, event_id, fixture.id)  
                         
                         #run through all the bets with event_id and settle them
                         #call bet settlement worker        
@@ -47,7 +47,8 @@ class Soccer::BetSettlementWorker
             
         end
     end
-    def process_market(market, product, event_id)
+    
+    def process_market(market, product, event_id, fixture_id)
         producer_type = {
             "1" => "Live",
             "3" => "Pre"
@@ -238,4 +239,10 @@ class Soccer::BetSettlementWorker
             end    
         end
     end
+
+    def settle_bets(fixture_id, product, market_id, outcome)
+        #call worker to settle these bets
+
+    end
+    
 end
