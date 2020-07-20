@@ -29,8 +29,8 @@ class Soccer::RollbackCancelWorker
         wheres = Array.new
 
         #query by event id
-        conditions << "event_id = ?"
-        wheres << event
+        conditions << "market_id = ?"
+        wheres << market_id
 
         #query by bet type
         conditions << "product = ?"
@@ -51,7 +51,11 @@ class Soccer::RollbackCancelWorker
         wheres.insert(0, conditions)
 
         #search and update all the bets
-        bets = Bet.where(wheres).update_all(status: "Active")
+        #fixture
+        fixture = Fixture.find_by(event_id: event)
+        bets =  fixture.bets.where(wheres )
+        #cancel all the bets
+        bets.update_all(status: "Active")
        
     end
     

@@ -95,7 +95,7 @@ class Soccer::BetSettlementWorker
                 mkt_entry.event_id = event_id
                 mkt_entry.save
             end
-            
+            settle_bets(fixture_id, product, market["id"], update_attr["outcome"])
         end
         
         if market["id"] == "10" || market["id"] == "63"
@@ -134,7 +134,7 @@ class Soccer::BetSettlementWorker
                 mkt_entry.event_id = event_id
                 mkt_entry.save
             end
-            
+            settle_bets(fixture_id, product, market["id"], update_attr["outcome"])
         end
         
         if (market["id"] == "18" || market["id"] == "68") && market["specifiers"] == "total=2.5"
@@ -169,7 +169,7 @@ class Soccer::BetSettlementWorker
                 mkt_entry.event_id = event_id
                 mkt_entry.save
             end
-            
+            settle_bets(fixture_id, product, market["id"], update_attr["outcome"])
         end
         
         if market["id"] == "29" || market["id"] == "75"
@@ -203,6 +203,7 @@ class Soccer::BetSettlementWorker
                 mkt_entry.event_id = event_id
                 mkt_entry.save
             end
+            settle_bets(fixture_id, product, market["id"], update_attr["outcome"])
         end
         
         if (market["id"] == "16" ||  "66") && market["specifiers"] == "hcp=1"
@@ -236,13 +237,14 @@ class Soccer::BetSettlementWorker
                 mkt_entry = model_name.constantize.new(update_attr)
                 mkt_entry.event_id = event_id
                 mkt_entry.save
-            end    
+            end  
+            settle_bets(fixture_id, product, market["id"], update_attr["outcome"])
         end
     end
 
     def settle_bets(fixture_id, product, market_id, outcome)
         #call worker to settle these bets
-
+        Soccer::CloseSettledBetsWorker.perform_async(fixture_id, product, market_id, outcome)
     end
     
 end
