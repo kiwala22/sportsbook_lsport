@@ -13,8 +13,11 @@
 
 							<div class="form-group">
 								  <%= label_tag(:phone_number, "Phone Number") %>
-								  <br>
-								 <%= text_field_tag :phone_number, params[:phone_number], autofocus: true, class: "form-control", id: 'phone_number',required: true %>
+								  
+								 
+								 <%= text_field_tag :phone_number, params[:phone_number], autofocus: true, class: "form-control",placeholder: "Ex: 256770000100", id: 'phone_number',required: true %>
+
+
 							</div>
 							<div class="form-group" >
 								  <%= label_tag(:amount, "Amount :") %> <br>

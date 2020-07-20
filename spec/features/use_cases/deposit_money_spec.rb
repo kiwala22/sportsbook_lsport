@@ -18,7 +18,6 @@ RSpec.describe User, type: :system, js: true do
 				})
 		user.update(verified: true)
 
-
 		random_amount = 10000*rand(1..10)
 
 		def login_form(phone_number, password)
@@ -44,15 +43,17 @@ RSpec.describe User, type: :system, js: true do
 				click_button 'Deposit Money'
 			}.to change(DepositsWorker.jobs, :size).by(1)
 			expect(page).to have_content "Please wait while we process your transaction.."
+
 			Sidekiq::Testing.inline! do
 				DepositsWorker.drain
 			end
+			
 			sleep(2)
 			expect(Deposit.last.status).to eq('SUCCESS')
 			expect(Transaction.last.status).to eq('COMPLETED')
-			end
+		end
 
-		it 'login should fail on wrong incomplete phone number' do
+		it 'login should fail on wrong phone number(without 256)' do
 			#generate_api_keys(api_user1.id)
 			visit '/'
 			click_link('login')
@@ -63,6 +64,26 @@ RSpec.describe User, type: :system, js: true do
 			expect(page).to have_content user.balance
 			click_link 'Deposit'		
 			fill_in 'phone_number', with: '0783467552'
+			fill_in 'amount', with: random_amount
+			click_button 'Deposit Money'
+			
+			expect(page).not_to have_content "Please wait while we process your transaction.."
+			expect(page).to have_content "Phone number number should be 12 digits long."
+			sleep(4)
+			
+		end
+
+		it 'login should fail on incomplete phone_number' do
+			#generate_api_keys(api_user1.id)
+			visit '/'
+			click_link('login')
+			login_form(user.phone_number, user.password)
+			expect(page.current_path).to eq('/')
+			expect(page).to have_content 'DEPOSIT'
+			expect(page).to have_content user.first_name.upcase
+			expect(page).to have_content user.balance
+			click_link 'Deposit'		
+			fill_in 'phone_number', with: '25678346755'
 			fill_in 'amount', with: random_amount
 			click_button 'Deposit Money'
 			

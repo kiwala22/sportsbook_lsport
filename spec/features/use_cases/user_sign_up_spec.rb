@@ -59,6 +59,7 @@ RSpec.describe User, type: :system, js: true do
 			passcode = User.last.pin
 			fill_in 'pin', with: passcode
 			click_button 'Verify'
+			sleep(1)
 			expect(page.current_path).to eq '/'
 			expect(page).to have_content 'deposit'.upcase
 			expect(page).to have_content user.first_name.upcase
