@@ -47,7 +47,7 @@ class User < ApplicationRecord
 
     def reset_pin!
       pin = generate_codes()
-      self.update_column(pin: pin)
+      self.update_column(:pin, pin)
     end
 
     def unverify!
