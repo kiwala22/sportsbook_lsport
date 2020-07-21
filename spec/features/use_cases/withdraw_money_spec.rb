@@ -30,6 +30,7 @@ RSpec.describe User, type: :system, js: true do
 
 		it "should allow successful login and withdraw money from a user's account" do
 			#generate_api_keys(api_user1.id)
+###should first deposit money to pass withdraw check
 			visit '/'
 			click_link('login')
 			login_form(user.phone_number, user.password)
@@ -43,17 +44,17 @@ RSpec.describe User, type: :system, js: true do
 			 expect{
 			 	click_button 'Withdraw Money'
 			 }.to change(WithdrawsWorker.jobs, :size).by(1)
-
 			expect(page).to have_content "Please wait while we process your payment.."
 
 			Sidekiq::Testing.inline! do
 				WithdrawsWorker.drain
 			end
-			sleep(2)
 
-			expect(Transaction.last.status).to eq('COMPLETED')
 			expect(Withdraw.last.status).to eq('SUCCESS')
+			expect(Transaction.last.status).to eq('COMPLETED')
+			
 
+			sleep(2)
 		end
 
 		it 'should fail on low account balance' do

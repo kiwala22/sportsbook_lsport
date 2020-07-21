@@ -12,7 +12,7 @@
             <%= form_tag(verify_path, :method => "put") do %>
               <div class="form-group">
                 <%= label_tag(:pin, "Verification Code") %>
-                <%= text_field_tag :pin, params[:pin], class: "form-control", required: true, id: 'pin' %>
+                <%= text_field_tag :pin, params[:pin], id: 'pin' , class: "form-control", required: true%>
               </div>
             <hr>
             <%= submit_tag("Verify", class: 'btn btn-block btn-primary mt-lg login-btn') %>

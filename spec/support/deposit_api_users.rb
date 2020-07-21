@@ -39,7 +39,5 @@ RSpec.shared_context 'Deposit_Api_Generation' do
 		visit '/admins/sign_out'
 
 	end
-
-
 		
 end
