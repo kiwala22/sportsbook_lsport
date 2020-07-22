@@ -8,9 +8,9 @@ class PasswordResetController < ApplicationController
     if @@user
       @@user.generate_password_reset
       flash[:notice] = "Reset Code has been sent to your phone number."
-      redirect_to verify_reset_code_path
+      redirect_to verify_reset_path
     else
-      flash[:alert] = "Phone Number does not seem to have an active account."
+      flash[:alert] = "Phone Number is not registered yet."
       render :new
     end
   end
@@ -20,7 +20,7 @@ class PasswordResetController < ApplicationController
 
   def update
     #First check if code is not expired
-    if Time.now > @@user.password_reset_sent_at.advance(minutes: 5)
+    if Time.now > @@user.password_reset_sent_at.advance(minutes: 10)
       flash[:alert] = "Your verification code has expired. Please request another."
       render :new
     elsif params[:reset_code].try(:to_i) == @@user.password_reset_code
@@ -31,7 +31,7 @@ class PasswordResetController < ApplicationController
     else
       #flash an alert stating incorrect verification code
       flash[:alert] = "Incorrect Verification Code."
-      redirect_to verify_reset_code_path
+      redirect_to verify_reset_path
     end
   end
 end

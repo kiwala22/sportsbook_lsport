@@ -8,8 +8,8 @@ Rails.application.routes.draw do
    match '/clear_slip', to: "line_bets#destroy", via: [:delete]
 
    match 'password_reset' => "password_reset#new", via: [:post, :get]
-   match 'reset_code' => "password_reset#create", via: [:put]
-   match 'verify_reset_code' => "password_reset#edit", via: [:post, :get]
+   match 'reset' => "password_reset#create", via: [:put]
+   match 'verify_reset' => "password_reset#edit", via: [:post, :get]
    match 'password_update' => "password_reset#update", via: [:put]
 
    namespace :fixtures do
