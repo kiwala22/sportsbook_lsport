@@ -19,6 +19,10 @@ RSpec.describe User, type: :system, js: true do
 				})
 		user.update(verified: true)
 
+		reference = SecureRandom.uuid
+		reference1 = SecureRandom.uuid
+		reference2 = SecureRandom.uuid
+
 		random_amount = 1000*rand(1..8)
 
 		def login_form(phone_number, password)
@@ -30,7 +34,22 @@ RSpec.describe User, type: :system, js: true do
 
 		it "should allow successful login and withdraw money from a user's account" do
 			#generate_api_keys(api_user1.id)
-###should first deposit money to pass withdraw check
+			deposit = Deposit.create({ #deposit should to pass the withdraw check for existing deposit
+				amount: 10000,
+				network: "MTN Uganda",
+				payment_method: 'Mobile Money',
+				balance_before: 0,
+				balance_after: 10000,
+				ext_transaction_id:reference,
+				transaction_id:reference1,
+				resource_id:reference2,
+				status: 'SUCCESS',
+				message:'',
+				currency: 'UGX',
+				phone_number:user.phone_number,
+				user_id: user.id
+			})
+
 			visit '/'
 			click_link('login')
 			login_form(user.phone_number, user.password)
@@ -38,6 +57,13 @@ RSpec.describe User, type: :system, js: true do
 			expect(page).to have_content 'DEPOSIT'
 			expect(page).to have_content user.first_name.upcase
 			expect(page).to have_content user.balance
+
+			click_link('Deposit')
+			fill_in 'phone_number', with: user.phone_number
+			fill_in 'amount',with: 10000
+			click_button 'Deposit Money'
+
+
 			visit '/transfer'
 			fill_in 'amount', with: random_amount
 
@@ -57,7 +83,25 @@ RSpec.describe User, type: :system, js: true do
 			sleep(2)
 		end
 
+
 		it 'should fail on low account balance' do
+
+			deposit = Deposit.create({ #deposit should to pass the withdraw check for existing deposit
+					amount: 1000,
+					network: "MTN Uganda",
+					payment_method: 'Mobile Money',
+					balance_before: 0,
+					balance_after: 10000,
+					ext_transaction_id:reference,
+					transaction_id:reference1,
+					resource_id:reference2,
+					status: 'SUCCESS',
+					message:'',
+					currency: 'UGX',
+					phone_number:user.phone_number,
+					user_id: user.id
+				})
+			
 			visit '/'
 			click_link('login')
 			login_form(user.phone_number, user.password)
@@ -68,10 +112,29 @@ RSpec.describe User, type: :system, js: true do
 			visit '/transfer'
 			#expect(user.phone_number).to eq('Phone Number')
 			fill_in 'amount', with: 20000
-			 expect{
+			expect{
 			 	click_button 'Withdraw Money'
 			 }.to change(WithdrawsWorker.jobs, :size).by(0)
 			expect(page).to have_content "You have insufficient funds on your account."
 		 end
+
+
+		it "should fail on zero deposits." do
+			visit '/'
+			click_link('login')
+			login_form(user.phone_number, user.password)
+			expect(page.current_path).to eq('/')
+			expect(page).to have_content 'DEPOSIT'
+			expect(page).to have_content user.first_name.upcase
+			expect(page).to have_content user.balance
+			visit '/transfer'
+			fill_in 'amount', with: random_amount
+			click_button 'Withdraw Money'
+			expect(page).to have_content "You need to make a Deposit or place a bet before any withdraw."
+
+			sleep(2)
+		end
+
+		
 	end
 end

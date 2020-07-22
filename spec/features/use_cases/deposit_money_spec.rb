@@ -18,6 +18,8 @@ RSpec.describe User, type: :system, js: true do
 				})
 		user.update(verified: true)
 
+		
+
 		random_amount = 10000*rand(1..10)
 
 		def login_form(phone_number, password)
@@ -47,8 +49,7 @@ RSpec.describe User, type: :system, js: true do
 			Sidekiq::Testing.inline! do
 				DepositsWorker.drain
 			end
-
-			sleep(2)
+			sleep(1)
 			expect(Deposit.last.status).to eq('SUCCESS')
 			expect(Transaction.last.status).to eq('COMPLETED')
 		end
