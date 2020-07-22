@@ -11,10 +11,9 @@
                 <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
                   <%= render "devise/shared/error_messages", resource: resource %>
                   <%= f.hidden_field :reset_password_token %>
-
+                  <p>Please enter a minimum of 8 characters</p>
                   <div class="form-group">
                     <%= f.label :password, "New password" %><br />
-                    <p>Please enter a minimum of 8 characters</p>
                     <%= f.password_field :password, autofocus: true,class: 'form-control', autocomplete: "new-password" %>
                   </div>
 
@@ -22,7 +21,7 @@
                     <%= f.label :password_confirmation, "Confirm new password" %><br />
                     <%= f.password_field :password_confirmation,class: 'form-control' ,autocomplete: "new-password" %>
                   </div>
-
+                  <hr>
                   <div class="actions">
                     <%= f.submit "Change my password", class: 'btn btn-block btn-primary mt-lg login-btn' %>
                   </div>
