@@ -29,7 +29,7 @@ RSpec.describe User, type: :system, js: true do
 			expect(page).to have_content 'DEPOSIT'
 			expect(page).to have_content user.first_name.upcase
 			expect(page).to have_content user.balance
-			sleep(3)
+			#sleep(3)
 			visit '/users/sign_out'
 			expect(page.current_path).to eq '/'
 			expect(page).to have_content 'SIGNUP'

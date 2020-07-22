@@ -10,7 +10,7 @@ RSpec.describe User, type: :system, js: true do
 			password: "Jtwitw@c2016",
 			password_confirmation: "Jtwitw@c2016"
 			})
-	
+
 	user_false = User.new(
 			email:'mutsivan@ex.com' ,
 			phone_number:'0701864607',
@@ -69,7 +69,7 @@ RSpec.describe User, type: :system, js: true do
 			fill_in 'Password confirmation', with: user.password_confirmation #valid_user_params[:password_confirmation]
 			click_button 'Sign up'
 
-			sleep(2)
+			#sleep(2)
 			expect(page.current_path).to eq '/new_verify'
 			passcode = User.last.pin
 			fill_in 'pin', with: passcode
@@ -78,7 +78,7 @@ RSpec.describe User, type: :system, js: true do
 			expect(page).to have_content 'deposit'.upcase
 
 			expect(page).to have_content user.first_name.upcase
-			sleep(1)
+			#sleep(1)
 		end
 
 		##We expect clicking sign up to bring up path /verify
@@ -100,7 +100,7 @@ RSpec.describe User, type: :system, js: true do
 			fill_in 'Password confirmation', with: 'juMong&209'
 			click_button 'Sign up'
 
-			sleep(3)
+			#sleep(3)
 
 			expect(page).to have_content("doesn't match Password")
 			expect(page.current_path).to eq('/users')

@@ -12,7 +12,7 @@
             <%= form_tag(password_update_path, :method => "put") do %>
               <div class="form-group">
                 <%= label_tag(:reset_code, "Reset Code") %>
-                <%= text_field_tag :reset_code, params[:reset_code], class: "form-control", required: true, id: 'reset_code' %>
+                <%= text_field_tag :reset_code, params[:reset_code], class: "form-control", id: 'reset_code', required: true %>
               </div>
             <hr>
             <%= submit_tag("Verify Code", class: 'btn btn-block btn-primary mt-lg login-btn') %>
