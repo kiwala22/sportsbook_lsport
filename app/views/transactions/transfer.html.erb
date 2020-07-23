@@ -1,10 +1,33 @@
-<%= form_tag(withdraw_path, :method => "post") do %>
-  <%= label_tag(:phone_number, "Phone Number") %>
-  <%= text_field_tag(:phone_number) %>
-  <%= label_tag(:amount, "Amount") %>
-  <%= number_field_tag(:amount) %>
-  <%= submit_tag("Withdraw Amount") %>
-<% end %>
+<div class="login">
+   <div class="content-center cl-grey">
+      <div class="row justify-content-center">
+         <div class="col-xl-7 col-lg-7 col-md-7 col-sm-12">
 
+            <div class="web-sidebar-widget login-widget">
+               <div class="widget-head">
+                    <h3>Withdraw</h3>
+               </div>
+              <div class="widget-body">
+                <%= form_tag(withdraw_path, :method => "post") do %>
 
-<p><%= link_to 'Home', authenticated_user_root_path %></p>
+                <div class="form-group">
+                  <%= label_tag(:phone_number, "Phone Number") %><br>
+                  <%= text_field_tag :phone_number, params[:phone_number], value: current_user.phone_number, id: "phone_number", class: "form-control", readonly: true %>
+                </div>
+
+                <div class="form-group">
+                  <%= label_tag(:amount, "Amount") %><br>
+                  <%= number_field_tag :amount, params[:amount], id: 'amount', class: "form-control", required: true %>
+                </div>
+                <hr>
+
+                <div class="actions">
+                  <%= submit_tag("Withdraw Money", class: 'btn btn-block btn-primary mt-lg login-btn')%>
+                </div>
+                <% end %>
+              </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

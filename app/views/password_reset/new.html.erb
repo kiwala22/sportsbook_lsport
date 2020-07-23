@@ -1,0 +1,27 @@
+
+<div class="login">
+   <div class="content-center cl-grey">
+      <div class="row justify-content-center">
+         <div class="col-xl-7 col-lg-7 col-md-7 col-sm-12">
+
+          <div class="web-sidebar-widget login-widget">
+            <div class="widget-head">
+              <h3 style="text-align: center;">Recover with Phone Number</h3>
+            </div>
+            <div class="widget-body">
+            <%= form_tag(reset_path, :method => "put") do %>
+              <div class="form-group">
+                <%= label_tag(:phone_number, "Phone Number") %>
+                <%= text_field_tag :phone_number, params[:phone_number], class: "form-control", required: true, id: 'phone_number' %>
+              </div>
+            <hr>
+            <%= submit_tag("Send Reset Code", class: 'btn btn-block btn-primary mt-lg login-btn') %>
+            <% end %>
+            <hr>
+            <%= link_to "Recover with Email", new_password_path(User), class: "devise_forms" %>
+            </div>
+          </div>
+         </div>
+      </div>
+   </div>
+</div>

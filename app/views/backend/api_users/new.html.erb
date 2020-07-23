@@ -1,0 +1,34 @@
+<div class="content-heading">
+    <div>
+        <span>New API User</span>
+        <small>New API Users</small>
+    </div>
+</div>
+
+
+<div class="block-center mt-4 wd-xl">
+   <!-- START card-->
+   <div class="card card-dark card-default">
+      <div class="card-body">
+         <p class="text-center py-2">New API User</p>
+         <%= form_for( [:backend, @api_user] , :html => {:"data-parsley-validate" => '', class: "mb-lg"}) do |f| %>
+         <div class="form-group has-feedback">
+           <%= f.label :first_name,"First Name", class: "text-muted" %>
+           <%= f.text_field :first_name, class: "form-control", autofocus: true, required: "true" %>
+         </div>
+         <div class="form-group has-feedback">
+           <%= f.label :last_name,"Last Name", class: "text-muted" %>
+           <%= f.text_field :last_name, class: "form-control", required:"true" %>
+         </div>
+				 <div class="form-group">
+			 		<%= f.label :user_type, "Action", class: "text-muted" %>
+			 		<%= f.select :user_type, options_for_select([['Collections', 'collections'], ["Disbursements", 'transfer']]),
+					 {:prompt => "Select One"}, {class: "form-control"} %>
+			 	</div>
+         <!-- Submit -->
+         <%= f.submit "Submit" , class: "btn btn-block btn-info mt-lg" %>
+         <% end %>
+      </div>
+   </div>
+   <!-- END card-->
+</div>

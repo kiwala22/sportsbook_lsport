@@ -1,7 +1,19 @@
 class ApplicationController < ActionController::Base
    before_action :configure_permitted_parameters, if: :devise_controller?
    before_action :set_raven_context
-   #before_action :redirect_if_unverified
+   before_action :redirect_if_unverified
+
+
+   private
+
+   def after_sign_out_path_for(resource_or_scope)
+    if resource_or_scope == :admin
+      unauthenticated_admins_root_path
+    else
+      root_path
+    end
+  end
+
 
    protected
 

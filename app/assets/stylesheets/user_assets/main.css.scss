@@ -50,7 +50,7 @@ Primary Use:      Sports Betting HTML Template
 -------------------------------------------*/
 
 
-/*** 
+/***
 
 ================
 	Fonts
@@ -492,7 +492,7 @@ font-family: 'Open Sans', sans-serif;
 }
 
 
-/*** 
+/***
 
 ===============
 	Reset Css
@@ -508,7 +508,7 @@ font-family: 'Open Sans', sans-serif;
 }
 
 
-/*** 
+/***
 
 ===================
 	Global Settings
@@ -537,6 +537,7 @@ body {
     background: #50677C;
     display: flex;
     flex-direction: column;
+    overflow-x: hidden;
 }
 
 a {
@@ -700,7 +701,7 @@ img {
 }
 
 
-/*** 
+/***
 
 ==================
     Color Classes
@@ -789,7 +790,7 @@ img {
 }
 
 
-/*** 
+/***
 
 ==================
     Section Styles
@@ -877,7 +878,7 @@ img {
 }
 
 
-/*** 
+/***
 
 =======================
     Margin and Padding
@@ -886,7 +887,7 @@ img {
 ***/
 
 
-/* 
+/*
     Margin Top styles
 */
 
@@ -919,7 +920,7 @@ img {
 }
 
 
-/* 
+/*
     Margin Bottom Styles
 */
 
@@ -948,7 +949,7 @@ img {
 }
 
 
-/* 
+/*
     Margin Right Styles
 */
 
@@ -977,7 +978,7 @@ img {
 }
 
 
-/* 
+/*
     Padding Top Styles
 */
 
@@ -1010,7 +1011,7 @@ img {
 }
 
 
-/* 
+/*
     Padding Bottom Styles
 */
 
@@ -1039,7 +1040,7 @@ img {
 }
 
 
-/*** 
+/***
 
 ============================
     Background and Overlay
@@ -1192,7 +1193,7 @@ img {
 }
 
 
-/*** 
+/***
 
 ===================
     Buttons Style
@@ -1319,10 +1320,10 @@ img {
 }
 
 
-/* 
+/*
 ==============================
-    ScrollUp Button 
-============================== 
+    ScrollUp Button
+==============================
 */
 
 a#scrollUp {

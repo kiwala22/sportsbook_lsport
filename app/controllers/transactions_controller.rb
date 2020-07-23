@@ -1,6 +1,10 @@
 class TransactionsController < ApplicationController
   before_action :authenticate_user!
 
+  def index
+    @transactions = Transaction.all.order("created_at DESC").page params[:page]
+  end
+
   def new
     @transaction = Transaction.new()
   end
@@ -22,10 +26,10 @@ class TransactionsController < ApplicationController
     )
     if @transaction.save
       DepositsWorker.perform_async(@transaction.id)
-      flash.now[:notice] = "Please wait while we process your payment.."
-      render :new and return
+      redirect_to root_path
+      flash[:notice] = "Please wait while we process your transaction.."
     else
-      flash.now[:alert] = "Something went wrong. Please try again."
+      flash[:alert] = @transaction.errors.full_messages.first
       render :new and return
     end
   end
@@ -40,30 +44,36 @@ class TransactionsController < ApplicationController
     amount = params[:amount].to_i
     phone_number = params[:phone_number]
 
-    #create a withdrawal transaction
-    @transaction = Transaction.new(
-      reference: ext_reference,
-      amount: amount,
-      phone_number: phone_number,
-      category: "Withdraw",
-      status: "PENDING",
-      currency: "UGX",
-      user_id: current_user.id
-    )
-    #Before saving transaction check if requested amount is more than user balance
-    user_balance = current_user.balance
-    if (@transaction.amount > user_balance)
-      flash.now[:alert] = "You have insufficient funds on your account."
-      render :transfer and return
-    else
-      if @transaction.save
-        WithdrawsWorker.perform_async(@transaction.id)
-        flash.now[:notice] = "Please wait while we process your payment.."
-        render :transfer and return
+    ##First check if user has any deposit and bet
+    if current_user.deposits.any? # && current_user.bets.any?
+      #create a withdrawal transaction
+      @transaction = Transaction.new(
+        reference: ext_reference,
+        amount: amount,
+        phone_number: phone_number,
+        category: "Withdraw",
+        status: "PENDING",
+        currency: "UGX",
+        user_id: current_user.id
+      )
+      #Before saving transaction check if requested amount is more than user balance
+      user_balance = current_user.balance
+      if (@transaction.amount > user_balance)
+        redirect_to root_path
+        flash[:alert] = "You have insufficient funds on your account."
       else
-        flash.now[:alert] = "Something went wrong. Please try again."
-        render :transfer and return
+        if @transaction.save
+          WithdrawsWorker.perform_async(@transaction.id)
+          redirect_to root_path
+          flash[:notice] = "Please wait while we process your payment.."
+        else
+          flash[:alert] = @transaction.errors.full_messages.first
+          render :transfer and return
+        end
       end
+    else
+      flash[:alert] = "You need to make a Deposit or place a bet before any withdraw."
+      redirect_to root_path
     end
   end
 
