@@ -67,9 +67,11 @@ RSpec.describe User, type: :system, js: true do
 			visit '/transfer'
 			fill_in 'amount', with: random_amount
 
-			 expect{
+			expect{
 			 	click_button 'Withdraw Money'
-			 }.to change(WithdrawsWorker.jobs, :size).by(1)
+			  }.to change(WithdrawsWorker.jobs, :size).by(1)
+			 # expect(WithdrawsWorker.jobs).to eq(:size[1])
+
 			expect(page).to have_content "Please wait while we process your payment.."
 
 			Sidekiq::Testing.inline! do
@@ -95,7 +97,7 @@ RSpec.describe User, type: :system, js: true do
 					ext_transaction_id:reference,
 					transaction_id:reference1,
 					resource_id:reference2,
-					status: 'SUCCESS',
+					status: 'FAILED',
 					message:'',
 					currency: 'UGX',
 					phone_number:user.phone_number,

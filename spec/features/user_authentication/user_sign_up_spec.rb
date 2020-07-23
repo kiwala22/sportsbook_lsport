@@ -36,21 +36,7 @@ RSpec.describe User, type: :system, js: true do
 
 	describe 'sign up' do
 		#we expect the signup to be a success with valid params
-		it 'is valid with all attributes entered correctly' do
-			expect(user).to be_valid
-		end
-		#we expect the signup to be a failure with invalid params
-		it 'is invalid with wrong attributes' do
-			expect(user_false).not_to be_valid
-		end
-		##user visits home page
-		it 'should successfully visit home page' do
-			visit root_path
-			expect(page).to have_content('SIGNUP')
-			expect(page).to have_content('LOGIN')
-		end
-
-
+	
 		##user clicks on sign up button and fills form
 		it 'should signup successfully and the accept otp' do
 			visit '/'
@@ -74,8 +60,9 @@ RSpec.describe User, type: :system, js: true do
 			passcode = User.last.pin
 			fill_in 'pin', with: passcode
 			click_button 'Verify'
-			expect(page.current_path).to eq '/'
-			expect(page).to have_content 'deposit'.upcase
+			# expect(page.current_path).to eq '/'
+			sleep(3)
+			expect(page).to have_content 'Deposit'.upcase
 
 			expect(page).to have_content user.first_name.upcase
 			#sleep(1)
@@ -105,6 +92,22 @@ RSpec.describe User, type: :system, js: true do
 			expect(page).to have_content("doesn't match Password")
 			expect(page.current_path).to eq('/users')
 		end
+
+		it 'is valid with all attributes entered correctly' do
+			expect(user).to be_valid
+		end
+		#we expect the signup to be a failure with invalid params
+		it 'is invalid with wrong attributes' do
+			expect(user_false).not_to be_valid
+		end
+		##user visits home page
+		it 'should successfully visit home page' do
+			visit root_path
+			expect(page).to have_content('SIGNUP')
+			expect(page).to have_content('LOGIN')
+		end
+
+
 
 	end
 end

@@ -16,6 +16,24 @@ RSpec.describe User, type: :system, js: true do
 				})
 		user.update(verified: true)
 
+
+
+		it 'should succeed' do
+			visit '/'
+			click_link('login')
+			click_link 'Forgot your password?'
+			fill_in 'Phone Number', with: user.phone_number
+			click_button 'Send Reset Code'
+			reset_pin = User.last.password_reset_code
+			fill_in 'Reset Code', with: reset_pin
+			click_button 'Verify Code'
+			fill_in 'password_reset', with: 'Tugende@20'
+			fill_in 'password_confirmation_reset', with: 'Tugende@20'
+			click_button 'Change my password'
+			expect(page).to have_content('Your password has been changed successfully. You are now signed in.')
+			expect(page).to have_content(user.first_name.upcase)
+		end
+
 		it 'should fail to reset the password on invalid input' do
 			visit '/'
 			click_link('login')
@@ -23,31 +41,13 @@ RSpec.describe User, type: :system, js: true do
 			fill_in 'Phone Number', with: user.phone_number
 			click_button 'Send Reset Code'
 			reset_pin = User.last.password_reset_code
-			fill_in 'reset_code', with: reset_pin
+			fill_in 'Reset Code', with: reset_pin
 			click_button 'Verify Code'
 			fill_in 'password_reset', with: 'Tugende'
 			fill_in 'password_confirmation_reset', with: 'Tugende'
 			click_button 'Change my password'
 			expect(page).to have_content 'Password Complexity requirement not met. Length should be 8-70 characters and include: 1 uppercase, 1 lowercase, 1 digit and 1 special character'
 		end
-
-	it 'should allow a user to reset his/her password successfully' do
-		visit '/'
-		click_link('login')
-		click_link 'Forgot your password?'
-		fill_in 'Phone Number', with: user.phone_number
-		click_button 'Send Reset Code'
-		reset_pin = User.last.password_reset_code
-		fill_in 'reset_code', with: reset_pin
-		click_button 'Verify Code'
-		fill_in 'password_reset', with: 'Tugende@20'
-		fill_in 'password_confirmation_reset', with: 'Tugende@20'
-		click_button 'Change my password'
-		expect(page).to have_content('Your password has been changed successfully. You are now signed in.')
-		expect(page).to have_content(user.first_name.upcase)
-	end
-
-
 
 	end
 end
