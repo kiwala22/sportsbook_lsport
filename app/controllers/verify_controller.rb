@@ -6,7 +6,7 @@ class VerifyController < ApplicationController
   end
 
   def create
-    current_user.send_pin!
+    current_user.resend_user_pin!
     redirect_to new_verify_url, notice: "A PIN number has been sent to your phone"
   end
 

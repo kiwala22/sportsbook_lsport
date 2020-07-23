@@ -56,14 +56,18 @@ class User < ApplicationRecord
 
     def send_pin!
       if saved_change_to_attribute?(:phone_number)
-        reset_pin!
-        unverify!
-        message = "Your verification code is #{self.pin}"
-        SendSMS.process_sms_now(receiver: self.phone_number, content: message, sender_id: "Notify")
-        #In scenarios of automatic emails, uncomment the line below
-        #VerifyMailer.with(id: self.id).verification_email.deliver_now
-        self.touch(:pin_sent_at)
+        resend_user_pin!
       end
+    end
+
+    def resend_user_pin!
+      reset_pin!
+      unverify!
+      message = "Your verification code is #{self.pin}"
+      SendSMS.process_sms_now(receiver: self.phone_number, content: message, sender_id: "Notify")
+      #In scenarios of automatic emails, uncomment the line below
+      #VerifyMailer.with(id: self.id).verification_email.deliver_now
+      self.touch(:pin_sent_at)
     end
 
     def generate_codes
