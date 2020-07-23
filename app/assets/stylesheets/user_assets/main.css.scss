@@ -516,6 +516,15 @@ font-family: 'Open Sans', sans-serif;
 
  ***/
 
+html,
+body {
+    height: 100%;
+}
+
+section {
+    flex: 1 0 auto;
+}
+
 body {
     font-size: 12px;
     color: #ffffff;
@@ -526,6 +535,8 @@ body {
     -moz-font-smoothing: antialiased;
     font-family: "Open Sans", sans-serif;
     background: #50677C;
+    display: flex;
+    flex-direction: column;
 }
 
 a {
@@ -2096,6 +2107,7 @@ Copyright Area
 .copyright {
     padding: 20px 0;
     background: #28333e;
+    flex-shrink: 0;
 }
 
 .copyright p {
@@ -2691,7 +2703,8 @@ Site Sidebar
 }
 
 .game-box .card .card-body ul li a.active {
-    border-bottom: 2px solid #50677C;
+    border-bottom: 2px solid #ffffff;
+    background: #f6ad2e;
 }
 
 .game-box .card .card-body ul li.search-game {
