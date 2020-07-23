@@ -5,40 +5,54 @@ class BetSlipsController < ApplicationController
 	end
 	
 	def create
-		@cart = Cart.find(bet_slips_params[:cart_id])
-		stake = bet_slips_params[:stake]
-		
-		#check if the account has money
-		
-		#deduct the money from the account
-		
-		#start betslip creation process all under a transaction
-		#create the betslip
-		
-		BetSlip.transaction do 
-			bet_slip = current_user.bet_slips.create!
-			@cart.line_bets.each do |bet|
-				product = bet.market.include?("Pre") ? "3" : "1"
-				market_id = bet.market.scan(/\d/).join('').to_i #extract only the numbers in the market number
-				if fetch_market_status(bet.market, bet.fixture_id) == "Active"
-					odd = fetch_current_odd(bet.market, bet.fixture_id, "outcome_#{bet.outcome}").to_f
-					user_bet = current_user.bets.build(bet_slip_id: bet_slip.id,fixture_id: bet.fixture_id,outcome_id: bet.outcome,market_id: market_id , odds: odd, status: "Active", product: product )
-					user_bet.save!
+		cart_id = bet_slips_params[:cart_id]
+		@cart = Cart.find(cart_id)
+
+		#check if the stake is present and contains only digits
+		if bet_slips_params[:stake].present? && bet_slips_params[:stake].scan(/\D/).empty?
+			stake = bet_slips_params[:stake].to_f
+
+			#check if there is sufficient balance
+			if stake < current_user.balance
+				#reduce the balance and save a transactions
+				transaction = current_user.transactions.build(balance_before: current_user.balance, balance_after: (current_user.balance - stake), phone_number: current_user.phone_number, status: "SUCCESS", currency: "UGX", amount: stake, category: "Withdraw" )
+			
+				#start betslip creation process all under a transaction
+				#create the betslip
+				
+				BetSlip.transaction do 
+					#save the transaction
+					transaction.save!
+
+					bet_slip = current_user.bet_slips.create!
+					@cart.line_bets.each do |bet|
+						product = bet.market.include?("Pre") ? "3" : "1"
+						market_id = bet.market.scan(/\d/).join('').to_i #extract only the numbers in the market number
+						if fetch_market_status(bet.market, bet.fixture_id) == "Active"
+							odd = fetch_current_odd(bet.market, bet.fixture_id, "outcome_#{bet.outcome}").to_f
+							user_bet = current_user.bets.build(bet_slip_id: bet_slip.id,fixture_id: bet.fixture_id,outcome_id: bet.outcome,market_id: market_id , odds: odd, status: "Active", product: product )
+							user_bet.save!
+						end
+					end
+					
+					#create the betslip
+					@bets = bet_slip.bets
+					total_odds = @bets.pluck(:odds).map(&:to_f).inject(:*).round(2)
+					potential_win_amount = (stake.to_f * total_odds )
+					bet_slip.update_attributes!(bet_count: @bets.count, stake: stake, odds: total_odds, status: "Active", potential_win_amount: potential_win_amount)
+					
+					#delete the session and also delete the cart
+					@cart.destroy if @cart.id == session[:cart_id] 
+					session[:cart_id] = nil
 				end
+				#redirect to home page with a notification
+				redirect_to root_path, notice: "Thank You! Bets have been placed. "
+			else
+				redirect_to root_path, alert: "You have insufficient balance on your account. Please deposit some money. "
 			end
-			
-			#create the betslip
-			@bets = bet_slip.bets
-			total_odds = @bets.pluck(:odds).map(&:to_f).inject(:*).round(2)
-			potential_win_amount = (stake.to_f * total_odds )
-			bet_slip.update_attributes!(bet_count: @bets.count, stake: stake, odds: total_odds, status: "Active", potential_win_amount: potential_win_amount)
-			
-			#delete the session and also delete the cart
-			@cart.destroy if @cart.id == session[:cart_id] 
-			session[:cart_id] = nil
+		else
+			redirect_to root_path, alert: "Please add a correct stake amount "
 		end
-		#redirect to home page with a notification
-		redirect_to root_path, notice: "Thank You! Bets have been placed. "
 	rescue Exception => error
 		#log the error and redirect with an alert
 		logger.error(error)

@@ -521,7 +521,13 @@ body {
     height: 100%;
 }
 
-section {
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.section-container {
     flex: 1 0 auto;
 }
 
@@ -535,8 +541,6 @@ body {
     -moz-font-smoothing: antialiased;
     font-family: "Open Sans", sans-serif;
     background: #50677C;
-    display: flex;
-    flex-direction: column;
     overflow-x: hidden;
 }
 
@@ -1961,6 +1965,10 @@ Footer Area
 ===============================
 
 */
+
+.footer-container {
+    flex-shrink: 0;
+}
 
 .footer-area {
     position: relative;
