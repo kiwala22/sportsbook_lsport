@@ -28,5 +28,8 @@ module SkylineSportsbook
       config.assets.precompile << /\.(?:svg|eot|woff|ttf)$/
       # images
       config.assets.precompile << /\.(?:png|jpg)$/
+
+      config.log_level = :info
+      config.logger = ActiveSupport::TaggedLogging.new(ActiveSupport::Logger.new(STDOUT))
    end
 end

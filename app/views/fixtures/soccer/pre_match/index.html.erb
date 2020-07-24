@@ -5,8 +5,21 @@
         </div>
         <div class="card-body">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
-                <%= render "fixtures/date_nav" %>
+                <li class="nav-item">
+                    <%= link_to "Today", fixtures_soccer_pres_path(:'q[scheduled_time_gteq]' => Time.now, :'q[scheduled_time_lteq]' => (Date.today.end_of_day + 1.day), :'q[status_eq]' => "not_started", :'q[sport_id_eq]' => "sr:sport:1", :'q[category_id_not_eq]' => "sr:category:1033"), remote: true, class: "nav-link active", id: "home-tab" %>
+                </li>
+                <li class="nav-item">
+                    <%= link_to (Date.today + 1.days).strftime("%d-%m-%y") , fixtures_soccer_pres_path(:'q[scheduled_time_gteq]' => (Date.today.beginning_of_day + 1.day), :'q[scheduled_time_lteq]' => (Date.today.end_of_day + 1.day), :'q[status_eq]' => "not_started", :'q[sport_id_eq]' => "sr:sport:1", :'q[category_id_not_eq]' => "sr:category:1033"), remote: true, class: "nav-link", id: "home-tab" %>
+                </li>
+                <li class="nav-item">
+                    <%= link_to (Date.today + 2.days).strftime("%d-%m-%y"), fixtures_soccer_pres_path(:'q[scheduled_time_gteq]' => (Date.today.beginning_of_day + 2.day), :'q[scheduled_time_lteq]' => (Date.today.end_of_day + 2.day), :'q[status_eq]' => "not_started", :'q[sport_id_eq]' => "sr:sport:1", :'q[category_id_not_eq]' => "sr:category:1033") ,remote: true, class: "nav-link", id: "home-tab" %>
+                </li>
+                <li class="nav-item">
+                    <%= link_to "Live", fixtures_soccer_pres_path, remote: true, class: "nav-link", id: "live-tab" %>
+                </li>
+
             </ul>
+        
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <table class="table table-borderless ">

@@ -11,6 +11,7 @@ class User < ApplicationRecord
    has_many :transactions
    has_many :deposits
    has_many :withdraws
+   
 
    after_save :send_pin!
 

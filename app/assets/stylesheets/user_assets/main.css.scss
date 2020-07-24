@@ -518,6 +518,21 @@ font-family: 'Open Sans', sans-serif;
 
  ***/
 
+html,
+body {
+    height: 100%;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.section-container {
+    flex: 1 0 auto;
+}
+
 body {
     font-size: 12px;
     color: #ffffff;
@@ -1953,6 +1968,10 @@ Footer Area
 
 */
 
+.footer-container {
+    flex-shrink: 0;
+}
+
 .footer-area {
     position: relative;
     z-index: 1;
@@ -2107,6 +2126,7 @@ Copyright Area
     left: 0;
     bottom: 0;
     width: 100%
+    flex-shrink: 0;
 }
 
 .copyright p {
@@ -2702,7 +2722,8 @@ Site Sidebar
 }
 
 .game-box .card .card-body ul li a.active {
-    border-bottom: 2px solid #50677C;
+    border-bottom: 2px solid #ffffff;
+    background: #f6ad2e;
 }
 
 .game-box .card .card-body ul li.search-game {
