@@ -17,8 +17,8 @@
                     <li class="nav-item active"><a class="nav-link" href="/">Home</a></li>
                   </ul>
                   <div class="header-btn justify-content-end">
-                      <a id="signup" href=<%=new_user_registration_path %> class="bttn-small btn-fill"><i class="fa fa-key"></i>Signup</a>
-                      <a id="login" href=<%=new_user_session_path %> class="bttn-small btn-fill ml-2"><i class="fa fa-lock"></i>Login</a>
+                      <a id="signup" class="bttn-small btn-fill" href=<%=new_user_registration_path %> ><i class="fa fa-key"></i>Signup</a>
+                      <a id="login" class="bttn-small btn-fill ml-2" href=<%=new_user_session_path %>><i class="fa fa-lock"></i>Login</a>
                   </div>
               </div>
             <% elsif user_signed_in? && current_user.verified? %>
@@ -27,16 +27,21 @@
                 <li class="nav-item active"><a class="nav-link" href="/">Home</a></li>
               </ul>
                 <div class="header-btn justify-content-end">
-                    <a class="bttn-small btn-fill"><i class="fa fa-dollar"></i><%= current_user.balance %></a>
-                    <a href=<%=new_transaction_path %> class="bttn-small btn-fill" id="deposit"><i class="fa fa-money" ></i>Deposit</a>
-                    <li class="dropdown bttn-small btn-fill">
-                      <a href="#" data-toggle="dropdown" class="dropdown-toggle" id="#firstname"><%= current_user.first_name %> <i class="fa fa-caret-down"></i></a>
-                        <ul class="dropdown-menu" style="padding: 12px;">
-                            <li><a class="" href=<%= transactions_path %>><i class="fa fa-exchange"></i>Transactions</a></li>
-                            <li><a href="#"><i class="fa fa-ticket"></i>Tickets</a></li>
-                            <li><a href=<%= transfer_path %> class=""><i class="fa fa-share"></i>Withdraw</a></li>
+                    <span class="bttn-small header-btn balance" >UGX <%= current_user.balance %></span>
 
-                            <li><a href=<%=destroy_user_session_path %> class= ""><i class="fa fa-power-off"></i>Log out</a></li>
+                    <a class="bttn-small btn-fill" id="deposit" href=<%=new_transaction_path %> ><i class="fa fa-money" ></i>Deposit</a>
+
+                    <li class="dropdown btn">
+                      <a href="#" class="bttn-small btn-fill" data-toggle="dropdown" class="dropdown-toggle" id="#firstname"><%= current_user.first_name %> <i class="fa fa-caret-down"></i></a>
+                        <ul class="dropdown-menu" style="padding: 25px; ">
+                            <li><a class="" href=<%= transactions_path %> >Transactions</a></li> <br>
+                            <li><a href="#"></i>Tickets</a></li> <br>
+                            <li><a class="" href=<%= transfer_path %> >Withdraw</a></li>
+
+                            <hr>
+
+                            <li><a class= "" href=<%=destroy_user_session_path %> >
+                              <i class="fa fa-power-off"></i> Log out</a></li>
                         </ul>
                     </li>
                 </div>
