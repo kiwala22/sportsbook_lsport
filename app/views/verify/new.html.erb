@@ -14,12 +14,11 @@
                 <%= label_tag(:pin, "Verification Code") %>
                 <%= text_field_tag :pin, params[:pin], id: 'pin' , class: "form-control", required: true%>
               </div>
-            <hr>
             <%= submit_tag("Verify", class: 'btn btn-block btn-primary mt-lg login-btn') %>
             <% end %>
-
+            <br>
             <!-- <p><#%= link_to 'Receive code via Email', send_verification_path %></p> -->
-            <p style="text-align: center;"><%= link_to 'Resend code', resend_verify_path, method: :post %></p>
+            <p style="text-align: center;"><%= link_to 'Resend code', resend_verify_path, method: :post, class: "devise_forms" %></p>
 
             </div>
           </div>
