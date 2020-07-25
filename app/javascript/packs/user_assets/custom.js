@@ -25,4 +25,6 @@ var betSlip = function() {
     });
 };
 
-$(document).on("page:load ready turbolinks:load", betSlip);
+document.addEventListener("turbolinks:load", function() {
+    betSlip();
+})
