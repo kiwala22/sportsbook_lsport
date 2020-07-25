@@ -95,7 +95,6 @@ h6 {
 
 p {
     margin-top: 0;
-    margin-bottom: 1rem
 }
 
 abbr[data-original-title],
@@ -5146,9 +5145,9 @@ a.badge-dark:focus {
 }
 
 .alert-success {
-    color: #155724;
-    background-color: #d4edda;
-    border-color: #c3e6cb
+    color: #242423;
+    background-color: #F5CB5C;
+    border-color: #F5CB5C
 }
 
 .alert-success hr {
@@ -5188,7 +5187,7 @@ a.badge-dark:focus {
 }
 
 .alert-danger {
-    color: #721c24;
+    color: #242423;
     background-color: #f8d7da;
     border-color: #f5c6cb
 }
@@ -5624,7 +5623,6 @@ a.badge-dark:focus {
     float: right;
     font-size: 1.5rem;
     font-weight: 700;
-    line-height: 1;
     color: #000;
     text-shadow: 0 1px 0 #fff;
     opacity: .5
