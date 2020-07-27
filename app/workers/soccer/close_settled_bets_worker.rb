@@ -15,9 +15,9 @@ class Soccer::CloseSettledBetsWorker
       if bets
          bets.each do |bet|
             if winning_bets.include?(bet.outcome_id)
-               bet.update_attributes("Win")
+               bet.update_attributes(result: "Win", status: "Closed")
             else
-               bet.update_attributes("Loss")
+               bet.update_attributes(result: "Loss", status: "Closed")
             end
          end
       end
