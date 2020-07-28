@@ -1,6 +1,6 @@
-// import Rails from '@rails/ujs';
-// Rails.start();
-import Turbolinks from 'turbolinks'
-Turbolinks.start();
+require("@rails/ujs").start()
+require("turbolinks").start()
+require("@rails/activestorage").start()
+require("jquery")
 
 require("packs/user_assets/application");

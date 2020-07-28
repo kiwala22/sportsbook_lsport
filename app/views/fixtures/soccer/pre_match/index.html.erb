@@ -1,7 +1,7 @@
 <div class="game-box">
     <div class="card">
         <div class="card-header">
-            <h3>Pre-Match Fixtures</h3>
+            <h3>Pre-Match Fixtures - Soccer</h3>
         </div>
         <div class="card-body">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -33,36 +33,8 @@
                                 <th class="col-1">2</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <% @fixtures.each do |fixture| %>
-                                <% if fixture.market1_pre.present? && fixture.market1_pre.status == "Active" %>
-                                    <tr>
-                                        <td>
-                                            <a href=<%=fixtures_soccer_path(id: fixture.id) %>>
-                                                <%= fixture.scheduled_time.strftime("%H:%M:%S ") %> <br>
-                                                    <%= fixture.scheduled_time.strftime("%d/%m/%y") %>
-                                            </a>
-                                        </td>
-                                        <td><a href=<%=fixtures_soccer_path(id: fixture.id) %>><strong><%= fixture.comp_one_name %></strong>  <strong><%= fixture.comp_two_name %></strong> </a> </td>
-                                        <td>
-                                            <a href=<%=fixtures_soccer_path(id: fixture.id) %>>
-                                                <%= fixture.tournament_name %> <br>
-                                                    <%= fixture.category %>
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <%= link_to(fixture.market1_pre.outcome_1, add_bet_path(outcome_id: "1", fixture_id: fixture.id, market: "Market1Pre") , class: "btnn", remote: true, method: :post )%>
-                                        </td>
-                                        <td>
-                                            <%= link_to(fixture.market1_pre.outcome_2, add_bet_path(outcome_id: "2", fixture_id: fixture.id, market: "Market1Pre") , class: "btnn", remote: true, method: :post )%>
-                                        </td>
-                                        <td>
-                                            <%= link_to(fixture.market1_pre.outcome_3, add_bet_path(outcome_id: "3", fixture_id: fixture.id, market: "Market1Pre") , class: "btnn", remote: true, method: :post )%>
-                                        </td>
-                                    </tr>
-
-                                    <% end %>
-                                <% end %>
+                        <tbody id="fixture-table-body">
+                            <%= render 'pre_match_fixture_table', locals: {fixtures: @fixtures} %>
                         </tbody>
                     </table>
                 </div>

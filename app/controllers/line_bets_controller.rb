@@ -14,7 +14,7 @@ class LineBetsController < ApplicationController
       #check if the bet already exists
       @line_bet = LineBet.find_by(fixture_id: fixture.id, cart_id: @cart.id)
       if @line_bet
-         @line_bet.assign_attributes(outcome: outcome, market: market, odd: market_entry.send(outcome).to_f)
+         @line_bet.assign_attributes(outcome: outcome, market: market, odd: market_entry.send("outcome_#{outcome}").to_f)
       else
          @line_bet = @cart.line_bets.build(fixture_id: fixture.id, outcome: outcome, market: market, odd: market_entry.send("outcome_#{outcome}").to_f, description: "#{fixture.comp_one_name} - #{fixture.comp_two_name}")
       end

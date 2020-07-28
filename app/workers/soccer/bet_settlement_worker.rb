@@ -19,32 +19,32 @@ class Soccer::BetSettlementWorker
             fixture = Fixture.find_by(event_id: event_id)
             if fixture
                 fixture.update_attributes(status: "ended")
-            end
             
-            #iterate over the outcomes and mark the markets as settled
-            if message["bet_settlement"].has_key?("outcomes") && message["bet_settlement"]["outcomes"].present?
-                if message["bet_settlement"]["outcomes"].has_key?("market") && message["bet_settlement"]["outcomes"]["market"].present?
-                    if message["bet_settlement"]["outcomes"]["market"].is_a?(Array)
-                        message["bet_settlement"]["outcomes"]["market"].each do |market|
+            
+                #iterate over the outcomes and mark the markets as settled
+                if message["bet_settlement"].has_key?("outcomes") && message["bet_settlement"]["outcomes"].present?
+                    if message["bet_settlement"]["outcomes"].has_key?("market") && message["bet_settlement"]["outcomes"]["market"].present?
+                        if message["bet_settlement"]["outcomes"]["market"].is_a?(Array)
+                            message["bet_settlement"]["outcomes"]["market"].each do |market|
+                                #record the match outcomes
+                                process_market(market, product, event_id, fixture.id)  
+                                
+                                #run through all the bets with event_id and settle them
+                                #call bet settlement worker        
+                            end
+                        end
+                        
+                        if message["bet_settlement"]["outcomes"]["market"].is_a?(Hash)
                             #record the match outcomes
-                            process_market(market, product, event_id, fixture.id)  
+                            process_market(message["bet_settlement"]["outcomes"]["market"], product, event_id, fixture.id)  
                             
                             #run through all the bets with event_id and settle them
                             #call bet settlement worker        
                         end
                     end
                     
-                    if message["bet_settlement"]["outcomes"]["market"].is_a?(Hash)
-                        #record the match outcomes
-                        process_market(message["bet_settlement"]["outcomes"]["market"], product, event_id, fixture.id)  
-                        
-                        #run through all the bets with event_id and settle them
-                        #call bet settlement worker        
-                    end
                 end
-                
             end
-            
         end
     end
     
