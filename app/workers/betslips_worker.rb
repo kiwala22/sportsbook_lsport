@@ -1,5 +1,5 @@
 require 'sidekiq'
-class DepositsWorker
+class BetslipsWorker
    include Sidekiq::Worker
    sidekiq_options queue: "high"
    sidekiq_options retry: false
