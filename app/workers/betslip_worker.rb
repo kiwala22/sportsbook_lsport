@@ -28,7 +28,7 @@ class DepositsWorker
                   transaction = user.transactions.create!(balance_before: user.balance, balance_after: (user.balance + win_amount), phone_number: user.phone_number, status: "SUCCESS", currency: "UGX", amount:win_amount, category: "Win - #{slip.id}" )
                end
                
-            elsif bet_results.include?("Void"}
+            elsif bet_results.include?("Void")
                user = User.find(slip.user_id)
                no_void_bet_results = slip.bets.where(result: "Win")
                if no_void_bet_results
