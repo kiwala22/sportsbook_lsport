@@ -14,7 +14,7 @@ class BetSlipsController < ApplicationController
 			stake = bet_slips_params[:stake].to_f
 
 			#check if there is sufficient balance
-			if stake < current_user.balance
+			if stake <= current_user.balance
 				#reduce the balance and save a transactions
 				current_user.balance = (current_user.balance - stake) 
 				transaction = current_user.transactions.build(balance_before: current_user.balance, balance_after: (current_user.balance - stake), phone_number: current_user.phone_number, status: "SUCCESS", currency: "UGX", amount: stake, category: "Withdraw" )

@@ -11,14 +11,19 @@ class Soccer::CloseSettledBetsWorker
       bets = fixture.bets.where(product: product, market_id: market_id, status: "Active")
       outcome = ActiveSupport::JSON.decode(outcome)
       winning_bets = outcome.select {|key, value| value == "1"}.keys.map(&:to_i)
-      
-      if bets
-         bets.each do |bet|
-            if winning_bets.include?(bet.outcome_id)
-               bet.update_attributes(result: "Win", status: "Closed")
-            else
-               bet.update_attributes(result: "Loss", status: "Closed")
+      if outcome['void_factor'].nil?
+         if bets
+            bets.each do |bet|
+               if winning_bets.include?(bet.outcome_id)
+                  bet.update_attributes(result: "Win", status: "Closed")
+               else
+                  bet.update_attributes(result: "Loss", status: "Closed")
+               end
             end
+         end
+      else
+         bets.each do |bet|
+            bet.update_attributes(result: "Void", status: "Closed", void_factor: outcome['void_factor'].to_f)
          end
       end
    end
