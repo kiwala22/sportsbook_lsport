@@ -212,11 +212,12 @@ table.fixture-table {
     max-width: 100%;
     flex-basis: 100%;
     width: 100%;
-    background-color: #eaecee;
-    border-color: #eaecee;
+    background-color: #7690a7;
+    border-color: #7690a7;
     line-height: 1.2rem;
     font-size: 12px;
-    font-weight: 600;
+    font-weight: 700;
+    color: white;
     .wagger-amt {
         font-weight: 600;
         margin-top: 5px;
@@ -229,17 +230,11 @@ strong {
 
 .market-odds {
     padding: 11px 15px;
-    border-left: 1px solid #e1e1e1;
-    border-right: 1px solid #e1e1e1;
-    border-bottom: 1px solid #e1e1e1;
 }
 
 .market-label {
-    padding: 0px 15px;
-    background-color: #eaecee;
-    border-left: 1px solid #e1e1e1;
-    border-right: 1px solid #e1e1e1;
-    border-top: 1px solid #e1e1e1;
+    padding: 8px 15px;
+    background-color: #7690A7;
     font-size: 12px;
 }
 
@@ -355,11 +350,19 @@ strong {
     background: #a8b8c7;
 }
 
-.balance{
+.balance {
     font-size: 15px;
-    color:#F6AE2D
+    color: #F6AE2D
 }
 
+
 .text-gray-400{
-  color:#d1d3e2!important
+  color:#d1d3e2!important;
+}
+
+.wagger-btn:hover {
+    transform: scale(1.05);
+    background: inherit;
+    color: #ffffff;
+    border-color: #F6AE2D;
 }
