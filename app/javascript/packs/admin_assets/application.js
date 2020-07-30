@@ -11,7 +11,10 @@ require("modernizr/modernizr.custom.js");
 // //require("turbolinks").start()
 // require("@rails/activestorage").start()
 // require("channels")
-
+//-- Date Timepicker
+require("jquery-ui");
+require("moment");
+import './time_picker.js'
 //--- Bootstrap
 import 'bootstrap';
 
@@ -24,3 +27,14 @@ document.addEventListener('DOMContentLoaded', appInit);
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
+
+$(document).ready(function(){
+  $("#kick_off_before").datetimepicker({
+    // format: "YYYY-MM-DD",
+    sideBySide: true
+  });
+  $("#kick_off_after").datetimepicker({
+    // format: "YYYY-MM-DD",
+    sideBySide: true
+  });
+});

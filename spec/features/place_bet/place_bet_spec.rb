@@ -64,7 +64,8 @@ RSpec.describe User, type: :system, js: true do
 			all('a', :id => 'odd1')[4].click
 			stake = 10000
 			fill_in 'stake', with: stake
-			expect(stake).to be > user.balance
+			click_button('Place Bet')
+			expect(page).to have_content'You have insufficient balance on your account. Please deposit some money.'
 			
 			
 			sleep(2)

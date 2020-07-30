@@ -13,11 +13,19 @@
 
     <!-- =============== APP STYLES ===============-->
     <%= stylesheet_link_tag 'user_assets/application', media: 'all', id: "maincss" %>
-        <!-- =============== VIEW STYLES ===============-->
-        <!-- <#%= stylesheet_link_tag params[:controller] %> -->
-        <%= yield :vendor_css_area %>
-            <%= csrf_meta_tags %>
-                <%= csp_meta_tag %>
+
+    <!-- =============== VIEW STYLES ===============-->
+    <!-- <#%= stylesheet_link_tag params[:controller] %> -->
+    <%= yield :vendor_css_area %>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <!-- =============== APP SCRIPTS ===============-->
+   <%= javascript_pack_tag 'user_application', 'data-turbolinks-track': 'reload'  %>
+   <%= yield :vendor_js_area %>
+
+   <%= yield :body_area %>
+
+
 </head>
 
 <body>

@@ -3089,23 +3089,24 @@ input[type=submit].btn-block {
 }
 
 .dropdown-menu {
-    position: absolute;
     top: 100%;
     left: 0;
     z-index: 1000;
     display: none;
     float: left;
-    min-width: 10rem;
-    padding: .5rem 0;
-    margin: .125rem 0 0;
-    font-size: 1rem;
-    color: #212529;
+    min-width: 160px;
+    padding: 5px 0;
+    margin: .2px 0 0;
+    font-size: 14px;
+    /*color: #212529;*/
     text-align: left;
     list-style: none;
     background-color: #fff;
+    border: 1px solid #e1e1e1;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 6px 12px rgba(0,0,0,0.175);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.175);
     background-clip: padding-box;
-    border: 1px solid rgba(0, 0, 0, .15);
-    border-radius: .25rem
 }
 
 .dropdown-menu-left {
@@ -4092,7 +4093,8 @@ input[type=submit].btn-block {
 
 .nav-link:focus,
 .nav-link:hover {
-    text-decoration: none
+    text-decoration: none;
+    color: #fff
 }
 
 .nav-link.disabled {
@@ -4214,7 +4216,7 @@ input[type=submit].btn-block {
 }
 
 .navbar-nav .dropdown-menu {
-    position: static;
+    position: absolute;
     float: none
 }
 
@@ -4343,7 +4345,7 @@ input[type=submit].btn-block {
         flex-direction: row
     }
     .navbar-expand-lg .navbar-nav .dropdown-menu {
-        position: absolute
+        position: absolute;
     }
     .navbar-expand-lg .navbar-nav .nav-link {
         padding-right: .5rem;
