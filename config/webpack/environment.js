@@ -4,8 +4,13 @@ environment.plugins.prepend('Provide',
     new webpack.ProvidePlugin({
         Rails: ['@rails/ujs'],
         $: 'jquery/src/jquery',
-        jQuery: 'jquery/src/jquery'
+        jQuery: 'jquery/src/jquery',
+        Popper: ['popper.js', 'default']
     })
-)
+);
 
+const config = environment.toWebpackConfig();
+config.resolve.alias = {
+ jquery: 'jquery/src/jquery'
+};
 module.exports = environment

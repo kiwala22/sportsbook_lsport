@@ -1,51 +1,42 @@
 
-    <nav class="navbar navbar-expand-lg main-menu">
+    <nav class="navbar navbar-expand-md main-menu">
         <div class="container-fluid">
 
-            <a class="navbar-brand" href="" style="color: #fff">
-              <!-- <img src="" class="d-inline-block align-top" alt="BETSB."> -->
-              BETSB.
-            </a>
-
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="menu-toggle"></span>
+            <a href="#" class="navbar-brand">BETSB.</a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
             </button>
 
-            <% if !user_signed_in? %>
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <div class="collapse navbar-collapse" id="navbarCollapse"">
+                <div class="navbar-nav">
                   <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active"><a class="nav-link" href="/">Home</a></li>
+                    <li class="nav-item active"><a href="/" class="nav-link active">Home</a></li>
                   </ul>
-                  <div class="header-btn justify-content-end">
+                </div>
+                <% if !user_signed_in? %>
+                  <div class="navbar-nav ml-auto">
                       <a id="signup" class="bttn-small btn-fill" href=<%=new_user_registration_path %> ><i class="fa fa-key"></i>Signup</a>
                       <a id="login" class="bttn-small btn-fill ml-2" href=<%=new_user_session_path %>><i class="fa fa-lock"></i>Login</a>
                   </div>
-              </div>
-            <% elsif user_signed_in? && current_user.verified? %>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="navbar-nav mr-auto">
-                <li class="nav-item active"><a class="nav-link" href="/">Home</a></li>
-              </ul>
-                <div class="header-btn justify-content-end">
-                    <span class="bttn-small header-btn balance" >UGX <%= current_user.balance %></span>
-
+                <% elsif user_signed_in? && current_user.verified? %>
+                  <div class="navbar-nav ml-auto">
+                    <ul class="navbar-nav mr-auto">
+                      <li class="nav-item active"><a href="/" class="nav-link active">UGX <%= current_user.balance %></a></li>
+                    </ul>
                     <a class="bttn-small btn-fill" id="deposit" href=<%=new_transaction_path %> ><i class="fa fa-money" ></i>Deposit</a>
-
-                    <li class="dropdown btn">
-                      <a href="#" class="bttn-small btn-fill" data-toggle="dropdown" class="dropdown-toggle" id="#firstname"><%= current_user.first_name %> <i class="fa fa-caret-down"></i></a>
-                        <ul class="dropdown-menu" style="padding: 25px; ">
-                            <li><a class="" href=<%= transactions_path %> >Transactions</a></li> <br>
-                            <li><a href="#"></i>Tickets</a></li> <br>
-                            <li><a class="" href=<%= transfer_path %> >Withdraw</a></li>
-
-                            <hr>
-
-                            <li><a class= "" href=<%=destroy_user_session_path %> >
-                              <i class="fa fa-power-off"></i> Log out</a></li>
-                        </ul>
-                    </li>
-                </div>
-            </div>
-            <% end %>
+                    <div class="dropdown dropdown-list">
+                      <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user-circle-o fa-lg" aria-hidden="true"> <i class="fa fa-caret-down"></i></i></a>
+                      <div class="dropdown-menu dropdown-menu-right">
+                        <li><a href="#" class="dropdown-item"><%= current_user.first_name %></a></li>
+                        <li><a href="#" class="dropdown-item">Transactions</a></li>
+                        <li><a href="#" class="dropdown-item">Tickers</a></li>
+                        <li><a href="#" class="dropdown-item">Withdraw</a></li>
+                        <li class="dropdown-divider"></li>
+                        <li><a href="<%=destroy_user_session_path %>" class="dropdown-item"><i class="fa fa-power-off"></i> Log out</a></li>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
         </div>
     </nav>

@@ -21,6 +21,7 @@ import initTriggerResize from './modules/common/trigger-resize';
 import { StateToggler, initToggleState } from './modules/common/toggle-state';
 import { initCardDismiss, initCardCollapse, initCardRefresh } from './modules/common/card-tools';
 import initBootstrap from './modules/common/bootstrap-start';
+// import initCustom from './custom/custom';
 
 export default function initApp() {
     // Init modules
