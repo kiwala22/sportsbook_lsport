@@ -15,26 +15,45 @@
                 </div>
                 <% if !user_signed_in? %>
                   <div class="navbar-nav ml-auto">
-                      <a id="signup" class="bttn-small btn-fill" href=<%=new_user_registration_path %> ><i class="fa fa-key"></i>Signup</a>
-                      <a id="login" class="bttn-small btn-fill ml-2" href=<%=new_user_session_path %>><i class="fa fa-lock"></i>Login</a>
+                      <a id="signup" class="bttn-small btn-fill" href=<%=new_user_registration_path %> ><i class="fas fa-key fa-fw"></i>Signup</a>
+                      <a id="login" class="bttn-small btn-fill ml-2" href=<%=new_user_session_path %>><i class="fas fa-lock fa-fw"></i>Login</a>
                   </div>
                 <% elsif user_signed_in? && current_user.verified? %>
                   <div class="navbar-nav ml-auto">
                     <ul class="navbar-nav mr-auto">
                       <li class="nav-item active"><a href="/" class="nav-link active">UGX <%= current_user.balance %></a></li>
                     </ul>
-                    <a class="bttn-small btn-fill" id="deposit" href=<%=new_transaction_path %> ><i class="fa fa-money" ></i>Deposit</a>
-                    <div class="dropdown dropdown-list">
-                      <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user-circle-o fa-lg" aria-hidden="true"> <i class="fa fa-caret-down"></i></i></a>
-                      <div class="dropdown-menu dropdown-menu-right">
-                        <li><a href="#" class="dropdown-item"><%= current_user.first_name %></a></li>
-                        <li><a href="#" class="dropdown-item">Transactions</a></li>
-                        <li><a href="#" class="dropdown-item">Tickers</a></li>
-                        <li><a href="#" class="dropdown-item">Withdraw</a></li>
-                        <li class="dropdown-divider"></li>
-                        <li><a href="<%=destroy_user_session_path %>" class="dropdown-item"><i class="fa fa-power-off"></i> Log out</a></li>
+                    <a class="bttn-small btn-fill" id="deposit" href=<%=new_transaction_path %> ><i class="fas fa-wallet fa-lg" ></i> Deposit</a>
+                    <!-- Nav Item - User Information -->
+                    <li class="nav-item dropdown no-arrow">
+                      <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-user fa-lg text-gray-400"></i>
+                      </a>
+                      <!-- Dropdown - User Information -->
+                      <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                        <a class="dropdown-item words" href="#">
+                          <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                          <%= current_user.first_name %>
+                        </a>
+                        <a class="dropdown-item trans" href="<%= transactions_path %>">
+                          <i class="fas fa-landmark fa-sm fa-fw mr-2 text-gray-400"></i>
+                          Transactions
+                        </a>
+                        <a class="dropdown-item trans" href="<%= bet_slips_path %>">
+                          <i class="fas fa-receipt fa-sm fa-fw mr-2 text-gray-400"></i>
+                          Tickets
+                        </a>
+                        <a class="dropdown-item trans" href="<%= transfer_path %>">
+                          <i class="fas fa-money-bill-wave fa-sm fa-fw mr-2 text-gray-400"></i>
+                          Withdraw
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item trans" href="<%= destroy_user_session_path %>">
+                          <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                          Logout
+                        </a>
                       </div>
-                    </div>
+                    </li>
                   </div>
                 <% end %>
               </div>

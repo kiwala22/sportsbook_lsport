@@ -535,7 +535,7 @@ body {
     font-size: 12px;
     color: #ffffff;
     line-height: 1.5em;
-    font-weight: 400;
+    font-weight: 600;
     background: #50677C;
     -webkit-font-smoothing: antialiased;
     -moz-font-smoothing: antialiased;
@@ -567,7 +567,7 @@ h4,
 h5,
 h6 {
     position: relative;
-    font-weight: 500;
+    font-weight: 600;
     margin: 0px;
     background: none;
     line-height: 1.2em;
@@ -1641,7 +1641,7 @@ li.nav-item.dropdown .dropdown-toggle:before {
     background: #ffffff;
     margin-top: 23px;
     width: 220px;
-    border-radius: 0;
+    border-radius: 3px;
     border: 0;
     -webkit-box-shadow: 0px 7px 20px -14px rgba(34, 54, 60, 0.74);
     box-shadow: 0px 7px 20px -14px rgba(34, 54, 60, 0.74);
@@ -1661,7 +1661,7 @@ li.nav-item.dropdown .dropdown-toggle:before {
 }
 
 .dropdown-menu a:hover {
-    background: transparent;
+    //background: transparent;
 }
 
 .dropdown-menu a:active {
