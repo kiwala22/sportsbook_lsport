@@ -17,4 +17,4 @@ production:
 
 test:
   <<: *default
-  database: sportsbook_test
+  database: sportsbook_development

@@ -6,7 +6,7 @@ RSpec.describe User, type: :system, js: true do
 
 
 	describe "Deposit" do
-		include_context 'Deposit_Api_Generation'
+		#include_context 'Deposit_Api_Generation'
 
 		user = User.create({
 					email: Faker::Internet.email,
