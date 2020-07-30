@@ -4,14 +4,14 @@
             <td>
                <a href=<%=fixtures_soccer_path(id: fixture.id) %>>
                   <%= fixture.scheduled_time.strftime("%H:%M:%S ") %> <br>
-                        <%= fixture.scheduled_time.strftime("%d/%m/%y") %>
+                  <%= fixture.scheduled_time.strftime("%d/%m/%y") %>
                </a>
             </td>
             <td><a href=<%=fixtures_soccer_path(id: fixture.id) %>><strong><%= fixture.comp_one_name %></strong>  <strong><%= fixture.comp_two_name %></strong> </a> </td>
             <td>
                <a href=<%=fixtures_soccer_path(id: fixture.id) %>>
                   <%= fixture.tournament_name %> <br>
-                        <%= fixture.category %>
+                  <%= fixture.category %>
                </a>
             </td>
             <td>
