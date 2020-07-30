@@ -8,7 +8,7 @@ require("packs/user_assets/parallax.min.js")
 import "magnific-popup";
 require("packs/user_assets/imagesloaded.pkgd.min.js");
 require("packs/user_assets/isotope.pkgd.min.js");
-
+require("packs/user_assets/css/main.scss");
 require("packs/user_assets/waypoints.min.js");
 require("packs/user_assets/jquery.counterup.min.js");
 require("packs/user_assets/wow.min.js");
@@ -17,3 +17,4 @@ require("packs/user_assets/jquery.accrue.min.js");
 require("packs/user_assets/jquery.nice-select.min.js");
 require("packs/user_assets/script.js");
 require("packs/user_assets/custom.js");
+import "@fortawesome/fontawesome-free/js/all";
