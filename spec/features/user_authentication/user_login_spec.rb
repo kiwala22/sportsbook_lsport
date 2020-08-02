@@ -27,7 +27,7 @@ RSpec.describe User, type: :system, js: true do
 			login_form(user.phone_number, user.password)
 			expect(page.current_path).to eq('/')
 			expect(page).to have_content 'DEPOSIT'
-			expect(page).to have_content user.first_name.upcase
+			# expect(page).to have_content user.first_name.upcase
 			expect(page).to have_content user.balance
 			#sleep(3)
 			visit '/users/sign_out'
@@ -41,6 +41,8 @@ RSpec.describe User, type: :system, js: true do
 			click_link('login')
 			login_form(user.phone_number, 'Omwana_weeka@900')
 			expect(page.current_path).to eq '/users/sign_in'
+			expect(page).to have_content 'Invalid Phone number or password.'
+
 		end
 
 		it 'should fail to login when email is fed instead of phone_number' do
@@ -48,6 +50,7 @@ RSpec.describe User, type: :system, js: true do
 			click_link('login')
 			login_form(user.email, user.password)
 			expect(page.current_path).to eq '/users/sign_in'
+			expect(page).to have_content 'Invalid Phone number or password.'
 		end
 
 	end
