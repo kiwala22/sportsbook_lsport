@@ -21,7 +21,7 @@
          </div>
          <%= hidden_field_tag(:cart_id, @cart.id) %>
          <div clas="actions">
-            <%= submit_tag "Place Bet", class: "btn btn-block btn-primary mt-lg login-btn"  %>
+            <%= submit_tag "Place Bet", class: "btn btn-block btn-primary mt-lg login-btn", id:'place_bet'  %>
          </div>
          <% end %>
       <% else %>
@@ -33,7 +33,7 @@
             <span>Possible Win Amount</span>
             <span id="total-wins"> </span>
          </div>
-         <%= button_to "Login", new_user_session_path, method: "get", class: "btn btn-block btn-primary mt-lg login-btn"  %>
+         <%= button_to "Login", new_user_session_path, method: "get", class: "btn btn-block btn-primary mt-lg login-btn", id:'slip_login'  %>
       <% end %>
 
    <% end %>

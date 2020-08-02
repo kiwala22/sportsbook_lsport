@@ -6,7 +6,7 @@ RSpec.describe User, type: :system, js: true do
 
 
 	describe "withdraw" do
-		include_context 'Withdraw_Api_Generation'
+		#include_context 'Withdraw_Api_Generation'
 
 		user = User.create({
 					email: Faker::Internet.email,
