@@ -4,19 +4,18 @@ class Fixtures::VirtualSoccer::PreMatchController < ApplicationController
    
    def index
       if params[:q].present?
-         Fixture.where("status = ? AND sport_id = ? AND category_id IN (?)", "not_started", "sr:sport:1", ['sr:category:1033','sr:category:2123']).ransack(params[:q])
+         @q = Fixture.where("status = ? AND sport_id = ? AND category_id IN (?) AND scheduled_time >= ? AND scheduled_time <= ?", "not_started", "sr:sport:1", ["sr:category:1033","sr:category:2123"], params[:q][:start], params[:q][:stop])
       else
-         params[:q] = {"scheduled_time_gteq": Time.now, "scheduled_time_lteq": (Date.today.end_of_day + 1.day)}
-         #params[:q] = { "sport_id_eq": "sr:sport:1", "category_id_not_eq": "sr:category:1033" }
-         
-         @q = Fixture.where("status = ? AND sport_id = ? AND category_id IN (?)", "not_started", "sr:sport:1", ["sr:category:1033","sr:category:2123"]).ransack(params[:q])
+         @q = Fixture.where("status = ? AND sport_id = ? AND category_id IN (?) AND scheduled_time >= ? AND scheduled_time <= ?", "not_started", "sr:sport:1", ["sr:category:1033","sr:category:2123"], Time.now, Date.today.end_of_day)
       end
       
-      #.includes(:market1_pre).where("scheduled_time >= ? AND scheduled_time = ? AND status = ?", Time.now, Date.today, "not_started" )
-      @pagy, @fixtures = pagy(@q.result.includes(:market1_pre))
+      @pagy, @fixtures = pagy(@q.includes(:market1_pre))
       respond_to do |format|
          format.html
          format.js
+         format.json {
+            render json: { fixtures: render_to_string(partial: "pre_match_fixture_table", locals: {fixtures: @fixtures}, formats: [:html]), pagination: view_context.pagy_nav(@pagy) }
+         }
       end
 
    end
