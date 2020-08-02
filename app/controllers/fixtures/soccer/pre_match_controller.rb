@@ -4,9 +4,9 @@ class Fixtures::Soccer::PreMatchController < ApplicationController
 
    def index
       if params[:q].present?
-         @q = Fixture.where("status = ? AND sport_id = ? AND category_id NOT IN (?) AND scheduled_time >= ? AND scheduled_time <= ?", "not_started", "sr:sport:1", ["sr:category:1033","sr:category:2123"], params[:q][:start], params[:q][:stop])
+         @q = Fixture.joins(:market1_pre).where("fixtures.status = ? AND fixtures.sport_id = ? AND fixtures.category_id NOT IN (?) AND fixtures.scheduled_time >= ? AND fixtures.scheduled_time <= ?", "not_started", "sr:sport:1", ["sr:category:1033","sr:category:2123"], params[:q][:start], params[:q][:stop])
       else
-         @q = Fixture.where("status = ? AND sport_id = ? AND category_id NOT IN (?) AND scheduled_time >= ? AND scheduled_time <= ?", "not_started", "sr:sport:1", ["sr:category:1033","sr:category:2123"], Time.now, Date.today.end_of_day)
+         @q = Fixture.joins(:market1_pre).where("fixtures.status = ? AND fixtures.sport_id = ? AND fixtures.category_id NOT IN (?) AND fixtures.scheduled_time >= ? AND fixtures.scheduled_time <= ?", "not_started", "sr:sport:1", ["sr:category:1033","sr:category:2123"], Time.now, Date.today.end_of_day)
       end
       
       @pagy, @fixtures = pagy(@q.includes(:market1_pre))
