@@ -61,7 +61,7 @@ RSpec.describe User, type: :system, js: true do
 			sleep(2)
 			expect(page).to have_content 'Deposit'.upcase
 
-			expect(page).to have_content user.first_name.upcase
+			# expect(page).to have_content user.first_name.upcase
 			#sleep(1)
 		end
 
@@ -97,12 +97,7 @@ RSpec.describe User, type: :system, js: true do
 		it 'is invalid with wrong attributes' do
 			expect(user_false).not_to be_valid
 		end
-		##user visits home page
-		it 'should successfully visit home page' do
-			visit root_path
-			expect(page).to have_content('SIGNUP')
-			expect(page).to have_content('LOGIN')
-		end
+
 
 
 

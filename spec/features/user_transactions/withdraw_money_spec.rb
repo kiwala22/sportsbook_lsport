@@ -55,7 +55,7 @@ RSpec.describe User, type: :system, js: true do
 			login_form(user.phone_number, user.password)
 			expect(page.current_path).to eq('/')
 			expect(page).to have_content 'DEPOSIT'
-			expect(page).to have_content user.first_name.upcase
+			# expect(page).to have_content user.first_name.upcase
 			expect(page).to have_content user.balance
 
 			click_link('Deposit')
@@ -109,7 +109,7 @@ RSpec.describe User, type: :system, js: true do
 			login_form(user.phone_number, user.password)
 			expect(page.current_path).to eq('/')
 			expect(page).to have_content 'DEPOSIT'
-			expect(page).to have_content user.first_name.upcase
+			# expect(page).to have_content user.first_name.upcase
 			expect(page).to have_content user.balance
 			visit '/transfer'
 			#expect(user.phone_number).to eq('Phone Number')
@@ -127,7 +127,7 @@ RSpec.describe User, type: :system, js: true do
 			login_form(user.phone_number, user.password)
 			expect(page.current_path).to eq('/')
 			expect(page).to have_content 'DEPOSIT'
-			expect(page).to have_content user.first_name.upcase
+			# expect(page).to have_content user.first_name.upcase
 			expect(page).to have_content user.balance
 			visit '/transfer'
 			fill_in 'amount', with: random_amount
