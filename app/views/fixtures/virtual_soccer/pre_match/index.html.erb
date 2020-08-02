@@ -37,7 +37,9 @@
                             <%= render partial: 'pre_match_fixture_table', locals: {fixtures: @fixtures} %>
                         </tbody>
                     </table>
-                    <div data-target="match-fixtures.spinner"></div>
+                    <div class="d-flex justify-content-center">
+                        <div data-target="match-fixtures.spinner"></div>
+                    </div>
                     <div class="table-navigation" data-target="match-fixtures.pagination">
                         <%== pagy_nav(@pagy) %>
                     </div>
