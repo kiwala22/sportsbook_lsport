@@ -21,7 +21,7 @@
             </ul>
 
             <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab" data-controller="match_fixtures">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab" data-controller="match-fixtures">
                     <table class="table table-borderless ">
                         <thead>
                             <tr>
@@ -33,11 +33,12 @@
                                 <th class="col-1">2</th>
                             </tr>
                         </thead>
-                        <tbody id="fixture-table-body" data-target="match_fixtures.fixtures">
+                        <tbody id="fixture-table-body" data-target="match-fixtures.fixtures">
                             <%= render partial: 'pre_match_fixture_table', locals: {fixtures: @fixtures} %>
                         </tbody>
                     </table>
-                    <div class="table-navigation" data-target="match_fixtures.pagination">
+                    <div data-target="match-fixtures.spinner"></div>
+                    <div class="table-navigation" data-target="match-fixtures.pagination">
                         <%== pagy_nav(@pagy) %>
                     </div>
                 </div>

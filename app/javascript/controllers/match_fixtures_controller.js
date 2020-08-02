@@ -10,7 +10,7 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-    static targets = ["fixtures", "pagination"]
+    static targets = ["fixtures", "pagination", "spinner"]
 
     initialize() {
         let options = {
@@ -40,7 +40,7 @@ export default class extends Controller {
         let next_page = this.paginationTarget.querySelector("a[rel='next']")
         if (next_page == null) { return }
         let url = next_page.href
-        this.paginationTarget.classList.add("spinner-border")
+        this.spinnerTarget.classList.add("spinner-border")
         Rails.ajax({
             type: 'GET',
             url: url,
@@ -48,7 +48,7 @@ export default class extends Controller {
             success: (data) => {
                 this.fixturesTarget.insertAdjacentHTML('beforeend', data.fixtures)
                 this.paginationTarget.innerHTML = data.pagination
-                this.paginationTarget.classList.remove("spinner-border")
+                this.spinnerTarget.classList.remove("spinner-border")
             }
         })
     }
