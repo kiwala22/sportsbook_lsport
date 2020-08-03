@@ -157,6 +157,7 @@ GEM
       activemodel-serializers-xml (>= 1.0)
       activesupport (>= 5.0)
       request_store (>= 1.0)
+    echarts-rails (0.1.8)
     erubi (1.9.0)
     execjs (2.7.0)
     factory_bot (5.1.2)
@@ -426,6 +427,7 @@ DEPENDENCIES
   devise
   dotenv-rails
   draper
+  echarts-rails
   factory_bot
   faker
   gon

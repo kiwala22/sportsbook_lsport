@@ -13,14 +13,29 @@
 
 // };
 
+
 var betSlip = function() {
+  var odds = parseFloat($("#total-odds").html());
+
   $("#stake-input").on('input', function() {
       var stake = parseFloat($(this).val());
-      var odds = parseFloat($("#total-odds").html());
-      var wins = Math.round((stake * odds)) || 0;
-      $("#total-wins").html("UGX" + " " + wins.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","))
+      localStorage.setItem('stake', stake)
+      calculations(stake);
   });
+
+  var new_stake = localStorage.getItem('stake');
+
+  if (new_stake){
+    $("#stake-input").val(new_stake);
+    calculations(new_stake)
+  }
+
+  function calculations(stake){
+    var wins = Math.round((stake * odds)) || 0;
+    $("#total-wins").html("UGX" + " " + wins.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","))
+  }
 };
+
 
 document.addEventListener("turbolinks:load", function() {
     betSlip();

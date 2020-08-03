@@ -60,6 +60,7 @@ Rails.application.routes.draw do
       match 'betting_statuses' => "betting_statuses#index", via: [:get]
       match 'void_reasons' => "void_reasons#index", via: [:get]
       match 'match_statuses' => "match_statuses#index", via: [:get]
+      match 'transactions_analytics' => "transactions_analytics#index", via: [:get]
    end
 
    namespace :amqp do

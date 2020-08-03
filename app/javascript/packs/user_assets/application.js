@@ -17,4 +17,5 @@ require("packs/user_assets/jquery.accrue.min.js");
 require("packs/user_assets/jquery.nice-select.min.js");
 require("packs/user_assets/script.js");
 require("packs/user_assets/custom.js");
+require("packs/user_assets/loader.js");
 import "@fortawesome/fontawesome-free/js/all";

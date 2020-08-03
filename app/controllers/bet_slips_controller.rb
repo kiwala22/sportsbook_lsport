@@ -1,6 +1,5 @@
 class BetSlipsController < ApplicationController
-	#before_action :authenticate_user!
-
+	before_action :authenticate_user!
 	def index
 		@bet_slips = BetSlip.all.order("created_at DESC").page params[:page]
 	end
