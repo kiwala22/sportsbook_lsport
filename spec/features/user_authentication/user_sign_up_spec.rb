@@ -41,7 +41,6 @@ RSpec.describe User, type: :system, js: true do
 		it 'should signup successfully and the accept otp' do
 			visit '/'
 			click_link('signup')
-
 			expect(page.current_path).to eq('/users/sign_up')
 			expect(page).to have_content('Signup')
 			expect(page).to have_content('Email')
@@ -54,17 +53,15 @@ RSpec.describe User, type: :system, js: true do
 			fill_in 'Password', with: user.password #valid_user_params[:password]
 			fill_in 'Password confirmation', with: user.password_confirmation #valid_user_params[:password_confirmation]
 			click_button 'Sign up'
-
-			#sleep(2)
 			expect(page.current_path).to eq '/new_verify'
 			passcode = User.last.pin
 			fill_in 'pin', with: passcode
 			click_button 'Verify'
 			# expect(page.current_path).to eq '/'
-			sleep(3)
+			sleep(2)
 			expect(page).to have_content 'Deposit'.upcase
 
-			expect(page).to have_content user.first_name.upcase
+			# expect(page).to have_content user.first_name.upcase
 			#sleep(1)
 		end
 
@@ -100,12 +97,7 @@ RSpec.describe User, type: :system, js: true do
 		it 'is invalid with wrong attributes' do
 			expect(user_false).not_to be_valid
 		end
-		##user visits home page
-		it 'should successfully visit home page' do
-			visit root_path
-			expect(page).to have_content('SIGNUP')
-			expect(page).to have_content('LOGIN')
-		end
+
 
 
 

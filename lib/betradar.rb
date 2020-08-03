@@ -10,7 +10,7 @@ module Betradar
    @@logger.level = Logger::ERROR
 
    @@end_point = "https://stgapi.betradar.com/v1/"
-   @@auth_token = ENV['BETRADAR_TOKEN']
+   @@auth_token = 's5X0wAgEmHCxDqrPnI'
 
    def fetch_fixtures(date)
       url = @@end_point + "sports/en/schedules/#{date}/schedule.xml"

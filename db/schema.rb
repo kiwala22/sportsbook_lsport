@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_27_182428) do
+ActiveRecord::Schema.define(version: 2020_07_31_215521) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -162,7 +162,7 @@ ActiveRecord::Schema.define(version: 2020_07_27_182428) do
     t.string "betradar_id"
     t.integer "season_id"
     t.string "season_name"
-    t.integer "tournament_id"
+    t.string "tournament_id"
     t.string "tournament_name"
     t.string "sport_id"
     t.string "sport"
@@ -184,6 +184,7 @@ ActiveRecord::Schema.define(version: 2020_07_27_182428) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "booked", default: false
+    t.string "priority"
     t.index ["booked"], name: "index_fixtures_on_booked"
     t.index ["category"], name: "index_fixtures_on_category"
     t.index ["category_id"], name: "index_fixtures_on_category_id"
