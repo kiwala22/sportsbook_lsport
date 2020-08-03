@@ -1,5 +1,7 @@
 class TransactionsController < ApplicationController
   before_action :authenticate_user!
+  include CurrentCart
+  before_action :set_cart
 
   def index
     @transactions = Transaction.all.order("created_at DESC").page params[:page]
