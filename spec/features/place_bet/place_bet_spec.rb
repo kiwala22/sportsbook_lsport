@@ -30,14 +30,15 @@ RSpec.describe User, type: :system, js: true do
 			expect(page).to have_content('Betslip')
 			first('#odd1').click
 			all('a', :id => 'odd1')[1].click
-			# all('a', :id => 'odd2')[2].click
-			# all('a', :id => 'odd3')[3].click
+			all('a', :id => 'odd2')[2].click
+			all('a', :id => 'odd3')[3].click
 			# all('a', :id => 'odd2')[5].click
 			# all('a', :id => 'odd1')[4].click
 			stake = 2000
 			fill_in 'stake', with: stake
 			expect(stake).to be <= user.balance
 			expect(stake).to be > 0
+			expect('total-wins'.to_f).to eq('total-odds'.to_f * 'stake-input'.to_i)
 			click_button('Place Bet')	
 			expect(page).to have_content 'Thank You! Bets have been placed.'
 			new_balance = user.balance-stake
@@ -53,13 +54,15 @@ RSpec.describe User, type: :system, js: true do
 			expect(page).to have_content('Betslip')
 
 			first('#odd1').click
-			# all('a', :id => 'odd1')[1].click
+			all('a', :id => 'odd1')[1].click
 			# all('a', :id => 'odd2')[2].click
 			# all('a', :id => 'odd3')[3].click
 			# all('a', :id => 'odd2')[5].click
 			# all('a', :id => 'odd1')[4].click
-			stake = 10000
+			stake = 20000
 			fill_in 'stake', with: stake
+			# expect('total-odds').to eq()
+			expect('total-wins'.to_f).to eq('total-odds'.to_f * 'stake-input'.to_i)
 			click_button('Place Bet')				
 			expect(page).to have_content'You have insufficient balance on your account. Please deposit some money.'	
 		end
@@ -71,13 +74,14 @@ RSpec.describe User, type: :system, js: true do
 			expect(page).to have_content('Betslip')
 
 			first('#odd1').click
-			# all('a', :id => 'odd1')[1].click
+			all('a', :id => 'odd1')[1].click
 			# all('a', :id => 'odd2')[2].click
 			# all('a', :id => 'odd3')[3].click
 			# all('a', :id => 'odd2')[5].click
 			# all('a', :id => 'odd1')[4].click
-			stake = 1000
+			stake = 2000
 			fill_in 'stake', with: stake
+			expect('total-wins'.to_f).to eq('total-odds'.to_f * 'stake-input'.to_i)
 			sleep(1)		
 			expect(page).to_not have_content 'Place bet'
 			click_button('Login')
