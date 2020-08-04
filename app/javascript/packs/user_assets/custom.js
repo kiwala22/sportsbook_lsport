@@ -21,7 +21,7 @@ var betSlip = function() {
 };
 
 
-$(document).ready(function() {
+document.addEventListener("turbolinks:load", function() {
     betSlip();
     //initialiseInput();
     $(".intialise_input").on("click", function() {
@@ -48,7 +48,6 @@ $(document).ready(function() {
          };
     });
 })
-
-$(document).ready(function(){
+document.addEventListener("turbolinks:load", function() {
     $("#flash").fadeOut(7000);
 })
