@@ -1,2 +1,52 @@
-<h1>BetSlips#index</h1>
-<p>Find me in app/views/bet_slips/index.html.erb</p>
+<div class="game-box">
+    <div class="card">
+        <div class="card-header">
+            <h3>Tickets</h3>
+        </div>
+        <div class="card-body">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#" role="tab" aria-controls="home" aria-selected="true">All Tickets</a>
+                </li>
+
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <table class="table table-hover table-borderless table-striped">
+                        <thead>
+                            <tr>
+                              <th>#No</th>
+                              <th>Games</th>
+                              <th>Stake</th>
+                              <th>Odds</th>
+                              <th>Potential Win</th>
+                              <th>Amount Won</th>
+                              <th>Status</th>
+                              <th>Result</th>
+                              <th>Paid</th>
+                              <th>Bet Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                          <% @bet_slips.each_with_index do |bet_slip, i| %>
+                            <tr>
+                              <td><%= (i+1) %></td>
+                              <td><%= bet_slip.bet_count %></td>
+                              <td><%= bet_slip.stake %></td>
+                              <td><%= bet_slip.odds %></td>
+                              <td><%= bet_slip.potential_win_amount %></td>
+                              <td><%= bet_slip.win_amount %></td>
+                              <td><%= bet_slip.status %></td>
+                              <td><%= bet_slip.result %></td>
+                              <td><%= bet_slip.paid %></td>
+                              <td><%= bet_slip.created_at.to_datetime.strftime("%d/%m/%Y %I:%M%P") %></td>
+                            </tr>
+                          <% end %>
+                        </tbody>
+                    </table>
+                    <%= paginate @bet_slips %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

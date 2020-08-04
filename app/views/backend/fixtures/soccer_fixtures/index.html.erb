@@ -53,13 +53,13 @@
               <div class="col-sm-6 col-md-4">
                     <%= f.label :scheduled_time, "Kick-Off After", class:"col-md-4 col-form-label" %>
                     <div class="col-lg-8">
-                      <%= f.search_field :scheduled_time_gteq, {include_blank: true, class: "form-control datetimepicker", id: "kick_off_after"} %>
+                      <%= f.search_field :scheduled_time_gteq, {include_blank: true, class: "form-control", id: "kick_off_after"} %>
                     </div>
               </div>
               <div class="col-sm-6 col-md-4">
                     <%= f.label :scheduled_time, "Kick-Off Before", class:"col-md-4 col-form-label" %>
                     <div class="col-lg-8">
-                      <%= f.search_field :scheduled_time_lteq, { include_blank: true, :class=>"form-control datetimepicker", id: "kick_off_before"}%>
+                      <%= f.search_field :scheduled_time_lteq, { include_blank: true, :class=>"form-control", id: "kick_off_before"}%>
                     </div>
               </div>
           </div>

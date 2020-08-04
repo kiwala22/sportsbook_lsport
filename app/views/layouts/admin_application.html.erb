@@ -7,6 +7,7 @@
    <meta name="description" content="Bootstrap Admin App + Ruby on Rails">
    <meta name="keywords" content="app, responsive, jquery, bootstrap, dashboard, admin">
    <title>Skyline SportsBook | <%= yield(:title) %></title>
+   <%= Gon::Base.render_data %>
    <!-- =============== APP STYLES ===============-->
    <%= stylesheet_link_tag 'admin_assets/application', media: 'all', id: "maincss" %>
    <%= yield :vendor_css_area %>
@@ -29,7 +30,7 @@
       <section class="section-container">
          <!-- Page content-->
          <div class="content-wrapper">
-            <%= render partial: "layouts/admin_partials/flash" %>
+           <%= render partial: "layouts/admin_partials/flash" %>
             <%= yield %>
          </div>
       </section>

@@ -31,15 +31,22 @@
 </head>
 
 <body>
-    <div class="wrapper">
-        <!-- top navbar-->
-        <header class="header-area gradient-bg">
-            <%= render partial: "layouts/partials/topnavbar" %>
-        </header>
-        <!-- Main section-->
-        <section class="section-container">
-            <!-- Page content-->
-            <div class="content-wrapper">
+  <!-- start page loading -->
+   <div id="preloader">
+       <div class="row loader">
+           <div class="loader-icon"></div>
+       </div>
+   </div>
+   <!-- end page loading -->
+   <div class="wrapper root-app">
+      <!-- top navbar-->
+      <header class="header-area gradient-bg">
+         <%= render partial: "layouts/partials/topnavbar" %>
+      </header>
+      <!-- Main section-->
+      <section class="section-container">
+         <!-- Page content-->
+         <div class="content-wrapper">
 
                 <div class="container-fluid">
                     <div class="row">

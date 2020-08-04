@@ -4,11 +4,23 @@
       <!-- START sidebar nav-->
       <ul class="sidebar-nav">
          <!-- Iterates over all sidebar items-->
-         <li class="<%= 'active' if controller.controller_name == 'admin_landing' %>">
-            <a href="<%= authenticated_admins_root_path %>" title="Dashboard">
-               <em class="icon-home"></em>
-               <span data-localize="sidebar.nav.DASHBOARD">Dashboard</span>
+         <li class="">
+            <a href="#analytics" title="Dashboard">
+               <em class="icon-graph"></em>
+               <span data-localize="sidebar.nav.DASHBOARD">Analytics</span>
             </a>
+            <ul id="bet_analytics" class="sidebar-nav sidebar-subnav collapse">
+               <li class="<%= 'active' if controller.controller_name == 'admin_landing' %>">
+                  <a href="<%= authenticated_admins_root_path %>" title="bets">
+                     <span>Bet Analytics</span>
+                  </a>
+               </li>
+               <li class="<%= 'active' if controller.controller_name == 'transactions_analytics' %>">
+                  <a href="<%= backend_transactions_analytics_path %>" title="Transactions">
+                     <span>Transaction Analytics</span>
+                  </a>
+               </li>
+            </ul>
          </li>
 
          <li class="">

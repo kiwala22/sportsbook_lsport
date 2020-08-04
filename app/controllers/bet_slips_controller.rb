@@ -1,8 +1,9 @@
 class BetSlipsController < ApplicationController
-	#before_action :authenticate_user!
-
+	before_action :authenticate_user!
+	include CurrentCart
+  before_action :set_cart
 	def index
-		@bet_slips = BetSlip.all.order("created_at DESC").page params[:page]
+		@bet_slips = current_user.bet_slips.all.order("created_at DESC").page params[:page]
 	end
 
 	def create
@@ -16,8 +17,9 @@ class BetSlipsController < ApplicationController
 			#check if there is sufficient balance
 			if stake <= current_user.balance
 				#reduce the balance and save a transactions
+				previous_balance = current_user.balance
 				current_user.balance = (current_user.balance - stake)
-				transaction = current_user.transactions.build(balance_before: current_user.balance, balance_after: (current_user.balance - stake), phone_number: current_user.phone_number, status: "SUCCESS", currency: "UGX", amount: stake, category: "Withdraw" )
+				transaction = current_user.transactions.build(balance_before: previous_balance, balance_after: current_user.balance, phone_number: current_user.phone_number, status: "SUCCESS", currency: "UGX", amount: stake, category: "Withdraw" )
 
 				#start betslip creation process all under a transaction
 				#create the betslip

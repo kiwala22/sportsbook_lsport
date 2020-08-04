@@ -11,10 +11,12 @@ require("modernizr/modernizr.custom.js");
 // //require("turbolinks").start()
 // require("@rails/activestorage").start()
 // require("channels")
+//ECharts import
+window.echarts = require("packs/admin_assets/echarts.min.js")
 //-- Date Timepicker
-require("jquery-ui");
-require("moment");
-import './time_picker.js'
+import './time_picker.js';
+import "./bets_analytics.js.erb";
+import "./analytics.js.erb";
 //--- Bootstrap
 import 'bootstrap';
 
@@ -30,11 +32,9 @@ document.addEventListener('DOMContentLoaded', appInit);
 
 $(document).ready(function(){
   $("#kick_off_before").datetimepicker({
-    // format: "YYYY-MM-DD",
-    sideBySide: true
+    format: "DD-MM-YYYY hh:mm a"
   });
   $("#kick_off_after").datetimepicker({
-    // format: "YYYY-MM-DD",
-    sideBySide: true
+    format: "DD-MM-YYYY hh:mm a"
   });
 });

@@ -18,6 +18,8 @@
                               <th>#No</th>
                               <th>Phone Number</th>
                               <th>Amount</th>
+                              <th>Balance Before</th>
+                              <th>Balance After</th>
                               <th>Category</th>
                               <th>Status</th>
                               <th>Time</th>
@@ -33,9 +35,11 @@
                               <% elsif transaction.category == "Withdraw" %>
                                 <td class="withdraw">-<%= transaction.amount %></td>
                               <% end %>
+                              <td><%= transaction.balance_before %></td>
+                              <td><%= transaction.balance_after %></td>
                               <td><%= transaction.category %></td>
                               <td><%= transaction.status %></td>
-                              <td><%= transaction.created_at.to_datetime.strftime("%b %d, %Y %I:%M%P") %></td>
+                              <td><%= transaction.created_at.to_datetime.strftime("%d/%m/%y %I:%M%P") %></td>
                             </tr>
                           <% end %>
                         </tbody>

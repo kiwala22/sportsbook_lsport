@@ -5,7 +5,8 @@ environment.plugins.prepend('Provide',
         Rails: ['@rails/ujs'],
         $: 'jquery/src/jquery',
         jQuery: 'jquery/src/jquery',
-        Popper: ['popper.js', 'default']
+        Popper: ['popper.js', 'default'],
+        moment: "moment/moment"
     })
 );
 
