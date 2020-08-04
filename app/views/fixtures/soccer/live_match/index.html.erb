@@ -15,7 +15,7 @@
                     <%= link_to (Date.today + 2.days).strftime("%d-%m-%y"), fixtures_soccer_pres_path(:'q[start]' => (Date.today.beginning_of_day + 2.day), :'q[stop]' => (Date.today.end_of_day + 2.day)), remote: true, class: "nav-link", id: "home-tab" %>
                 </li>
                 <li class="nav-item">
-                    <%= link_to "Live", fixtures_soccer_pres_path, remote: true, class: "nav-link active", id: "live-tab" %>
+                    <%= link_to "Live", fixtures_soccer_lives_path, remote: true, class: "nav-link active", id: "live-tab" %>
                 </li>
 
             </ul>
