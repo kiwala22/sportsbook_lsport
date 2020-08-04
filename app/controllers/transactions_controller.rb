@@ -2,7 +2,7 @@ class TransactionsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @transactions = Transaction.all.order("created_at DESC").page params[:page]
+    @transactions = current_user.transactions.all.order("created_at DESC").page params[:page]
   end
 
   def new

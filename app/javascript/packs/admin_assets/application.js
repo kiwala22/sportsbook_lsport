@@ -15,8 +15,8 @@ require("modernizr/modernizr.custom.js");
 window.echarts = require("packs/admin_assets/echarts.min.js")
 //-- Date Timepicker
 import './time_picker.js';
-require("packs/admin_assets/analytics.js.erb");// './analytics.js.erb';
-require("packs/admin_assets/bets_analytics.js.erb");
+import "./bets_analytics.js.erb";
+import "./analytics.js.erb";
 //--- Bootstrap
 import 'bootstrap';
 
@@ -31,6 +31,10 @@ document.addEventListener('DOMContentLoaded', appInit);
 // const imagePath = (name) => images(name, true)
 
 $(document).ready(function(){
-  $("#kick_off_before").datetimepicker();
-  $("#kick_off_after").datetimepicker();
+  $("#kick_off_before").datetimepicker({
+    format: "DD-MM-YYYY hh:mm a"
+  });
+  $("#kick_off_after").datetimepicker({
+    format: "DD-MM-YYYY hh:mm a"
+  });
 });

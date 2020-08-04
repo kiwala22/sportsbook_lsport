@@ -2,6 +2,8 @@
 
 class Users::SessionsController < Devise::SessionsController
   layout "application.html.erb"
+  include CurrentCart
+  before_action :set_cart
   # before_action :configure_sign_in_params, only: [:create]
 
   # GET /resource/sign_in
