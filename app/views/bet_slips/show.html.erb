@@ -1,2 +1,34 @@
-<h1>BetSlips#show</h1>
-<p>Find me in app/views/bet_slips/show.html.erb</p>
+<div class="game-box">
+    <div class="card ticket-slip">
+        <div class="card-header">
+          <h3>BetSlip #<%= @bet_slip.id %></h3>
+        </div>
+        <div class="card-body ticket-body">
+              <div class="widget-body" id="">
+                  <% @bets = @bet_slip.bets %>
+                  <div class="single-bet">
+                     <span id="odd4"><span> <u>Fixtures</u> </span><span> </span></span>
+                     <span id='odd4'><u>Odds</u></span>
+                  </div>
+                  <% @bets.each do |bet| %>
+                    <% fixture = Fixture.find(bet.fixture_id)%>
+                    <div class="single-bet">
+                       <span id="odd4"><span> <%= fixture.comp_one_name %> - <%= fixture.comp_two_name %> </span><span> </span></span>
+                       <span id='odd4'><%= bet.odds %></span>
+                    </div>
+                  <% end %>
+                  <div class="total-bet">
+                     <span >Ticket Stake</span>
+                     <span id="total-odds">UGX <%= @bet_slip.stake  %></span>
+                  </div>
+                  <div class="total-wins">
+                     <span>Possible Win Amount</span>
+                     <span id="total-wins">UGX <%= @bet_slip.potential_win_amount %></span>
+                  </div>
+              </div>
+        </div>
+        <div class="single-bet">
+          <span><%= link_to 'Back', bet_slips_path, class: "bttn-small btn-fill float-right" %></span>
+        </div>
+    </div>
+</div>

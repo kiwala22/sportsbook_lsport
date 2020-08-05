@@ -67,6 +67,7 @@ class BetSlipsController < ApplicationController
 	end
 
 	def show
+		@bet_slip = BetSlip.find(params[:id])
 	end
 
 	def update
