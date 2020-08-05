@@ -3,13 +3,9 @@ class Fixtures::Soccer::LiveMatchController < ApplicationController
    before_action :set_cart, only: [:index, :show]
 
    def index
-      if params[:q].present?
-         @q = Fixture.joins(:market1_pre).where("fixtures.status = ? AND fixtures.sport_id = ? AND fixtures.category_id NOT IN (?) AND fixtures.scheduled_time >= ? AND fixtures.scheduled_time <= ?", "live", "sr:sport:1", ["sr:category:1033","sr:category:2123"], params[:q][:start], params[:q][:stop])
-      else
-         @q = Fixture.joins(:market1_pre).where("fixtures.status = ? AND fixtures.sport_id = ? AND fixtures.category_id NOT IN (?) AND fixtures.scheduled_time >= ? AND fixtures.scheduled_time <= ?", "live", "sr:sport:1", ["sr:category:1033","sr:category:2123"], Time.now, Date.today.end_of_day)
-      end
+       @q = Fixture.joins(:market1_live).where("fixtures.status = ? AND fixtures.sport_id = ? AND fixtures.category_id NOT IN (?) ", "live", "sr:sport:1", ["sr:category:1033","sr:category:2123"]).order(scheduled_time: :asc)
       
-      @pagy, @fixtures = pagy(@q.includes(:market1_pre))
+      @pagy, @fixtures = pagy(@q.includes(:market1_live))
       respond_to do |format|
          format.html
          format.js
@@ -18,7 +14,7 @@ class Fixtures::Soccer::LiveMatchController < ApplicationController
    end
 
    def show
-      @fixture = Fixture.includes(:market1_pre,:market10_pre,:market16_pre,:market18_pre,:market29_pre, :market60_pre,:market63_pre,:market1_pre,:market66_pre,:market68_pre,:market75_pre).find(params[:id])
+      @fixture = Fixture.includes(:market1_live,:market10_live,:market16_live,:market18_live,:market29_live, :market60_live,:market63_live,:market1_live,:market66_live,:market68_live,:market75_live).find(params[:id])
    end
 
    def add_bet
