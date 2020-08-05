@@ -11,7 +11,7 @@
                <%= link_to fixtures_soccer_live_path(id: fixture.id) do  %>
                   <strong><%= fixture.comp_one_name %><span><%= fixture.home_score %></span></strong>
                   <strong><%= fixture.comp_two_name %><span><%= fixture.away_score %></span></strong>
-               <%= end %>
+               <% end %>
             </td>
             <td>
                <a href=<%=fixtures_soccer_lives_path(id: fixture.id) %>>
