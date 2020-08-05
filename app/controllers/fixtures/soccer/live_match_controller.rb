@@ -3,11 +3,7 @@ class Fixtures::Soccer::LiveMatchController < ApplicationController
    before_action :set_cart, only: [:index, :show]
 
    def index
-      if params[:q].present?
-         @q = Fixture.joins(:market1_live).where("fixtures.status = ? AND fixtures.sport_id = ? AND fixtures.category_id NOT IN (?) AND fixtures.scheduled_time >= ? AND fixtures.scheduled_time <= ?", "live", "sr:sport:1", ["sr:category:1033","sr:category:2123"], params[:q][:start], params[:q][:stop])
-      else
-         @q = Fixture.joins(:market1_live).where("fixtures.status = ? AND fixtures.sport_id = ? AND fixtures.category_id NOT IN (?) AND fixtures.scheduled_time >= ? AND fixtures.scheduled_time <= ?", "live", "sr:sport:1", ["sr:category:1033","sr:category:2123"], Time.now, Date.today.end_of_day)
-      end
+       @q = Fixture.joins(:market1_live).where("fixtures.status = ? AND fixtures.sport_id = ? AND fixtures.category_id NOT IN (?) ", "live", "sr:sport:1", ["sr:category:1033","sr:category:2123"])
       
       @pagy, @fixtures = pagy(@q.includes(:market1_live))
       respond_to do |format|
