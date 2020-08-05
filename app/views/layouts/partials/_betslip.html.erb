@@ -30,7 +30,7 @@
             <span id="total-odds"><%= @cart.line_bets.pluck(:odd).map(&:to_f).inject(:*).round(2) unless @cart.line_bets.count == 0  %></span>
          </div>
          <div class="total-wins">
-            <span>Possible Win Amount</span>
+            <span>Payout</span>
             <span id="total-wins"> </span>
          </div>
          <%= button_to "Login", new_user_session_path, method: "get", class: "btn btn-block btn-primary mt-lg login-btn", id:'slip_login'  %>
