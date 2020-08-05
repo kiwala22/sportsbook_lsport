@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_31_215521) do
+ActiveRecord::Schema.define(version: 2020_08_05_011712) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -103,6 +103,7 @@ ActiveRecord::Schema.define(version: 2020_07_31_215521) do
     t.bigint "market_id", null: false
     t.string "result"
     t.decimal "void_factor", precision: 5, scale: 2
+    t.string "outcome_desc"
     t.index ["bet_slip_id"], name: "index_bets_on_bet_slip_id"
     t.index ["fixture_id"], name: "index_bets_on_fixture_id"
     t.index ["market_id"], name: "index_bets_on_market_id"

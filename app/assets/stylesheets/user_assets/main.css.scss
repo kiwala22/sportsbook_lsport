@@ -2424,7 +2424,7 @@ Site Sidebar
 
 .content-sidebar {
     background: #50677C;
-    padding: 40px 0;
+    padding: 25px 0;
     color: #ffffff;
 }
 
@@ -2432,7 +2432,7 @@ Site Sidebar
     position: relative;
     margin-bottom: 25px;
     padding-bottom: 15px;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 700;
     text-transform: uppercase;
     font-family: "Open Sans", sans-serif;
@@ -2460,9 +2460,9 @@ Site Sidebar
 .content-sidebar ul li a {
     color: #ffffff;
     font-weight: 600;
-    font-size: 14px;
-    /* text-transform: uppercase; */
-    // letter-spacing: 0.5px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .content-sidebar ul li a:hover {
@@ -2497,7 +2497,7 @@ Site Sidebar
 .web-sidebar-widget .widget-body {
     padding: 30px;
     color: #ffffff;
-    font-size: 14px;
+    font-size: 12px;
     background-color: #5F7b95;
 }
 

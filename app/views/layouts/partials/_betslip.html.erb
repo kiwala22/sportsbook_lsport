@@ -4,7 +4,7 @@
       <% @cart.line_bets.each do |bet| %>
             <% if fetch_market_status(bet.market, bet.fixture_id) == "Active" %>
                <div class="single-bet">
-                  <span id="comp-names"><span> <%= bet.fixture.comp_one_name %></span><span> <%= bet.fixture.comp_two_name %></span></span>
+                  <span id="comp-names"><span> <%= bet.fixture.comp_one_name %> - <%= bet.fixture.comp_two_name %> </span><span> </span></span>
                   <span id='odd4'><%= fetch_current_odd(bet.market, bet.fixture_id, bet.outcome) %></span>
                </div>
             <% end %>
