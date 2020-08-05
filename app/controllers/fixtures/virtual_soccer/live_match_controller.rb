@@ -3,7 +3,7 @@ class Fixtures::VirtualSoccer::LiveMatchController < ApplicationController
    before_action :set_cart, only: [:index, :show]
 
    def index
-      @q = Fixture.joins(:market1_live).where("fixtures.status = ? AND fixtures.sport_id = ? AND fixtures.category_id IN (?) ", "live", "sr:sport:1", ["sr:category:1033","sr:category:2123"])
+      @q = Fixture.joins(:market1_live).where("fixtures.status = ? AND fixtures.sport_id = ? AND fixtures.category_id IN (?) ", "live", "sr:sport:1", ["sr:category:1033","sr:category:2123"]).order(scheduled_time: :asc)
       
       @pagy, @fixtures = pagy(@q.includes(:market1_live))
       respond_to do |format|
