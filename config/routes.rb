@@ -15,25 +15,18 @@ Rails.application.routes.draw do
    namespace :fixtures do
       namespace :soccer do
          match 'pres' => 'pre_match#index', via: [:get]
-         match 'pres/:id' => 'pre_match#show', via: [:get]
+         match 'pre' => 'pre_match#show', via: [:get]
          match 'lives' => 'live_match#index', via: [:get]
-         match 'lives/:id' => 'live_match#show', via: [:get]
+         match 'live' => 'live_match#show', via: [:get]
 
       end
       namespace :virtual_soccer do
          match 'pres' => 'pre_match#index', via: [:get]
-         match 'pres/:id' => 'pre_match#show', via: [:get]
+         match 'pre' => 'pre_match#show', via: [:get]
          match 'lives' => 'live_match#index', via: [:get]
-         match 'lives/:id' => 'live_match#show', via: [:get]
+         match 'live' => 'live_match#show', via: [:get]
       end
    end
-
-   # namespace :cookies  , defaults: {format: 'js'} do
-   #    match '/add_bet', to: "bet_slips#add_bet", via: [:get]
-   #    match '/clear_slip', to: "bet_slips#clear_slip", via: [:get]
-   # end
-
-
 
    resources :transactions, only: [:new, :index]
    match 'deposit' => "transactions#deposit", via: [:post]

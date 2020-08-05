@@ -1,7 +1,7 @@
 <div class="game-box">
     <div class="card">
         <div class="card-header">
-            <h3>Pre-Match Fixtures - Soccer</h3>
+            <h3>Live-Match Fixtures - Soccer</h3>
         </div>
         <div class="card-body">
             <ul class="nav nav-tabs" id="myTab" role="tablist" data-controller="tabs">
@@ -9,7 +9,7 @@
                     <%= link_to "Live", fixtures_virtual_soccer_lives_path, remote: true, class: "nav-link active", id: "live-tab" %>
                 </li>
                 <li class="nav-item">
-                    <%= link_to "Pre Match", fixtures_soccer_pres_path(:'q[start]' => Time.now, :'q[stop]' => Date.today.end_of_day), remote: true, class: "nav-link", id: "home-tab" %>
+                    <%= link_to "Pre Match", fixtures_soccer_pres_path(:'q[start]' => Time.now, :'q[stop]' => Date.today.end_of_day), class: "nav-link", id: "home-tab" %>
                 </li>
 
             </ul>
