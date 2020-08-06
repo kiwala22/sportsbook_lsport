@@ -11,7 +11,7 @@ class User < ApplicationRecord
    has_many :transactions
    has_many :deposits
    has_many :withdraws
-   
+
 
    after_save :send_pin!
 
@@ -25,6 +25,14 @@ class User < ApplicationRecord
    validates :first_name, presence: true
    validates :last_name, presence: true
    validate :password_complexity
+
+    def active_for_authentication?
+      super && account_active?
+    end
+
+    def inactive_message
+      account_active? ? super : :account_inactive
+    end
 
    def password_complexity
       # Regexp extracted from https://stackoverflow.com/questions/19605150/regex-for-password-must-contain-at-least-eight-characters-at-least-one-number-a

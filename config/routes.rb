@@ -54,6 +54,8 @@ Rails.application.routes.draw do
       match 'void_reasons' => "void_reasons#index", via: [:get]
       match 'match_statuses' => "match_statuses#index", via: [:get]
       match 'transactions_analytics' => "transactions_analytics#index", via: [:get]
+      match 'suspend' => "bet_users#deactivate_account", via: [:post]
+      match 'activate' => "bet_users#activate_account", via: [:post]
    end
 
    namespace :amqp do
