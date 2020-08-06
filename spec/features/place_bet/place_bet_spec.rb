@@ -20,7 +20,7 @@ RSpec.describe User, type: :system, js: true do
 			visit '/users/sign_in'
 			fill_in 'phone_number', with: phone_number
 			fill_in 'password', with: password
-			click_button 'Log in'
+			click_button 'Login'
 		end
 
 
