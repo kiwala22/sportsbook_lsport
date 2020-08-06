@@ -2,15 +2,17 @@
    <div class="card">
        <div class="card-header">
            <h6>
-               <span><%= @fixture.comp_one_name %> <span></span> </span>
-               <span><%= @fixture.comp_two_name %> <span></span> </span>
+               <span>
+                    <span><%= @fixture.comp_one_name %> <span><%= @fixture.home_score %></span> </span>
+                    <span><%= @fixture.comp_two_name %> <span><%= @fixture.away_score %></span> </span>
+                </span>
                <span></span>
            </h6>
        </div>
        <div class="card-body">
            <div class='row'>
                <div class="col-lg-12">
-                   <% if @fixture.market1_pre.present? && @fixture.market1_pre.status == "Active" %>
+                   <% if @fixture.market1_live.present? && @fixture.market1_live.status == "Active" %>
                    <div class="market-label">
                        <div class="row">
                            <div class="col-lg-12 ">
@@ -21,27 +23,27 @@
                    <div class="market-odds mb-3 mt-3">
                        <div class="row">
                            <div class="col-lg-4">
-                               <%= link_to(add_bet_path(outcome_id: "1", fixture_id: @fixture.id, market: "Market1Pre") , class: "btn btn-light wagger-btn intialise_input", remote: true, method: :post )  do %>
+                               <%= link_to(add_bet_path(outcome_id: "1", fixture_id: @fixture.id, market: "Market1Live") , class: "btn btn-light wagger-btn intialise_input", remote: true, method: :post )  do %>
                                    <span>Home Win</span> 
-                                   <span class="wagger-amt"> <%= @fixture.market1_pre.outcome_1 %>  </span>
+                                   <span class="wagger-amt"> <%= @fixture.market1_live.outcome_1 %>  </span>
                                <% end %>
                            </div>
                            <div class="col-lg-4">
-                               <%= link_to(add_bet_path(outcome_id: "2", fixture_id: @fixture.id, market: "Market1Pre") , class: "btn btn-light wagger-btn intialise_input", remote: true, method: :post )  do %>
+                               <%= link_to(add_bet_path(outcome_id: "2", fixture_id: @fixture.id, market: "Market1Live") , class: "btn btn-light wagger-btn intialise_input", remote: true, method: :post )  do %>
                                    <span>Draw</span> 
-                                   <span class="wagger-amt"> <%= @fixture.market1_pre.outcome_2 %>  </span>
+                                   <span class="wagger-amt"> <%= @fixture.market1_live.outcome_2 %>  </span>
                                <% end %>
                            </div>
                            <div class="col-lg-4">
-                               <%= link_to(add_bet_path(outcome_id: "3", fixture_id: @fixture.id, market: "Market1Pre") , class: "btn btn-light wagger-btn intialise_input", remote: true, method: :post )  do %>
+                               <%= link_to(add_bet_path(outcome_id: "3", fixture_id: @fixture.id, market: "Market1Live") , class: "btn btn-light wagger-btn intialise_input", remote: true, method: :post )  do %>
                                    <span>Away Win</span> 
-                                   <span class="wagger-amt"> <%= @fixture.market1_pre.outcome_3 %>  </span>
+                                   <span class="wagger-amt"> <%= @fixture.market1_live.outcome_3 %>  </span>
                                <% end %>
                            </div>
                        </div>
                    </div>
                    <% end %>
-                   <% if @fixture.market10_pre.present? && @fixture.market10_pre.status == "Active" %>
+                   <% if @fixture.market10_live.present? && @fixture.market10_live.status == "Active" %>
                    <div class="market-label">
                        <div class="row">
                            <div class="col-lg-12 ">
@@ -52,27 +54,27 @@
                    <div class="market-odds mb-3 mt-3">
                        <div class="row market">
                            <div class="col-lg-4">
-                               <%= link_to(add_bet_path(outcome_id: "9", fixture_id: @fixture.id, market: "Market10Pre") , class: "btn btn-light wagger-btn intialise_input", remote: true, method: :post )  do %>
+                               <%= link_to(add_bet_path(outcome_id: "9", fixture_id: @fixture.id, market: "Market10Live") , class: "btn btn-light wagger-btn intialise_input", remote: true, method: :post )  do %>
                                    <span>Home Win / Draw</span> 
-                                   <span class="wagger-amt"> <%= @fixture.market10_pre.outcome_9 %>  </span>
+                                   <span class="wagger-amt"> <%= @fixture.market10_live.outcome_9 %>  </span>
                                <% end %>
                            </div>
                            <div class="col-lg-4">
-                               <%= link_to(add_bet_path(outcome_id: "10", fixture_id: @fixture.id, market: "Market1P0re") , class: "btn btn-light wagger-btn intialise_input", remote: true, method: :post )  do %>
+                               <%= link_to(add_bet_path(outcome_id: "10", fixture_id: @fixture.id, market: "Market10Live") , class: "btn btn-light wagger-btn intialise_input", remote: true, method: :post )  do %>
                                    <span>Home / Away</span> 
-                                   <span class="wagger-amt"> <%= @fixture.market10_pre.outcome_10 %>  </span>
+                                   <span class="wagger-amt"> <%= @fixture.market10_live.outcome_10 %>  </span>
                                <% end %>
                            </div>
                            <div class="col-lg-4">
-                               <%= link_to(add_bet_path(outcome_id: "11", fixture_id: @fixture.id, market: "Market10Pre") , class: "btn btn-light wagger-btn intialise_input", remote: true, method: :post )  do %>
+                               <%= link_to(add_bet_path(outcome_id: "11", fixture_id: @fixture.id, market: "Market10Live") , class: "btn btn-light wagger-btn intialise_input", remote: true, method: :post )  do %>
                                    <span>Draw / Away Win</span> 
-                                   <span class="wagger-amt"> <%= @fixture.market10_pre.outcome_11 %>  </span>
+                                   <span class="wagger-amt"> <%= @fixture.market10_live.outcome_11 %>  </span>
                                <% end %>
                            </div>
                        </div>
                    </div>
                    <% end %>
-                   <% if @fixture.market16_pre.present? && @fixture.market16_pre.status == "Active" %>
+                   <% if @fixture.market16_live.present? && @fixture.market16_live.status == "Active" %>
                    <div class="market-label">
                        <div class="row">
                            <div class="col-lg-12 ">
@@ -83,22 +85,22 @@
                    <div class="market-odds mb-3 mt-3">
                        <div class="row">
                            <div class="col-lg-6">
-                               <%= link_to(add_bet_path(outcome_id: "1714", fixture_id: @fixture.id, market: "Market16Pre") , class: "btn btn-light wagger-btn intialise_input", remote: true, method: :post )  do %>
+                               <%= link_to(add_bet_path(outcome_id: "1714", fixture_id: @fixture.id, market: "Market16Live") , class: "btn btn-light wagger-btn intialise_input", remote: true, method: :post )  do %>
                                    <span>Home -1</span> 
-                                   <span class="wagger-amt"> <%= @fixture.market16_pre.outcome_1714 %>  </span>
+                                   <span class="wagger-amt"> <%= @fixture.market16_live.outcome_1714 %>  </span>
                                <% end %>
                            </div>
                            <div class="col-lg-6">
-                               <%= link_to(add_bet_path(outcome_id: "1715", fixture_id: @fixture.id, market: "Market16Pre") , class: "btn btn-light wagger-btn intialise_input", remote: true, method: :post )  do %>
+                               <%= link_to(add_bet_path(outcome_id: "1715", fixture_id: @fixture.id, market: "Market16Live") , class: "btn btn-light wagger-btn intialise_input", remote: true, method: :post )  do %>
                                    <span>Home -1</span> 
-                                   <span class="wagger-amt"> <%= @fixture.market16_pre.outcome_1715 %>  </span>
+                                   <span class="wagger-amt"> <%= @fixture.market16_live.outcome_1715 %>  </span>
                                <% end %>
                            </div>
 
                        </div>
                    </div>
                    <% end %>
-                   <% if @fixture.market18_pre.present? && @fixture.market18_pre.status == "Active" %>
+                   <% if @fixture.market18_live.present? && @fixture.market18_live.status == "Active" %>
                    <div class="market-label">
                        <div class="row">
                            <div class="col-lg-12 ">
@@ -109,22 +111,22 @@
                    <div class="market-odds mb-3 mt-3">
                        <div class="row">
                            <div class="col-lg-6">
-                               <%= link_to(add_bet_path(outcome_id: "13", fixture_id: @fixture.id, market: "Market18Pre") , class: "btn btn-light wagger-btn intialise_input", remote: true, method: :post )  do %>
+                               <%= link_to(add_bet_path(outcome_id: "13", fixture_id: @fixture.id, market: "Market18Live") , class: "btn btn-light wagger-btn intialise_input", remote: true, method: :post )  do %>
                                    <span>Under 2.5</span> 
-                                   <span class="wagger-amt"> <%= @fixture.market18_pre.outcome_13 %>  </span>
+                                   <span class="wagger-amt"> <%= @fixture.market18_live.outcome_13 %>  </span>
                                <% end %>
                            </div>
                            <div class="col-lg-6">
-                               <%= link_to(add_bet_path(outcome_id: "12", fixture_id: @fixture.id, market: "Market18Pre") , class: "btn btn-light wagger-btn intialise_input", remote: true, method: :post )  do %>
+                               <%= link_to(add_bet_path(outcome_id: "12", fixture_id: @fixture.id, market: "Market18Live") , class: "btn btn-light wagger-btn intialise_input", remote: true, method: :post )  do %>
                                    <span>Over 2.5</span> 
-                                   <span class="wagger-amt"> <%= @fixture.market18_pre.outcome_12 %>  </span>
+                                   <span class="wagger-amt"> <%= @fixture.market18_live.outcome_12 %>  </span>
                                <% end %>
                            </div>
                        </div>
                    </div>
 
                    <% end %>
-                   <% if @fixture.market29_pre.present? && @fixture.market29_pre.status == "Active" %>
+                   <% if @fixture.market29_live.present? && @fixture.market29_live.status == "Active" %>
                    <div class="market-label">
                        <div class="row">
                            <div class="col-lg-12 ">
@@ -135,15 +137,15 @@
                    <div class="market-odds mb-3 mt-3">
                        <div class="row">
                            <div class="col-lg-6">
-                               <%= link_to(add_bet_path(outcome_id: "74", fixture_id: @fixture.id, market: "Market29Pre") , class: "btn btn-light wagger-btn intialise_input", remote: true, method: :post )  do %>
+                               <%= link_to(add_bet_path(outcome_id: "74", fixture_id: @fixture.id, market: "Market29Live") , class: "btn btn-light wagger-btn intialise_input", remote: true, method: :post )  do %>
                                    <span>Under 2.5</span> 
-                                   <span class="wagger-amt"> <%= @fixture.market29_pre.outcome_74 %>  </span>
+                                   <span class="wagger-amt"> <%= @fixture.market29_live.outcome_74 %>  </span>
                                <% end %>
                            </div>
                            <div class="col-lg-6">
-                               <%= link_to(add_bet_path(outcome_id: "76", fixture_id: @fixture.id, market: "Market29Pre") , class: "btn btn-light wagger-btn intialise_input", remote: true, method: :post )  do %>
+                               <%= link_to(add_bet_path(outcome_id: "76", fixture_id: @fixture.id, market: "Market29Live") , class: "btn btn-light wagger-btn intialise_input", remote: true, method: :post )  do %>
                                    <span>Under 2.5</span> 
-                                   <span class="wagger-amt"> <%= @fixture.market29_pre.outcome_76 %>  </span>
+                                   <span class="wagger-amt"> <%= @fixture.market29_live.outcome_76 %>  </span>
                                <% end %>
                            </div>
                        </div>
