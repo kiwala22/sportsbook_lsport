@@ -30,14 +30,14 @@ class WithdrawsWorker
             ext_transaction_id = MobileMoney::MtnOpenApi.check_transfer_status(@transaction.reference)['financialTransactionId']
             @withdraw.update(ext_transaction_id: ext_transaction_id, network: "MTN Uganda", status: "SUCCESS", balance_after: balance_after)
             user.update(balance: balance_after)
-            @transaction.update(status: "COMPLETED")
+            @transaction.update(balance_before: balance_before, balance_after: balance_after, status: "COMPLETED")
           else
             @withdraw.update(network: "MTN Uganda", status: "FAILED")
-            @transaction.update(status: "FAILED")
+            @transaction.update(balance_before: balance_before, balance_after: balance_before, status: "FAILED")
           end
         else
           @withdraw.update(network: "MTN Uganda", status: "FAILED")
-          @transaction.update(status: "FAILED")
+          @transaction.update(balance_before: balance_before, balance_after: balance_before, status: "FAILED")
         end
       when /^(25675|25670)/
         #process Airtel transaction
@@ -47,14 +47,14 @@ class WithdrawsWorker
             balance_after = (balance_before - @transaction.amount)
             @withdraw.update(ext_transaction_id: result[:ext_transaction_id], network: "Airtel Uganda", status: "SUCCESS", balance_after: balance_after)
             user.update(balance: balance_after)
-            @transaction.update(status: "COMPLETED")
+            @transaction.update(balance_before: balance_before, balance_after: balance_after, status: "COMPLETED")
           else
             @withdraw.update(network: "Airtel Uganda", status: "FAILED")
-            @transaction.update(status: "FAILED")
+            @transaction.update(balance_before: balance_before, balance_after: balance_before, status: "FAILED")
           end
         else
           @withdraw.update(network: "Airtel Uganda", status: "FAILED")
-          @transaction.update(status: "FAILED")
+          @transaction.update(balance_before: balance_before, balance_after: balance_before, status: "FAILED")
         end
       end
     end

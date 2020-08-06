@@ -16,12 +16,14 @@
         <th>Last Name</th>
         <th>Phone Number</th>
         <th>Balance</th>
+        <th>Status</th>
         <th>Sign In Count</th>
         <th>Current Sign In At</th>
         <th>Last Sign In At</th>
         <th>Current Sign In IP</th>
         <th>Last Sign In IP</th>
         <th>Failed Attempts</th>
+        <th>Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -33,12 +35,30 @@
 					<td><%= user.last_name %></td>
 					<td><%= user.phone_number %></td>
           <td><%= user.balance %></td>
+          <td>
+            <% if user.account_active == true %>
+              <div class="badge badge-success">
+                ACTIVE
+              </div>
+            <% else %>
+              <div class="badge badge-warning">
+                SUSPENDED
+              </div>
+            <% end %>
+          </td>
 					<td><%= user.sign_in_count %></td>
           <td><%= user.current_sign_in_at%></td>
 					<td><%= user.last_sign_in_at%></td>
           <td><%= user.current_sign_in_ip%></td>
           <td><%= user.last_sign_in_ip%></td>
 					<td><%= user.failed_attempts %></td>
+          <td>
+            <% if user.account_active == true %>
+              <%= button_to "Suspend", backend_suspend_path(id: user.id), class: "btn btn-xs btn-danger", method: :post %>
+            <% else %>
+              <%= button_to "Activate", backend_activate_path(id: user.id), class: "btn btn-xs btn-success", method: :post %>
+            <% end %>
+          </td>
 				</tr>
 			<% end %>
     </tbody>

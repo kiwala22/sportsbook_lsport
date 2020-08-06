@@ -17,7 +17,7 @@ RSpec.describe User, type: :system, js: true do
 		def login_form(phone_number, password)
 			fill_in 'phone_number', with: phone_number
 			fill_in 'password', with: password
-			click_button 'Log in'
+			click_button 'Login'
 		end
 
 
