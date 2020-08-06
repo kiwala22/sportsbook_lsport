@@ -18,7 +18,7 @@ class BetslipsWorker
             elsif bet_results.all? {|res| res == "Win"}
                user = User.find(slip.user_id)
                #mark as a win and payout winning and top up balance all under a transaction
-               total_odds = no_void_bet_results.pluck(:odds).map(&:to_f).inject(:*).round(2)
+               total_odds = slip.bets.pluck(:odds).map(&:to_f).inject(:*).round(2)
                win_amount = (slip.stake * total_odds )
                ActiveRecord::Base.transaction do
                   slip.update(status: "Closed" ,result: "Win", win_amount: win_amount) 
