@@ -18,13 +18,6 @@ class ApplicationController < ActionController::Base
 
 
   protected
-  ##Methods used by the admin to active and deactivate user account
-  def deactivate_account
-  end
-
-  def activate_account
-  end
-
   def configure_permitted_parameters
     added_attrs = [:phone_number, :email, :password, :password_confirmation, :remember_me, :first_name, :last_name]
     devise_parameter_sanitizer.permit :sign_up, keys: added_attrs
