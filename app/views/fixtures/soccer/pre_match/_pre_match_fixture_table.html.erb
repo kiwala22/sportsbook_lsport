@@ -15,13 +15,13 @@
                </a>
             </td>
             <td>
-               <%= link_to(fixture.market1_pre.outcome_1, add_bet_path(outcome_id: "1", fixture_id: fixture.id, market: "Market1Pre") , class: "btnn intialise_input",id:'odd1', remote: true, method: :post )%>
+               <%= link_to(fixture.market1_pre.outcome_1, add_bet_path(outcome_id: "1", fixture_id: fixture.id, market: "Market1Pre", outcome_desc: "1X2 FT - 1") , class: "btnn intialise_input",id:'odd1', remote: true, method: :post )%>
             </td>
             <td>
-               <%= link_to(fixture.market1_pre.outcome_2, add_bet_path(outcome_id: "2", fixture_id: fixture.id, market: "Market1Pre") , class: "btnn intialise_input", id:'odd2',remote: true, method: :post )%>
+               <%= link_to(fixture.market1_pre.outcome_2, add_bet_path(outcome_id: "2", fixture_id: fixture.id, market: "Market1Pre", outcome_desc: "1X2 FT - X") , class: "btnn intialise_input", id:'odd2',remote: true, method: :post )%>
             </td>
             <td>
-               <%= link_to(fixture.market1_pre.outcome_3, add_bet_path(outcome_id: "3", fixture_id: fixture.id, market: "Market1Pre") , class: "btnn intialise_input", id:'odd3', remote: true, method: :post )%>
+               <%= link_to(fixture.market1_pre.outcome_3, add_bet_path(outcome_id: "3", fixture_id: fixture.id, market: "Market1Pre", outcome_desc: "1X2 FT - 2") , class: "btnn intialise_input", id:'odd3', remote: true, method: :post )%>
 
             </td>
       </tr>
