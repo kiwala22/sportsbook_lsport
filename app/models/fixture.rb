@@ -1,4 +1,21 @@
 class Fixture < ApplicationRecord
+  enum fixture_status: {
+    "not_started" => "not_started",
+    "live" => "live",
+    "suspended" => "suspended",
+    "ended" => "ended",
+    "closed" => "closed",
+    "cancelled" => "cancelled",
+    "delayed" => "delayed",
+    "interrupted" => "interrupted",
+    "postponed" => "postponed",
+    "abandoned" => "abandoned"
+  }
+
+  enum booking_status: {
+    "True" => true,
+    "False" => false
+  }
 
    validates :event_id, presence: true
    validates :event_id, uniqueness: true
@@ -26,7 +43,7 @@ class Fixture < ApplicationRecord
    has_one :market75_pre
 
    has_many :bets
-   
+
 
 
    include Betradar

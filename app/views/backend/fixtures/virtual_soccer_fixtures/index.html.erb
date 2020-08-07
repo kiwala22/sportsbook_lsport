@@ -13,19 +13,19 @@
               <div class="col-sm-6 col-md-4">
                     <%= f.label :status, "Status", class:"col-md-4 col-form-label" %>
                     <div class="col-lg-8">
-                      <%= f.select :status_eq, options_for_select(["not_started","live","suspended","ended","closed", "cancelled","delayed","interrupted","postponed","abandoned"]) , {include_blank: true} ,{ class: "form-control", id: "status"} %>
+                      <%= f.select :status_eq, Fixture.fixture_statuses.keys , {prompt: "Select One"} ,{ class: "form-control", id: "status"} %>
                     </div>
               </div>
               <div class="col-sm-6 col-md-4">
                     <%= f.label :event_id, "Event", class:"col-md-4 col-form-label" %>
                     <div class="col-lg-8">
-                      <%= f.search_field :event_id_eq, { include_blank: true, :class=>"form-control", id: "event_id"}%>
+                      <%= f.search_field :event_id_eq, {:class=>"form-control", id: "event_id"}%>
                     </div>
               </div>
               <div class="col-sm-6 col-md-4">
                     <%= f.label :booked, "Booking Status", class:"col-md-4 col-form-label" %>
                     <div class="col-lg-8">
-                      <%= f.select :booked_eq, options_for_select(["true", "false"]), {include_blank: true} ,{ class: "form-control", id: "status"} %>
+                      <%= f.select :booked_eq, Fixture.booking_statuses.values, {prompt: "Select One"} ,{ class: "form-control", id: "status"} %>
                     </div>
               </div>
           </div>
@@ -33,19 +33,19 @@
               <div class="col-sm-6 col-md-4">
                     <%= f.label :category, "Category", class:"col-md-4 col-form-label" %>
                     <div class="col-lg-8">
-                      <%= f.search_field :category_i_cont, {include_blank: true, class: "form-control", id: "category"} %>
+                      <%= f.search_field :category_i_cont, {class: "form-control", id: "category"} %>
                     </div>
               </div>
               <div class="col-sm-6 col-md-4">
                     <%= f.label :tournament_name, "Tournament", class:"col-md-4 col-form-label" %>
                     <div class="col-lg-8">
-                      <%= f.search_field :tournament_name_i_cont, { include_blank: true, :class=>"form-control", id: "tournament_name"}%>
+                      <%= f.search_field :tournament_name_i_cont, {true, :class=>"form-control", id: "tournament_name"}%>
                     </div>
               </div>
               <div class="col-sm-6 col-md-4">
                     <%= f.label :booked, "Team", class:"col-md-4 col-form-label" %>
                     <div class="col-lg-8">
-                      <%= f.search_field :comp_one_name_or_comp_two_name_i_cont, { include_blank: true, :class=>"form-control", id: "team"}%>
+                      <%= f.search_field :comp_one_name_or_comp_two_name_i_cont, {class=>"form-control", id: "team"}%>
                     </div>
               </div>
           </div>
@@ -53,18 +53,18 @@
               <div class="col-sm-6 col-md-4">
                     <%= f.label :scheduled_time, "Kick-Off After", class:"col-md-4 col-form-label" %>
                     <div class="col-lg-8">
-                      <%= f.search_field :scheduled_time_gteq, {include_blank: true, class: "form-control", id: "kick_off_after"} %>
+                      <%= f.search_field :scheduled_time_gteq, {class: "form-control", id: "kick_off_after"} %>
                     </div>
               </div>
               <div class="col-sm-6 col-md-4">
                     <%= f.label :scheduled_time, "Kick-Off Before", class:"col-md-4 col-form-label" %>
                     <div class="col-lg-8">
-                      <%= f.search_field :scheduled_time_lteq, { include_blank: true, :class=>"form-control", id: "kick_off_before"}%>
+                      <%= f.search_field :scheduled_time_lteq, {:class=>"form-control", id: "kick_off_before"}%>
                     </div>
               </div>
           </div>
       </fieldset>
-			
+
       <!-- <div class="card-footer"> -->
          <div class="clearfix">
             <div class="float-right">

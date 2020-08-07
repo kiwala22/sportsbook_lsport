@@ -4,11 +4,15 @@ class Fixtures::Soccer::PreMatchController < ApplicationController
 
    def index
       if params[:q].present?
-         @q = Fixture.joins(:market1_pre).where("fixtures.status = ? AND fixtures.sport_id = ? AND fixtures.category_id NOT IN (?) AND fixtures.scheduled_time >= ? AND fixtures.scheduled_time <= ?", "not_started", "sr:sport:1", ["sr:category:1033","sr:category:2123"], params[:q][:start], params[:q][:stop]).order(scheduled_time: :asc)
+        @q = Fixture.joins(:market1_pre).where("fixtures.status = ? AND fixtures.sport_id = ? AND fixtures.category_id NOT IN (?) AND fixtures.scheduled_time >= ? AND fixtures.scheduled_time <= ?", "not_started", "sr:sport:1", ["sr:category:1033","sr:category:2123"], params[:q][:start], params[:q][:stop]).order(scheduled_time: :asc)
+      elsif params[:leag].present?
+        @q = Fixture.joins(:market1_pre).where("fixtures.status = ? AND fixtures.sport_id = ? AND fixtures.tournament_name = ?", "not_started", "sr:sport:1", params[:leag][:tournament_name]).order(scheduled_time: :asc)
+      elsif params[:cty].present?
+        @q = Fixture.joins(:market1_pre).where("fixtures.status = ? AND fixtures.sport_id = ? AND fixtures.category = ?", "not_started", "sr:sport:1", params[:cty][:category]).order(scheduled_time: :asc)
       else
-         @q = Fixture.joins(:market1_pre).where("fixtures.status = ? AND fixtures.sport_id = ? AND fixtures.category_id NOT IN (?) AND fixtures.scheduled_time >= ? AND fixtures.scheduled_time <= ?", "not_started", "sr:sport:1", ["sr:category:1033","sr:category:2123"], Time.now, Date.today.end_of_day).order(scheduled_time: :asc)
+        @q = Fixture.joins(:market1_pre).where("fixtures.status = ? AND fixtures.sport_id = ? AND fixtures.category_id NOT IN (?) AND fixtures.scheduled_time >= ? AND fixtures.scheduled_time <= ?", "not_started", "sr:sport:1", ["sr:category:1033","sr:category:2123"], Time.now, Date.today.end_of_day).order(scheduled_time: :asc)
       end
-      
+
       @pagy, @fixtures = pagy(@q.includes(:market1_pre))
       respond_to do |format|
          format.html
@@ -31,7 +35,7 @@ class Fixtures::Soccer::PreMatchController < ApplicationController
       market =  params[:market]
       fixture_id =  params[:fixture_id].to_i
 
-      
+
       fixture = Fixture.find(fixture_id)
       market_entry = market.constantize.find_by(fixture_id: fixture_id)
 
@@ -49,7 +53,7 @@ class Fixtures::Soccer::PreMatchController < ApplicationController
          format.js
       end
    end
-   
+
    def clear_slip
       session[:bet_slip] = nil
       @bets = session[:bet_slip]
@@ -57,5 +61,5 @@ class Fixtures::Soccer::PreMatchController < ApplicationController
          format.js
       end
    end
-   
+
 end
