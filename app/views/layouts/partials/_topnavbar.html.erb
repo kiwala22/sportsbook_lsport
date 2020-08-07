@@ -13,12 +13,7 @@
                     <li class="nav-item active"><a href="/" class="nav-link active">Home</a></li>
                   </ul>
                 </div>
-                <% if !user_signed_in? %>
-                  <div class="navbar-nav ml-auto">
-                      <a id="signup" class="bttn-small btn-fill" href=<%=new_user_registration_path %> ><i class="fas fa-key fa-fw"></i>Signup</a>
-                      <a id="login" class="bttn-small btn-fill ml-2" href=<%=new_user_session_path %>><i class="fas fa-lock fa-fw"></i>Login</a>
-                  </div>
-                <% elsif user_signed_in? && current_user.verified? %>
+                <% if current_user? && current_user.verified? %>
                   <div class="navbar-nav ml-auto">
                     <ul class="navbar-nav mr-auto">
                       <li class="nav-item active"><a href="/" class="nav-link active">UGX <%= current_user.balance %></a></li>
@@ -54,6 +49,11 @@
                         </a>
                       </div>
                     </li>
+                  </div>
+                <% else %>
+                 <div class="navbar-nav ml-auto">
+                      <a id="signup" class="bttn-small btn-fill" href=<%=new_user_registration_path %> ><i class="fas fa-key fa-fw"></i>Signup</a>
+                      <a id="login" class="bttn-small btn-fill ml-2" href=<%=new_user_session_path %>><i class="fas fa-lock fa-fw"></i>Login</a>
                   </div>
                 <% end %>
               </div>
