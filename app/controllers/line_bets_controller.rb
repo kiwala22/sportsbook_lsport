@@ -1,6 +1,6 @@
 class LineBetsController < ApplicationController
    include CurrentCart
-   before_action :set_cart, only: [:create, :destroy]
+   before_action :set_cart, only: [:create, :destroy, :refresh]
    # before_action :set_line_item, only: [:show, :edit, :update, :destroy]
 
    def create
@@ -38,4 +38,9 @@ class LineBetsController < ApplicationController
       end
    end
    
+   def refresh
+      respond_to do |format|
+         format.js
+      end
+   end
 end
