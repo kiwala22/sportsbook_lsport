@@ -35,9 +35,7 @@ RSpec.describe User, type: :system, js: true do
 
 
 	describe 'sign up' do
-		#we expect the signup to be a success with valid params
-	
-		##user clicks on sign up button and fills form
+		
 		it 'should signup successfully and the accept otp' do
 			visit '/'
 			click_link('signup')
@@ -52,20 +50,21 @@ RSpec.describe User, type: :system, js: true do
 			fill_in 'Last name', with: user.last_name #valid_user_params[:last_name]
 			fill_in 'Password', with: user.password #valid_user_params[:password]
 			fill_in 'Password confirmation', with: user.password_confirmation #valid_user_params[:password_confirmation]
-			click_button 'Sign up'
+			expect{
+				click_button 'Sign up'	
+			}.to change(User, :count).by(1)
+			
 			expect(page.current_path).to eq '/new_verify'
 			passcode = User.last.pin
 			fill_in 'pin', with: passcode
 			click_button 'Verify'
-			# expect(page.current_path).to eq '/'
 			sleep(2)
 			expect(page).to have_content 'Deposit'.upcase
 
-			# expect(page).to have_content user.first_name.upcase
 			#sleep(1)
 		end
 
-		##We expect clicking sign up to bring up path /verify
+
 		it 'should fail on any invalid parameter' do
 			visit '/'
 
@@ -93,7 +92,7 @@ RSpec.describe User, type: :system, js: true do
 		it 'is valid with all attributes entered correctly' do
 			expect(user).to be_valid
 		end
-		#we expect the signup to be a failure with invalid params
+
 		it 'is invalid with wrong attributes' do
 			expect(user_false).not_to be_valid
 		end
