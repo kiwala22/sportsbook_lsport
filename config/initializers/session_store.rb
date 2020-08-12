@@ -1,1 +1,0 @@
-Rails.application.config.session_store :cookie_store, key: 'cart_id', expire_after: 14.days

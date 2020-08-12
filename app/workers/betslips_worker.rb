@@ -33,7 +33,7 @@ class BetslipsWorker
                user = User.find(slip.user_id)
                no_void_bet_results = slip.bets.where(result: "Win")
                if no_void_bet_results
-                  total_odds = no_void_bet_results.pluck(:odds).map(&:to_f).inject(:*).round(2)
+                  total_odds = no_void_bet_results.present? ? no_void_bet_results.pluck(:odds).map(&:to_f).inject(:*).round(2) : 0.0
                   win_amount = (slip.stake * total_odds )
                   ActiveRecord::Base.transaction do
                      slip.update(status: "Closed" ,result: "Win", win_amount: win_amount)

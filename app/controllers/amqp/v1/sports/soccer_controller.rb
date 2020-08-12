@@ -9,8 +9,7 @@ class Amqp::V1::Sports::SoccerController < ApplicationController
       routing_key = soccer_params[:routing_key]
       
       output = Hash.from_xml(payload)
-      puts output
-      
+            
       #extract message and sport
       message = routing_key.split('.')[3]
       sport = routing_key.split('.')[4]
@@ -37,11 +36,7 @@ class Amqp::V1::Sports::SoccerController < ApplicationController
          Soccer::RollbackSettlementWorker.perform_async(payload)
          
       when "rollback_bet_cancel"
-         Soccer::RollbackCancelWorker.perform_async(payload)
-         
-      else
-         puts "Not allocated - Key: #{routing_key}, output: #{output}"
-         
+         Soccer::RollbackCancelWorker.perform_async(payload)         
       end
       
       render status: 200, json: {response: "OK"}
