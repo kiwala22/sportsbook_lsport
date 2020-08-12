@@ -10,6 +10,7 @@
 *= require user_assets/animate
 *= require user_assets/owl.carousel.min
 *= require user_assets/main
+*= require user_assets/mobile
 *= require flag-icon
 *
 */
@@ -419,12 +420,14 @@ strong {
 }
 
 .ticket-slip {
-  border-radius: 5px;
-  border: 2px solid #7690A7;
+    border-radius: 5px;
+    border: 2px solid #7690A7;
 }
+
 .ticket-body {
-  padding: 12px;
+    padding: 12px;
 }
+
 .error_desc {
-  color: #ec2121;
+    color: #ec2121;
 }
