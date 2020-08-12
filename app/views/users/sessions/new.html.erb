@@ -10,24 +10,24 @@
                <div class="widget-body">
                      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
                      <%= render "devise/shared/error_messages", resource: resource %>
-            
+
                      <div class="form-group">
                         <%= f.label :login, "Phone Number" %><br />
                         <%= f.text_field :phone_number, autofocus: true , class: "form-control", id: 'phone_number',required: true%>
                      </div>
-                     
+
                      <div class="form-group">
                         <%= f.label :password , "Password"%><br />
                         <%= f.password_field :password, autocomplete: "current-password", class: "form-control",id: 'password', required: true %>
                      </div>
-                     
+
                      <% if devise_mapping.rememberable? %>
                      <div class="form-group" id="remember_me">
                         <%= f.check_box :remember_me %>
                         <%= f.label :remember_me, id: "label_remember_me" %>
                      </div>
                      <% end %>
-                     
+
                      <div class="actions">
                         <%= f.submit "Login" , class: "btn btn-block btn-primary mt-lg login-btn"%>
                      </div>
