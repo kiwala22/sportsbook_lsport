@@ -1,12 +1,18 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
+
+    static targets = []
+
+
+
     connect() {
         this.load()
 
         if (this.data.has("refreshInterval")) {
             this.startRefreshing()
         }
+
     }
 
     disconnect() {
@@ -26,15 +32,14 @@ export default class extends Controller {
     }
 
     load() {
-        let url = "/refresh_slip"
+        let url = this.data.get("url")
         Rails.ajax({
-            type: 'POST',
+            type: 'GET',
             url: url,
             dataType: 'js',
             success: (data) => {
-                console.log("Success")
+                console.log(data)
             }
         })
     }
-
 }

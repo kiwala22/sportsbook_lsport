@@ -3,9 +3,11 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-               <ul class="d-flex justify-content-between m-footer-list">
+               <div>
+               </div>
+               <ul class="d-flex justify-content-between m-footer-list" data-controller="footer">
                   <li class="footer-slip">
-                     <div class="slip-ticket-count"> 90 </div>
+                     <div class="slip-ticket-count" id="slip-ticket-count" data-target="footer.count"> <%= @cart.line_bets ? @cart.line_bets.count : 0 %></div>
                      <div>Betslip</div> 
                      
                   </li>

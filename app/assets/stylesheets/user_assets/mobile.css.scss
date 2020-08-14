@@ -84,6 +84,24 @@
         }
     }
     .content-wrapper {
-      padding: 15px;
+        padding: 15px;
+    }
+    .mobile-betslip {
+        padding: 20px 15px;
+        background: #5f7b95;
+        position: fixed;
+        left: 0;
+        bottom: 65px;
+        width: 90%;
+        flex-shrink: 0;
+        z-index: 50;
+        margin-left: 5%;
+        border: 2px solid #f6ad2e;
+        border-radius: 2% 2% 0 0;
+        border-bottom: none;
+        color: #ffffff;
+    }
+    .single-bet #comp-names {
+        font-size: 12px;
     }
 }
