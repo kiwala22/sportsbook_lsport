@@ -1,0 +1,136 @@
+@media (max-width: 991.98px) {
+    .container-fluid {
+        padding-right: 0;
+        padding-left: 0;
+    }
+    .card-header:first-child {
+        border-radius: 0px;
+    }
+    .game-box .card .card-header h3 {
+        font-size: 14px;
+    }
+    .table td,
+    .table th {
+        padding: 0.75rem 0.75rem;
+    }
+    .game-box .card .card-body table tr td a.btnn {
+        padding: 0.25rem 0.5rem;
+    }
+    .bttn-small {
+        padding: 5px 10px;
+    }
+    .navbar-toggler {
+        color: #ffffff;
+    }
+    .dropdown-item {
+        color: #ffffff;
+        font-weight: 600;
+    }
+    #mobile-shortcuts {
+        display: flex;
+        flex-flow: row;
+        margin-right: -15px;
+        margin-left: -15px;
+        background: #50677C;
+        padding: 0.75rem;
+    }
+    #navbarSideShortcuts {
+        margin-right: -15px;
+        margin-left: -15px;
+        //   background: #50677C;
+        padding: 0.25rem 0.75rem;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        li {
+            a {
+                color: inherit;
+            }
+            a:hover {
+                text-decoration: underline;
+                color: inherit;
+            }
+        }
+    }
+    #menuLeagues>ul>li,
+    #menuCountry>ul>li,
+    #menuSports>ul>li {
+        padding: 0.5rem 0.75rem;
+    }
+    #menuLeagues,
+    #menuCountry,
+    #menuSports {
+        margin-bottom: 0.75rem;
+    }
+    .m-footer-list {
+        padding: 0 2rem;
+        line-height: 24px;
+    }
+    .slip-ticket-count {
+        border-radius: 50%;
+        line-height: 24px;
+        width: 24px;
+        background: #f6ad2e;
+        color: #ffffff;
+        text-align: center;
+        margin-right: 0.5rem
+    }
+    .footer-slip {
+        display: flex !important;
+        flex-flow: row;
+        //   line-height: 1.5rem;
+        >li>a>i {
+            margin-right: 10px;
+            margin-left: 10px;
+        }
+    }
+    .content-wrapper {
+        padding: 15px;
+    }
+    .mobile-betslip {
+        padding: 20px 15px;
+        background: #E7ECEF;
+        position: fixed;
+        left: 0;
+        width: 90%;
+        flex-shrink: 0;
+        z-index: 50;
+        margin-left: 5%;
+        border: 2px solid #f6ad2e;
+        border-radius: 2% 2% 0 0;
+        /* border-bottom: none; */
+        color: #28333e;
+        padding-bottom: 30px;
+        min-height: 50%;
+        a {
+            color: #28333e;
+            text-decoration: underline;
+        }
+        a:hover {
+            cursor: pointer;
+        }
+    }
+    .single-bet #comp-names {
+        font-size: 12px;
+    }
+    .mobile-betslip .total-wins {
+        border-bottom: 1px solid #f6ad2e;
+        padding: 10px 10px;
+    }
+    .mobile-betslip .total-bet {
+        border-top: 1px solid #f6ad2e;
+        border-bottom: 1px solid #f6ad2e;
+        padding: 10px 10px;
+    }
+    #stake-input {
+        line-height: 1.5rem;
+    }
+    .mobile-betslip {
+        display: none;
+    }
+    .mobile-betslip.active {
+        display: block;
+    }
+    .mobile-betslip .action-tab {
+        padding-bottom: 10px;
+    }
+}

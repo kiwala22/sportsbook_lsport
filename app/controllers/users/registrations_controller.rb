@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
-  layout "application.html.erb"
+  layout "application"
   include CurrentCart
   before_action :set_cart
   # before_action :configure_sign_up_params, only: [:create]
