@@ -24,8 +24,11 @@ export default class extends Controller {
         var total = this.multiply_odds(oddsArr)
 
         this.totalTarget.innerHTML = total
-        let count = document.getElementById('slip-ticket-count')
-        count.innerHTML = oddsArr.length
+        if (this.data.has("mobile")) {
+            let count = document.getElementById('slip-ticket-count')
+            count.innerHTML = oddsArr.length
+        }
+
 
 
     }

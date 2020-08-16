@@ -51,7 +51,7 @@
                <!-- Betslip container -->
                <div class="row">
                   <div class="col-12">
-                     <div class="mobile-betslip" id="betslip" data-target="main.betslip" > <!-- data-controller="betslip" data-betslip-refresh-interval="30000" -->
+                     <div class="mobile-betslip" id="betslip" data-target="main.betslip" data-controller="refresh" data-refresh-interval="30000" data-refresh-url="<%= refresh_slip_path %>" data-refresh-method="POST" data-refresh-mobile="true"> 
                         <%= render partial: "layouts/partials/betslip" %>
                      </div>
                   </div>

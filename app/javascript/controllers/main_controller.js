@@ -5,7 +5,7 @@ export default class extends Controller {
 
     closeSlip() {
         this.betslipTarget.classList.remove("active")
-        console.log(this.betslipTarget.classList)
+            // console.log(this.betslipTarget.classList)
     }
 
     showSlip() {
