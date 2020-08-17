@@ -35,6 +35,9 @@
             <div class="form-group">
               <%= f.label :password %>
               <%= f.password_field :password, class: "form-control", required: true %>
+              <% if @minimum_password_length %>
+                <span>(<%= @minimum_password_length %> characters minimum)</span>
+              <% end %>
               <span class="error_desc"><%= resource.errors[:password].first if resource.errors[:password].present? %> </span>
             </div>
 
@@ -45,7 +48,7 @@
             </div>
 
             <div class="actions">
-              <%= f.submit "Sign up", class: "btn btn-block btn-primary mt-lg login-btn" %>
+              <%= f.button "Sign up", class: "btn btn-block btn-primary mt-lg login-btn", data: {disable_with: "<i class='fas fa-spinner fa-spin'></i> Signing up..."} %>
             </div>
             <% end %>
 
