@@ -1,16 +1,17 @@
 <% fixtures.each do |fixture| %>
    <% if fixture.market1_live.present? && fixture.market1_live.status == "Active" %>
       <tr>
+      
             <td>
-               <a href=<%=fixtures_virtual_soccer_live_path(id: fixture.id) %>>
-                  <%= fixture.scheduled_time.strftime("%H:%M:%S ") %> <br>
-                  <%= fixture.scheduled_time.strftime("%d/%m/%y") %>
-               </a>
+               <%= link_to fixtures_virtual_soccer_live_path(id: fixture.id) do  %>
+                  <strong><%= fixture.comp_one_name %></strong>
+                  <strong><%= fixture.comp_two_name %></strong>
+               <% end %>
             </td>
             <td>
                <%= link_to fixtures_virtual_soccer_live_path(id: fixture.id) do  %>
-                  <strong><%= fixture.comp_one_name %><span><%= fixture.home_score %></span></strong>
-                  <strong><%= fixture.comp_two_name %><span><%= fixture.away_score %></span></strong>
+                  <strong><<span><%= fixture.home_score %></span></strong>
+                  <strong><<span><%= fixture.away_score %></span></strong>
                <% end %>
             </td>
             <td>
