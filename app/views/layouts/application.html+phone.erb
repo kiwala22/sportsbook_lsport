@@ -30,7 +30,6 @@
 
 </head>
 
-<<<<<<< HEAD
 <body>
   <!-- start page loading -->
    <!-- <div id="preloader">
@@ -38,15 +37,6 @@
            <div class="loader-icon"></div>
        </div>
    </div> -->
-=======
-<body data-controller="main">
-   <!-- start page loading -->
-   <div id="preloader">
-      <div class="row loader">
-         <div class="loader-icon"></div>
-      </div>
-   </div>
->>>>>>> 358c0654786ccde215381948e5a7c4a97f333bd8
    <!-- end page loading -->
    <div class="wrapper root-app" >
       <!-- top navbar-->
@@ -61,7 +51,7 @@
                <!-- Betslip container -->
                <div class="row">
                   <div class="col-12">
-                     <div class="mobile-betslip" id="betslip" data-target="main.betslip" data-controller="refresh" data-refresh-interval="30000" data-refresh-url="<%= refresh_slip_path %>" data-refresh-method="POST" > 
+                     <div class="mobile-betslip" id="betslip" data-target="main.betslip" data-controller="refresh" data-refresh-interval="30000" data-refresh-url="<%= refresh_slip_path %>" data-refresh-method="POST" >
                         <%= render partial: "layouts/partials/betslip" %>
                      </div>
                   </div>
