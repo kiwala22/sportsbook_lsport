@@ -9,8 +9,8 @@
             </td>
             <td>
                <%= link_to fixtures_soccer_live_path(id: fixture.id) do  %>
-                  <strong><span><%= fixture.home_score %></span></strong>
-                  <strong><span><%= fixture.away_score %></span></strong>
+                  <strong><span><%= fixture.match_time %></span></strong>
+                  <strong><span><%= fixture.home_score %> - <%= fixture.away_score %></span></strong>
                <% end %>
             </td>
             <td>
