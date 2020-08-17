@@ -14,9 +14,11 @@ class Backend::Fixtures::SoccerFixturesController < ApplicationController
     @fixture = Fixture.find(params[:id])
     response = book_live_event(@fixture.event_id)
     if response == 200
-      @fixture.update_attributes(booked: true)
-      flash[:notice] = 'Fixture Booked.'
-      redirect_to action: "index"
+      @fixture.update(booked: true)
+      respond_to do |format|
+        flash.now[:notice] = "Fixture Booked."
+        format.js { render :layout => false }
+      end
     else
       flash[:alert] = 'Oops! Something went wrong'
       redirect_to action: "index"

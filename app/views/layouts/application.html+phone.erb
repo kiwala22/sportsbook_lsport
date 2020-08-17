@@ -48,14 +48,16 @@
          <!-- Page content-->
          <div class="content-wrapper">
             <div class="container-fluid">
-               <!-- Betslip container -->
-               <div class="row">
-                  <div class="col-12">
-                     <div class="mobile-betslip" id="betslip" data-target="main.betslip" data-controller="refresh" data-refresh-interval="30000" data-refresh-url="<%= refresh_slip_path %>" data-refresh-method="POST" >
-                        <%= render partial: "layouts/partials/betslip" %>
-                     </div>
-                  </div>
-               </div>
+              <% unless controller.controller_name == "verify" %>
+                 <!-- Betslip container -->
+                 <div class="row">
+                    <div class="col-12">
+                       <div class="mobile-betslip" id="betslip" data-target="main.betslip" data-controller="refresh" data-refresh-interval="30000" data-refresh-url="<%= refresh_slip_path %>" data-refresh-method="POST" >
+                          <%= render partial: "layouts/partials/betslip" %>
+                       </div>
+                    </div>
+                 </div>
+              <% end %>
             </div>
             <div class="row">
                <div class="col-sm-12">
