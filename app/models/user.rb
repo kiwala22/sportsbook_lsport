@@ -24,7 +24,7 @@ class User < ApplicationRecord
    validates :phone_number, format: {with: /\A(256)\d{9}\z/}
    validates :first_name, presence: true
    validates :last_name, presence: true
-   validate :password_complexity
+   #validate :password_complexity
 
     def active_for_authentication?
       super && account_active?
