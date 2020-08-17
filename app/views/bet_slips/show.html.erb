@@ -12,18 +12,36 @@
                   </div>
                   <% @bets.each do |bet| %>
                     <% fixture = Fixture.find(bet.fixture_id)%>
+                    <% line_bet = LineBet.where(fixture_id: bet.fixture_id) %>
                     <div class="single-bet">
-                       <span id="odd4"><span> <%= fixture.comp_one_name %> - <%= fixture.comp_two_name %> </span><span> </span></span>
+                       <span id="odd4"><span> <%= fixture.comp_one_name %> - <%= fixture.comp_two_name %>    </span><span> </span></span>
                        <span id='odd4'><%= bet.odds %></span>
                     </div>
+                    <div class="" style="padding-left: 10px;">
+                      <span><%= fixture.tournament_name %></span>
+                    </div>
+                    <div class="" style="padding-left: 10px;">
+                      <span><%= bet.outcome_desc %></span>
+                    </div>
+                    <div class="" style="padding-left: 10px;">
+                      <span><%= fixture.scheduled_time.to_datetime.strftime("%d/%m/%Y %I:%M%P") %></span>
+                    </div>
+                    <div class="" style="padding-left: 10px;">
+                      <span><%= fixture.status.gsub('_',' ').titleize %></span>
+                    </div>
+                    <hr>
                   <% end %>
+                  <div class="single-bet">
+                     <span id="odd4"><span>Total Odds</span><span> </span></span>
+                     <span id='odd4'><%= @bet_slip.odds%></span>
+                  </div>
                   <div class="total-bet">
                      <span >Ticket Stake</span>
                      <span id="total-odds">UGX <%= @bet_slip.stake  %></span>
                   </div>
                   <div class="total-wins">
                      <span>Possible Win Amount</span>
-                     <span id="total-wins">UGX <%= @bet_slip.potential_win_amount %></span>
+                     <span>UGX <%= @bet_slip.potential_win_amount %></span>
                   </div>
               </div>
         </div>

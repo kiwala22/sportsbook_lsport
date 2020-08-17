@@ -26,7 +26,7 @@ class BetslipsWorker
                   previous_balance = user.balance
                   user.balance = (user.balance + win_amount)
                   user.save!
-                  transaction = user.transactions.create!(balance_before: previous_balance, balance_after: user.balance, phone_number: user.phone_number, status: "SUCCESS", currency: "UGX", amount:win_amount, category: "Win - #{slip.id}" )
+                  transaction = user.transactions.create!(balance_before: previous_balance, balance_after: user.balance, phone_number: user.phone_number, status: "SUCCESS", currency: "UGX", amount: win_amount, category: "Win - #{slip.id}" )
                end
 
             elsif bet_results.include?("Void")

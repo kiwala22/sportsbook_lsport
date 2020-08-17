@@ -41,9 +41,25 @@
 //
 // })(jQuery);
 
+//
 
-document.addEventListener("turbolinks:load", function() {
-    $('#preloader').fadeOut(2000, function() {
-        $(this).remove();
-    });
-})
+
+// (function(){
+//   function showLoader(){
+//     $('#preloader').fadeIn('slow');
+//   }
+//
+//   function hideLoader() {
+//     $('#preloader').fadeOut('slow');
+//   }
+//
+//   $(document).on("turbolinks:request-start", showLoader);
+//   console.log("Events have been fired");
+//   $(document).on("turbolinks:request-end", hideLoader);
+//   console.log("Events have finished firing");
+//   $(window).on("load", function() {
+//       $('#preloader').fadeOut(2000, function() {
+//           $(this).remove();
+//       });
+//   })
+// })()
