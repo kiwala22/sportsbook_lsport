@@ -431,3 +431,9 @@ strong {
 .error_desc {
     color: #ec2121;
 }
+
+@media (max-width: 991.98px) {
+    .single-bet #comp-names {
+        font-size: 12px;
+    }
+}

@@ -84,6 +84,53 @@
         }
     }
     .content-wrapper {
-      padding: 15px;
+        padding: 15px;
+    }
+    .mobile-betslip {
+        padding: 20px 15px;
+        background: #E7ECEF;
+        position: fixed;
+        left: 0;
+        width: 90%;
+        flex-shrink: 0;
+        z-index: 50;
+        margin-left: 5%;
+        border: 2px solid #f6ad2e;
+        border-radius: 2% 2% 0 0;
+        /* border-bottom: none; */
+        color: #28333e;
+        padding-bottom: 30px;
+        min-height: 50%;
+        a {
+            color: #28333e;
+            text-decoration: underline;
+        }
+        a:hover {
+            cursor: pointer;
+        }
+    }
+    .single-bet #comp-names {
+        font-size: 12px;
+    }
+    .mobile-betslip .total-wins {
+        border-bottom: 1px solid #f6ad2e;
+        padding: 10px 10px;
+    }
+    .mobile-betslip .total-bet {
+        border-top: 1px solid #f6ad2e;
+        border-bottom: 1px solid #f6ad2e;
+        padding: 10px 10px;
+    }
+    #stake-input {
+        line-height: 1.5rem;
+    }
+    .mobile-betslip {
+        display: none;
+    }
+    .mobile-betslip.active {
+        display: block;
+    }
+    .mobile-betslip .action-tab {
+        padding-bottom: 10px;
     }
 }
