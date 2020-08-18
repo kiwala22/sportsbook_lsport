@@ -31,7 +31,7 @@
                      <% end %>
 
                      <div class="actions">
-                        <%= f.submit "Login" , class: "btn btn-block btn-primary mt-lg login-btn"%>
+                        <%= f.button "Login" , class: "btn btn-block btn-primary mt-lg login-btn", data: {disable_with: "<i class='fas fa-spinner fa-spin'></i> Signing in..."} %>
                      </div>
                      <% end %>
                      <%= render "users/shared/links" %>

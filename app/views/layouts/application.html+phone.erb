@@ -30,13 +30,13 @@
 
 </head>
 
-<body data-controller="main">
-   <!-- start page loading -->
-   <div id="preloader">
-      <div class="row loader">
-         <div class="loader-icon"></div>
-      </div>
-   </div>
+<body>
+  <!-- start page loading -->
+   <!-- <div id="preloader">
+       <div class="row loader">
+           <div class="loader-icon"></div>
+       </div>
+   </div> -->
    <!-- end page loading -->
    <div class="wrapper root-app" >
       <!-- top navbar-->
@@ -48,14 +48,16 @@
          <!-- Page content-->
          <div class="content-wrapper mobile-signup">
             <div class="container-fluid">
-               <!-- Betslip container -->
-               <div class="row">
-                  <div class="col-12">
-                     <div class="mobile-betslip" id="betslip" data-target="main.betslip" data-controller="refresh" data-refresh-interval="30000" data-refresh-url="<%= refresh_slip_path %>" data-refresh-method="POST" > 
-                        <%= render partial: "layouts/partials/betslip" %>
-                     </div>
-                  </div>
-               </div>
+              <% unless controller.controller_name == "verify" %>
+                 <!-- Betslip container -->
+                 <div class="row">
+                    <div class="col-12">
+                       <div class="mobile-betslip" id="betslip" data-target="main.betslip" data-controller="refresh" data-refresh-interval="30000" data-refresh-url="<%= refresh_slip_path %>" data-refresh-method="POST" >
+                          <%= render partial: "layouts/partials/betslip" %>
+                       </div>
+                    </div>
+                 </div>
+              <% end %>
             </div>
             <div class="row">
                <div class="col-sm-12">

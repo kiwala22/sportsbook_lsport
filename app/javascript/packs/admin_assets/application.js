@@ -7,9 +7,9 @@ import 'regenerator-runtime/runtime'
 
 require("modernizr/modernizr.custom.js");
 
-// require("@rails/ujs").start()
+require("@rails/ujs").start()
 // //require("turbolinks").start()
-// require("@rails/activestorage").start()
+require("@rails/activestorage").start()
 // require("channels")
 //ECharts import
 window.echarts = require("packs/admin_assets/echarts.min.js")
@@ -37,4 +37,11 @@ $(document).ready(function(){
   $("#kick_off_after").datetimepicker({
     format: "DD-MM-YYYY hh:mm a"
   });
+});
+
+$('.booking').click('ajax:complete', function() {
+  $(this).closest('tr').fadeOut();
+  setTimeout(function(){
+    $('#notice').html("")
+  }, 2000)
 });

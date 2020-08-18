@@ -1,0 +1,5 @@
+$(document).ready(function(){
+  console.log("Flash notice called.");
+  $("#notice").html("<%= escape_javascript(render :partial => 'layouts/admin_partials/flash').html_safe %>");
+  console.log("Flash notice execution complete.");
+});

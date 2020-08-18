@@ -72,6 +72,32 @@ input.btn.btn-block.btn-primary.mt-lg.login-btn:focus {
     box-shadow: 0 0 0 0.1rem #F6AE2D;
 }
 
+button.btn.btn-block.btn-primary.mt-lg.login-btn {
+    background-color: #F6AE2D;
+    border-color: #F6AE2D;
+    color: black;
+}
+
+button.btn.btn-block.btn-primary.mt-lg.login-btn:hover,
+button.btn.btn-block.btn-primary.mt-lg.login-btn:focus {
+    background-color: #F6AE2D;
+    border-color: #F6AE2D;
+    box-shadow: 0 0 0 0.1rem #F6AE2D;
+}
+
+a.btn.btn-block.btn-primary.mt-lg.login-btn {
+    background-color: #F6AE2D;
+    border-color: #F6AE2D;
+    color: black;
+}
+
+a.btn.btn-block.btn-primary.mt-lg.login-btn:hover,
+a.btn.btn-block.btn-primary.mt-lg.login-btn:focus {
+    background-color: #F6AE2D;
+    border-color: #F6AE2D;
+    box-shadow: 0 0 0 0.1rem #F6AE2D;
+}
+
 #label_remember_me {
     margin-bottom: 0px;
     padding-left: 10px;
@@ -436,4 +462,33 @@ strong {
     .single-bet #comp-names {
         font-size: 12px;
     }
+}
+
+.blinking {
+    animation: blinkingText 1.2s infinite;
+}
+
+@keyframes blinkingText {
+    0% {
+        color: #f6ad2e;
+    }
+    49% {
+        color: #f6ad2e;
+    }
+    60% {
+        color: transparent;
+    }
+    99% {
+        color: transparent;
+    }
+    100% {
+        color: #f6ad2e;
+    }
+}
+
+.score,
+.match-time {
+    text-align: center;
+    color: #f6ad2e;
+    font-weight: 900;
 }

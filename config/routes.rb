@@ -40,7 +40,7 @@ Rails.application.routes.draw do
    namespace :backend do
       namespace :fixtures do
          match 'soccer_fixtures' => "soccer_fixtures#index", via: [:get]
-         patch 'soccer_fixtures' => "soccer_fixtures#update", via: [:update]
+         match 'soccer_fixtures' => "soccer_fixtures#update", via: [:put]
          match 'virtual_soccer_fixtures' => "virtual_soccer_fixtures#index", via: [:get]
          patch 'virtual_soccer_fixtures' => "virtual_soccer_fixtures#update", via: [:update]
       end
