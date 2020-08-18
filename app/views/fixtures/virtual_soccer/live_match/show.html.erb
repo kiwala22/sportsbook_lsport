@@ -2,10 +2,10 @@
    <div class="card">
        <div class="card-header">
            <h6>
-               <span class="float-left">
-                    <span><%= @fixture.comp_one_name %> <span><%= @fixture.home_score %></span> : <span><%= @fixture.away_score %></span><%= @fixture.comp_two_name %>  </span> 
+                <span class="float-left">
+                    <span><%= @fixture.comp_one_name %> <span><%= @fixture.home_score %> : <%= @fixture.away_score %> </span><%= @fixture.comp_two_name %>  </span> 
                 </span>
-               <span class="float-right"> <%= @fixture.match_time %> </span>
+                <span class="float-right blinking"> <%= @fixture.match_time %> </span>
            </h6>
        </div>
        <div class="card-body">
