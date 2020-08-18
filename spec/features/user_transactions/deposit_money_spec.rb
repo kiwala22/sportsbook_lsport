@@ -39,17 +39,19 @@ RSpec.describe User, type: :system, js: true do
 		end
 
 		it 'should succeed' do
-			#generate_api_keys(api_user1.id)
 			visit '/'
 			click_link('login')
 			login_form(user.phone_number, user.password)
 			expect(page.current_path).to eq('/')
 			expect(page).to have_content 'DEPOSIT'
-			# expect(page).to have_content user.first_name.upcase
 			expect(page).to have_content user.balance
 			click_link 'Deposit'
 			fill_in 'Phone Number', with: user.phone_number
 			fill_in 'amount', with: random_amount
+
+			deposit_count = Deposit.count
+			transaction_count = Transaction.count
+
 			expect{
 				click_button 'Deposit Money'
 			}.to change(DepositsWorker.jobs, :size).by(1)
@@ -61,25 +63,31 @@ RSpec.describe User, type: :system, js: true do
 			#sleep(1)
 			expect(Deposit.last.status).to eq('SUCCESS')
 			expect(Transaction.last.status).to eq('COMPLETED')
+			expect(Deposit.count).to eq(deposit_count+1)
+			expect(Transaction.count).to eq(transaction_count+1)
 		end
 
 		it 'should fail on incomplete phone_number' do
-			#generate_api_keys(api_user1.id)
 			visit '/'
 			click_link('login')
 			login_form(user_test.phone_number, user_test.password)
 			expect(page.current_path).to eq('/')
 			expect(page).to have_content 'DEPOSIT'
-			# expect(page).to have_content user_test.first_name.upcase
 			expect(page).to have_content user_test.balance
 			click_link 'Deposit'
 			fill_in 'Phone Number', with: '25678346755'
 			fill_in 'amount', with: random_amount
+
+			deposit_count = Deposit.count
+			transaction_count = Transaction.count
+
 			click_button 'Deposit Money'
 
 			expect(page).not_to have_content "Please wait while we process your transaction.."
 			expect(page).to have_content "Phone number number should be 12 digits long."
 			#sleep(4)
+			expect(Deposit.count).to eq(deposit_count)
+			expect(Transaction.count).to eq(transaction_count)
 
 		end
 		

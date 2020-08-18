@@ -89,14 +89,14 @@
     .mobile-betslip {
         padding: 20px 15px;
         background: #E7ECEF;
-        position: fixed;
+        position: absolute;
         left: 0;
         width: 90%;
         flex-shrink: 0;
         z-index: 50;
         margin-left: 5%;
         border: 2px solid #f6ad2e;
-        border-radius: 2% 2% 0 0;
+        border-radius: 15px;
         /* border-bottom: none; */
         color: #28333e;
         padding-bottom: 30px;
@@ -133,4 +133,14 @@
     .mobile-betslip .action-tab {
         padding-bottom: 10px;
     }
+
+    .mobile-signup{
+    position: relative;
+    width: 100%;
+    padding-right: 0px;
+    padding-left: 0px;
+    margin-left:0px;
+    margin-right: 0px;
+    }
 }
+

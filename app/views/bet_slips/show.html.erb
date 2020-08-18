@@ -1,52 +1,44 @@
-<div class="game-box">
-    <div class="card ticket-slip">
-        <div class="card-header">
-          <h3>BetSlip #<%= @bet_slip.id %></h3>
+<div class="registration">
+  <div class="content-center cl-grey">
+    <div class="row justify-content-center">
+     <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 mobile-signup" >
+       <div class="game-box">
+        <div class="card ticket-slip">
+
+            <div class="card-header">
+              <h3>BetSlip #<%= @bet_slip.id %> <span><u><%= @bet_slip.result %></u></span></h3>
+            </div>
+            <div class="card-body ticket-body">
+                  <div class="widget-body" id="">
+                      <% @bets = @bet_slip.bets %>
+                      <div class="single-bet">
+                         <span id="odd4"><span> <u>Fixtures</u> </span><span></span></span>
+                         <span id='odd4'><u>Odds</u></span>
+                      
+                      </div>
+                      <% @bets.each do |bet| %>
+                        <% fixture = Fixture.find(bet.fixture_id)%>
+                        <div class="single-bet">
+                           <span id="odd4"><span> <%= fixture.comp_one_name %> - <%= fixture.comp_two_name %> </span><span> </span></span>
+                           <span id='odd4'><%= bet.odds %></span>
+                        </div>
+                      <% end %>
+                      <div class="total-bet">
+                         <span >Ticket Stake</span>
+                         <span id="total-odds">UGX <%= @bet_slip.stake  %></span>
+                      </div>
+                      <div class="total-wins">
+                         <span>Possible Win Amount</span>
+                         <span id="total-wins">UGX <%= @bet_slip.potential_win_amount %></span>
+                      </div>
+                  </div>
+            </div>
+            <div class="single-bet">
+              <span><%= link_to 'Back', bet_slips_path, class: "bttn-small btn-fill float-right" %></span>
+            </div>
         </div>
-        <div class="card-body ticket-body">
-              <div class="widget-body" id="">
-                  <% @bets = @bet_slip.bets %>
-                  <div class="single-bet">
-                     <span id="odd4"><span> <u>Fixtures</u> </span><span> </span></span>
-                     <span id='odd4'><u>Odds</u></span>
-                  </div>
-                  <% @bets.each do |bet| %>
-                    <% fixture = Fixture.find(bet.fixture_id)%>
-                    <% line_bet = LineBet.where(fixture_id: bet.fixture_id) %>
-                    <div class="single-bet">
-                       <span id="odd4"><span> <%= fixture.comp_one_name %> - <%= fixture.comp_two_name %>    </span><span> </span></span>
-                       <span id='odd4'><%= bet.odds %></span>
-                    </div>
-                    <div class="" style="padding-left: 10px;">
-                      <span><%= fixture.tournament_name %></span>
-                    </div>
-                    <div class="" style="padding-left: 10px;">
-                      <span><%= bet.outcome_desc %></span>
-                    </div>
-                    <div class="" style="padding-left: 10px;">
-                      <span><%= fixture.scheduled_time.to_datetime.strftime("%d/%m/%Y %I:%M%P") %></span>
-                    </div>
-                    <div class="" style="padding-left: 10px;">
-                      <span><%= fixture.status.gsub('_',' ').titleize %></span>
-                    </div>
-                    <hr>
-                  <% end %>
-                  <div class="single-bet">
-                     <span id="odd4"><span>Total Odds</span><span> </span></span>
-                     <span id='odd4'><%= @bet_slip.odds%></span>
-                  </div>
-                  <div class="total-bet">
-                     <span >Ticket Stake</span>
-                     <span id="total-odds">UGX <%= @bet_slip.stake  %></span>
-                  </div>
-                  <div class="total-wins">
-                     <span>Possible Win Amount</span>
-                     <span>UGX <%= @bet_slip.potential_win_amount %></span>
-                  </div>
-              </div>
         </div>
-        <div class="single-bet">
-          <span><%= link_to 'Back', bet_slips_path, class: "bttn-small btn-fill float-right" %></span>
-        </div>
+      </div>
     </div>
+  </div>
 </div>

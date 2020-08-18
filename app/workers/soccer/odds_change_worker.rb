@@ -50,6 +50,9 @@ class Soccer::OddsChangeWorker
             if message["odds_change"]["sport_event_status"].has_key?('away_score')
                 update_attr["away_score"] = message["odds_change"]["sport_event_status"]["away_score"]
             end
+            if message["odds_change"]["sport_event_status"].has_key?('clock') && message["odds_change"]["sport_event_status"]["clock"].has_key?('match_time') 
+                update_attr["match_time"] = message["odds_change"]["sport_event_status"]["clock"]["match_time"]
+            end
         end
         
         

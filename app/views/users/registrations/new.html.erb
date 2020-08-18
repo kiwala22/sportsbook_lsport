@@ -1,7 +1,7 @@
-<div class="registration">
+<div class="registration" >
   <div class="content-center cl-grey">
     <div class="row justify-content-center">
-      <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12">
+      <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 mobile-signup" >
 
         <div class="web-sidebar-widget login-widget">
           <div class="widget-head">
@@ -32,18 +32,24 @@
               <%= f.text_field :last_name, autofocus: true, class: "form-control", required: true %>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" data-controller="toggle">
               <%= f.label :password %>
-              <%= f.password_field :password, class: "form-control", required: true %>
+
+              <%= f.password_field :password, class: "form-control", required: true,      "data-target":"toggle.unhide" %>
+                <br><br><br>
+                <a class="badge badge-success" data-target="toggle.show" data-action="click->toggle#password">show</a>
+
               <% if @minimum_password_length %>
                 <span>(<%= @minimum_password_length %> characters minimum)</span>
               <% end %>
               <span class="error_desc"><%= resource.errors[:password].first if resource.errors[:password].present? %> </span>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" data-controller="toggle">
               <%= f.label :password_confirmation %><br />
-              <%= f.password_field :password_confirmation, class: "form-control", required: true %>
+              <%= f.password_field :password_confirmation, class: "form-control", required: true, "data-target":"toggle.unhide" %>
+                <br><br><br>
+                <a class="badge badge-success" data-target="toggle.show" data-action="click->toggle#password">show</a>
               <span class="error_desc"><%= resource.errors[:password_confirmation].first if resource.errors[:password_confirmation].present? %> </span>
             </div>
 
