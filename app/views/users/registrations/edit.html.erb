@@ -12,23 +12,29 @@
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
   <% end %>
 
-  <div class="form-group">
+  <div class="form-group" data-controller="toggle">
     <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "new-password",class: "form-control" %>
+    <%= f.password_field :password, autocomplete: "new-password",class: "form-control", "data-target":"toggle.unhide" %>
+        <br><br><br>
+        <a class="badge badge-success" data-target="toggle.show" data-action="click->toggle#password">show</a>
     <% if @minimum_password_length %>
       <br />
       <em><%= @minimum_password_length %> characters minimum</em>
     <% end %>
   </div>
 
-  <div class="form-group">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password",class: "form-control" %>
+  <div class="form-group" data-controller="toggle">
+    <%= f.label :password_confirmation  %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "new-password",class: "form-control", "data-target":"toggle.unhide" %>
+        <br><br><br>
+       <a class="badge badge-success" data-target="toggle.show" data-action="click->toggle#password">show</a>
   </div>
 
-  <div class="form-group">
+  <div class="form-group" data-controller="toggle">
     <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "current-password" ,class: "form-control"%>
+    <%= f.password_field :current_password, autocomplete: "current-password" ,class: "form-control", "data-target":"toggle.unhide"%>
+     <br><br><br>
+     <a class="badge badge-success" data-target="toggle.show" data-action="click->toggle#password">show</a>
   </div>
 
   <div class="actions">
