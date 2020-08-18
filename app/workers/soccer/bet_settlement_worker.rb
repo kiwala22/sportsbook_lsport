@@ -12,38 +12,36 @@ class Soccer::BetSettlementWorker
         event_id = message["bet_settlement"]["event_id"]
         product =  message["bet_settlement"]["product"]
         
-        if message["bet_settlement"]["certainty"] == "2"
-            #check if there are nay voided
+        #check if there are nay voided
+        
+        #update fixture as ended
+        fixture = Fixture.find_by(event_id: event_id)
+        if fixture
+            fixture.update_attributes(status: "ended")
             
-            #update fixture as ended
-            fixture = Fixture.find_by(event_id: event_id)
-            if fixture
-                fixture.update_attributes(status: "ended")
             
-            
-                #iterate over the outcomes and mark the markets as settled
-                if message["bet_settlement"].has_key?("outcomes") && message["bet_settlement"]["outcomes"].present?
-                    if message["bet_settlement"]["outcomes"].has_key?("market") && message["bet_settlement"]["outcomes"]["market"].present?
-                        if message["bet_settlement"]["outcomes"]["market"].is_a?(Array)
-                            message["bet_settlement"]["outcomes"]["market"].each do |market|
-                                #record the match outcomes
-                                process_market(market, product, event_id, fixture.id)  
-                                
-                                #run through all the bets with event_id and settle them
-                                #call bet settlement worker        
-                            end
-                        end
-                        
-                        if message["bet_settlement"]["outcomes"]["market"].is_a?(Hash)
+            #iterate over the outcomes and mark the markets as settled
+            if message["bet_settlement"].has_key?("outcomes") && message["bet_settlement"]["outcomes"].present?
+                if message["bet_settlement"]["outcomes"].has_key?("market") && message["bet_settlement"]["outcomes"]["market"].present?
+                    if message["bet_settlement"]["outcomes"]["market"].is_a?(Array)
+                        message["bet_settlement"]["outcomes"]["market"].each do |market|
                             #record the match outcomes
-                            process_market(message["bet_settlement"]["outcomes"]["market"], product, event_id, fixture.id)  
+                            process_market(market, product, event_id, fixture.id)  
                             
                             #run through all the bets with event_id and settle them
                             #call bet settlement worker        
                         end
                     end
                     
+                    if message["bet_settlement"]["outcomes"]["market"].is_a?(Hash)
+                        #record the match outcomes
+                        process_market(message["bet_settlement"]["outcomes"]["market"], product, event_id, fixture.id)  
+                        
+                        #run through all the bets with event_id and settle them
+                        #call bet settlement worker        
+                    end
                 end
+                
             end
         end
     end
@@ -53,11 +51,11 @@ class Soccer::BetSettlementWorker
             "1" => "Live",
             "3" => "Pre"
         }
-
+        
         outcome_attr = {}
         
         update_attr = {}
-
+        
         model_name = "Market" + market["id"] + producer_type[product]
         
         #hard code market with similar outcomes
@@ -79,13 +77,13 @@ class Soccer::BetSettlementWorker
                     end
                 end
             end
-
+            
             if market.has_key?("void_reason")
                 update_attr["void_reason"] = market["void_reason"]
             end
-
+            
             update_attr["outcome"] = outcome_attr.to_json
-
+            
             #update or create markets 1X2 half time and fulltime
             mkt_entry = model_name.constantize.find_by(event_id: event_id)
             if mkt_entry
@@ -117,13 +115,13 @@ class Soccer::BetSettlementWorker
                     end
                 end
             end
-
+            
             if market.has_key?("void_reason")
                 update_attr["void_reason"] = market["void_reason"]
             end
-
+            
             update_attr["outcome"] = outcome_attr.to_json
-
+            
             #update or create markets 1X2 half time and fulltime
             mkt_entry = model_name.constantize.find_by(event_id: event_id)
             
@@ -153,13 +151,13 @@ class Soccer::BetSettlementWorker
                     
                 end
             end
-
+            
             if market.has_key?("void_reason")
                 update_attr["void_reason"] = market["void_reason"]
             end
-
+            
             update_attr["outcome"] = outcome_attr.to_json
-
+            
             #update or create markets 1X2 half time and fulltime
             mkt_entry = model_name.constantize.find_by(event_id: event_id)
             if mkt_entry
@@ -192,9 +190,9 @@ class Soccer::BetSettlementWorker
             if market.has_key?("void_reason")
                 update_attr["void_reason"] = market["void_reason"]
             end
-
+            
             update_attr["outcome"] = outcome_attr.to_json
-
+            
             mkt_entry = model_name.constantize.find_by(event_id: event_id)
             if mkt_entry
                 mkt_entry.update_attributes(update_attr)
@@ -222,13 +220,13 @@ class Soccer::BetSettlementWorker
                     
                 end
             end
-
+            
             if market.has_key?("void_reason")
                 update_attr["void_reason"] = market["void_reason"]
             end
-
+            
             update_attr["outcome"] = outcome_attr.to_json
-
+            
             #update or create markets 1X2 half time and fulltime
             mkt_entry = model_name.constantize.find_by(event_id: event_id)
             if mkt_entry
@@ -241,7 +239,7 @@ class Soccer::BetSettlementWorker
             settle_bets(fixture_id, product, market["id"], update_attr["outcome"])
         end
     end
-
+    
     def settle_bets(fixture_id, product, market_id, outcome)
         #call worker to settle these bets
         Soccer::CloseSettledBetsWorker.perform_async(fixture_id, product, market_id, outcome)
