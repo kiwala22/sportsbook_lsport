@@ -4,6 +4,7 @@
       <% @cart.line_bets.each do |bet| %>
             <% if fetch_market_status(bet.market, bet.fixture_id) == "Active" %>
                <div class="single-bet">
+                  <%= link_to '<i class="far fa-window-close"></i>'.html_safe, clear_bet_path(id: bet.id), remote: true, method: :delete %>
                   <span id="comp-names"><span> <%= bet.fixture.comp_one_name %> - <%= bet.fixture.comp_two_name %> </span><span> <%= bet.description %></span></span>
                   <span id='odd4' data-target="slips.odd"><%= fetch_current_odd(bet.market, bet.fixture_id, bet.outcome) %></span>
                </div>

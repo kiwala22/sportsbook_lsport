@@ -6,6 +6,7 @@ Rails.application.routes.draw do
    match '/refresh_slip', to: "line_bets#refresh", via: [:post]
    match '/add_bet', to: "line_bets#create", via: [:post]
    match '/clear_slip', to: "line_bets#destroy", via: [:delete]
+   match '/clear_bet', to: "line_bets#line_bet_delete", via: [:delete]
 
    match 'password_reset' => "password_reset#new", via: [:post, :get]
    match 'reset' => "password_reset#create", via: [:put]
@@ -56,6 +57,9 @@ Rails.application.routes.draw do
       match 'transactions_analytics' => "transactions_analytics#index", via: [:get]
       match 'suspend' => "bet_users#deactivate_account", via: [:post]
       match 'activate' => "bet_users#activate_account", via: [:post]
+      match 'bet_slips' => "bet_slips#index", via: [:get]
+      match 'bet_slip' => "bet_slips#show", via: [:get]
+      match 'bets' => "bets#index", via: [:get]
    end
 
    namespace :amqp do

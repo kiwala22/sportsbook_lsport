@@ -69,6 +69,25 @@
          </li>
 
          <li class="">
+            <a href="#Bettings" title="Bettings" data-toggle="collapse">
+               <em class="fas fa-receipt"></em>
+               <span data-localize="sidebar.nav.DASHBOARD">Bettings</span>
+            </a>
+            <ul id="Bettings" class="sidebar-nav sidebar-subnav collapse">
+               <li class="<%= 'active' if controller.controller_name == 'bet_slips' %>">
+                  <a href="<%= backend_bet_slips_path %>" title="BetSlips">
+                     <span>BetSlips</span>
+                  </a>
+               </li>
+               <li class="<%= 'active' if controller.controller_name == 'bets' %>">
+                  <a href="<%= backend_bets_path %>" title="Bets">
+                     <span>Bets</span>
+                  </a>
+               </li>
+            </ul>
+         </li>
+
+         <li class="">
             <a href="#descriptions" title="Descriptions" data-toggle="collapse">
                <em class="fas fa-info-circle"></em>
                <span data-localize="sidebar.nav.DASHBOARD">Descriptions</span>

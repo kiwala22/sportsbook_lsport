@@ -1,5 +1,6 @@
 class Fixture < ApplicationRecord
   enum fixture_status: {
+    "Select One" => "",
     "not_started" => "not_started",
     "live" => "live",
     "suspended" => "suspended",
@@ -13,6 +14,7 @@ class Fixture < ApplicationRecord
   }
 
   enum booking_status: {
+    "Select one" => "",
     "True" => true,
     "False" => false
   }
