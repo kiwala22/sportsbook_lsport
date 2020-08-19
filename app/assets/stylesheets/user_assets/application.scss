@@ -464,6 +464,10 @@ strong {
     }
 }
 
+.turbolinks-progress-bar {
+  visibility: hidden;
+}
+
 .blinking {
     animation: blinkingText 1.2s infinite;
 }

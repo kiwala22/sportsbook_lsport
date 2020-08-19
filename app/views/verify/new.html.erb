@@ -14,7 +14,7 @@
                 <%= label_tag(:pin, "Verification Code") %>
                 <%= text_field_tag :pin, params[:pin], id: 'pin' , class: "form-control", required: true%>
               </div>
-            <%= submit_tag("Verify", class: 'btn btn-block btn-primary mt-lg login-btn') %>
+            <%= button_tag "Verify", class: 'btn btn-block btn-primary mt-lg login-btn', data: {disable_with: "<i class='fas fa-spinner fa-spin'></i> Verifying..."} %>
             <% end %>
             <br>
             <!-- <p><#%= link_to 'Receive code via Email', send_verification_path %></p> -->

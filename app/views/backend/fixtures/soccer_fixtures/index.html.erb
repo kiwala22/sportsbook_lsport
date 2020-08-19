@@ -13,7 +13,7 @@
               <div class="col-sm-6 col-md-4">
                     <%= f.label :status, "Status", class:"col-md-4 col-form-label" %>
                     <div class="col-lg-8">
-                      <%= f.select :status_eq, Fixture.fixture_statuses.keys, {prompt: "Select One"}, { class: "form-control", id: "status"} %>
+                      <%= f.select :status_eq, Fixture.fixture_statuses.values, {prompt: "Select One"}, { class: "form-control", id: "status"} %>
                     </div>
               </div>
               <div class="col-sm-6 col-md-4">

@@ -11,7 +11,7 @@ class LineBetsController < ApplicationController
 
       fixture = Fixture.find(fixture_id)
       market_entry = market.constantize.find_by(fixture_id: fixture_id)
-      
+
       #check if the bet already exists
       @line_bet = LineBet.find_by(fixture_id: fixture.id, cart_id: @cart.id)
       if @line_bet
@@ -19,7 +19,7 @@ class LineBetsController < ApplicationController
       else
          @line_bet = @cart.line_bets.build(fixture_id: fixture.id, outcome: outcome, market: market, odd: market_entry.send("outcome_#{outcome}").to_f, description: description)
       end
-      
+
       respond_to do |format|
          if @line_bet.save
             format.js
@@ -30,14 +30,23 @@ class LineBetsController < ApplicationController
 
    end
 
+   def line_bet_delete
+     @line_bet = LineBet.find(params[:id])
+     @cart = Cart.find(@line_bet.cart_id)
+     @line_bet.delete
+     respond_to do |format|
+       format.js
+     end
+   end
+
    def destroy
-      @cart.destroy if @cart.id == session[:cart_id] 
+      @cart.destroy if @cart.id == session[:cart_id]
       session[:cart_id] = nil
       respond_to do |format|
          format.html { redirect_to root_url, notice: 'Your slip is now currently empty' }
       end
    end
-   
+
    def refresh
       respond_to do |format|
          format.js
