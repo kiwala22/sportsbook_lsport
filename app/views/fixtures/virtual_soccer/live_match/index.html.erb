@@ -26,7 +26,7 @@
                                 <th class="col-1">2</th>
                             </tr>
                         </thead>
-                        <tbody id="fixture-table-body" data-target="fixtures">
+                        <tbody id="fixture-table-body" data-target="fixtures" data-controller="refresh" data-refresh-interval="60000" data-refresh-url="<%= fixtures_virtual_soccer_lives_path %>" data-refresh-method="GET">
                             <%= render partial: 'live_match_fixture_table', locals: {fixtures: @fixtures} %>
                         </tbody>
                     </table>
