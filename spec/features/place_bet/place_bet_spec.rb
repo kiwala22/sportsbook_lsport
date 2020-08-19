@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'sidekiq/testing'
 
 
 RSpec.describe User, type: :system, js: true do
@@ -39,14 +40,23 @@ RSpec.describe User, type: :system, js: true do
 			expect(stake).to be <= user.balance
 			expect(stake).to be > 0
 			expect('total-wins'.to_f).to eq('total-odds'.to_f * 'stake-input'.to_i)
-			click_button('Place Bet')	
+			puts ('count before: '+BetSlip.count.to_s)
+			 expect{
+				click_button('Place Bet')
+			 }.to change(BetSlip, :count).by(1)	
+			 puts ('count after: '+ BetSlip.count.to_s)
+
 			expect(page).to have_content 'Thank You! Bets have been placed.'
 			new_balance = user.balance-stake
 			user.update(balance:new_balance)
 			expect(user.balance).to eq(new_balance)
-			expect(page.current_path).to eq '/'				
+			expect(page.current_path).to eq '/'
 
+			Sidekiq::Testing.inline! do
+				BetslipsWorker.drain
+			end
 		end
+
 
 		it 'should fail on low balance' do
 			login_form(user.phone_number, user.password)
@@ -63,7 +73,9 @@ RSpec.describe User, type: :system, js: true do
 			fill_in 'stake', with: stake
 			# expect('total-odds').to eq()
 			expect('total-wins'.to_f).to eq('total-odds'.to_f * 'stake-input'.to_i)
-			click_button('Place Bet')				
+			 expect{
+				click_button('Place Bet')
+			 }.to change(BetSlip, :count).by(0)					
 			expect(page).to have_content'You have insufficient balance on your account. Please deposit some money.'	
 		end
 

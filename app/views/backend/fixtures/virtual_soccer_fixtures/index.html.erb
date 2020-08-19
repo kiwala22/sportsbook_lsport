@@ -13,7 +13,7 @@
               <div class="col-sm-6 col-md-4">
                     <%= f.label :status, "Status", class:"col-md-4 col-form-label" %>
                     <div class="col-lg-8">
-                      <%= f.select :status_eq, Fixture.fixture_statuses.keys , {prompt: "Select One"} ,{ class: "form-control", id: "status"} %>
+                      <%= f.select :status_eq, Fixture.fixture_statuses.values , {prompt: "Select One"} ,{ class: "form-control", id: "status"} %>
                     </div>
               </div>
               <div class="col-sm-6 col-md-4">
@@ -106,7 +106,7 @@
           <td><%= fixture.booked.to_s.capitalize %></td>
           <td>
             <% if fixture.live_odds == "bookable" && fixture.booked == false %>
-              <%= button_to "Book", backend_fixtures_soccer_fixtures_path(id: fixture.id), method: :patch, :class => 'btn btn-xs btn-success' %>
+              <%= button_to "Book", backend_fixtures_soccer_fixtures_path(id: fixture.id), method: :patch, :class => 'btn btn-xs btn-success booking', remote: true %>
             <% end %>
           </td>
           <td><%= "#{fixture.home_score} - #{fixture.away_score} " %></td>

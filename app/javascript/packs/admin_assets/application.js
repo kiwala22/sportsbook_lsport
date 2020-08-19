@@ -32,10 +32,10 @@ document.addEventListener('DOMContentLoaded', appInit);
 
 $(document).ready(function(){
   $("#kick_off_before").datetimepicker({
-    format: "DD-MM-YYYY hh:mm a"
+    format: "YYYY-MM-DD hh:mm a"
   });
   $("#kick_off_after").datetimepicker({
-    format: "DD-MM-YYYY hh:mm a"
+    format: "YYYY-MM-DD hh:mm a"
   });
 });
 

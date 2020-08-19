@@ -33,8 +33,7 @@ RSpec.describe User, type: :system, js: true do
 
 
 		it "should allow successful login and withdraw money from a user's account" do
-			#generate_api_keys(api_user1.id)
-			deposit = Deposit.create({ #deposit should to pass the withdraw check for existing deposit
+			deposit = Deposit.create({
 				amount: 10000,
 				network: "MTN Uganda",
 				payment_method: 'Mobile Money',
@@ -50,27 +49,24 @@ RSpec.describe User, type: :system, js: true do
 				user_id: user.id
 			})
 
+			withdraw_count = Withdraw.count
+			transaction_count = Transaction.count
+
+
 			visit '/'
 			click_link('login')
 			login_form(user.phone_number, user.password)
 			expect(page.current_path).to eq('/')
 			expect(page).to have_content 'DEPOSIT'
-			# expect(page).to have_content user.first_name.upcase
 			expect(page).to have_content user.balance
-
-			click_link('Deposit')
-			fill_in 'phone_number', with: user.phone_number
-			fill_in 'amount',with: 10000
-			click_button 'Deposit Money'
-
 
 			visit '/transfer'
 			fill_in 'amount', with: random_amount
 
+			
 			expect{
 			 	click_button 'Withdraw Money'
 			  }.to change(WithdrawsWorker.jobs, :size).by(1)
-			 # expect(WithdrawsWorker.jobs).to eq(:size[1])
 
 			expect(page).to have_content "Please wait while we process your payment.."
 
@@ -81,6 +77,9 @@ RSpec.describe User, type: :system, js: true do
 			expect(Withdraw.last.status).to eq('SUCCESS')
 			expect(Transaction.last.status).to eq('COMPLETED')
 
+			expect(Withdraw.count).to eq(withdraw_count+1)
+			expect(Transaction.count).to eq(transaction_count+1)
+
 
 			#sleep(2)
 		end
@@ -88,7 +87,7 @@ RSpec.describe User, type: :system, js: true do
 
 		it 'should fail on low account balance' do
 
-			deposit = Deposit.create({ #deposit should to pass the withdraw check for existing deposit
+			deposit = Deposit.create({ 
 					amount: 1000,
 					network: "MTN Uganda",
 					payment_method: 'Mobile Money',
@@ -109,10 +108,8 @@ RSpec.describe User, type: :system, js: true do
 			login_form(user.phone_number, user.password)
 			expect(page.current_path).to eq('/')
 			expect(page).to have_content 'DEPOSIT'
-			# expect(page).to have_content user.first_name.upcase
 			expect(page).to have_content user.balance
 			visit '/transfer'
-			#expect(user.phone_number).to eq('Phone Number')
 			fill_in 'amount', with: 20000
 			expect{
 			 	click_button 'Withdraw Money'
@@ -127,7 +124,6 @@ RSpec.describe User, type: :system, js: true do
 			login_form(user.phone_number, user.password)
 			expect(page.current_path).to eq('/')
 			expect(page).to have_content 'DEPOSIT'
-			# expect(page).to have_content user.first_name.upcase
 			expect(page).to have_content user.balance
 			visit '/transfer'
 			fill_in 'amount', with: random_amount

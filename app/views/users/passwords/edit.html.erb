@@ -7,19 +7,23 @@
                <div class="widget-head">
                     <h3>Change your password</h3>
                </div>
-              <div class="widget-body">
+              <div class="widget-body" >
                 <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
                   <%= render "devise/shared/error_messages", resource: resource %>
                   <%= f.hidden_field :reset_password_token %>
                   <p>Please enter a minimum of 8 characters</p>
-                  <div class="form-group">
+                  <div class="form-group" data-controller="toggle">
                     <%= f.label :password, "New password" %><br />
-                    <%= f.password_field :password, autofocus: true,class: 'form-control', autocomplete: "new-password", id: 'password_reset' %>
+                    <%= f.password_field :password, autofocus: true,class: 'form-control', autocomplete: "new-password", id: 'password_reset', "data-target":"toggle.unhide" %>
+                        <br><br><br>
+                        <a class="badge badge-success" data-target="toggle.show" data-action="click->toggle#password">show</a>
                   </div>
 
-                  <div class="form-group">
+                  <div class="form-group " data-controller="toggle">
                     <%= f.label :password_confirmation, "Confirm new password" %><br />
-                    <%= f.password_field :password_confirmation,class: 'form-control' ,autocomplete: "new-password", id: 'password_confirmation_reset' %>
+                    <%= f.password_field :password_confirmation,class: 'form-control' ,autocomplete: "new-password", id: 'password_confirmation_reset', "data-target":"toggle.unhide" %>
+                        <br><br><br>
+                        <a class="badge badge-success" data-target="toggle.show" data-action="click->toggle#password">show</a>
                   </div>
                   <hr>
                   <div class="actions">

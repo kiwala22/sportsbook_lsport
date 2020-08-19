@@ -1,7 +1,7 @@
 <div class="login">
    <div class="content-center cl-grey">
       <div class="row justify-content-center">
-         <div class="col-xl-7 col-lg-7 col-md-7 col-sm-12">
+         <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 mobile-signup">
 
             <div class="web-sidebar-widget login-widget">
                <div class="widget-head">
@@ -16,9 +16,11 @@
                         <%= f.text_field :phone_number, autofocus: true , class: "form-control", id: 'phone_number',required: true%>
                      </div>
 
-                     <div class="form-group">
+                     <div class="form-group" data-controller="toggle">
                         <%= f.label :password , "Password"%><br />
-                        <%= f.password_field :password, autocomplete: "current-password", class: "form-control",id: 'password', required: true %>
+                        <%= f.password_field :password, autocomplete: "current-password", class: "form-control",id: 'password', required: true, "data-target":"toggle.unhide" %>
+                        <br><br><br>
+                        <a class="badge badge-success" data-target="toggle.show" data-action="click->toggle#password">show</a>
                      </div>
 
                      <% if devise_mapping.rememberable? %>
