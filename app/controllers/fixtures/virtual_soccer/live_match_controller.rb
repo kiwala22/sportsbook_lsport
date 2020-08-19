@@ -15,6 +15,10 @@ class Fixtures::VirtualSoccer::LiveMatchController < ApplicationController
 
    def show
       @fixture = Fixture.includes(:market1_live,:market10_live,:market16_live,:market18_live,:market29_live, :market60_live,:market63_live,:market1_live,:market66_live,:market68_live,:market75_live).find(params[:id])
+      respond_to do |format|
+         format.html
+         format.js
+      end
    end
 
    def add_bet
