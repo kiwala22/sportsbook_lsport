@@ -13,14 +13,15 @@
 
                      <div class="form-group">
                         <%= f.label :login, "Phone Number" %><br />
-                        <%= f.text_field :phone_number, autofocus: true , class: "form-control", id: 'phone_number',required: true%>
+                        <%= f.text_field :phone_number, autofocus: true , class: "form-control", id: 'phone_number',placeholder:"256772000001",required: true%>
                      </div>
 
                      <div class="form-group" data-controller="toggle">
-                        <%= f.label :password , "Password"%><br />
-                        <%= f.password_field :password, autocomplete: "current-password", class: "form-control",id: 'password', required: true, "data-target":"toggle.unhide" %>
-                        <br><br><br>
-                        <a class="badge badge-success" data-target="toggle.show" data-action="click->toggle#password">show</a>
+                        <%= f.label :password , "Password"%>
+                        <%= f.password_field :password, autocomplete: "current-password", class:"form-control",id: 'password', required: true, "data-target":"toggle.unhide"  %>
+                        <i  class="fa fa-eye mobile-show"data-target="toggle.show" data-action="click->toggle#password" aria-hidden="true" ></i>
+
+                        
                      </div>
 
                      <% if devise_mapping.rememberable? %>

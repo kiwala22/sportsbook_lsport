@@ -12,32 +12,32 @@
 
             <div class="form-group">
               <%= f.label :email %><br />
-              <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
+              <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control",placeholder:"johndoe@ex.com" %>
               <span class="error_desc"><%= resource.errors[:email].first if resource.errors[:email].present? %> </span>
             </div>
 
             <div class="form-group">
               <%= f.label :phone_number %><br />
-              <%= f.text_field :phone_number, autofocus: true, class: "form-control", required: true %>
+              <%= f.text_field :phone_number, autofocus: true, class: "form-control", required: true,placeholder:"256772000001" %>
               <span class="error_desc"><%= resource.errors[:phone_number].first if resource.errors[:phone_number].present? %> </span>
             </div>
 
             <div class="form-group">
               <%= f.label :first_name %><br />
-              <%= f.text_field :first_name, autofocus: true, class: "form-control" , required: true%>
+              <%= f.text_field :first_name, autofocus: true, class: "form-control" , required: true,placeholder:"John" %>
             </div>
 
             <div class="form-group">
               <%= f.label :last_name %><br />
-              <%= f.text_field :last_name, autofocus: true, class: "form-control", required: true %>
+              <%= f.text_field :last_name, autofocus: true, class: "form-control", required: true,placeholder:"Deo" %>
             </div>
 
             <div class="form-group" data-controller="toggle">
               <%= f.label :password %>
 
               <%= f.password_field :password, class: "form-control", required: true,      "data-target":"toggle.unhide" %>
-                <br><br><br>
-                <a class="badge badge-success" data-target="toggle.show" data-action="click->toggle#password">show</a>
+                 <i  class="fa fa-eye mobile-show"data-target="toggle.show" data-action="click->toggle#password" aria-hidden="true" ></i>
+
 
               <% if @minimum_password_length %>
                 <span>(<%= @minimum_password_length %> characters minimum)</span>
@@ -48,8 +48,8 @@
             <div class="form-group" data-controller="toggle">
               <%= f.label :password_confirmation %><br />
               <%= f.password_field :password_confirmation, class: "form-control", required: true, "data-target":"toggle.unhide" %>
-                <br><br><br>
-                <a class="badge badge-success" data-target="toggle.show" data-action="click->toggle#password">show</a>
+                 <i  class="fa fa-eye mobile-show"data-target="toggle.show" data-action="click->toggle#password" aria-hidden="true" ></i>
+
               <span class="error_desc"><%= resource.errors[:password_confirmation].first if resource.errors[:password_confirmation].present? %> </span>
             </div>
 

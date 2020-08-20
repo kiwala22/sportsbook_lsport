@@ -12,7 +12,7 @@
             <%= form_tag(reset_path, :method => "put") do %>
               <div class="form-group">
                 <%= label_tag(:phone_number, "Phone Number") %>
-                <%= text_field_tag :phone_number, params[:phone_number], class: "form-control", required: true, id: 'phone_number' %>
+                <%= text_field_tag :phone_number, params[:phone_number], class: "form-control", required: true, id: 'phone_number',placeholder:"256772000001" %>
               </div>
             <%= submit_tag("Send Reset Code", class: 'btn btn-block btn-primary mt-lg login-btn') %>
             <% end %>

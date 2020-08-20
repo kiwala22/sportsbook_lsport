@@ -41,6 +41,7 @@
         padding: 0.25rem 0.75rem;
         margin-top: 1rem;
         margin-bottom: 1rem;
+        overflow: unset;
         li {
             a {
                 color: inherit;
@@ -55,11 +56,14 @@
     #menuCountry>ul>li,
     #menuSports>ul>li {
         padding: 0.5rem 0.75rem;
+
+
     }
     #menuLeagues,
     #menuCountry,
     #menuSports {
         margin-bottom: 0.75rem;
+        background: #28333e;
     }
     .m-footer-list {
         padding: 0 2rem;
@@ -91,12 +95,12 @@
         background: #E7ECEF;
         position: absolute;
         left: 0;
-        width: 90%;
+        width: 85%;
         flex-shrink: 0;
         z-index: 50;
-        margin-left: 5%;
+        margin-left: 7.5%;
         border: 2px solid #f6ad2e;
-        border-radius: 15px;
+        border-radius: 5px;
         /* border-bottom: none; */
         color: #28333e;
         padding-bottom: 30px;
@@ -142,5 +146,12 @@
     margin-left:0px;
     margin-right: 0px;
     }
+    .mobile-show{
+        margin-left: -25px;     
+        color: #000;
+
+}
+
+    
 }
 
