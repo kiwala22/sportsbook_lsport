@@ -282,7 +282,11 @@ strong {
 }
 
 .single-bet {
-    padding: 5px 10px;
+    //padding: 5px 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 0px;
+    padding-right: 10px;
     display: flex;
     justify-content: space-between;
     #comp-names {
@@ -300,11 +304,15 @@ strong {
 
 .total-bet {
     display: flex;
-    //justify-content: space-between;
+    justify-content: space-between;
     border-top: 1px solid #ffffff;
     border-bottom: 1px solid #ffffff;
     margin: 10px 0px;
-    padding: 5px 10px;
+    // padding: 5px 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 0px;
+    // padding-right: -105px;
 }
 
 .total-wins {
@@ -312,9 +320,9 @@ strong {
     justify-content: space-between;
     border-bottom: 1px solid #ffffff;
     margin-top: -5px;
-    margin-bottom: 10px;
-    padding-left: 10px;
-    padding-right: 10px;
+    margin-bottom: 5px;
+    padding-left: 0px;
+    padding-right: 0px;
     padding-top: 0px;
     padding-bottom: 5px;
 }
@@ -500,12 +508,6 @@ strong {
 .close-linebet {
   padding: 7px;
 }
-
-#total-odds {
+#total-wins {
   text-align: right;
-  padding-left: 27px;
-}
-.slip-stake {
-  padding-left: 15px;
-  padding-right: 12px;
 }

@@ -124,7 +124,14 @@
     .mobile-betslip .total-bet {
         border-top: 1px solid #f6ad2e;
         border-bottom: 1px solid #f6ad2e;
-        padding: 10px 10px;
+        //padding: 10px 10px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        padding-left: 10px;
+    }
+    .phone-betslip {
+      padding-left: 10px;
+      padding-right: 8px;
     }
     #stake-input {
         line-height: 1.5rem;
@@ -145,7 +152,7 @@
     .col-11,
     .col-12,
     .col-2,
-    .col-3,
+    // .col-3,
     .col-4,
     .col-5,
     .col-6,

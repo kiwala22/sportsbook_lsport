@@ -14,10 +14,12 @@
       <% @cart.line_bets.each do |bet| %>
             <% if fetch_market_status(bet.market, bet.fixture_id) == "Active" %>
                 <div class="row">
-                  <div class="single-bet col-12">
-                    <div class="col-1"><%= link_to '<i class="far fa-window-close"></i>'.html_safe, clear_bet_path(id: bet.id), remote: true, method: :delete %></div>
-                     <div class="col-9" id="comp-names"><span> <%= bet.fixture.comp_one_name %> - <%= bet.fixture.comp_two_name %> </span><span> <%= bet.description %></span></div>
-                     <div class="col-2" id='odd4' data-target="slips.odd"><%= fetch_current_odd(bet.market, bet.fixture_id, bet.outcome) %></div>
+                  <div class="col-12">
+                    <div class="single-bet close-linebet">
+                       <div class="col-1"><%= link_to '<i class="far fa-window-close"></i>'.html_safe, clear_bet_path(id: bet.id), remote: true, method: :delete %></div>
+                       <div class="col-9" id="comp-names"><span> <%= bet.fixture.comp_one_name %> - <%= bet.fixture.comp_two_name %> </span><span> <%= bet.description %></span></div>
+                       <div class="col-2" id='odd4' data-target="slips.odd"><%= fetch_current_odd(bet.market, bet.fixture_id, bet.outcome) %></div>
+                    </div>
                   </div>
                 </div>
             <% end %>
@@ -25,14 +27,24 @@
       <% if user_signed_in? %>
          <%= form_with(url: bet_slips_path, method: "post", remote: true) do %>
          <div class="row">
-           <div class="total-bet col-12">
-              <span class="col-9" data-action="keyup->slips#calculate_win" data-target="slips.stake" > <%= text_field_tag :stake, nil, placeholder: " Stake Amount" ,id: "stake-input" %> </span>
-              <span class="col-3" id="total-odds" data-target="slips.total"></span>
+           <div class="col-12">
+              <div class="phone-betslip">
+                <div class="total-bet">
+                  <span class="col-9" data-action="keyup->slips#calculate_win" data-target="slips.stake" > <%= text_field_tag :stake, nil, placeholder: " Stake Amount" ,id: "stake-input" %> </span>
+                  <span class="col-3" id="total-odds" data-target="slips.total"></span>
+                </div>
+              </div>
            </div>
          </div>
-         <div class="total-wins">
-            <span>Possible Win Amount</span>
-            <span id="total-wins" data-target="slips.wins"> </span>
+         <div class="row">
+           <div class="col-12">
+             <div class="phone-betslip">
+               <div class="total-wins">
+                  <span>Possible Win Amount</span>
+                  <span id="total-wins" data-target="slips.wins"> </span>
+               </div>
+             </div>
+           </div>
          </div>
          <%= hidden_field_tag(:cart_id, @cart.id) %>
          <div clas="actions">
