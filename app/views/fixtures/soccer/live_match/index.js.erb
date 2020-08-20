@@ -1,1 +1,3 @@
-$("#fixture-table-body").html("<%= j (render :partial => 'live_match_fixture_table' , locals: {fixtures: @fixtures}) %> ");
+$(document).ready(function(){
+   $("#fixture-table-body").html("<%= j (render :partial => 'live_match_fixture_table' , locals: {fixtures: @fixtures}) %> ");
+});
