@@ -2,7 +2,11 @@
    <% if fixture.market1_pre.present? && fixture.market1_pre.status == "Active" %>
       <tr>
             <td>
-               <a href= <%=fixtures_soccer_pre_path(id: fixture.id) %>><strong><%= fixture.comp_one_name %></strong>  <strong><%= fixture.comp_two_name %></strong> <strong><%= fixture.scheduled_time.strftime("%H:%M:%S ") %> - <%= fixture.scheduled_time.strftime("%d/%m/%y") %></strong></a>
+               <a href= <%=fixtures_soccer_pre_path(id: fixture.id) %>>
+                  <strong><%= fixture.comp_one_name %> - </strong>
+                  <strong><%= fixture.comp_two_name %></strong>
+                  <strong><%= fixture.tournament_name %></strong>
+                  <strong><%= fixture.scheduled_time.strftime("%H:%M:%S ") %> - <%= fixture.scheduled_time.strftime("%d/%m/%y") %></strong></a>
 
             </td>
 
