@@ -50,7 +50,7 @@ export default class extends Controller {
     }
 
     display_win() {
-        if (localStorage.getItem("stake") !== 'null') {
+        if (localStorage.getItem("stake") !== 'null' && this.hasOddTarget) {
             let stakeAmount = parseFloat(localStorage.getItem("stake"))
 
             if (stakeAmount !== "null") {

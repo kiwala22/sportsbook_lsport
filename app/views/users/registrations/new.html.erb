@@ -18,7 +18,7 @@
 
             <div class="form-group">
               <%= f.label :phone_number %><br />
-              <%= f.text_field :phone_number, autofocus: true, class: "form-control", required: true,placeholder:"256772000001" %>
+              <%= f.text_field :phone_number, autofocus: true, class: "form-control", required: true,placeholder:"ex: 256772000001" %>
               <span class="error_desc"><%= resource.errors[:phone_number].first if resource.errors[:phone_number].present? %> </span>
             </div>
 
