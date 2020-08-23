@@ -36,7 +36,10 @@ export default class extends Controller {
         Rails.ajax({
             type: method,
             url: url,
-            dataType: 'js'
+            dataType: 'js',
+            success: (data) => {
+                console.log(url)
+            }
         })
     }
 }

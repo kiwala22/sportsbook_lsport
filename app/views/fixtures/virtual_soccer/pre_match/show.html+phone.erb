@@ -1,0 +1,6 @@
+<div class="fixture-box">
+   <div class="card" data-controller="refresh" data-refresh-interval="60000" data-refresh-url="<%= fixtures_virtual_soccer_pre_path(id: @fixture.id) %>" data-refresh-method="GET">
+       <%= render partial: 'show_markets', locals: {fixture: @fixture} %>
+   </div>
+</div>
+

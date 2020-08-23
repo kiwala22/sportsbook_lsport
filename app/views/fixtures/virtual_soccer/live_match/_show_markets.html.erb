@@ -89,7 +89,7 @@
                    </div>
                    <div class="col-lg-6">
                        <%= link_to(add_bet_path(outcome_id: "1715", fixture_id: fixture.id, market: "Market16Live", outcome_desc: "Handicap 1 FT - AW") , class: "btn btn-light wagger-btn intialise_input", remote: true, method: :post )  do %>
-                           <span>Home -1</span> 
+                           <span>Away -1</span> 
                            <span class="wagger-amt"> <%= fixture.market16_live.outcome_1715 %>  </span>
                        <% end %>
                    </div>
@@ -134,14 +134,14 @@
            <div class="market-odds mb-3 mt-3">
                <div class="row">
                    <div class="col-lg-6">
-                       <%= link_to(add_bet_path(outcome_id: "74", fixture_id: fixture.id, market: "Market29Live", outcome_desc: "Both To Score FT - Yes") , class: "btn btn-light wagger-btn intialise_input", remote: true, method: :post )  do %>
-                           <span>Under 2.5</span> 
+                       <%= link_to(add_bet_path(outcome_id: "74", fixture_id: fixture.id, market: "Market29Live", outcome_desc: "Both To Score FT - Yes ") , class: "btn btn-light wagger-btn intialise_input", remote: true, method: :post )  do %>
+                           <span>Yes</span> 
                            <span class="wagger-amt"> <%= fixture.market29_live.outcome_74 %>  </span>
                        <% end %>
                    </div>
                    <div class="col-lg-6">
-                       <%= link_to(add_bet_path(outcome_id: "76", fixture_id: fixture.id, market: "Market29Live", outcome_desc: "Both To Score FT - No") , class: "btn btn-light wagger-btn intialise_input", remote: true, method: :post )  do %>
-                           <span>Under 2.5</span> 
+                       <%= link_to(add_bet_path(outcome_id: "76", fixture_id: fixture.id, market: "Market29Live", outcome_desc: "Both To Score FT - No ") , class: "btn btn-light wagger-btn intialise_input", remote: true, method: :post )  do %>
+                           <span>No</span> 
                            <span class="wagger-amt"> <%= fixture.market29_live.outcome_76 %>  </span>
                        <% end %>
                    </div>

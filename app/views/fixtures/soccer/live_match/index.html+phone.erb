@@ -15,7 +15,7 @@
             </ul>
 
             <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab" data-controller="match_fixtures">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab" data-controller="match-fixtures">
                     <table class="table table-borderless ">
                         <thead>
                             <tr>
@@ -26,11 +26,14 @@
                                 <th class="col-2">2</th>
                             </tr>
                         </thead>
-                        <tbody id="fixture-table-body" data-target="fixtures">
+                        <tbody id="fixture-table-body" data-target="match-fixture.fixtures" data-controller="refresh" data-refresh-interval="60000" data-refresh-url="<%= fixtures_soccer_lives_path %>" data-refresh-method="GET">
                             <%= render partial: 'live_match_fixture_table', locals: {fixtures: @fixtures} %>
                         </tbody>
                     </table>
-                    <div class="table-navigation" data-target="pagination">
+                    <div class="d-flex justify-content-center">
+                        <div data-target="match-fixtures.spinner"></div>
+                    </div>
+                    <div class="table-navigation" data-target="match-fixtures.pagination">
                         <%== pagy_nav(@pagy) %>
                     </div>
                 </div>

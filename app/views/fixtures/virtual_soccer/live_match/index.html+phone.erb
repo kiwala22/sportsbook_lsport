@@ -6,11 +6,12 @@
         <div class="card-body">
             <ul class="nav nav-tabs" id="myTab" role="tablist" data-controller="tabs">
                 <li class="nav-item">
-                    <%= link_to "Live", fixtures_virtual_soccer_lives_path, remote: true, class: "nav-link active", id: "live-tab" %>
+                    <%= link_to "Live", fixtures_virtual_virtual_soccer_lives_path, remote: true, class: "nav-link active", id: "live-tab" %>
                 </li>
                 <li class="nav-item">
                     <%= link_to "Pre Match", fixtures_virtual_soccer_pres_path(:'q[start]' => Time.now, :'q[stop]' => Date.today.end_of_day), class: "nav-link", id: "home-tab" %>
                 </li>
+
             </ul>
 
             <div class="tab-content" id="myTabContent">
@@ -19,14 +20,13 @@
                         <thead>
                             <tr>
                                 <th class="col-4">Teams</th>
-                                <th class="col-1">Score</th>
-                                <th class="col-4">Tournament</th>
-                                <th class="col-1">1</th>
-                                <th class="col-1">X</th>
-                                <th class="col-1">2</th>
+                                <th class="col-2">Score</th>
+                                <th class="col-2">1</th>
+                                <th class="col-2">X</th>
+                                <th class="col-2">2</th>
                             </tr>
                         </thead>
-                        <tbody id="fixture-table-body" data-target="fmatch-fixtures.ixtures" data-controller="refresh" data-refresh-interval="60000" data-refresh-url="<%= fixtures_virtual_soccer_lives_path %>" data-refresh-method="GET">
+                        <tbody id="fixture-table-body" data-target="match-fixture.fixtures" data-controller="refresh" data-refresh-interval="60000" data-refresh-url="<%= fixtures_virtual_soccer_lives_path %>" data-refresh-method="GET">
                             <%= render partial: 'live_match_fixture_table', locals: {fixtures: @fixtures} %>
                         </tbody>
                     </table>

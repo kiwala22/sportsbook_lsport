@@ -33,7 +33,7 @@
                                 <th class="col-1">2</th>
                             </tr>
                         </thead>
-                        <tbody id="fixture-table-body" data-target="match-fixtures.fixtures" data-controller="fixtures" data-fixtures-refresh-interval="60000" data-url="<%= fixtures_soccer_pres_path %>">
+                        <tbody id="fixture-table-body" data-target="match-fixtures.fixtures" data-controller="refresh" data-refresh-interval="60000" data-refresh-url="<%= fixtures_soccer_pres_path %>" data-refresh-method="GET">
                             <%= render partial: 'pre_match_fixture_table', locals: {fixtures: @fixtures} %>
                         </tbody>
                     </table>
