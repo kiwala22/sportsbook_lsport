@@ -34,6 +34,8 @@
                                 <td class="deposit">+<%= transaction.amount %></td>
                               <% elsif transaction.category == "Withdraw" %>
                                 <td class="withdraw">-<%= transaction.amount %></td>
+                              <% else %>
+                                <td class="deposit">+<%= transaction.amount %></td>
                               <% end %>
                               <td><%= transaction.balance_before %></td>
                               <td><%= transaction.balance_after %></td>

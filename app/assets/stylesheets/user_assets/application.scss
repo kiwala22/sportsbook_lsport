@@ -282,7 +282,11 @@ strong {
 }
 
 .single-bet {
-    padding: 5px 10px;
+    //padding: 5px 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 0px;
+    padding-right: 10px;
     display: flex;
     justify-content: space-between;
     #comp-names {
@@ -304,7 +308,11 @@ strong {
     border-top: 1px solid #ffffff;
     border-bottom: 1px solid #ffffff;
     margin: 10px 0px;
-    padding: 5px 10px;
+    // padding: 5px 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 0px;
+    // padding-right: -105px;
 }
 
 .total-wins {
@@ -312,9 +320,9 @@ strong {
     justify-content: space-between;
     border-bottom: 1px solid #ffffff;
     margin-top: -5px;
-    margin-bottom: 10px;
-    padding-left: 10px;
-    padding-right: 10px;
+    margin-bottom: 5px;
+    padding-left: 0px;
+    padding-right: 0px;
     padding-top: 0px;
     padding-bottom: 5px;
 }
@@ -495,4 +503,19 @@ strong {
     text-align: center;
     color: #f6ad2e;
     font-weight: 900;
+}
+
+
+.mobile-show{
+        margin-left: -25px;     
+        color: #000;
+}
+
+.close-linebet {
+  padding: 7px;
+}
+
+#total-wins {
+  text-align: right;
+
 }
