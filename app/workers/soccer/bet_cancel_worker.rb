@@ -12,9 +12,6 @@ class Soccer::BetCancelWorker
         message = Hash.from_xml(payload)
         
         event = message["bet_cancel"]["event_id"]
-        market_id =  message["bet_cancel"]["market"]["id"]
-        product = message["bet_cancel"]["product"]
-        #extract the cancel start and end time if they are present
         
         if message["bet_cancel"].has_key?("end_time")
             end_time = message["bet_cancel"]["end_time"]
@@ -24,38 +21,60 @@ class Soccer::BetCancelWorker
             start_time = message["bet_cancel"]["start_time"]
         end
         
+        product = message["bet_cancel"]["product"]
+        
+        #check if market is an array or Hash
+        
+        if  message["bet_cancel"]["market"].is_a?(Array)
+            message["bet_cancel"]["market"].each do |market|
+                market_id =  market["id"]
+                process_cancel(event: event, product:product, market: market_id, end_time: end_time, start_time: start_time)
+            end
+        end
+
+        if  message["bet_cancel"]["market"].is_a?(Hash)
+            market_id =  message["bet_cancel"]["market"]["id"]
+            process_cancel(event: event, product: product, market: market_id, end_time: end_time, start_time: start_time)
+        end
+        
+    end
+
+    def process_cancel(event:, product:, market:, end_time:, start_time:)
         #create a dynamic query
         conditions = String.new
         wheres = Array.new
         
         #query by event id
         conditions << "market_id = ?"
-        wheres << market_id
+        wheres << market
         
         #query by bet type
-        conditions << "product = ?"
+        conditions << " AND product = ?"
         wheres << product
-        
+
         #query by start time if existent
-        if start_time
-            conditions << "created_at >= ?"
+        if start_time.present?
+            conditions << " AND created_at >= ?"
             wheres << Time.at(start_time.to_i).to_datetime
         end
         
         #query by start time if existent
-        if end_time
-            conditions << "created_at <= ?"
+        if end_time.present?
+            conditions << " AND created_at <= ?"
             wheres << Time.at(end_time.to_i).to_datetime
         end
-        
+
         wheres.insert(0, conditions)
-        
+
         #search and update all the bets
         #fixture
         fixture = Fixture.find_by(event_id: event)
-        bets =  fixture.bets.where(wheres )
-        #cancel all the bets
-        bets.update_all(status: "Cancelled")
+        if fixture
+            bets =  fixture.bets.where(wheres )
+
+            #cancel all the bets
+            bets.update_all(status: "Cancelled")
+        end
     end
     
 end
