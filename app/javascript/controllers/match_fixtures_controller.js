@@ -43,6 +43,7 @@ export default class extends Controller {
         this.spinnerTarget.classList.add("spinner-border")
         Rails.ajax({
             type: 'GET',
+            beforeSend: $.rails.CSRFProtection,
             url: url,
             dataType: 'json',
             success: (data) => {

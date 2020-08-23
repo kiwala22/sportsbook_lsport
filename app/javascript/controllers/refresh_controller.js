@@ -35,6 +35,7 @@ export default class extends Controller {
         let method = this.data.get("method")
         Rails.ajax({
             type: method,
+            beforeSend: $.rails.CSRFProtection,
             url: url,
             dataType: 'js',
             success: (data) => {
