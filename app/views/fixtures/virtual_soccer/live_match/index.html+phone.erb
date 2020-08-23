@@ -6,7 +6,7 @@
         <div class="card-body">
             <ul class="nav nav-tabs" id="myTab" role="tablist" data-controller="tabs">
                 <li class="nav-item">
-                    <%= link_to "Live", fixtures_virtual_virtual_soccer_lives_path, remote: true, class: "nav-link active", id: "live-tab" %>
+                    <%= link_to "Live", fixtures_virtual_soccer_lives_path, remote: true, class: "nav-link active", id: "live-tab" %>
                 </li>
                 <li class="nav-item">
                     <%= link_to "Pre Match", fixtures_virtual_soccer_pres_path(:'q[start]' => Time.now, :'q[stop]' => Date.today.end_of_day), class: "nav-link", id: "home-tab" %>
