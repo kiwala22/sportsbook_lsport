@@ -38,7 +38,7 @@ export default class extends Controller {
             url: url,
             dataType: 'js',
             success: (data) => {
-                console.log(url)
+
             }
         })
     }
