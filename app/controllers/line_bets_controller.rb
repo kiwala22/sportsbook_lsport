@@ -1,9 +1,8 @@
 class LineBetsController < ApplicationController
-   protect_from_forgery :except => [:refresh, :line_bet_delete, :create]
    include CurrentCart
    before_action :set_cart, only: [:create, :destroy, :refresh]
    # before_action :set_line_item, only: [:show, :edit, :update, :destroy]
-
+   
 
    def create
       outcome = params[:outcome_id]

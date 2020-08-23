@@ -29,7 +29,6 @@ export default class extends Controller {
         let url = "/refresh_slip"
         Rails.ajax({
             type: 'POST',
-            beforeSend: $.rails.CSRFProtection,
             url: url,
             dataType: 'js',
             success: (data) => {
