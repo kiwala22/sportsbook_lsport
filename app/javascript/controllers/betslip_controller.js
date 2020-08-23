@@ -27,8 +27,12 @@ export default class extends Controller {
 
     load() {
         let url = "/refresh_slip"
+        let token = document.getElementsByName('csrf-token')[0].content
         Rails.ajax({
             type: 'POST',
+            headers: {
+                'X-CSRF-Token': token
+            },
             url: url,
             dataType: 'js',
             success: (data) => {

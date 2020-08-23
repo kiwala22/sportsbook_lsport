@@ -41,8 +41,12 @@ export default class extends Controller {
         if (next_page == null) { return }
         let url = next_page.href
         this.spinnerTarget.classList.add("spinner-border")
+        let token = document.getElementsByName('csrf-token')[0].content
         Rails.ajax({
             type: 'GET',
+            headers: {
+                'X-CSRF-Token': token
+            },
             url: url,
             dataType: 'json',
             success: (data) => {

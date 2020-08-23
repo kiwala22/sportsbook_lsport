@@ -33,8 +33,12 @@ export default class extends Controller {
     load() {
         let url = this.data.get("url")
         let method = this.data.get("method")
+        let token = document.getElementsByName('csrf-token')[0].content
         Rails.ajax({
             type: method,
+            headers: {
+                'X-CSRF-Token': token
+            },
             url: url,
             dataType: 'js',
             success: (data) => {
