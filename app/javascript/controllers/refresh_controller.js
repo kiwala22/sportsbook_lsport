@@ -43,6 +43,7 @@ export default class extends Controller {
             dataType: 'script',
             success: (data) => {
                 console.log("Success - " + url)
+                console.log(data)
             }
         })
     }
