@@ -24,9 +24,8 @@ module Recovery
         http.use_ssl = true
         #http.verify_mode = OpenSSL::SSL::VERIFY_PEER
         http.set_debug_output($stdout)
-        response = http.request(request)
-        
+        res = http.request(request)
+        response = res.code
         return response
     end
 end
-      

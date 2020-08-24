@@ -7,7 +7,7 @@ class AlertsWorker
     include Recovery
 
     def perform(payload)
-   
+
         #set recovery status
         recovery_status = false
         #convert the message from the xml to an easr ruby Hash using active support
@@ -23,26 +23,27 @@ class AlertsWorker
             last_update = MarketAlert.create(product: product, timestamp:  timestamp, subscribed:  subscribed, status:  recovery_status)
         else
             if subscribed == "0"
+                ##First close all markets and accept no bets
+                ##First check out what status is being returned from the recovery
                 #issue recovery API call
-                recovery = request_recovery(product, last_update[:timestamp])  
-                if recovery == "200"
+                recovery = request_recovery(product, last_update[:timestamp])
+                if recovery == "202"
                     recovery_status = true
                 end
                 #log all responses
             elsif subscribed == "1" && (timestamp.to_i - last_update[:timestamp].to_i) > 150000
                 #issue recovery API
-                recovery = request_recovery(product, last_update[:timestamp]) 
-                if recovery == "200"
+                recovery = request_recovery(product, last_update[:timestamp])
+                if recovery == "202"
                     recovery_status = true
                 end
                 #log all responses
             end
-            
+
             #save the damn alert anyway
             puts "saving ..."
             new_alert = MarketAlert.create(product: product, timestamp: timestamp, subscribed: subscribed, status: recovery_status)
          end
     end
-    
-end
 
+end
