@@ -7,7 +7,7 @@ class AlertsWorker
     include Recovery
 
     def perform(payload)
-   
+
         #set recovery status
         recovery_status = false
         #convert the message from the xml to an easr ruby Hash using active support
@@ -41,12 +41,11 @@ class AlertsWorker
                 end
                 #log all responses
             end
-            
+
             #save the damn alert anyway
             puts "saving ..."
             new_alert = MarketAlert.create(product: product, timestamp: timestamp, subscribed: subscribed, status: recovery_status)
          end
     end
-    
-end
 
+end
