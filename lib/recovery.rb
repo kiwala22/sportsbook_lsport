@@ -7,7 +7,7 @@ module Recovery
     require 'yaml'
 
     def request_recovery(product_id,timestamp)
-        recover_request = RecoveryRequest.create(product: product_id, timestamp: timestamp)
+        recovery_request = RecoveryRequest.create(product: product_id, timestamp: timestamp)
         producers = {}
         producers["1"] = "liveodds"
         producers["3"] = "pre"
