@@ -56,7 +56,7 @@ class Soccer::UpdateFixtureWorker
                update_attr[:season_id] = event["fixtures_fixture"]["fixture"]["season"]["id"] 
                update_attr[:season_name] = event["fixtures_fixture"]["fixture"]["season"]["name"]
             end   
-            fixture.update_attributes(update_attr)
+            fixture.update(update_attr)
             return response.code
          else
             @@logger.error(response.body)

@@ -17,7 +17,7 @@ class Soccer::BetSettlementWorker
         #update fixture as ended
         fixture = Fixture.find_by(event_id: event_id)
         if fixture
-            fixture.update_attributes(status: "ended")
+            fixture.update(status: "ended")
             
             
             #iterate over the outcomes and mark the markets as settled
@@ -54,7 +54,9 @@ class Soccer::BetSettlementWorker
         
         outcome_attr = {}
         
-        update_attr = {}
+        update_attr = {
+            "status" => "Settled"
+        }
         
         model_name = "Market" + market["id"] + producer_type[product]
         
@@ -87,7 +89,7 @@ class Soccer::BetSettlementWorker
             #update or create markets 1X2 half time and fulltime
             mkt_entry = model_name.constantize.find_by(event_id: event_id)
             if mkt_entry
-                mkt_entry.update_attributes(update_attr)
+                mkt_entry.update(update_attr)
             else
                 mkt_entry = model_name.constantize.new(update_attr)
                 mkt_entry.event_id = event_id
@@ -126,7 +128,7 @@ class Soccer::BetSettlementWorker
             mkt_entry = model_name.constantize.find_by(event_id: event_id)
             
             if mkt_entry
-                mkt_entry.update_attributes(update_attr)
+                mkt_entry.update(update_attr)
             else
                 mkt_entry = model_name.constantize.new(update_attr)
                 mkt_entry.event_id = event_id
@@ -161,7 +163,7 @@ class Soccer::BetSettlementWorker
             #update or create markets 1X2 half time and fulltime
             mkt_entry = model_name.constantize.find_by(event_id: event_id)
             if mkt_entry
-                mkt_entry.update_attributes(update_attr)
+                mkt_entry.update(update_attr)
             else
                 mkt_entry = model_name.constantize.new(update_attr)
                 mkt_entry.event_id = event_id
@@ -195,7 +197,7 @@ class Soccer::BetSettlementWorker
             
             mkt_entry = model_name.constantize.find_by(event_id: event_id)
             if mkt_entry
-                mkt_entry.update_attributes(update_attr)
+                mkt_entry.update(update_attr)
             else
                 mkt_entry = model_name.constantize.new(update_attr)
                 mkt_entry.event_id = event_id
@@ -230,7 +232,7 @@ class Soccer::BetSettlementWorker
             #update or create markets 1X2 half time and fulltime
             mkt_entry = model_name.constantize.find_by(event_id: event_id)
             if mkt_entry
-                mkt_entry.update_attributes(update_attr)
+                mkt_entry.update(update_attr)
             else
                 mkt_entry = model_name.constantize.new(update_attr)
                 mkt_entry.event_id = event_id

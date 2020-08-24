@@ -17,22 +17,26 @@ class AlertsWorker
         subscribed  = message_hash["alive"]["subscribed"]
 
         #check the market alert
-        last_update = MarketAlert.where(:product => product).order("timestamp DESC").first
+        last_update = MarketAlert.where(:product => product, subscribed: "1").order("timestamp DESC").first
         if last_update == nil
             #then create it
             last_update = MarketAlert.create(product: product, timestamp:  timestamp, subscribed:  subscribed, status:  recovery_status)
         else
             if subscribed == "0"
+                #first close all active markets 
+                DeactivateMarketsWorker.perform(product)
                 #issue recovery API call
                 recovery = request_recovery(product, last_update[:timestamp])  
-                if recovery == "200"
+                if recovery == "202"
                     recovery_status = true
                 end
                 #log all responses
-            elsif subscribed == "1" && (timestamp.to_i - last_update[:timestamp].to_i) > 150000
+            elsif subscribed == "1" && (timestamp.to_i - last_update[:timestamp].to_i) > 20000
+                #first close all active markets 
+                DeactivateMarketsWorker.perform(product)
                 #issue recovery API
                 recovery = request_recovery(product, last_update[:timestamp]) 
-                if recovery == "200"
+                if recovery == "202"
                     recovery_status = true
                 end
                 #log all responses

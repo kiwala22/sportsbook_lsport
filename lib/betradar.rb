@@ -91,7 +91,7 @@ module Betradar
                #check if the description is the same as well
                betstop = BetstopReason.find_by(betstop_reason_id: reason['id'])
                if betstop.description != reason['description']
-                  betstop.update_attributes(description: reason['description'])
+                  betstop.update(description: reason['description'])
                end
             else
                #creare the betstop reason
@@ -129,7 +129,7 @@ module Betradar
                #check if the description is the same as well
                betting_status = BettingStatus.find_by(betting_status_id: status['id'])
                if betting_status.description != status['description']
-                  betting_status.update_attributes(description: status['description'])
+                  betting_status.update(description: status['description'])
                end
             else
                #creare the betstop reason
@@ -170,7 +170,7 @@ module Betradar
                #check if the description is the same as well
                match_status = MatchStatus.find_by(match_status_id: status['id'])
                if match_status.description != status['description']
-                  match_status.update_attributes(description: status['description'])
+                  match_status.update(description: status['description'])
                end
             else
                #creare the betstop reason
@@ -208,7 +208,7 @@ module Betradar
                #check if the description is the same as well
                void_reason = VoidReason.find_by(void_reason_id: reason['id'])
                if void_reason.description != reason['description']
-                  void_reason.update_attributes(description: reason['description'])
+                  void_reason.update(description: reason['description'])
                end
             else
                #creare the betstop reason

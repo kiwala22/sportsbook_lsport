@@ -51,7 +51,7 @@ class Soccer::FixtureChangeWorker
         #find the fixture in the database
         fixture = Fixture.find_by(event_id: event_id)
         if fixture
-            fixture.update_attributes(update_attr)
+            fixture.update(update_attr)
         else
             fixture = Fixture.new(update_attr)
             fixture.event_id = event["id"]

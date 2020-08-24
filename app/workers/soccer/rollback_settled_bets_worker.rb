@@ -12,7 +12,7 @@ class Soccer::RollbackSettledBetsWorker
       
       if bets
          bets.each do |bet|
-            bet.update_attributes(status: "Active")
+            bet.update(status: "Active")
          end
       end
    end

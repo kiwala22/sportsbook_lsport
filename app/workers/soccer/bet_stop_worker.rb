@@ -23,14 +23,14 @@ class Soccer::BetStopWorker
                 model_name = "Market" + market + producer_type[product]
                 market_entry = model_name.constantize.where("status = ? AND event_id = ?", "Active", event_id).first
                 if market_entry
-                    market_entry.update_attributes(status: "Suspended")
+                    market_entry.update(status: "Suspended")
                 end
             end
         end
         if product == "3"
             fixture = Fixture.find_by(event_id: event_id)
             if fixture
-                fixture.update_attributes(status: "closed")
+                fixture.update(status: "closed")
             end
         end
         

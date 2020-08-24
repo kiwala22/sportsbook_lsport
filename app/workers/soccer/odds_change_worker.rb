@@ -121,7 +121,7 @@ class Soccer::OddsChangeWorker
                 status: market_status[market["status"]]
             }
             if mkt_entry
-                mkt_entry.update_attributes(update_attr)
+                mkt_entry.update(update_attr)
             else
                 mkt_entry = model_name.constantize.new(update_attr)
                 mkt_entry.fixture_id = fixture_id
@@ -158,7 +158,7 @@ class Soccer::OddsChangeWorker
                 status: market_status[market["status"]]
             }
             if mkt_entry
-                mkt_entry.update_attributes(update_attr)
+                mkt_entry.update(update_attr)
             else
                 mkt_entry = model_name.constantize.new(update_attr)
                 mkt_entry.fixture_id = fixture_id
@@ -192,7 +192,7 @@ class Soccer::OddsChangeWorker
                 status: market_status[market["status"]]
             }
             if mkt_entry
-                mkt_entry.update_attributes(update_attr)
+                mkt_entry.update(update_attr)
             else
                 mkt_entry = model_name.constantize.new(update_attr)
                 mkt_entry.fixture_id = fixture_id
@@ -225,7 +225,7 @@ class Soccer::OddsChangeWorker
                 status: market_status[market["status"]]
             }
             if mkt_entry
-                mkt_entry.update_attributes(update_attr)
+                mkt_entry.update(update_attr)
             else
                 mkt_entry = model_name.constantize.new(update_attr)
                 mkt_entry.fixture_id = fixture_id
@@ -258,7 +258,7 @@ class Soccer::OddsChangeWorker
                 status: market_status[market["status"]]
             }
             if mkt_entry
-                mkt_entry.update_attributes(update_attr)
+                mkt_entry.update(update_attr)
             else
                 mkt_entry = model_name.constantize.new(update_attr)
                 mkt_entry.fixture_id = fixture_id

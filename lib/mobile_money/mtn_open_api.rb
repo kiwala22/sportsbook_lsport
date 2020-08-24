@@ -374,7 +374,7 @@ module MobileMoney
 			case res.code
 
 			when '201'
-				api_user.update_attributes(registered: true)
+				api_user.update(registered: true)
 				return true
 
 			else

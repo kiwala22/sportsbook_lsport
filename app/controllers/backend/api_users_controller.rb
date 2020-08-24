@@ -30,7 +30,7 @@ class Backend::ApiUsersController < ApplicationController
 		@api_user = ApiUser.find(params[:id])
 		if !@api_user.registered?
 			if MobileMoney::MtnOpenApi.register_api_user(@api_user.api_id) == true
-				@api_user.update_attributes(registered: true)
+				@api_user.update(registered: true)
 			end
 		end
 
@@ -38,7 +38,7 @@ class Backend::ApiUsersController < ApplicationController
 		if @api_user.registered?
 			api_key = MobileMoney::MtnOpenApi.receive_api_key(@api_user.api_id)
 
-			if api_key && @api_user.update_attributes(api_key: api_key)
+			if api_key && @api_user.update(api_key: api_key)
 
 				flash[:notice] = 'API Key Successfully Created.'
 				redirect_to action: 'index'
