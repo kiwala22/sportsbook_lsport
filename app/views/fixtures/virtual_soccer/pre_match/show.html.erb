@@ -1,5 +1,5 @@
 <div class="game-box">
-    <div class="card" id="show-markets" data-controller="refresh" data-refresh-interval="60000" data-refresh-url=<%= "/fixtures/virtual_soccer/pre?id=#{@fixture.id}.js" %> data-refresh-method="GET">
+    <div class="card" id="show-markets" data-controller="refresh" data-refresh-interval="60000" data-refresh-url=<%= "/fixtures/virtual_soccer/pre.js?id=#{@fixture.id}" %> data-refresh-method="GET">
         <%= render partial: 'show_markets', locals: {fixture: @fixture} %>
     </div>
 </div>
