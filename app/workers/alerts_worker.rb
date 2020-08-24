@@ -33,7 +33,7 @@ class AlertsWorker
                 #log all responses
             elsif subscribed == "1" && (timestamp.to_i - last_update[:timestamp].to_i) > 20000
                 #first close all active markets 
-                DeactivateMarketsWorker.perform(product)
+                DeactivateMarketsWorker.perform_async(product)
                 #issue recovery API
                 recovery = request_recovery(product, last_update[:timestamp]) 
                 if recovery == "202"
