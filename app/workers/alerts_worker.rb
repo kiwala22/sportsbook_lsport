@@ -24,7 +24,7 @@ class AlertsWorker
         else
             if subscribed == "0"
                 #first close all active markets 
-                DeactivateMarketsWorker.perform(product)
+                DeactivateMarketsWorker.perform_async(product)
                 #issue recovery API call
                 recovery = request_recovery(product, last_update[:timestamp])  
                 if recovery == "202"
