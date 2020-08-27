@@ -41,9 +41,7 @@ export default class extends Controller {
             },
             url: url,
             dataType: 'script',
-            success: (data) => {
-
-            }
+            success: (data) => {}
         })
     }
 }
