@@ -19,8 +19,8 @@ class Soccer::FixtureChangeWorker
         #pull fixture date from server
 
         response_body = fetch_fixture(event_id)
-        payload = Hash.from_xml(response_body)
-        event = payload["fixtures_fixture"]["fixture"]
+        xml_res = Hash.from_xml(response_body)
+        event = xml_res["fixtures_fixture"]["fixture"]
         update_attr = {scheduled_time: event["scheduled"],
             status: event["status"],
             live_odds: event["liveodds"],
