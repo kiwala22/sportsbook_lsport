@@ -40,10 +40,8 @@ export default class extends Controller {
                 'X-CSRF-Token': token
             },
             url: url,
-            dataType: 'js',
-            success: (data) => {
-                console.log("Success - " + url)
-            }
+            dataType: 'script',
+            success: (data) => {}
         })
     }
 }

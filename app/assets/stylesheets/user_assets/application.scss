@@ -473,7 +473,7 @@ strong {
 }
 
 .turbolinks-progress-bar {
-  visibility: hidden;
+    visibility: hidden;
 }
 
 .blinking {
@@ -505,22 +505,26 @@ strong {
     font-weight: 900;
 }
 
-
-.mobile-show{
-        margin-left: -25px;     
-        color: #000;
+.mobile-show {
+    margin-left: -25px;
+    color: #000;
 }
 
 .close-linebet {
-  padding: 7px;
+    padding: 7px;
 }
 
 #total-wins {
-  text-align: right;
-
+    text-align: right;
 }
+
 
 .search{
     margin-left: 400px;
 
 }
+
+#total-odds {
+    text-align: right;
+}
+

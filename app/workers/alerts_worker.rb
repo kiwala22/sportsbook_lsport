@@ -5,6 +5,7 @@ class AlertsWorker
     sidekiq_options retry: false
 
     include Recovery
+    include Betradar
 
     def perform(payload)
 
@@ -24,22 +25,24 @@ class AlertsWorker
         else
             if subscribed == "0"
                 #first close all active markets 
-                DeactivateMarketsWorker.perform(product)
+                DeactivateMarketsWorker.perform_async(product)
                 #issue recovery API call
                 recovery = request_recovery(product, last_update[:timestamp])  
                 if recovery == "202"
                     recovery_status = true
                 end
-                #log all responses
+                #call fixture changes
+                changed_fixtures = fetch_fixture_changes()
             elsif subscribed == "1" && (timestamp.to_i - last_update[:timestamp].to_i) > 20000
                 #first close all active markets 
-                DeactivateMarketsWorker.perform(product)
+                DeactivateMarketsWorker.perform_async(product)
                 #issue recovery API
                 recovery = request_recovery(product, last_update[:timestamp]) 
                 if recovery == "202"
                     recovery_status = true
                 end
-                #log all responses
+                #call fixture changes
+                changed_fixtures = fetch_fixture_changes()
             end
 
             #save the damn alert anyway

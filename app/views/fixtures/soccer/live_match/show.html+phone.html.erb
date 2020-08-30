@@ -1,5 +1,5 @@
 <div class="fixture-box">
-   <div class="card" data-controller="refresh" data-refresh-interval="60000" data-refresh-url="<%= fixtures_soccer_live_path(id: @fixture.id) %>" data-refresh-method="GET">
+   <div class="card" data-controller="refresh" data-refresh-interval="60000" data-refresh-url=<%= "/fixtures/soccer/live.js?id=#{@fixture.id}" %> data-refresh-method="GET">
        <%= render partial: 'show_markets', locals: {fixture: @fixture} %>
    </div>
 </div>

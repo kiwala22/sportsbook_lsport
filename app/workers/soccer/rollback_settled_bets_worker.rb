@@ -8,11 +8,11 @@ class Soccer::RollbackSettledBetsWorker
    def perform(fixture_id, product, market_id)
       #find the fixture
       fixture = Fixture.find(fixture_id)
-      bets = fixture.bets.where(product: product, market_id: market_id, status: ["Win", "Loss"])
+      bets = fixture.bets.where(product: product, market_id: market_id, result: ["Win", "Loss"])
       
       if bets
          bets.each do |bet|
-            bet.update(status: "Active")
+            bet.update(status: "Active", result: "")
          end
       end
    end

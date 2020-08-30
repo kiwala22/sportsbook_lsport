@@ -30,8 +30,8 @@
            <div class="col-12">
               <div class="phone-betslip">
                 <div class="total-bet">
-                  <span class="col-9" data-action="keyup->slips#calculate_win" data-target="slips.stake" > <%= text_field_tag :stake, nil, placeholder: " Stake Amount" ,id: "stake-input" %> </span>
-                  <span class="col-3" id="total-odds" data-target="slips.total"></span>
+                  <span class="col-8" data-action="keyup->slips#calculate_win" data-target="slips.stake" > <%= text_field_tag :stake, nil, placeholder: " Stake Amount" ,id: "stake-input" %> </span>
+                  <span class="col-4" id="total-odds" data-target="slips.total"></span>
                 </div>
               </div>
            </div>
@@ -53,8 +53,8 @@
          <% end %>
       <% else %>
          <div class="total-bet">
-            <span data-action="keyup->slips#calculate_win" data-target="slips.stake" > <%= text_field_tag :stake, nil, placeholder: " Stake Amount" ,id: "stake-input", required: true %> </span>
-            <span id="total-odds" data-target="slips.total"></span>
+           <span class="col-8" data-action="keyup->slips#calculate_win" data-target="slips.stake" > <%= text_field_tag :stake, nil, placeholder: " Stake Amount" ,id: "stake-input" %> </span>
+            <span class="col-4" id="total-odds" data-target="slips.total"></span>
          </div>
          <div class="total-wins">
             <span>Payout</span>

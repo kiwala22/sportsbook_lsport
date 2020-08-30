@@ -19,8 +19,8 @@
          <div class="row">
            <div class="col-12">
               <div class="total-bet">
-                <span class="col-10" data-action="keyup->slips#calculate_win" data-target="slips.stake" > <%= text_field_tag :stake, nil, placeholder: " Stake Amount" ,id: "stake-input", class: "" %> </span>
-                <span class="col-2" id="total-odds" data-target="slips.total"><%= @cart.line_bets.pluck(:odd).map(&:to_f).inject(:*).round(2) unless @cart.line_bets.count == 0  %></span>
+                <span class="col-8" data-action="keyup->slips#calculate_win" data-target="slips.stake" > <%= text_field_tag :stake, nil, placeholder: " Stake Amount" ,id: "stake-input", class: "" %> </span>
+                <span class="col-4" id="total-odds" data-target="slips.total"><%= @cart.line_bets.pluck(:odd).map(&:to_f).inject(:*).round(2) unless @cart.line_bets.count == 0  %></span>
               </div>
            </div>
          </div>
@@ -39,8 +39,8 @@
          <% end %>
       <% else %>
          <div class="total-bet">
-            <span data-action="keyup->slips#calculate_win" data-target="slips.stake" > <%= text_field_tag :stake, nil, placeholder: " Stake Amount" ,id: "stake-input", required: true %> </span>
-            <span id="total-odds" data-target="slips.total"><%= @cart.line_bets.pluck(:odd).map(&:to_f).inject(:*).round(2) unless @cart.line_bets.count == 0  %></span>
+            <span class="col-8" data-action="keyup->slips#calculate_win" data-target="slips.stake" > <%= text_field_tag :stake, nil, placeholder: " Stake Amount" ,id: "stake-input", class: "" %> </span>
+            <span class="col-4" id="total-odds" data-target="slips.total"><%= @cart.line_bets.pluck(:odd).map(&:to_f).inject(:*).round(2) unless @cart.line_bets.count == 0  %></span>
          </div>
          <div class="total-wins">
             <span>Payout</span>
