@@ -16,7 +16,7 @@ class Backend::Fixtures::VirtualSoccerFixturesController < ApplicationController
     if response == 200
       @fixture.update(booked: true)
       respond_to do |format|
-        flashs[:notice] = "Fixture Booked."
+        flash[:notice] = "Fixture Booked."
         format.js { render :layout => false }
       end
     else

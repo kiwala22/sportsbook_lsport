@@ -106,3 +106,4 @@ gem 'momentjs-rails', '>= 2.9.0'
 gem 'pagy', '~> 3.5'
 gem 'flag-icons-rails'
 gem "browser"
+gem 'pg_search'

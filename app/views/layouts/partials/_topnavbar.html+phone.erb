@@ -14,10 +14,19 @@
         class="far fa-user fa-lg text-gray-400"></i></span>
       </button>
        <!-- logged in menu  -->
-      <div class="collapse navbar-collapse" id="navbarLoginShortcuts">
+      <div class="collapse navbar-collapse" id="navbarLoginShortcuts" data-controller="search">
 
       <!-- Links -->
       <ul class="navbar-nav mr-auto">
+          <li class="nav-item ">
+               <%= form_with(url:"/", method: :get,data:{action:"submit->search#submit"}, class:"form-inline mr-auto") do |f| %>            
+                 <%= text_field_tag(:q, params[:q], data:{target:"search.q"}, class: "form-control") %>
+                 <div class="submit-search">  
+                     <%= submit_tag("Search", class:"bttn-small btn-fill", data:{toggle:"collapse"}) %>
+                  </div>
+               <% end %>
+
+         </li>
          <li class="nav-item">
             <a class="dropdown-item words" href="#">
                <i class="far fa-user fa-sm fa-fw mr-2 text-gray-400"></i>

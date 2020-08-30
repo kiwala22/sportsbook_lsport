@@ -39,13 +39,13 @@
               <div class="col-sm-6 col-md-4">
                     <%= f.label :tournament_name, "Tournament", class:"col-md-4 col-form-label" %>
                     <div class="col-lg-8">
-                      <%= f.search_field :tournament_name_i_cont, {true, :class=>"form-control", id: "tournament_name"}%>
+                      <%= f.search_field :tournament_name_i_cont, {remote:true, :class=>"form-control", id: "tournament_name"}%>
                     </div>
               </div>
               <div class="col-sm-6 col-md-4">
                     <%= f.label :booked, "Team", class:"col-md-4 col-form-label" %>
                     <div class="col-lg-8">
-                      <%= f.search_field :comp_one_name_or_comp_two_name_i_cont, {class=>"form-control", id: "team"}%>
+                      <%= f.search_field :comp_one_name_or_comp_two_name_i_cont, {:class =>"form-control", id: "team"}%>
                     </div>
               </div>
           </div>

@@ -1,4 +1,13 @@
 class Fixture < ApplicationRecord
+
+   include PgSearch::Model
+
+   pg_search_scope :global_search, 
+   against: [:comp_one_name, :comp_two_name, :tournament_name],
+    using:{ 
+      tsearch: {prefix: true}
+    }
+
   enum fixture_status: {
     "Select One" => "",
     "not_started" => "not_started",

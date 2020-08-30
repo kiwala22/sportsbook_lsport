@@ -17,7 +17,7 @@ RSpec.describe User, type: :system, js: true do
 			first_name:'Ivo',
 			last_name:'Muts',
 			password:'Tugende',
-			password_confirmation:'Tugende'
+			password_confirmation:'Tugende12'
 			)
 
 		# let(:valid_user_params) do
