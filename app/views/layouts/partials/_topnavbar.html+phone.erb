@@ -22,11 +22,12 @@
                <%= form_with(url:"/", method: :get,data:{action:"submit->search#submit"}, class:"form-inline mr-auto") do |f| %>            
                  <%= text_field_tag(:q, params[:q], data:{target:"search.q"}, class: "form-control") %>
                  <div class="submit-search">  
-                     <%= submit_tag("Search", class:"bttn-small btn-fill", data:{toggle:"collapse"}) %>
+                     <%= submit_tag("Search", class:"bttn-small btn-fill") %>
                   </div>
                <% end %>
 
          </li>
+         <br>
          <li class="nav-item">
             <a class="dropdown-item words" href="#">
                <i class="far fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -76,8 +77,12 @@
       </div>
    <% else %>
       <div class="">
-            <a id="signup" class="bttn-small btn-fill" href=<%=new_user_registration_path %> >Join</a>
-            <a id="login" class="bttn-small btn-fill ml-2" href=<%=new_user_session_path %>>Login</a>
+            <a class="bttn-small search-btn" data-toggle="collapse" data-target="#navbarSideSearch" aria-controls="navbarSideSearch" aria-expanded="false" aria-label="Toggle navigation">
+               <i class="fas fa-search"></i>
+            </a>
+            <a id="signup" class="bttn-small btn-fill ml-1" href=<%=new_user_registration_path %> >Join</a>
+            <a id="login" class="bttn-small btn-fill ml-1" href=<%=new_user_session_path %>>Login</a>
+           
       </div>
    <% end %>
 
@@ -156,6 +161,24 @@
          </div>
       </div>
 
+  </div>
+
+  <div class="collapse navbar-collapse" id="navbarSideSearch" data-controller="search">
+      <div class="row">
+         <div class="col-12">
+              <%= form_with(url:"/", method: :get,data:{action:"submit->search#submit"}, class:"form-inline mr-auto") do |f| %>            
+                 <%= text_field_tag(:q, params[:q], data:{target:"search.q"}, class: "form-control") %>
+                 <div class="submit-btn">  
+                     <%= submit_tag("Search", class:"bttn-small btn-fill") %>
+                  </div>
+               <% end %>
+            
+         </div>
+      </div>
+
+     
+    
+      
   </div>
 
 </nav>
