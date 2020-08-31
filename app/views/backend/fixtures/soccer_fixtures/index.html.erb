@@ -13,7 +13,7 @@
               <div class="col-sm-6 col-md-4">
                     <%= f.label :status, "Status", class:"col-md-4 col-form-label" %>
                     <div class="col-lg-8">
-                      <%= f.select :status_eq, Fixture.fixture_statuses.values, {prompt: "Select One"}, { class: "form-control", id: "status"} %>
+                      <%= f.select :status_eq, Fixture.fixture_statuses.values, {}, { class: "form-control", id: "status"} %>
                     </div>
               </div>
               <div class="col-sm-6 col-md-4">
@@ -25,7 +25,7 @@
               <div class="col-sm-6 col-md-4">
                     <%= f.label :booked, "Booking Status", class:"col-md-4 col-form-label" %>
                     <div class="col-lg-8">
-                      <%= f.select :booked_eq, Fixture.booking_statuses.values, {prompt: "Select One"} ,{ class: "form-control", id: "status"} %>
+                      <%= f.select :booked_eq, Fixture.booking_statuses.values, {} ,{ class: "form-control", id: "status"} %>
                     </div>
               </div>
           </div>
@@ -62,6 +62,12 @@
                       <%= f.search_field :scheduled_time_lteq, {:class=>"form-control", id: "kick_off_before"}%>
                     </div>
               </div>
+              <div class="col-sm-6 col-md-4">
+                <%= f.label :featured, "Featured Status", class:"col-md-4 col-form-label" %>
+                <div class="col-lg-8">
+                  <%= f.select :featured_eq, Fixture.booking_statuses.values, {}, { class: "form-control", id: "featured"} %>
+                </div>
+              </div>
           </div>
       </fieldset>
 
@@ -89,7 +95,9 @@
         <th >Event ID</th>
         <th >Status</th>
         <th >Booked</th>
-        <th >Action</th>
+        <th >Featured</th>
+        <th >Book</th>
+        <th >Feature</th>
         <th >Score</th>
       </tr>
     </thead>
@@ -104,9 +112,15 @@
           <td><%= fixture.event_id %></td>
           <td><%= fixture.status %></td>
           <td><%= fixture.booked.to_s.capitalize %></td>
+          <td><%= fixture.featured.to_s.capitalize %></td>
           <td>
             <% if fixture.live_odds == "bookable" && fixture.booked == false %>
               <%= link_to "Book", backend_fixtures_soccer_fixtures_path(id: fixture.id), method: :put, :class => 'btn btn-xs btn-success booking', remote: true %>
+            <% end %>
+          </td>
+          <td>
+            <% if fixture.featured == false %>
+              <%= link_to "Add", backend_fixtures_soccer_fixtures_feature_path(id: fixture.id), method: :put, :class => 'btn btn-xs btn-success booking', remote: true %>
             <% end %>
           </td>
           <td><%= "#{fixture.home_score} - #{fixture.away_score} " %></td>

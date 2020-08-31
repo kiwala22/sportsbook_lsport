@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_24_105041) do
+ActiveRecord::Schema.define(version: 2020_08_31_164005) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -187,6 +187,7 @@ ActiveRecord::Schema.define(version: 2020_08_24_105041) do
     t.boolean "booked", default: false
     t.string "priority"
     t.string "match_time"
+    t.boolean "featured", default: false
     t.index ["booked"], name: "index_fixtures_on_booked"
     t.index ["category"], name: "index_fixtures_on_category"
     t.index ["category_id"], name: "index_fixtures_on_category_id"

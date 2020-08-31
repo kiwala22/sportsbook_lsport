@@ -1,2 +1,3 @@
 Turbolinks.clearCache();
+$("#fixture-table-body-1").html("<%= j (render :partial => 'feat_pre_match_fixture_table' , locals: {fixtures: @fixtures}) %> ")
 $("#fixture-table-body").html("<%= j (render :partial => 'pre_match_fixture_table' , locals: {fixtures: @fixtures}) %> ")

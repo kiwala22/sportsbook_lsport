@@ -16,12 +16,25 @@ class Backend::Fixtures::SoccerFixturesController < ApplicationController
     if response == 200
       @fixture.update(booked: true)
       respond_to do |format|
-        flashs[:notice] = "Fixture Booked."
+        flash[:notice] = "Fixture Booked."
         format.js { render :layout => false }
       end
     else
       flash[:alert] = 'Oops! Something went wrong'
       redirect_to action: "index"
+    end
+  end
+
+  def feature_update
+    @fixture = Fixture.find(params[:id])
+    if @fixture
+      @fixture.update(featured: true)
+      respond_to do |format|
+        flash[:notice] = "Fixture added to Featured."
+        format.html
+        format.json
+        format.js { render :layout => false }
+      end
     end
   end
 end

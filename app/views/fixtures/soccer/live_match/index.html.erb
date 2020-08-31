@@ -9,7 +9,7 @@
                     <%= link_to "Live", fixtures_virtual_soccer_lives_path, remote: true, class: "nav-link active", id: "live-tab" %>
                 </li>
                 <li class="nav-item">
-                    <%= link_to "Pre Match", fixtures_soccer_pres_path(:'q[start]' => Time.now, :'q[stop]' => Date.today.end_of_day), class: "nav-link", id: "home-tab" %>
+                    <%= link_to "Pre Match", fixtures_soccer_pres_path(:'q[start]' => Time.now, :'q[stop]' => (Date.today.end_of_day+2.days)), class: "nav-link", id: "home-tab" %>
                 </li>
 
             </ul>
@@ -35,7 +35,7 @@
                         <div data-target="match-fixtures.spinner"></div>
                     </div>
                     <div class="table-navigation" data-target="match-fixtures.pagination">
-                        <%== pagy_nav(@pagy) %>
+                        <%== pagy_nav(@pagy) if @pagy.pages >= 1 %>
                     </div>
                 </div>
             </div>

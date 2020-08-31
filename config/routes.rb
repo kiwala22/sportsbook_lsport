@@ -43,6 +43,7 @@ Rails.application.routes.draw do
       namespace :fixtures do
          match 'soccer_fixtures' => "soccer_fixtures#index", via: [:get]
          match 'soccer_fixtures' => "soccer_fixtures#update", via: [:put]
+         match 'soccer_fixtures_feature' => "soccer_fixtures#feature_update", via: [:put]
          match 'virtual_soccer_fixtures' => "virtual_soccer_fixtures#index", via: [:get]
          patch 'virtual_soccer_fixtures' => "virtual_soccer_fixtures#update", via: [:update]
       end
