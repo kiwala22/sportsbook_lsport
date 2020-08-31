@@ -55,13 +55,13 @@ class Soccer::RollbackCancelWorker
         #query by start time if existent
         if start_time.present?
             conditions << " AND created_at >= ?"
-            wheres << Time.at(start_time.to_i).to_datetime
+            wheres << Time.at(start_time.to_i / 1000).to_datetime
         end
         
         #query by start time if existent
         if end_time.present?
             conditions << " AND created_at <= ?"
-            wheres << Time.at(end_time.to_i).to_datetime
+            wheres << Time.at(end_time.to_i / 1000).to_datetime
         end
 
         wheres.insert(0, conditions)
