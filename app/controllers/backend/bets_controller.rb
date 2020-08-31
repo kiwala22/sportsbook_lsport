@@ -5,6 +5,6 @@ class Backend::BetsController < ApplicationController
 
   def index
     @q = Bet.all.ransack(params[:q])
-    @bets = @q.result.page params[:page]
+    @bets = @q.result.order("created_at DESC").page params[:page]
   end
 end
