@@ -4,22 +4,23 @@
             <h3>Upcoming Fixtures - Soccer</h3>
         </div>
         <div class="card-body">
-            <ul class="nav nav-tabs" id="myTab" role="tablist" data-controller="tabs">
-                <li class="nav-item">
-                    <%= link_to "Today", fixtures_soccer_pres_path(:'q[start]' => Time.now, :'q[stop]' => Date.today.end_of_day), remote: true, class: "nav-link active", id: "home-tab", data: {target: "tabs.date", action: "click->tabs#activate"} %>
-                </li>
-                <li class="nav-item">
-                    <%= link_to (Date.today + 1.days).strftime("%d-%m-%y") , fixtures_soccer_pres_path(:'q[start]' => (Date.today.beginning_of_day + 1.day), :'q[stop]' => (Date.today.end_of_day + 1.day)), remote: true, class: "nav-link", id: "home-tab", data: {target: "tabs.date", action: "click->tabs#activate"} %>
-                </li>
-                <li class="nav-item">
-                    <%= link_to (Date.today + 2.days).strftime("%d-%m-%y"), fixtures_soccer_pres_path(:'q[start]' => (Date.today.beginning_of_day + 2.day), :'q[stop]' => (Date.today.end_of_day + 2.day)), remote: true, class: "nav-link", id: "home-tab", data: {target: "tabs.date", action: "click->tabs#activate"} %>
-                </li>
-                <li class="nav-item">
-                    <%= link_to "Live", fixtures_soccer_lives_path, class: "nav-link", id: "live-tab" %>
-                </li>
+            <% if @check_params == false %>
+              <ul class="nav nav-tabs" id="myTab" role="tablist" data-controller="tabs">
+                  <li class="nav-item">
+                      <%= link_to "Today", fixtures_soccer_pres_path(:'q[start]' => Time.now, :'q[stop]' => Date.today.end_of_day), remote: true, class: "nav-link active", id: "home-tab", data: {target: "tabs.date", action: "click->tabs#activate"} %>
+                  </li>
+                  <li class="nav-item">
+                      <%= link_to (Date.today + 1.days).strftime("%d-%m-%y") , fixtures_soccer_pres_path(:'q[start]' => (Date.today.beginning_of_day + 1.day), :'q[stop]' => (Date.today.end_of_day + 1.day)), remote: true, class: "nav-link", id: "home-tab", data: {target: "tabs.date", action: "click->tabs#activate"} %>
+                  </li>
+                  <li class="nav-item">
+                      <%= link_to (Date.today + 2.days).strftime("%d-%m-%y"), fixtures_soccer_pres_path(:'q[start]' => (Date.today.beginning_of_day + 2.day), :'q[stop]' => (Date.today.end_of_day + 2.day)), remote: true, class: "nav-link", id: "home-tab", data: {target: "tabs.date", action: "click->tabs#activate"} %>
+                  </li>
+                  <li class="nav-item">
+                      <%= link_to "Live", fixtures_soccer_lives_path, class: "nav-link", id: "live-tab" %>
+                  </li>
 
-            </ul>
-
+              </ul>
+            <% end %>
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab" data-controller="match-fixtures">
                     <table class="table table-borderless ">
@@ -33,7 +34,7 @@
                                 <th class="col-1">2</th>
                             </tr>
                         </thead>
-                        <tbody id="fixture-table-body" data-target="match-fixtures.fixtures" data-controller="refresh" data-refresh-interval="60000" data-refresh-url="/fixtures/soccer/pres.js" data-refresh-method="GET">
+                        <tbody id="fixture-table-body" data-target="match-fixtures.fixtures" data-controller="refresh" data-refresh-interval="10000" data-refresh-url="<% page_refresh_path %>" data-refresh-method="GET">
                             <%= render partial: 'pre_match_fixture_table', locals: {fixtures: @fixtures} %>
                         </tbody>
                     </table>

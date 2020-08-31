@@ -10,32 +10,33 @@
 
     <aside class="content-sidebar">
         <h3>Leagues</h3>
-        <ul>
-            <li class="text-gray-400"><%= link_to "UEFA Champions League", fixtures_soccer_pres_path(:'leag[tournament_name]' => "UEFA Champions League")%></li>
-            <li class="text-gray-400"><%= link_to "UEFA Europa League", fixtures_soccer_pres_path(:'leag[tournament_name]' => "UEFA Europa League")%></li>
-            <li class="text-gray-400"><%= link_to "English Premier League", fixtures_soccer_pres_path(:'leag[tournament_name]' => "English Premier League")%></li>
-            <li class="text-gray-400"><%= link_to "Serie A", fixtures_soccer_pres_path(:'leag[tournament_name]' => "Serie A")%></li>
-            <li class="text-gray-400"><%= link_to "La Liga", fixtures_soccer_pres_path(:'leag[tournament_name]' => "La Liga")%></li>
-            <li class="text-gray-400"><%= link_to "Bundesliga", fixtures_soccer_pres_path(:'leag[tournament_name]' => "Bundesliga")%></li>
-            <li class="text-gray-400"><%= link_to "Portuguese Liga", fixtures_soccer_pres_path(:'leag[tournament_name]' => "Portuguese Primera Liga")%></li>
-            <li class="text-gray-400"><%= link_to "A-League", fixtures_soccer_pres_path(:'leag[tournament_name]' => "A-League")%></li>
-            <li class="text-gray-400"><%= link_to "K-League", fixtures_soccer_pres_path(:'leag[tournament_name]' => "K-League")%></li>
-            <li class="text-gray-400"><%= link_to "J-League", fixtures_soccer_pres_path(:'leag[tournament_name]' => "J-League")%></li>
-            <li class="text-gray-400"><%= link_to "Brazil Serie A", fixtures_soccer_pres_path(:'leag[tournament_name]' => "Brazil-Serie A")%></li>
+        <ul data-controller="leagues">
+            <li class="text-gray-400"><%= link_to "UEFA Champions League", fixtures_soccer_pres_path(:'q[tournament_name]' => "UEFA Champions League", :'q[start]' => Time.now) %></li>
+            <li class="text-gray-400"><%= link_to "UEFA Europa League", fixtures_soccer_pres_path(:'q[tournament_name]' => "UEFA Europa League", :'q[start]' => Time.now) %></li>
+            <li class="text-gray-400"><%= link_to "English Premier League", fixtures_soccer_pres_path(:'q[tournament_name]' => "English Premier League", :'q[start]' => Time.now) %></li>
+            <li class="text-gray-400"><%= link_to "Serie A", fixtures_soccer_pres_path(:'q[tournament_name]' => "Serie A", :'q[start]' => Time.now) %></li>
+            <li class="text-gray-400"><%= link_to "La Liga", fixtures_soccer_pres_path(:'q[tournament_name]' => "La Liga", :'q[start]' => Time.now) %></li>
+            <li class="text-gray-400"><%= link_to "Bundesliga", fixtures_soccer_pres_path(:'q[tournament_name]' => "Bundesliga", :'q[start]' => Time.now) %></li>
+            <li class="text-gray-400"><%= link_to "French Ligue 1", fixtures_soccer_pres_path(:'q[tournament_name]' => "France Ligue 1", :'q[start]' => Time.now) %></li>
+            <li class="text-gray-400"><%= link_to "Portuguese Liga", fixtures_soccer_pres_path(:'q[tournament_name]' => "Portuguese Primera Liga", :'q[start]' => Time.now) %></li>
+            <li class="text-gray-400"><%= link_to "A-League", fixtures_soccer_pres_path(:'q[tournament_name]' => "A-League", :'q[start]' => Time.now) %></li>
+            <li class="text-gray-400"><%= link_to "K-League", fixtures_soccer_pres_path(:'q[tournament_name]' => "K-League", :'q[start]' => Time.now) %></li>
+            <li class="text-gray-400"><%= link_to "J-League", fixtures_soccer_pres_path(:'q[tournament_name]' => "J-League", :'q[start]' => Time.now) %></li>
+            <li class="text-gray-400"><%= link_to "Brazil Serie A", fixtures_soccer_pres_path(:'q[tournament_name]' => "Brazil-Serie A", :'q[start]' => Time.now) %></li>
         </ul>
     </aside>
 
     <aside class="content-sidebar">
         <h3>Countries</h3>
         <ul>
-            <li class="text-gray-400"><i class="flag-icon flag-icon-gb fa-fw mr-2"></i><%= link_to "England", fixtures_soccer_pres_path(:'cty[category]' => "England")%></li>
-            <li class="text-gray-400"><i class="flag-icon flag-icon-es fa-fw mr-2"></i><%= link_to "Spain", fixtures_soccer_pres_path(:'cty[category]' => "Spain")%></li>
-            <li class="text-gray-400"><i class="flag-icon flag-icon-de fa-fw mr-2"></i><%= link_to "Germany", fixtures_soccer_pres_path(:'cty[category]' => "Germany")%></li>
-            <li class="text-gray-400"><i class="flag-icon flag-icon-it fa-fw mr-2"></i><%= link_to "Italy", fixtures_soccer_pres_path(:'cty[category]' => "Italy")%></li>
-            <li class="text-gray-400"><i class="flag-icon flag-icon-fr fa-fw mr-2"></i><%= link_to "France", fixtures_soccer_pres_path(:'cty[category]' => "France")%></li>
-            <li class="text-gray-400"><i class="flag-icon flag-icon-br fa-fw mr-2"></i><%= link_to "Brazil", fixtures_soccer_pres_path(:'cty[category]' => "Brazil")%></li>
-            <li class="text-gray-400"><i class="flag-icon flag-icon-au fa-fw mr-2"></i><%= link_to "Australia", fixtures_soccer_pres_path(:'cty[category]' => "Australia")%></li>
-            <li class="text-gray-400"><i class="flag-icon flag-icon-cn fa-fw mr-2"></i><%= link_to "China", fixtures_soccer_pres_path(:'cty[category]' => "China")%></li>
+            <li class="text-gray-400"><i class="flag-icon flag-icon-gb fa-fw mr-2"></i><%= link_to "England", fixtures_soccer_pres_path(:'q[category]' => "England", :'q[start]' => Time.now)%></li>
+            <li class="text-gray-400"><i class="flag-icon flag-icon-es fa-fw mr-2"></i><%= link_to "Spain", fixtures_soccer_pres_path(:'q[category]' => "Spain", :'q[start]' => Time.now)%></li>
+            <li class="text-gray-400"><i class="flag-icon flag-icon-de fa-fw mr-2"></i><%= link_to "Germany", fixtures_soccer_pres_path(:'q[category]' => "Germany", :'q[start]' => Time.now)%></li>
+            <li class="text-gray-400"><i class="flag-icon flag-icon-it fa-fw mr-2"></i><%= link_to "Italy", fixtures_soccer_pres_path(:'q[category]' => "Italy", :'q[start]' => Time.now)%></li>
+            <li class="text-gray-400"><i class="flag-icon flag-icon-fr fa-fw mr-2"></i><%= link_to "France", fixtures_soccer_pres_path(:'q[category]' => "France", :'q[start]' => Time.now)%></li>
+            <li class="text-gray-400"><i class="flag-icon flag-icon-br fa-fw mr-2"></i><%= link_to "Brazil", fixtures_soccer_pres_path(:'q[category]' => "Brazil", :'q[start]' => Time.now)%></li>
+            <li class="text-gray-400"><i class="flag-icon flag-icon-au fa-fw mr-2"></i><%= link_to "Australia", fixtures_soccer_pres_path(:'q[category]' => "Australia", :'q[start]' => Time.now)%></li>
+            <li class="text-gray-400"><i class="flag-icon flag-icon-cn fa-fw mr-2"></i><%= link_to "China", fixtures_soccer_pres_path(:'q[category]' => "China", :'q[start]' => Time.now)%></li>
         </ul>
     </aside>
 </div>

@@ -3,15 +3,24 @@ class Fixtures::Soccer::PreMatchController < ApplicationController
    before_action :set_cart, only: [:index, :show]
 
    def index
-      if params[:q].present?
-        @q = Fixture.joins(:market1_pre).where("fixtures.status = ? AND fixtures.sport_id = ? AND fixtures.category_id NOT IN (?) AND fixtures.scheduled_time >= ? AND fixtures.scheduled_time <= ?", "not_started", "sr:sport:1", ["sr:category:1033","sr:category:2123"], params[:q][:start], params[:q][:stop]).order(scheduled_time: :asc)
-      elsif params[:leag].present?
-        @q = Fixture.joins(:market1_pre).where("fixtures.status = ? AND fixtures.sport_id = ? AND fixtures.tournament_name = ?", "not_started", "sr:sport:1", params[:leag][:tournament_name]).order(scheduled_time: :asc)
-      elsif params[:cty].present?
-        @q = Fixture.joins(:market1_pre).where("fixtures.status = ? AND fixtures.sport_id = ? AND fixtures.category = ?", "not_started", "sr:sport:1", params[:cty][:category]).order(scheduled_time: :asc)
-      else
-        @q = Fixture.joins(:market1_pre).where("fixtures.status = ? AND fixtures.sport_id = ? AND fixtures.category_id NOT IN (?) AND fixtures.scheduled_time >= ? AND fixtures.scheduled_time <= ?", "not_started", "sr:sport:1", ["sr:category:1033","sr:category:2123"], Time.now, Date.today.end_of_day).order(scheduled_time: :asc)
-      end
+     if params[:q].present?
+       parameters = ["fixtures.status='not_started'", "fixtures.sport_id='sr:sport:1'", "fixtures.category_id NOT IN ('[sr:category:1033, sr:category:2123]')"]
+       parameters << "fixtures.scheduled_time>='#{params[:q][:start]}'" if params[:q][:start].present?
+       parameters << "fixtures.scheduled_time<='#{params[:q][:stop]}'" if params[:q][:stop].present?
+       if params[:q][:tournament_name].present?
+         @check_params = true
+         parameters << "fixtures.tournament_name='#{params[:q][:tournament_name]}'"
+       end
+       if params[:q][:category].present?
+         @check_params = true
+         parameters << "fixtures.category='#{params[:q][:category]}'"
+       end
+       conditions = parameters.join(" AND ")
+       @q = Fixture.joins(:market1_pre).where(conditions).order(scheduled_time: :asc)
+     else
+       @check_params = false
+       @q = Fixture.joins(:market1_pre).where("fixtures.status = ? AND fixtures.sport_id = ? AND fixtures.category_id NOT IN (?) AND fixtures.scheduled_time >= ? AND fixtures.scheduled_time <= ?", "not_started", "sr:sport:1", ["sr:category:1033","sr:category:2123"], Time.now, Date.today.end_of_day).order(scheduled_time: :asc)
+     end
 
       @pagy, @fixtures = pagy(@q.includes(:market1_pre))
       respond_to do |format|
@@ -22,6 +31,10 @@ class Fixtures::Soccer::PreMatchController < ApplicationController
          }
       end
 
+   end
+
+   def page_refresh
+     render :action => :index and return
    end
 
    def show

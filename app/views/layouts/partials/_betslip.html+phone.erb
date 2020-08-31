@@ -47,7 +47,7 @@
            </div>
          </div>
          <%= hidden_field_tag(:cart_id, @cart.id) %>
-         <div clas="actions">
+         <div clas="actions" onclick="localStorage.removeItem('stake')">
             <%= button_tag "Place Bet", class: "btn btn-block btn-primary mt-lg login-btn", id:'place_bet', data: {disable_with: "<i class='fas fa-spinner fa-spin'></i> Placing Bet..."}  %>
          </div>
          <% end %>

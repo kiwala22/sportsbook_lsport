@@ -4,6 +4,7 @@
             <h3>Upcoming Fixtures - Soccer</h3>
         </div>
         <div class="card-body">
+          <% if @check_params == false %>
             <ul class="nav nav-tabs" id="myTab" role="tablist" data-controller="tabs">
                 <li class="nav-item">
                     <%= link_to "Today", fixtures_soccer_pres_path(:'q[start]' => Time.now, :'q[stop]' => Date.today.end_of_day), remote: true, class: "nav-link active", id: "home-tab", data: {target: "tabs.date", action: "click->tabs#activate"} %>
@@ -19,6 +20,7 @@
                 </li>
 
             </ul>
+          <% end %>
 
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab" data-controller="match-fixtures">
