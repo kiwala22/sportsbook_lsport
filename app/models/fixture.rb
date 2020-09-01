@@ -3,7 +3,7 @@ class Fixture < ApplicationRecord
    include PgSearch::Model
 
    pg_search_scope :global_search, 
-   against: [:comp_one_name, :comp_two_name, :tournament_name],
+    against: [:comp_one_name, :comp_two_name, :tournament_name, :category],
     using:{ 
       tsearch: {prefix: true}
     }

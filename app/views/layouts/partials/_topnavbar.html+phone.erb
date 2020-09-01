@@ -14,20 +14,11 @@
         class="far fa-user fa-lg text-gray-400"></i></span>
       </button>
        <!-- logged in menu  -->
-      <div class="collapse navbar-collapse" id="navbarLoginShortcuts" data-controller="search">
+      <div class="collapse navbar-collapse" id="navbarLoginShortcuts" >
 
       <!-- Links -->
       <ul class="navbar-nav mr-auto">
-          <li class="nav-item ">
-               <%= form_with(url:"/", method: :get,data:{action:"submit->search#submit"}, class:"form-inline mr-auto") do |f| %>            
-                 <%= text_field_tag(:q, params[:q], data:{target:"search.q"}, class: "form-control") %>
-                 <div class="submit-search">  
-                     <%= submit_tag("Search", class:"bttn-small btn-fill") %>
-                  </div>
-               <% end %>
-
-         </li>
-         <br>
+          
          <li class="nav-item">
             <a class="dropdown-item words" href="#">
                <i class="far fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -77,9 +68,7 @@
       </div>
    <% else %>
       <div class="">
-            <a class="bttn-small search-btn" data-toggle="collapse" data-target="#navbarSideSearch" aria-controls="navbarSideSearch" aria-expanded="false" aria-label="Toggle navigation">
-               <i class="fas fa-search"></i>
-            </a>
+         
             <a id="signup" class="bttn-small btn-fill ml-1" href=<%=new_user_registration_path %> >Join</a>
             <a id="login" class="bttn-small btn-fill ml-1" href=<%=new_user_session_path %>>Login</a>
            
@@ -88,6 +77,17 @@
 
    <!-- shortcuts  -->
    <div class="collapse navbar-collapse" id="navbarSideShortcuts">
+       
+         <div class="col-12" data-controller="search">
+              <%= form_with(url:"/", method: :get,data:{action:"submit->search#submit"}, class:"form-inline mr-auto") do |f| %>            
+                 <%= text_field_tag(:q, params[:q], data:{target:"search.q"}, class: "form-control", placeholder:"Search for") %>
+                 <div class="submit-search">  
+                     <%= submit_tag("Search", class:"bttn-small btn-fill") %>
+                  </div>
+               <% end %>
+            
+   </div>
+   <br>
       <div class="row">
          <div class="col-12">
             <ul id="mobile-shortcuts" class="d-flex justify-content-between">
@@ -104,6 +104,7 @@
                </li>
             </ul>
          </div>
+
       </div>
 
       <div class="row">
@@ -128,6 +129,7 @@
                   <li class="text-gray-400"><%= link_to "Serie A", fixtures_soccer_pres_path(:'leag[tournament_name]' => "Serie A") %></li>
                   <li class="text-gray-400"><%= link_to "La Liga", fixtures_soccer_pres_path(:'leag[tournament_name]' => "La Liga") %></li>
                   <li class="text-gray-400"><%= link_to "Bundesliga", fixtures_soccer_pres_path(:'leag[tournament_name]' => "Bundesliga") %></li>
+                  <li class="text-gray-400"><%= link_to "League 1", fixtures_soccer_pres_path(:'leag[tournament_name]' => "League 1") %></li>
                   <li class="text-gray-400"><%= link_to "Portuguese Liga", fixtures_soccer_pres_path(:'leag[tournament_name]' => "Portuguese Primera Liga") %></li>
                   <li class="text-gray-400"><%= link_to "A-League", fixtures_soccer_pres_path(:'leag[tournament_name]' => "A-League") %></li>
                   <li class="text-gray-400"><%= link_to "K-League", fixtures_soccer_pres_path(:'leag[tournament_name]' => "K-League") %></li>
@@ -163,22 +165,6 @@
 
   </div>
 
-  <div class="collapse navbar-collapse" id="navbarSideSearch" data-controller="search">
-      <div class="row">
-         <div class="col-12">
-              <%= form_with(url:"/", method: :get,data:{action:"submit->search#submit"}, class:"form-inline mr-auto") do |f| %>            
-                 <%= text_field_tag(:q, params[:q], data:{target:"search.q"}, class: "form-control") %>
-                 <div class="submit-btn">  
-                     <%= submit_tag("Search", class:"bttn-small btn-fill") %>
-                  </div>
-               <% end %>
-            
-         </div>
-      </div>
 
-     
-    
-      
-  </div>
 
 </nav>
