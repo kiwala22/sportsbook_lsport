@@ -15,12 +15,11 @@ module Recovery
         #start the post request
         producer_name = producers[product_id]
         puts producer_name
-        url = ENV['RECOVERY_URL'] + "#{producer_name}/recovery/initiate_request"
+        url = ENV['RECOVERY_URL'] + "#{producer_name}/recovery/initiate_request"+ "?after=#{timestamp}&node_id=#{ENV['NODE_ID']}&request_id=#{recovery_request.id}"
         uri = URI(url)
         http = Net::HTTP.new(uri.host, uri.port)
         http.read_timeout = 180
         request = Net::HTTP::Post.new(uri.request_uri)
-        request.set_form_data('after' => "#{timestamp}", 'node_id' => ENV['NODE_ID'], 'request_id' => recovery_request.id)
         request['x-access-token'] = ENV['BETRADAR_TOKEN']
         http.use_ssl = true
         #http.verify_mode = OpenSSL::SSL::VERIFY_PEER

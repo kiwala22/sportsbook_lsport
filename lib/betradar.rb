@@ -51,7 +51,7 @@ module Betradar
       request['x-access-token'] = @@auth_token
       http.use_ssl = true
       #http.verify_mode = OpenSSL::SSL::VERIFY_PEER
-      #http.set_debug_output($stdout)
+      http.set_debug_output($stdout)
       response = http.request(request)
       #check the status of response and return a response or log an error
       if response.code == "200"
@@ -62,6 +62,7 @@ module Betradar
                Soccer::UpdateFixtureWorker.perform_async(event["sport_event_id"], event["update_time"])
             end
          end
+         return response.code
       else
          @@logger.error(response.body)
          return response.body

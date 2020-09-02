@@ -241,6 +241,9 @@ GEM
     parser (2.7.1.0)
       ast (~> 2.4.0)
     pg (1.2.3)
+    pg_search (2.3.2)
+      activerecord (>= 5.2)
+      activesupport (>= 5.2)
     polyamorous (2.3.2)
       activerecord (>= 5.2.1)
     public_suffix (4.0.3)
@@ -447,6 +450,7 @@ DEPENDENCIES
   openssl
   pagy (~> 3.5)
   pg
+  pg_search
   puma (~> 3.11)
   pundit
   rails (~> 6.0, >= 6.0.2.2)

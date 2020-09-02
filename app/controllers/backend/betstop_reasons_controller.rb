@@ -5,6 +5,6 @@ class Backend::BetstopReasonsController < ApplicationController
   layout "admin_application.html.erb"
 
   def index
-    @betstop_reasons = BetstopReason.all.page params[:page]
+    @betstop_reasons = BetstopReason.all.order("created_at DESC").page params[:page]
   end
 end

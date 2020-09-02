@@ -5,6 +5,6 @@ class Backend::VoidReasonsController < ApplicationController
   layout "admin_application.html.erb"
 
   def index
-    @void_reasons = VoidReason.all.page params[:page]
+    @void_reasons = VoidReason.all.order("created_at DESC").page params[:page]
   end
 end

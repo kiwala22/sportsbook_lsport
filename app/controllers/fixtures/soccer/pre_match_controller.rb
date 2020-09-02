@@ -3,7 +3,10 @@ class Fixtures::Soccer::PreMatchController < ApplicationController
    before_action :set_cart, only: [:index, :show]
 
    def index
-     if params[:q].present?
+     if Fixture.global_search(params[:q]).present?
+       @check_params = true
+       @q = Fixture.joins(:market1_pre).global_search(params[:q]).where("fixtures.status = ?  AND fixtures.scheduled_time >= ? ", "not_started",  Time.now).order(scheduled_time: :asc)
+     elsif params[:q].present?
        @check_params = false
        parameters = ["fixtures.status='not_started'", "fixtures.sport_id='sr:sport:1'", "fixtures.category_id NOT IN ('[sr:category:1033, sr:category:2123]')"]
        parameters << "fixtures.scheduled_time>='#{params[:q][:start]}'" if params[:q][:start].present?
@@ -23,7 +26,7 @@ class Fixtures::Soccer::PreMatchController < ApplicationController
        @q = Fixture.joins(:market1_pre).where("fixtures.status = ? AND fixtures.sport_id = ? AND fixtures.category_id NOT IN (?) AND fixtures.scheduled_time >= ? AND fixtures.scheduled_time <= ?", "not_started", "sr:sport:1", ["sr:category:1033","sr:category:2123"], (Date.today.beginning_of_day), (Date.today.end_of_day + 2.days)).order(scheduled_time: :asc)
      end
 
-      @pagy, @fixtures = pagy(@q.includes(:market1_pre))
+      @pagy, @fixtures = pagy(@q.includes(:market1_pre) ,page: params[:page])
       respond_to do |format|
          format.html
          format.js

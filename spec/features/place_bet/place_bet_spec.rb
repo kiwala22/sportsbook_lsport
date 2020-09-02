@@ -27,12 +27,12 @@ RSpec.describe User, type: :system, js: true do
 
 		it 'should be successful when a user is logged in' do
 			login_form(user.phone_number, user.password)
-			expect(page).to have_content('Pre-Match Fixtures - Soccer')
+			expect(page).to have_content('Upcoming Fixtures - Soccer')
 			expect(page).to have_content('Betslip')
 			first('#odd1').click
-			all('a', :id => 'odd1')[1].click
-			all('a', :id => 'odd2')[2].click
-			all('a', :id => 'odd3')[3].click
+			# all('a', :id => 'odd1')[1].click
+			# all('a', :id => 'odd2')[2].click
+			# all('a', :id => 'odd3')[3].click
 			# all('a', :id => 'odd2')[5].click
 			# all('a', :id => 'odd1')[4].click
 			stake = 2000
@@ -60,11 +60,11 @@ RSpec.describe User, type: :system, js: true do
 
 		it 'should fail on low balance' do
 			login_form(user.phone_number, user.password)
-			expect(page).to have_content('Pre-Match Fixtures - Soccer')
+			expect(page).to have_content('Upcoming Fixtures - Soccer')
 			expect(page).to have_content('Betslip')
 
 			first('#odd1').click
-			all('a', :id => 'odd1')[1].click
+			# all('a', :id => 'odd1')[1].click
 			# all('a', :id => 'odd2')[2].click
 			# all('a', :id => 'odd3')[3].click
 			# all('a', :id => 'odd2')[5].click
@@ -82,11 +82,11 @@ RSpec.describe User, type: :system, js: true do
 		
 		it 'User can login after choosing games' do
 			visit '/'
-			expect(page).to have_content('Pre-Match Fixtures - Soccer')
+			expect(page).to have_content('Upcoming Fixtures - Soccer')
 			expect(page).to have_content('Betslip')
 
 			first('#odd1').click
-			all('a', :id => 'odd1')[1].click
+			# all('a', :id => 'odd1')[1].click
 			# all('a', :id => 'odd2')[2].click
 			# all('a', :id => 'odd3')[3].click
 			# all('a', :id => 'odd2')[5].click
@@ -96,7 +96,7 @@ RSpec.describe User, type: :system, js: true do
 			expect('total-wins'.to_f).to eq('total-odds'.to_f * 'stake-input'.to_i)
 			sleep(1)		
 			expect(page).to_not have_content 'Place bet'
-			click_button('Login')
+			click_link('slip_login')
 			sleep (1)
 		end
 

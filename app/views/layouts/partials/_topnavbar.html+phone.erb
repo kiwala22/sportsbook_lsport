@@ -14,10 +14,11 @@
         class="far fa-user fa-lg text-gray-400"></i></span>
       </button>
        <!-- logged in menu  -->
-      <div class="collapse navbar-collapse" id="navbarLoginShortcuts">
+      <div class="collapse navbar-collapse" id="navbarLoginShortcuts" >
 
       <!-- Links -->
       <ul class="navbar-nav mr-auto">
+
          <li class="nav-item">
             <a class="dropdown-item words" href="#">
                <i class="far fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -67,13 +68,26 @@
       </div>
    <% else %>
       <div class="">
-            <a id="signup" class="bttn-small btn-fill" href=<%=new_user_registration_path %> >Join</a>
-            <a id="login" class="bttn-small btn-fill ml-2" href=<%=new_user_session_path %>>Login</a>
+
+            <a id="signup" class="bttn-small btn-fill ml-1" href=<%=new_user_registration_path %> >Join</a>
+            <a id="login" class="bttn-small btn-fill ml-1" href=<%=new_user_session_path %>>Login</a>
+
       </div>
    <% end %>
 
    <!-- shortcuts  -->
    <div class="collapse navbar-collapse" id="navbarSideShortcuts">
+
+         <div class="col-12" data-controller="search">
+              <%= form_with(url:"/", method: :get,data:{action:"submit->search#submit"}, class:"form-inline mr-auto") do |f| %>
+                 <%= text_field_tag(:q, params[:q], data:{target:"search.q"}, class: "form-control", placeholder:"Search for") %>
+                 <div class="submit-search">
+                     <%= submit_tag("Search", class:"bttn-small btn-fill") %>
+                  </div>
+               <% end %>
+
+   </div>
+   <br>
       <div class="row">
          <div class="col-12">
             <ul id="mobile-shortcuts" class="d-flex justify-content-between">
@@ -90,6 +104,7 @@
                </li>
             </ul>
          </div>
+
       </div>
 
       <div class="row">
@@ -144,5 +159,7 @@
       </div>
 
   </div>
+
+
 
 </nav>
