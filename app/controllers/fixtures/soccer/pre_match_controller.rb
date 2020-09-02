@@ -4,7 +4,7 @@ class Fixtures::Soccer::PreMatchController < ApplicationController
 
    def index
       if Fixture.global_search(params[:q]).present?
-         @q = Fixture.global_search(params[:q]).where("fixtures.status = ?  AND fixtures.scheduled_time >= ? ", "not_started",  Time.now).order(scheduled_time: :asc)
+        @q = Fixture.joins(:market1_pre).global_search(params[:q]).where("fixtures.status = ?  AND fixtures.scheduled_time >= ? ", "not_started",  Time.now).order(scheduled_time: :asc)
       elsif params[:q].present?
         @q = Fixture.joins(:market1_pre).where("fixtures.status = ? AND fixtures.sport_id = ? AND fixtures.category_id NOT IN (?) AND fixtures.scheduled_time >= ? AND fixtures.scheduled_time <= ?", "not_started", "sr:sport:1", ["sr:category:1033","sr:category:2123"], params[:q][:start], params[:q][:stop]).order(scheduled_time: :asc)
       elsif params[:leag].present?
@@ -15,7 +15,7 @@ class Fixtures::Soccer::PreMatchController < ApplicationController
         @q = Fixture.joins(:market1_pre).where("fixtures.status = ? AND fixtures.sport_id = ? AND fixtures.category_id NOT IN (?) AND fixtures.scheduled_time >= ? AND fixtures.scheduled_time <= ?", "not_started", "sr:sport:1", ["sr:category:1033","sr:category:2123"], Time.now, Date.today.end_of_day).order(scheduled_time: :asc)
       end
 
-      @pagy, @fixtures = pagy(@q.includes(:market1_pre))
+      @pagy, @fixtures = pagy(@q.includes(:market1_pre) ,page: params[:page])
       respond_to do |format|
          format.html
          format.js

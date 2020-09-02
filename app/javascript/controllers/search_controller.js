@@ -3,7 +3,12 @@ import {Controller} from "stimulus"
 export default class extends Controller {
 	static targets = ["q", "fixtures"]
 
-	submit(){
+
+	connect(){
+		this.submit();
+	}
+
+	submit(event){
 		const value =  this.qTarget.value
 		fetch(`/?q=${value}`, {
 			headers: {accept: 'application/json'}

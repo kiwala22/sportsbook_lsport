@@ -5,10 +5,13 @@ class Fixtures::Soccer::LiveMatchController < ApplicationController
    def index
        @q = Fixture.joins(:market1_live).where("fixtures.status = ? AND fixtures.sport_id = ? AND fixtures.category_id NOT IN (?) ", "live", "sr:sport:1", ["sr:category:1033","sr:category:2123"]).order(scheduled_time: :asc)
       
-      @pagy, @fixtures = pagy(@q.includes(:market1_live))
+      @pagy, @fixtures = pagy(@q.includes(:market1_live), page:params[:page])
       respond_to do |format|
          format.html
          format.js
+         format.json {
+            render json: { fixtures: render_to_string(partial: "live_match_fixture_table", locals: {fixtures: @fixtures}, formats: [:html]), pagination: view_context.pagy_nav(@pagy) }
+         }
       end
 
    end
