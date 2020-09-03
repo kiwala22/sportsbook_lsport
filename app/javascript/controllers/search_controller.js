@@ -17,10 +17,10 @@ export default class extends Controller {
 			var fixtureHTML = ""
 			var fixtureArray = Object.values(data)[0]
 
-		console.log(fixtureArray)
+		//console.log(fixtureArray)
 
 		});
-					
+
 	}
 
 }
