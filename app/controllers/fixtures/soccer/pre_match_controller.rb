@@ -26,14 +26,14 @@ class Fixtures::Soccer::PreMatchController < ApplicationController
        @q = Fixture.joins(:market1_pre).where("fixtures.status = ? AND fixtures.sport_id = ? AND fixtures.category_id NOT IN (?) AND fixtures.scheduled_time >= ? AND fixtures.scheduled_time <= ?", "not_started", "sr:sport:1", ["sr:category:1033","sr:category:2123"], (Date.today.beginning_of_day), (Date.today.end_of_day + 2.days)).order(scheduled_time: :asc)
      end
 
-      @pagy_feat, @featured = pagy(@q.includes(:market1_pre))
+      @featured = @q.includes(:market1_pre).page params[:page]
       @pagy, @fixtures = pagy(@q.includes(:market1_pre))
       respond_to do |format|
          format.html
          format.js
          format.json {
             render json: {
-              featured: render_to_string(partial: "feat_pre_match_fixture_table", locals: {featured: @featured}, formats: [:html]), pagination: view_context.pagy_nav(@pagy_feat),
+              featured: render_to_string(partial: "feat_pre_match_fixture_table", locals: {featured: @featured}, formats: [:html]),
               fixtures: render_to_string(partial: "pre_match_fixture_table", locals: {fixtures: @fixtures}, formats: [:html]), pagination: view_context.pagy_nav(@pagy)
              }
          }
