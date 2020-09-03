@@ -9,12 +9,12 @@ default: &default
   host: <%= ENV['POSTGRES_HOST'] %>
 development:
   <<: *default
-  database: sportsbook_development
+  database: sportsbook_development_new
 
 production:
   <<: *default
-  database: sportsbook_development
+  database: sportsbook_production_new
 
 test:
   <<: *default
-  database: sportsbook_development
+  database: sportsbook_test_new
