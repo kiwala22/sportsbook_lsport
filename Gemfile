@@ -94,7 +94,7 @@ gem "roo", "~> 2.8.0"
 gem "brakeman"
 gem "sentry-raven"
 gem 'webpacker', '~> 4.0'
-gem "bunny", ">= 2.9.2"
+gem "bunny", ">= 2.16.1"
 gem 'sneakers'
 # gem 'httparty', '~> 0.13.7'
 # gem 'rb-readline'
@@ -106,3 +106,4 @@ gem 'momentjs-rails', '>= 2.9.0'
 gem 'pagy', '~> 3.5'
 gem 'flag-icons-rails'
 gem "browser"
+
