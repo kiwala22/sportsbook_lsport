@@ -9,15 +9,63 @@ class Mts::SubmitControl
    def publish(options = {})
      channel = BunnyQueueService.connection.create_channel
      exchange = channel.topic(EXCHANGE_NAME,:durable => true,:passive => true) 
-     headers = { 'replyRoutingKey' => options[:delay_time].to_i * 1_000 } if options[:delay_time].present?
+     headers = { 'replyRoutingKey' => "#{ENV[:NODE_ID]}.cancel.confirm"}
      exchange.publish(payload.to_json, routing_key: QUEUE_NAME, headers: headers)
    end
  
    private
  
    def payload
-     {
-       mutations: @mutations
-     }
+      {
+         "$schema":"http://json-schema.org/draft-04/schema#",
+         "type":"object",
+         "properties":{
+            "sender":{
+               "type":"object",
+               "properties":{
+                  "bookmakerId":{
+                     "type":"integer"
+                  }
+               },
+               "required":[
+                  "bookmakerId"
+               ]
+            },
+            "ticketId":{
+               "type":"string"
+            },
+            "ticketCancelStatus":{
+               "type": "string",
+               "enum":[
+                  "not_cancelled",
+                  "cancelled"
+               ]
+            },
+            "code":{
+               "type":"integer"
+            },
+            "message":{
+               "type":"string"
+            },
+            "timestampUtc":{
+               "type":"number"
+            },
+            "version":{
+               "type":"string",
+               "description":"JSON format version (must be '2.3')",
+               "pattern":"^(2\\.3)$",
+               "minLength":3,
+               "maxLength":3
+            }
+         },
+         "required":[
+            "sender",
+            "ticketId",
+            "ticketCancelStatus",
+            "timestampUtc",
+            "version"
+         ]
+      }
+      
    end
  end
