@@ -24,7 +24,7 @@ export default class extends Controller {
 		// console.log(fixtureArray)
 
 		if(search.value.length>0){
-		matchList.innerHTML = fixtureArray
+			matchList.innerHTML = fixtureArray
 		}else{
 			matchList.innerHTML = []
 		}
