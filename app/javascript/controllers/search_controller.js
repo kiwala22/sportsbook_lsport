@@ -24,13 +24,13 @@ export default class extends Controller {
 		// console.log(fixtureArray)
 
 		if(search.value.length>0){
-		matchList.innerHTML = fixtureArray
+			matchList.innerHTML = fixtureArray
 		}else{
 			matchList.innerHTML = []
 		}
 
 		});
-
+					
 	}
 
 	display(characters){
@@ -44,7 +44,7 @@ export default class extends Controller {
                </a>
             </li>
             <li><a href=${fixtures_soccer_pre_path(id= fixture.id) }>
-            <strong>${ fixture.comp_one_name }</strong> -
+            <strong>${ fixture.comp_one_name }</strong> - 
             <strong>${ fixture.comp_two_name }</strong> </a> </li>
             <li>
                <a href=${fixtures_soccer_pre_path(id= fixture.id) }>
