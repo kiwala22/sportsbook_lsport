@@ -27,10 +27,15 @@ class Backend::Fixtures::SoccerFixturesController < ApplicationController
 
   def feature_update
     @fixture = Fixture.find(params[:id])
+    action = params[:data]
     if @fixture
-      @fixture.update(featured: true)
+      if action == "Add"
+        @fixture.update(featured: true)
+      elsif action == "Remove"
+        @fixture.update(featured: false)
+      end
       respond_to do |format|
-        flash[:notice] = "Fixture added to Featured."
+        flash[:notice] = "Fixture Updated."
         format.html
         format.json
         format.js { render :layout => false }
