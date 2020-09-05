@@ -16,11 +16,11 @@
                 <div class="search " data-controller="search">
         
                     <%= form_with(url:"/", method: :get, class:"form-inline mr-auto") do |f| %>            
-                      <%= text_field_tag(:q, params[:q], data:{target:"search.q", action:"keyup->search#submit"}, placeholder:"Search for...",class: "form-control", id:"search" ) %>
-                      <!-- <%#= submit_tag("Search", class:"bttn-small btn-fill ml-2") %> -->
+                      <%= text_field_tag(:q, params[:q], data:{target:"search.q", action:"input->search#searchFixture"}, placeholder:"Search for...",class: "form-control", id:"search" ) %>
+                      <i class="fa fa-search fa-lg" id="glass"></i>
                     <% end %>
 
-                   <div class="" id="match-list"></div>
+                   <!-- <div class="" id="match-list"></div> -->
                 </div>
 
                 <% if current_user && current_user.verified? %>

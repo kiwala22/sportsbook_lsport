@@ -5,11 +5,13 @@ export default class extends Controller {
 
 
 	connect(){
-		this.submit();
+		// this.searchFixture();
+		this.searchFixture();
 	}
 
-	submit(event){
-		const matchList = document.getElementById('match-list')
+	searchFixture(){
+		try{
+		const matchList = document.getElementById('fixture-table-body')
 		const search = document.getElementById('search')
 		const value =  this.qTarget.value
 		fetch(`/?q=${value}`, {
@@ -18,44 +20,39 @@ export default class extends Controller {
 			}
 		}).then((response) => response.json())
 		.then( data => {
-			var fixtureHTML;
 			var fixtureArray = Object.values(data)[0]
 
-		// console.log(fixtureArray)
+			if(search.value.length>0){
 
-		if(search.value.length>0){
-			matchList.innerHTML = fixtureArray
-		}else{
-			matchList.innerHTML = []
+			//***check for elements in fixture array
+				if(fixtureArray !==[]){
+					matchList.innerHTML = fixtureArray
+
+				//***removing the refresh controller
+					document.getElementById("fixture-table-body").removeAttribute("data-controller");
+					document.getElementById("fixture-table-body").removeAttribute("data-refresh-interval");
+
+
+				//***removing pagination & bottom spinner
+					var bottom = document.getElementById("bottom");
+					bottom.remove()
+				
+					throw new Error('removed temporarilly')
+				}else{
+					matchList.innerHTML = "No Fixtures"
+				}
+
+			}else{
+				matchList.innerHTML = []
+			}
+
+		})
+	}catch(e){
+			console.error("Occured:"+e.message);
+			return []
 		}
-
-		});
 					
 	}
 
-	display(characters){
-		const htmlString = characters
-		.map((characters)=>{
-			return `
-            <li>
-               <a href=${fixtures_soccer_pre_path(id=fixture.id) }>
-                  ${ fixture.scheduled_time.strftime("%H:%M:%S ") } <br>
-                  ${ fixture.scheduled_time.strftime("%d/%m/%y") }
-               </a>
-            </li>
-            <li><a href=${fixtures_soccer_pre_path(id= fixture.id) }>
-            <strong>${ fixture.comp_one_name }</strong> - 
-            <strong>${ fixture.comp_two_name }</strong> </a> </li>
-            <li>
-               <a href=${fixtures_soccer_pre_path(id= fixture.id) }>
-                  ${ fixture.tournament_name } <br>
-                  ${ fixture.category }
-               </a>
-            </li>
-            `;
-		})
-		.join('');
-		charactersList.innerHTML = htmlString;
-	}
 
 }
