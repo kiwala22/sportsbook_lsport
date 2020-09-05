@@ -3,9 +3,9 @@ class Fixtures::Soccer::PreMatchController < ApplicationController
    before_action :set_cart, only: [:index, :show]
 
    def index
-     if Fixture.global_search(params[:q]).present?
+     if Fixture.global_search(params[:search]).present?
        @check_params = true
-       @q = Fixture.joins(:market1_pre).global_search(params[:q]).where("fixtures.status = ?  AND fixtures.scheduled_time >= ? ", "not_started",  Time.now).order(scheduled_time: :asc)
+       @q = Fixture.joins(:market1_pre).global_search(params[:search]).where("fixtures.status = ?  AND fixtures.scheduled_time >= ? ", "not_started",  Time.now).order(scheduled_time: :asc)
      elsif params[:q].present?
        @check_params = false
        parameters = ["fixtures.status='not_started'", "fixtures.sport_id='sr:sport:1'", "fixtures.category_id NOT IN ('[sr:category:1033, sr:category:2123]')"]

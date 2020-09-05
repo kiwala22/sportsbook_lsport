@@ -44,4 +44,5 @@ export default class extends Controller {
             success: (data) => {}
         })
     }
+
 }
