@@ -16,7 +16,7 @@
                 <div class="search " data-controller="search">
         
                     <%= form_with(url:"/", method: :get, class:"form-inline mr-auto") do |f| %>            
-                      <%= text_field_tag(:q, params[:q], data:{target:"search.q", action:"input->search#searchFixture"}, placeholder:"Search for...",class: "form-control", id:"search" ) %>
+                      <%= text_field_tag(:search, params[:search], data:{target:"search.search", action:"submit->search#searchFixture"}, placeholder:"Search for...",class: "form-control", id:"search" ) %>
                       <i class="fa fa-search fa-lg" id="glass"></i>
                     <% end %>
 
