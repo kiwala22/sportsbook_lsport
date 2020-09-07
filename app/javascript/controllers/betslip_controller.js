@@ -1,12 +1,18 @@
 import { Controller } from "stimulus"
+import $ from 'jquery';
 
 export default class extends Controller {
+
+    static targets = []
+
+
+
     connect() {
         this.load()
-
-        if (this.data.has("refreshInterval")) {
+        if (this.data.has("interval")) {
             this.startRefreshing()
         }
+
     }
 
     disconnect() {
@@ -16,7 +22,7 @@ export default class extends Controller {
     startRefreshing() {
         this.refreshTimer = setInterval(() => {
             this.load()
-        }, this.data.get("refreshInterval"))
+        }, this.data.get("interval"))
     }
 
     stopRefreshing() {
@@ -26,20 +32,18 @@ export default class extends Controller {
     }
 
     load() {
-        let url = "/refresh_slip"
+        let url = this.data.get("url")
+        let method = this.data.get("method")
         let token = document.getElementsByName('csrf-token')[0].content
         Rails.ajax({
-            type: 'POST',
+            type: method,
             headers: {
                 'X-CSRF-Token': token
             },
             url: url,
             dataType: 'script',
             success: (data) => {
-
             }
         })
     }
-
-
 }

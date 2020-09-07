@@ -6,8 +6,8 @@
             <h3>Featured Fixtures - Soccer</h3>
         </div>
         <div class="card-body">
-            <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <div class="tab-content" id="">
+                <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="home-tab">
                     <table class="table table-borderless ">
                         <thead>
                             <tr>
@@ -19,7 +19,7 @@
                                 <th class="col-1">2</th>
                             </tr>
                         </thead>
-                        <tbody id="fixture-table-body-1" data-controller="refresh" data-refresh-interval="60000" data-refresh-url="<% page_refresh_path %>" data-refresh-method="GET">
+                        <tbody id="fixture-table-body-1" data-controller="refresh" data-target="refresh.featured" data-refresh-interval="60000" data-refresh-url="<% page_refresh_path %>" data-refresh-method="GET">
                             <%= render partial: 'feat_pre_match_fixture_table', locals: {featured: @featured} %>
                         </tbody>
                     </table>
@@ -58,7 +58,7 @@
                                 <th class="col-1">2</th>
                             </tr>
                         </thead>
-                        <tbody id="fixture-table-body" data-target="match-fixtures.fixtures" data-controller="refresh" data-refresh-interval="60000" data-refresh-url="<% page_refresh_path %>" data-refresh-method="GET">
+                        <tbody id="fixture-table-body" data-target="match-fixtures.fixtures refresh.featured" data-controller="#refresh" data-refresh-interval="60000" data-refresh-url="<% page_refresh_path %>" data-refresh-method="GET">
                             <%= render partial: 'pre_match_fixture_table', locals: {fixtures: @fixtures} %>
                         </tbody>
                     </table>
