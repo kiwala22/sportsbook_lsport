@@ -6,6 +6,10 @@
     .card-header:first-child {
         border-radius: 0px;
     }
+    .content-wrapper {
+      margin-bottom: 50px;
+      overflow-x: hidden;
+    }
     .game-box .card .card-header h3 {
         font-size: 14px;
     }
@@ -278,5 +282,8 @@
       background-color: #F6AE2D;
       border-color: #F6AE2D;
       box-shadow: 0 0 0 0.1rem #F6AE2D;
+    }
+    .upcoming {
+      padding: .75rem 0.75rem;
     }
 }
