@@ -1,61 +1,39 @@
 import {Controller} from "stimulus"
-
+import $ from 'jquery';
 export default class extends Controller {
-	static targets = ["q", "fixtures"]
+	static targets = ["search", "fixtures"]
 
 
 	connect(){
-		this.submit();
+
+		// document.getElementById("fixture-table-body").removeAttribute("data-controller");
+		// document.getElementById("fixture-table-body-1").removeAttribute("data-controller");
+		// document.getElementById("fixture-table-body").removeAttribute("data-refresh-interval");
+		// document.getElementById("fixture-table-body-1").removeAttribute("data-refresh-interval");
+		// document.getElementById("spinner").remove();
+
 	}
 
-	submit(event){
-		const matchList = document.getElementById('match-list')
+	disconnect(){
+	}
+
+	searchFixture(){
+
+		const matchList = document.getElementById('fixture-table-body')
 		const search = document.getElementById('search')
-		const value =  this.qTarget.value
-		fetch(`/?q=${value}`, {
-			headers: {
-				accept: 'application/json'
-			}
-		}).then((response) => response.json())
-		.then( data => {
-			var fixtureHTML;
-			var fixtureArray = Object.values(data)[0]
+		const value =  this.searchTarget.value
+		let token = document.getElementsByName('csrf-token')[0].content
+		let next_page = null
+		let url = next_page.href
 
-		// console.log(fixtureArray)
-
-		if(search.value.length>0){
-			matchList.innerHTML = fixtureArray
-		}else{
-			matchList.innerHTML = []
-		}
-
-		});
-					
-	}
-
-	display(characters){
-		const htmlString = characters
-		.map((characters)=>{
-			return `
-            <li>
-               <a href=${fixtures_soccer_pre_path(id=fixture.id) }>
-                  ${ fixture.scheduled_time.strftime("%H:%M:%S ") } <br>
-                  ${ fixture.scheduled_time.strftime("%d/%m/%y") }
-               </a>
-            </li>
-            <li><a href=${fixtures_soccer_pre_path(id= fixture.id) }>
-            <strong>${ fixture.comp_one_name }</strong> - 
-            <strong>${ fixture.comp_two_name }</strong> </a> </li>
-            <li>
-               <a href=${fixtures_soccer_pre_path(id= fixture.id) }>
-                  ${ fixture.tournament_name } <br>
-                  ${ fixture.category }
-               </a>
-            </li>
-            `;
+			Rails.ajax({
+            type: 'GET',
+            headers: {
+                'X-CSRF-Token': token
+            },
+            url:url,
+            dataType: 'json',
+            success: (data) => {}
 		})
-		.join('');
-		charactersList.innerHTML = htmlString;
 	}
-
 }
