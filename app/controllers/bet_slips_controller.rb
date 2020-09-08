@@ -16,18 +16,19 @@ class BetSlipsController < ApplicationController
 
 			#check if there is sufficient balance
 			if stake <= current_user.balance
-				#reduce the balance and save a transactions
-				previous_balance = current_user.balance
-				current_user.balance = (current_user.balance - stake)
-				transaction = current_user.transactions.build(balance_before: previous_balance, balance_after: current_user.balance, phone_number: current_user.phone_number, status: "SUCCESS", currency: "UGX", amount: stake, category: "Withdraw" )
+				#MTS take sprecedence
+					#reduce the balance and save a transactions
+					#previous_balance = current_user.balance
+					#current_user.balance = (current_user.balance - stake)
+					#transaction = current_user.transactions.build(balance_before: previous_balance, balance_after: current_user.balance, phone_number: current_user.phone_number, status: "SUCCESS", currency: "UGX", amount: stake, category: "Withdraw" )
 
 				#start betslip creation process all under a transaction
 				#create the betslip
 
 				BetSlip.transaction do
 					#save the transaction
-					current_user.save!
-					transaction.save!
+					# current_user.save!
+					# transaction.save!
 
 
 					bet_slip = current_user.bet_slips.create!
@@ -36,7 +37,7 @@ class BetSlipsController < ApplicationController
 						market_id = bet.market.scan(/\d/).join('').to_i #extract only the numbers in the market number
 						if fetch_market_status(bet.market, bet.fixture_id) == "Active"
 							odd = fetch_current_odd(bet.market, bet.fixture_id, "outcome_#{bet.outcome}").to_f
-							user_bet = current_user.bets.build(bet_slip_id: bet_slip.id,fixture_id: bet.fixture_id,outcome_id: bet.outcome,market_id: market_id , odds: odd, status: "Active", product: product, outcome_desc: bet.description )
+							user_bet = current_user.bets.build(bet_slip_id: bet_slip.id,fixture_id: bet.fixture_id,outcome_id: bet.outcome,market_id: market_id , odds: odd, status: "Pending", product: product, outcome_desc: bet.description )
 							user_bet.save!
 						end
 					end
@@ -45,14 +46,17 @@ class BetSlipsController < ApplicationController
 					@bets = bet_slip.bets
 					total_odds = @bets.pluck(:odds).map(&:to_f).inject(:*).round(2)
 					potential_win_amount = (stake.to_f * total_odds )
-					bet_slip.update!(bet_count: @bets.count, stake: stake, odds: total_odds, status: "Active", potential_win_amount: potential_win_amount)
+					bet_slip.update!(bet_count: @bets.count, stake: stake, odds: total_odds, status: "Pending", potential_win_amount: potential_win_amount)
+
+					#process the betslips through MTS
+					
 
 					#delete the session and also delete the cart
 					@cart.destroy if @cart.id == session[:cart_id]
 					session[:cart_id] = nil
 				end
 				#redirect to home page with a notification
-				redirect_to root_path, notice: "Thank You! Bets have been placed. "
+				redirect_to root_path, notice: "Thank You! Bets are being processed. "
 			else
 				redirect_to root_path, alert: "You have insufficient balance on your account. Please deposit some money. "
 			end

@@ -22,5 +22,5 @@ class BunnyQueueService
       end
    end
    
-   ObjectSpace.define_finalizer(RailsMessageQueue::Application, proc { puts "Closing bunny connections"; BunnyQueueService.connection&.close })
+   # ObjectSpace.define_finalizer(@@connection, proc { puts "Closing bunny connections"; BunnyQueueService.connection&.close })
 end
