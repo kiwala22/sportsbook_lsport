@@ -3,10 +3,6 @@ import $ from 'jquery';
 
 export default class extends Controller {
 
-    static targets = ["featured"]
-
-
-
     connect() {
         this.load()
         if (this.data.has("interval")) {
@@ -39,7 +35,8 @@ export default class extends Controller {
         $("#fixture-table-body").empty()
         $("#fixture-table-body-1").append('<div class="d-flex justify-content-center"><div class="spinner-border" role="status"></div></div>')
         $("#fixture-table-body").append('<div class="d-flex justify-content-center"><div class="spinner-border" role="status"></div></div>')
-        //this.featuredTarget.classList.add("spinner-border")
+        $("#bottom").hide();
+
         Rails.ajax({
             type: method,
             headers: {
@@ -48,6 +45,7 @@ export default class extends Controller {
             url: url,
             dataType: 'script',
             success: (data) => {
+              $("#bottom").show();
             }
         })
     }

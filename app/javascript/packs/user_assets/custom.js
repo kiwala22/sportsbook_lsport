@@ -48,9 +48,6 @@
 //         };
 //     });
 // })
-// document.addEventListener("turbolinks:load", function() {
-//     $("#flash").fadeOut(7000);
-//     $("#place_bet").on("click", function() {
-//         localStorage.removeItem('stake');
-//     });
-// })
+document.addEventListener("turbolinks:load", function() {
+  $("#flash").fadeOut(3000);
+})

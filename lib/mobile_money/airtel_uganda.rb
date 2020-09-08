@@ -23,9 +23,9 @@ module MobileMoney
 		@@collection_pin =
 
 		@@payment_interface =
-		@@payment_msisdn =
-		@@payment_username =
-		@@payment_password =
+		# @@payment_msisdn =
+		# @@payment_username =
+		# @@payment_password =
 		@@payment_billerID =
 
 

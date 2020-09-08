@@ -28,13 +28,13 @@ class Fixtures::Soccer::PreMatchController < ApplicationController
       @pagy, @fixtures = pagy(@q.includes(:market1_pre))
       respond_to do |format|
          format.html
-         format.js
          format.json {
             render json: {
               featured: render_to_string(partial: "feat_pre_match_fixture_table", locals: {featured: @featured}, formats: [:html]),
               fixtures: render_to_string(partial: "pre_match_fixture_table", locals: {fixtures: @fixtures}, formats: [:html]), pagination: view_context.pagy_nav(@pagy)
              }
          }
+         format.js
       end
 
    end

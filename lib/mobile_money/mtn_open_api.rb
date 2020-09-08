@@ -6,15 +6,17 @@ module MobileMoney
 		require 'uri'
 		require 'net/http'
 
-		@@collection_sub_key  = "d62ba8e2507e4e4bb54aba82fa826839"#"12e0c6ecfb5f4a4788f44bd1fc65f81c"
-		@@transfer_sub_key		= "34a48a79a06940d5907ff4244456df5e"#"53e3bdbf26a747469dde718aa722689c"
-		@@collection_user_id 	=  ApiUser.where(user_type: "collections").last.api_id if ApiUser.where(user_type: "collections").present?
-		@@transfer_user_id 		=  ApiUser.where(user_type: "transfer").last.api_id if ApiUser.where(user_type: "transfer").present?
+		@@collection_sub_key  =  ENV['COLLECTION_SUB_KEY']
+		@@transfer_sub_key		=  ENV['TRANSFER_SUB_KEY']
+		@@collection_api_id 	=  ENV['COLLECTION_API_ID']
+		@@collection_api_key 	=  ENV['COLLECTION_API_KEY']
+		@@transfer_api_id 		=  ENV['TRANSFER_API_ID']
+		@@transfer_api_key 		=  ENV['TRANSFER_API_KEY']
 
 		def self.request_payments(amount, ext_reference, phone_number)
-			token = process_request_token(@@collection_user_id)
+			token = process_request_token()
 			if token
-				url = "https://sandbox.momodeveloper.mtn.com/collection/v1_0/requesttopay"
+				url = "https://proxy.momoapi.mtn.com/collection/v1_0/requesttopay"
 				callback_url = "http://betcity.co.ug"
 
 				uri = URI(url)
@@ -32,7 +34,7 @@ module MobileMoney
 				req['X-Reference-Id'] = ext_reference
 
 				#set Enviroment
-				req['X-Target-Environment'] = "sandbox"
+				req['X-Target-Environment'] = "mtnuganda"
 
 				#set content type
 				req['Content-Type'] = "application/json"
@@ -42,7 +44,7 @@ module MobileMoney
 
 				request_body = {
 					amount: amount,
-				   currency: "EUR",
+				   currency: "UGX",
 				   externalId: ext_reference,
 				   payer: {
 				   	partyIdType: "MSISDN",
@@ -68,9 +70,9 @@ module MobileMoney
 		end
 
 		def self.check_collection_status(ext_reference)
-			token = process_request_token(@@collection_user_id)
+			token = process_request_token()
 			if token
-				url = "https://sandbox.momodeveloper.mtn.com/collection/v1_0/requesttopay/#{ext_reference}"
+				url = "https://proxy.momoapi.mtn.com/collection/v1_0/requesttopay/#{ext_reference}"
 
 				uri = URI(url)
 
@@ -81,7 +83,7 @@ module MobileMoney
 				req['Authorization'] = "Bearer #{token}"
 
 				#set Enviroment
-				req['X-Target-Environment'] = "sandbox"
+				req['X-Target-Environment'] = "mtnuganda"
 
 				#set the subscription keys
 				req['Ocp-Apim-Subscription-Key'] = @@collection_sub_key
@@ -100,9 +102,9 @@ module MobileMoney
 		end
 
 		def self.check_collections_balance
-			token = process_request_token(@@collection_user_id)
+			token = process_request_token()
 			if token
-				url = "https://sandbox.momodeveloper.mtn.com/collection/v1_0/account/balance"
+				url = "https://proxy.momoapi.mtn.com/collection/v1_0/account/balance"
 
 				uri = URI(url)
 
@@ -113,7 +115,7 @@ module MobileMoney
 				req['Authorization'] = "Bearer #{token}"
 
 				#set Enviroment
-				req['X-Target-Environment'] = "sandbox"
+				req['X-Target-Environment'] = "mtnuganda"
 
 				#set the subscription keys
 				req['Ocp-Apim-Subscription-Key'] = @@collection_sub_key
@@ -132,9 +134,9 @@ module MobileMoney
 		end
 
 		def self.make_transfer(amount, ext_reference, phone_number )
-			token = process_transfer_token(@@transfer_user_id)
+			token = process_transfer_token()
 			if token
-				url = "https://sandbox.momodeveloper.mtn.com/disbursement/v1_0/transfer"
+				url = "https://proxy.momoapi.mtn.com/disbursement/v1_0/transfer"
 				callback_url = "http://betcity.co.ug"
 
 				uri = URI(url)
@@ -152,7 +154,7 @@ module MobileMoney
 				req['X-Reference-Id'] = ext_reference
 
 				#set Enviroment
-				req['X-Target-Environment'] = "sandbox"
+				req['X-Target-Environment'] = "mtnuganda"
 
 				#set content type
 				req['Content-Type'] = "application/json"
@@ -162,7 +164,7 @@ module MobileMoney
 
 				request_body = {
 					amount: amount,
-				   currency: "EUR",
+				   currency: "UGX",
 				   externalId: ext_reference,
 				   payee: {
 				   	partyIdType: "MSISDN",
@@ -180,7 +182,7 @@ module MobileMoney
 
 				end
 
-				return res.code
+				return res.body
 
 			else
 				return nil
@@ -189,9 +191,9 @@ module MobileMoney
 		end
 
 		def self.check_transfer_status(ext_reference)
-			token = process_request_token(@@transfer_user_id)
+			token = process_request_token()
 			if token
-				url = "https://sandbox.momodeveloper.mtn.com/disbursement/v1_0/transfer/#{ext_reference}"
+				url = "https://proxy.momoapi.mtn.com/disbursement/v1_0/transfer/#{ext_reference}"
 
 				uri = URI(url)
 
@@ -202,7 +204,7 @@ module MobileMoney
 				req['Authorization'] = "Bearer #{token}"
 
 				#set Enviroment
-				req['X-Target-Environment'] = "sandbox"
+				req['X-Target-Environment'] = "mtnuganda"
 
 				#set the subscription keys
 				req['Ocp-Apim-Subscription-Key'] = @@transfer_sub_key
@@ -222,9 +224,9 @@ module MobileMoney
 		end
 
 		def self.check_disbursement_balance
-			token = process_transfer_token(@@collection_user_id)
+			token = process_transfer_token()
 			if token
-				url = "https://sandbox.momodeveloper.mtn.com/disbursement/v1_0/account/balance"
+				url = "https://proxy.momoapi.mtn.com/disbursement/v1_0/account/balance"
 
 				uri = URI(url)
 
@@ -235,7 +237,7 @@ module MobileMoney
 				req['Authorization'] = "Bearer #{token}"
 
 				#set Enviroment
-				req['X-Target-Environment'] = "sandbox"
+				req['X-Target-Environment'] = "mtnuganda"
 
 				#set the subscription keys
 				req['Ocp-Apim-Subscription-Key'] = @@transfer_sub_key
@@ -253,14 +255,14 @@ module MobileMoney
 			end
 		end
 
-		def self.process_request_token(user_id)
-			api_user = ApiUser.find_by(api_id: user_id)
-			if api_user
+		def self.process_request_token
+			#api_user = ApiUser.find_by(api_id: user_id)
+			if true
 				#process the token and return the token
-				api_id = api_user.api_id
-				api_key  = api_user.api_key
+				api_id = @@collection_api_id
+				api_key = @@collection_api_key
 
-				url = "https://sandbox.momodeveloper.mtn.com/collection/token/"
+				url = "https://proxy.momoapi.mtn.com/collection/token/"
 
 				uri = URI(url)
 
@@ -295,14 +297,13 @@ module MobileMoney
 
 		end
 
-		def self.process_transfer_token(user_id)
-			api_user = ApiUser.find_by(api_id: user_id)
-			if api_user
+		def self.process_transfer_token
+			if true
 				#process the token and return the token
-				api_id = api_user.api_id
-				api_key  = api_user.api_key
+				api_id = @@transfer_api_id
+				api_key = @@transfer_api_key
 
-				url = "https://sandbox.momodeveloper.mtn.com/disbursement/token/"
+				url = "https://proxy.momoapi.mtn.com/disbursement/token/"
 
 				uri = URI(url)
 
@@ -337,91 +338,92 @@ module MobileMoney
 
 		end
 
-		def self.register_api_user(user_id)
-			api_user = ApiUser.find_by(api_id: user_id)
-			if api_user.user_type == 'collections'
-				sub_key = @@collection_sub_key
-			end
-			if api_user.user_type == 'transfer'
-				sub_key = @@transfer_sub_key
-			end
-			url = "https://sandbox.momodeveloper.mtn.com/v1_0/apiuser"
-			uri = URI(url)
+		# def self.register_api_user(user_id)
+		# 	api_user = ApiUser.find_by(api_id: user_id)
+		# 	if api_user.user_type == 'collections'
+		# 		sub_key = @@collection_sub_key
+		# 	end
+		# 	if api_user.user_type == 'transfer'
+		# 		sub_key = @@transfer_sub_key
+		# 	end
+		#
+		# 	url = "https://ericssonbasicapi1.azure-api.net/provisioning/v1_0/apiuser"
+		# 	uri = URI(url)
+		#
+		# 	req = Net::HTTP::Post.new(uri)
+		#
+		# 	#set the transaction reference
+		# 	req['X-Reference-Id'] = user_id
+		#
+		# 	#set content type
+		# 	req['Content-Type'] = "application/json"
+		#
+		# 	#set the subscription keys
+		# 	req['Ocp-Apim-Subscription-Key'] = sub_key
+		#
+		# 	request_body = {
+		# 		providerCallbackHost: "betcity.co.ug"
+		# 	}
+		#
+		# 	req.body = request_body.to_json
+		#
+		# 	res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https') do |http|
+		#
+		# 	  http.request(req)
+		#
+		# 	end
+		#
+		# 	case res.code
+		#
+		# 	when '201'
+		# 		api_user.update(registered: true)
+		# 		return true
+		#
+		# 	else
+		# 		return res
+		# 	end
+		#
+		# end
 
-			req = Net::HTTP::Post.new(uri)
-
-			#set the transaction reference
-			req['X-Reference-Id'] = user_id
-
-			#set content type
-			req['Content-Type'] = "application/json"
-
-			#set the subscription keys
-			req['Ocp-Apim-Subscription-Key'] = sub_key
-
-			request_body = {
-				providerCallbackHost: "example.com"
-			}
-
-			req.body = request_body.to_json
-
-			res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https') do |http|
-
-			  http.request(req)
-
-			end
-
-			case res.code
-
-			when '201'
-				api_user.update(registered: true)
-				return true
-
-			else
-				return false
-			end
-
-		end
-
-		def self.receive_api_key(user_id)
-			api_user = ApiUser.find_by(api_id: user_id)
-			if api_user.user_type == 'collections'
-				sub_key = @@collection_sub_key
-			end
-			if api_user.user_type == 'transfer'
-				sub_key = @@transfer_sub_key
-			end
-			api_user = ApiUser.find_by(api_id: user_id)
-			url = "https://sandbox.momodeveloper.mtn.com/v1_0/apiuser/#{user_id}/apikey"
-			uri = URI(url)
-
-			req = Net::HTTP::Post.new(uri)
-
-
-			#set the subscription keys
-			req['Ocp-Apim-Subscription-Key'] = sub_key
-
-
-			res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https') do |http|
-
-			  http.request(req)
-
-			end
-
-			result = JSON.parse(res.body)
-
-			case res.code
-
-			when '201'
-				api_key = result['apiKey']
-				return api_key
-
-			else
-				return nil
-			end
-
-		end
-
+	# 	def self.receive_api_key(user_id)
+	# 		api_user = ApiUser.find_by(api_id: user_id)
+	# 		if api_user.user_type == 'collections'
+	# 			sub_key = @@collection_sub_key
+	# 		end
+	# 		if api_user.user_type == 'transfer'
+	# 			sub_key = @@transfer_sub_key
+	# 		end
+	# 		api_user = ApiUser.find_by(api_id: user_id)
+	# 		url = "https://sandbox.momodeveloper.mtn.com/v1_0/apiuser/#{user_id}/apikey"
+	# 		uri = URI(url)
+	#
+	# 		req = Net::HTTP::Post.new(uri)
+	#
+	#
+	# 		#set the subscription keys
+	# 		req['Ocp-Apim-Subscription-Key'] = sub_key
+	#
+	#
+	# 		res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https') do |http|
+	#
+	# 		  http.request(req)
+	#
+	# 		end
+	#
+	# 		result = JSON.parse(res.body)
+	#
+	# 		case res.code
+	#
+	# 		when '201'
+	# 			api_key = result['apiKey']
+	# 			return api_key
+	#
+	# 		else
+	# 			return nil
+	# 		end
+	#
+	# 	end
+	#
 	end
 
 end

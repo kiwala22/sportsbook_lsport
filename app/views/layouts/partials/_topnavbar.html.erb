@@ -13,14 +13,13 @@
                     <li class="nav-item active"><a href="/" class="nav-link active">Home</a></li>
                   </ul>
                 </div>
-                <div class="search " data-controller="search">
-        
-                    <%= form_with(url:"/", method: :get, class:"form-inline mr-auto") do |f| %>            
-                      <%= text_field_tag(:search, params[:search], data:{target:"search.search", action:"submit->search#searchFixture"}, placeholder:"Search for...",class: "form-control", id:"search" ) %>
+                <div class="search" data-controller="search">
+
+                    <%= form_with(method: :get, class:"form-inline mr-auto") do |f| %>
+                      <%= text_field_tag(:search, params[:search], data:{action:"keyup->search#searchFixture"}, placeholder:"Search for...",class: "form-control", id:"search" ) %>
                       <i class="fa fa-search fa-lg" id="glass"></i>
                     <% end %>
-
-                   <!-- <div class="" id="match-list"></div> -->
+                    
                 </div>
 
                 <% if current_user && current_user.verified? %>
