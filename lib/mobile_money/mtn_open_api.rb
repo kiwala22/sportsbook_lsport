@@ -17,7 +17,7 @@ module MobileMoney
 			token = process_request_token()
 			if token
 				url = "https://proxy.momoapi.mtn.com/collection/v1_0/requesttopay"
-				callback_url = "http://betcity.co.ug"
+				callback_url = "https://betcity.co.ug"
 
 				uri = URI(url)
 
@@ -50,8 +50,8 @@ module MobileMoney
 				   	partyIdType: "MSISDN",
 				   	partyId: phone_number
 				  	},
-				  	payerMessage: "SUPA 3",
-				  	payeeNote: "SUPA 3"
+				  	payerMessage: "BetCity",
+				  	payeeNote: "BetCity"
 				}
 
 				req.body = request_body.to_json
@@ -137,7 +137,7 @@ module MobileMoney
 			token = process_transfer_token()
 			if token
 				url = "https://proxy.momoapi.mtn.com/disbursement/v1_0/transfer"
-				callback_url = "http://betcity.co.ug"
+				callback_url = "https://betcity.co.ug"
 
 				uri = URI(url)
 
@@ -170,8 +170,8 @@ module MobileMoney
 				   	partyIdType: "MSISDN",
 				   	partyId: phone_number
 				  	},
-				  	payerMessage: "SUPA 3",
-				  	payeeNote: "SUPA 3"
+				  	payerMessage: "BetCity",
+				  	payeeNote: "BetCity"
 				}
 
 				req.body = request_body.to_json
