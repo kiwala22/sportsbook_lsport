@@ -182,7 +182,7 @@ module MobileMoney
 
 				end
 
-				return res.body
+				return res.code
 
 			else
 				return nil
