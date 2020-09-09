@@ -14,11 +14,11 @@ class DepositsWorker
 
     ##create a deposit transaction
     resource_id = generate_resource_id()
-    @deposit = Deposit.new(transaction_id: @transaction.reference, resource_id: resource_id, amount: @transaction.amount,
+    @deposit = Deposit.create(transaction_id: @transaction.reference, resource_id: resource_id, amount: @transaction.amount,
        phone_number: @transaction.phone_number, status: "PENDING", currency: "UGX", payment_method: "Mobile Money", balance_before: balance_before,
      user_id: @transaction.user_id)
 
-    if @transaction && @deposit.save
+    if @transaction && @deposit
       ##Proceed with the Deposit APIs
       case @transaction.phone_number
       when /^(25678|25677|25639)/

@@ -7,7 +7,7 @@
    </div>
    <!-- Navbar brand -->
    <div>
-      <a class="navbar-brand" href="<%= root_path %>">Skyline BET</a>
+   <li class="nav-item active"><%= link_to image_tag("betsb.png", alt: "BETSB.", height: "35vw", width:"135vw" ,class: "img-responsive"), {action: 'index', controller: 'fixtures/soccer/pre_match'} %></li>
    </div>
    <% if current_user %>
       <button class="navbar-toggler toggler-example" type="button" data-toggle="collapse" data-target="#navbarLoginShortcuts" aria-controls="navbarLoginShortcuts" aria-expanded="false" aria-label="Toggle navigation"><span class="dark-blue-text"><i

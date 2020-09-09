@@ -1,8 +1,7 @@
 
     <nav class="navbar navbar-expand-md main-menu">
         <div class="container-fluid">
-
-            <a href="#" class="navbar-brand">BETSB.</a>
+           
            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -10,7 +9,7 @@
               <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav">
                   <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active"><a href="/" class="nav-link active">Home</a></li>
+                  <li class="nav-item active"><%= link_to image_tag("betsb.png", alt: "BETSB.", height: "40vw", width:"140vw" ,class: "img-responsive"), {action: 'index', controller: 'fixtures/soccer/pre_match'} %></li>
                   </ul>
                 </div>
                 <div class="search" data-controller="search">
