@@ -9,6 +9,9 @@ class Fixtures::VirtualSoccer::LiveMatchController < ApplicationController
       respond_to do |format|
          format.html
          format.js
+         format.json {
+            render json: { fixtures: render_to_string(partial: "live_match_fixture_table", locals: {fixtures: @fixtures}, formats: [:html]), pagination: view_context.pagy_nav(@pagy) }
+         }
       end
 
    end

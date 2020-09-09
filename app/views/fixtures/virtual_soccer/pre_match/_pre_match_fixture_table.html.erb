@@ -1,5 +1,5 @@
 <% fixtures.each do |fixture| %>
-   <% if fixture.market1_pre.present? && fixture.market1_pre.status == "Active" %>
+   <% if fixture.market1_pre.status == "Active" %>
       <tr>
             <td>
                <a href=<%=fixtures_virtual_soccer_pre_path(id: fixture.id) %>>

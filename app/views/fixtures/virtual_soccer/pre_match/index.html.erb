@@ -1,24 +1,14 @@
 <div class="game-box">
     <div class="card">
+
         <div class="card-header">
-            <h3>Pre-Match Fixtures - eSoccer</h3>
+            <h3>Upcoming Fixtures - Virtual Soccer</h3>
+
+            <span class="float-right">
+              <%= link_to "<i class='fas fa-bolt'></i> Live".html_safe, fixtures_virtual_soccer_lives_path, id: "live-tab", class: "btnn" %>
+            </span>
         </div>
         <div class="card-body">
-            <ul class="nav nav-tabs" id="myTab" role="tablist" data-controller="tabs">
-                <li class="nav-item">
-                    <%= link_to "Today", fixtures_virtual_soccer_pres_path(:'q[start]' => Time.now, :'q[stop]' => Date.today.end_of_day), remote: true, class: "nav-link active", id: "home-tab", data: {target: "tabs.date", action: "click->tabs#activate"} %>
-                </li>
-                <li class="nav-item">
-                    <%= link_to (Date.today + 1.days).strftime("%d-%m-%y") , fixtures_virtual_soccer_pres_path(:'q[start]' => (Date.today.beginning_of_day + 1.day), :'q[stop]' => (Date.today.end_of_day + 1.day)), remote: true, class: "nav-link", id: "home-tab", data: {target: "tabs.date", action: "click->tabs#activate"} %>
-                </li>
-                <li class="nav-item">
-                    <%= link_to (Date.today + 2.days).strftime("%d-%m-%y"), fixtures_virtual_soccer_pres_path(:'q[start]' => (Date.today.beginning_of_day + 2.day), :'q[stop]' => (Date.today.end_of_day + 2.day)), remote: true, class: "nav-link", id: "home-tab", data: {target: "tabs.date", action: "click->tabs#activate"} %>
-                </li>
-                <li class="nav-item">
-                    <%= link_to "Live", fixtures_virtual_soccer_lives_path, class: "nav-link", id: "live-tab" %>
-                </li>
-
-            </ul>
 
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab" data-controller="match-fixtures">
@@ -33,15 +23,17 @@
                                 <th class="col-1">2</th>
                             </tr>
                         </thead>
-                        <tbody id="fixture-table-body" data-target="match-fixtures.fixtures" data-controller="refresh" data-refresh-interval="60000" data-refresh-url="/fixtures/virtual_soccer/pres.js" data-refresh-method="GET">
+                        <tbody id="fixture-table-body" data-target="match-fixtures.fixtures" data-controller="refresh" data-refresh-interval="60000" data-refresh-url="<% virtual_page_refresh_path %>" data-refresh-method="GET">
                             <%= render partial: 'pre_match_fixture_table', locals: {fixtures: @fixtures} %>
                         </tbody>
                     </table>
-                    <div class="d-flex justify-content-center">
-                        <div data-target="match-fixtures.spinner"></div>
-                    </div>
-                    <div class="table-navigation" data-target="match-fixtures.pagination">
-                        <%== pagy_nav(@pagy) %>
+                    <div id="bottom">
+                        <div class="d-flex justify-content-center">
+                            <div data-target="match-fixtures.spinner"></div>
+                        </div>
+                        <div class="table-navigation" data-target="match-fixtures.pagination">
+                            <%== pagy_nav(@pagy) %>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -28,7 +28,7 @@ module MobileMoney
 				req['Authorization'] = "Bearer #{token}"
 
 				#set transactions callback url
-				#req['X-Callback-Url'""] = callback_url
+				req['X-Callback-Url'] = callback_url
 
 				#set the transaction reference
 				req['X-Reference-Id'] = ext_reference
@@ -148,7 +148,7 @@ module MobileMoney
 				req['Authorization'] = "Bearer #{token}"
 
 				#set transactions callback url
-				#req['X-Callback-Url'] = callback_url
+				req['X-Callback-Url'] = callback_url
 
 				#set the transaction reference
 				req['X-Reference-Id'] = ext_reference
