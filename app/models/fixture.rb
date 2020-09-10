@@ -28,6 +28,8 @@ class Fixture < ApplicationRecord
     "False" => false
   }
 
+  after_update :void_bets
+
    validates :event_id, presence: true
    validates :event_id, uniqueness: true
 
@@ -60,5 +62,18 @@ class Fixture < ApplicationRecord
    include Betradar
 
    paginates_per 100
+
+   #private
+
+   def void_bets
+    if saved_change_to_attribute?(:status)
+      if self.status == "postponed" || self.status == "cancelled"
+        #Find all bets associated with that fixture and void them with
+        #a void reason of postponed or cancelled
+        bets = self.bets
+        bets.update_all(status: "Closed", result: "Void", reason: "Fixture #{self.status}")
+      end
+    end
+   end
 
 end
