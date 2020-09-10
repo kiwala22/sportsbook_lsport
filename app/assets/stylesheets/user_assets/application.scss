@@ -99,16 +99,17 @@ a.btn.btn-block.btn-primary.mt-lg.login-btn:focus {
 }
 
 .game-box .card .card-header span a.btnn {
-  padding: 5px 17px;
-  border-radius: 4px;
-  display: inline-block;
-  color: #ffffff;
-  background: #F6AE2D;
+    padding: 5px 17px;
+    border-radius: 4px;
+    display: inline-block;
+    color: #ffffff;
+    background: #F6AE2D;
 }
+
 .game-box .card .card-header span a.btnn:hover {
-  background-color: #F6AE2D;
-  border-color: #F6AE2D;
-  box-shadow: 0 0 0 0.1rem #F6AE2D;
+    background-color: #F6AE2D;
+    border-color: #F6AE2D;
+    box-shadow: 0 0 0 0.1rem #F6AE2D;
 }
 
 #label_remember_me {
@@ -531,14 +532,13 @@ strong {
     text-align: right;
 }
 
-
-.search{
+.search {
     margin-left: 200px;
     width: 30%;
 }
 
-#glass{
-    margin-left:-25px;
+#glass {
+    margin-left: -25px;
     color: #28333e;
     opacity: 0.6;
 }
@@ -547,23 +547,25 @@ strong {
     text-align: right;
 }
 
-tbody > div {
-  width: 100%;
-  position: absolute;
-  height: 40px;
-  padding-top: 5px;
-  margin-bottom: 20px;
-  background: #7690A7;
+tbody>div {
+    width: 100%;
+    position: absolute;
+    height: 40px;
+    padding-top: 5px;
+    margin-bottom: 20px;
+    background: #7690A7;
 }
 
-button, a:hover, a:focus, a:visited {
-  color: white;
+button,
+a:hover,
+a:focus,
+a:visited {
+    color: white;
 }
 
-.btn-blink{
-    animation: blinkingBtn 1.2s infinite;
+.btn-blink {
+    animation: blinkingBtn 1.5s infinite;
 }
-
 
 @keyframes blinkingBtn {
     0% {
@@ -587,4 +589,3 @@ button, a:hover, a:focus, a:visited {
         background-color: #F6AE2D;
     }
 }
-
