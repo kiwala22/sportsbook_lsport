@@ -559,3 +559,32 @@ tbody > div {
 button, a:hover, a:focus, a:visited {
   color: white;
 }
+
+.btn-blink{
+    animation: blinkingBtn 1.2s infinite;
+}
+
+
+@keyframes blinkingBtn {
+    0% {
+        color: #ffffff;
+        background-color: #F6AE2D;
+    }
+    49% {
+        color: #ffffff;
+        background-color: #F6AE2D;
+    }
+    60% {
+        color: transparent;
+        background-color: transparent;
+    }
+    99% {
+        color: transparent;
+        background-color: transparent;
+    }
+    100% {
+        color: #ffffff;
+        background-color: #F6AE2D;
+    }
+}
+
