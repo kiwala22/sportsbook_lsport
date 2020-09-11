@@ -15,7 +15,7 @@ module SendSMS
       parameters << "to=#{receiver}" if receiver.present?
       parameters << "message=#{content}" if content.present?
       parameters << "from=#{sender_id}" if sender_id.present?
-      parameters << "token=6b414b60d155739118ad71eedbb25367"
+      parameters << "token=#{ENV['TOKEN']}"
       message_params = parameters.join("&")
       message_url = "http://skylinesms.com/api/v2/json/messages?"+"#{message_params}"
 
