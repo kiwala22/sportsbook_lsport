@@ -10,6 +10,11 @@
                 <div class="navbar-nav">
                   <ul class="navbar-nav mr-auto">
                   <li class="nav-item active"><%= link_to image_tag("betsb.png", alt: "BETSB.", height: "40vw", width:"140vw" ,class: "img-responsive"), {action: 'index', controller: 'fixtures/soccer/pre_match'} %></li>
+
+                  <li class="nav-item active">
+                    <a id="betsb" class="bttn-small" href=<%= root_path %> ><i class="fas fa-home fa-fw"></i> Home</a>
+                  </li>
+
                   </ul>
                 </div>
                 <div class="search" data-controller="search">

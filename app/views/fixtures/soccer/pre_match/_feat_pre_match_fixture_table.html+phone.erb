@@ -6,9 +6,9 @@
         <%= fixture.scheduled_time.strftime("%d/%m/%y") %>
       </a>
     </td>
-    <td>
+    <td >
       <a href=<%=fixtures_soccer_pre_path(id: fixture.id) %>>
-        <strong><%= fixture.comp_one_name %></strong>
+        <strong ><%= fixture.comp_one_name %></strong>
         -
         <strong><%= fixture.comp_two_name %></strong>
       </a>
@@ -19,14 +19,40 @@
       </a>
     </td>
 
-    <td>
-      <%= link_to(fixture.market1_pre.outcome_1, add_bet_path(outcome_id: "1", fixture_id: fixture.id, market: "Market1Pre", outcome_desc: "1X2 FT - 1") , class: "btnn intialise_input",id:'odd1', remote: true, method: :post, data: {disable_with: "<i class='fas fa-spinner fa-spin'></i>"})%>
-    </td>
-    <td>
-      <%= link_to(fixture.market1_pre.outcome_2, add_bet_path(outcome_id: "2", fixture_id: fixture.id, market: "Market1Pre", outcome_desc: "1X2 FT - X") , class: "btnn intialise_input", id:'odd2',remote: true, method: :post, data: {disable_with: "<i class='fas fa-spinner fa-spin'></i>"} )%>
-    </td>
-    <td>
-      <%= link_to(fixture.market1_pre.outcome_3, add_bet_path(outcome_id: "3", fixture_id: fixture.id, market: "Market1Pre", outcome_desc: "1X2 FT - 2") , class: "btnn intialise_input", id:'odd3', remote: true, method: :post, data: {disable_with: "<i class='fas fa-spinner fa-spin'></i>"} )%>
-    </td>
+     <% if fixture.market1_pre.outcome_1 < fixture.market1_pre.outcome_3 %>
+
+            <td>
+               <%= link_to("<i class='fas fa-fire blinking'></i> ".html_safe+fixture.market1_pre.outcome_1.to_s ,add_bet_path(outcome_id: "1", fixture_id: fixture.id, market: "Market1Pre", outcome_desc: "1X2 FT - 1") , class: "btnn intialise_input match-feat",id:'odd1', remote: true, method: :post, data: {disable_with: "<i class='fas fa-spinner fa-spin'></i>"})%>
+            </td>
+            <td>
+               <%= link_to(fixture.market1_pre.outcome_2, add_bet_path(outcome_id: "2", fixture_id: fixture.id, market: "Market1Pre", outcome_desc: "1X2 FT - X") , class: "btnn intialise_input", id:'odd2',remote: true, method: :post, data: {disable_with: "<i class='fas fa-spinner fa-spin'></i>"} )%>
+            </td>
+            <td>
+               <%= link_to(fixture.market1_pre.outcome_3, add_bet_path(outcome_id: "3", fixture_id: fixture.id, market: "Market1Pre", outcome_desc: "1X2 FT - 2") , class: "btnn intialise_input", id:'odd3', remote: true, method: :post, data: {disable_with: "<i class='fas fa-spinner fa-spin'></i>"} )%>
+            </td>
+
+          <% elsif fixture.market1_pre.outcome_3 < fixture.market1_pre.outcome_1 %>
+
+             <td>
+             <%= link_to(fixture.market1_pre.outcome_1, add_bet_path(outcome_id: "1", fixture_id: fixture.id, market: "Market1Pre", outcome_desc: "1X2 FT - 1") , class: "btnn intialise_input",id:'odd1', remote: true, method: :post, data: {disable_with: "<i class='fas fa-spinner fa-spin'></i>"})%>
+            </td>
+            <td>
+             <%= link_to(fixture.market1_pre.outcome_2, add_bet_path(outcome_id: "2", fixture_id: fixture.id, market: "Market1Pre", outcome_desc: "1X2 FT - X") , class: "btnn intialise_input", id:'odd2',remote: true, method: :post, data: {disable_with: "<i class='fas fa-spinner fa-spin'></i>"} )%>
+            </td>
+            <td>
+             <%= link_to("<i class='fas fa-fire blinking'></i> ".html_safe+fixture.market1_pre.outcome_3.to_s, add_bet_path(outcome_id: "3", fixture_id: fixture.id, market: "Market1Pre", outcome_desc: "1X2 FT - 2") , class: "btnn intialise_input match-feat", id:'odd3', remote: true, method: :post, data: {disable_with: "<i class='fas fa-spinner fa-spin'></i>"} )%>
+            </td>
+        <% else %>
+             <td>
+             <%= link_to(fixture.market1_pre.outcome_1, add_bet_path(outcome_id: "1", fixture_id: fixture.id, market: "Market1Pre", outcome_desc: "1X2 FT - 1") , class: "btnn intialise_input",id:'odd1', remote: true, method: :post, data: {disable_with: "<i class='fas fa-spinner fa-spin'></i>"})%>
+            </td>
+            <td>
+             <%= link_to(fixture.market1_pre.outcome_2, add_bet_path(outcome_id: "2", fixture_id: fixture.id, market: "Market1Pre", outcome_desc: "1X2 FT - X") , class: "btnn intialise_input", id:'odd2',remote: true, method: :post, data: {disable_with: "<i class='fas fa-spinner fa-spin'></i>"} )%>
+            </td>
+            <td>
+             <%= link_to(fixture.market1_pre.outcome_3, add_bet_path(outcome_id: "3", fixture_id: fixture.id, market: "Market1Pre", outcome_desc: "1X2 FT - 2") , class: "btnn intialise_input", id:'odd3', remote: true, method: :post, data: {disable_with: "<i class='fas fa-spinner fa-spin'></i>"} )%>
+            </td>
+
+          <%end%>
   </tr>
 <% end %>

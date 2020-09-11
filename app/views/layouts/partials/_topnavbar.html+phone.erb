@@ -108,10 +108,21 @@
          <div class="col">
             <div id="menuSports" class="collapse">
                <ul>
-                  <li><a href= <%= fixtures_soccer_pres_path %>> <i class="far fa-futbol fa-lg fa-fw mr-2 text-gray-400"></i>Soccer
-                  </a></li>
-                  <li><a href= <%= fixtures_virtual_soccer_pres_path %>> <i class="fas fa-trophy fa-lg fa-fw mr-2 text-gray-400"></i>Virtual Soccer
-                  </a></li>
+                  <li>
+                    <a href=<%= fixtures_soccer_lives_path%> >
+                      <i class=" blinking match-time fas fa-bolt fa-lg fa-fw mr-2 "></i>Live 
+                    </a>
+                  </li>
+                  <li>
+                    <a href= <%= fixtures_soccer_pres_path %>> 
+                      <i class=" match-time far fa-futbol fa-lg fa-fw mr-2 "></i>Soccer
+                    </a>
+                </li>
+                  <li>
+                    <a href= <%= fixtures_virtual_soccer_pres_path %>>
+                     <i class="match-time fas fa-trophy fa-lg fa-fw mr-2 "></i>Virtual Soccer
+                    </a>
+                  </li>
                </ul>
             </div>
          </div>

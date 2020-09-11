@@ -3,7 +3,7 @@
 <div class="game-box" id="featured">
     <div class="card">
         <div class="card-header">
-            <h3>Featured Fixtures - Soccer</h3>
+            <h3>Featured Fixtures - Soccer </h3> <i class='fas fa-fire fa-lg fa-fw mr-2 match-time'></i>
         </div>
         <div class="card-body">
             <div class="tab-content" id="">
@@ -60,7 +60,13 @@
                             </tr>
                         </thead>
                         <tbody id="fixture-table-body" data-target="match-fixtures.fixtures refresh.featured" data-controller="refresh" data-refresh-interval="60000" data-refresh-url="<% page_refresh_path %>" data-refresh-method="GET">
-                            <%= render partial: 'pre_match_fixture_table', locals: {fixtures: @fixtures} %>
+                            <% if @fixtures.present? || @q.present? %>
+                                <%= render partial: 'pre_match_fixture_table', locals: {fixtures: @fixtures} %>
+                            <%else%>
+                                <td>
+                                    <strong>No  Events ound</strong>
+                                </td>
+                                <%end%>
                         </tbody>
                     </table>
                     <div id="bottom">
