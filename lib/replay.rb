@@ -13,26 +13,31 @@ module Replay
    include Betradar
    def load_fixtures
       CSV.foreach("#{Rails.root}/public/soccer.csv", headers: true) do |row|
-         
-         #create the fixtures
-         response = fetch_fixture("sr:match:#{row[0]}")
+         th = Thread.new do
+            #create the fixtures
+            response = fetch_fixture("sr:match:#{row[0]}")
 
-         event = Hash.from_xml(response)
-         puts event
-         
-         case event["fixtures_fixture"]["fixture"]["tournament"]["sport"]["id"]
-         when "sr:sport:1"
-            Soccer::CreateFixtureWorker.perform_async(event["fixtures_fixture"]["fixture"])
+            event = Hash.from_xml(response)
+            puts event
+            
+            case event["fixtures_fixture"]["fixture"]["tournament"]["sport"]["id"]
+            when "sr:sport:1"
+               Soccer::CreateFixtureWorker.perform_async(event["fixtures_fixture"]["fixture"])
+            end
          end
+         th.join
 
-         sleep 1
+         
       end
    end
 
    def add_to_replay
       CSV.foreach("#{Rails.root}/public/soccer.csv", headers: true) do |row|
-         #add to replay
-         add_event("sr:match:#{row[0]}")
+         th = Thread.new do
+            #add to replay
+            add_event("sr:match:#{row[0]}")
+         end
+         th.join
       end
    end
 
