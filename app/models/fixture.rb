@@ -63,8 +63,6 @@ class Fixture < ApplicationRecord
 
    paginates_per 100
 
-   #private
-
    def void_bets
     if saved_change_to_attribute?(:status)
       if self.status == "postponed" || self.status == "cancelled"
