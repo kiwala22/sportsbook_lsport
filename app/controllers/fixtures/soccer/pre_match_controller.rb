@@ -35,13 +35,11 @@ class Fixtures::Soccer::PreMatchController < ApplicationController
              }
          }
          format.js
+         
       end
 
    end
 
-   def page_refresh
-     render :action => :index and return
-   end
 
    def show
       @fixture = Fixture.includes(:market1_pre,:market10_pre,:market16_pre,:market18_pre,:market29_pre, :market60_pre,:market63_pre,:market1_pre,:market66_pre,:market68_pre,:market75_pre).find(params[:id])
