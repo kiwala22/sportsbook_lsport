@@ -68,6 +68,19 @@ module Replay
       end
    end
 
+   def start_replay
+      
+   end
+
+   def stop_replay
+      
+   end
+
+   def replay_status
+      
+   end
+   
+
    def add_event(event_id)
       url = @@end_point + "replay/events/#{event_id}"
       uri = URI(url)
