@@ -1,7 +1,6 @@
 class Fixtures::Soccer::PreMatchController < ApplicationController
    include CurrentCart
    before_action :set_cart, only: [:index, :show]
-   #before_filter :set_fixtures
 
    def index
      if Fixture.global_search(params[:search]).present?
@@ -41,13 +40,6 @@ class Fixtures::Soccer::PreMatchController < ApplicationController
 
    end
 
-   # def set_fixtures
-   #    Fixture.fixtures = @fixtures
-   # end
-
-   def page_refresh
-     render :action => :index and return
-   end
 
    def show
       @fixture = Fixture.includes(:market1_pre,:market10_pre,:market16_pre,:market18_pre,:market29_pre, :market60_pre,:market63_pre,:market1_pre,:market66_pre,:market68_pre,:market75_pre).find(params[:id])

@@ -5,11 +5,23 @@ export default class extends Controller {
 
     connect() {
         this.calculate_odds()
-        if (localStorage.getItem("stake") !== null) {
-            this.display_win()
-        } else {
-            $("#stake-input").val("")
-        }
+        this.display_win()
+        
+        window.addEventListener("odds_change", (event) =>  {
+            let market = event.detail;
+
+            this.oddTargets.forEach(element => {
+                let { outcome, fixture_id } = $(element).data();
+                if (market.hasOwnProperty("fixture_id") && market.fixture_id == fixture_id) {
+                    let odd = market[outcome];
+                    $(element).html(odd);
+                    this.calculate_odds();
+                    if (localStorage.getItem("stake")) {
+                        this.onCalculateWin(localStorage.getItem("stake"));
+                    }
+                }
+            });
+        });
 
     }
 
@@ -30,8 +42,6 @@ export default class extends Controller {
             count.innerHTML = oddsArr.length
         }
 
-
-
     }
 
     multiply_odds(arr) {
@@ -43,24 +53,37 @@ export default class extends Controller {
     }
 
     calculate_win() {
-        const amount = event.target.value
+        const amount = event.target.value;
+        let lastInput = amount.charAt(amount.length - 1);
+        if(!/[0-9]/.test(lastInput)) {
+            if(amount.length == 0) {
+                localStorage.removeItem("stake");
+                this.winsTarget.innerHTML = " ";
+            }
+            return $(event.target).val(amount.substring(0, amount.length - 1));
+        } 
+
+        this.onCalculateWin(amount);
+    }
+
+    onCalculateWin(stake) {
+        const amount = stake;
         localStorage.setItem("stake", amount)
         const totalOdd = parseFloat(this.totalTarget.innerHTML)
         this.winsTarget.innerHTML = 'UGX ' + (totalOdd * amount).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
     }
 
     display_win() {
-        if (localStorage.getItem("stake") !== 'null' && this.hasOddTarget) {
+        if (localStorage.getItem("stake") !== null && this.hasOddTarget) {
             let stakeAmount = parseFloat(localStorage.getItem("stake"))
 
-            if (stakeAmount !== "null") {
+            if (stakeAmount !== null) {
                 $("#stake-input").val(stakeAmount)
                 const totalOdd = parseFloat(this.totalTarget.innerHTML)
                 this.winsTarget.innerHTML = 'UGX ' + (totalOdd * stakeAmount).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
             }
 
         }
-
     }
 
 }

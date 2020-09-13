@@ -4,10 +4,10 @@ class Market68Live < ApplicationRecord
    
    belongs_to :fixture
 
-   after_save :broadcast_data
+   after_save :broadcast_updates
 
 
-   def broadcast_data
+   def broadcast_updates
       RealtimePartialChannel.broadcast_to('fixtures', market: self)
    end
 end
