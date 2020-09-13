@@ -42,7 +42,7 @@ class Fixtures::Soccer::PreMatchController < ApplicationController
 
 
    def show
-      @fixture = Fixture.includes(:market1_pre,:market10_pres,:market16_pres,:market18_pres,:market29_pres, :market60_pres,:market63_pres,:market66_pres,:market68_pres,:market75_pres).find(params[:id])
+      @fixture = Fixture.includes(:market1_pre,:market10_pre,:market16_pre,:market18_pre,:market29_pre, :market60_pre,:market63_pre,:market66_pre,:market68_pre,:market75_pre).find(params[:id])
    end
 
    def add_bet
