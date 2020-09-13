@@ -68,16 +68,50 @@ module Replay
       end
    end
 
-   def start_replay
-      
+   def start_replay(node: nil, product: nil, timestamp: nil)
+      url = @@end_point + "replay?node_id=#{node}&product_id=#{product}&use_replay_timestamp=#{timestamp}"
+      uri = URI(url)
+      http = Net::HTTP.new(uri.host, uri.port)
+      http.read_timeout = 180
+      request = Net::HTTP::Post.new(uri.request_uri)
+      request['x-access-token'] = @@auth_token
+      http.use_ssl = true
+      #http.verify_mode = OpenSSL::SSL::VERIFY_PEER
+      http.set_debug_output($stdout)
+      response = http.request(request)
+      event = Hash.from_xml(response.body)
+      return response
    end
 
-   def stop_replay
-      
+   def stop_replay(node: nil)
+      url = @@end_point + "replay/stop?node=#{node}"
+      uri = URI(url)
+      http = Net::HTTP.new(uri.host, uri.port)
+      http.read_timeout = 180
+      request = Net::HTTP::Post.new(uri.request_uri)
+      request['x-access-token'] = @@auth_token
+      http.use_ssl = true
+      #http.verify_mode = OpenSSL::SSL::VERIFY_PEER
+      http.set_debug_output($stdout)
+      response = http.request(request)
+      event = Hash.from_xml(response.body)
+      return response
+   
    end
 
    def replay_status
-      
+      url = @@end_point + "replay/status"
+      uri = URI(url)
+      http = Net::HTTP.new(uri.host, uri.port)
+      http.read_timeout = 180
+      request = Net::HTTP::Get.new(uri.request_uri)
+      request['x-access-token'] = @@auth_token
+      http.use_ssl = true
+      #http.verify_mode = OpenSSL::SSL::VERIFY_PEER
+      http.set_debug_output($stdout)
+      response = http.request(request)
+      event = Hash.from_xml(response.body)
+      return response
    end
    
 
