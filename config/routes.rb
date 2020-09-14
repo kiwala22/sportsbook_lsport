@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+   # Serve websocket cable requests in-process
+   mount ActionCable.server => '/cable'
    
    root to: 'fixtures/soccer/pre_match#index'
    
@@ -101,8 +103,5 @@ Rails.application.routes.draw do
    
    require 'sidekiq/web'
    mount Sidekiq::Web => '/rabbit'
-   
-   # Serve websocket cable requests in-process
-   mount ActionCable.server => '/cable'
    
 end

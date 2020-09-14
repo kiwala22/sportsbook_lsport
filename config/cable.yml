@@ -8,4 +8,4 @@ test:
 production:
   adapter: redis
   url: "redis://localhost:6379/3"
-  channel_prefix: skyline_sportsbook_production
+  channel_prefix: sportsbook_production
