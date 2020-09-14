@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-
+   
    root to: 'fixtures/soccer/pre_match#index'
-
+   
    resources :bet_slips, only: [:index, :create, :show]
    #match '/refresh_slip', to: "line_bets#refresh", via: [:post]
    #match '/page_refresh', to: "fixtures/soccer/pre_match#page_refresh", via: [:get]
@@ -9,19 +9,19 @@ Rails.application.routes.draw do
    match '/add_bet', to: "line_bets#create", via: [:post]
    match '/clear_slip', to: "line_bets#destroy", via: [:delete]
    match '/clear_bet', to: "line_bets#line_bet_delete", via: [:delete]
-
+   
    match 'password_reset' => "password_reset#new", via: [:post, :get]
    match 'reset' => "password_reset#create", via: [:put]
    match 'verify_reset' => "password_reset#edit", via: [:post, :get]
    match 'password_update' => "password_reset#update", via: [:put]
-
+   
    namespace :fixtures do
       namespace :soccer do
          match 'pres' => 'pre_match#index', via: [:get]
          match 'pre' => 'pre_match#show', via: [:get]
          match 'lives' => 'live_match#index', via: [:get]
          match 'live' => 'live_match#show', via: [:get]
-
+         
       end
       namespace :virtual_soccer do
          match 'pres' => 'pre_match#index', via: [:get]
@@ -30,7 +30,7 @@ Rails.application.routes.draw do
          match 'live' => 'live_match#show', via: [:get]
       end
    end
-
+   
    resources :transactions, only: [:new, :index]
    match 'deposit' => "transactions#deposit", via: [:post]
    match 'transfer' => "transactions#transfer", via: [:get]
@@ -39,7 +39,7 @@ Rails.application.routes.draw do
    match 'new_verify' => "verify#new", via: [:get]
    match 'send_verification' => "verify#verify_via_email", via: [:get]
    match 'verify' => "verify#update", via: [:put]
-
+   
    namespace :backend do
       namespace :fixtures do
          match 'soccer_fixtures' => "soccer_fixtures#index", via: [:get]
@@ -66,28 +66,28 @@ Rails.application.routes.draw do
       match 'bet_slip' => "bet_slips#show", via: [:get]
       match 'bets' => "bets#index", via: [:get]
    end
-
+   
    namespace :amqp do
       namespace :v1  do
          match 'alerts' => 'alerts#create', via: [:post]
-
+         
          namespace :sports do
             match 'soccer' => 'soccer#create', via: [:post]
          end
       end
    end
-
+   
    devise_for :users, path: 'users',  controllers: {
       sessions: 'users/sessions'
    }
-
+   
    devise_for :admins, :skip => [:registrations], path: 'admins',  controllers:{
       sessions: 'admins/sessions'
-
+      
    }
-      get 'admins/sign_up' => redirect('/404.html')
+   get 'admins/sign_up' => redirect('/404.html')
    devise_scope :admin do
-
+      
       authenticated :admin do
          get '/backend' => 'backend/admin_landing#index', as: :authenticated_admins_root
       end
@@ -98,8 +98,11 @@ Rails.application.routes.draw do
    # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
    devise_for :admin_users, ActiveAdmin::Devise.config
    ActiveAdmin.routes(self)
-
+   
    require 'sidekiq/web'
    mount Sidekiq::Web => '/rabbit'
-
+   
+   # Serve websocket cable requests in-process
+   mount ActionCable.server => '/cable'
+   
 end
