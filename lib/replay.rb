@@ -69,7 +69,7 @@ module Replay
    end
 
    def start_replay(node: nil, product: nil, timestamp: nil)
-      url = @@end_point + "replay?node_id=#{node}&product_id=#{product}&use_replay_timestamp=#{timestamp}"
+      url = @@end_point + "replay/play?node_id=#{node}&product_id=#{product}&use_replay_timestamp=#{timestamp}"
       uri = URI(url)
       http = Net::HTTP.new(uri.host, uri.port)
       http.read_timeout = 180
