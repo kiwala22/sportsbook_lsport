@@ -12,7 +12,9 @@ export default class extends Controller {
       },
       {
         received({ market, fixture }) {
+          console.log("Data received");
           market ? self.onMarketChange(market) : self.onFixtureChange(fixture);
+          console.log("method executed");
         }
       }
     );
