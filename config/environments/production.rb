@@ -93,4 +93,7 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.action_dispatch.tld_length = 2
+
+  config.action_cable.mount_path = '/cable'
+  config.action_cable.allowed_request_origins = ['http://104.248.165.210']
 end
