@@ -7,5 +7,5 @@ test:
 
 production:
   adapter: redis
-  url: "redis://localhost:6379/3"
+  url: "redis://104.248.165.210:6379/3"
   channel_prefix: skyline_sportsbook_production
