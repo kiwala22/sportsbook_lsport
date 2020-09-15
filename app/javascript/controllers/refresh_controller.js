@@ -1,53 +1,53 @@
-// import { Controller } from "stimulus"
-// import $ from 'jquery';
+import { Controller } from "stimulus"
+import $ from 'jquery';
 
-// export default class extends Controller {
+export default class extends Controller {
 
-//     connect() {
-//         this.load()
-//         if (this.data.has("interval")) {
-//             this.startRefreshing()
-//         }
+    connect() {
+        this.load()
+        if (this.data.has("interval")) {
+            this.startRefreshing()
+        }
 
-//     }
+    }
 
-//     disconnect() {
-//         this.stopRefreshing()
-//     }
+    disconnect() {
+        this.stopRefreshing()
+    }
 
-//     startRefreshing() {
-//         this.refreshTimer = setInterval(() => {
-//             this.load()
-//         }, this.data.get("interval"))
-//     }
+    startRefreshing() {
+        this.refreshTimer = setInterval(() => {
+            this.load()
+        }, this.data.get("interval"))
+    }
 
-//     stopRefreshing() {
-//         if (this.refreshTimer) {
-//             clearInterval(this.refreshTimer)
-//         }
-//     }
+    stopRefreshing() {
+        if (this.refreshTimer) {
+            clearInterval(this.refreshTimer)
+        }
+    }
 
-//     load() {
-//         let url = this.data.get("url")
-//         let method = this.data.get("method")
-//         let token = document.getElementsByName('csrf-token')[0].content
-//         $("#fixture-table-body-1").empty()
-//         $("#fixture-table-body").empty()
-//         $("#fixture-table-body-1").append('<div class="d-flex justify-content-center"><div class="spinner-border" role="status"></div></div>')
-//         $("#fixture-table-body").append('<div class="d-flex justify-content-center"><div class="spinner-border" role="status"></div></div>')
-//         $("#bottom").hide();
+    load() {
+        let url = this.data.get("url")
+        let method = this.data.get("method")
+        let token = document.getElementsByName('csrf-token')[0].content
+        $("#fixture-table-body-1").empty()
+        $("#fixture-table-body").empty()
+        $("#fixture-table-body-1").append('<div class="d-flex justify-content-center"><div class="spinner-border" role="status"></div></div>')
+        $("#fixture-table-body").append('<div class="d-flex justify-content-center"><div class="spinner-border" role="status"></div></div>')
+        $("#bottom").hide();
 
-//         Rails.ajax({
-//             type: method,
-//             headers: {
-//                 'X-CSRF-Token': token
-//             },
-//             url: url,
-//             dataType: 'script',
-//             success: (data) => {
-//               $("#bottom").show();
-//             }
-//         })
-//     }
+        Rails.ajax({
+            type: method,
+            headers: {
+                'X-CSRF-Token': token
+            },
+            url: url,
+            dataType: 'script',
+            success: (data) => {
+              $("#bottom").show();
+            }
+        })
+    }
 
-// }
+}

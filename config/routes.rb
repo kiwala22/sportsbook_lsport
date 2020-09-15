@@ -5,9 +5,9 @@ Rails.application.routes.draw do
    root to: 'fixtures/soccer/pre_match#index'
    
    resources :bet_slips, only: [:index, :create, :show]
-   #match '/refresh_slip', to: "line_bets#refresh", via: [:post]
-   #match '/page_refresh', to: "fixtures/soccer/pre_match#page_refresh", via: [:get]
-   #match '/virtual_page_refresh', to: "fixtures/virtual_soccer/pre_match#page_refresh", via: [:get]
+   match '/refresh_slip', to: "line_bets#refresh", via: [:post]
+   match '/page_refresh', to: "fixtures/soccer/pre_match#page_refresh", via: [:get]
+   match '/virtual_page_refresh', to: "fixtures/virtual_soccer/pre_match#page_refresh", via: [:get]
    match '/add_bet', to: "line_bets#create", via: [:post]
    match '/clear_slip', to: "line_bets#destroy", via: [:delete]
    match '/clear_bet', to: "line_bets#line_bet_delete", via: [:delete]
