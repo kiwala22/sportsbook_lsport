@@ -5,7 +5,7 @@ class Fixtures::VirtualSoccer::LiveMatchController < ApplicationController
    def index
       @q = Fixture.joins(:market1_live).where("fixtures.status = ? AND fixtures.sport_id = ? AND fixtures.category_id IN (?) AND market1_lives.status = ? ", "live", "sr:sport:1", ["sr:category:1033","sr:category:2123"], "Active").order(scheduled_time: :asc)
       
-      @pagy, @fixtures = pagy(@q.includes(:market1_live))
+      @pagy, @fixtures = pagy(@q.includes(:market1_live).where("market1_lives.status = ?", "Active"))
       respond_to do |format|
          format.html
          format.js

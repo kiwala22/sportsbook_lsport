@@ -25,7 +25,7 @@ class Fixtures::Soccer::PreMatchController < ApplicationController
      end
 
       @featured = (@q.includes(:market1_pre).where("market1_pres.status = ? AND fixtures.featured = ?", "Active", true)).page params[:page]
-      @pagy, @fixtures = pagy(@q.includes(:market1_pre))
+      @pagy, @fixtures = pagy(@q.includes(:market1_pre).where("market1_pres.status = ?", "Active"))
       respond_to do |format|
          format.html
          format.json {

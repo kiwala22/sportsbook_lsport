@@ -1,5 +1,4 @@
 <% fixtures.each do |fixture| %>
-   <% if fixture.market1_live.present? && fixture.market1_live.status == "Active" %>
       <tr>
             <td>
                <%= link_to fixtures_virtual_soccer_live_path(id: fixture.id) do  %>
@@ -26,5 +25,4 @@
             </td>
       </tr>
 
-   <% end %>
 <% end %>

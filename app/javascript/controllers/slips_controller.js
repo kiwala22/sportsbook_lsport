@@ -6,7 +6,6 @@ export default class extends Controller {
     connect() {
         this.calculate_odds()
         this.display_win()
-        
         window.addEventListener("odds_change", (event) =>  {
             let market = event.detail;
 
