@@ -45,7 +45,10 @@ class LineBetsController < ApplicationController
       @cart.destroy if @cart.id == session[:cart_id]
       session[:cart_id] = nil
       respond_to do |format|
-         format.html { redirect_to root_url, notice: 'Your slip is now currently empty' }
+         format.html { 
+            flash[:notice] = "Your slip is now currently empty"
+			   redirect_back(fallback_location: root_path)
+         }
       end
    end
 
