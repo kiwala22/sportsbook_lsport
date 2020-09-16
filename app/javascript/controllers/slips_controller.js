@@ -1,27 +1,37 @@
 import { Controller } from "stimulus"
+import consumer from "../channels/consumer"
 
 export default class extends Controller {
     static targets = ["odd", "wins", "total", "stake"]
 
     connect() {
-        this.calculate_odds()
-        this.display_win()
-        window.addEventListener("odds_change", (event) =>  {
-            let market = event.detail;
+        let self = this;
+        this.calculate_odds();
+        this.display_win();
+        this.subscription = consumer.subscriptions.create({
+            channel: "RealtimePartialChannel",
+            key: this.data.get("key"),
 
-            this.oddTargets.forEach(element => {
-                let { outcome, fixture_id } = $(element).data();
-                if (market.hasOwnProperty("fixture_id") && market.fixture_id == fixture_id) {
-                    let odd = market[outcome];
-                    $(element).html(odd);
-                    this.calculate_odds();
-                    if (localStorage.getItem("stake")) {
-                        this.onCalculateWin(localStorage.getItem("stake"));
-                    }
+        }, {
+            received({ market, fixture, status }) {
+                console.log("here")
+                if (market) {
+                    self.onSlipChange(market)
                 }
-            });
+            }
         });
 
+
+    }
+
+    onSlipChange(market) {
+        const outcomes = ["1", "2", "3", "9", "10", "11", "12", "13", "74", "76", "1714", "1715"];
+        outcomes.forEach((element) => {
+            if (document.getElementById('slip_odd' + element + '_' + market.fixture_id)) {
+                document.getElementById('slip_odd' + element + '_' + market.fixture_id).innerHTML = market['outcome_' + element];
+            }
+
+        })
     }
 
     calculate_odds() {
@@ -54,13 +64,13 @@ export default class extends Controller {
     calculate_win() {
         const amount = event.target.value;
         let lastInput = amount.charAt(amount.length - 1);
-        if(!/[0-9]/.test(lastInput)) {
-            if(amount.length == 0) {
+        if (!/[0-9]/.test(lastInput)) {
+            if (amount.length == 0) {
                 localStorage.removeItem("stake");
                 this.winsTarget.innerHTML = " ";
             }
             return $(event.target).val(amount.substring(0, amount.length - 1));
-        } 
+        }
 
         this.onCalculateWin(amount);
     }
