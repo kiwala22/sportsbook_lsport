@@ -36,8 +36,8 @@ export default class extends Controller {
     onMarketChange(market) {
         const outcomes = ["1", "2", "3", "9", "10", "11", "12", "13", "74", "76", "1714", "1715"];
         outcomes.forEach((element) => {
-            if (document.getElementById('odd' + element + '_' + market.fixture_id)) {
-                document.getElementById('odd' + element + '_' + market.fixture_id).innerHTML = market['outcome_' + element];
+            if (document.getElementById('outcome_' + element + '_' + market.fixture_id)) {
+                document.getElementById('outcome_' + element + '_' + market.fixture_id).innerHTML = market['outcome_' + element];
             }
 
         })
