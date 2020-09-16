@@ -13,8 +13,7 @@ export default class extends Controller {
             key: this.data.get("key"),
 
         }, {
-            received({ market, fixture, status }) {
-                console.log("here")
+            received({ market }) {
                 if (market) {
                     self.onSlipChange(market)
                 }
@@ -26,12 +25,16 @@ export default class extends Controller {
 
     onSlipChange(market) {
         const outcomes = ["1", "2", "3", "9", "10", "11", "12", "13", "74", "76", "1714", "1715"];
-        outcomes.forEach((element) => {
-            if (document.getElementById('slip_odd' + element + '_' + market.fixture_id)) {
-                document.getElementById('slip_odd' + element + '_' + market.fixture_id).innerHTML = market['outcome_' + element];
+        outcomes.forEach(element => {
+            if($(`#slip_odd${element}_${market.fixture_id}`).length > 0){
+              $(`#slip_odd${element}_${market.fixture_id}`).html(market[`outcome_${element}`]);
             }
-
-        })
+        });
+        this.calculate_odds();
+        if (localStorage.getItem("stake")) {
+            this.onCalculateWin(localStorage.getItem("stake"));
+        }
+      
     }
 
     calculate_odds() {

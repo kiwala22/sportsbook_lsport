@@ -35,13 +35,13 @@ export default class extends Controller {
 
     onMarketChange(market) {
         const outcomes = ["1", "2", "3", "9", "10", "11", "12", "13", "74", "76", "1714", "1715"];
-        outcomes.forEach((element) => {
-            if (document.getElementById('outcome_' + element + '_' + market.fixture_id)) {
-                document.getElementById('outcome_' + element + '_' + market.fixture_id).innerHTML = market['outcome_' + element];
-            }
-
-        })
+        outcomes.forEach(element => {
+          if($(`#outcome_${element}_${market.fixture_id}`).length > 0){
+            $(`#outcome_${element}_${market.fixture_id}`).html(market[`outcome_${element}`]);
+          }
+        });
     }
+   
 
 
     refresh_market(url, method) {
