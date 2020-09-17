@@ -74,7 +74,7 @@ class Fixture < ApplicationRecord
     #check if match status is live and change was on either scores or match time
     if self.status == "live"
       if saved_change_to_attribute?(:home_score) || saved_change_to_attribute?(:away_score) || saved_change_to_attribute?(:match_time)
-        FixtureChannel.broadcast(record: self)
+        FixtureChannel.broadcast(record: self.status)
       end
     end
   end
