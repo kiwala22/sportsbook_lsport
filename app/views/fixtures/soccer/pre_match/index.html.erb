@@ -59,7 +59,7 @@
                                 <th class="col-1">2</th>
                             </tr>
                         </thead>
-                        <tbody id="fixture-table-body" data-target="match-fixtures.fixtures" data-controller="realtime-partial refresh" data-realtime-partial-key="fixtures" data-refresh-interval="60000" data-refresh-url="<% page_refresh_path %>" data-refresh-method="GET">
+                        <tbody id="fixture-table-body" data-target="match-fixtures.fixtures" data-controller="pre-odds-channel refresh"  data-refresh-interval="60000" data-refresh-url="<% page_refresh_path %>" data-refresh-method="GET">
                             <% if @fixtures.present? || @q.present? %>
                                 <%= render partial: 'pre_match_fixture_table', locals: {fixtures: @fixtures} %>
                             <%else%>

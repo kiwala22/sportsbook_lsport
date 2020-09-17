@@ -5,7 +5,7 @@
 
             <span class="float-right">
               <%= link_to "<i class='fas fa-futbol'></i> Pre-Match".html_safe, fixtures_virtual_soccer_pres_path, id: "live-tab", class: "btnn btn-blink", data: {target: "tabs.date", action: "click->tabs#activate"} %>
-            </span> 
+            </span>
 
         </div>
         <div class="card-body">
@@ -22,7 +22,7 @@
                                 <th class="col-1">2</th>
                             </tr>
                         </thead>
-                        <tbody id="fixture-table-body" data-target="match-fixtures.fixtures" data-controller="realtime-partial refresh" data-realtime-partial-key="fixtures" data-refresh-interval="60000" data-refresh-url="/fixtures/virtual_soccer/lives.js" data-refresh-method="GET">
+                        <tbody id="fixture-table-body" data-target="match-fixtures.fixtures" data-controller="live-odds-channel refresh" data-realtime-partial-key="fixtures" data-refresh-interval="60000" data-refresh-url="/fixtures/virtual_soccer/lives.js" data-refresh-method="GET">
                             <%= render partial: 'live_match_fixture_table', locals: {fixtures: @fixtures} %>
                         </tbody>
                     </table>

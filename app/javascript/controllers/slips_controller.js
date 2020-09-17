@@ -9,32 +9,35 @@ export default class extends Controller {
         this.calculate_odds();
         this.display_win();
         this.subscription = consumer.subscriptions.create({
-            channel: "RealtimePartialChannel",
-            key: this.data.get("key"),
-
+            channel: "BetslipChannel"
         }, {
-            received({ market }) {
-                if (market) {
-                    self.onSlipChange(market)
-                }
+            received: (data) => {
+                self.update_betslip(data)
             }
         });
 
 
     }
 
-    onSlipChange(market) {
+    disconnect() {
+        this.subscription.unsubscribe();
+    }
+
+    update_betslip(data) {
+        let record = data["record"];
+
         const outcomes = ["1", "2", "3", "9", "10", "11", "12", "13", "74", "76", "1714", "1715"];
         outcomes.forEach(element => {
-            if($(`#slip_odd${element}_${market.fixture_id}`).length > 0){
-              $(`#slip_odd${element}_${market.fixture_id}`).html(market[`outcome_${element}`]);
+            if ($(`#slip_${element}_${record.fixture_id}`).length > 0) {
+                $(`#slip_${element}_${record.fixture_id}`).html(record[`outcome_${element}`]);
             }
         });
+
         this.calculate_odds();
-        if (localStorage.getItem("stake")) {
+        if (localStorage.getItem("stake") && this.hasTotalTarget) {
             this.onCalculateWin(localStorage.getItem("stake"));
         }
-      
+
     }
 
     calculate_odds() {

@@ -8,7 +8,7 @@
                    <div class="single-bet">
                      <div class="col-1"><%= link_to '<i class="far fa-window-close"></i>'.html_safe, clear_bet_path(id: bet.id), remote: true, method: :delete %></div>
                       <div id="comp-names" class="col-9"><span> <%= bet.fixture.comp_one_name %> - <%= bet.fixture.comp_two_name %> </span><span> <%= bet.description %></span></div>
-                      <div data-fixture_id=<%="#{bet.fixture_id}"%> data-outcome=<%="outcome_#{bet.outcome}"%> data-target="slips.odd" class="col-2 float-right" id= <%= "slip_odd#{bet.outcome}_#{bet.fixture.id}" %> ><%= fetch_current_odd(bet.market, bet.fixture_id, bet.outcome) %></div>
+                      <div data-fixture_id=<%="#{bet.fixture_id}"%> data-outcome=<%="outcome_#{bet.outcome}"%> data-target="slips.odd" class="col-2 float-right" id= <%= "slip_#{bet.outcome}_#{bet.fixture.id}" %> ><%= fetch_current_odd(bet.market, bet.fixture_id, bet.outcome) %></div>
                    </div>
                  </div>
                </div>
