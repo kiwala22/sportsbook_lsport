@@ -107,3 +107,4 @@ gem 'flag-icons-rails'
 gem "browser"
 gem 'pg_search'
 gem 'newrelic_rpm'
+gem 'local_time'
