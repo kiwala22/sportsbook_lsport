@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-
+   
    root to: 'fixtures/soccer/pre_match#index'
 
    resources :bet_slips, only: [:index, :create, :show]
@@ -16,6 +16,7 @@ Rails.application.routes.draw do
    match 'password_update' => "password_reset#update", via: [:put]
 
    namespace :fixtures do
+      match 'search' => 'search#index', via: [:get]
       namespace :soccer do
          match 'pres' => 'pre_match#index', via: [:get]
          match 'pre' => 'pre_match#show', via: [:get]

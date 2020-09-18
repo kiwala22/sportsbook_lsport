@@ -79,10 +79,10 @@
    <div class="collapse navbar-collapse" id="navbarSideShortcuts">
 
          <div class="col-12" data-controller="search">
-            <%= form_with(method: :get, class:"form-inline mr-auto") do |f| %>
-               <%= text_field_tag(:search, params[:search], data:{action:"keyup->search#searchFixture"}, class: "form-control", placeholder:"Search for...",id:"search") %>
-                <i class="fa fa-search fa-lg" id="glass"></i>
-             <% end %>
+              <%= form_tag(fixtures_search_path, method: :get, class: "form-inline mr-auto") do |f| %>
+                      <%= text_field_tag(:search, params[:search], placeholder:"Search for...",class: "form-control", id:"search" ) %>
+                      <i class="fa fa-search fa-lg" id="glass"></i>
+              <% end %>
         </div>
    <br>
       <div class="row">
