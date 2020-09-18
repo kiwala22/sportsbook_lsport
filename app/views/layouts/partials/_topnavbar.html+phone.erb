@@ -78,7 +78,7 @@
    <!-- shortcuts  -->
    <div class="collapse navbar-collapse" id="navbarSideShortcuts">
 
-         <div class="col-12" data-controller="search">
+         <div class="col-12" >
               <%= form_tag(fixtures_search_path, method: :get, class: "form-inline mr-auto") do |f| %>
                       <%= text_field_tag(:search, params[:search], placeholder:"Search for...",class: "form-control", id:"search" ) %>
                       <i class="fa fa-search fa-lg" id="glass"></i>
