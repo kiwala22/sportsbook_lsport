@@ -20,7 +20,7 @@
                                 <th class="col-2">2</th>
                             </tr>
                         </thead>
-                        <tbody id="fixture-table-body" data-target="match-fixture.fixtures" data-controller="refresh" data-refresh-interval="60000" data-refresh-url="/fixtures/virtual_soccer/lives.js" data-refresh-method="GET">
+                        <tbody id="fixture-table-body" data-target="match-fixtures.pagination" data-controller="realtime-partial" data-realtime-partial-key="fixtures">
                             <%= render partial: 'live_match_fixture_table', locals: {fixtures: @fixtures} %>
                         </tbody>
                     </table>

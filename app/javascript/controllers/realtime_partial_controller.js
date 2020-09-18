@@ -1,71 +1,48 @@
-// import { Controller } from "stimulus"
-// import consumer from "../channels/consumer"
-//
-// export default class extends Controller {
-//   initialize () {
-//     // Is run first. In this case we don't need to worry about anything.
-//   }
-//
-//   connect() {
-//     let realtimePartialController = this;
-//
-//     this.subscription = consumer.subscriptions.create(
-//       {
-//         channel: "RealtimePartialChannel",
-//         key: this.data.get("key")
-//       },
-//       {
-//         connected() {
-//           // Called when the subscription is ready for use on the server
-//         },
-//         disconnected() {
-//           // Called when the subscription has been terminated by the server
-//         },
-//         received(data) {
-//           realtimePartialController.renderPartial(data);
-//         }
-//       }
-//     );
-//   }
-//
-//   disconnect() {
-//     this.subscription.unsubscribe();
-//   }
-//
-//   renderPartial(data) {
-//     let newBody = this._parseHTMLResponse(data['body']);
-//
-//     // Replace all data-turbolinks-permanent elements in the body with what was there
-//     // previously. This is useful for elements the user might interact with, such
-//     // as forms or dropdowns.
-//     let permanentNodes = this.element.querySelectorAll("[id][data-turbolinks-permanent]");
-//     permanentNodes.forEach(function(element){
-//       var oldElement = newBody.querySelector(`#${element.id}[data-turbolinks-permanent]`)
-//       oldElement.parentNode.replaceChild(element, oldElement);
-//     });
-//
-//     // Remove all the current nodes from our element.
-//     while( this.element.firstChild ) { this.element.removeChild( this.element.firstChild ); }
-//
-//     // When we're sending a new partial, which is a full replacement of our
-//     // element & not just a group of children.
-//     if( newBody.childElementCount === 1 && newBody.firstElementChild.dataset.realtimePartialKey === this.data.get("key") ){
-//       while( newBody.firstElementChild.firstChild ) { this.element.appendChild( newBody.firstElementChild.firstChild ); }
-//     } else {
-//       // Append the new nodes.
-//       while( newBody.firstChild ) { this.element.appendChild( newBody.firstChild ); }
-//     }
-//   }
-//
-//   // From: https://stackoverflow.com/a/42658543/445724
-//   // using .innerHTML= is risky. Instead we need to convert the HTML received
-//   // into elements, then append them.
-//   // It's wrapped in a <template> tag to avoid invalid (e.g. a block starting with <tr>)
-//   // being mutated inappropriately.
-//   _parseHTMLResponse(responseHTML){
-//     let parser = new DOMParser();
-//     let responseDocument = parser.parseFromString( `<template>${responseHTML}</template>` , 'text/html');
-//     let parsedHTML = responseDocument.head.firstElementChild.content;
-//     return parsedHTML;
-//   }
-// }
+import { Controller } from "stimulus"
+import consumer from "../channels/consumer"
+import $ from 'jquery';
+
+export default class extends Controller {
+  connect() {
+    let self = this;
+    this.subscription = consumer.subscriptions.create(   
+      {
+        channel: "RealtimePartialChannel",
+        key: this.data.get("key")
+      },
+      {
+        received({ market, fixture }) {
+          market ? self.onMarketChange(market) : self.onFixtureChange(fixture);
+        }
+      }
+    );
+  }
+
+  onFixtureChange({ fixture_id, home_score, away_score, match_time }) {
+    $(`#match_time_${fixture_id}`).html(match_time)
+    $(`#match_score_${fixture_id}`).html(`${home_score} - ${away_score}`);
+  }
+
+  onMarketChange(market) {
+    window.dispatchEvent(new CustomEvent("odds_change", { detail: market}));
+    if(market instanceof Object) {
+      //Odds
+      $(`#odd1_${market.fixture_id}`).html(market.outcome_1);
+      $(`#odd2_${market.fixture_id}`).html(market.outcome_2);
+      $(`#odd3_${market.fixture_id}`).html(market.outcome_3);
+      //Outcomes
+      $(`#outcome_1_${market.fixture_id}`).html(market.outcome_1);
+      $(`#outcome_2_${market.fixture_id}`).html(market.outcome_2);
+      $(`#outcome_3_${market.fixture_id}`).html(market.outcome_3);
+      $(`#outcome_9_${market.fixture_id}`).html(market.outcome_9);
+      $(`#outcome_10_${market.fixture_id}`).html(market.outcome_10);
+      $(`#outcome_11_${market.fixture_id}`).html(market.outcome_11);
+      $(`#outcome_13_${market.fixture_id}`).html(market.outcome_13);
+      $(`#outcome_12_${market.fixture_id}`).html(market.outcome_12);
+      $(`#outcome_74_${market.fixture_id}`).html(market.outcome_74);
+      $(`#outcome_76_${market.fixture_id}`).html(market.outcome_76);
+      $(`#outcome_1714_${market.fixture_id}`).html(market.outcome_1714);
+      $(`#outcome_1715_${market.fixture_id}`).html(market.outcome_1715);
+    }
+  }
+}

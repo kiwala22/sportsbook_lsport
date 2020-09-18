@@ -28,7 +28,7 @@ class Fixture < ApplicationRecord
     "False" => false
   }
 
-  after_update :void_bets
+  after_update :broadcast_updates
 
    validates :event_id, presence: true
    validates :event_id, uniqueness: true
@@ -63,15 +63,18 @@ class Fixture < ApplicationRecord
 
    paginates_per 100
 
-   #private
-
-   def void_bets
+   def broadcast_updates
+    #check if change was on status
     if saved_change_to_attribute?(:status)
       if self.status == "postponed" || self.status == "cancelled"
-        #Find all bets associated with that fixture and void them with
-        #a void reason of postponed or cancelled
         bets = self.bets
         bets.update_all(status: "Closed", result: "Void", reason: "Fixture #{self.status}")
+      end
+    end
+    #check if match status is live and change was on either scores or match time
+    if self.status == "live"
+      if saved_change_to_attribute?(:home_score) || saved_change_to_attribute?(:away_score) || saved_change_to_attribute?(:match_time)
+        RealtimePartialChannel.broadcast_to('fixtures', fixture: { fixture_id: self.id, home_score: self.home_score, away_score: self.away_score, match_time: self.match_time })
       end
     end
    end

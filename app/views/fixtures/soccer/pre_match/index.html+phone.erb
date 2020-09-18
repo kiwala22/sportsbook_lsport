@@ -19,7 +19,7 @@
                               <th class="col-1">2</th>
                           </tr>
                         </thead>
-                        <tbody id="fixture-table-body-1" data-controller="refresh" data-refresh-interval="60000" data-refresh-url="<% page_refresh_path %>" data-refresh-method="GET">
+                        <tbody id="fixture-table-body-1" data-controller="realtime-partial" data-realtime-partial-key="fixtures">
                             <%= render partial: 'feat_pre_match_fixture_table', locals: {featured: @featured} %>
                         </tbody>
                     </table>
@@ -58,7 +58,7 @@
                               <th class="col-1">2</th>
                           </tr>
                         </thead>
-                        <tbody id="fixture-table-body" data-target="match-fixtures.fixtures" data-controller="refresh" data-refresh-interval="60000" data-refresh-url="<% page_refresh_path %>" data-refresh-method="GET">
+                        <tbody id="fixture-table-body" data-controller="realtime-partial" data-realtime-partial-key="fixtures">
                             <%= render partial: 'pre_match_fixture_table', locals: {fixtures: @fixtures} %>
                         </tbody>
                     </table>
