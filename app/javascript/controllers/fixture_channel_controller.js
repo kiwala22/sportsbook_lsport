@@ -4,31 +4,16 @@ import $ from 'jquery';
 
 export default class extends Controller {
     connect() {
-        this.subscription = consumer.subscriptions.create({ channel: "FixtureChannel" }, { received: this.refresh_fixture() });
+        this.subscription = consumer.subscriptions.create({ channel: "FixtureChannel" }, { received: (data) => { this.update_fixture(data) } });
     }
 
-    refresh_fixture() {
-        if (this.data.has("url") && this.data.has("method")) {
-            let url = this.data.get("url")
-            let method = this.data.get("method")
-            let token = document.getElementsByName('csrf-token')[0].content
-            $("#fixture-table-body-1").empty()
-            $("#fixture-table-body").empty()
-            $("#fixture-table-body-1").append('<div class="d-flex justify-content-center"><div class="spinner-border" role="status"></div></div>')
-            $("#fixture-table-body").append('<div class="d-flex justify-content-center"><div class="spinner-border" role="status"></div></div>')
-            $("#bottom").hide();
-
-            Rails.ajax({
-                type: method,
-                headers: {
-                    'X-CSRF-Token': token
-                },
-                url: url,
-                dataType: 'script',
-                success: (data) => {
-                    $("#bottom").show();
-                }
-            })
+    update_fixture(data) {
+        let record = JSON.parse(data["record"]);
+        if ($(`#match_time_${record.fixture_id}`).length > 0) {
+            $(`#match_time_${record.fixture_id}`).html(record.match_time)
+        }
+        if ($(`#match_score_${record.fixture_id}`).length > 0) {
+            $(`#match_score_${record.fixture_id}`).html(`${record.home_score} - ${record.away_score}`);
         }
 
     }
