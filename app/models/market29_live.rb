@@ -5,9 +5,6 @@ class Market29Live < ApplicationRecord
    belongs_to :fixture
 
    after_save :broadcast_updates
-   after_save :broadcast_refresh
-
-   after_save :broadcast_updates
 
 
    def broadcast_updates
