@@ -10,10 +10,10 @@ export default class extends Controller {
     update_fixture(data) {
         let record = data["record"];
         if ($(`#match_time_${record.fixture_id}`).length > 0) {
-            $(`#match_time_${record.fixture_id}`).html(record.match_time)
+            $(`#match_time_${record.fixture_id}`).html(record['match_time'])
         }
         if ($(`#match_score_${record.fixture_id}`).length > 0) {
-            $(`#match_score_${record.fixture_id}`).html(`${record.home_score} - ${record.away_score}`);
+            $(`#match_score_${record.fixture_id}`).html(`${record['home_score']} - ${record['away_score']}`);
         }
 
     }
