@@ -20,17 +20,6 @@ export default class extends Controller {
 
     }
 
-    update_time(data) {
-        let record = JSON.parse(data["record"]);
-        if ($(`#match_time_${record.fixture_id}`).length > 0) {
-            $(`#match_time_${record.fixture_id}`).html(record.match_time)
-        }
-        if ($(`#match_score_${record.fixture_id}`).length > 0) {
-            $(`#match_score_${record.fixture_id}`).html(`${record.home_score} - ${record.away_score}`);
-        }
-
-    }
-
     disconnect() {
         this.subscription.unsubscribe();
     }
