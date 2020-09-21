@@ -1,9 +1,6 @@
 Rails.application.routes.draw do
-<<<<<<< HEAD
-=======
    # Serve websocket cable requests in-process
    mount ActionCable.server => '/cable'
->>>>>>> master
    
    root to: 'fixtures/soccer/pre_match#index'
    
