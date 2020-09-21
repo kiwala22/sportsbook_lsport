@@ -12,13 +12,13 @@ export default class extends Controller {
     refresh_fixture() {
 
         if (this.data.has("url") && this.data.has("method")) {
-            let url = this.data.get("url")
-            let method = this.data.get("method")
-            let token = document.getElementsByName('csrf-token')[0].content
-            $("#fixture-table-body-1").empty()
-            $("#fixture-table-body").empty()
-            $("#fixture-table-body-1").append('<div class="d-flex justify-content-center"><div class="spinner-border" role="status"></div></div>')
-            $("#fixture-table-body").append('<div class="d-flex justify-content-center"><div class="spinner-border" role="status"></div></div>')
+            let url = this.data.get("url");
+            let method = this.data.get("method");
+            let token = document.getElementsByName('csrf-token')[0].content;
+            $("#fixture-table-body-1").empty();
+            $("#fixture-table-body").empty();
+            $("#fixture-table-body-1").append('<div class="d-flex justify-content-center"><div class="spinner-border" role="status"></div></div>');
+            $("#fixture-table-body").append('<div class="d-flex justify-content-center"><div class="spinner-border" role="status"></div></div>');
             $("#bottom").hide();
 
             Rails.ajax({
