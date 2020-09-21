@@ -88,7 +88,6 @@ gem 'ransack', '~> 2.3', '>= 2.3.2'
 gem 'gon'
 gem 'kaminari'
 gem 'jwt'
-gem 'scout_apm'
 gem 'openssl'
 gem "audited", "~> 4.9"
 gem "roo", "~> 2.8.0"
