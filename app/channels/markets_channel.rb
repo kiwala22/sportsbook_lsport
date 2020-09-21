@@ -1,4 +1,4 @@
-class MarketChannel < ApplicationCable::Channel
+class MarketsChannel < ApplicationCable::Channel
    def subscribed
       stream_from "markets"
    end

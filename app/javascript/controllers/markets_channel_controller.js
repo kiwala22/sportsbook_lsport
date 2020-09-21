@@ -4,7 +4,9 @@ import $ from 'jquery';
 
 export default class extends Controller {
     connect() {
-        this.subscription = consumer.subscriptions.create({ channel: "MarketsChannel" }, { received: this.refresh_fixture() });
+        this.subscription = consumer.subscriptions.create({
+            channel: "MarketsChannel"
+        }, { received: this.refresh_fixture() });
     }
 
     refresh_fixture() {

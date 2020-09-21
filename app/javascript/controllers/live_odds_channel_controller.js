@@ -4,7 +4,9 @@ import $ from 'jquery';
 
 export default class extends Controller {
     connect() {
-        this.subscription = consumer.subscriptions.create({ channel: "LiveOddsChannel" }, { received: (data) => { this.update_odds(data) } });
+        this.subscription = consumer.subscriptions.create({
+            channel: "LiveOddsChannel"
+        }, { received: (data) => { this.update_odds(data) } });
     }
 
     update_odds(data) {
