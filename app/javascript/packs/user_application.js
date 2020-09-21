@@ -27,4 +27,4 @@ require("@rails/activestorage").start()
 
 import "controllers"
 
-require("packs/user_assets/application");
+require("user_assets/application");
