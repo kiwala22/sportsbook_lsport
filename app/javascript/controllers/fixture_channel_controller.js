@@ -8,7 +8,7 @@ export default class extends Controller {
     }
 
     update_fixture(data) {
-        let record = JSON.parse(data["record"]);
+        let record = data["record"];
         if ($(`#match_time_${record.fixture_id}`).length > 0) {
             $(`#match_time_${record.fixture_id}`).html(record.match_time)
         }
