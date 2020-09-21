@@ -41,6 +41,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'action-cable-testing'
 end
 
 group :development do
@@ -100,10 +101,11 @@ gem 'sneakers'
 # gem 'rb-readline'
 #gem 'active_model_serializers', '~> 0.10.0'
 gem 'jquery-rails'
-gem 'newrelic_rpm'
 gem 'jquery-ui-rails'
 gem 'momentjs-rails', '>= 2.9.0'
 gem 'pagy', '~> 3.5'
 gem 'flag-icons-rails'
 gem "browser"
 gem 'pg_search'
+gem 'newrelic_rpm'
+gem 'local_time'

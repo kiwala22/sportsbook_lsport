@@ -52,17 +52,23 @@ class BetSlipsController < ApplicationController
 					session[:cart_id] = nil
 				end
 				#redirect to home page with a notification
-				redirect_to root_path, notice: "Thank You! Bets have been placed. "
+				flash[:notice] = "Thank You! Bets have been placed."
+				redirect_back(fallback_location: root_path)#, notice: "Thank You! Bets have been placed. "
 			else
-				redirect_to root_path, alert: "You have insufficient balance on your account. Please deposit some money. "
+				flash[:alert] = "You have insufficient balance on your account. Please deposit some money."
+				redirect_back(fallback_location: root_path)#, alert: "You have insufficient balance on your account. Please deposit some money. "
 			end
 		else
-			redirect_to root_path, alert: "Please add a correct stake amount "
+			flash[:alert] = "Please add a correct stake amount"
+			redirect_back(fallback_location: root_path)
+			#redirect_to root_path, alert: "Please add a correct stake amount "
 		end
 	rescue Exception => error
 		#log the error and redirect with an alert
 		logger.error(error)
-		redirect_to root_path, alert: "Oops! Something went wrong."
+		flash[:alert] = "Oops! Something went wrong."
+		redirect_back(fallback_location: root_path)
+		#redirect_to root_path, alert: "Oops! Something went wrong."
 
 	end
 

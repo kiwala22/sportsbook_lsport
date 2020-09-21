@@ -8,6 +8,12 @@ class Market1Live < ApplicationRecord
 
 
    def broadcast_updates
-      RealtimePartialChannel.broadcast_to('fixtures', market: self)
+      #RealtimePartialChannel.broadcast_to('fixtures', market: self)
+      ActionCable.server.broadcast('live_odds', record: self)
+      ActionCable.server.broadcast('betslips', record: self)
+      if saved_change_to_status?
+         ActionCable.server.broadcast('markets', record: self)
+      end
    end
+   
 end

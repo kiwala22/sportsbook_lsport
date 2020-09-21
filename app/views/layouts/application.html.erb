@@ -30,7 +30,7 @@
 
 </head>
 
-<body>
+<body onunload="">
   <!-- start page loading -->
    <!-- <div id="preloader">
        <div class="row loader">
@@ -64,7 +64,7 @@
                                   <div class="widget-head">
                                       <h3>Betslip</h3>
                                   </div>
-                                  <div class="widget-body" id="betslip" data-controller="#betslip">
+                                  <div class="widget-body" id="betslip" data-controller="betslip" data-betslip-interval="30000" data-betslip-url="<%= refresh_slip_path %>" data-betslip-method="POST" >
                                       <%= render 'layouts/partials/betslip.html.erb' %>
                                   </div>
                               </div>
@@ -79,7 +79,6 @@
             <%= render partial: "layouts/partials/footer" %>
         </footer>
     </div>
-
     <body>
 
 

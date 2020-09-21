@@ -1,10 +1,12 @@
 class ApplicationController < ActionController::Base
+  protect_from_forgery with: :exception, prepend: true
   include Pagy::Backend
 
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_raven_context
   before_action :redirect_if_unverified
   before_action :detect_device_variant
+  before_action :set_no_cache
 
 
   private
@@ -17,8 +19,15 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def set_no_cache
+    response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
+    response.headers["Pragma"] = "no-cache"
+    response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
+  end
+
 
   protected
+
   def configure_permitted_parameters
     added_attrs = [:phone_number, :email, :password, :password_confirmation, :remember_me, :first_name, :last_name]
     devise_parameter_sanitizer.permit :sign_up, keys: added_attrs

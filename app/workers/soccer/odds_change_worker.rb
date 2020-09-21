@@ -113,7 +113,7 @@ class Soccer::OddsChangeWorker
                 end
             end
             #update or create markets 1X2 half time and fulltime
-            mkt_entry = model_name.constantize.find_by(fixture_id: fixture_id)
+            mkt_entry = model_name.constantize.find_by(event_id: event_id)
             update_attr = {
                 outcome_1:  outcome_1,
                 outcome_2: outcome_2,
@@ -150,7 +150,7 @@ class Soccer::OddsChangeWorker
             end
             #update or create markets 1X2 half time and fulltime
             #update or create markets 1X2 half time and fulltime
-            mkt_entry = model_name.constantize.find_by(fixture_id: fixture_id)
+            mkt_entry = model_name.constantize.find_by(event_id: event_id)
             update_attr = {
                 outcome_9: outcome_9,
                 outcome_10: outcome_10,
@@ -184,7 +184,7 @@ class Soccer::OddsChangeWorker
                 end
             end
             #update or create markets 1X2 half time and fulltime
-            mkt_entry = model_name.constantize.find_by(fixture_id: fixture_id)
+            mkt_entry = model_name.constantize.find_by(event_id: event_id)
             update_attr = {
                 outcome_12:  outcome_12,
                 outcome_13:   outcome_13,
@@ -218,7 +218,7 @@ class Soccer::OddsChangeWorker
                 end
             end
             #update or create markets 1X2 half time and fulltime
-            mkt_entry = model_name.constantize.find_by(fixture_id: fixture_id)
+            mkt_entry = model_name.constantize.find_by(event_id: event_id)
             update_attr = {
                 outcome_74:  outcome_74,
                 outcome_76: outcome_76,
@@ -250,7 +250,7 @@ class Soccer::OddsChangeWorker
                 end
             end
             #update or create markets 1X2 half time and fulltime
-            mkt_entry = model_name.constantize.find_by(fixture_id: fixture_id)
+            mkt_entry = model_name.constantize.find_by(event_id: event_id)
             update_attr = {
                 outcome_1714:  outcome_1714,
                 outcome_1715: outcome_1715,

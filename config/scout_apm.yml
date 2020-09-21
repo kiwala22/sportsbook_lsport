@@ -22,7 +22,7 @@ common: &defaults
   monitor: true
 
   # enable or disable monitoring of background jobs
-  enable_background_jobs: false
+  enable_background_jobs: true
 
 production:
   <<: *defaults

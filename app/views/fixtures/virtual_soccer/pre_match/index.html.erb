@@ -23,7 +23,7 @@
                                 <th class="col-1">2</th>
                             </tr>
                         </thead>
-                        <tbody id="fixture-table-body" data-controller="realtime-partial" data-realtime-partial-key="fixtures">
+                        <tbody id="fixture-table-body" data-target="match-fixtures.fixtures" data-controller="fixture-channel live-odds-channel refresh" data-refresh-interval="60000" data-refresh-url="<% virtual_page_refresh_path %>" data-refresh-method="GET">
                             <%= render partial: 'pre_match_fixture_table', locals: {fixtures: @fixtures} %>
                         </tbody>
                     </table>

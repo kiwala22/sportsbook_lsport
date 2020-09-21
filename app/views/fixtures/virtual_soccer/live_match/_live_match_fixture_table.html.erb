@@ -1,5 +1,4 @@
 <% fixtures.each do |fixture| %>
-   <% if fixture.market1_live.present? && fixture.market1_live.status == "Active" %>
       <tr>
       
             <td>
@@ -21,16 +20,15 @@
                </a>
             </td>
             <td>
-               <%= link_to(fixture.market1_live.outcome_1, add_bet_path(outcome_id: "1", fixture_id: fixture.id, market: "Market1Live", outcome_desc: "1X2 FT - 1") , class: "btnn intialise_input",id:"odd1_#{fixture.id}", remote: true, method: :post )%>
+               <%= link_to(fixture.market1_live.outcome_1, add_bet_path(outcome_id: "1", fixture_id: fixture.id, market: "Market1Live", outcome_desc: "1X2 FT - 1") , class: "btnn intialise_input",id:"live_1_#{fixture.id}", remote: true, method: :post )%>
             </td>
             <td>
-               <%= link_to(fixture.market1_live.outcome_2, add_bet_path(outcome_id: "2", fixture_id: fixture.id, market: "Market1Live", outcome_desc: "1X2 FT - X") , class: "btnn intialise_input", id:"odd2_#{fixture.id}",remote: true, method: :post )%>
+               <%= link_to(fixture.market1_live.outcome_2, add_bet_path(outcome_id: "2", fixture_id: fixture.id, market: "Market1Live", outcome_desc: "1X2 FT - X") , class: "btnn intialise_input", id:"live_2_#{fixture.id}",remote: true, method: :post )%>
             </td>
             <td>
-               <%= link_to(fixture.market1_live.outcome_3, add_bet_path(outcome_id: "3", fixture_id: fixture.id, market: "Market1Live", outcome_desc: "1X2 FT - 2") , class: "btnn intialise_input", id:"odd3_#{fixture.id}", remote: true, method: :post )%>
+               <%= link_to(fixture.market1_live.outcome_3, add_bet_path(outcome_id: "3", fixture_id: fixture.id, market: "Market1Live", outcome_desc: "1X2 FT - 2") , class: "btnn intialise_input", id:"live_3_#{fixture.id}", remote: true, method: :post )%>
 
             </td>
       </tr>
 
-   <% end %>
 <% end %>

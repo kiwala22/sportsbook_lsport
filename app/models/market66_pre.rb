@@ -8,7 +8,8 @@ class Market66Pre < ApplicationRecord
 
 
    def broadcast_updates
-      RealtimePartialChannel.broadcast_to('fixtures', market: self)
+      ActionCable.server.broadcast('pre_odds', record: self)
+      ActionCable.server.broadcast('betslips', record: self)
    end
    
 end
