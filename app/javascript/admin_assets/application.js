@@ -8,12 +8,12 @@ import 'regenerator-runtime/runtime'
 require("modernizr/modernizr.custom.js");
 
 require("@rails/ujs").start()
-// //require("turbolinks").start()
+    // //require("turbolinks").start()
 require("@rails/activestorage").start()
-// require("channels")
-//ECharts import
-window.echarts = require("packs/admin_assets/echarts.min.js")
-//-- Date Timepicker
+    // require("channels")
+    //ECharts import
+window.echarts = require("./echarts.min.js")
+    //-- Date Timepicker
 import './time_picker.js';
 import "./bets_analytics.js.erb";
 import "./analytics.js.erb";
@@ -30,18 +30,18 @@ document.addEventListener('DOMContentLoaded', appInit);
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
-$(document).ready(function(){
-  $("#kick_off_before").datetimepicker({
-    format: "YYYY-MM-DD hh:mm a"
-  });
-  $("#kick_off_after").datetimepicker({
-    format: "YYYY-MM-DD hh:mm a"
-  });
+$(document).ready(function() {
+    $("#kick_off_before").datetimepicker({
+        format: "YYYY-MM-DD hh:mm a"
+    });
+    $("#kick_off_after").datetimepicker({
+        format: "YYYY-MM-DD hh:mm a"
+    });
 });
 
 $('.booking').click('ajax:complete', function() {
-  $(this).closest('tr').fadeOut();
-  setTimeout(function(){
-    $('#notice').html("")
-  }, 2000)
+    $(this).closest('tr').fadeOut();
+    setTimeout(function() {
+        $('#notice').html("")
+    }, 2000)
 });
