@@ -11,8 +11,8 @@ export default class extends Controller {
 
     update_fixture(data) {
         let record = data["record"];
-        var match_time = `#match_time_${record.fixture_id}`;
-        var match_score = `#match_time_${record.fixture_id}`;
+        var match_time = `#match_time_${record.id}`;
+        var match_score = `#match_time_${record.id}`;
         console.log(record, match_time, match_score);
         if ($(match_time).length > 0) {
             console.log(match_time, record.match_time);

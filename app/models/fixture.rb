@@ -28,7 +28,7 @@ class Fixture < ApplicationRecord
     "False" => false
   }
   
-  after_save :broadcast_updates
+  after_update :broadcast_updates
   
   validates :event_id, presence: true
   validates :event_id, uniqueness: true

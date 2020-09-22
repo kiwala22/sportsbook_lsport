@@ -10,6 +10,9 @@ class Market66Pre < ApplicationRecord
    def broadcast_updates
       ActionCable.server.broadcast('pre_odds', record: self)
       ActionCable.server.broadcast('betslips', record: self)
+      if saved_change_to_status?
+         ActionCable.server.broadcast('markets', record: self)
+      end
    end
    
 end
