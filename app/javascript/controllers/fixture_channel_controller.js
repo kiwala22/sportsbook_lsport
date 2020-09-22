@@ -12,14 +12,11 @@ export default class extends Controller {
     update_fixture(data) {
         let record = data["record"];
         var match_time = `#match_time_${record.id}`;
-        var match_score = `#match_time_${record.id}`;
-        console.log(record, match_time, match_score);
+        var match_score = `#match_score_${record.id}`;
         if ($(match_time).length > 0) {
-            console.log(match_time, record.match_time);
             $(match_time).html(record['match_time']);
         }
         if ($(match_score).length > 0) {
-            console.log(match_score, record.home_score, record.away_score);
             $(match_score).html(`${record.home_score} - ${record.away_score}`);
         }
 
