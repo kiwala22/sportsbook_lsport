@@ -10,12 +10,12 @@ export default class extends Controller {
     }
 
     refresh_fixture() {
-        console.log(this.data.get("url"), this.get("method"));
+        console.log(this.data.get("url"), this.data.get("method"));
         if (this.data.has("url") && this.data.has("method")) {
             let url = this.data.get("url");
             let method = this.data.get("method");
             let token = document.getElementsByName('csrf-token')[0].content;
-            console.log(url, method)
+            console.log(url, method);
             $("#fixture-table-body-1").empty();
             $("#fixture-table-body").empty();
             $("#fixture-table-body-1").append('<div class="d-flex justify-content-center"><div class="spinner-border" role="status"></div></div>');
@@ -32,7 +32,7 @@ export default class extends Controller {
                 success: (data) => {
                     $("#bottom").show();
                 }
-            })
+            });
         }
 
 
