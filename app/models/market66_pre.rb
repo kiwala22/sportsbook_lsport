@@ -11,7 +11,7 @@ class Market66Pre < ApplicationRecord
       ActionCable.server.broadcast('pre_odds', record: self)
       ActionCable.server.broadcast('betslips', record: self)
       if saved_change_to_status?
-         ActionCable.server.broadcast('markets', record: self)
+         ActionCable.server.broadcast("markets_#{self.fixture_id}", record: self)
       end
    end
    
