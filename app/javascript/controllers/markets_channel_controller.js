@@ -6,8 +6,13 @@ export default class extends Controller {
     connect() {
         this.subscription = consumer.subscriptions.create({
             channel: "MarketsChannel",
-            fixture: this.data.get("fixture")
-        }, { received: (data) => { this.refresh_fixture(this.data.get("url"), this.data.get("method")) } });
+            fixture: this.data.get("fixture"),
+            market: this.data.get("market")
+        }, {
+            received: (data) => {
+                this.refresh_fixture(this.data.get("url"), this.data.get("method"))
+            }
+        });
     }
 
     refresh_fixture(url, method) {

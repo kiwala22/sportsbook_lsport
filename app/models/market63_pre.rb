@@ -8,10 +8,10 @@ class Market63Pre < ApplicationRecord
 
 
    def broadcast_updates
-      ActionCable.server.broadcast('pre_odds', record: self)
-      ActionCable.server.broadcast('betslips', record: self)
+      ActionCable.server.broadcast("pre_odds_63_#{self.fixture_id}", self)
+      ActionCable.server.broadcast("betslips_63_#{self.fixture_id}", self)
       if saved_change_to_status?
-         ActionCable.server.broadcast("markets_#{self.fixture_id}", record: self)
+         ActionCable.server.broadcast("markets_63_#{self.fixture_id}", self)
       end
    end
 end

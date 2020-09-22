@@ -1,18 +1,17 @@
 class Market1Live < ApplicationRecord
    validates :event_id, presence: true
    validates :event_id, uniqueness: true
-
+   
    belongs_to :fixture
-
+   
    after_save :broadcast_updates
-
-
+   
+   
    def broadcast_updates
-      #RealtimePartialChannel.broadcast_to('fixtures', market: self)
-      ActionCable.server.broadcast('live_odds', record: self)
-      ActionCable.server.broadcast('betslips', record: self)
+      ActionCable.server.broadcast("live_odds_1_#{self.fixture_id}", self)
+      ActionCable.server.broadcast("betslips_1_#{self.fixture_id}", self)
       if saved_change_to_status?
-         ActionCable.server.broadcast("markets_#{self.fixture_id}", record: self)
+         ActionCable.server.broadcast("markets_1_#{self.fixture_id}", self)
       end
    end
    

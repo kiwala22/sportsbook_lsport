@@ -1,6 +1,6 @@
 class BetslipChannel < ApplicationCable::Channel
    def subscribed
-      stream_from "betslips"
+      stream_from "betslips_#{params[:market]}_#{params[:fixture]}"
    end
 
    def unsubscribed

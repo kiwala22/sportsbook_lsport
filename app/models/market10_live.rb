@@ -8,12 +8,10 @@ class Market10Live < ApplicationRecord
 
 
    def broadcast_updates
-      #RealtimePartialChannel.broadcast_to('fixtures', market: self)
-      ActionCable.server.broadcast('live_odds', record: self)
-      ActionCable.server.broadcast('betslips', record: self)
+      ActionCable.server.broadcast("live_odds_10_#{self.fixture_id}", self)
+      ActionCable.server.broadcast("betslips_10_#{self.fixture_id}", self)
       if saved_change_to_status?
-         ActionCable.server.broadcast("markets_#{self.fixture_id}", record: self)
-
+         ActionCable.server.broadcast("markets_10_#{self.fixture_id}", self)
       end
    end
 end
