@@ -11,7 +11,7 @@ class Market1Live < ApplicationRecord
       ActionCable.server.broadcast("live_odds_1_#{self.fixture_id}", self)
       ActionCable.server.broadcast("betslips_1_#{self.fixture_id}", self)
       if saved_change_to_status?
-         ActionCable.server.broadcast("markets_1_#{self.fixture_id}", self)
+         ActionCable.server.broadcast("markets_#{self.fixture_id}", self)
       end
    end
    
