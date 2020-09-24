@@ -6,37 +6,43 @@ export default class extends Controller {
     connect() {
         this.subscription = consumer.subscriptions.create({
             channel: "MarketsChannel",
-            fixture: this.data.get("fixture"),
-            market: this.data.get("market")
+            fixture: this.data.get("fixture")
+            //market: this.data.get("market")
         }, {
             received: (data) => {
-                this.refresh_fixture(this.data.get("url"), this.data.get("method"))
+                this.refresh_fixture(this.data.get("url"), this.data.get("method"));
             }
         });
     }
 
     refresh_fixture(url, method) {
-
         let token = document.getElementsByName('csrf-token')[0].content;
-        $("#fixture-table-body-1").empty();
-        $("#fixture-table-body").empty();
-        $("#fixture-table-body-1").append('<div class="d-flex justify-content-center"><div class="spinner-border" role="status"></div></div>');
-        $("#fixture-table-body").append('<div class="d-flex justify-content-center"><div class="spinner-border" role="status"></div></div>');
-        $("#bottom").hide();
+        setTimeout( () =>
+            Rails.ajax({
+                type: method,
+                headers: {
+                    'X-CSRF-Token': token
+                },
+                url: url,
+                dataType: 'script',
+                success: () => {
 
-        Rails.ajax({
-            type: method,
-            headers: {
-                'X-CSRF-Token': token
-            },
-            url: url,
-            dataType: 'script',
-            success: (data) => {
-                $("#bottom").show();
+                }
+            }),
+        50);
+        setTimeout( () => 
+            Rails.ajax({
+                type: 'POST',
+                headers: {
+                    'X-CSRF-Token': token
+                },
+                url: '/refresh_slip',
+                dataType: 'script',
+                success: () => {
 
-            }
-        });
-
+                }
+            }),
+        50);
     }
 
     disconnect() {
