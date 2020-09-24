@@ -17,18 +17,32 @@ export default class extends Controller {
 
     refresh_fixture(url, method) {
         let token = document.getElementsByName('csrf-token')[0].content;
-        Rails.ajax({
-            type: method,
-            headers: {
-                'X-CSRF-Token': token
-            },
-            url: url,
-            dataType: 'script',
-            success: () => {
-                //window.location.reload();
-            }
-        });
+        setTimeout( () =>
+            Rails.ajax({
+                type: method,
+                headers: {
+                    'X-CSRF-Token': token
+                },
+                url: url,
+                dataType: 'script',
+                success: () => {
 
+                }
+            }),
+        50);
+        setTimeout( () => 
+            Rails.ajax({
+                type: 'POST',
+                headers: {
+                    'X-CSRF-Token': token
+                },
+                url: '/refresh_slip',
+                dataType: 'script',
+                success: () => {
+
+                }
+            }),
+        50);
     }
 
     disconnect() {
