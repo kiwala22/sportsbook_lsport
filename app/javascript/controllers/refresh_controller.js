@@ -1,5 +1,5 @@
 import { Controller } from "stimulus"
-import $ from 'jquery';
+import $ from 'jquery'
 
 export default class extends Controller {
 
@@ -45,7 +45,7 @@ export default class extends Controller {
             url: url,
             dataType: 'script',
             success: (data) => {
-              $("#bottom").show();
+                $("#bottom").show();
             }
         })
     }

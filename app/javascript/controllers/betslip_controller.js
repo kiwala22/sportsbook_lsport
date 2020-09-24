@@ -1,33 +1,31 @@
 import { Controller } from "stimulus"
-import $ from 'jquery';
+import $ from 'jquery'
 
 export default class extends Controller {
 
-    static targets = []
-
-
+    // static targets = []
 
     connect() {
         this.load()
         if (this.data.has("interval")) {
-            this.startRefreshing()
+            this.startRefreshing();
         }
 
     }
 
     disconnect() {
-        this.stopRefreshing()
+        this.stopRefreshing();
     }
 
     startRefreshing() {
         this.refreshTimer = setInterval(() => {
-            this.load()
+            this.load();
         }, this.data.get("interval"))
     }
 
     stopRefreshing() {
         if (this.refreshTimer) {
-            clearInterval(this.refreshTimer)
+            clearInterval(this.refreshTimer);
         }
     }
 

@@ -1,13 +1,13 @@
 import { Controller } from "stimulus"
 import consumer from "../channels/consumer"
-import $ from 'jquery';
+import $ from 'jquery'
 
 export default class extends Controller {
     connect() {
         this.subscription = consumer.subscriptions.create({
             channel: "MarketsChannel",
             fixture: this.data.get("fixture")
-            //market: this.data.get("market")
+                //market: this.data.get("market")
         }, {
             received: (data) => {
                 this.refresh_fixture(this.data.get("url"), this.data.get("method"));
@@ -17,7 +17,7 @@ export default class extends Controller {
 
     refresh_fixture(url, method) {
         let token = document.getElementsByName('csrf-token')[0].content;
-        setTimeout( () =>
+        setTimeout(() =>
             Rails.ajax({
                 type: method,
                 headers: {
@@ -28,9 +28,8 @@ export default class extends Controller {
                 success: () => {
 
                 }
-            }),
-        50);
-        setTimeout( () => 
+            }), 50);
+        setTimeout(() =>
             Rails.ajax({
                 type: 'POST',
                 headers: {
@@ -41,8 +40,7 @@ export default class extends Controller {
                 success: () => {
 
                 }
-            }),
-        50);
+            }), 50);
     }
 
     disconnect() {

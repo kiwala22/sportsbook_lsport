@@ -9,7 +9,9 @@ export default class extends Controller {
             fixture: this.data.get("fixture"),
             market: this.data.get("market")
         }, {
-            received: (data) => { this.update_odds(data) }
+            received: (data) => {
+                this.update_odds(data);
+            }
         });
     }
 
