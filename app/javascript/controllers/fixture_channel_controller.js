@@ -16,7 +16,7 @@ export default class extends Controller {
         var match_time = `#match_time_${data.id}`;
         var match_score = `#match_score_${data.id}`;
         //update the time and score
-        $(match_time).html(record['match_time']);
+        $(match_time).html(data['match_time']);
         $(match_score).html(`${data.home_score} - ${data.away_score}`);
     }
 
