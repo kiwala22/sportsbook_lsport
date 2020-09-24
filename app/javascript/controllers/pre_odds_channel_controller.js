@@ -4,6 +4,7 @@ import $ from 'jquery';
 
 export default class extends Controller {
     connect() {
+        console.log("pre odds Connected");
         this.subscription = consumer.subscriptions.create({
             channel: "PreOddsChannel",
             fixture: this.data.get("fixture"),
@@ -14,6 +15,7 @@ export default class extends Controller {
     }
 
     update_odds(data) {
+        console.log("pre odds called");
         const outcomes = ["1", "2", "3", "9", "10", "11", "12", "13", "74", "76", "1714", "1715"];
         outcomes.forEach(element => {
             if ($(`#pre_${element}_${data.fixture_id}`).length > 0) {
