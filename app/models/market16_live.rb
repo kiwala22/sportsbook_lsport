@@ -3,14 +3,15 @@ class Market16Live < ApplicationRecord
    validates :event_id, uniqueness: true
    
    belongs_to :fixture
-   after_save :broadcast_updates
+   after_commit :broadcast_updates, if: :persisted?
 
 
    def broadcast_updates
-      ActionCable.server.broadcast("live_odds_16_#{self.fixture_id}", self)
-      ActionCable.server.broadcast("betslips_16_#{self.fixture_id}", self)
+      CableWorker.perform_async("live_odds_16_#{self.fixture_id}", self)
+      CableWorker.perform_async("betslips_16_#{self.fixture_id}", self)
+      
       if saved_change_to_status?
-         ActionCable.server.broadcast("markets_#{self.fixture_id}", self)
+         CableWorker.perform_async("markets_#{self.fixture_id}", self)
       end
-   end
+   end6
 end
