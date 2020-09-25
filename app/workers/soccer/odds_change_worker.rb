@@ -96,7 +96,7 @@ class Soccer::OddsChangeWorker
         model_name = "Market" + market["id"] + producer_type[product]
         
         #hard code market with similar outcomes
-        outcome_1 = outcome_2 = outcome_3 = nil
+        outcome_1 = outcome_2 = outcome_3 = 1.00
         if market["id"] == "1" || market["id"] == "60"
             
             if market.has_key?("outcome")
@@ -131,7 +131,7 @@ class Soccer::OddsChangeWorker
             
         end
         
-        outcome_9 = outcome_10 = outcome_11 = nil
+        outcome_9 = outcome_10 = outcome_11 = 1.00
         if market["id"] == "10" || market["id"] == "63"
             #update or create markets double chance half time and fulltime
             
@@ -168,7 +168,7 @@ class Soccer::OddsChangeWorker
             
         end
         
-        outcome_12 = outcome_13 = nil
+        outcome_12 = outcome_13 = 1.00
         if (market["id"] == "18" || market["id"] == "68") && market["specifiers"] == "total=2.5"
             #update or create markets under and over half time and fulltime
             
@@ -202,7 +202,7 @@ class Soccer::OddsChangeWorker
             
         end
         
-        outcome_74 = outcome_76 = nil
+        outcome_74 = outcome_76 = 1.00
         if market["id"] == "29" || market["id"] == "75"
             #update or create markets both to score half time and fulltime
             
@@ -234,7 +234,7 @@ class Soccer::OddsChangeWorker
             end
         end
         
-        outcome_1714 = outcome_1715 = nil
+        outcome_1714 = outcome_1715 = 1.00
         if (market["id"] == "16" ||  "66") && market["specifiers"] == "hcp=1"
             #update or create markets under and over half time and fulltime
             

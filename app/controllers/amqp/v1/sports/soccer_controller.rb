@@ -42,7 +42,7 @@ class Amqp::V1::Sports::SoccerController < ApplicationController
       end
       
       #logs the odds change for test fixture
-      if routing_key.split('.')[6] == "12089914"
+      if routing_key.split('.')[6] == "11914296"
          log_odds_change(output)
       end
       
@@ -63,12 +63,21 @@ class Amqp::V1::Sports::SoccerController < ApplicationController
    end
    
    def log_odds_change(message)
+      market_status = {
+         "1" => "Active",
+         "-1" => "Suspended",
+         "0" => "Deactivated",
+         "-4" => "Cancelled",
+         "-3" => "Settled"
+      }
       if message["odds_change"].has_key?("odds") && message["odds_change"]["odds"].present?
          if message["odds_change"]["odds"].has_key?("market") && message["odds_change"]["odds"]["market"].present?
             if message["odds_change"]["odds"]["market"].is_a?(Array)
                message["odds_change"]["odds"]["market"].each do |market|
                   if market.has_key?("outcome")
                      if ["1", "10", "16", "18", "29"].include? market["id"]
+                        @@betradar_logger << "\n"
+                        @@betradar_logger.info("status: #{market_status[market["status"]]}")
                         @@betradar_logger << "\n"
                         @@betradar_logger.info("Market #{market["id"]}")
                         @@betradar_logger << "\n"
@@ -83,6 +92,8 @@ class Amqp::V1::Sports::SoccerController < ApplicationController
             if message["odds_change"]["odds"]["market"].is_a?(Hash)
                if message["odds_change"]["odds"]["market"].has_key?("outcome")
                   if ["1", "10", "16", "18", "29"].include? message["odds_change"]["odds"]["market"]["id"]
+                     @@betradar_logger << "\n"
+                     @@betradar_logger.info("status: #{market_status[message["odds_change"]["odds"]["market"]["status"]]}")
                      @@betradar_logger << "\n"
                      @@betradar_logger.info("Market #{message["odds_change"]["odds"]["market"]["id"]}")
                      @@betradar_logger << "\n"
