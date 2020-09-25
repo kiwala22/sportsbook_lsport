@@ -68,7 +68,7 @@ class Amqp::V1::Sports::SoccerController < ApplicationController
             if message["odds_change"]["odds"]["market"].is_a?(Array)
                message["odds_change"]["odds"]["market"].each do |market|
                   if market.has_key?("outcome")
-                     if ["1", "10", "16", "18", "20"].include? market["id"]
+                     if ["1", "10", "16", "18", "29"].include? market["id"]
                         @@betradar_logger << "\n"
                         @@betradar_logger.info("Market #{market["id"]}")
                         @@betradar_logger << "\n"
@@ -82,7 +82,7 @@ class Amqp::V1::Sports::SoccerController < ApplicationController
             end
             if message["odds_change"]["odds"]["market"].is_a?(Hash)
                if message["odds_change"]["odds"]["market"].has_key?("outcome")
-                  if ["1", "10", "16", "18", "20"].include? message["odds_change"]["odds"]["market"]["id"]
+                  if ["1", "10", "16", "18", "29"].include? message["odds_change"]["odds"]["market"]["id"]
                      @@betradar_logger << "\n"
                      @@betradar_logger.info("Market #{message["odds_change"]["odds"]["market"]["id"]}")
                      @@betradar_logger << "\n"
