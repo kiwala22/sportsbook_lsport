@@ -102,13 +102,13 @@ class Soccer::OddsChangeWorker
             if market.has_key?("outcome")
                 market["outcome"].each do |out|
                     if out["id"] == "1"
-                        outcome_1 = out["odds"].to_f
+                        outcome_1 = out["odds"].to_f unless out["odds"].nil?
                     end
                     if out["id"] == "2"
-                        outcome_2 = out["odds"].to_f
+                        outcome_2 = out["odds"].to_f unless out["odds"].nil?
                     end
                     if out["id"] == "3"
-                        outcome_3 = out["odds"].to_f
+                        outcome_3 = out["odds"].to_f unless out["odds"].nil?
                     end
                 end
             end
@@ -138,13 +138,13 @@ class Soccer::OddsChangeWorker
             if market.has_key?("outcome")
                 market["outcome"].each do |out|
                     if out["id"] == "9"
-                        outcome_9 = out["odds"].to_f
+                        outcome_9 = out["odds"].to_f unless out["odds"].nil?
                     end
                     if out["id"] == "10"
-                        outcome_10 = out["odds"].to_f
+                        outcome_10 = out["odds"].to_f unless out["odds"].nil?
                     end
                     if out["id"] == "11"
-                        outcome_11 = out["odds"].to_f
+                        outcome_11 = out["odds"].to_f unless out["odds"].nil?
                     end
                 end
             end
@@ -175,10 +175,10 @@ class Soccer::OddsChangeWorker
             if market.has_key?("outcome")
                 market["outcome"].each do |out|
                     if out["id"] == "12"
-                        outcome_12 = out["odds"].to_f
+                        outcome_12 = out["odds"].to_f unless out["odds"].nil?
                     end
                     if out["id"] == "13"
-                        outcome_13 = out["odds"].to_f
+                        outcome_13 = out["odds"].to_f unless out["odds"].nil?
                     end
                     
                 end
@@ -209,10 +209,10 @@ class Soccer::OddsChangeWorker
             if market.has_key?("outcome")
                 market["outcome"].each do |out|
                     if out["id"] == "74"
-                        outcome_74 = out["odds"].to_f
+                        outcome_74 = out["odds"].to_f unless out["odds"].nil?
                     end
                     if out["id"] == "76"
-                        outcome_76 = out["odds"].to_f
+                        outcome_76 = out["odds"].to_f unless out["odds"].nil?
                     end
                     
                 end
@@ -241,10 +241,10 @@ class Soccer::OddsChangeWorker
             if market.has_key?("outcome")
                 market["outcome"].each do |out|
                     if out["id"] == "1714"
-                        outcome_1714 = out["odds"].to_f
+                        outcome_1714 = out["odds"].to_f unless out["odds"].nil?
                     end
                     if out["id"] == "1715"
-                        outcome_1715 = out["odds"].to_f
+                        outcome_1715 = out["odds"].to_f unless out["odds"].nil?
                     end
                     
                 end
