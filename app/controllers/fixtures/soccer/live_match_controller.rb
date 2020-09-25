@@ -3,18 +3,22 @@ class Fixtures::Soccer::LiveMatchController < ApplicationController
    before_action :set_cart, only: [:index, :show]
 
    def index
-       @q = Fixture.joins(:market1_live).where("fixtures.status = ? AND fixtures.sport_id = ? AND fixtures.category_id NOT IN (?) ", "live", "sr:sport:1", ["sr:category:1033","sr:category:2123"]).order(scheduled_time: :asc)
+      @q = Fixture.joins(:market1_live).where("fixtures.status = ? AND fixtures.sport_id = ? AND fixtures.category_id NOT IN (?) AND market1_lives.status = ?", "live", "sr:sport:1", ["sr:category:1033","sr:category:2123"], "Active").order(scheduled_time: :asc)
       
-      @pagy, @fixtures = pagy(@q.includes(:market1_live))
+      
+      @pagy, @fixtures = pagy(@q.includes(:market1_live).where("market1_lives.status = ?", "Active"))
       respond_to do |format|
          format.html
          format.js
+         format.json {
+            render json: { fixtures: render_to_string(partial: "live_match_fixture_table", locals: {fixtures: @fixtures}, formats: [:html]), pagination: view_context.pagy_nav(@pagy) }
+         }
       end
 
    end
 
    def show
-      @fixture = Fixture.includes(:market1_live,:market10_live,:market16_live,:market18_live,:market29_live, :market60_live,:market63_live,:market1_live,:market66_live,:market68_live,:market75_live).find(params[:id])
+      @fixture = Fixture.includes(:market1_live,:market10_live,:market16_live,:market18_live,:market29_live, :market60_live,:market63_live,:market66_live,:market68_live,:market75_live).find(params[:id])
       respond_to do |format|
          format.html
          format.js

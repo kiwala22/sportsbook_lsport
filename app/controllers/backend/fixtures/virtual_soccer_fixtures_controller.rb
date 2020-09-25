@@ -7,7 +7,7 @@ class Backend::Fixtures::VirtualSoccerFixturesController < ApplicationController
 
   def index
     @q = Fixture.where("sport_id = ? AND category_id IN (?)","sr:sport:1" ,["sr:category:1033","sr:category:2123"] ).ransack(params[:q])
-    @fixtures = @q.result.order(:scheduled_time).page params[:page]
+    @fixtures = @q.result.order("scheduled_time DESC").page params[:page]
   end
 
   def update
@@ -16,7 +16,7 @@ class Backend::Fixtures::VirtualSoccerFixturesController < ApplicationController
     if response == 200
       @fixture.update(booked: true)
       respond_to do |format|
-        flashs[:notice] = "Fixture Booked."
+        flash[:notice] = "Fixture Booked."
         format.js { render :layout => false }
       end
     else

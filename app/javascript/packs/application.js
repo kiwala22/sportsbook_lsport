@@ -5,6 +5,9 @@
 // var Turbolinks = require("turbolinks")
 // Turbolinks.start()
 
-require("packs/admin_assets/application")
+import LocalTime from "local-time"
+LocalTime.start()
+
+require("admin_assets/application")
 
 import "controllers"

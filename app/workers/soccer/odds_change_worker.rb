@@ -96,24 +96,24 @@ class Soccer::OddsChangeWorker
         model_name = "Market" + market["id"] + producer_type[product]
         
         #hard code market with similar outcomes
-        outcome_1 = outcome_2 = outcome_3 = nil
+        outcome_1 = outcome_2 = outcome_3 = 1.00
         if market["id"] == "1" || market["id"] == "60"
             
             if market.has_key?("outcome")
                 market["outcome"].each do |out|
                     if out["id"] == "1"
-                        outcome_1 = out["odds"].to_f
+                        outcome_1 = out["odds"].to_f unless out["odds"].nil?
                     end
                     if out["id"] == "2"
-                        outcome_2 = out["odds"].to_f
+                        outcome_2 = out["odds"].to_f unless out["odds"].nil?
                     end
                     if out["id"] == "3"
-                        outcome_3 = out["odds"].to_f
+                        outcome_3 = out["odds"].to_f unless out["odds"].nil?
                     end
                 end
             end
             #update or create markets 1X2 half time and fulltime
-            mkt_entry = model_name.constantize.find_by(fixture_id: fixture_id)
+            mkt_entry = model_name.constantize.find_by(event_id: event_id)
             update_attr = {
                 outcome_1:  outcome_1,
                 outcome_2: outcome_2,
@@ -131,26 +131,26 @@ class Soccer::OddsChangeWorker
             
         end
         
-        outcome_9 = outcome_10 = outcome_11 = nil
+        outcome_9 = outcome_10 = outcome_11 = 1.00
         if market["id"] == "10" || market["id"] == "63"
             #update or create markets double chance half time and fulltime
             
             if market.has_key?("outcome")
                 market["outcome"].each do |out|
                     if out["id"] == "9"
-                        outcome_9 = out["odds"].to_f
+                        outcome_9 = out["odds"].to_f unless out["odds"].nil?
                     end
                     if out["id"] == "10"
-                        outcome_10 = out["odds"].to_f
+                        outcome_10 = out["odds"].to_f unless out["odds"].nil?
                     end
                     if out["id"] == "11"
-                        outcome_11 = out["odds"].to_f
+                        outcome_11 = out["odds"].to_f unless out["odds"].nil?
                     end
                 end
             end
             #update or create markets 1X2 half time and fulltime
             #update or create markets 1X2 half time and fulltime
-            mkt_entry = model_name.constantize.find_by(fixture_id: fixture_id)
+            mkt_entry = model_name.constantize.find_by(event_id: event_id)
             update_attr = {
                 outcome_9: outcome_9,
                 outcome_10: outcome_10,
@@ -168,23 +168,23 @@ class Soccer::OddsChangeWorker
             
         end
         
-        outcome_12 = outcome_13 = nil
+        outcome_12 = outcome_13 = 1.00
         if (market["id"] == "18" || market["id"] == "68") && market["specifiers"] == "total=2.5"
             #update or create markets under and over half time and fulltime
             
             if market.has_key?("outcome")
                 market["outcome"].each do |out|
                     if out["id"] == "12"
-                        outcome_12 = out["odds"].to_f
+                        outcome_12 = out["odds"].to_f unless out["odds"].nil?
                     end
                     if out["id"] == "13"
-                        outcome_13 = out["odds"].to_f
+                        outcome_13 = out["odds"].to_f unless out["odds"].nil?
                     end
                     
                 end
             end
             #update or create markets 1X2 half time and fulltime
-            mkt_entry = model_name.constantize.find_by(fixture_id: fixture_id)
+            mkt_entry = model_name.constantize.find_by(event_id: event_id)
             update_attr = {
                 outcome_12:  outcome_12,
                 outcome_13:   outcome_13,
@@ -202,23 +202,23 @@ class Soccer::OddsChangeWorker
             
         end
         
-        outcome_74 = outcome_76 = nil
+        outcome_74 = outcome_76 = 1.00
         if market["id"] == "29" || market["id"] == "75"
             #update or create markets both to score half time and fulltime
             
             if market.has_key?("outcome")
                 market["outcome"].each do |out|
                     if out["id"] == "74"
-                        outcome_74 = out["odds"].to_f
+                        outcome_74 = out["odds"].to_f unless out["odds"].nil?
                     end
                     if out["id"] == "76"
-                        outcome_76 = out["odds"].to_f
+                        outcome_76 = out["odds"].to_f unless out["odds"].nil?
                     end
                     
                 end
             end
             #update or create markets 1X2 half time and fulltime
-            mkt_entry = model_name.constantize.find_by(fixture_id: fixture_id)
+            mkt_entry = model_name.constantize.find_by(event_id: event_id)
             update_attr = {
                 outcome_74:  outcome_74,
                 outcome_76: outcome_76,
@@ -234,23 +234,23 @@ class Soccer::OddsChangeWorker
             end
         end
         
-        outcome_1714 = outcome_1715 = nil
+        outcome_1714 = outcome_1715 = 1.00
         if (market["id"] == "16" ||  "66") && market["specifiers"] == "hcp=1"
             #update or create markets under and over half time and fulltime
             
             if market.has_key?("outcome")
                 market["outcome"].each do |out|
                     if out["id"] == "1714"
-                        outcome_1714 = out["odds"].to_f
+                        outcome_1714 = out["odds"].to_f unless out["odds"].nil?
                     end
                     if out["id"] == "1715"
-                        outcome_1715 = out["odds"].to_f
+                        outcome_1715 = out["odds"].to_f unless out["odds"].nil?
                     end
                     
                 end
             end
             #update or create markets 1X2 half time and fulltime
-            mkt_entry = model_name.constantize.find_by(fixture_id: fixture_id)
+            mkt_entry = model_name.constantize.find_by(event_id: event_id)
             update_attr = {
                 outcome_1714:  outcome_1714,
                 outcome_1715: outcome_1715,

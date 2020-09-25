@@ -60,6 +60,7 @@
         <th>Fixture</th>
         <th>Odds</th>
         <th>Status</th>
+        <th>Result</th>
         <th>BetSlip ID</th>
         <th>Product</th>
         <th>Market</th>
@@ -79,6 +80,13 @@
           </td>
 					<td><%= bet.odds %></td>
 					<td><%= bet.status %></td>
+          <td>
+            <% if bet.result.nil? %>
+              N/A
+            <% else %>
+              <%= bet.result %>
+            <% end %>
+          </td>
 					<td><%= bet.bet_slip_id %></td>
 					<td><%= bet.product %></td>
 					<td><%= bet.market_id %></td>

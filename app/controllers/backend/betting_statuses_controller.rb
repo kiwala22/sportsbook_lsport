@@ -5,6 +5,6 @@ class Backend::BettingStatusesController < ApplicationController
   layout "admin_application.html.erb"
 
   def index
-    @betting_statuses = BettingStatus.all.page params[:page]
+    @betting_statuses = BettingStatus.all.order("created_at DESC").page params[:page]
   end
 end

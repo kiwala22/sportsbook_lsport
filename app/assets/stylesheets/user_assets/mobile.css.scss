@@ -6,6 +6,10 @@
     .card-header:first-child {
         border-radius: 0px;
     }
+    .content-wrapper {
+      margin-bottom: 50px;
+      overflow-x: hidden;
+    }
     .game-box .card .card-header h3 {
         font-size: 14px;
     }
@@ -259,4 +263,27 @@
   .close-linebet {
     padding: 5px;
   }
+
+    .submit-search{
+        margin-left: -72px;
+    }
+    .submit-btn{
+        margin-left: -86px;
+    }
+
+    .game-box .card .card-header span a.btnn {
+      padding: 5px 17px;
+      border-radius: 4px;
+      display: inline-block;
+      color: #ffffff;
+      background: #F6AE2D;
+    }
+    .game-box .card .card-header span a.btnn:hover {
+      background-color: #F6AE2D;
+      border-color: #F6AE2D;
+      box-shadow: 0 0 0 0.1rem #F6AE2D;
+    }
+    .upcoming {
+      padding: .75rem 0.75rem;
+    }
 }

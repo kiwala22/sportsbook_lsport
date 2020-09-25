@@ -25,7 +25,7 @@ gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 4.0'
+gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
@@ -41,6 +41,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'action-cable-testing'
 end
 
 group :development do
@@ -87,7 +88,6 @@ gem 'ransack', '~> 2.3', '>= 2.3.2'
 gem 'gon'
 gem 'kaminari'
 gem 'jwt'
-gem 'scout_apm'
 gem 'openssl'
 gem "audited", "~> 4.9"
 gem "roo", "~> 2.8.0"
@@ -100,10 +100,11 @@ gem 'sneakers'
 # gem 'rb-readline'
 #gem 'active_model_serializers', '~> 0.10.0'
 gem 'jquery-rails'
-gem 'newrelic_rpm'
 gem 'jquery-ui-rails'
 gem 'momentjs-rails', '>= 2.9.0'
 gem 'pagy', '~> 3.5'
 gem 'flag-icons-rails'
 gem "browser"
-
+gem 'pg_search'
+gem 'newrelic_rpm'
+gem 'local_time'

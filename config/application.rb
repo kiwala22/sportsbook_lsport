@@ -19,7 +19,7 @@ module SkylineSportsbook
       # -- all .rb files in that directory are automatically loaded after loading
       # the framework and any gems in your application.
       
-      config.time_zone = 'Nairobi'
+      config.time_zone = 'UTC'
       config.active_record.default_timezone = :local
       
       #add fonts to assets path
