@@ -8,11 +8,11 @@ class Market60Pre < ApplicationRecord
 
 
    def broadcast_updates
-      CableWorker.perform_async("pre_odds_60_#{self.fixture_id}", self)
-      CableWorker.perform_async("betslips_60_#{self.fixture_id}", self)
+      CableWorker.perform_async("pre_odds_60_#{self.fixture_id}", self.as_json)
+      CableWorker.perform_async("betslips_60_#{self.fixture_id}", self.as_json)
       
       if saved_change_to_status?
-         CableWorker.perform_async("markets_#{self.fixture_id}", self)
+         CableWorker.perform_async("markets_#{self.fixture_id}", self.as_json)
       end
    end
 end
