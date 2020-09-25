@@ -1,5 +1,5 @@
 <% fixtures.each do |fixture| %>
-      <tr data-controller="live-odds-channel #markets-channel slips" data-live-odds-channel-fixture=<%= fixture.id %> data-markets-channel-fixture=<%= fixture.id %> data-slips-fixture=<%= fixture.id %> data-live-odds-channel-market="1" data-markets-channel-market="1" data-slips-market="1">
+   <tr data-controller="live-odds-channel #markets-channel slips fixture-channel" data-fixture-channel-fixture=<%= fixture.id %> data-live-odds-channel-fixture=<%= fixture.id %> data-markets-channel-fixture=<%= fixture.id %> data-slips-fixture=<%= fixture.id %> data-live-odds-channel-market="1" data-markets-channel-market="1" data-slips-market="1">
       
             <td>
                <%= link_to fixtures_virtual_soccer_live_path(id: fixture.id) do  %>
