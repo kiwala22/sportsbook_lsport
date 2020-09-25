@@ -4,7 +4,7 @@ class CableWorker
    sidekiq_options queue: "critical"
    sidekiq_options retry: 1
    
-   def perform(channel,data)
+   def perform(channel, data)
       ActionCable.server.broadcast(channel, data)
    end
 end

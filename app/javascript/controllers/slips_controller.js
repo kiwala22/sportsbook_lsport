@@ -26,7 +26,6 @@ export default class extends Controller {
     }
 
     update_betslip(data) {
-        console.log("update slip called")
         const outcomes = ["1", "2", "3", "9", "10", "11", "12", "13", "74", "76", "1714", "1715"];
         outcomes.forEach(element => {
             if ($(`#slip_${element}_${data.fixture_id}`).length > 0) {
