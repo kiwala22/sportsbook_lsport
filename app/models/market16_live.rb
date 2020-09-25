@@ -13,5 +13,5 @@ class Market16Live < ApplicationRecord
       if saved_change_to_status?
          CableWorker.perform_async("markets_#{self.fixture_id}", self)
       end
-   end6
+   end
 end
