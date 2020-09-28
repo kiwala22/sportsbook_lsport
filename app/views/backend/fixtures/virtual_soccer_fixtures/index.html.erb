@@ -96,8 +96,8 @@
     <tbody>
 			<% @fixtures.each_with_index do |fixture, i| %>
 				<tr>
-					<td><%= (i+1)%></td>
-          <td><%= fixture.scheduled_time.localtime.to_datetime.strftime("%b %d, %Y %I:%M%P") %></td>
+          <td><%= (i+1)%></td>
+          <td><%= local_time(fixture.scheduled_time, format: "%d/%m/%y %l:%M%P") %></td>
           <td><%= fixture.comp_one_name %>  - <%= fixture.comp_two_name%> </td>
           <td><%= fixture.tournament_name %></td>
            <td><%= fixture.category %></td>

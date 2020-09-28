@@ -41,7 +41,7 @@
                               <td><%= transaction.balance_after %></td>
                               <td><%= transaction.category %></td>
                               <td><%= transaction.status %></td>
-                              <td><%= transaction.created_at.localtime.to_datetime.strftime("%d/%m/%y %I:%M%P") %></td>
+                              <td><%= local_time(transaction.created_at, format: "%d/%m/%y %l:%M%P") %></td>
                             </tr>
                           <% end %>
                         </tbody>

@@ -22,7 +22,7 @@
 					<td><%= (i+1)%></td>
 					<td><%= betting_status.betting_status_id %></td>
 					<td><%= betting_status.description %></td>
-					<td><%= betting_status.created_at.localtime.to_datetime.strftime("%b %d, %Y %I:%M%P") %></td>
+          <td><%= local_time(betting_status.created_at, format: "%d/%m/%y %l:%M%P") %></td>
 				</tr>
 			<% end %>
     </tbody>
