@@ -39,7 +39,7 @@
                               <td><%= bet_slip.status %></td>
                               <td><%= bet_slip.result %></td>
                               <td><%= bet_slip.paid %></td>
-                              <td><%= bet_slip.created_at.to_datetime.strftime("%d/%m/%Y %I:%M%P") %></td>
+                              <td><%= local_time(bet_slip.created_at, format: "%d/%m/%Y %l:%M%P") %></td>
                             </tr>
                           <% end %>
                         </tbody>

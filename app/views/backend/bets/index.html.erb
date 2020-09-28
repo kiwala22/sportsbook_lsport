@@ -93,7 +93,7 @@
 					<td><%= bet.outcome_id %></td>
 					<td><%= bet.outcome_desc %></td>
           <td><%= bet.user_id %></td>
-					<td><%= bet.created_at.to_datetime.strftime("%b %d, %Y %I:%M%P") %></td>
+					<td><%= local_time(bet.created_at, format: "%d/%m/%y, %l:%M%P") %></td>
 				</tr>
 			<% end %>
     </tbody>
