@@ -2,8 +2,8 @@
       <tr data-controller="pre-odds-channel #markets-channel slips" data-pre-odds-channel-fixture=<%= fixture.id %> data-markets-channel-fixture=<%= fixture.id %> data-slips-fixture=<%= fixture.id %> data-pre-odds-channel-market="1" data-markets-channel-market="1" data-slips-market="1">
             <td>
                <a href=<%=fixtures_virtual_soccer_pre_path(id: fixture.id) %>>
-                  <%= fixture.scheduled_time.strftime("%H:%M:%S ") %> <br>
-                  <%= fixture.scheduled_time.strftime("%d/%m/%y") %>
+                  <%= local_time(fixture.scheduled_time, format: '%H:%M:%S') %> <br>
+                  <%= local_time(fixture.scheduled_time, format: '%d/%m/%y') %>
                </a>
             </td>
             <td>
