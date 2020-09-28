@@ -10,6 +10,9 @@ class MarketAlert < ApplicationRecord
             if ((Time.now.to_i * 1000) - last_update[:timestamp].to_i) > 20000
                #first close all active markets 
                DeactivateMarketsWorker.perform_async(product)   
+
+               ##attempt manual activation of betradar amqp
+               puts %x{systemctl restart betradar}
             end
          end
       end
