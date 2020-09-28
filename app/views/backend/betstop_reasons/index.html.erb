@@ -22,7 +22,7 @@
 					<td><%= (i+1)%></td>
 					<td><%= betstop_reason.betstop_reason_id %></td>
 					<td><%= betstop_reason.description %></td>
-					<td><%= betstop_reason.created_at.to_datetime.strftime("%b %d, %Y %I:%M%P") %></td>
+					<td><%= betstop_reason.created_at.localtime.to_datetime.strftime("%b %d, %Y %I:%M%P") %></td>
 				</tr>
 			<% end %>
     </tbody>

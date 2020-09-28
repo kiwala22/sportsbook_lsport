@@ -39,7 +39,7 @@
                             </div>
                             <div>
                               <span><strong>Start Time:</strong></span>
-                              <span class="float-right"><%= fixture.scheduled_time.to_datetime.strftime("%d/%m/%Y %I:%M%P") %></span>
+                              <span class="float-right"><%= fixture.scheduled_time.localtime.to_datetime.strftime("%d/%m/%Y %I:%M%P") %></span>
                             </div>
                             <div>
                               <span><strong>Status:</strong></span>

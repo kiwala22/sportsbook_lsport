@@ -2,8 +2,8 @@
   <tr>
     <td>
       <a href=<%=fixtures_soccer_pre_path(id: fixture.id) %>>
-        <%= fixture.scheduled_time.strftime("%H:%M:%S ") %> <br>
-        <%= fixture.scheduled_time.strftime("%d/%m/%y") %>
+        <%= fixture.scheduled_time.localtime.strftime("%H:%M:%S ") %> <br>
+        <%= fixture.scheduled_time.localtime.strftime("%d/%m/%y") %>
       </a>
     </td>
     <td >

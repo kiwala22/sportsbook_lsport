@@ -22,7 +22,7 @@
 					<td><%= (i+1)%></td>
 					<td><%= void_reason.void_reason_id %></td>
 					<td><%= void_reason.description %></td>
-					<td><%= void_reason.created_at.to_datetime.strftime("%b %d, %Y %I:%M%P") %></td>
+					<td><%= void_reason.created_at.localtime.to_datetime.strftime("%b %d, %Y %I:%M%P") %></td>
 				</tr>
 			<% end %>
     </tbody>
