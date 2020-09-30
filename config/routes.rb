@@ -3,6 +3,10 @@ Rails.application.routes.draw do
    mount ActionCable.server => '/cable'
    
    root to: 'fixtures/soccer/pre_match#index'
+
+   namespace :confirmation do
+      match 'airtel/payment' => 'airtel_uganda#create', via: [:post, :get]
+   end
    
    resources :bet_slips, only: [:index, :create, :show]
    match '/refresh_slip', to: "line_bets#refresh", via: [:post]
