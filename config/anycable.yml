@@ -29,11 +29,16 @@ default: &default
   # Localhost is used by default.
   # redis_url: "redis://localhost:6379/1"
 
+# development:
+#   <<: *default
+
+# test:
+#   <<: *default
+
+# production:
+#   <<: *default
+
 development:
-  <<: *default
-
-test:
-  <<: *default
-
+  redis_url: redis://localhost:6379/1
 production:
-  <<: *default
+  redis_url: redis://localhost:6379/3
