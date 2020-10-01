@@ -6,6 +6,6 @@ development:
 
 test:
   adapter: test
-i
+
 production:
   adapter: <%= ENV['ACTION_CABLE_ADAPTER'] %>
