@@ -42,7 +42,7 @@ class Amqp::V1::Sports::SoccerController < ApplicationController
       end
       
       #logs the odds change for test fixture
-      if routing_key.split('.')[6] == "11914296"
+      if routing_key.split('.')[6] == "12089914"
          log_odds_change(output)
       end
       
