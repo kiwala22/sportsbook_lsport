@@ -18,7 +18,7 @@ module MobileMoney
 		@@withdraw_username = "BETCITY"
 		@@withdraw_password = "BETCITY@1234"
 		@@withdraw_msisdn = 100012731
-		@@withdraw_billerID = "xxxx"
+		@@withdraw_billerID = 100012731
 
 
 		##Method to deposit money on user mobile phone / withdraw from user SB account / Disbursement
