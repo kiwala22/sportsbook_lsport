@@ -1,4 +1,11 @@
 Rails.application.configure do
+  # Specify AnyCable WebSocket server URL to use by JS client
+  #commented out 1/10/20 - Acacia
+  # config.after_initialize do
+  #   config.action_cable.url = ActionCable.server.config.url = ENV.fetch("CABLE_URL") if AnyCable::Rails.enabled?
+  # end
+  #added Acacia 01/10/20
+  config.action_cable.url = "wss://104.248.165.210/cable"
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
