@@ -5,9 +5,6 @@ Rails.application.configure do
   #   config.action_cable.url = ActionCable.server.config.url = ENV.fetch("CABLE_URL", "ws://localhost:8080/cable") if AnyCable::Rails.enabled?
   # end
 
-  #added Acacia -1/10/20202
-  config.action_cable.url = "ws://localhost:3000/cable"
-
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded on
