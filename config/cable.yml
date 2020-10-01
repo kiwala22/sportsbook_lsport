@@ -1,11 +1,9 @@
-# Make it possible to switch adapters by passing the ACTION_CABLE_ADAPTER env variable.
-# For example, you can use it fallback to the standard Action Cable in staging/review
-# environments (by setting `ACTION_CABLE_ADAPTER=redis`).
-development:
-  adapter: <%= ENV['ACTION_CABLE_ADAPTER'] %>
-
-test:
-  adapter: test
+local: &local
+  adapter: any_cable
 
 production:
-  adapter: <%= ENV['ACTION_CABLE_ADAPTER'] %>
+  adapter: any_cable
+  channel_prefix: sportbooks_production
+
+development: *local
+test: *local
