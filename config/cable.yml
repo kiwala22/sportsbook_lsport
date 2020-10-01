@@ -2,25 +2,10 @@
 # For example, you can use it fallback to the standard Action Cable in staging/review
 # environments (by setting `ACTION_CABLE_ADAPTER=redis`).
 development:
-  #adapter: <%= ENV.fetch("ACTION_CABLE_ADAPTER", "any_cable") %>
-  adapter: redis
-  url: redis://localhost:6379/1
+  adapter: <%= ENV.fetch("ACTION_CABLE_ADAPTER", "any_cable") %>
 
 test:
   adapter: test
 
 production:
-  adapter: any_cable #<%= ENV.fetch("ACTION_CABLE_ADAPTER", "any_cable") %>
-
-# old implementation
-# development:
-#   adapter: redis
-#   url: redis://localhost:6379/1
-
-# test:
-#   adapter: test
-
-# production:
-#   adapter: redis
-#   url: "redis://localhost:6379/3"
-#   channel_prefix: sportsbook_production
+  adapter: <%= ENV.fetch("ACTION_CABLE_ADAPTER", "any_cable") %>
