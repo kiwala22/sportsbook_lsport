@@ -50,9 +50,9 @@ Rails.application.configure do
   # config.action_cable.allowed_request_origins = [ 'http://localhost:3000', 'http://127.0.0.1:3000', 'http://0.0.0.0' ]
   # config.action_cable.disable_request_forgery_protection = true
   # config.action_cable.mount_path = '/cable'
-  # config.action_cable.url = '/cable'
-  # config.action_cable.allowed_request_origins = [ 'http://104.248.165.210']
-  # config.action_cable.disable_request_forgery_protection = true
+  #config.action_cable.url = '/cable' #defined in .env file
+  config.action_cable.allowed_request_origins = [ 'http://104.248.165.210']
+  config.action_cable.disable_request_forgery_protection = true
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # config.force_ssl = true
