@@ -2,6 +2,7 @@ import { Controller } from "stimulus"
 import consumer from "../channels/consumer"
 import $ from 'jquery';
 
+
 export default class extends Controller {
     connect() {
         this.subscription = consumer.subscriptions.create({
@@ -9,7 +10,9 @@ export default class extends Controller {
             fixture: this.data.get("fixture"),
             market: this.data.get("market")
         }, {
-            received: (data) => this.update_odds(data)
+            received: (data) => {
+                this.update_odds(data)
+            }
         });
     }
 
