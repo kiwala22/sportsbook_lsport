@@ -10,7 +10,7 @@ test:
   adapter: test
 
 production:
-  adapter: <%= ENV.fetch("ACTION_CABLE_ADAPTER", "any_cable") %>
+  adapter: any_cable #<%= ENV.fetch("ACTION_CABLE_ADAPTER", "any_cable") %>
 
 # old implementation
 # development:
