@@ -3,11 +3,7 @@ Rails.application.configure do
   config.after_initialize do
     config.action_cable.url = ActionCable.server.config.url = ENV.fetch("CABLE_URL", "ws://localhost:8080/cable") if AnyCable::Rails.enabled?
   end
-  # Specify AnyCable WebSocket server URL to use by JS client
-  #commented out Acacia 01/10/20
-  # config.after_initialize do
-  #   config.action_cable.url = ActionCable.server.config.url = ENV.fetch("CABLE_URL", "ws://localhost:8080/cable") if AnyCable::Rails.enabled?
-  # end
+
 
   # Settings specified here will take precedence over those in config/application.rb.
 
