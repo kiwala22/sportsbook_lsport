@@ -1,6 +1,6 @@
 Rails.application.configure do
-  config.action_cable.url = "wss://104.248.165.210:6565/cable"
-  config.action_cable.allowed_request_origins = ['https://your_domain_name.com']
+  config.action_cable.url = "ws://104.248.165.210:6565/cable"
+  config.action_cable.allowed_request_origins = ['http://104.248.165.210']
   
   # Settings specified here will take precedence over those in config/application.rb.
   
