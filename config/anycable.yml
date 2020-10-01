@@ -37,6 +37,7 @@ test:
   <<: *default
 
 production:
-  <<: *default
   redis_url: redis://localhost:6379/3
+  rpc_host: 104.248.165.210:50051
+  access_logs_disabled: false
 
