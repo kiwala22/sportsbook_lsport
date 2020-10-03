@@ -13,6 +13,7 @@
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <table class="table table-borderless table-striped">
+                      <%if @transactions.present?%>
                         <thead>
                             <tr>
                               <th>#No</th>
@@ -25,7 +26,9 @@
                               <th>Time</th>
                             </tr>
                         </thead>
+
                         <tbody>
+                          
                           <% @transactions.each_with_index do |transaction, i| %>
                             <tr>
                               <td><%= (i+1) %></td>
@@ -44,7 +47,11 @@
                               <td><%= transaction.created_at.to_datetime.strftime("%d/%m/%y %I:%M%P") %></td>
                             </tr>
                           <% end %>
+
                         </tbody>
+                        <%else%>
+                          <h6 class="event">No transactions.</h6>
+                          <%end%>
                     </table>
                     <%= paginate @transactions %>
                 </div>

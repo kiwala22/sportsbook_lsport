@@ -13,6 +13,7 @@
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <table class="table table-borderless table-striped">
+                      <%if @bet_slips.present?%>
                         <thead>
                             <tr>
                               <th>#No</th>
@@ -43,6 +44,9 @@
                             </tr>
                           <% end %>
                         </tbody>
+                        <%else%>
+                          <h6 class="event">No tickets.</h6>
+                          <%end%>
                     </table>
                     <%= paginate @bet_slips %>
                 </div>

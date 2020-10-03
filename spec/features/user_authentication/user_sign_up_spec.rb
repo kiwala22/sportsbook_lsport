@@ -10,6 +10,14 @@ RSpec.describe User, type: :system, js: true do
 			password: "Jtwitw@c2016",
 			password_confirmation: "Jtwitw@c2016"
 			})
+	user1 = User.new({
+			email: Faker::Internet.email,
+			phone_number: '25677'+ rand(1000000..9999999).to_s,
+			first_name: Faker::Name.first_name,
+			last_name: Faker::Name.last_name,
+			password: "Jtwitw@c2016",
+			password_confirmation: "Jtwitw@c2016"
+			})
 
 	user_false = User.new(
 			email:'mutsivan@ex.com' ,
@@ -19,20 +27,6 @@ RSpec.describe User, type: :system, js: true do
 			password:'Tugende',
 			password_confirmation:'Tugende12'
 			)
-
-		# let(:valid_user_params) do
-		# 		{
-		# 				first_name: Faker::Name.name,
-		# 				last_name: Faker::Name.name,
-		# 				email: Faker::Internet.email,
-		# 				phone_number: "256786481312",
-		# 				password: "Jtwitw@c2016",
-		# 				password_confirmation: "Jtwitw@c2016"
-		# 		}
-		# end
-
-
-
 
 	describe 'sign up' do
 		
@@ -90,15 +84,12 @@ RSpec.describe User, type: :system, js: true do
 		end
 
 		it 'is valid with all attributes entered correctly' do
-			expect(user).to be_valid
+			expect(user1).to be_valid
 		end
 
 		it 'is invalid with wrong attributes' do
 			expect(user_false).not_to be_valid
 		end
-
-
-
 
 	end
 end
