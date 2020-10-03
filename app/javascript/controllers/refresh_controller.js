@@ -1,10 +1,7 @@
 import { Controller } from "stimulus"
+import $ from 'jquery'
 
 export default class extends Controller {
-
-    static targets = []
-
-
 
     connect() {
         this.load()
@@ -34,6 +31,12 @@ export default class extends Controller {
         let url = this.data.get("url")
         let method = this.data.get("method")
         let token = document.getElementsByName('csrf-token')[0].content
+        $("#fixture-table-body-1").empty()
+        $("#fixture-table-body").empty()
+        $("#fixture-table-body-1").append('<div class="d-flex justify-content-center"><div class="spinner-border" role="status"></div></div>')
+        $("#fixture-table-body").append('<div class="d-flex justify-content-center"><div class="spinner-border" role="status"></div></div>')
+        $("#bottom").hide();
+
         Rails.ajax({
             type: method,
             headers: {
@@ -41,7 +44,10 @@ export default class extends Controller {
             },
             url: url,
             dataType: 'script',
-            success: (data) => {}
+            success: (data) => {
+                $("#bottom").show();
+            }
         })
     }
+
 }

@@ -24,4 +24,22 @@ class Backend::Fixtures::SoccerFixturesController < ApplicationController
       redirect_to action: "index"
     end
   end
+
+  def feature_update
+    @fixture = Fixture.find(params[:id])
+    action = params[:data]
+    if @fixture
+      if action == "Add"
+        @fixture.update(featured: true)
+      elsif action == "Remove"
+        @fixture.update(featured: false)
+      end
+      respond_to do |format|
+        flash[:notice] = "Fixture Updated."
+        format.html
+        format.json
+        format.js { render :layout => false }
+      end
+    end
+  end
 end

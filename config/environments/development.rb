@@ -1,4 +1,26 @@
 Rails.application.configure do
+  # Specify AnyCable WebSocket server URL to use by JS client
+  # config.after_initialize do
+  #   config.action_cable.url = ActionCable.server.config.url = '/cable'
+  # end
+  # config.after_initialize do
+  #   config.action_cable.url = ActionCable.server.config.url = ENV.fetch("CABLE_URL", "ws://localhost:8080/cable") if AnyCable::Rails.enabled?
+  # end
+
+  #config.action_cable.allowed_request_origins = ENV.fetch('CABLE_ORIGINS', 'http://localhost:50051,http://localhost:5000,http://localhost:8080,http://localhost:3000').split(',')
+  # Specify AnyCable WebSocket server URL to use by JS client
+  # config.after_initialize do
+  #   config.action_cable.url = ActionCable.server.config.url = ENV.fetch("CABLE_URL", "ws://localhost:3000/cable") if AnyCable::Rails.enabled?
+  # end
+
+  config.action_cable.url = "ws://localhost:6565/cable"
+  #config.action_cable.url = "/cable"
+  # Specify AnyCable WebSocket server URL to use by JS client
+  #commented out Acacia 01/10/20
+  # config.after_initialize do
+  #   config.action_cable.url = ActionCable.server.config.url = ENV.fetch("CABLE_URL", "ws://localhost:8080/cable") if AnyCable::Rails.enabled?
+  # end
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded on

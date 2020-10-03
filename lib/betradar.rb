@@ -249,6 +249,25 @@ module Betradar
 
    end
 
+   def fetch_event_messages(product, event_id)
+      url = @@end_point + "#{product}/stateful_messages/events/#{event_id}/initiate_request"
+      uri = URI(url)
+      http = Net::HTTP.new(uri.host, uri.port)
+      http.read_timeout = 180
+      request = Net::HTTP::Post.new(uri.request_uri)
+      request['x-access-token'] = @@auth_token
+      http.use_ssl = true
+
+      response = http.request(request)
+
+      if response.code == "202"
+         return 200
+      else
+         @@logger.error(response.body)
+         return 400
+      end
+   end
+
    def fetch_fixture(event_id)
       url = @@end_point + "sports/en/sport_events/#{event_id}/fixture.xml"
       uri = URI(url)

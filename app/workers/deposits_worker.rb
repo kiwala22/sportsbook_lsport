@@ -14,11 +14,11 @@ class DepositsWorker
 
     ##create a deposit transaction
     resource_id = generate_resource_id()
-    @deposit = Deposit.new(transaction_id: @transaction.reference, resource_id: resource_id, amount: @transaction.amount,
+    @deposit = Deposit.create(transaction_id: @transaction.reference, resource_id: resource_id, amount: @transaction.amount,
        phone_number: @transaction.phone_number, status: "PENDING", currency: "UGX", payment_method: "Mobile Money", balance_before: balance_before,
      user_id: @transaction.user_id)
 
-    if @transaction && @deposit.save
+    if @transaction && @deposit
       ##Proceed with the Deposit APIs
       case @transaction.phone_number
       when /^(25678|25677|25639)/
@@ -44,10 +44,10 @@ class DepositsWorker
         result = MobileMoney::AirtelUganda.request_payments(@transaction.phone_number, @transaction.amount, @transaction.reference)
         if result
           if result['status'] == '200'
-            balance_after = (balance_before + @transaction.amount)
-            @deposit.update(ext_transaction_id: result['ext_transaction_id'], network: "Airtel Uganda", status: "SUCCESS", balance_after: balance_after)
-            user.update(balance: balance_after)
-            @transaction.update(balance_before: balance_before, balance_after: balance_after, status: "COMPLETED")
+            #balance_after = (balance_before + @transaction.amount)
+            @deposit.update(network: "Airtel Uganda", status: "IN PROGRESS")
+            #user.update(balance: balance_after)
+            #@transaction.update(balance_before: balance_before, balance_after: balance_after, status: "COMPLETED")
           else
             @deposit.update(network: "Airtel Uganda", status: "FAILED")
             @transaction.update(balance_before: balance_before, balance_after: balance_before, status: "FAILED")

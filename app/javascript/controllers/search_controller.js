@@ -1,21 +1,13 @@
-import {Controller} from "stimulus"
-
+import { Controller } from "stimulus"
+import $ from 'jquery'
 export default class extends Controller {
-	static targets = ["q", "fixtures"]
 
-	submit(){
-		const value =  this.qTarget.value
-		fetch(`/?q=${value}`, {
-			headers: {accept: 'application/json'}
-		}).then((response) => response.json())
-		.then( data => {
-			var fixtureHTML = ""
-			var fixtureArray = Object.values(data)[0]
-
-		console.log(fixtureArray)
-
-		});
-					
-	}
-
+    searchFixture() {
+        if (event.key === "Enter") {
+            $("#featured").hide();
+            $("#bottom").hide();
+            $("#fixture-table-body").removeAttr("data-controller");
+            $("#fixture-table-body-1").removeAttr("data-controller");
+        }
+    }
 }

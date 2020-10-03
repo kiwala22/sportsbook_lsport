@@ -39,12 +39,20 @@
                           </div>
                           <div>
                             <span><strong>Start Time:</strong></span>
-                            <span class="float-right"><%= fixture.scheduled_time.to_datetime.strftime("%d/%m/%Y %I:%M%P") %></span>
+                            <span class="float-right"><%= local_time(fixture.scheduled_time, format: "%d/%m/%Y %l:%M%P") %></span>
                           </div>
                           <div>
                             <span><strong>Status:</strong></span>
-                            <span class="float-right"><%= fixture.status.gsub('_',' ').titleize %></span>
+                            <span class="float-right"><%= bet.status %></span>
                           </div>
+                          <div>
+                            <span><strong>Result:</strong></span>
+                            <% if bet.result.nil? %>
+                              <span class="float-right">N/A</span>
+                            <% else %>
+                              <span class="float-right"><%= bet.result %></span>
+                            <% end %>
+                            </div>
                         </div>
                       </fieldset>
                     <% end %>

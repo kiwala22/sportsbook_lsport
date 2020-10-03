@@ -1,14 +1,42 @@
 import { Controller } from "stimulus"
+import consumer from "../channels/consumer"
+
 
 export default class extends Controller {
     static targets = ["odd", "wins", "total", "stake"]
 
     connect() {
-        this.calculate_odds()
-        if (localStorage.getItem("stake") !== null) {
-            this.display_win()
-        } else {
-            $("#stake-input").val("")
+        let self = this;
+        this.calculate_odds();
+        this.display_win();
+        this.subscription = consumer.subscriptions.create({
+            channel: "BetslipChannel",
+            fixture: this.data.get("fixture"),
+            market: this.data.get("market")
+        }, {
+            received: (data) => {
+                self.update_betslip(data)
+            }
+        });
+
+
+    }
+
+    disconnect() {
+        this.subscription.unsubscribe();
+    }
+
+    update_betslip(data) {
+        const outcomes = ["1", "2", "3", "9", "10", "11", "12", "13", "74", "76", "1714", "1715"];
+        outcomes.forEach(element => {
+            if ($(`#slip_${element}_${data.fixture_id}`).length > 0) {
+                $(`#slip_${element}_${data.fixture_id}`).html(data[`outcome_${element}`]);
+            }
+        });
+
+        this.calculate_odds();
+        if (localStorage.getItem("stake") && this.hasTotalTarget) {
+            this.onCalculateWin(localStorage.getItem("stake"));
         }
 
     }
@@ -30,8 +58,6 @@ export default class extends Controller {
             count.innerHTML = oddsArr.length
         }
 
-
-
     }
 
     multiply_odds(arr) {
@@ -43,24 +69,37 @@ export default class extends Controller {
     }
 
     calculate_win() {
-        const amount = event.target.value
+        const amount = event.target.value;
+        let lastInput = amount.charAt(amount.length - 1);
+        if (!/[0-9]/.test(lastInput)) {
+            if (amount.length == 0) {
+                localStorage.removeItem("stake");
+                this.winsTarget.innerHTML = " ";
+            }
+            return $(event.target).val(amount.substring(0, amount.length - 1));
+        }
+
+        this.onCalculateWin(amount);
+    }
+
+    onCalculateWin(stake) {
+        const amount = stake;
         localStorage.setItem("stake", amount)
         const totalOdd = parseFloat(this.totalTarget.innerHTML)
         this.winsTarget.innerHTML = 'UGX ' + (totalOdd * amount).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
     }
 
     display_win() {
-        if (localStorage.getItem("stake") !== 'null' && this.hasOddTarget) {
+        if (localStorage.getItem("stake") !== null && this.hasOddTarget) {
             let stakeAmount = parseFloat(localStorage.getItem("stake"))
 
-            if (stakeAmount !== "null") {
+            if (stakeAmount !== null) {
                 $("#stake-input").val(stakeAmount)
                 const totalOdd = parseFloat(this.totalTarget.innerHTML)
                 this.winsTarget.innerHTML = 'UGX ' + (totalOdd * stakeAmount).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
             }
 
         }
-
     }
 
 }

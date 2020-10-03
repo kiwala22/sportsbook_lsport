@@ -14,12 +14,12 @@ class Backend::TransactionsAnalyticsController < ApplicationController
       ##Push dates to the dates array
       labels.push(date.to_s)
       ##Pull counts of the withdraws and deposits from the DB
-      withdraw_count = Transaction.where("created_at >= ? and created_at <= ? and status = ? and category = ?", date.beginning_of_day, date.end_of_day, "SUCCESS", "Withdraw").count()
-      deposit_count = Transaction.where("created_at >= ? and created_at <= ? and status = ? and category ~* ?", date.beginning_of_day, date.end_of_day, "SUCCESS", "^(Dep|Win)").count()
+      withdraw_amount = Transaction.where("created_at >= ? and created_at <= ? and status = ? and category = ?", date.beginning_of_day, date.end_of_day, "SUCCESS", "Withdraw").sum(:amount)
+      deposit_amount = Transaction.where("created_at >= ? and created_at <= ? and status = ? and category ~* ?", date.beginning_of_day, date.end_of_day, "SUCCESS", "^(Dep|Win)").sum(:amount)
 
       ##Push the values to the data arrays
-      withdraws.push(withdraw_count)
-      deposits.push(deposit_count)
+      withdraws.push(withdraw_amount)
+      deposits.push(deposit_amount)
     end
     gon.labels = labels
     gon.withdraws = withdraws

@@ -98,6 +98,20 @@ a.btn.btn-block.btn-primary.mt-lg.login-btn:focus {
     box-shadow: 0 0 0 0.1rem #F6AE2D;
 }
 
+.game-box .card .card-header span a.btnn {
+    padding: 5px 17px;
+    border-radius: 4px;
+    display: inline-block;
+    color: #ffffff;
+    background: #F6AE2D;
+}
+
+.game-box .card .card-header span a.btnn:hover {
+    background-color: #F6AE2D;
+    border-color: #F6AE2D;
+    box-shadow: 0 0 0 0.1rem #F6AE2D;
+}
+
 #label_remember_me {
     margin-bottom: 0px;
     padding-left: 10px;
@@ -345,7 +359,7 @@ strong {
 }
 
 .pagination a {
-    color: #7EE8FA;
+    color: #7EE8FA !important;
     text-decoration: none;
 }
 
@@ -518,13 +532,64 @@ strong {
     text-align: right;
 }
 
+.search {
+    margin-left: 200px;
+    width: 30%;
+}
 
-.search{
-    margin-left: 400px;
-
+#glass {
+    margin-left: -25px;
+    color: #28333e;
+    opacity: 0.6;
 }
 
 #total-odds {
     text-align: right;
 }
 
+tbody>div {
+    width: 100%;
+    position: absolute;
+    height: 40px;
+    padding-top: 5px;
+    margin-bottom: 20px;
+    background: #7690A7;
+}
+
+button,
+a:hover,
+a:focus,
+a:visited {
+    color: white;
+}
+
+.btn-blink {
+    animation: blinkingBtn 1.5s infinite;
+}
+
+@keyframes blinkingBtn {
+    0% {
+        color: #ffffff;
+        background-color: #F6AE2D;
+    }
+    49% {
+        color: #ffffff;
+        background-color: #F6AE2D;
+    }
+    60% {
+        color: transparent;
+        background-color: transparent;
+    }
+    99% {
+        color: transparent;
+        background-color: transparent;
+    }
+    100% {
+        color: #ffffff;
+        background-color: #F6AE2D;
+    }
+}
+
+.match-feat {
+   white-space: nowrap;
+}

@@ -14,11 +14,11 @@ class WithdrawsWorker
 
     ##create a withdraw transaction
     resource_id = generate_resource_id()
-    @withdraw = Withdraw.new(transaction_id: @transaction.reference, resource_id: resource_id, amount: @transaction.amount,
+    @withdraw = Withdraw.create(transaction_id: @transaction.reference, resource_id: resource_id, amount: @transaction.amount,
        phone_number: @transaction.phone_number, status: "PENDING", currency: "UGX", payment_method: "Mobile Money", balance_before: balance_before,
      user_id: @transaction.user_id)
 
-    if @transaction && @withdraw.save
+    if @transaction && @withdraw
       ##Proceed with the withdraw APIs
       case @transaction.phone_number
       when /^(25678|25677|25639)/
@@ -41,7 +41,7 @@ class WithdrawsWorker
         end
       when /^(25675|25670)/
         #process Airtel transaction
-        result = MobileMoney::AirtelUganda.make_disbursement(@transaction.phone_number, @transaction.amount, @transaction.reference)
+        result = MobileMoney::AirtelUganda.make_payments(@transaction.phone_number, @transaction.amount, @transaction.reference)
         if result
           if result[:status] == '200'
             balance_after = (balance_before - @transaction.amount)
