@@ -29,7 +29,7 @@ module SkylineSportsbook
       # images
       config.assets.precompile << /\.(?:png|jpg)$/
 
-      config.log_level = :info
-      config.logger = ActiveSupport::TaggedLogging.new(ActiveSupport::Logger.new(STDOUT))
+      # config.log_level = :info # commented out 03/10/20 - Acacia
+      # config.logger = ActiveSupport::TaggedLogging.new(ActiveSupport::Logger.new(STDOUT))
    end
 end

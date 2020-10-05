@@ -21,6 +21,7 @@
    <%= yield :vendor_css_area %>
    <%= csrf_meta_tags %>
    <%= csp_meta_tag %>
+   <%= action_cable_meta_tag %>
    <!-- =============== APP SCRIPTS ===============-->
    <%= javascript_pack_tag 'user_application', 'data-turbolinks-track': 'reload'  %>
    <%= yield :vendor_js_area %>

@@ -108,3 +108,4 @@ gem "browser"
 gem 'pg_search'
 gem 'newrelic_rpm'
 gem 'local_time'
+gem "anycable-rails", "~> 1.0"

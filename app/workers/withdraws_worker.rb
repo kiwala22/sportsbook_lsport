@@ -41,7 +41,7 @@ class WithdrawsWorker
         end
       when /^(25675|25670)/
         #process Airtel transaction
-        result = MobileMoney::AirtelUganda.make_disbursement(@transaction.phone_number, @transaction.amount, @transaction.reference)
+        result = MobileMoney::AirtelUganda.make_payments(@transaction.phone_number, @transaction.amount, @transaction.reference)
         if result
           if result[:status] == '200'
             balance_after = (balance_before - @transaction.amount)
