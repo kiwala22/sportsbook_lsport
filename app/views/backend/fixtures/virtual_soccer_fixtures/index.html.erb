@@ -7,7 +7,7 @@
 
 <div class="card card-default">
    <div class="card-body">
-		 <%= search_form_for @q, url: backend_fixtures_soccer_fixtures_path, html: { method: :get } do |f| %>
+		 <%= search_form_for @q, url: backend_fixtures_virtual_soccer_fixtures_path, html: { method: :get } do |f| %>
       <fieldset>
           <div class="form-row">
               <div class="col-sm-6 col-md-4">
@@ -96,8 +96,8 @@
     <tbody>
 			<% @fixtures.each_with_index do |fixture, i| %>
 				<tr>
-					<td><%= (i+1)%></td>
-          <td><%= fixture.scheduled_time.to_datetime.strftime("%b %d, %Y %I:%M%P") %></td>
+          <td><%= (i+1)%></td>
+          <td><%= local_time(fixture.scheduled_time, format: "%d/%m/%y %l:%M%P") %></td>
           <td><%= fixture.comp_one_name %>  - <%= fixture.comp_two_name%> </td>
           <td><%= fixture.tournament_name %></td>
            <td><%= fixture.category %></td>
@@ -106,7 +106,7 @@
           <td><%= fixture.booked.to_s.capitalize %></td>
           <td>
             <% if fixture.live_odds == "bookable" && fixture.booked == false %>
-              <%= button_to "Book", backend_fixtures_soccer_fixtures_path(id: fixture.id), method: :patch, :class => 'btn btn-xs btn-success booking', remote: true %>
+              <%= button_to "Book", backend_fixtures_virtual_soccer_fixtures_path(id: fixture.id), method: :patch, :class => 'btn btn-xs btn-success booking', remote: true %>
             <% end %>
           </td>
           <td><%= "#{fixture.home_score} - #{fixture.away_score} " %></td>

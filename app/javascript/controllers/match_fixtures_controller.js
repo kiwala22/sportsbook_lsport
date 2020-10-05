@@ -17,30 +17,30 @@ export default class extends Controller {
             rootMargin: '200px',
         }
 
-        this.intersectionObserver = new IntersectionObserver(entries => this.processIntersectionEntries(entries), options)
+        this.intersectionObserver = new IntersectionObserver(entries => this.processIntersectionEntries(entries), options);
     }
 
     connect() {
-        this.intersectionObserver.observe(this.paginationTarget)
+        this.intersectionObserver.observe(this.paginationTarget);
     }
 
     disconnect() {
-        this.intersectionObserver.unobserve(this.paginationTarget)
+        this.intersectionObserver.unobserve(this.paginationTarget);
     }
 
     processIntersectionEntries(entries) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                this.loadMore()
+                this.loadMore();
             }
         })
     }
 
     loadMore() {
-        let next_page = this.paginationTarget.querySelector("a[rel='next']")
+        let next_page = this.paginationTarget.querySelector("a[rel='next']");
         if (next_page == null) { return }
-        let url = next_page.href
-        this.spinnerTarget.classList.add("spinner-border")
+        let url = next_page.href;
+        this.spinnerTarget.classList.add("spinner-border");
         let token = document.getElementsByName('csrf-token')[0].content
         Rails.ajax({
             type: 'GET',
@@ -50,9 +50,9 @@ export default class extends Controller {
             url: url,
             dataType: 'json',
             success: (data) => {
-                this.fixturesTarget.insertAdjacentHTML('beforeend', data.fixtures)
-                this.paginationTarget.innerHTML = data.pagination
-                this.spinnerTarget.classList.remove("spinner-border")
+                this.fixturesTarget.insertAdjacentHTML('beforeend', data.fixtures);
+                this.paginationTarget.innerHTML = data.pagination;
+                this.spinnerTarget.classList.remove("spinner-border");
             }
         })
     }

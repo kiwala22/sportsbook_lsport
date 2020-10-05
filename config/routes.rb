@@ -1,8 +1,17 @@
 Rails.application.routes.draw do
+  # get 'footer_tabs/faqs'
+  match '/faqs', to: "footer_tabs#faqs", via: [:get]
+  # get 'footer_tabs/rules'
+  match '/rules', to: "footer_tabs#rules", via: [:get]
+  match '/contacts', to: "footer_tabs#contacts", via: [:get]
    # Serve websocket cable requests in-process
    mount ActionCable.server => '/cable'
    
    root to: 'fixtures/soccer/pre_match#index'
+
+   namespace :confirmation do
+      match 'airtel/payment' => 'airtel_uganda#create', via: [:post, :get]
+   end
    
    resources :bet_slips, only: [:index, :create, :show]
    match '/refresh_slip', to: "line_bets#refresh", via: [:post]

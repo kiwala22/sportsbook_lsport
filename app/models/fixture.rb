@@ -28,7 +28,7 @@ class Fixture < ApplicationRecord
     "False" => false
   }
   
-  after_update :broadcast_updates
+  after_commit :broadcast_updates, if: :persisted?
   
   validates :event_id, presence: true
   validates :event_id, uniqueness: true
@@ -74,7 +74,7 @@ class Fixture < ApplicationRecord
     #check if match status is live and change was on either scores or match time
     if self.status == "live"
       if saved_change_to_attribute?(:home_score) || saved_change_to_attribute?(:away_score) || saved_change_to_attribute?(:match_time)
-        ActionCable.server.broadcast('fixture', record: self, status: "true")
+        CableWorker.perform_async("fixtures_#{self.id}", self.as_json)
       end
     end
   end

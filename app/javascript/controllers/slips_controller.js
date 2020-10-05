@@ -1,6 +1,7 @@
 import { Controller } from "stimulus"
 import consumer from "../channels/consumer"
 
+
 export default class extends Controller {
     static targets = ["odd", "wins", "total", "stake"]
 
@@ -9,7 +10,9 @@ export default class extends Controller {
         this.calculate_odds();
         this.display_win();
         this.subscription = consumer.subscriptions.create({
-            channel: "BetslipChannel"
+            channel: "BetslipChannel",
+            fixture: this.data.get("fixture"),
+            market: this.data.get("market")
         }, {
             received: (data) => {
                 self.update_betslip(data)
@@ -24,12 +27,10 @@ export default class extends Controller {
     }
 
     update_betslip(data) {
-        let record = data["record"];
-
         const outcomes = ["1", "2", "3", "9", "10", "11", "12", "13", "74", "76", "1714", "1715"];
         outcomes.forEach(element => {
-            if ($(`#slip_${element}_${record.fixture_id}`).length > 0) {
-                $(`#slip_${element}_${record.fixture_id}`).html(record[`outcome_${element}`]);
+            if ($(`#slip_${element}_${data.fixture_id}`).length > 0) {
+                $(`#slip_${element}_${data.fixture_id}`).html(data[`outcome_${element}`]);
             }
         });
 

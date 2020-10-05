@@ -19,7 +19,7 @@
                               <th class="col-1">2</th>
                           </tr>
                         </thead>
-                        <tbody id="fixture-table-body-1" data-controller="fixture-channel pre-odds-channel refresh" data-refresh-interval="60000" data-refresh-url="<% page_refresh_path %>" data-refresh-method="GET">
+                        <tbody id="fixture-table-body-1" data-controller="refresh" data-refresh-interval="60000" data-refresh-url="<% page_refresh_path %>" data-refresh-method="GET">
                             <%= render partial: 'feat_pre_match_fixture_table', locals: {featured: @featured} %>
                         </tbody>
                     </table>
@@ -59,7 +59,7 @@
                               <th class="col-1">2</th>
                           </tr>
                         </thead>
-                        <tbody id="fixture-table-body" data-target="match-fixtures.fixtures" data-controller="fixture-channel pre-odds-channel refresh" data-realtime-partial-key="fixtures" data-refresh-interval="60000" data-refresh-url="<% page_refresh_path %>" data-refresh-method="GET">
+                        <tbody id="fixture-table-body" data-target="match-fixtures.fixtures" data-controller="refresh" data-refresh-interval="60000" data-refresh-url="<% page_refresh_path %>" data-refresh-method="GET">
                             <%= render partial: 'pre_match_fixture_table', locals: {fixtures: @fixtures} %>
                         </tbody>
                         <%else%>

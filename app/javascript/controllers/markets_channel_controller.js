@@ -1,24 +1,24 @@
 import { Controller } from "stimulus"
 import consumer from "../channels/consumer"
-import $ from 'jquery';
+import $ from 'jquery'
+
 
 export default class extends Controller {
     connect() {
-        this.subscription = consumer.subscriptions.create({ channel: "MarketsChannel" }, { received: this.refresh_fixture() });
+        this.subscription = consumer.subscriptions.create({
+            channel: "MarketsChannel",
+            fixture: this.data.get("fixture")
+                //market: this.data.get("market")
+        }, {
+            received: (data) => {
+                this.refresh_fixture(this.data.get("url"), this.data.get("method"));
+            }
+        });
     }
 
-    refresh_fixture() {
-
-        if (this.data.has("url") && this.data.has("method")) {
-            let url = this.data.get("url")
-            let method = this.data.get("method")
-            let token = document.getElementsByName('csrf-token')[0].content
-            $("#fixture-table-body-1").empty()
-            $("#fixture-table-body").empty()
-            $("#fixture-table-body-1").append('<div class="d-flex justify-content-center"><div class="spinner-border" role="status"></div></div>')
-            $("#fixture-table-body").append('<div class="d-flex justify-content-center"><div class="spinner-border" role="status"></div></div>')
-            $("#bottom").hide();
-
+    refresh_fixture(url, method) {
+        let token = document.getElementsByName('csrf-token')[0].content;
+        setTimeout(() =>
             Rails.ajax({
                 type: method,
                 headers: {
@@ -26,14 +26,22 @@ export default class extends Controller {
                 },
                 url: url,
                 dataType: 'script',
-                success: (data) => {
-                    $("#bottom").show();
+                success: () => {
+
                 }
-            })
-        }
+            }), 50);
+        setTimeout(() =>
+            Rails.ajax({
+                type: 'POST',
+                headers: {
+                    'X-CSRF-Token': token
+                },
+                url: '/refresh_slip',
+                dataType: 'script',
+                success: () => {
 
-
-
+                }
+            }), 50);
     }
 
     disconnect() {

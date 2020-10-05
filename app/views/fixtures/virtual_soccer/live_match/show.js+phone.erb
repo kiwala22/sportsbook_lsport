@@ -1,2 +1,3 @@
 Turbolinks.clearCache();
-$("#show-markets").html("<%= j (render 'show_markets' , locals: {fixture: @fixture}) %> ")
+$("#show-markets").html("<%= j (render :partial => 'show_markets' , locals: {fixture: @fixture}) %> ")
+

@@ -4,11 +4,15 @@ class Market29Pre < ApplicationRecord
    
    belongs_to :fixture
 
-   after_save :broadcast_updates
+   after_commit :broadcast_updates, if: :persisted?
 
 
    def broadcast_updates
-      ActionCable.server.broadcast('pre_odds', record: self)
-      ActionCable.server.broadcast('betslips', record: self)
+      CableWorker.perform_async("pre_odds_29_#{self.fixture_id}", self.as_json)
+      CableWorker.perform_async("betslips_29_#{self.fixture_id}", self.as_json)
+      
+      if saved_change_to_status?
+         CableWorker.perform_async("markets_#{self.fixture_id}", self.as_json)
+      end
    end
 end

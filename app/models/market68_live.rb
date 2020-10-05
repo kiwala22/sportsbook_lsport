@@ -4,15 +4,15 @@ class Market68Live < ApplicationRecord
    
    belongs_to :fixture
 
-   after_save :broadcast_updates
+   after_commit :broadcast_updates, if: :persisted?
 
 
    def broadcast_updates
-      #RealtimePartialChannel.broadcast_to('fixtures', market: self)
-      ActionCable.server.broadcast('live_odds', record: self)
-      ActionCable.server.broadcast('betslips', record: self)
+      CableWorker.perform_async("live_odds_68_#{self.fixture_id}", self.as_json)
+      CableWorker.perform_async("betslips_68_#{self.fixture_id}", self.as_json)
+      
       if saved_change_to_status?
-         ActionCable.server.broadcast('markets', record: self)
+         CableWorker.perform_async("markets_#{self.fixture_id}", self.as_json)
       end
    end
 end

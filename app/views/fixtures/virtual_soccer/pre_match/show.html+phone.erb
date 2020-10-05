@@ -1,5 +1,5 @@
 <div class="fixture-box">
-    <div class="card" id="show-markets" data-controller="fixture-channel markets-channel pre-odds-channel refresh" data-realtime-partial-key="fixtures" data-refresh-interval="60000" data-refresh-url=<%= "/fixtures/virtual_soccer/pre.js?id=#{@fixture.id}" %> data-refresh-method="GET" data-markets-channel-url=<%= "/fixtures/virtual_soccer/pre.js?id=#{@fixture.id}" %> data-markets-channel-method="GET">
+    <div class="card" id="show-markets" data-controller="fixture-channel markets-channel refresh" data-fixture-channel-fixture=<%= @fixture.id %> data-markets-channel-fixture=<%= @fixture.id %> data-refresh-interval="60000" data-refresh-url=<%= "/fixtures/virtual_soccer/pre.js?id=#{@fixture.id}" %> data-markets-channel-url=<%= "/fixtures/virtual_soccer/pre.js?id=#{@fixture.id}" %> data-refresh-method="GET" data-markets-channel-method="GET">
         <%= render partial: 'show_markets', locals: {fixture: @fixture} %>
     </div>
 </div>
