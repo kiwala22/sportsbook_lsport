@@ -1,36 +1,37 @@
+<% provide(:title, "Pre Match Soccer") %>
 <!-- Start Featured Fixtures Table -->
 <% if !@featured.empty? && @check_params == false %>
-<div class="game-box" id="featured">
-    <div class="card">
-        <div class="card-header">
-            <h3>Featured Fixtures - Soccer </h3> <i class='fas fa-fire fa-lg fa-fw mr-2 match-time'></i>
-        </div>
-        <div class="card-body">
-            <div class="tab-content" id="">
-                <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="home-tab">
-                    <table class="table table-borderless ">
-                        <thead>
-                            <tr>
-                                <th class="col-1">Date</th>
-                                <th class="col-4">Teams</th>
-                                <th class="col-4">Tournament</th>
-                                <th class="col-1">1</th>
-                                <th class="col-1">X</th>
-                                <th class="col-1">2</th>
-                            </tr>
-                        </thead>
-                        <tbody id="fixture-table-body-1" data-controller="refresh" data-refresh-interval="60000" data-refresh-url="<% page_refresh_path %>" data-refresh-method="GET">
-                            <%= render partial: 'feat_pre_match_fixture_table', locals: {featured: @featured} %>
-                        </tbody>
-                    </table>
-                    <div class="table-navigation">
-                        <%= paginate @featured %>
+    <div class="game-box" id="featured">
+        <div class="card">
+            <div class="card-header">
+                <h3>Featured Fixtures - Soccer </h3> <i class='fas fa-fire fa-lg fa-fw mr-2 match-time'></i>
+            </div>
+            <div class="card-body">
+                <div class="tab-content" id="">
+                    <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="home-tab">
+                        <table class="table table-borderless ">
+                            <thead>
+                                <tr>
+                                    <th class="col-1">Date</th>
+                                    <th class="col-4">Teams</th>
+                                    <th class="col-4">Tournament</th>
+                                    <th class="col-1">1</th>
+                                    <th class="col-1">X</th>
+                                    <th class="col-1">2</th>
+                                </tr>
+                            </thead>
+                            <tbody id="fixture-table-body-1" data-controller="refresh" data-refresh-interval="60000" data-refresh-url="<% page_refresh_path %>" data-refresh-method="GET">
+                                <%= render partial: 'feat_pre_match_fixture_table', locals: {featured: @featured} %>
+                            </tbody>
+                        </table>
+                        <div class="table-navigation">
+                            <%= paginate @featured %>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 <% end %>
 <!-- End Featured Fixtures Table -->
 
@@ -49,7 +50,6 @@
 
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab" data-controller="match-fixtures">
                     <table class="table table-borderless ">
-<<<<<<< HEAD
                         <% if @fixtures.present? %>
                             <thead>
                                 <tr>
@@ -67,22 +67,6 @@
                                 
                             </tbody>
                         <%else%>
-=======
-                        <thead>
-                            <tr>
-                                <th class="col-1">Date</th>
-                                <th class="col-4">Teams</th>
-                                <th class="col-4">Tournament</th>
-                                <th class="col-1">1</th>
-                                <th class="col-1">X</th>
-                                <th class="col-1">2</th>
-                            </tr>
-                        </thead>
-                        <tbody id="fixture-table-body" data-target="match-fixtures.fixtures" data-controller="refresh"  data-refresh-interval="60000" data-refresh-url="<% page_refresh_path %>" data-refresh-method="GET">
-                            <% if @fixtures.present? || @q.present? %>
-                                <%= render partial: 'pre_match_fixture_table', locals: {fixtures: @fixtures} %>
-                            <%else%>
->>>>>>> customise
                                 <td>
                                     <h6 class="event">No Events Found</h6 class="event">
                                 </td>
