@@ -25,7 +25,7 @@ class Mts::SubmitTicket
   def payload(slip_id:, ts:, channel:, ip:, bets:, stake:, user_id: )
     #form the json object
     data = {
-      "timestampUtc" : ts,
+      "timestampUtc" => ts,
       "bets" => [ {
         "stake" => {
           "value" => (stake.to_i * 10000),
@@ -45,9 +45,9 @@ class Mts::SubmitTicket
           "languageId" => "EN",
           "id" => user_id
         },
-        "limitId" : 1409 
+        "limitId" => 1409 
       },
-      "version" : "2.3"
+      "version" => "2.3"
     }
   
   end
