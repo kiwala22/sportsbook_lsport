@@ -31,16 +31,16 @@ class Mts::SubmitTicket
           "value" => (stake.to_i * 10000),
           "type" => "total"
         },
-        "id" : "#{slip_id}_0",
+        "id" => "#{slip_id}_0",
         "selectedSystems" => [ bets.length ]
       } ],
-      "ticketId" : slip_id,
+      "ticketId" => slip_id,
       "selections" => bets,
       "sender" => {
         "currency" => "UGX",
-        "channel" : channel,
-        "bookmakerId" : ENV[:BOOKMAKER_ID],
-        "endCustomer" : {
+        "channel" => channel,
+        "bookmakerId" => ENV[:BOOKMAKER_ID],
+        "endCustomer" => {
           "ip" : ip, 
           "languageId" => "EN",
           "id" => user_id
