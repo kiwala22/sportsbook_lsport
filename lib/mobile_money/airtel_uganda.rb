@@ -11,14 +11,14 @@ module MobileMoney
 		@@logger.level = Logger::ERROR
 
 		##Deposit Account Credentials (Disbursements/Payouts)
-		@@deposit_msisdn = 100100491
-		@@deposit_pin = 1111
+		@@deposit_msisdn = ENV['MSISDN_DEPOSIT']
+		@@deposit_pin 	 = ENV['PIN_DEPOSIT']
 
 		##Withdraw Account Credentials (Collections)
-		@@withdraw_username = "BETCITY"
-		@@withdraw_password = "BETCITY@1234"
-		@@withdraw_msisdn = 100012731
-		@@withdraw_billerID = 100012731
+		@@withdraw_username = ENV['USERNAME_WITHDRAW']
+		@@withdraw_password = ENV['PASSWORD_WITHDRAW']
+		@@withdraw_msisdn 	= ENV['MSISDN_WITHDRAW']
+		@@withdraw_billerID = ENV['BILLERID_WITHDRAW']
 
 
 		##Method to deposit money on user mobile phone / withdraw from user SB account / Disbursement
