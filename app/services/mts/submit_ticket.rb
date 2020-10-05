@@ -41,7 +41,7 @@ class Mts::SubmitTicket
         "channel" => channel,
         "bookmakerId" => ENV[:BOOKMAKER_ID],
         "endCustomer" => {
-          "ip" : ip, 
+          "ip" => ip, 
           "languageId" => "EN",
           "id" => user_id
         },
