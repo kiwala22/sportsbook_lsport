@@ -32,6 +32,9 @@ class Soccer::BetStopWorker
             sleep 1
             #find the fixture && refresh at once
             fixture = Fixture.find_by(event_id: event_id)
+            if fixture
+                CableWorker.perform_async("markets_#{fixture.id}", "")
+            end
         end
         
         if product == "3"
