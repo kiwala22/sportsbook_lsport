@@ -14,7 +14,6 @@ class DeactivateMarketsWorker
       markets.each do |market|
          model_name = "Market" + market + producer_type[product]
          entries = model_name.constantize.where(status: "Active")
-         puts entries.count
          if entries
             entries.update(status: "Deactivated")
          end

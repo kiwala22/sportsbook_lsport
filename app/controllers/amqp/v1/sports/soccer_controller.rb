@@ -42,8 +42,8 @@ class Amqp::V1::Sports::SoccerController < ApplicationController
       end
       
       #logs the odds change for test fixture
-      if routing_key.split('.')[6] == "12089914"
-         log_odds_change(output)
+      if routing_key.split('.')[6] == "12089914" && message == ("odds_change" || "bet_stop")
+         log_odds_change(routing_key.split('.')[6],output, message)
       end
       
       render status: 200, json: {response: "OK"}
@@ -62,7 +62,7 @@ class Amqp::V1::Sports::SoccerController < ApplicationController
       render json: {status: "Unauthorized. Invalid token"}  unless token == auth_token
    end
    
-   def log_odds_change(message)
+   def log_odds_change(event, message, action)
       market_status = {
          "1" => "Active",
          "-1" => "Suspended",
@@ -70,18 +70,37 @@ class Amqp::V1::Sports::SoccerController < ApplicationController
          "-4" => "Cancelled",
          "-3" => "Settled"
       }
-      if message["odds_change"].has_key?("odds") && message["odds_change"]["odds"].present?
-         if message["odds_change"]["odds"].has_key?("market") && message["odds_change"]["odds"]["market"].present?
-            if message["odds_change"]["odds"]["market"].is_a?(Array)
-               message["odds_change"]["odds"]["market"].each do |market|
-                  if market.has_key?("outcome")
-                     if ["1", "29"].include? market["id"]
+      if action == "odds_change"
+         @@betradar_logger.info("ODDS CHANGE - #{event}")
+         @@betradar_logger << "\n"
+         if message["odds_change"].has_key?("odds") && message["odds_change"]["odds"].present?
+            if message["odds_change"]["odds"].has_key?("market") && message["odds_change"]["odds"]["market"].present?
+               if message["odds_change"]["odds"]["market"].is_a?(Array)
+                  message["odds_change"]["odds"]["market"].each do |market|
+                     if market.has_key?("outcome")
+                        if ["1", "29"].include? market["id"]
+                           @@betradar_logger << "\n"
+                           @@betradar_logger.info("status: #{market_status[market["status"]]}")
+                           @@betradar_logger << "\n"
+                           @@betradar_logger.info("Market #{market["id"]}")
+                           @@betradar_logger << "\n"
+                           market["outcome"].each do |k,v|
+                              @@betradar_logger.info("#{k} - #{v}")
+                           end
+                           @@betradar_logger << "\n"
+                        end
+                     end
+                  end
+               end
+               if message["odds_change"]["odds"]["market"].is_a?(Hash)
+                  if message["odds_change"]["odds"]["market"].has_key?("outcome")
+                     if ["1", "29"].include? message["odds_change"]["odds"]["market"]["id"]
                         @@betradar_logger << "\n"
-                        @@betradar_logger.info("status: #{market_status[market["status"]]}")
+                        @@betradar_logger.info("status: #{market_status[message["odds_change"]["odds"]["market"]["status"]]}")
                         @@betradar_logger << "\n"
-                        @@betradar_logger.info("Market #{market["id"]}")
+                        @@betradar_logger.info("Market #{message["odds_change"]["odds"]["market"]["id"]}")
                         @@betradar_logger << "\n"
-                        market["outcome"].each do |k,v|
+                        message["odds_change"]["odds"]["market"]["outcome"].each do |k, v|
                            @@betradar_logger.info("#{k} - #{v}")
                         end
                         @@betradar_logger << "\n"
@@ -89,22 +108,10 @@ class Amqp::V1::Sports::SoccerController < ApplicationController
                   end
                end
             end
-            if message["odds_change"]["odds"]["market"].is_a?(Hash)
-               if message["odds_change"]["odds"]["market"].has_key?("outcome")
-                  if ["1", "29"].include? message["odds_change"]["odds"]["market"]["id"]
-                     @@betradar_logger << "\n"
-                     @@betradar_logger.info("status: #{market_status[message["odds_change"]["odds"]["market"]["status"]]}")
-                     @@betradar_logger << "\n"
-                     @@betradar_logger.info("Market #{message["odds_change"]["odds"]["market"]["id"]}")
-                     @@betradar_logger << "\n"
-                     message["odds_change"]["odds"]["market"]["outcome"].each do |k, v|
-                        @@betradar_logger.info("#{k} - #{v}")
-                     end
-                     @@betradar_logger << "\n"
-                  end
-               end
-            end
          end
+      else
+         @@betradar_logger.info("BETSTOP - #{event}")
+         @@betradar_logger << "\n"
       end
    end
    
