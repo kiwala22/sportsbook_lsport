@@ -50,52 +50,52 @@
 
 .new_user>.form-group>.form-control {
     background-color: #e8e8e8;
-    border: 1px solid #F6AE2D;
+    border: 1px solid #FD6A02;
 }
 
 .new_user>.form-group>.form-control:focus {
     background-color: #e8e8e8;
-    border: 1px solid #F6AE2D;
-    box-shadow: 0 0 0 0.1rem #F6AE2D;
+    border: 1px solid #FD6A02;
+    box-shadow: 0 0 0 0.1rem #FD6A02;
 }
 
 input.btn.btn-block.btn-primary.mt-lg.login-btn {
-    background-color: #F6AE2D;
-    border-color: #F6AE2D;
+    background-color: #FD6A02;
+    border-color: #FD6A02;
     color: black;
 }
 
 input.btn.btn-block.btn-primary.mt-lg.login-btn:hover,
 input.btn.btn-block.btn-primary.mt-lg.login-btn:focus {
-    background-color: #F6AE2D;
-    border-color: #F6AE2D;
-    box-shadow: 0 0 0 0.1rem #F6AE2D;
+    background-color: #FD6A02;
+    border-color: #FD6A02;
+    box-shadow: 0 0 0 0.1rem #FD6A02;
 }
 
 button.btn.btn-block.btn-primary.mt-lg.login-btn {
-    background-color: #F6AE2D;
-    border-color: #F6AE2D;
+    background-color: #FD6A02;
+    border-color: #FD6A02;
     color: black;
 }
 
 button.btn.btn-block.btn-primary.mt-lg.login-btn:hover,
 button.btn.btn-block.btn-primary.mt-lg.login-btn:focus {
-    background-color: #F6AE2D;
-    border-color: #F6AE2D;
-    box-shadow: 0 0 0 0.1rem #F6AE2D;
+    background-color: #FD6A02;
+    border-color: #FD6A02;
+    box-shadow: 0 0 0 0.1rem #FD6A02;
 }
 
 a.btn.btn-block.btn-primary.mt-lg.login-btn {
-    background-color: #F6AE2D;
-    border-color: #F6AE2D;
+    background-color: #FD6A02;
+    border-color: #FD6A02;
     color: black;
 }
 
 a.btn.btn-block.btn-primary.mt-lg.login-btn:hover,
 a.btn.btn-block.btn-primary.mt-lg.login-btn:focus {
-    background-color: #F6AE2D;
-    border-color: #F6AE2D;
-    box-shadow: 0 0 0 0.1rem #F6AE2D;
+    background-color: #FD6A02;
+    border-color: #FD6A02;
+    box-shadow: 0 0 0 0.1rem #FD6A02;
 }
 
 .game-box .card .card-header span a.btnn {
@@ -103,13 +103,13 @@ a.btn.btn-block.btn-primary.mt-lg.login-btn:focus {
     border-radius: 4px;
     display: inline-block;
     color: #ffffff;
-    background: #F6AE2D;
+    background: #FD6A02;
 }
 
 .game-box .card .card-header span a.btnn:hover {
-    background-color: #F6AE2D;
-    border-color: #F6AE2D;
-    box-shadow: 0 0 0 0.1rem #F6AE2D;
+    background-color: #FD6A02;
+    border-color: #FD6A02;
+    box-shadow: 0 0 0 0.1rem #FD6A02;
 }
 
 #label_remember_me {
@@ -131,7 +131,7 @@ a.devise_forms {
 
 a.devise_forms:hover {
     text-decoration: underline;
-    color: #F6AE2D;
+    color: #FD6A02;
 }
 
 table.fixture-table {
@@ -365,7 +365,7 @@ strong {
 
 .withdraw {
     //color: #9B1D20;
-    color: #F6AE2D;
+    color: #FD6A02;
 }
 
 .deposit {
@@ -405,7 +405,7 @@ strong {
 
 .balance {
     font-size: 15px;
-    color: #F6AE2D
+    color: #FD6A02
 }
 
 .text-gray-400 {
@@ -416,7 +416,7 @@ strong {
     transform: scale(1.05);
     background: inherit;
     color: #ffffff;
-    border-color: #F6AE2D;
+    border-color: #FD6A02;
 }
 
 
@@ -496,10 +496,10 @@ strong {
 
 @keyframes blinkingText {
     0% {
-        color: #f6ad2e;
+        color: #FD6A02;
     }
     49% {
-        color: #f6ad2e;
+        color: #FD6A02;
     }
     60% {
         color: transparent;
@@ -508,14 +508,14 @@ strong {
         color: transparent;
     }
     100% {
-        color: #f6ad2e;
+        color: #FD6A02;
     }
 }
 
 .score,
 .match-time {
     text-align: center;
-    color: #f6ad2e;
+    color: #FD6A02;
     font-weight: 900;
 }
 
@@ -570,11 +570,11 @@ a:visited {
 @keyframes blinkingBtn {
     0% {
         color: #ffffff;
-        background-color: #F6AE2D;
+        background-color: #FD6A02;
     }
     49% {
         color: #ffffff;
-        background-color: #F6AE2D;
+        background-color: #FD6A02;
     }
     60% {
         color: transparent;
@@ -586,7 +586,7 @@ a:visited {
     }
     100% {
         color: #ffffff;
-        background-color: #F6AE2D;
+        background-color: #FD6A02;
     }
 }
 

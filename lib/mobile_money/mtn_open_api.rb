@@ -6,7 +6,7 @@ module MobileMoney
 		require 'uri'
 		require 'net/http'
 
-		@@collection_sub_key  =  ENV['COLLECTION_SUB_KEY']
+		@@collection_sub_key  	=  ENV['COLLECTION_SUB_KEY']
 		@@transfer_sub_key		=  ENV['TRANSFER_SUB_KEY']
 		@@collection_api_id 	=  ENV['COLLECTION_API_ID']
 		@@collection_api_key 	=  ENV['COLLECTION_API_KEY']
