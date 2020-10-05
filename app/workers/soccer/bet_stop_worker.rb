@@ -24,14 +24,16 @@ class Soccer::BetStopWorker
             markets.each do |market|
                 threads << Thread.new do
                     model_name = "Market" + market + producer_type[product]
-                    market_entry = model_name.constantize.find_by(status: "Active", event_id: event_id)
-                    if market_entry
-                        market_entry.update(status: "Suspended")
-                    end
+                    #mass update the markets
+                    model_name.constantize.where("status = ? AND event_id = ?", "Active", event_id).update_all(status: "Suspended")
                 end
             end
             threads.each { |thr| thr.join }
+            sleep 1
+            #find the fixture && refresh at once
+            fixture = Fixture.find_by(event_id: event_id)
         end
+        
         if product == "3"
             fixture = Fixture.find_by(event_id: event_id)
             if fixture
