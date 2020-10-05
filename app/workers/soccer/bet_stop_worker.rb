@@ -6,6 +6,7 @@ class Soccer::BetStopWorker
     sidekiq_options retry: false
 
     def perform(payload)
+        threads = []
         #convert the message from the xml to an easr ruby Hash using active support
         message = Hash.from_xml(payload)
         event_id = message["bet_stop"]["event_id"]
@@ -19,13 +20,17 @@ class Soccer::BetStopWorker
 
         if groups == "all"
             markets = ["1","60", "10", "63", "18","68", "29", "75", "16", "66"]
+            #check all markets in parallel
             markets.each do |market|
-                model_name = "Market" + market + producer_type[product]
-                market_entry = model_name.constantize.where("status = ? AND event_id = ?", "Active", event_id).first
-                if market_entry
-                    market_entry.update(status: "Suspended")
+                threads << Thread.new do
+                    model_name = "Market" + market + producer_type[product]
+                    market_entry = model_name.constantize.find_by(status: "Active", event_id: event_id)
+                    if market_entry
+                        market_entry.update(status: "Suspended")
+                    end
                 end
             end
+            threads.each { |thr| thr.join }
         end
         if product == "3"
             fixture = Fixture.find_by(event_id: event_id)
