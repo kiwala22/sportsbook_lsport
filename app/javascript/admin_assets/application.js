@@ -11,12 +11,14 @@ require("@rails/ujs").start()
     // //require("turbolinks").start()
 require("@rails/activestorage").start()
     // require("channels")
-    //ECharts import
-window.echarts = require("./echarts.min.js")
+
     //-- Date Timepicker
 import './time_picker.js';
-import "./bets_analytics.js.erb";
+
+//-- Graphs
 import "./analytics.js.erb";
+import "./bets_analytics.js.erb";
+
 //--- Bootstrap
 import 'bootstrap';
 

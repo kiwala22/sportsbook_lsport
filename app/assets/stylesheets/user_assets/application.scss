@@ -477,7 +477,7 @@ strong {
 }
 
 .error_desc {
-    color: #ec2121;
+    color: orange;
 }
 
 @media (max-width: 991.98px) {
@@ -606,7 +606,21 @@ a:visited {
     padding:12px;
     line-height: 2.0;
 }
- .codes{
+.codes{
     font-size: 15px;
     color: #fd6a02;
- }
+}
+
+.limits {
+    color: orange !important;
+}
+.terms {
+    color: orange !important;
+    font-size: 14px;
+}
+.terms:hover {
+    text-decoration: underline;
+}
+.error_msg {
+    padding-left: 9px;
+}

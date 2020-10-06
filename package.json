@@ -49,6 +49,7 @@
         "datatables.net-responsive-bs": "2.2.3",
         "dropzone": "5.5.1",
         "easy-pie-chart": "2.1.7",
+        "echarts": "^4.9.0",
         "fastclick": "1.0.6",
         "flot": "themicon/flot",
         "html5sortable": "0.9.8",

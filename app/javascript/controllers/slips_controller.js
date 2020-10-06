@@ -73,13 +73,24 @@ export default class extends Controller {
         let lastInput = amount.charAt(amount.length - 1);
         if (!/[0-9]/.test(lastInput)) {
             if (amount.length == 0) {
+                $("#amount-limits").empty();
+                $('#place_bet').prop("disabled", false);
                 localStorage.removeItem("stake");
                 this.winsTarget.innerHTML = " ";
             }
             return $(event.target).val(amount.substring(0, amount.length - 1));
         }
 
-        this.onCalculateWin(amount);
+        if (amount > 1000000 || amount < 1000){
+            $("#amount-limits").html("Stake should be between 1,000 and 1,000,000");
+            $('#place_bet').prop("disabled", true);
+            localStorage.removeItem("stake");
+            this.winsTarget.innerHTML = " ";
+        }else if (amount >= 1000 && amount <= 1000000) {
+            $("#amount-limits").empty();
+            $('#place_bet').prop("disabled", false);
+            this.onCalculateWin(amount);
+        }
     }
 
     onCalculateWin(stake) {
