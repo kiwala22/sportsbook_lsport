@@ -5,8 +5,8 @@ class Mts::SubmitTicket
   
   def publish(slip_id:, channel: "internet", ip: nil )
     # find the betslip and xtract the bets array
-    betslip = BetSlip.find(betslip_id)
-    bets = betslip.bet_slips
+    betslip = BetSlip.find(slip_id)
+    bets = betslip.bets
     bets_array  = []
     bets.each do |bet|
       bets_array << {"eventid" => bet.fixture.event_id , "id"=> "uof:#{bet.product}/#{bet.market_id}/#{bet.outcome_id}", "odds" => (bet.odds.to_i * 10000) }

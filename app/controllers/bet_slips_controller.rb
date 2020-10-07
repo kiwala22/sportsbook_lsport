@@ -64,6 +64,7 @@ class BetSlipsController < ApplicationController
 		end
 	rescue Exception => error
 		#log the error and redirect with an alert
+		logger = Rails.logger
 		logger.error(error)
 		flash[:alert] = "Oops! Something went wrong."
 		redirect_back(fallback_location: root_path)
