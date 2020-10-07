@@ -5,8 +5,11 @@ class Soccer::BetSettlementWorker
     include Sidekiq::Worker
     sidekiq_options queue: "default"
     sidekiq_options retry: false
+    sidekiq_options unique_across_workers: true, 
+                    lock: :until_executed, lock_args: ->(args) { [ args.last ] }, 
+                    lock_timeout: 2
     
-    def perform(payload)
+    def perform(payload, event)
         #convert the message from the xml to an easr ruby Hash using active support
         message = Hash.from_xml(payload)
         event_id = message["bet_settlement"]["event_id"]

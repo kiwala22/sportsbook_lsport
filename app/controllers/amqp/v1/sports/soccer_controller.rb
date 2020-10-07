@@ -15,34 +15,34 @@ class Amqp::V1::Sports::SoccerController < ApplicationController
       #extract message and sport
       message = routing_key.split('.')[3]
       sport = routing_key.split('.')[4]
-      
+      event = "#{routing_key.split('.')[5]}#{routing_key.split('.')[6]}"
       #call worker to process the soccer update
       case message
          
       when "odds_change"
-         Soccer::OddsChangeWorker.perform_async(payload)
+         Soccer::OddsChangeWorker.perform_async(payload, event)
          
       when "fixture_change"
          Soccer::FixtureChangeWorker.perform_async(payload)
          
       when "bet_settlement"
-         Soccer::BetSettlementWorker.perform_async(payload)
+         Soccer::BetSettlementWorker.perform_async(payload, event)
          
       when "bet_cancel"
-         Soccer::BetCancelWorker.perform_async(payload)
+         Soccer::BetCancelWorker.perform_async(payload, event)
          
       when "bet_stop"
-         Soccer::BetStopWorker.perform_async(payload)
+         Soccer::BetStopWorker.perform_async(payload, event)
          
       when "rollback_bet_settlement"
-         Soccer::RollbackSettlementWorker.perform_async(payload)
+         Soccer::RollbackSettlementWorker.perform_async(payload, event)
          
       when "rollback_bet_cancel"
-         Soccer::RollbackCancelWorker.perform_async(payload)         
+         Soccer::RollbackCancelWorker.perform_async(payload, event)         
       end
       
       #logs the odds change for test fixture
-      if routing_key.split('.')[6] == "12089914" && message == ("odds_change" || "bet_stop")
+      if routing_key.split('.')[6] == "12089914" && (message == "odds_change" || message == "bet_stop")
          log_odds_change(routing_key.split('.')[6],output, message)
       end
       

@@ -4,10 +4,13 @@ class Soccer::OddsChangeWorker
     include Sidekiq::Worker
     sidekiq_options queue: "critical"
     sidekiq_options retry: false
+    sidekiq_options unique_across_workers: true, 
+                    lock: :until_executed, lock_args: ->(args) { [ args.last ] }, 
+                    lock_timeout: 2
     
     
     
-    def perform(payload)
+    def perform(payload, event)
         
         soccer_markets = []
         
