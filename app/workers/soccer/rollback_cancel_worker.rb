@@ -6,7 +6,7 @@ class Soccer::RollbackCancelWorker
     sidekiq_options retry: false
     sidekiq_options unique_across_workers: true, 
                     lock: :until_executed, lock_args: ->(args) { [ args.last ] }, 
-                    lock_timeout: 2
+                    lock_timeout: 0.5
 
     def perform(payload)
         #convert the message from the xml to an easr ruby Hash using active support
