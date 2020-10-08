@@ -14,9 +14,9 @@ class WithdrawsWorker
 
     ##create a withdraw transaction
     resource_id = generate_resource_id()
-    @withdraw = Withdraw.create(transaction_id: @transaction.reference, resource_id: resource_id, amount: @transaction.amount,
+    @withdraw = Withdraw.create(transaction_id: transaction_id, resource_id: resource_id, amount: @transaction.amount,
        phone_number: @transaction.phone_number, status: "PENDING", currency: "UGX", payment_method: "Mobile Money", balance_before: balance_before,
-     user_id: @transaction.user_id)
+     user_id: @transaction.user_id, transaction_reference: @transaction.reference)
 
     if @transaction && @withdraw
       ##Proceed with the withdraw APIs
