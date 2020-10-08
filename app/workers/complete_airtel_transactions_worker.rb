@@ -5,9 +5,9 @@ class CompleteAirtelTransactionsWorker
   sidekiq_options retry: false
 
 
-  def perform(transaction_reference)
+  def perform(transaction_id)
     ##Find the corresponding transaction to the deposit
-    @transaction = Transaction.find_by(reference: transaction_reference)
+    @transaction = Transaction.find(transaction_id)
 
     ##Find the user who made the specific transaction to track balances
     user = User.find(@transaction.user_id)
