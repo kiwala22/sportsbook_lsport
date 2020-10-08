@@ -20,25 +20,25 @@ class Amqp::V1::Sports::SoccerController < ApplicationController
       case message
          
       when "odds_change"
-         Soccer::OddsChangeWorker.perform_async(payload, event)
+         Soccer::OddsChangeWorker.perform_async(payload)
          
       when "fixture_change"
          Soccer::FixtureChangeWorker.perform_async(payload)
          
       when "bet_settlement"
-         Soccer::BetSettlementWorker.perform_async(payload, event)
+         Soccer::BetSettlementWorker.perform_async(payload)
          
       when "bet_cancel"
-         Soccer::BetCancelWorker.perform_async(payload, event)
+         Soccer::BetCancelWorker.perform_async(payload)
          
       when "bet_stop"
-         Soccer::BetStopWorker.perform_async(payload, event)
+         Soccer::BetStopWorker.perform_async(payload)
          
       when "rollback_bet_settlement"
-         Soccer::RollbackSettlementWorker.perform_async(payload, event)
+         Soccer::RollbackSettlementWorker.perform_async(payload)
          
       when "rollback_bet_cancel"
-         Soccer::RollbackCancelWorker.perform_async(payload, event)         
+         Soccer::RollbackCancelWorker.perform_async(payload)         
       end
       
       #logs the odds change for test fixture

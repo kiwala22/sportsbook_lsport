@@ -4,13 +4,10 @@ class Soccer::OddsChangeWorker
     include Sidekiq::Worker
     sidekiq_options queue: "critical"
     sidekiq_options retry: false
-    sidekiq_options unique_across_workers: true, 
-                    lock: :until_executed, lock_args: ->(args) { [ args.last ] }, 
-                    lock_timeout: 1
     
     
     
-    def perform(payload, event)
+    def perform(payload)
         
         soccer_markets = []
         
@@ -124,14 +121,18 @@ class Soccer::OddsChangeWorker
                 status: market_status[market["status"]]
             }
             if mkt_entry
-                mkt_entry.update(update_attr)
+                mkt_entry.assign_attributes(update_attr)
             else
                 mkt_entry = model_name.constantize.new(update_attr)
                 mkt_entry.fixture_id = fixture_id
                 mkt_entry.event_id = event_id
-                mkt_entry.save
+                #mkt_entry.save
             end
-            
+            if mkt_entry.save
+                #broadast this change
+                ActionCable.server.broadcast("#{producer_type[product].downcase}_odds_#{market["id"]}_#{fixture_id}", mkt_entry.as_json)
+                ActionCable.server.broadcast("betslips_odds_#{market["id"]}_#{fixture_id}", mkt_entry.as_json)
+            end
         end
         
         outcome_9 = outcome_10 = outcome_11 = 1.00
@@ -161,12 +162,17 @@ class Soccer::OddsChangeWorker
                 status: market_status[market["status"]]
             }
             if mkt_entry
-                mkt_entry.update(update_attr)
+                mkt_entry.assign_attributes(update_attr)
             else
                 mkt_entry = model_name.constantize.new(update_attr)
                 mkt_entry.fixture_id = fixture_id
                 mkt_entry.event_id = event_id
-                mkt_entry.save
+                #mkt_entry.save
+            end
+            if mkt_entry.save
+                #broadast this change
+                ActionCable.server.broadcast("#{producer_type[product].downcase}_odds_#{market["id"]}_#{fixture_id}", mkt_entry.as_json)
+                ActionCable.server.broadcast("betslips_odds_#{market["id"]}_#{fixture_id}", mkt_entry.as_json)
             end
             
         end
@@ -195,12 +201,17 @@ class Soccer::OddsChangeWorker
                 status: market_status[market["status"]]
             }
             if mkt_entry
-                mkt_entry.update(update_attr)
+                mkt_entry.assign_attributes(update_attr)
             else
                 mkt_entry = model_name.constantize.new(update_attr)
                 mkt_entry.fixture_id = fixture_id
                 mkt_entry.event_id = event_id
-                mkt_entry.save
+                #mkt_entry.save
+            end
+            if mkt_entry.save
+                #broadast this change
+                ActionCable.server.broadcast("#{producer_type[product].downcase}_odds_#{market["id"]}_#{fixture_id}", mkt_entry.as_json)
+                ActionCable.server.broadcast("betslips_odds_#{market["id"]}_#{fixture_id}", mkt_entry.as_json)
             end
             
         end
@@ -228,12 +239,17 @@ class Soccer::OddsChangeWorker
                 status: market_status[market["status"]]
             }
             if mkt_entry
-                mkt_entry.update(update_attr)
+                mkt_entry.assign_attributes(update_attr)
             else
                 mkt_entry = model_name.constantize.new(update_attr)
                 mkt_entry.fixture_id = fixture_id
                 mkt_entry.event_id = event_id
-                mkt_entry.save
+                #mkt_entry.save
+            end
+            if mkt_entry.save
+                #broadast this change
+                ActionCable.server.broadcast("#{producer_type[product].downcase}_odds_#{market["id"]}_#{fixture_id}", mkt_entry.as_json)
+                ActionCable.server.broadcast("betslips_odds_#{market["id"]}_#{fixture_id}", mkt_entry.as_json)
             end
         end
         
@@ -261,13 +277,18 @@ class Soccer::OddsChangeWorker
                 status: market_status[market["status"]]
             }
             if mkt_entry
-                mkt_entry.update(update_attr)
+                mkt_entry.assign_attributes(update_attr)
             else
                 mkt_entry = model_name.constantize.new(update_attr)
                 mkt_entry.fixture_id = fixture_id
                 mkt_entry.event_id = event_id
-                mkt_entry.save
-            end    
+                #mkt_entry.save
+            end  
+            if mkt_entry.save
+                #broadast this change
+                ActionCable.server.broadcast("#{producer_type[product].downcase}_odds_#{market["id"]}_#{fixture_id}", mkt_entry.as_json)
+                ActionCable.server.broadcast("betslips_odds_#{market["id"]}_#{fixture_id}", mkt_entry.as_json)
+            end
         end
     end
 end
