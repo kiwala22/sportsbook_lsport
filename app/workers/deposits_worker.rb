@@ -43,7 +43,7 @@ class DepositsWorker
         #process Airtel transaction
         result = MobileMoney::AirtelUganda.request_payments(@transaction.phone_number, @transaction.amount, @transaction.reference)
         if result
-          if result['status'] == '200'
+          if result[:status] == '200'
             #balance_after = (balance_before + @transaction.amount)
             @deposit.update(network: "Airtel Uganda", status: "IN PROGRESS")
             #user.update(balance: balance_after)
