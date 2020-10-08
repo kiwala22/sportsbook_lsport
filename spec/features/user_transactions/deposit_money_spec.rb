@@ -14,7 +14,8 @@ RSpec.describe User, type: :system, js: true do
 					first_name: Faker::Name.first_name,
 					last_name: Faker::Name.last_name,
 					password: "Jtwitw@c2016",
-					password_confirmation: "Jtwitw@c2016"
+					password_confirmation: "Jtwitw@c2016",
+					agreement: true
 				})
 		user.update(verified: true)
 
@@ -24,7 +25,8 @@ RSpec.describe User, type: :system, js: true do
 					first_name: Faker::Name.first_name,
 					last_name: Faker::Name.last_name,
 					password: "Jtwitw@c2016",
-					password_confirmation: "Jtwitw@c2016"
+					password_confirmation: "Jtwitw@c2016",
+					agreement: true
 				})
 		user_test.update(verified: true)
 

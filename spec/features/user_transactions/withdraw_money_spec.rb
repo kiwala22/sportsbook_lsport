@@ -15,7 +15,8 @@ RSpec.describe User, type: :system, js: true do
 					last_name: Faker::Name.last_name,
 					password: "Jtwitw@c2016",
 					password_confirmation: "Jtwitw@c2016",
-					balance: 10000
+					balance: 10000,
+					agreement: true
 				})
 		user.update(verified: true)
 
