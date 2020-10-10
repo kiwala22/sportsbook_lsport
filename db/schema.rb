@@ -614,7 +614,6 @@ ActiveRecord::Schema.define(version: 2020_10_08_081933) do
     t.integer "password_reset_code"
     t.datetime "password_reset_sent_at"
     t.boolean "account_active", default: true
-    t.boolean "agreement"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["phone_number"], name: "index_users_on_phone_number", unique: true

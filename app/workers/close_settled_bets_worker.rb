@@ -1,6 +1,6 @@
 require 'sidekiq'
 
-class Soccer::CloseSettledBetsWorker
+class CloseSettledBetsWorker
    include Sidekiq::Worker
    sidekiq_options queue: "high"
    sidekiq_options retry: false

@@ -1,15 +1,14 @@
 require 'sidekiq'
 
-class Soccer::BetStopWorker
+class BetStopWorker
     include Sidekiq::Worker
     sidekiq_options queue: "critical"
     sidekiq_options retry: false
     
 
-    def perform(payload)
+    def perform(message, sport=nil, event=nil)
         threads = []
         #convert the message from the xml to an easr ruby Hash using active support
-        message = Hash.from_xml(payload)
         event_id = message["bet_stop"]["event_id"]
         product =  message["bet_stop"]["product"]
         groups = message["bet_stop"]["groups"]

@@ -3,12 +3,13 @@ begin
    Sneakers.configure   :heartbeat => 5,
                         :amqp => 'amqp://s5X0wAgEmHCxDqrPnI@stgmq.betradar.com:5671',
                         :vhost => '/unifiedfeed/30819',
-                        :log  => STDOUT,     # Log file
+                        :log  => 'log/betradar.log',     # Log file
                         :pid_path => 'tmp/pids//sneakers.pid', # Pid file
                         :tls => true,
                         :verify_peer => false,
                         :verify_peer_name => false,
-                        :allow_self_signed => true
+                        :allow_self_signed => true,
+                        :workers => 2
 
 
    Sneakers.logger = Rails.logger

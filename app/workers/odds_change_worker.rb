@@ -1,13 +1,13 @@
 require 'sidekiq'
 
-class Soccer::OddsChangeWorker
+class OddsChangeWorker
     include Sidekiq::Worker
     sidekiq_options queue: "critical"
     sidekiq_options retry: false
     
     
     
-    def perform(payload)
+    def perform(message, sport=nil, event=nil)
         
         soccer_markets = []
         
@@ -25,7 +25,6 @@ class Soccer::OddsChangeWorker
         }
         
         #convert the message from the xml to an easr ruby Hash using active support
-        message = Hash.from_xml(payload)
         event_id = message["odds_change"]["event_id"]
         product = message["odds_change"]["product"]
         
@@ -120,7 +119,7 @@ class Soccer::OddsChangeWorker
                 outcome_3: outcome_3,
                 status: market_status[market["status"]]
             }
-            if mkt_entry
+            if mkt_entry.present?
                 mkt_entry.assign_attributes(update_attr)
             else
                 mkt_entry = model_name.constantize.new(update_attr)
@@ -161,7 +160,7 @@ class Soccer::OddsChangeWorker
                 outcome_11: outcome_11,
                 status: market_status[market["status"]]
             }
-            if mkt_entry
+            if mkt_entry.present?
                 mkt_entry.assign_attributes(update_attr)
             else
                 mkt_entry = model_name.constantize.new(update_attr)
@@ -200,7 +199,7 @@ class Soccer::OddsChangeWorker
                 total: 2.5,
                 status: market_status[market["status"]]
             }
-            if mkt_entry
+            if mkt_entry.present?
                 mkt_entry.assign_attributes(update_attr)
             else
                 mkt_entry = model_name.constantize.new(update_attr)
@@ -238,7 +237,7 @@ class Soccer::OddsChangeWorker
                 outcome_76: outcome_76,
                 status: market_status[market["status"]]
             }
-            if mkt_entry
+            if mkt_entry.present?
                 mkt_entry.assign_attributes(update_attr)
             else
                 mkt_entry = model_name.constantize.new(update_attr)
@@ -254,7 +253,7 @@ class Soccer::OddsChangeWorker
         end
         
         outcome_1714 = outcome_1715 = 1.00
-        if (market["id"] == "16" ||  "66") && market["specifiers"] == "hcp=1"
+        if (market["id"] == "16" || market["id"] == "66") && market["specifiers"] == "hcp=1"
             #update or create markets under and over half time and fulltime
             
             if market.has_key?("outcome")
@@ -276,7 +275,7 @@ class Soccer::OddsChangeWorker
                 hcp: 1,
                 status: market_status[market["status"]]
             }
-            if mkt_entry
+            if mkt_entry.present?
                 mkt_entry.assign_attributes(update_attr)
             else
                 mkt_entry = model_name.constantize.new(update_attr)

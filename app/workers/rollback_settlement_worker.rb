@@ -1,13 +1,12 @@
 require 'sidekiq'
 
-class Soccer::RollbackSettlementWorker
+class RollbackSettlementWorker
     include Sidekiq::Worker
     sidekiq_options queue: "default"
     sidekiq_options retry: false
     
-    def perform(payload)
+    def perform(message, sport=nil, event=nil)
         #convert the message from the xml to an easr ruby Hash using active support
-        message = Hash.from_xml(payload)
         event_id = message["rollback_bet_settlement"]["event_id"]
         product =  message["rollback_bet_settlement"]["product"]
         
