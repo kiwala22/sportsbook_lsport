@@ -3,7 +3,7 @@ begin
    Sneakers.configure   :heartbeat => 5,
                         :amqp => 'amqp://s5X0wAgEmHCxDqrPnI@replaymq.betradar.com:5671',
                         :vhost => '/unifiedfeed/30819',
-                        :log  => 'log/betradar.log',     # Log file
+                        :log  => Rails.logger,     # Log file
                         :pid_path => 'tmp/pids/sneakers.pid', # Pid file
                         :tls => true,
                         :verify_peer => false,
