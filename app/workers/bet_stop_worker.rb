@@ -4,6 +4,7 @@ class BetStopWorker
     include Sidekiq::Worker
     sidekiq_options queue: "critical"
     sidekiq_options retry: false
+    sidekiq_options lock_ttl: 1, unique_across_workers: true, lock: :until_executed, lock_args: ->(args) { [ args.last ] }
     
 
     def perform(message, sport=nil, event=nil)
