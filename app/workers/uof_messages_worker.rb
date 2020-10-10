@@ -2,8 +2,7 @@ class UofMessagesWorker
    include Sneakers::Worker
    QUEUE_NAME = ""
 
-   log_file = File.open('log/betradar.log', File::WRONLY | File::APPEND)
-   @@audit_logger = Logger.new(log_file) 
+   @@audit_logger ||= Logger.new("#{Rails.root}/log/audit.log")
    @@audit_logger.level = Logger::INFO
    
    from_queue QUEUE_NAME,

@@ -2,9 +2,8 @@ require 'sidekiq'
 
 class RollbackCancelWorker
     include Sidekiq::Worker
-    sidekiq_options queue: "default"
-    sidekiq_options retry: false
-    sidekiq_options lock_ttl: 1, unique_across_workers: true, lock: :until_executed, lock_args: ->(args) { [ args.last ] }
+    sidekiq_options queue: "default", retry: false,
+    unique_across_workers: true, lock: :until_expired, lock_timeout: 1, lock_args: ->(args) { [ args.last ] }
 
     def perform(message, sport=nil, event=nil)
         #convert the message from the xml to an easr ruby Hash using active support

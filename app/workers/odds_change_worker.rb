@@ -2,9 +2,8 @@ require 'sidekiq'
 
 class OddsChangeWorker
     include Sidekiq::Worker
-    sidekiq_options queue: "critical"
-    sidekiq_options retry: false
-    sidekiq_options lock_ttl: 1, unique_across_workers: true, lock: :until_executed, lock_args: ->(args) { [ args.last ] }
+    sidekiq_options queue: "critical", retry: false,
+    unique_across_workers: true, lock: :until_expired, lock_timeout: 1, lock_args: ->(args) { [ args.last ] }
     
     
     
