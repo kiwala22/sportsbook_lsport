@@ -1,48 +1,43 @@
 require 'sidekiq'
 
-class Soccer::BetCancelWorker
+class RollbackCancelWorker
     include Sidekiq::Worker
-    sidekiq_options queue: "default"
-    sidekiq_options retry: false
-    sidekiq_options unique_across_workers: true, 
-                    lock: :until_executed, lock_args: ->(args) { [ args.last ] }, 
-                    lock_timeout: 1
-    
-    def perform(payload, event)
+    sidekiq_options queue: "default", retry: false,
+    unique_across_workers: true, lock: :until_expired, lock_timeout: 1, lock_args: ->(args) { [ args.last ] }
+
+    def perform(message, sport=nil, event=nil)
         #convert the message from the xml to an easr ruby Hash using active support
         start_time = nil
         end_time = nil
-        message = Hash.from_xml(payload)
+        event = message["rollback_bet_cancel"]["event_id"]
         
-        event = message["bet_cancel"]["event_id"]
-        
-        if message["bet_cancel"].has_key?("end_time")
-            end_time = message["bet_cancel"]["end_time"]
+        if message["rollback_bet_cancel"].has_key?("end_time")
+            end_time = message["rollback_bet_cancel"]["end_time"]
         end
         
-        if message["bet_cancel"].has_key?("start_time")
-            start_time = message["bet_cancel"]["start_time"]
+        if message["rollback_bet_cancel"].has_key?("start_time")
+            start_time = message["rollback_bet_cancel"]["start_time"]
         end
         
-        product = message["bet_cancel"]["product"]
+        product = message["rollback_bet_cancel"]["product"]
         
         #check if market is an array or Hash
         
-        if  message["bet_cancel"]["market"].is_a?(Array)
-            message["bet_cancel"]["market"].each do |market|
+        if  message["rollback_bet_cancel"]["market"].is_a?(Array)
+            message["rollback_bet_cancel"]["market"].each do |market|
                 market_id =  market["id"]
-                process_cancel(event: event, product:product, market: market_id, end_time: end_time, start_time: start_time)
+                process_cancel_rollback(event: event, product:product, market: market_id, end_time: end_time, start_time: start_time)
             end
         end
 
-        if  message["bet_cancel"]["market"].is_a?(Hash)
-            market_id =  message["bet_cancel"]["market"]["id"]
-            process_cancel(event: event, product: product, market: market_id, end_time: end_time, start_time: start_time)
+        if  message["rollback_bet_cancel"]["market"].is_a?(Hash)
+            market_id =  message["rollback_bet_cancel"]["market"]["id"]
+            process_cancel_rollback(event: event, product: product, market: market_id, end_time: end_time, start_time: start_time)
         end
-        
+       
     end
 
-    def process_cancel(event:, product:, market:, end_time:, start_time:)
+    def process_cancel_rollback(event:, product:, market:, end_time:, start_time:)
         #create a dynamic query
         conditions = String.new
         wheres = Array.new
@@ -74,9 +69,8 @@ class Soccer::BetCancelWorker
         fixture = Fixture.find_by(event_id: event)
         if fixture
             bets =  fixture.bets.where(wheres )
-
             #cancel all the bets
-            bets.update_all(status: "Cancelled")
+            bets.update_all(status: "Active")
         end
     end
     

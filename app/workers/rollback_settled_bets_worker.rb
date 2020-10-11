@@ -1,6 +1,6 @@
 require 'sidekiq'
 
-class Soccer::RollbackSettledBetsWorker
+class RollbackSettledBetsWorker
    include Sidekiq::Worker
    sidekiq_options queue: "high"
    sidekiq_options retry: false

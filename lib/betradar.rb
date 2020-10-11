@@ -29,7 +29,7 @@ module Betradar
          events["schedule"]["sport_event"].each do |event|
             case event["tournament"]["sport"]["id"]
             when "sr:sport:1"
-               Soccer::CreateFixtureWorker.perform_async(event)
+               CreateFixtureWorker.perform_async(event)
             end
          end
          return response.code
@@ -59,7 +59,7 @@ module Betradar
          events["fixture_changes"]["fixture_change"].each do |event|
             case event["tournament"]["sport"]["id"]
             when "sr:sport:1"
-               Soccer::UpdateFixtureWorker.perform_async(event["sport_event_id"], event["update_time"])
+               UpdateFixtureWorker.perform_async(event["sport_event_id"], event["update_time"])
             end
          end
          return response.code
