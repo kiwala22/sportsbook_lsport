@@ -1,5 +1,5 @@
 class Mts::SubmitTicket
-  QUEUE_NAME = 'skyline_skyline-Submit-node256'.freeze
+  QUEUE_NAME = 'skyline_skyline-Submit-node202'.freeze
   EXCHANGE_NAME = 'skyline_skyline-Submit'.freeze
   
   
@@ -20,8 +20,8 @@ class Mts::SubmitTicket
                         :passive => true
               ) 
     #bind to the exchange then publish
-    headers = { 'replyRoutingKey' => "#{ENV[:NODE_ID]}.ticket.confirm"}
-    exchange.publish(payload(slip_id: betslip.id, ts: (bestlip.created_at.to_i * 1000), channel: channel, ip: ip, bets: bets_array, stake: betslip.stake, user_id: betslip.user_id ).to_json, routing_key: QUEUE_NAME, headers: headers)
+    headers = { 'replyRoutingKey' => "#{ENV['NODE_ID']}.ticket.confirm"}
+    exchange.publish(payload(slip_id: betslip.id, ts: (betslip.created_at.to_i * 1000), channel: channel, ip: ip, bets: bets_array, stake: betslip.stake, user_id: betslip.user_id ).as_json, routing_key: QUEUE_NAME, headers: headers)
   end
   
   private
@@ -43,7 +43,7 @@ class Mts::SubmitTicket
       "sender" => {
         "currency" => "UGX",
         "channel" => channel,
-        "bookmakerId" => ENV[:BOOKMAKER_ID],
+        "bookmakerId" => ENV['BOOKMAKER_ID'],
         "endCustomer" => {
           "ip" => ip, 
           "languageId" => "EN",
