@@ -8,7 +8,7 @@ class BunnyQueueService
    def self.connection
       @@connection ||= begin
          instance = Bunny.new(
-            addresses: ENV['MTS_ADDRESSES'].split(','),
+            addresses: ENV['MTS_ADDRESSES'],
             username:  ENV['MTS_USER'],
             password:  ENV['MTS_PASSWORD'],
             vhost:     ENV['MTS_VHOST'],

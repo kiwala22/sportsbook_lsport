@@ -1,14 +1,13 @@
 require 'sidekiq' 
 require 'json'
 
-class Soccer::BetSettlementWorker
+class BetSettlementWorker
     include Sidekiq::Worker
-    sidekiq_options queue: "default"
-    sidekiq_options retry: false
+    sidekiq_options queue: "default", retry: false, 
+    unique_across_workers: true, lock: :until_expired, lock_timeout: 1, lock_args: ->(args) { [ args.last ] }
     
-    def perform(payload)
+    def perform(message, sport=nil, event=nil)
         #convert the message from the xml to an easr ruby Hash using active support
-        message = Hash.from_xml(payload)
         event_id = message["bet_settlement"]["event_id"]
         product =  message["bet_settlement"]["product"]
         
@@ -206,7 +205,7 @@ class Soccer::BetSettlementWorker
             settle_bets(fixture_id, product, market["id"], update_attr["outcome"])
         end
         
-        if (market["id"] == "16" ||  "66") && market["specifiers"] == "hcp=1"
+        if (market["id"] == "16" || market["id"] == "66") && market["specifiers"] == "hcp=1"
             #update or create markets under and over half time and fulltime
             
             if market.has_key?("outcome")
@@ -244,7 +243,7 @@ class Soccer::BetSettlementWorker
     
     def settle_bets(fixture_id, product, market_id, outcome)
         #call worker to settle these bets
-        Soccer::CloseSettledBetsWorker.perform_async(fixture_id, product, market_id, outcome)
+        CloseSettledBetsWorker.perform_async(fixture_id, product, market_id, outcome)
     end
     
 end

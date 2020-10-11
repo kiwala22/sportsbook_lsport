@@ -8,6 +8,7 @@ Bundler.require(*Rails.groups)
 
 module SkylineSportsbook
    class Application < Rails::Application
+      config.filter_parameters << :password
       # Initialize configuration defaults for originally generated Rails version.
       config.load_defaults 5.2
       config.generators do |f|
@@ -28,6 +29,10 @@ module SkylineSportsbook
       config.assets.precompile << /\.(?:svg|eot|woff|ttf)$/
       # images
       config.assets.precompile << /\.(?:png|jpg)$/
+
+      Raven.configure do |config|
+         config.dsn = 'https://f6e8c09401164a2ea35b20a06d2c1810@o371083.ingest.sentry.io/5220017'
+      end
 
       # config.log_level = :info # commented out 03/10/20 - Acacia
       # config.logger = ActiveSupport::TaggedLogging.new(ActiveSupport::Logger.new(STDOUT))

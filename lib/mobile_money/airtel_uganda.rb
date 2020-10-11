@@ -11,14 +11,14 @@ module MobileMoney
 		@@logger.level = Logger::ERROR
 
 		##Deposit Account Credentials (Disbursements/Payouts)
-		@@deposit_msisdn = 100100491
-		@@deposit_pin = 1111
+		@@deposit_msisdn = ENV['MSISDN_DEPOSIT']
+		@@deposit_pin 	 = ENV['PIN_DEPOSIT']
 
 		##Withdraw Account Credentials (Collections)
-		@@withdraw_username = "BETCITY"
-		@@withdraw_password = "BETCITY@1234"
-		@@withdraw_msisdn = 100012731
-		@@withdraw_billerID = 100012731
+		@@withdraw_username = ENV['USERNAME_WITHDRAW']
+		@@withdraw_password = ENV['PASSWORD_WITHDRAW']
+		@@withdraw_msisdn 	= ENV['MSISDN_WITHDRAW']
+		@@withdraw_billerID = ENV['BILLERID_WITHDRAW']
 
 
 		##Method to deposit money on user mobile phone / withdraw from user SB account / Disbursement
@@ -54,7 +54,7 @@ module MobileMoney
 			message = "BETSB DEPOSIT"
 			phone_number = phone_number[3..-1]
 			url = "http://172.27.77.145:9192/services/UTL"
-	  		req_xml = "<?xml version='1.0' encoding='UTF-8'?><COMMAND><interfaceId>BETCITY</interfaceId><MSISDN>#{phone_number}</MSISDN><MSISDN2>#{@@withdraw_msisdn}</MSISDN2><AMOUNT>#{amount}</AMOUNT><EXTTRID>#{transaction_id}</EXTTRID><REFERENCE></REFERENCE><BILLERID>#{@@withdraw_billerID}</BILLERID><MEMO>#{message}</MEMO><serviceType>MERCHPAY</serviceType><USERNAME>#{@@withdraw_username}</USERNAME><PASSWORD>#{@@withdraw_password}</PASSWORD></COMMAND>"
+	  		req_xml = "<?xml version='1.0' encoding='UTF-8'?><COMMAND><interfaceId>BETCITY</interfaceId><MSISDN>#{phone_number}</MSISDN><MSISDN2>#{@@withdraw_msisdn}</MSISDN2><AMOUNT>#{amount}</AMOUNT><EXTTRID>#{transaction_id}</EXTTRID><REFERENCE>#{message}</REFERENCE><BILLERID>#{@@withdraw_billerID}</BILLERID><MEMO>#{message}</MEMO><serviceType>MERCHPAY</serviceType><USERNAME>#{@@withdraw_username}</USERNAME><PASSWORD>#{@@withdraw_password}</PASSWORD></COMMAND>"
 			uri = URI.parse(url)
 			http = Net::HTTP.new(uri.host, uri.port)
 			http.read_timeout = 180
