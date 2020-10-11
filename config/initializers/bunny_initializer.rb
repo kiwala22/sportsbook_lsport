@@ -13,9 +13,12 @@ class BunnyQueueService
             password:  ENV['MTS_PASSWORD'],
             vhost:     ENV['MTS_VHOST'],
             automatically_recover: true,
-            connection_timeout: 2,
-            continuation_timeout: (ENV['BUNNY_CONTINUATION_TIMEOUT'] || 10_000).to_i,
-            logger: BunnyQueueService.logger
+            heartbeat: 5,
+            logger: 'log/bunny.log',
+            log_level: 'INFO',
+            tls: true,
+            verify_peer: false,
+            network_recovery_interval: 5.0
          )
          instance.start
          instance

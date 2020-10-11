@@ -14,7 +14,11 @@ class Mts::SubmitTicket
     
     #connect to the mqp and send ticket
     channel = BunnyQueueService.connection.create_channel
-    exchange = channel.fanout(EXCHANGE_NAME,:durable => true,:passive => true) 
+    exchange = channel.fanout(
+                        EXCHANGE_NAME,
+                        :durable => true,
+                        :passive => true
+              ) 
     #bind to the exchange then publish
     headers = { 'replyRoutingKey' => "#{ENV[:NODE_ID]}.ticket.confirm"}
     exchange.publish(payload(slip_id: betslip.id, ts: (bestlip.created_at.to_i * 1000), channel: channel, ip: ip, bets: bets_array, stake: betslip.stake, user_id: betslip.user_id ).to_json, routing_key: QUEUE_NAME, headers: headers)
