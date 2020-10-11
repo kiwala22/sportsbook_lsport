@@ -10,7 +10,8 @@ begin
                         :verify_peer_name => false,
                         :allow_self_signed => true,
                         :daemonize => true,
-                        ack: true
+                        :ack => true,
+                        :threads => 1
    
    Sneakers.logger = Rails.logger
    Sneakers.logger.level = Logger::INFO

@@ -29,7 +29,6 @@ class BetStopWorker
                 end
             end
             threads.each { |thr| thr.join }
-            sleep 1.5
             #find the fixture && refresh at once
             fixture = Fixture.find_by(event_id: event_id)
             if fixture
