@@ -6,7 +6,7 @@ class Mts::SubmitTicket
   EXCHANGE_NAME = 'skyline_skyline-Submit'.freeze
   
   
-  def publish(slip_id:, channel: "internet", ip: nil )
+  def publish(slip_id:, user_channel: "internet", ip: nil )
     # find the betslip and xtract the bets array
     betslip = BetSlip.find(slip_id)
     bets = betslip.bets
@@ -22,8 +22,10 @@ class Mts::SubmitTicket
                         :durable => true
               ) 
     #bind to the exchange then publish
-    headers = { 'replyRoutingKey' => "#{ENV['NODE_ID']}.ticket.confirm"}
-    exchange.publish(payload(slip_id: betslip.id, ts: (betslip.created_at.to_i * 1000), channel: channel, ip: ip, bets: bets_array, stake: betslip.stake, user_id: betslip.user_id ), routing_key: QUEUE_NAME, headers: headers)
+    headers = { 'replyRoutingKey' => "node#{ENV['NODE_ID']}.ticket.confirm"}
+    json_data = payload(slip_id: betslip.id, ts: (betslip.created_at.to_i * 1000), channel: user_channel, ip: ip, bets: bets_array, stake: betslip.stake, user_id: betslip.user_id )
+    Rails.logger.error(json_data)
+    exchange.publish(json_data, headers: headers)
   end
   
   private
@@ -56,7 +58,7 @@ class Mts::SubmitTicket
       "version" => "2.3"
     }
 
-    JSON.generate(data)
-  
+    json_data = JSON.generate(data)
+    return json_data
   end
 end
