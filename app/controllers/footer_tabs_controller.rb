@@ -7,4 +7,7 @@ class FooterTabsController < ApplicationController
 
   def contacts
   end
+
+  def terms
+  end
 end

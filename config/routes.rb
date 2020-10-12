@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   # get 'footer_tabs/rules'
   match '/rules', to: "footer_tabs#rules", via: [:get]
   match '/contacts', to: "footer_tabs#contacts", via: [:get]
+  match '/terms', to: "footer_tabs#terms", via: [:get]
    # Serve websocket cable requests in-process
    mount ActionCable.server => '/cable'
    
