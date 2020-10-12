@@ -34,8 +34,6 @@ class UofMessagesWorker
       
       #convert the xml to a hash
       data = Hash.from_xml(payload)
-      #log the received message
-      Rails.logger.info("#{routing_key} - #{data} ")
       #route the messages based on subject, sport and event ID
       case message
 
