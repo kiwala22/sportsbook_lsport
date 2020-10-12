@@ -1,14 +1,14 @@
 require 'sidekiq'
 
-class Soccer::BetStopWorker
+class BetStopWorker
     include Sidekiq::Worker
-    sidekiq_options queue: "critical"
-    sidekiq_options retry: false
+    sidekiq_options queue: "critical", retry: false,
+    unique_across_workers: true, lock: :until_expired, lock_timeout: 1, lock_args: ->(args) { [ args.last ] }
+    
 
-    def perform(payload)
+    def perform(message, sport=nil, event=nil)
         threads = []
         #convert the message from the xml to an easr ruby Hash using active support
-        message = Hash.from_xml(payload)
         event_id = message["bet_stop"]["event_id"]
         product =  message["bet_stop"]["product"]
         groups = message["bet_stop"]["groups"]
@@ -29,7 +29,6 @@ class Soccer::BetStopWorker
                 end
             end
             threads.each { |thr| thr.join }
-            sleep 1
             #find the fixture && refresh at once
             fixture = Fixture.find_by(event_id: event_id)
             if fixture

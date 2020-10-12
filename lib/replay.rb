@@ -49,7 +49,7 @@ module Replay
                end   
                fixture.update(update_attr)
             else
-               Soccer::CreateFixtureWorker.perform_async(event["fixtures_fixture"]["fixture"])
+               CreateFixtureWorker.perform_async(event["fixtures_fixture"]["fixture"])
             end
          end
          th.join
