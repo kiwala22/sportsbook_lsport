@@ -19,8 +19,7 @@ class Mts::SubmitTicket
     channel = BunnyQueueService.connection.create_channel
     exchange = channel.fanout(
                         EXCHANGE_NAME,
-                        :durable => true,
-                        :passive => true
+                        :durable => true
               ) 
     #bind to the exchange then publish
     headers = { 'replyRoutingKey' => "#{ENV['NODE_ID']}.ticket.confirm"}
