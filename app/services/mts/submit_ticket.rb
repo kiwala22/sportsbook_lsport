@@ -1,4 +1,7 @@
 class Mts::SubmitTicket
+  require 'json'
+  require 'json/ext'
+
   QUEUE_NAME = 'skyline_skyline-Submit-node202'.freeze
   EXCHANGE_NAME = 'skyline_skyline-Submit'.freeze
   
@@ -21,7 +24,7 @@ class Mts::SubmitTicket
               ) 
     #bind to the exchange then publish
     headers = { 'replyRoutingKey' => "#{ENV['NODE_ID']}.ticket.confirm"}
-    exchange.publish(payload(slip_id: betslip.id, ts: (betslip.created_at.to_i * 1000), channel: channel, ip: ip, bets: bets_array, stake: betslip.stake, user_id: betslip.user_id ).as_json, routing_key: QUEUE_NAME, headers: headers)
+    exchange.publish(payload(slip_id: betslip.id, ts: (betslip.created_at.to_i * 1000), channel: channel, ip: ip, bets: bets_array, stake: betslip.stake, user_id: betslip.user_id ), routing_key: QUEUE_NAME, headers: headers)
   end
   
   private
@@ -53,6 +56,8 @@ class Mts::SubmitTicket
       },
       "version" => "2.3"
     }
+
+    JSON.generate(data)
   
   end
 end
