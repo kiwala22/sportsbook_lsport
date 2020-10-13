@@ -2,8 +2,7 @@ require 'sidekiq'
 
 class OddsChangeWorker
     include Sidekiq::Worker
-    sidekiq_options queue: "critical", retry: false,
-    unique_across_workers: true, lock: :until_expired, lock_timeout: 1, lock_args: ->(args) { [ args.last ] }
+    sidekiq_options queue: "critical", retry: false
     
     
     
@@ -127,11 +126,7 @@ class OddsChangeWorker
                 mkt_entry.event_id = event_id
                 #mkt_entry.save
             end
-            if mkt_entry.save
-                #broadast this change
-                ActionCable.server.broadcast("#{producer_type[product].downcase}_odds_#{market["id"]}_#{fixture_id}", mkt_entry.as_json)
-                ActionCable.server.broadcast("betslips_odds_#{market["id"]}_#{fixture_id}", mkt_entry.as_json)
-            end
+            mkt_entry.save!
         end
         
         outcome_9 = outcome_10 = outcome_11 = 1.00
@@ -168,11 +163,7 @@ class OddsChangeWorker
                 mkt_entry.event_id = event_id
                 #mkt_entry.save
             end
-            if mkt_entry.save
-                #broadast this change
-                ActionCable.server.broadcast("#{producer_type[product].downcase}_odds_#{market["id"]}_#{fixture_id}", mkt_entry.as_json)
-                ActionCable.server.broadcast("betslips_odds_#{market["id"]}_#{fixture_id}", mkt_entry.as_json)
-            end
+            mkt_entry.save!
             
         end
         
@@ -207,11 +198,7 @@ class OddsChangeWorker
                 mkt_entry.event_id = event_id
                 #mkt_entry.save
             end
-            if mkt_entry.save
-                #broadast this change
-                ActionCable.server.broadcast("#{producer_type[product].downcase}_odds_#{market["id"]}_#{fixture_id}", mkt_entry.as_json)
-                ActionCable.server.broadcast("betslips_odds_#{market["id"]}_#{fixture_id}", mkt_entry.as_json)
-            end
+            mkt_entry.save!
             
         end
         
@@ -245,11 +232,7 @@ class OddsChangeWorker
                 mkt_entry.event_id = event_id
                 #mkt_entry.save
             end
-            if mkt_entry.save
-                #broadast this change
-                ActionCable.server.broadcast("#{producer_type[product].downcase}_odds_#{market["id"]}_#{fixture_id}", mkt_entry.as_json)
-                ActionCable.server.broadcast("betslips_odds_#{market["id"]}_#{fixture_id}", mkt_entry.as_json)
-            end
+            mkt_entry.save!
         end
         
         outcome_1714 = outcome_1715 = 1.00
@@ -283,11 +266,7 @@ class OddsChangeWorker
                 mkt_entry.event_id = event_id
                 #mkt_entry.save
             end  
-            if mkt_entry.save
-                #broadast this change
-                ActionCable.server.broadcast("#{producer_type[product].downcase}_odds_#{market["id"]}_#{fixture_id}", mkt_entry.as_json)
-                ActionCable.server.broadcast("betslips_odds_#{market["id"]}_#{fixture_id}", mkt_entry.as_json)
-            end
+            mkt_entry.save!
         end
     end
 end
