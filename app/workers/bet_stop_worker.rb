@@ -7,7 +7,7 @@ class BetStopWorker
 
     def perform(message, sport=nil, event=nil)
         #sleep 1 sec to allow other tasks complete
-        sleep 1
+        # sleep 1
         threads = []
         #convert the message from the xml to an easr ruby Hash using active support
         event_id = message["bet_stop"]["event_id"]
