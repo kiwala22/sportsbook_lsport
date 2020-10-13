@@ -25,7 +25,7 @@
                   </div>
                   <hr>
                   <div class="actions">
-                    <%= f.submit "Change my password", class: 'btn btn-block btn-primary mt-lg login-btn' %>
+                    <%= f.button "Change my password", class: 'btn btn-block btn-primary mt-lg login-btn', data: {disable_with: "<i class='fas fa-spinner fa-spin'></i> Submitting...".html_safe } %>
                   </div>
                 <% end %>
             </div>

@@ -18,7 +18,7 @@
                 </div>
 
                 <div class="actions">
-                  <%= f.submit( "Send me reset password instructions", class: 'btn btn-block btn-primary mt-lg login-btn') %>
+                  <%= f.button( "Send me reset password instructions", class: 'btn btn-block btn-primary mt-lg login-btn', data: {disable_with: "<i class='fas fa-spinner fa-spin'></i> Sending...".html_safe }) %>
                 </div>
               <% end %>
             </div>

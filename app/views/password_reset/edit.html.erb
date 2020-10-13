@@ -15,7 +15,7 @@
                 <%= text_field_tag :reset_code, params[:reset_code], class: "form-control", id: 'reset_code', required: true %>
               </div>
             <hr>
-            <%= submit_tag("Verify Code", class: 'btn btn-block btn-primary mt-lg login-btn') %>
+            <%= button_tag("Verify Code", class: 'btn btn-block btn-primary mt-lg login-btn', data: {disable_with: "<i class='fas fa-spinner fa-spin'></i> Verifying...".html_safe }) %>
             <% end %>
 
             </div>
