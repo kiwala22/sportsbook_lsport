@@ -11,7 +11,8 @@ begin
                         :allow_self_signed => true,
                         :daemonize => true,
                         :ack => true,
-                        :threads => 1
+                        :threads => 1, 
+                        :workers => 1
    
    Sneakers.logger = Rails.logger
    Sneakers.logger.level = Logger::INFO

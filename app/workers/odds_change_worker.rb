@@ -3,12 +3,11 @@ require 'sidekiq'
 class OddsChangeWorker
     include Sidekiq::Worker
     sidekiq_options queue: "critical", retry: false
-    # unique_across_workers: true, lock: :until_expired, lock_timeout: 1, lock_args: ->(args) { [ args.last ] }
     
     
     
     def perform(message, sport=nil, event=nil)
-        threads = []
+        
         soccer_markets = []
         
         soccer_status = {
@@ -22,11 +21,6 @@ class OddsChangeWorker
             "7" => "interrupted",
             "8" => "postponed",
             "9" => "abandoned"
-        }
-
-        producer_type = {
-            "1" => "Live",
-            "3" => "Pre"
         }
         
         #convert the message from the xml to an easr ruby Hash using active support
@@ -62,61 +56,18 @@ class OddsChangeWorker
         
         #find the fixture and update the fixture
         fixture = Fixture.find_by(event_id: event_id)
-        if fixture.present?
+        if fixture
             fixture.update(update_attr)
             #extract fixture information and update the fixtures with score and match status
             if message["odds_change"].has_key?("odds") && message["odds_change"]["odds"].present?
                 if message["odds_change"]["odds"].has_key?("market") && message["odds_change"]["odds"]["market"].present?
                     if message["odds_change"]["odds"]["market"].is_a?(Array)
                         message["odds_change"]["odds"]["market"].each do |market|
-                            if ["1","60", "10", "63", "18","68", "29", "75", "16", "66"].include?(market["id"])
-                                #process all markets in parallel
-                                threads << Thread.new do
-                                    #lock the rows and then process the markets
-                                    model_name = "Market" + market["id"] + producer_type[product]
-                                    model_name.constantize.transaction do
-                                        processed_attributes = process_market(fixture.id,market, product, event_id) 
-                                        mkt_entry = model_name.constantize.lock.find_by(event_id: event_id)
-                                        if mkt_entry.present?
-                                            mkt_entry.assign_attributes(processed_attributes.to_h)
-                                        else
-                                            mkt_entry = model_name.constantize.new(processed_attributes.to_h)
-                                            mkt_entry.fixture_id = fixture.id
-                                            mkt_entry.event_id = event_id
-                                        end
-                                        if mkt_entry.save
-                                            #broadast this change
-                                            ActionCable.server.broadcast("#{producer_type[product].downcase}_odds_#{market["id"]}_#{fixture.id}", mkt_entry.as_json)
-                                            ActionCable.server.broadcast("betslips_odds_#{market["id"]}_#{fixture.id}", mkt_entry.as_json)
-                                        end
-                                    end
-                                end
-                            end
+                            process_market(fixture.id, market, product, event_id)  
                         end
-                        threads.each { |thr| thr.join }
                     end
                     if message["odds_change"]["odds"]["market"].is_a?(Hash)
-                        market = message["odds_change"]["odds"]["market"]
-                        if ["1","60", "10", "63", "18","68", "29", "75", "16", "66"].include?(market["id"])
-                            #lock the rows and then process the market
-                            model_name = "Market" + market["id"] + producer_type[product]
-                            model_name.constantize.transaction do
-                                processed_attributes = process_market(fixture.id,market, product, event_id) 
-                                mkt_entry = model_name.constantize.lock.find_by(event_id: event_id)
-                                if mkt_entry.present?
-                                    mkt_entry.assign_attributes(processed_attributes)
-                                else
-                                    mkt_entry = model_name.constantize.new(processed_attributes)
-                                    mkt_entry.fixture_id = fixture_id
-                                    mkt_entry.event_id = event_id
-                                end
-                                if mkt_entry.save
-                                    #broadast this change
-                                    ActionCable.server.broadcast("#{producer_type[product].downcase}_odds_#{market["id"]}_#{fixture.id}", mkt_entry.as_json)
-                                    ActionCable.server.broadcast("betslips_odds_#{market["id"]}_#{fixture.id}", mkt_entry.as_json)
-                                end
-                            end
-                        end
+                        process_market(fixture.id,message["odds_change"]["odds"]["market"], product, event_id)  
                     end
                 end
             end
@@ -160,13 +111,26 @@ class OddsChangeWorker
                 end
             end
             #update or create markets 1X2 half time and fulltime
+            mkt_entry = model_name.constantize.find_by(event_id: event_id)
             update_attr = {
-                "outcome_1" =>   outcome_1,
-                "outcome_2" =>  outcome_2,
-                "outcome_3" =>  outcome_3,
-                "status" =>  market_status[market["status"]]
+                outcome_1:  outcome_1,
+                outcome_2: outcome_2,
+                outcome_3: outcome_3,
+                status: market_status[market["status"]]
             }
-            return update_attr
+            if mkt_entry.present?
+                mkt_entry.assign_attributes(update_attr)
+            else
+                mkt_entry = model_name.constantize.new(update_attr)
+                mkt_entry.fixture_id = fixture_id
+                mkt_entry.event_id = event_id
+                #mkt_entry.save
+            end
+            if mkt_entry.save
+                #broadast this change
+                ActionCable.server.broadcast("#{producer_type[product].downcase}_odds_#{market["id"]}_#{fixture_id}", mkt_entry.as_json)
+                ActionCable.server.broadcast("betslips_odds_#{market["id"]}_#{fixture_id}", mkt_entry.as_json)
+            end
         end
         
         outcome_9 = outcome_10 = outcome_11 = 1.00
@@ -188,13 +152,26 @@ class OddsChangeWorker
             end
             #update or create markets 1X2 half time and fulltime
             #update or create markets 1X2 half time and fulltime
+            mkt_entry = model_name.constantize.find_by(event_id: event_id)
             update_attr = {
-                "outcome_9" => outcome_9,
-                "outcome_10" => outcome_10,
-                "outcome_11" => outcome_11,
-                "status" => market_status[market["status"]]
+                outcome_9: outcome_9,
+                outcome_10: outcome_10,
+                outcome_11: outcome_11,
+                status: market_status[market["status"]]
             }
-            return update_attr
+            if mkt_entry.present?
+                mkt_entry.assign_attributes(update_attr)
+            else
+                mkt_entry = model_name.constantize.new(update_attr)
+                mkt_entry.fixture_id = fixture_id
+                mkt_entry.event_id = event_id
+                #mkt_entry.save
+            end
+            if mkt_entry.save
+                #broadast this change
+                ActionCable.server.broadcast("#{producer_type[product].downcase}_odds_#{market["id"]}_#{fixture_id}", mkt_entry.as_json)
+                ActionCable.server.broadcast("betslips_odds_#{market["id"]}_#{fixture_id}", mkt_entry.as_json)
+            end
             
         end
         
@@ -214,13 +191,26 @@ class OddsChangeWorker
                 end
             end
             #update or create markets 1X2 half time and fulltime
+            mkt_entry = model_name.constantize.find_by(event_id: event_id)
             update_attr = {
-                "outcome_12" =>  outcome_12,
-                "outcome_13" =>   outcome_13,
-                "total" => 2.5,
-                "status" => market_status[market["status"]]
+                outcome_12:  outcome_12,
+                outcome_13:   outcome_13,
+                total: 2.5,
+                status: market_status[market["status"]]
             }
-            return update_attr
+            if mkt_entry.present?
+                mkt_entry.assign_attributes(update_attr)
+            else
+                mkt_entry = model_name.constantize.new(update_attr)
+                mkt_entry.fixture_id = fixture_id
+                mkt_entry.event_id = event_id
+                #mkt_entry.save
+            end
+            if mkt_entry.save
+                #broadast this change
+                ActionCable.server.broadcast("#{producer_type[product].downcase}_odds_#{market["id"]}_#{fixture_id}", mkt_entry.as_json)
+                ActionCable.server.broadcast("betslips_odds_#{market["id"]}_#{fixture_id}", mkt_entry.as_json)
+            end
             
         end
         
@@ -240,12 +230,25 @@ class OddsChangeWorker
                 end
             end
             #update or create markets 1X2 half time and fulltime
+            mkt_entry = model_name.constantize.find_by(event_id: event_id)
             update_attr = {
-                "outcome_74" =>  outcome_74,
-                "outcome_76" => outcome_76,
-                "status" => market_status[market["status"]]
+                outcome_74:  outcome_74,
+                outcome_76: outcome_76,
+                status: market_status[market["status"]]
             }
-            return update_attr
+            if mkt_entry.present?
+                mkt_entry.assign_attributes(update_attr)
+            else
+                mkt_entry = model_name.constantize.new(update_attr)
+                mkt_entry.fixture_id = fixture_id
+                mkt_entry.event_id = event_id
+                #mkt_entry.save
+            end
+            if mkt_entry.save
+                #broadast this change
+                ActionCable.server.broadcast("#{producer_type[product].downcase}_odds_#{market["id"]}_#{fixture_id}", mkt_entry.as_json)
+                ActionCable.server.broadcast("betslips_odds_#{market["id"]}_#{fixture_id}", mkt_entry.as_json)
+            end
         end
         
         outcome_1714 = outcome_1715 = 1.00
@@ -264,13 +267,26 @@ class OddsChangeWorker
                 end
             end
             #update or create markets 1X2 half time and fulltime
+            mkt_entry = model_name.constantize.find_by(event_id: event_id)
             update_attr = {
-                "outcome_1714" =>  outcome_1714,
-                "outcome_1715" => outcome_1715,
-                "hcp" => 1,
-                "status" => market_status[market["status"]]
+                outcome_1714:  outcome_1714,
+                outcome_1715: outcome_1715,
+                hcp: 1,
+                status: market_status[market["status"]]
             }
-            return update_attr
+            if mkt_entry.present?
+                mkt_entry.assign_attributes(update_attr)
+            else
+                mkt_entry = model_name.constantize.new(update_attr)
+                mkt_entry.fixture_id = fixture_id
+                mkt_entry.event_id = event_id
+                #mkt_entry.save
+            end  
+            if mkt_entry.save
+                #broadast this change
+                ActionCable.server.broadcast("#{producer_type[product].downcase}_odds_#{market["id"]}_#{fixture_id}", mkt_entry.as_json)
+                ActionCable.server.broadcast("betslips_odds_#{market["id"]}_#{fixture_id}", mkt_entry.as_json)
+            end
         end
     end
 end
