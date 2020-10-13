@@ -12,7 +12,12 @@ class Mts::SubmitTicket
     bets = betslip.bets
     bets_array  = []
     bets.each do |bet|
-      bets_array << {"eventid" => bet.fixture.event_id , "id"=> "uof:#{bet.product}/#{bet.market_id}/#{bet.outcome_id}", "odds" => (bet.odds.to_i * 10000) }
+      if bet.market.specifier.present?
+        uof_id = "uof:#{bet.product}/sr:sport:1/#{bet.market_id}/#{bet.outcome_id}/#{bet.market.specifier}"
+      else
+        uof_id = "uof:#{bet.product}/sr:sport:1/#{bet.market_id}/#{bet.outcome_id}"
+      end
+      bets_array << {"eventid" => bet.fixture.event_id , "id"=> uof_id, "odds" => (bet.odds.to_i * 10000) }
     end
     
     #connect to the mqp and send ticket
@@ -39,10 +44,10 @@ class Mts::SubmitTicket
           "value" => (stake.to_i * 10000),
           "type" => "total"
         },
-        "id" => "#{slip_id}_0",
+        "id" => "TicketGenerator_#{Time.now.strftime("%Y%m%d%H%M%S")}_#{slip_id}_0",
         "selectedSystems" => [ bets.length ]
       } ],
-      "ticketId" => slip_id,
+      "ticketId" => "TicketGenerator_#{Time.now.strftime("%Y%m%d%H%M%S")}_#{slip_id}"
       "selections" => bets,
       "sender" => {
         "currency" => "UGX",
@@ -53,7 +58,7 @@ class Mts::SubmitTicket
           "languageId" => "EN",
           "id" => user_id
         },
-        "limitId" => 1409 
+        "limitId" => 2158 
       },
       "version" => "2.3"
     }
