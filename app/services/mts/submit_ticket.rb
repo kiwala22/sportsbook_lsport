@@ -13,7 +13,7 @@ class Mts::SubmitTicket
     bets_array  = []
     bets.each do |bet|
       if bet.market.specifier.present?
-        uof_id = "uof:#{bet.product}/sr:sport:1/#{bet.market_id}/#{bet.outcome_id}/#{bet.market.specifier}"
+        uof_id = "uof:#{bet.product}/sr:sport:1/#{bet.market_id}/#{bet.outcome_id}"#{bet.market.specifier}"
       else
         uof_id = "uof:#{bet.product}/sr:sport:1/#{bet.market_id}/#{bet.outcome_id}"
       end
