@@ -9,7 +9,8 @@ begin
                         :verify_peer => false,
                         :verify_peer_name => false,
                         :allow_self_signed => true,
-                        :workers => 2,
+                        :workers => 1,
+                        :threads => 1,
                         :daemonize => true
    
    Sneakers.logger = Rails.logger
