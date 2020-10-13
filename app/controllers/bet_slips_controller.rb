@@ -45,7 +45,7 @@ class BetSlipsController < ApplicationController
 					else
 						channel = "internet"
 					end
-					Mts::SubmitTicket.new.publish(slip_id: bet_slip.id, channel: channel, ip: request.remote_ip )
+					Mts::SubmitTicket.new.publish(slip_id: bet_slip.id, user_channel: channel, ip: request.remote_ip )
 					
 					#delete the session and also delete the cart
 					@cart.destroy if @cart.id == session[:cart_id]
