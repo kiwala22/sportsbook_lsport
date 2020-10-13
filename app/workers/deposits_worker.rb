@@ -14,9 +14,9 @@ class DepositsWorker
 
     ##create a deposit transaction
     resource_id = generate_resource_id()
-    @deposit = Deposit.create(transaction_id: @transaction.reference, resource_id: resource_id, amount: @transaction.amount,
+    @deposit = Deposit.create(transaction_id: transaction_id, resource_id: resource_id, amount: @transaction.amount,
        phone_number: @transaction.phone_number, status: "PENDING", currency: "UGX", payment_method: "Mobile Money", balance_before: balance_before,
-     user_id: @transaction.user_id)
+     user_id: @transaction.user_id, transaction_reference: @transaction.reference)
 
     if @transaction && @deposit
       ##Proceed with the Deposit APIs
@@ -43,7 +43,7 @@ class DepositsWorker
         #process Airtel transaction
         result = MobileMoney::AirtelUganda.request_payments(@transaction.phone_number, @transaction.amount, @transaction.reference)
         if result
-          if result['status'] == '200'
+          if result[:status] == '200'
             #balance_after = (balance_before + @transaction.amount)
             @deposit.update(network: "Airtel Uganda", status: "IN PROGRESS")
             #user.update(balance: balance_after)

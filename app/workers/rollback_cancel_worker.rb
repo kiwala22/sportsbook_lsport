@@ -1,16 +1,14 @@
 require 'sidekiq'
 
-class Soccer::RollbackCancelWorker
+class RollbackCancelWorker
     include Sidekiq::Worker
-    sidekiq_options queue: "default"
-    sidekiq_options retry: false
+    sidekiq_options queue: "default", retry: false,
+    unique_across_workers: true, lock: :until_expired, lock_timeout: 1, lock_args: ->(args) { [ args.last ] }
 
-    def perform(payload)
+    def perform(message, sport=nil, event=nil)
         #convert the message from the xml to an easr ruby Hash using active support
         start_time = nil
         end_time = nil
-        message = Hash.from_xml(payload)
-        
         event = message["rollback_bet_cancel"]["event_id"]
         
         if message["rollback_bet_cancel"].has_key?("end_time")

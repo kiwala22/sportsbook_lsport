@@ -1,4 +1,4 @@
-class Soccer::CreateFixtureWorker
+class CreateFixtureWorker
     include Sidekiq::Worker
     sidekiq_options queue: "high"
     sidekiq_options retry: false

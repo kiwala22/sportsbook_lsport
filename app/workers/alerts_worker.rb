@@ -7,15 +7,14 @@ class AlertsWorker
     include Recovery
     include Betradar
 
-    def perform(payload)
+    def perform(message)
 
         #set recovery status
         recovery_status = false
         #convert the message from the xml to an easr ruby Hash using active support
-        message_hash = Hash.from_xml(payload)
-        product = message_hash["alive"]["product"]
-        timestamp  = message_hash["alive"]["timestamp"]
-        subscribed  = message_hash["alive"]["subscribed"]
+        product = message["alive"]["product"]
+        timestamp  = message["alive"]["timestamp"]
+        subscribed  = message["alive"]["subscribed"]
 
         #check the market alert
         last_update = MarketAlert.where(:product => product, subscribed: "1").order("timestamp DESC").first

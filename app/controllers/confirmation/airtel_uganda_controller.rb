@@ -11,7 +11,7 @@ class Confirmation::AirtelUgandaController < ApplicationController
         request_body = Hash.from_xml(request.body.read)
         Rails.logger.debug(request_body)
         if request_body['COMMAND']['TYPE'] == "CALLBCKREQ"
-            deposit = Deposit.find_by(transaction_id: request_body['COMMAND']["EXTTRID"])
+            deposit = Deposit.find_by(transaction_reference: request_body['COMMAND']["EXTTRID"])
             if deposit
                 case request_body['COMMAND']["TXNSTATUS"]
                 when "200"

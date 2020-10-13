@@ -1,7 +1,6 @@
 class Withdraw < ApplicationRecord
 
   belongs_to :user
-
    #Commented code is just a temporary change as we get fix
    validates :amount, presence: true
    #validates :network, presence: true
@@ -14,6 +13,6 @@ class Withdraw < ApplicationRecord
    validates :phone_number, presence: true
    validates :phone_number, format: {with: /\A(256)\d{9}\z/}
    validates :transaction_id, uniqueness: true
-   validates :ext_transaction_id, uniqueness: true
+   #validates :ext_transaction_id, uniqueness: true
    validates :resource_id, uniqueness: true
 end
