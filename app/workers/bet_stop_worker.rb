@@ -2,11 +2,12 @@ require 'sidekiq'
 
 class BetStopWorker
     include Sidekiq::Worker
-    sidekiq_options queue: "critical", retry: false,
-    unique_across_workers: true, lock: :until_expired, lock_timeout: 1, lock_args: ->(args) { [ args.last ] }
+    sidekiq_options queue: "critical", retry: false
     
 
     def perform(message, sport=nil, event=nil)
+        #sleep 1 sec to allow other tasks complete
+        sleep 1
         threads = []
         #convert the message from the xml to an easr ruby Hash using active support
         event_id = message["bet_stop"]["event_id"]
@@ -29,7 +30,6 @@ class BetStopWorker
                 end
             end
             threads.each { |thr| thr.join }
-            sleep 1.5
             #find the fixture && refresh at once
             fixture = Fixture.find_by(event_id: event_id)
             if fixture

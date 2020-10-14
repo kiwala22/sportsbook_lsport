@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  # get 'footer_tabs/faqs'
+  match '/faqs', to: "footer_tabs#faqs", via: [:get]
+  # get 'footer_tabs/rules'
+  match '/rules', to: "footer_tabs#rules", via: [:get]
+  match '/contacts', to: "footer_tabs#contacts", via: [:get]
+  match '/terms', to: "footer_tabs#terms", via: [:get]
    # Serve websocket cable requests in-process
    mount ActionCable.server => '/cable'
    
@@ -22,6 +28,7 @@ Rails.application.routes.draw do
    match 'password_update' => "password_reset#update", via: [:put]
    
    namespace :fixtures do
+      match 'search' => 'search#index', via: [:get]
       namespace :soccer do
          match 'pres' => 'pre_match#index', via: [:get]
          match 'pre' => 'pre_match#show', via: [:get]

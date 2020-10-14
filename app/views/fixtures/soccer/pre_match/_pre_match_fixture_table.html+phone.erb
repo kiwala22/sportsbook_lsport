@@ -7,7 +7,7 @@
           </a>
         </td>
         <td>
-          <a href=<%=fixtures_soccer_pre_path(id: fixture.id) %>>
+          <a id=<%= "show_#{fixture.id}" %> href=<%=fixtures_soccer_pre_path(id: fixture.id) %>>
             <strong><%= fixture.comp_one_name %></strong>
             -
             <strong><%= fixture.comp_two_name %></strong>

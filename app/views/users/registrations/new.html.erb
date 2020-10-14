@@ -1,3 +1,4 @@
+<% provide(:title, "Sign Up") %>
 <div class="registration" >
   <div class="content-center cl-grey">
     <div class="row justify-content-center">
@@ -51,6 +52,16 @@
                  <i  class="fa fa-eye mobile-show"data-target="toggle.show" data-action="click->toggle#password" aria-hidden="true" ></i>
 
               <span class="error_desc"><%= resource.errors[:password_confirmation].first if resource.errors[:password_confirmation].present? %> </span>
+            </div>
+            
+            <div class="form-group">
+                <div class="row">
+                  <span class="col-10"><%= f.label :agreement, "I am over 18 years of age and I accept BetCity’s <a href='/' class='terms'>Terms And Conditions</a> and <a href='/' class='terms'>Privacy Policy</a>".html_safe, id: "label_remember_me" %></span>
+                  <span class="col-2"><%= f.check_box :agreement, id: "agreement" %></span>
+                </div>
+                <div class="error_msg">
+                  <span class="error_desc"><%= "Checkbox must be ticked" if resource.errors[:agreement].present? %> </span>
+                </div>
             </div>
 
             <div class="actions">

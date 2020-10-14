@@ -78,18 +78,19 @@
    <!-- shortcuts  -->
    <div class="collapse navbar-collapse" id="navbarSideShortcuts">
 
-         <div class="col-12" data-controller="search">
-            <%= form_with(method: :get, class:"form-inline mr-auto") do |f| %>
-               <%= text_field_tag(:search, params[:search], data:{action:"keyup->search#searchFixture"}, class: "form-control", placeholder:"Search for...",id:"search") %>
-                <i class="fa fa-search fa-lg" id="glass"></i>
-             <% end %>
+         <div class="col-12" >
+              <%= form_tag(fixtures_search_path, method: :get, class: "form-inline mr-auto") do |f| %>
+                      <%= text_field_tag(:search, params[:search], placeholder:"Search for...",class: "form-control", id:"search" ) %>
+                      <i class="fa fa-search fa-lg" id="glass"></i>
+              <% end %>
         </div>
    <br>
       <div class="row">
          <div class="col-12">
             <ul id="mobile-shortcuts" class="d-flex justify-content-between">
                <li class="col-3">
-                  <a class="dropdown-toggle" data-toggle="dropdown" href="#menuSports" role="collapse" aria-haspopup="true" aria-expanded="false" aria-controls="menuSports">Sports</a>
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#menuSports" role="collapse" aria-haspopup="true" aria-expanded="false" aria-controls="menuSports">
+                  Sports</a>
                </li>
                <li class="col-3">
                   <a class="dropdown-toggle" data-toggle="dropdown" href="#menuLeagues" role="collapse" aria-haspopup="true" aria-expanded="false" aria-controls="menuLeagues">
@@ -97,7 +98,8 @@
                   </a>
                </li>
                <li class="col-3">
-                  <a class="dropdown-toggle" data-toggle="dropdown" href="#menuCountry" role="collapse" aria-haspopup="true" aria-expanded="false" aria-controls="menuCountry">Countries </a>
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#menuCountry" role="collapse" aria-haspopup="true" aria-expanded="false" aria-controls="menuCountry">
+                  Countries </a>
                </li>
             </ul>
          </div>

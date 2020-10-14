@@ -477,7 +477,7 @@ strong {
 }
 
 .error_desc {
-    color: #ec2121;
+    color: orange;
 }
 
 @media (max-width: 991.98px) {
@@ -592,4 +592,47 @@ a:visited {
 
 .match-feat {
    white-space: nowrap;
+}
+
+.event{
+    white-space: nowrap;
+    padding: 15px;
+    text-align: center;   
+}
+
+.heads{
+    padding:25px;
+}
+
+.paragraph{
+    padding:12px;
+    line-height: 2.3;
+}
+
+.lists{
+    padding-left: 40px;
+    line-height: 3.0;
+    
+}
+
+.codes{
+    font-size: 15px;
+    color: #fd6a02;
+}
+
+.limits {
+    color: orange !important;
+}
+
+.terms {
+    color: orange !important;
+    font-size: 14px;
+}
+
+.terms:hover {
+    text-decoration: underline;
+}
+
+.error_msg {
+    padding-left: 9px;
 }

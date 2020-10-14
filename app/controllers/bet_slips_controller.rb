@@ -9,11 +9,26 @@ class BetSlipsController < ApplicationController
 	def create
 		cart_id = bet_slips_params[:cart_id]
 		@cart = Cart.find(cart_id)
+<<<<<<< HEAD
 		
 		#check if the stake is present and contains only digits
 		if bet_slips_params[:stake].present? && bet_slips_params[:stake].scan(/\D/).empty?
 			stake = bet_slips_params[:stake].to_f
 			
+=======
+
+		stake = bet_slips_params[:stake].to_f
+
+		#First check if stake is with in the limits
+		if stake > 1000000 || stake < 1000
+			flash[:alert] = "Stake should be between 1,000 and 1,000,000. Change amount and try again."
+			redirect_back(fallback_location: root_path) && return
+		end
+		#check if the stake is present and contains only digits
+		if bet_slips_params[:stake].present? && bet_slips_params[:stake].scan(/\D/).empty?
+			#stake = bet_slips_params[:stake].to_f
+
+>>>>>>> master
 			#check if there is sufficient balance
 			if stake <= current_user.balance
 				#MTS takes precedence

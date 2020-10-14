@@ -1,5 +1,8 @@
+import * as echarts from 'echarts';
 $(document).ready(function() {
-  var myChart = echarts.init(document.getElementById('bets_graph'), 'walden');
+  try {
+   var myChart = echarts.init(document.getElementById('bets_graph'), 'walden');
+  }catch(e){}
   var itemStyle = {
       normal: {
       },
@@ -53,14 +56,18 @@ $(document).ready(function() {
   };
 
   // use configuration item and data specified to show chart
-  myChart.setOption(option);
+  try {
+      myChart.setOption(option);
+  }catch(e){}
 });
 
 $(document).ready(function(){
-   var myChart = echarts.init(document.getElementById('stake_bets_graph'), 'walden');
+   try {
+      var myChart = echarts.init(document.getElementById('stake_bets_graph'), 'walden');
+   }catch(e){}
    var yMax = 500;
    var dataShadow = [];
-   option = {
+   var option = {
      title: {
         text: 'Bets Analytics',
         subtext: 'Distribution of Bets'
@@ -117,5 +124,7 @@ $(document).ready(function(){
      ]
   };
    // use configuration item and data specified to show chart
-   myChart.setOption(option);
+   try {
+      myChart.setOption(option);
+   }catch(e){}
 });

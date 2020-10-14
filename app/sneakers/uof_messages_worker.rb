@@ -34,7 +34,6 @@ class UofMessagesWorker
       
       #convert the xml to a hash
       data = Hash.from_xml(payload)
-      
       #route the messages based on subject, sport and event ID
       case message
 

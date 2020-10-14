@@ -48,7 +48,7 @@ class BetslipsWorker
                   end
                   
                else
-                  #consider only the wins and ignore the voids and marke the ticket
+                  #consider only the wins and ignore the voids and market the ticket
                   user = User.find(slip.user_id)
                   no_void_bet_results = slip.bets.where(result: "Win")
                   if no_void_bet_results.present?

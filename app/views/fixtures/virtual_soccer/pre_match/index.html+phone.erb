@@ -1,3 +1,4 @@
+<% provide(:title, "Pre Match Virtual Soccer") %>
 <div class="game-box">
     <div class="card">
         <div class="card-header upcoming">
@@ -10,6 +11,7 @@
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab" data-controller="#match-fixtures">
                     <table class="table table-borderless ">
+                        <% if @fixtures.present? %>
                         <thead>
                         <tr>
                             <th class="col-2">Date</th>
@@ -23,6 +25,11 @@
                         <tbody id="fixture-table-body" data-target="match-fixtures.fixtures" data-controller="refresh" data-refresh-interval="60000" data-refresh-url="<% virtual_page_refresh_path %>" data-refresh-method="GET">
                             <%= render partial: 'pre_match_fixture_table', locals: {fixtures: @fixtures} %>
                         </tbody>
+                        <%else%>
+                                <td>
+                                    <h6 class="event">No virtual Events Found</h6 class="event">
+                                </td>
+                        <%end%>
                     </table>
                     <div id="bottom">
                         <div class="d-flex justify-content-center">

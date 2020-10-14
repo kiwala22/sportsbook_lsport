@@ -34,6 +34,9 @@
               </div>
            </div>
          </div>
+         <div class="">
+            <span id="amount-limits" class="limits"></span>
+         </div>
          <div class="row">
            <div class="col-12">
              <div class="phone-betslip">
@@ -53,6 +56,9 @@
          <div class="total-bet">
            <span class="col-8" data-action="keyup->slips#calculate_win" data-target="slips.stake" > <%= text_field_tag :stake, nil, placeholder: " Stake Amount" ,id: "stake-input" %> </span>
             <span class="col-4" id="total-odds" data-target="slips.total"></span>
+         </div>
+         <div class="">
+            <span id="amount-limits" class="limits"></span>
          </div>
          <div class="total-wins">
             <span>Payout</span>
