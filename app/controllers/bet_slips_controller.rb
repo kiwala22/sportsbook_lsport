@@ -9,13 +9,6 @@ class BetSlipsController < ApplicationController
 	def create
 		cart_id = bet_slips_params[:cart_id]
 		@cart = Cart.find(cart_id)
-<<<<<<< HEAD
-		
-		#check if the stake is present and contains only digits
-		if bet_slips_params[:stake].present? && bet_slips_params[:stake].scan(/\D/).empty?
-			stake = bet_slips_params[:stake].to_f
-			
-=======
 
 		stake = bet_slips_params[:stake].to_f
 
@@ -26,9 +19,8 @@ class BetSlipsController < ApplicationController
 		end
 		#check if the stake is present and contains only digits
 		if bet_slips_params[:stake].present? && bet_slips_params[:stake].scan(/\D/).empty?
-			#stake = bet_slips_params[:stake].to_f
+			stake = bet_slips_params[:stake].to_f
 
->>>>>>> master
 			#check if there is sufficient balance
 			if stake <= current_user.balance
 				#MTS takes precedence
