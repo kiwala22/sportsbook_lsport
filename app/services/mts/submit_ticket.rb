@@ -15,7 +15,7 @@ class Mts::SubmitTicket
       
       uof_id = "uof:#{bet.product}/sr:sport:1/#{bet.market_id}/#{bet.outcome_id}"
       
-      bets_array << {"eventid" => bet.fixture.event_id , "id"=> uof_id, "odds" => (bet.odds.to_i * 10000) }
+      bets_array << {"eventId" => bet.fixture.event_id , "id"=> uof_id, "odds" => (bet.odds.to_i * 10000) }
     end
     
     #connect to the mqp and send ticket
