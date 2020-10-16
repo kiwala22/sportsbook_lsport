@@ -5,17 +5,18 @@ class Amqp::V1::Mts::ReplyController < ApplicationController
    require 'cgi'
 
    def create
-      payload = reply_params[:payload]
-      message = Hash.from_xml(payload)
-      routing_key = reply_params[:routing_key]
-
+      payload = confirm_params[:payload]
+      routing_key = confirm_params[:routing_key]
+      message = JSON.parse(payload)
       #logs the received information
       Rails.logger.error("#{routing_key} - #{message}")
+      TicketReplyWorker(message, routing_key)
       render status: 200, json: {response: "OK"}
    end
+
    private
 
-   def reply_params
+   def confirm_params
       params.permit(:payload, :routing_key)
    end
    

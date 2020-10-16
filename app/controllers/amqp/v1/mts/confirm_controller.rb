@@ -6,11 +6,11 @@ class Amqp::V1::Mts::ConfirmController < ApplicationController
 
    def create
       payload = confirm_params[:payload]
-      message = Hash.from_xml(payload)
       routing_key = confirm_params[:routing_key]
-
+      message = JSON.parse(payload)
       #logs the received information
       Rails.logger.error("#{routing_key} - #{message}")
+      TicketConfirmationWorker(message, routing_key)
       render status: 200, json: {response: "OK"}
    end
 
