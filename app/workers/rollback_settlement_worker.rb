@@ -58,7 +58,7 @@ class RollbackSettlementWorker
     
     def rollback_settled_bets(fixture_id, product, market_id)
         #call worker to settle these bets
-        Soccer::RollbackSettledBetsWorker.perform_async(fixture_id, product, market_id)
+        RollbackSettledBetsWorker.perform_async(fixture_id, product, market_id)
     end
     
     
