@@ -118,7 +118,7 @@ class OddsChangeWorker
                 outcome_3: outcome_3,
                 status: market_status[market["status"]]
             }
-            if mkt_entry.present?
+            if mkt_entry
                 mkt_entry.assign_attributes(update_attr)
             else
                 mkt_entry = model_name.constantize.new(update_attr)
@@ -159,7 +159,7 @@ class OddsChangeWorker
                 outcome_11: outcome_11,
                 status: market_status[market["status"]]
             }
-            if mkt_entry.present?
+            if mkt_entry
                 mkt_entry.assign_attributes(update_attr)
             else
                 mkt_entry = model_name.constantize.new(update_attr)
@@ -198,7 +198,7 @@ class OddsChangeWorker
                 total: 2.5,
                 status: market_status[market["status"]]
             }
-            if mkt_entry.present?
+            if mkt_entry
                 mkt_entry.assign_attributes(update_attr)
             else
                 mkt_entry = model_name.constantize.new(update_attr)
@@ -236,7 +236,7 @@ class OddsChangeWorker
                 outcome_76: outcome_76,
                 status: market_status[market["status"]]
             }
-            if mkt_entry.present?
+            if mkt_entry
                 mkt_entry.assign_attributes(update_attr)
             else
                 mkt_entry = model_name.constantize.new(update_attr)
@@ -274,7 +274,7 @@ class OddsChangeWorker
                 hcp: 1,
                 status: market_status[market["status"]]
             }
-            if mkt_entry.present?
+            if mkt_entry
                 mkt_entry.assign_attributes(update_attr)
             else
                 mkt_entry = model_name.constantize.new(update_attr)
