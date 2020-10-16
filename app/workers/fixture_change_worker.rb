@@ -49,7 +49,7 @@ class FixtureChangeWorker
 
         #find the fixture in the database
         fixture = Fixture.find_by(event_id: event_id)
-        if fixture
+        if fixture.present?
             fixture.update(update_attr)
         else
             fixture = Fixture.new(update_attr)
