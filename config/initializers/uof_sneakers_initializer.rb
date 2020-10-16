@@ -1,7 +1,7 @@
 require "sneakers"
 begin
    Sneakers.configure   :heartbeat => 5,
-                        :amqp => 'amqp://s5X0wAgEmHCxDqrPnI@replaymq.betradar.com:5671',
+                        :amqp => 'amqp://s5X0wAgEmHCxDqrPnI@stgmq.betradar.com:5671',
                         :vhost => '/unifiedfeed/30819',
                         :log  => 'log/sneakers.log',     # Log file
                         :pid_path => 'tmp/pids/sneakers.pid', # Pid file
@@ -11,7 +11,8 @@ begin
                         :allow_self_signed => true,
                         :daemonize => true,
                         :ack => true,
-                        :threads => 1
+                        :threads => 1, 
+                        :workers => 1
    
    Sneakers.logger = Rails.logger
    Sneakers.logger.level = Logger::INFO

@@ -2,8 +2,7 @@ require 'sidekiq'
 
 class RollbackSettlementWorker
     include Sidekiq::Worker
-    sidekiq_options queue: "default", retry: false,
-    unique_across_workers: true, lock: :until_expired, lock_timeout: 1, lock_args: ->(args) { [ args.last ] }
+    sidekiq_options queue: "default", retry: false
     
     def perform(message, sport=nil, event=nil)
         #convert the message from the xml to an easr ruby Hash using active support
@@ -59,7 +58,7 @@ class RollbackSettlementWorker
     
     def rollback_settled_bets(fixture_id, product, market_id)
         #call worker to settle these bets
-        Soccer::RollbackSettledBetsWorker.perform_async(fixture_id, product, market_id)
+        RollbackSettledBetsWorker.perform_async(fixture_id, product, market_id)
     end
     
     

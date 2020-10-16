@@ -56,8 +56,8 @@ RSpec.describe "Amqp::V1::Sports::Soccers", type: :system, js: true do
                 response = http.request(request)
                 puts response.body
                 puts response.code
-                Soccer::OddsChangeWorker.perform_async(payload)
-            }.to change(Soccer::OddsChangeWorker.jobs, :size).by(1)
+                OddsChangeWorker.perform_async(payload)
+            }.to change(OddsChangeWorker.jobs, :size).by(1)
             sleep(5)
             ActionCable.server.broadcast('pre_odds', record: fixture.market1_pre)
             ActionCable.server.broadcast('betslips', record: fixture.market1_pre)
@@ -116,8 +116,8 @@ RSpec.describe "Amqp::V1::Sports::Soccers", type: :system, js: true do
                 response = http.request(request)
                 puts response.body
                 puts response.code
-                Soccer::BetSettlementWorker.perform_async(payload)
-            }.to change(Soccer::BetSettlementWorker.jobs, :size).by(1)
+                BetSettlementWorker.perform_async(payload)
+            }.to change(BetSettlementWorker.jobs, :size).by(1)
             sleep(2)
        
         end
@@ -167,8 +167,8 @@ RSpec.describe "Amqp::V1::Sports::Soccers", type: :system, js: true do
                 response = http.request(request)
                 puts response.body
                 puts response.code
-                Soccer::BetCancelWorker.perform_async(payload)
-            }.to change(Soccer::BetCancelWorker.jobs, :size).by(1)
+                BetCancelWorker.perform_async(payload)
+            }.to change(BetCancelWorker.jobs, :size).by(1)
             sleep(2)
 
         end
@@ -216,8 +216,8 @@ RSpec.describe "Amqp::V1::Sports::Soccers", type: :system, js: true do
                 response = http.request(request)
                 puts response.body
                 puts response.code
-                Soccer::BetStopWorker.perform_async(payload)
-            }.to change(Soccer::BetStopWorker.jobs, :size).by(1)
+                BetStopWorker.perform_async(payload)
+            }.to change(BetStopWorker.jobs, :size).by(1)
             sleep(2)
         end
 
@@ -263,8 +263,8 @@ RSpec.describe "Amqp::V1::Sports::Soccers", type: :system, js: true do
                 response = http.request(request)
                 puts response.body
                 puts response.code
-                Soccer::BetSettlementWorker.perform_async(payload_1)
-            }.to change(Soccer::BetSettlementWorker.jobs, :size).by(1)
+                BetSettlementWorker.perform_async(payload_1)
+            }.to change(BetSettlementWorker.jobs, :size).by(1)
 	        
 	        url = "http://localhost:3000/amqp/v1/sports/soccer"
 	        payload = "<?xml version='1.0' encoding='UTF-8' standalone='yes'?><rollback_bet_settlement event_id='#{fixture.event_id}' timestamp='#{fixture.scheduled_time.to_i}' product='1'><market id='47'/></rollback_bet_settlement>"
@@ -280,8 +280,8 @@ RSpec.describe "Amqp::V1::Sports::Soccers", type: :system, js: true do
                 response = http.request(request)
                  puts response.body
                  puts response.code
-                Soccer::RollbackSettlementWorker.perform_async(payload)
-            }.to change(Soccer::RollbackSettlementWorker.jobs, :size).by(1)
+                RollbackSettlementWorker.perform_async(payload)
+            }.to change(RollbackSettlementWorker.jobs, :size).by(1)
             sleep(2)
         end
 
@@ -325,8 +325,8 @@ RSpec.describe "Amqp::V1::Sports::Soccers", type: :system, js: true do
                 response = http.request(request)
                 puts response.body
                 puts response.code
-                Soccer::BetCancelWorker.perform_async(payload_1)
-            }.to change(Soccer::BetCancelWorker.jobs, :size).by(1)
+                BetCancelWorker.perform_async(payload_1)
+            }.to change(BetCancelWorker.jobs, :size).by(1)
             sleep(2)  
 	 
 	        url = "http://localhost:3000/amqp/v1/sports/soccer"
@@ -343,8 +343,8 @@ RSpec.describe "Amqp::V1::Sports::Soccers", type: :system, js: true do
                 response = http.request(request)
                 puts response.body
                 puts response.code
-                Soccer::RollbackCancelWorker.perform_async(payload)
-            }.to change(Soccer::RollbackCancelWorker.jobs, :size).by(1)
+                RollbackCancelWorker.perform_async(payload)
+            }.to change(RollbackCancelWorker.jobs, :size).by(1)
             sleep(2)
         end
 
