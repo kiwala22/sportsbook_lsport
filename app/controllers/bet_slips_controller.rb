@@ -38,7 +38,7 @@ class BetSlipsController < ApplicationController
 					market_id = bet.market.scan(/\d/).join('').to_i #extract only the numbers in the market number
 					if fetch_market_status(bet.market, bet.fixture_id) == "Active"
 						odd = fetch_current_odd(bet.market, bet.fixture_id, "outcome_#{bet.outcome}").to_f
-						bets_arr << current_user.bets.build(bet_slip_id: bet_slip.id,fixture_id: bet.fixture_id,outcome_id: bet.outcome,market_id: market_id , odds: odd, status: "Pending", product: product, outcome_desc: bet.description )
+						bets_arr << {user_id: current_user.id ,bet_slip_id: bet_slip.id,fixture_id: bet.fixture_id,outcome_id: bet.outcome,market_id: market_id , odds: odd, status: "Pending", product: product, outcome_desc: bet.description }
 					end
 				end
 				user_bets = Bet.new(bets_arr)
