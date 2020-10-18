@@ -29,27 +29,29 @@ class BetSlipsController < ApplicationController
 				
 				#declare empty array of bets
 				bets_arr = []
-							
+				
+				#create an empty betslip
+				bet_slip = current_user.bet_slips.create!
+				#create an array of bets
+				@cart.line_bets.each do |bet|
+					product = bet.market.include?("Pre") ? "3" : "1"
+					market_id = bet.market.scan(/\d/).join('').to_i #extract only the numbers in the market number
+					if fetch_market_status(bet.market, bet.fixture_id) == "Active"
+						odd = fetch_current_odd(bet.market, bet.fixture_id, "outcome_#{bet.outcome}").to_f
+						bets_arr << {user_id: current_user.id ,bet_slip_id: bet_slip.id,fixture_id: bet.fixture_id,outcome_id: bet.outcome,market_id: market_id , odds: odd, status: "Pending", product: product, outcome_desc: bet.description }
+					end
+				end
+				
 				#initiate the betslip
 				odds_arr = bets_arr.map{|x| x[:price].to_f}
 				total_odds = odds_arr.inject(:*).round(2)
 				potential_win_amount = (stake.to_f * total_odds )
-				bet_slip = BetSlip.new(user_id: current_user.id ,bet_count: bets_arr.count, stake: stake, odds: total_odds, status: "Pending", potential_win_amount: potential_win_amount)
 				
 				BetSlip.transaction do
 					current_user.save!
 					transaction.save!
-					bet_slip.save!
-					#create an array of bets
-					@cart.line_bets.each do |bet|
-						product = bet.market.include?("Pre") ? "3" : "1"
-						market_id = bet.market.scan(/\d/).join('').to_i #extract only the numbers in the market number
-						if fetch_market_status(bet.market, bet.fixture_id) == "Active"
-							odd = fetch_current_odd(bet.market, bet.fixture_id, "outcome_#{bet.outcome}").to_f
-							bets_arr << {user_id: current_user.id ,bet_slip_id: bet_slip.id,fixture_id: bet.fixture_id,outcome_id: bet.outcome,market_id: market_id , odds: odd, status: "Pending", product: product, outcome_desc: bet.description }
-						end
-					end
 					Bet.create!(bets_arr)
+					bet_slip.update!(bet_count: bets_arr.count, stake: stake, odds: total_odds, status: "Pending", potential_win_amount: potential_win_amount)
 				end					
 				#process the betslips through MTS
 				if browser.device.mobile?
