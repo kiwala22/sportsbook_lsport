@@ -19,7 +19,7 @@ class MarketAlert < ApplicationRecord
          last_alert = MarketAlert.last
          if last_alert && (((Time.now.to_i * 1000) - last_alert[:timestamp].to_i) > 15000)
             #if the last update irrespective if product is more than 60 seconds ago, then manual restart
-            system('cd /var/www/html/sportsbook/current/ && RAILS_ENV=production bundle exec rake WORKERS=UofMessagesWorker sneakers:run')
+            system('kill -9 `cat /var/www/html/sportsbook/current/tmp/pids/sneakers.pid` && cd /var/www/html/sportsbook/current/ && RAILS_ENV=production bundle exec rake WORKERS=UofMessagesWorker sneakers:run')
          end
          
          sleep 10
