@@ -9,9 +9,9 @@ class BetSlipsController < ApplicationController
 	def create
 		cart_id = bet_slips_params[:cart_id]
 		@cart = Cart.find(cart_id)
-
+		
 		stake = bet_slips_params[:stake].to_f
-
+		
 		#First check if stake is with in the limits
 		if stake > 1000000 || stake < 1000
 			flash[:alert] = "Stake should be between 1,000 and 1,000,000. Change amount and try again."
@@ -20,44 +20,53 @@ class BetSlipsController < ApplicationController
 		#check if the stake is present and contains only digits
 		if bet_slips_params[:stake].present? && bet_slips_params[:stake].scan(/\D/).empty?
 			stake = bet_slips_params[:stake].to_f
-
+			
 			#check if there is sufficient balance
 			if stake <= current_user.balance
-				#MTS takes precedence
-				#start betslip creation process all under a transaction
-				#create the betslip
+				previous_balance = current_user.balance
+				balance_after = current_user.balance = (current_user.balance - stake)
+				transaction = current_user.transactions.build(balance_before: previous_balance, balance_after: balance_after, phone_number: current_user.phone_number, status: "SUCCESS", currency: "UGX", amount: stake, category: "Withdraw" )
+				
+				#declare empty array of bets
+				bets_arr = []
+				
+				#create an empty betslip
+				bet_slip = current_user.bet_slips.create!
+				#create an array of bets
+				@cart.line_bets.each do |bet|
+					product = bet.market.include?("Pre") ? "3" : "1"
+					market_id = bet.market.scan(/\d/).join('').to_i #extract only the numbers in the market number
+					if fetch_market_status(bet.market, bet.fixture_id) == "Active"
+						odd = fetch_current_odd(bet.market, bet.fixture_id, "outcome_#{bet.outcome}").to_f
+						bets_arr << current_user.bets.build(bet_slip_id: bet_slip.id,fixture_id: bet.fixture_id,outcome_id: bet.outcome,market_id: market_id , odds: odd, status: "Pending", product: product, outcome_desc: bet.description )
+					end
+				end
+				user_bets = Bet.new(bets_arr)
+				
+				#initiate the betslip
+				odds_arr = bets_arr.map{|x| x[:price].to_f}
+				total_odds = odds_arr.inject(:*).round(2)
+				potential_win_amount = (stake.to_f * total_odds )
+				bet_slip = BetSlip.new(bet_count: bets_arr.count, stake: stake, odds: total_odds, status: "Pending", potential_win_amount: potential_win_amount)
 				
 				BetSlip.transaction do
-					
-					bet_slip = current_user.bet_slips.create!
-					@cart.line_bets.each do |bet|
-						product = bet.market.include?("Pre") ? "3" : "1"
-						market_id = bet.market.scan(/\d/).join('').to_i #extract only the numbers in the market number
-						if fetch_market_status(bet.market, bet.fixture_id) == "Active"
-							odd = fetch_current_odd(bet.market, bet.fixture_id, "outcome_#{bet.outcome}").to_f
-							user_bet = current_user.bets.build(bet_slip_id: bet_slip.id,fixture_id: bet.fixture_id,outcome_id: bet.outcome,market_id: market_id , odds: odd, status: "Pending", product: product, outcome_desc: bet.description )
-							user_bet.save!
-						end
-					end
-					
-					#create the betslip
-					@bets = bet_slip.bets
-					total_odds = @bets.pluck(:odds).map(&:to_f).inject(:*).round(2)
-					potential_win_amount = (stake.to_f * total_odds )
-					bet_slip.update!(bet_count: @bets.count, stake: stake, odds: total_odds, status: "Pending", potential_win_amount: potential_win_amount)
-					
-					#process the betslips through MTS
-					if browser.device.mobile?
-						channel = "mobile"
-					else
-						channel = "internet"
-					end
-					Mts::SubmitTicket.new.publish(slip_id: bet_slip.id, user_channel: channel, ip: request.remote_ip )
-					
-					#delete the session and also delete the cart
-					@cart.destroy if @cart.id == session[:cart_id]
-					session[:cart_id] = nil
+					current_user.save!
+					transaction.save!
+					user_bets.save!
+					bet_slip.save!
+				end					
+				#process the betslips through MTS
+				if browser.device.mobile?
+					channel = "mobile"
+				else
+					channel = "internet"
 				end
+				Mts::SubmitTicket.new.publish(slip_id: bet_slip.id, user_channel: channel, ip: request.remote_ip )
+				
+				#delete the session and also delete the cart
+				@cart.destroy if @cart.id == session[:cart_id]
+				session[:cart_id] = nil
+				
 				#redirect to home page with a notification
 				redirect_to root_path, notice: "Thank You! Bets are being processed. "
 			else
