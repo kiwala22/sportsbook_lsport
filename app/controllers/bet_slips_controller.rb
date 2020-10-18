@@ -29,17 +29,7 @@ class BetSlipsController < ApplicationController
 				
 				#declare empty array of bets
 				bets_arr = []
-				
-				#create an array of bets
-				@cart.line_bets.each do |bet|
-					product = bet.market.include?("Pre") ? "3" : "1"
-					market_id = bet.market.scan(/\d/).join('').to_i #extract only the numbers in the market number
-					if fetch_market_status(bet.market, bet.fixture_id) == "Active"
-						odd = fetch_current_odd(bet.market, bet.fixture_id, "outcome_#{bet.outcome}").to_f
-						bets_arr << {user_id: current_user.id ,bet_slip_id: bet_slip.id,fixture_id: bet.fixture_id,outcome_id: bet.outcome,market_id: market_id , odds: odd, status: "Pending", product: product, outcome_desc: bet.description }
-					end
-				end
-				
+							
 				#initiate the betslip
 				odds_arr = bets_arr.map{|x| x[:price].to_f}
 				total_odds = odds_arr.inject(:*).round(2)
@@ -49,8 +39,17 @@ class BetSlipsController < ApplicationController
 				BetSlip.transaction do
 					current_user.save!
 					transaction.save!
-					Bet.create!(bets_arr)
 					bet_slip.save!
+					#create an array of bets
+					@cart.line_bets.each do |bet|
+						product = bet.market.include?("Pre") ? "3" : "1"
+						market_id = bet.market.scan(/\d/).join('').to_i #extract only the numbers in the market number
+						if fetch_market_status(bet.market, bet.fixture_id) == "Active"
+							odd = fetch_current_odd(bet.market, bet.fixture_id, "outcome_#{bet.outcome}").to_f
+							bets_arr << {user_id: current_user.id ,bet_slip_id: bet_slip.id,fixture_id: bet.fixture_id,outcome_id: bet.outcome,market_id: market_id , odds: odd, status: "Pending", product: product, outcome_desc: bet.description }
+						end
+					end
+					Bet.create!(bets_arr)
 				end					
 				#process the betslips through MTS
 				if browser.device.mobile?
