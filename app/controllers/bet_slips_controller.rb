@@ -41,7 +41,6 @@ class BetSlipsController < ApplicationController
 						bets_arr << {user_id: current_user.id ,bet_slip_id: bet_slip.id,fixture_id: bet.fixture_id,outcome_id: bet.outcome,market_id: market_id , odds: odd, status: "Pending", product: product, outcome_desc: bet.description }
 					end
 				end
-				user_bets = Bet.new(bets_arr)
 				
 				#initiate the betslip
 				odds_arr = bets_arr.map{|x| x[:price].to_f}
