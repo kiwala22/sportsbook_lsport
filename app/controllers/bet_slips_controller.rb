@@ -30,8 +30,6 @@ class BetSlipsController < ApplicationController
 				#declare empty array of bets
 				bets_arr = []
 				
-				#create an empty betslip
-				bet_slip = current_user.bet_slips.create!
 				#create an array of bets
 				@cart.line_bets.each do |bet|
 					product = bet.market.include?("Pre") ? "3" : "1"
