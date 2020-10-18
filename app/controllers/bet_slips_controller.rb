@@ -47,12 +47,12 @@ class BetSlipsController < ApplicationController
 				odds_arr = bets_arr.map{|x| x[:price].to_f}
 				total_odds = odds_arr.inject(:*).round(2)
 				potential_win_amount = (stake.to_f * total_odds )
-				bet_slip = BetSlip.new(bet_count: bets_arr.count, stake: stake, odds: total_odds, status: "Pending", potential_win_amount: potential_win_amount)
+				bet_slip = BetSlip.new(user_id: current_user.id ,bet_count: bets_arr.count, stake: stake, odds: total_odds, status: "Pending", potential_win_amount: potential_win_amount)
 				
 				BetSlip.transaction do
 					current_user.save!
 					transaction.save!
-					user_bets.save!
+					Bet.create!(bets_arr)
 					bet_slip.save!
 				end					
 				#process the betslips through MTS

@@ -44,10 +44,10 @@ class Mts::SubmitTicket
           "value" => (stake.to_i * 10000),
           "type" => "total"
         },
-        "id" => "TicketGenerator_#{Time.now.strftime("%Y%m%d%H%M%S")}_#{slip_id}_0",
-        "selectedSystems" => [ bets.length ]
+        "id" => "#{slip_id}_0",
+        "selectedSystems" => [ bets_array.length ]
         } ],
-        "ticketId" => "TicketGenerator_#{Time.now.strftime("%Y%m%d%H%M%S")}_#{slip_id}",
+        "ticketId" => slip_id,
         "selections" => bets,
         "sender" => {
           "currency" => "UGX",
