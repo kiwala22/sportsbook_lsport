@@ -45,7 +45,7 @@ class Mts::SubmitTicket
           "type" => "total"
         },
         "id" => "#{slip_id}_0",
-        "selectedSystems" => [ bets_array.length ]
+        "selectedSystems" => [ bets.length ]
         } ],
         "ticketId" => slip_id,
         "selections" => bets,
