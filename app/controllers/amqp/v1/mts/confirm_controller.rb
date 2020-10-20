@@ -10,7 +10,7 @@ class Amqp::V1::Mts::ConfirmController < ApplicationController
       message = JSON.parse(payload)
       #logs the received information
       Rails.logger.error("#{routing_key} - #{message}")
-      TicketConfirmWorker(message, routing_key)
+      TicketConfirmWorker.perform_async(message, routing_key)
       render status: 200, json: {response: "OK"}
    end
 
