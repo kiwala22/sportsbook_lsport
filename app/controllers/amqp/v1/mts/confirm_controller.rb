@@ -5,13 +5,17 @@ class Amqp::V1::Mts::ConfirmController < ApplicationController
    require 'cgi'
 
    def create
-      payload = confirm_params[:payload]
-      routing_key = confirm_params[:routing_key]
-      message = JSON.parse(payload)
-      #logs the received information
-      Rails.logger.error("#{routing_key} - #{message}")
-      TicketConfirmWorker.perform_async(message, routing_key)
-      render status: 200, json: {response: "OK"}
+      if confirm_params[:payload].present? && confirm_params[:routing_key].present?
+         payload = confirm_params[:payload]
+         routing_key = confirm_params[:routing_key]
+         message = JSON.parse(payload)
+         #logs the received information
+         Rails.logger.error("#{routing_key} - #{message}")
+         TicketConfirmWorker.perform_async(message, routing_key)
+         render status: 200, json: {response: "OK"}
+      else
+         render status: 400, json: {response: "Failed"}
+      end
    end
 
    private
