@@ -1,5 +1,5 @@
 require 'sidekiq'
-class TicketConfirmationWorker
+class TicketConfirmWorker
 	include Sidekiq::Worker
 	sidekiq_options queue: "critical"
 	sidekiq_options retry: false
