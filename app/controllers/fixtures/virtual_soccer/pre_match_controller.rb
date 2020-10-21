@@ -3,7 +3,7 @@ class Fixtures::VirtualSoccer::PreMatchController < ApplicationController
    before_action :set_cart, only: [:index, :show]
    
    def index
-      @q = Fixture.joins(:market1_pre).where("fixtures.status = ? AND sport_id = ? AND fixtures.category_id IN (?) AND fixtures.scheduled_time >= ? AND fixtures.scheduled_time <= ? AND market1_pres.status = ?", "not_started", "sr:sport:1", ["sr:category:1033","sr:category:2123"], Date.today.beginning_of_day, (Date.today.end_of_day+1.days), "Active").order(scheduled_time: :asc)
+      @q = Fixture.joins(:market1_pre).where("fixtures.status = ? AND sport_id = ? AND fixtures.category_id IN (?) AND fixtures.scheduled_time >= ? AND fixtures.scheduled_time <= ? AND market1_pres.status = ?", "not_started", "sr:sport:1", ["sr:category:1033","sr:category:2123"], Time.now, (Date.today.end_of_day+1.days), "Active").order(scheduled_time: :asc)
       
       @pagy, @fixtures = pagy(@q.includes(:market1_pre).where("market1_pres.status = ?", "Active"))
       respond_to do |format|
