@@ -82,12 +82,12 @@ export default class extends Controller {
         }
 
         if (amount > 1000000 || amount < 1000){
-            $("#amount-limits").html("Stake should be between 1,000 and 1,000,000");
+            // $("#amount-limits").html("Stake should be between 1,000 and 1,000,000");
             $('#place_bet').prop("disabled", true);
             localStorage.removeItem("stake");
             this.winsTarget.innerHTML = " ";
         }else if (amount >= 1000 && amount <= 1000000) {
-            $("#amount-limits").empty();
+            // $("#amount-limits").empty();
             $('#place_bet').prop("disabled", false);
             this.onCalculateWin(amount);
         }
