@@ -19,6 +19,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # GET /resource/edit
   # def edit
+  #   redirect_to error_path
+  #   redirect('/404.html')
   #   super
   # end
 
