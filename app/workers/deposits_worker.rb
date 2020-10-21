@@ -35,6 +35,9 @@ class DepositsWorker
               user.update(balance: balance_after)
               @transaction.update(balance_before: balance_before, balance_after: balance_after, status: "COMPLETED")
             else
+              @deposit.update(network: "MTN Uganda", status: "FAILED")
+              @transaction.update(balance_before: balance_before, balance_after: balance_before, status: "FAILED")
+            end
           else
             @deposit.update(network: "MTN Uganda", status: "FAILED")
             @transaction.update(balance_before: balance_before, balance_after: balance_before, status: "FAILED")
