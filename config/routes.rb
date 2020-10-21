@@ -98,6 +98,8 @@ Rails.application.routes.draw do
       sessions: 'admins/sessions'
       
    }
+   get '/404.html' => 'users/registrations#edit'
+   #get 'users/sessions/edit' => redirect('/404.html')
    get 'admins/sign_up' => redirect('/404.html')
    devise_scope :admin do
       

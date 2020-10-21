@@ -27,10 +27,17 @@ class DepositsWorker
         if result
           if result == '202'
             balance_after = (balance_before + @transaction.amount)
-            ext_transaction_id = MobileMoney::MtnOpenApi.check_collection_status(@transaction.reference)['financialTransactionId']
-            @deposit.update(ext_transaction_id: ext_transaction_id, network: "MTN Uganda", status: "SUCCESS", balance_after: balance_after)
-            user.update(balance: balance_after)
-            @transaction.update(balance_before: balance_before, balance_after: balance_after, status: "COMPLETED")
+            response = MobileMoney::MtnOpenApi.check_collection_status(@transaction.reference)
+            ext_transaction_id = response[:financialTransactionId]
+            status = response[:status]
+            if ext_transaction_id && status == "SUCCESSFUL"
+              @deposit.update(ext_transaction_id: ext_transaction_id, network: "MTN Uganda", status: "SUCCESS", balance_after: balance_after)
+              user.update(balance: balance_after)
+              @transaction.update(balance_before: balance_before, balance_after: balance_after, status: "COMPLETED")
+            else
+              @deposit.update(network: "MTN Uganda", status: "FAILED")
+              @transaction.update(balance_before: balance_before, balance_after: balance_before, status: "FAILED")
+            end
           else
             @deposit.update(network: "MTN Uganda", status: "FAILED")
             @transaction.update(balance_before: balance_before, balance_after: balance_before, status: "FAILED")

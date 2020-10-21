@@ -27,10 +27,17 @@ class WithdrawsWorker
         if result
           if result == '202'
             balance_after = (balance_before  - @transaction.amount)
-            ext_transaction_id = MobileMoney::MtnOpenApi.check_transfer_status(@transaction.reference)['financialTransactionId']
-            @withdraw.update(ext_transaction_id: ext_transaction_id, network: "MTN Uganda", status: "SUCCESS", balance_after: balance_after)
-            user.update(balance: balance_after)
-            @transaction.update(balance_before: balance_before, balance_after: balance_after, status: "COMPLETED")
+            response = MobileMoney::MtnOpenApi.check_transfer_status(@transaction.reference)
+            ext_transaction_id = response[:financialTransactionId]
+            status = response[:status]
+            if ext_transaction_id && status == "SUCCESSFUL"
+              @withdraw.update(ext_transaction_id: ext_transaction_id, network: "MTN Uganda", status: "SUCCESS", balance_after: balance_after)
+              user.update(balance: balance_after)
+              @transaction.update(balance_before: balance_before, balance_after: balance_after, status: "COMPLETED")
+            else
+              @withdraw.update(network: "MTN Uganda", status: "FAILED")
+              @transaction.update(balance_before: balance_before, balance_after: balance_before, status: "FAILED")
+            end
           else
             @withdraw.update(network: "MTN Uganda", status: "FAILED")
             @transaction.update(balance_before: balance_before, balance_after: balance_before, status: "FAILED")
