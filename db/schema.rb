@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_13_200442) do
+ActiveRecord::Schema.define(version: 2020_10_21_211948) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,6 +74,15 @@ ActiveRecord::Schema.define(version: 2020_10_13_200442) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "bet_slip_cancels", force: :cascade do |t|
+    t.bigint "bet_slip_id", null: false
+    t.string "status"
+    t.string "reason"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["bet_slip_id"], name: "index_bet_slip_cancels_on_bet_slip_id"
+  end
+
   create_table "bet_slips", force: :cascade do |t|
     t.integer "bet_count"
     t.decimal "stake", precision: 12, scale: 2
@@ -86,6 +95,7 @@ ActiveRecord::Schema.define(version: 2020_10_13_200442) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id", null: false
     t.string "result"
+    t.string "reason"
     t.index ["user_id"], name: "index_bet_slips_on_user_id"
   end
 
@@ -675,6 +685,7 @@ ActiveRecord::Schema.define(version: 2020_10_13_200442) do
     t.index ["user_id"], name: "index_withdraws_on_user_id"
   end
 
+  add_foreign_key "bet_slip_cancels", "bet_slips"
   add_foreign_key "bet_slips", "users"
   add_foreign_key "bets", "bet_slips"
   add_foreign_key "bets", "fixtures"
