@@ -30,7 +30,7 @@ class CompleteMtnTransactionsWorker
     end
 
     if ext_transaction_id && status == "SUCCESSFUL"
-      @deposit.update(ext_transaction_id: ext_transaction_id, network: "MTN Uganda", status: "SUCCESS", balance_after: balance_after)
+      @deposit.update(ext_transaction_id: ext_transaction_id, network: "MTN Uganda", status: "SUCCESS", balance_before: balance_before, balance_after: balance_after)
       @transaction.update(balance_before: balance_before, balance_after: balance_after, status: "COMPLETED")
       ##Then you can Credit user account with the specified amount
       user.update(balance: balance_after)

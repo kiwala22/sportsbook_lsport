@@ -19,7 +19,7 @@ class CompleteAirtelTransactionsWorker
     ##Find the deposit and update the balance after as well
     @deposit = Deposit.find_by(transaction_id: transaction_id)
 
-    @deposit.update(balance_after: balance_after)
+    @deposit.update(balance_before: balance_before, balance_after: balance_after)
 
     ##Update the transaction status as completed
     @transaction.update(balance_before: balance_before, balance_after: balance_after, status: "COMPLETED")

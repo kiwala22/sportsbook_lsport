@@ -13,7 +13,7 @@ class DepositsWorker
     ##create a deposit transaction
     resource_id = generate_resource_id()
     @deposit = Deposit.create(transaction_id: transaction_id, resource_id: resource_id, amount: @transaction.amount,
-       phone_number: @transaction.phone_number, status: "PENDING", currency: "UGX", payment_method: "Mobile Money", balance_before: balance_before,
+       phone_number: @transaction.phone_number, status: "PENDING", currency: "UGX", payment_method: "Mobile Money",
      user_id: @transaction.user_id, transaction_reference: @transaction.reference)
 
     if @transaction && @deposit
