@@ -66,12 +66,13 @@
         <th>Result</th>
         <th>Paid</th>
 				<th>Time</th>
+        <th>Actions </th>
       </tr>
     </thead>
     <tbody>
 			<% @bet_slips.each_with_index do |bet_slip, i| %>
 				<tr>
-          <td><u><a href="<%= backend_bet_slip_path(id: bet_slip.id)%>">Betslip #<%= (i+1) %></a></u></td>
+          <td><u><a href="<%= backend_bet_slip_path(id: bet_slip.id)%>">bet_slip.id %></a></u></td>
 					<td><%= bet_slip.bet_count %></td>
 					<td><%= bet_slip.stake %></td>
 					<td><%= bet_slip.odds %></td>
@@ -81,6 +82,13 @@
 					<td><%= bet_slip.result %></td>
 					<td><%= bet_slip.paid %></td>
           <td><%= local_time(bet_slip.created_at, format: "%d/%m/%y %l:%M%P") %></td>
+          <% if bet_slip.status == "Active" || bet_slip.status == "Pending" %>
+            <td>
+              <%= link_to "Cancel", backend_bet_slips_cancel_path(slip: bet_slip.id), method: :post %>
+            </td>
+          <% else %>
+            <td></td>
+          <% end %>
 				</tr>
 			<% end %>
     </tbody>

@@ -1,8 +1,10 @@
+# To test spec, commend out the MTS Services Lib call in the Ticket Confirm Worker to avoid the error of external calls
+
 require 'rails_helper'
 require 'sidekiq/testing'
 # Sidekiq::Testing.fake!
 require 'faker'
-WebMock.disable_net_connect!
+WebMock.disable_net_connect!(allow_localhost: true)
 
 RSpec.describe TicketConfirmWorker, type: :worker do
     
@@ -110,14 +112,14 @@ RSpec.describe TicketConfirmWorker, type: :worker do
       end
       
       #bets turn to active 
-      it "changes bets status to active" do
+      it "status remains as Expired" do
          expect(Bet.find(@bet_one.id).status).to  eq("Rejected")
          expect(Bet.find(@bet_two.id).status).to  eq("Rejected")
       end
       
       #balance remains the same
-      it "does not change the balance" do
-         expect(User.find(@user.id).balance).to eq(6000)  
+      it "does not change the balance pending cancel response" do
+         expect(User.find(@user.id).balance).to eq(5000)  
       end
       
    end

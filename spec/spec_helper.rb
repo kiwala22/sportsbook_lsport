@@ -16,7 +16,7 @@
 
 RSpec.configure do |config|
   require 'webmock/rspec'
-  WebMock.disable_net_connect!(allow_localhost: false)
+  WebMock.disable_net_connect!(allow_localhost: true)
 
   require 'capybara/rspec'
   # rspec-expectations config goes here. You can use an alternate
@@ -62,14 +62,18 @@ RSpec.configure do |config|
 
   #configure webmock to stub amqp
   config.before(:each) do
+    stub_request(:any, /betradar/).
+      to_return(status: 200, body: "stubbed response", headers: {})
+
     stub_request(:any, "mtsgate-ci.betradar.com:5671").
       to_return(status: 200, body: "stubbed response", headers: {})
     
     stub_request(:any, /skylinesms.com/).
       to_return(status: 200, body: "stubbed response", headers: {})
 
-    stub_request(:any, "127.0.0.1").
+    stub_request(:any, /sentry/).
       to_return(status: 200, body: "stubbed response", headers: {})
+
   end
 # The settings below are suggested to provide a good initial experience
 # with RSpec, but feel free to customize to your heart's content.

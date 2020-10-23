@@ -6,9 +6,9 @@ class Mts::SubmitCancel
    EXCHANGE_NAME = 'skyline_skyline-Reply'.freeze
    
    
-   def publish(slip_id: slip_id, code: 102 )
+   def publish(slip_id:, code: 102 )
     #record the betslip Cancellation
-    BetSlipCancel.create!(ticket_id: slip_id, status: "Pending")
+    BetSlipCancel.create!(bet_slip_id: slip_id, status: "Pending")
 
     #connect to the mqp and send ticket
      channel = BunnyQueueService.connection.create_channel

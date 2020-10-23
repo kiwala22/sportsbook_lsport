@@ -10,7 +10,10 @@
   <div class="block-center mt-xl wd-xxl">
     <div class="card mb3 border-danger">
         <div class="card-header bg-danger">
-          <div class="card-title">BetSlip #<%= @bet_slip.id %></div>
+          <div class="card-title">
+            <span class="float-left"> BetSlip #<%= @bet_slip.id %> </span>
+            <span class="float-right"> <%= @bet_slip.status %> </span>
+          </div>
         </div>
         <div class="card-wrapper">
           <div class="card-body">

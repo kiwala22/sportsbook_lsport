@@ -76,6 +76,7 @@ Rails.application.routes.draw do
       match 'suspend' => "bet_users#deactivate_account", via: [:post]
       match 'activate' => "bet_users#activate_account", via: [:post]
       match 'bet_slips' => "bet_slips#index", via: [:get]
+      match 'bet_slips/cancel' => "bet_slips#cancel", via: [:post]
       match 'bet_slip' => "bet_slips#show", via: [:get]
       match 'bets' => "bets#index", via: [:get]
    end

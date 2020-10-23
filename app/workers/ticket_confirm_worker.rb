@@ -23,17 +23,8 @@ class TicketConfirmWorker
 				betslip.update!(status: "Rejected", reason: "Expired")
 				betslip.bets.update_all(status: "Rejected")
 				#send a ticket cancellation request
-				Mts::SubmitCancel.new.publish(slip_id: betslip.id)
+				Mts::SubmitCancel.new.publish(slip_id: betslip.id, code: 202)
 				
-				#refund the stake	
-				previous_balance = user.balance
-				balance_after = user.balance = (user.balance + betslip.stake)
-				transaction = user.transactions.build(balance_before: previous_balance, balance_after: balance_after, phone_number: user.phone_number, status: "SUCCESS", currency: "UGX", amount: betslip.stake, category: "Refund" )
-				
-				BetSlip.transaction do
-					user.save!
-					transaction.save!
-				end
 			end
 		elsif message["result"]["status"] == "rejected"
 			betslip.update!(status: "Rejected", reason: message["result"]["reason"]["message"]) 
