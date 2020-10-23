@@ -8,7 +8,7 @@ class Mts::SubmitCancel
    
    def publish(slip_id)
     #record the betslip Cancellation
-    BetSlipCancel.create!(ticket_id: slip_id)
+    BetSlipCancel.create!(ticket_id: slip_id, status: "Pending")
 
     #connect to the mqp and send ticket
      channel = BunnyQueueService.connection.create_channel

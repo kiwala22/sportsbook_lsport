@@ -15,6 +15,7 @@ RSpec.describe TicketReplyWorker, type: :worker do
          @betslip = create(:bet_slip, bet_count: 2, status: "Rejected", odds: 5, potential_win_amount: 5000, stake: 1000, user_id: @user.id)
          @bet_one = create(:bet, fixture_id: @fixture.id, bet_slip_id: @betslip.id, odds: 2.5, user_id: @user.id, market_id: @market.id, outcome_id: @outcome.id, status: "Rejected")
          @bet_two = create(:bet, fixture_id: @fixture.id, bet_slip_id: @betslip.id, odds: 2.0, user_id: @user.id, market_id: @market.id, outcome_id: @outcome.id, status: "Rejected")
+         @bet_slip_cancel = create(:bet_slip_cancel, bet_slip_id: @betslip.id)
          
          routing_key = "node202.ticket.reply"
          message = {
@@ -48,6 +49,7 @@ RSpec.describe TicketReplyWorker, type: :worker do
          @betslip = create(:bet_slip, bet_count: 2, status: "Rejected", odds: 5, potential_win_amount: 5000, stake: 1000, user_id: @user.id)
          @bet_one = create(:bet, fixture_id: @fixture.id, bet_slip_id: @betslip.id, odds: 2.5, user_id: @user.id, market_id: @market.id, outcome_id: @outcome.id, status: "RRejected")
          @bet_two = create(:bet, fixture_id: @fixture.id, bet_slip_id: @betslip.id, odds: 2.0, user_id: @user.id, market_id: @market.id, outcome_id: @outcome.id, status: "RRejected")
+         @bet_slip_cancel = create(:bet_slip_cancel, bet_slip_id: @betslip.id)
          
          routing_key = "node202.ticket.reply"
          message = {
