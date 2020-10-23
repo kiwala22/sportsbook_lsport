@@ -14,9 +14,9 @@ class WithdrawsWorker
 
     ##create a withdraw transaction
     resource_id = generate_resource_id()
-    @withdraw = Withdraw.create(transaction_id: transaction_id, resource_id: resource_id, amount: @transaction.amount,
+    @withdraw = Withdraw.create(transaction_id: @transaction.reference, resource_id: resource_id, amount: @transaction.amount,
        phone_number: @transaction.phone_number, status: "PENDING", currency: "UGX", payment_method: "Mobile Money", balance_before: balance_before,
-     user_id: @transaction.user_id, transaction_reference: @transaction.reference)
+     user_id: @transaction.user_id)
 
     if @transaction && @withdraw
       ##Proceed with the withdraw APIs
@@ -27,24 +27,18 @@ class WithdrawsWorker
         if result
           if result == '202'
             balance_after = (balance_before  - @transaction.amount)
-            response = MobileMoney::MtnOpenApi.check_transfer_status(@transaction.reference)
-            ext_transaction_id = response[:financialTransactionId]
-            status = response[:status]
-            if ext_transaction_id && status == "SUCCESSFUL"
-              @withdraw.update(ext_transaction_id: ext_transaction_id, network: "MTN Uganda", status: "SUCCESS", balance_after: balance_after)
-              user.update(balance: balance_after)
-              @transaction.update(balance_before: balance_before, balance_after: balance_after, status: "COMPLETED")
-            else
-              @withdraw.update(network: "MTN Uganda", status: "FAILED")
-              @transaction.update(balance_before: balance_before, balance_after: balance_before, status: "FAILED")
-            end
+            sleep(5)
+            ext_transaction_id = MobileMoney::MtnOpenApi.check_transfer_status(@transaction.reference)['financialTransactionId']
+            @withdraw.update(ext_transaction_id: ext_transaction_id, network: "MTN Uganda", status: "SUCCESS", balance_after: balance_after)
+            user.update(balance: balance_after)
+            @transaction.update(balance_before: balance_before, balance_after: balance_after, status: "COMPLETED")
           else
             @withdraw.update(network: "MTN Uganda", status: "FAILED")
-            @transaction.update(balance_before: balance_before, balance_after: balance_before, status: "FAILED")
+            @transaction.update(status: "FAILED")
           end
         else
           @withdraw.update(network: "MTN Uganda", status: "FAILED")
-          @transaction.update(balance_before: balance_before, balance_after: balance_before, status: "FAILED")
+          @transaction.update(status: "FAILED")
         end
       when /^(25675|25670)/
         #process Airtel transaction
@@ -57,11 +51,11 @@ class WithdrawsWorker
             @transaction.update(balance_before: balance_before, balance_after: balance_after, status: "COMPLETED")
           else
             @withdraw.update(network: "Airtel Uganda", status: "FAILED")
-            @transaction.update(balance_before: balance_before, balance_after: balance_before, status: "FAILED")
+            @transaction.update(status: "FAILED")
           end
         else
           @withdraw.update(network: "Airtel Uganda", status: "FAILED")
-          @transaction.update(balance_before: balance_before, balance_after: balance_before, status: "FAILED")
+          @transaction.update(status: "FAILED")
         end
       end
     end

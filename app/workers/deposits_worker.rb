@@ -9,8 +9,6 @@ class DepositsWorker
 
   def perform(transaction_id)
     @transaction = Transaction.find(transaction_id)
-    user = User.find(@transaction.user_id)
-    balance_before = user.balance
 
     ##create a deposit transaction
     resource_id = generate_resource_id()
@@ -26,42 +24,30 @@ class DepositsWorker
         result = MobileMoney::MtnOpenApi.request_payments(@transaction.amount, @transaction.reference, @transaction.phone_number)
         if result
           if result == '202'
-            balance_after = (balance_before + @transaction.amount)
-            response = MobileMoney::MtnOpenApi.check_collection_status(@transaction.reference)
-            ext_transaction_id = response[:financialTransactionId]
-            status = response[:status]
-            if ext_transaction_id && status == "SUCCESSFUL"
-              @deposit.update(ext_transaction_id: ext_transaction_id, network: "MTN Uganda", status: "SUCCESS", balance_after: balance_after)
-              user.update(balance: balance_after)
-              @transaction.update(balance_before: balance_before, balance_after: balance_after, status: "COMPLETED")
-            else
-              @deposit.update(network: "MTN Uganda", status: "FAILED")
-              @transaction.update(balance_before: balance_before, balance_after: balance_before, status: "FAILED")
-            end
+            @deposit.update(network: "MTN Uganda", status: "PENDING")
+            sleep(5)
+            CompleteMtnTransactionsWorker.perform_async(transaction_id)
           else
             @deposit.update(network: "MTN Uganda", status: "FAILED")
-            @transaction.update(balance_before: balance_before, balance_after: balance_before, status: "FAILED")
+            @transaction.update(status: "FAILED")
           end
         else
           @deposit.update(network: "MTN Uganda", status: "FAILED")
-          @transaction.update(balance_before: balance_before, balance_after: balance_before, status: "FAILED")
+          @transaction.update(status: "FAILED")
         end
       when /^(25675|25670)/
         #process Airtel transaction
         result = MobileMoney::AirtelUganda.request_payments(@transaction.phone_number, @transaction.amount, @transaction.reference)
         if result
           if result[:status] == '200'
-            #balance_after = (balance_before + @transaction.amount)
-            @deposit.update(network: "Airtel Uganda", status: "IN PROGRESS")
-            #user.update(balance: balance_after)
-            #@transaction.update(balance_before: balance_before, balance_after: balance_after, status: "COMPLETED")
+            @deposit.update(network: "Airtel Uganda", status: "PENDING")
           else
             @deposit.update(network: "Airtel Uganda", status: "FAILED")
-            @transaction.update(balance_before: balance_before, balance_after: balance_before, status: "FAILED")
+            @transaction.update(status: "FAILED")
           end
         else
           @deposit.update(network: "Airtel Uganda", status: "FAILED")
-          @transaction.update(balance_before: balance_before, balance_after: balance_before, status: "FAILED")
+          @transaction.update(status: "FAILED")
         end
       end
     end
