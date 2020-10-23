@@ -6,7 +6,7 @@ class Mts::SubmitCancel
    EXCHANGE_NAME = 'skyline_skyline-Reply'.freeze
    
    
-   def publish(slip_id)
+   def publish(slip_id: slip_id, code: 102 )
     #record the betslip Cancellation
     BetSlipCancel.create!(ticket_id: slip_id, status: "Pending")
 
@@ -19,14 +19,13 @@ class Mts::SubmitCancel
 
      #bind to the exchange then publish
      headers = { 'replyRoutingKey' => "node#{ENV['NODE_ID']}.cancel.confirm"}
-     json_data = payload(slip_id: slip_id, ts: (Time.now.to_i * 1000) )
-     Rails.logger.error(json_data)
+     json_data = payload(slip_id: slip_id, ts: (Time.now.to_i * 1000), code: code )
      exchange.publish(json_data, routing_key: "cancel" ,headers: headers)
    end
    
    private
    
-   def payload(slip_id:, ts: )
+   def payload(slip_id:, ts:, code: )
      #form the json object
      data = {
       "timestampUtc" => ts,
@@ -34,7 +33,7 @@ class Mts::SubmitCancel
       "sender" => {
         "bookmakerId" => ENV['BOOKMAKER_ID']
       },
-      "code" => 102,
+      "code" => code,
       "cancelPercent" => 1000000,
       "version" => "2.3"
     }

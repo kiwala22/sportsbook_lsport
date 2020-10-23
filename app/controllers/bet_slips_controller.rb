@@ -25,7 +25,7 @@ class BetSlipsController < ApplicationController
 			if stake <= current_user.balance
 				previous_balance = current_user.balance
 				balance_after = current_user.balance = (current_user.balance - stake)
-				transaction = current_user.transactions.build(balance_before: previous_balance, balance_after: balance_after, phone_number: current_user.phone_number, status: "SUCCESS", currency: "UGX", amount: stake, category: "Withdraw" )
+				transaction = current_user.transactions.build(balance_before: previous_balance, balance_after: balance_after, phone_number: current_user.phone_number, status: "SUCCESS", currency: "UGX", amount: stake, category: "Bet Stake" )
 				
 				#declare empty array of bets
 				bets_arr = []

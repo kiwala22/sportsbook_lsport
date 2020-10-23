@@ -13,7 +13,11 @@ class Mts::SubmitTicket
     bets_array  = []
     bets.each do |bet|
       
-      uof_id = "uof:#{bet.product}/sr:sport:1/#{bet.market_id}/#{bet.outcome_id}"
+      if bet.specifier.present?
+        uof_id = "uof:#{bet.product}/sr:sport:1/#{bet.market_id}/#{bet.outcome_id}?#{bet.specifier}"
+      else 
+        uof_id = "uof:#{bet.product}/sr:sport:1/#{bet.market_id}/#{bet.outcome_id}"
+      end
       
       bets_array << {"eventId" => bet.fixture.event_id , "id"=> uof_id, "odds" => (bet.odds.to_i * 10000) }
     end
