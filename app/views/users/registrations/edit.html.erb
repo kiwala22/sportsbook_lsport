@@ -1,0 +1,67 @@
+
+<% provide(:title, "Edit Profile") %>
+<div class="login">
+   <div class="content-center cl-grey">
+      <div class="row justify-content-center">
+         <div class="col-xl-7 col-lg-7 col-md-7 col-sm-12">
+
+          <div class="web-sidebar-widget login-widget">
+            <div class="widget-head">
+              <h3 style="text-align: center;">Edit Account</h3>
+            </div>
+            <div class="widget-body">
+            
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+  
+
+  <div class="form-group">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
+  </div>
+
+  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+  <% end %>
+
+  <div class="form-group" data-controller="toggle">
+    <%= f.label :password %> <i></i><br />
+    <%= f.password_field :password, autocomplete: "new-password",class: "form-control", "data-target":"toggle.unhide" %>
+         <i  class="fa fa-eye mobile-show"data-target="toggle.show" data-action="click->toggle#password" aria-hidden="true" ></i>
+
+         <span class="error_desc"><%= resource.errors[:password_confirmation].first if resource.errors[:password].present? %> </span>
+
+    <% if @minimum_password_length %>
+      <br />
+      <em><%= @minimum_password_length %> characters minimum</em>
+    <% end %>
+  </div>
+
+  <div class="form-group" data-controller="toggle">
+    <%= f.label :password_confirmation  %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "new-password",class: "form-control", "data-target":"toggle.unhide" %>
+       <i  class="fa fa-eye mobile-show"data-target="toggle.show" data-action="click->toggle#password" aria-hidden="true" ></i>
+       <span class="error_desc"><%= resource.errors[:password_confirmation].first if resource.errors[:password_confirmation].present? %> </span>
+  </div>
+
+  <div class="form-group" data-controller="toggle">
+    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
+    <%= f.password_field :current_password, autocomplete: "current-password" ,class: "form-control", "data-target":"toggle.unhide"%>
+     <br><br><br>
+     <i  class="fa fa-eye mobile-show"data-target="toggle.show" data-action="click->toggle#password" aria-hidden="true" ></i>
+     <span class="error_desc"><%= resource.errors[:current_password].first if resource.errors[:current_password].present? %> </span>
+  </div>
+
+  <div class="actions">
+    <%= f.button "Update",class: 'btn btn-block btn-primary mt-lg login-btn', data: {disable_with: "<i class='fas fa-spinner fa-spin'></i> Submitting...".html_safe } %>
+  </div>
+<% end %>
+
+            </div>
+          </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+

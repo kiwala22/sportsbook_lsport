@@ -14,7 +14,7 @@
                 <%= label_tag(:phone_number, "Phone Number") %>
                 <%= text_field_tag :phone_number, params[:phone_number], class: "form-control", required: true, id: 'phone_number',placeholder:"ex: 256772000001" %>
               </div>
-            <%= submit_tag("Send Reset Code", class: 'btn btn-block btn-primary mt-lg login-btn') %>
+            <%= button_tag("Send Reset Code", class: 'btn btn-block btn-primary mt-lg login-btn', data: {disable_with: "<i class='fas fa-spinner fa-spin'></i> Sending Code...".html_safe }) %>
             <% end %>
             <br>
             <%= link_to "Recover with Email", new_password_path(User), class: "devise_forms" %>

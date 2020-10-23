@@ -602,11 +602,14 @@ a:visited {
 
 .heads{
     padding:25px;
+    letter-spacing: 0.4px;
+    font-size: 14px;
 }
 
 .paragraph{
     padding:12px;
     line-height: 2.3;
+
 }
 
 .lists{
@@ -635,4 +638,8 @@ a:visited {
 
 .error_msg {
     padding-left: 9px;
+}
+
+.footer-size{
+    font-size: 13px;
 }
