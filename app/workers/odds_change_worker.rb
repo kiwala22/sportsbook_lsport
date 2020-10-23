@@ -196,6 +196,7 @@ class OddsChangeWorker
                 outcome_12:  outcome_12,
                 outcome_13:   outcome_13,
                 total: 2.5,
+                specifier: market["specifiers"],
                 status: market_status[market["status"]]
             }
             if mkt_entry
@@ -272,6 +273,7 @@ class OddsChangeWorker
                 outcome_1714:  outcome_1714,
                 outcome_1715: outcome_1715,
                 hcp: 1,
+                specifier: market["specifiers"], 
                 status: market_status[market["status"]]
             }
             if mkt_entry

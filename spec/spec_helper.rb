@@ -13,8 +13,12 @@
 # it.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
-require 'capybara/rspec'
+
 RSpec.configure do |config|
+  require 'webmock/rspec'
+  WebMock.disable_net_connect!(allow_localhost: true)
+
+  require 'capybara/rspec'
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
@@ -44,8 +48,33 @@ RSpec.configure do |config|
   # inherited by the metadata hash of host groups and examples, rather than
   # triggering implicit auto-inclusion in groups with matching metadata.
   config.shared_context_metadata_behavior = :apply_to_host_groups
-
+  require 'rspec-sidekiq'
+  RSpec::Sidekiq.configure do |config|
+    # Clears all job queues before each example
+    config.clear_all_enqueued_jobs = true # default => true
   
+    # Whether to use terminal colours when outputting messages
+    config.enable_terminal_colours = true # default => true
+  
+    # Warn when jobs are not enqueued to Redis but to a job array
+    config.warn_when_jobs_not_processed_by_sidekiq = true # default => true
+  end
+
+  #configure webmock to stub amqp
+  config.before(:each) do
+    stub_request(:any, /betradar/).
+      to_return(status: 200, body: "stubbed response", headers: {})
+
+    stub_request(:any, "mtsgate-ci.betradar.com:5671").
+      to_return(status: 200, body: "stubbed response", headers: {})
+    
+    stub_request(:any, /skylinesms.com/).
+      to_return(status: 200, body: "stubbed response", headers: {})
+
+    stub_request(:any, /sentry/).
+      to_return(status: 200, body: "stubbed response", headers: {})
+
+  end
 # The settings below are suggested to provide a good initial experience
 # with RSpec, but feel free to customize to your heart's content.
 =begin

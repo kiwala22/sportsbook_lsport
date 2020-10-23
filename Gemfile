@@ -71,6 +71,9 @@ group :test do
   gem 'factory_bot'
   gem 'faker'
   gem 'shoulda-matchers'
+  gem 'rspec-sidekiq'
+  gem 'database_cleaner-active_record'
+  gem "factory_bot_rails"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -94,7 +97,7 @@ gem "roo", "~> 2.8.0"
 gem "brakeman"
 gem "sentry-raven"
 gem 'webpacker', '~> 4.0'
-gem "bunny", ">= 2.9.2"
+gem "bunny", ">= 2.16.1"
 gem 'sneakers'
 # gem 'httparty', '~> 0.13.7'
 # gem 'rb-readline'
@@ -109,3 +112,4 @@ gem 'pg_search'
 gem 'newrelic_rpm'
 gem 'local_time'
 gem "anycable-rails", "~> 1.0"
+gem 'webmock', '~> 2.1'

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_08_081933) do
+ActiveRecord::Schema.define(version: 2020_10_23_094934) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,6 +74,15 @@ ActiveRecord::Schema.define(version: 2020_10_08_081933) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "bet_slip_cancels", force: :cascade do |t|
+    t.bigint "bet_slip_id", null: false
+    t.string "status"
+    t.string "reason"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["bet_slip_id"], name: "index_bet_slip_cancels_on_bet_slip_id"
+  end
+
   create_table "bet_slips", force: :cascade do |t|
     t.integer "bet_count"
     t.decimal "stake", precision: 12, scale: 2
@@ -86,6 +95,7 @@ ActiveRecord::Schema.define(version: 2020_10_08_081933) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id", null: false
     t.string "result"
+    t.string "reason"
     t.index ["user_id"], name: "index_bet_slips_on_user_id"
   end
 
@@ -104,6 +114,7 @@ ActiveRecord::Schema.define(version: 2020_10_08_081933) do
     t.string "result"
     t.decimal "void_factor", precision: 5, scale: 2
     t.string "outcome_desc"
+    t.string "specifier"
     t.index ["bet_slip_id"], name: "index_bets_on_bet_slip_id"
     t.index ["fixture_id"], name: "index_bets_on_fixture_id"
     t.index ["market_id"], name: "index_bets_on_market_id"
@@ -224,6 +235,7 @@ ActiveRecord::Schema.define(version: 2020_10_08_081933) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "fixture_id", null: false
+    t.string "specifier"
     t.index ["event_id"], name: "index_market10_lives_on_event_id", unique: true
     t.index ["fixture_id"], name: "index_market10_lives_on_fixture_id"
     t.index ["status"], name: "index_market10_lives_on_status"
@@ -240,6 +252,7 @@ ActiveRecord::Schema.define(version: 2020_10_08_081933) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "fixture_id", null: false
+    t.string "specifier"
     t.index ["event_id"], name: "index_market10_pres_on_event_id", unique: true
     t.index ["fixture_id"], name: "index_market10_pres_on_fixture_id"
     t.index ["status"], name: "index_market10_pres_on_status"
@@ -256,6 +269,7 @@ ActiveRecord::Schema.define(version: 2020_10_08_081933) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "fixture_id", null: false
+    t.string "specifier"
     t.index ["event_id"], name: "index_market16_lives_on_event_id", unique: true
     t.index ["fixture_id"], name: "index_market16_lives_on_fixture_id"
     t.index ["status"], name: "index_market16_lives_on_status"
@@ -272,6 +286,7 @@ ActiveRecord::Schema.define(version: 2020_10_08_081933) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "fixture_id", null: false
+    t.string "specifier"
     t.index ["event_id"], name: "index_market16_pres_on_event_id", unique: true
     t.index ["fixture_id"], name: "index_market16_pres_on_fixture_id"
     t.index ["status"], name: "index_market16_pres_on_status"
@@ -288,6 +303,7 @@ ActiveRecord::Schema.define(version: 2020_10_08_081933) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "fixture_id", null: false
+    t.string "specifier"
     t.index ["event_id"], name: "index_market18_lives_on_event_id", unique: true
     t.index ["fixture_id"], name: "index_market18_lives_on_fixture_id"
     t.index ["status"], name: "index_market18_lives_on_status"
@@ -304,6 +320,7 @@ ActiveRecord::Schema.define(version: 2020_10_08_081933) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "fixture_id", null: false
+    t.string "specifier"
     t.index ["event_id"], name: "index_market18_pres_on_event_id", unique: true
     t.index ["fixture_id"], name: "index_market18_pres_on_fixture_id"
     t.index ["status"], name: "index_market18_pres_on_status"
@@ -320,6 +337,7 @@ ActiveRecord::Schema.define(version: 2020_10_08_081933) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "fixture_id", null: false
+    t.string "specifier"
     t.index ["event_id"], name: "index_market1_lives_on_event_id", unique: true
     t.index ["fixture_id"], name: "index_market1_lives_on_fixture_id"
     t.index ["status"], name: "index_market1_lives_on_status"
@@ -336,6 +354,7 @@ ActiveRecord::Schema.define(version: 2020_10_08_081933) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "fixture_id", null: false
+    t.string "specifier"
     t.index ["event_id"], name: "index_market1_pres_on_event_id", unique: true
     t.index ["fixture_id"], name: "index_market1_pres_on_fixture_id"
     t.index ["status"], name: "index_market1_pres_on_status"
@@ -351,6 +370,7 @@ ActiveRecord::Schema.define(version: 2020_10_08_081933) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "fixture_id", null: false
+    t.string "specifier"
     t.index ["event_id"], name: "index_market29_lives_on_event_id", unique: true
     t.index ["fixture_id"], name: "index_market29_lives_on_fixture_id"
     t.index ["status"], name: "index_market29_lives_on_status"
@@ -366,6 +386,7 @@ ActiveRecord::Schema.define(version: 2020_10_08_081933) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "fixture_id", null: false
+    t.string "specifier"
     t.index ["event_id"], name: "index_market29_pres_on_event_id", unique: true
     t.index ["fixture_id"], name: "index_market29_pres_on_fixture_id"
     t.index ["status"], name: "index_market29_pres_on_status"
@@ -382,6 +403,7 @@ ActiveRecord::Schema.define(version: 2020_10_08_081933) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "fixture_id", null: false
+    t.string "specifier"
     t.index ["event_id"], name: "index_market60_lives_on_event_id", unique: true
     t.index ["fixture_id"], name: "index_market60_lives_on_fixture_id"
     t.index ["status"], name: "index_market60_lives_on_status"
@@ -398,6 +420,7 @@ ActiveRecord::Schema.define(version: 2020_10_08_081933) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "fixture_id", null: false
+    t.string "specifier"
     t.index ["event_id"], name: "index_market60_pres_on_event_id", unique: true
     t.index ["fixture_id"], name: "index_market60_pres_on_fixture_id"
     t.index ["status"], name: "index_market60_pres_on_status"
@@ -414,6 +437,7 @@ ActiveRecord::Schema.define(version: 2020_10_08_081933) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "fixture_id", null: false
+    t.string "specifier"
     t.index ["event_id"], name: "index_market63_lives_on_event_id", unique: true
     t.index ["fixture_id"], name: "index_market63_lives_on_fixture_id"
     t.index ["status"], name: "index_market63_lives_on_status"
@@ -430,6 +454,7 @@ ActiveRecord::Schema.define(version: 2020_10_08_081933) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "fixture_id", null: false
+    t.string "specifier"
     t.index ["event_id"], name: "index_market63_pres_on_event_id", unique: true
     t.index ["fixture_id"], name: "index_market63_pres_on_fixture_id"
     t.index ["status"], name: "index_market63_pres_on_status"
@@ -446,6 +471,7 @@ ActiveRecord::Schema.define(version: 2020_10_08_081933) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "fixture_id", null: false
+    t.string "specifier"
     t.index ["event_id"], name: "index_market66_lives_on_event_id", unique: true
     t.index ["fixture_id"], name: "index_market66_lives_on_fixture_id"
     t.index ["status"], name: "index_market66_lives_on_status"
@@ -462,6 +488,7 @@ ActiveRecord::Schema.define(version: 2020_10_08_081933) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "fixture_id", null: false
+    t.string "specifier"
     t.index ["event_id"], name: "index_market66_pres_on_event_id", unique: true
     t.index ["fixture_id"], name: "index_market66_pres_on_fixture_id"
     t.index ["status"], name: "index_market66_pres_on_status"
@@ -478,6 +505,7 @@ ActiveRecord::Schema.define(version: 2020_10_08_081933) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "fixture_id", null: false
+    t.string "specifier"
     t.index ["event_id"], name: "index_market68_lives_on_event_id", unique: true
     t.index ["fixture_id"], name: "index_market68_lives_on_fixture_id"
     t.index ["status"], name: "index_market68_lives_on_status"
@@ -494,6 +522,7 @@ ActiveRecord::Schema.define(version: 2020_10_08_081933) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "fixture_id", null: false
+    t.string "specifier"
     t.index ["event_id"], name: "index_market68_pres_on_event_id", unique: true
     t.index ["fixture_id"], name: "index_market68_pres_on_fixture_id"
     t.index ["status"], name: "index_market68_pres_on_status"
@@ -509,6 +538,7 @@ ActiveRecord::Schema.define(version: 2020_10_08_081933) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "fixture_id", null: false
+    t.string "specifier"
     t.index ["event_id"], name: "index_market75_lives_on_event_id", unique: true
     t.index ["fixture_id"], name: "index_market75_lives_on_fixture_id"
     t.index ["status"], name: "index_market75_lives_on_status"
@@ -524,6 +554,7 @@ ActiveRecord::Schema.define(version: 2020_10_08_081933) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "fixture_id", null: false
+    t.string "specifier"
     t.index ["event_id"], name: "index_market75_pres_on_event_id", unique: true
     t.index ["fixture_id"], name: "index_market75_pres_on_fixture_id"
     t.index ["status"], name: "index_market75_pres_on_status"
@@ -655,6 +686,7 @@ ActiveRecord::Schema.define(version: 2020_10_08_081933) do
     t.index ["user_id"], name: "index_withdraws_on_user_id"
   end
 
+  add_foreign_key "bet_slip_cancels", "bet_slips"
   add_foreign_key "bet_slips", "users"
   add_foreign_key "bets", "bet_slips"
   add_foreign_key "bets", "fixtures"

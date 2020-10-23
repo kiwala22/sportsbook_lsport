@@ -77,16 +77,16 @@ Rails.application.routes.draw do
       match 'suspend' => "bet_users#deactivate_account", via: [:post]
       match 'activate' => "bet_users#activate_account", via: [:post]
       match 'bet_slips' => "bet_slips#index", via: [:get]
+      match 'bet_slips/cancel' => "bet_slips#cancel", via: [:post]
       match 'bet_slip' => "bet_slips#show", via: [:get]
       match 'bets' => "bets#index", via: [:get]
    end
 
    namespace :amqp do
       namespace :v1  do
-         match 'alerts' => 'alerts#create', via: [:post]
-
-         namespace :sports do
-            match 'soccer' => 'soccer#create', via: [:post]
+         namespace :mts  do
+            match 'confirm' => 'confirm#create', via: [:post]
+            match 'reply' => 'reply#create', via: [:post]
          end
       end
    end
