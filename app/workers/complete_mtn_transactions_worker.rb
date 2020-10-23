@@ -25,8 +25,8 @@ class CompleteMtnTransactionsWorker
     result = MobileMoney::MtnOpenApi.check_collection_status(@transaction.reference)
 
     if result
-      ext_transaction_id = result[:financialTransactionId]
-      status = result[:status]
+      ext_transaction_id = result['financialTransactionId']
+      status = result['status']
     end
 
     if ext_transaction_id && status == "SUCCESSFUL"

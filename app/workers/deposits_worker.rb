@@ -25,7 +25,7 @@ class DepositsWorker
         if result
           if result == '202'
             @deposit.update(network: "MTN Uganda", status: "PENDING")
-            sleep(5)
+            sleep(30)
             CompleteMtnTransactionsWorker.perform_async(transaction_id)
           else
             @deposit.update(network: "MTN Uganda", status: "FAILED")
