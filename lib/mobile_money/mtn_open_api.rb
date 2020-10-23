@@ -6,7 +6,7 @@ module MobileMoney
 		require 'uri'
 		require 'net/http'
 
-		@@collection_sub_key  	=  ENV['COLLECTION_SUB_KEY']
+		@@collection_sub_key  =  ENV['COLLECTION_SUB_KEY']
 		@@transfer_sub_key		=  ENV['TRANSFER_SUB_KEY']
 		@@collection_api_id 	=  ENV['COLLECTION_API_ID']
 		@@collection_api_key 	=  ENV['COLLECTION_API_KEY']
@@ -17,7 +17,8 @@ module MobileMoney
 			token = process_request_token()
 			if token
 				url = "https://proxy.momoapi.mtn.com/collection/v1_0/requesttopay"
-				callback_url = "https://betcity.co.ug"
+				#callback_url = "https://betcity.co.ug"
+				callback_url = "http://104.248.165.210:8030/confirmation/mtn/payment"
 
 				uri = URI(url)
 
@@ -138,7 +139,7 @@ module MobileMoney
 			if token
 				url = "https://proxy.momoapi.mtn.com/disbursement/v1_0/transfer"
 				callback_url = "https://betcity.co.ug"
-
+				#callback_url = "http://104.248.165.210:8030/confirmation/mtn/payment"
 				uri = URI(url)
 
 				req = Net::HTTP::Post.new(uri)
