@@ -10,8 +10,8 @@ module BetslipCartHelper
       return odd
    end
 
-   def fetch_specifier
-      specifier = market.constantize.find_by(fixture_id: fixture_id).send("specifier")
+   def fetch_specifier(market, fixture_id)
+      specifier = market.constantize.find_by(fixture_id: fixture_id).specifier
       return specifier
    end
    
