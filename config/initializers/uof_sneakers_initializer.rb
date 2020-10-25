@@ -3,7 +3,7 @@ begin
    Sneakers.configure   :heartbeat => 5,
                         :amqp => 'amqp://s5X0wAgEmHCxDqrPnI@stgmq.betradar.com:5671',
                         :vhost => '/unifiedfeed/30819',
-                        :log  => '/var/www/html/sportsbook/shared/log/sneakers.log',     # Log file
+                        # :log  => '/var/www/html/sportsbook/shared/log/sneakers.log',     # Log file #removed to let systemed manage its own logging
                         :tls => true,
                         :verify_peer => false,
                         :verify_peer_name => false,
