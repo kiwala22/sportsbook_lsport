@@ -72,7 +72,7 @@
     <tbody>
 			<% @bet_slips.each_with_index do |bet_slip, i| %>
 				<tr>
-          <td><u><a href="<%= backend_bet_slip_path(id: bet_slip.id)%>">bet_slip.id %></a></u></td>
+          <td><u><a href="<%= backend_bet_slip_path(id: bet_slip.id)%>"><%= bet_slip.id %></a></u></td>
 					<td><%= bet_slip.bet_count %></td>
 					<td><%= bet_slip.stake %></td>
 					<td><%= bet_slip.odds %></td>

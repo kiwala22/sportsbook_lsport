@@ -12,7 +12,7 @@ class Mts::SubmitCancel
 
     #connect to the mqp and send ticket
      channel = BunnyQueueService.connection.create_channel
-     exchange = channel.fanout(
+     exchange = channel.topic(
        EXCHANGE_NAME,
        :durable => true
      ) 
