@@ -23,7 +23,7 @@ class MarketAlert < ApplicationRecord
             
          end
          
-         sleep 10
+         sleep 12
       end
    end
    
