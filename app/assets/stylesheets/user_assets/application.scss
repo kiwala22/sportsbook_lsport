@@ -259,16 +259,16 @@ table.fixture-table {
     border-color: #7690a7;
     line-height: 1.2rem;
     font-size: 12px;
-    font-weight: 700;
+    font-weight: 600;
     color: white;
     .wagger-amt {
-        font-weight: 600;
+        font-weight: 500;
         margin-top: 5px;
     }
 }
 
 strong {
-    font-weight: 600;
+    font-weight: 500;
 }
 
 .market-odds {
@@ -313,7 +313,7 @@ strong {
 .widget-body#betslip {
     padding: 10px 15px;
     font-size: 12px;
-    font-weight: 600;
+    font-weight: 500;
 }
 
 .total-bet {
@@ -591,34 +591,32 @@ a:visited {
 }
 
 .match-feat {
-   white-space: nowrap;
+    white-space: nowrap;
 }
 
-.event{
+.event {
     white-space: nowrap;
     padding: 15px;
-    text-align: center;   
+    text-align: center;
 }
 
-.heads{
-    padding:25px;
+.heads {
+    padding: 25px;
     letter-spacing: 0.4px;
     font-size: 14px;
 }
 
-.paragraph{
-    padding:12px;
+.paragraph {
+    padding: 12px;
     line-height: 2.3;
-
 }
 
-.lists{
+.lists {
     padding-left: 40px;
     line-height: 3.0;
-    
 }
 
-.codes{
+.codes {
     font-size: 15px;
     color: #F6AE2D;
 }
@@ -640,6 +638,6 @@ a:visited {
     padding-left: 9px;
 }
 
-.footer-size{
+.footer-size {
     font-size: 13px;
 }
