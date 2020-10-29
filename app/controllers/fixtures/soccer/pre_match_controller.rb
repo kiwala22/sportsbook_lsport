@@ -5,7 +5,7 @@ class Fixtures::Soccer::PreMatchController < ApplicationController
    def index
      if params[:q].present?
        @check_params = false
-       parameters = ["fixtures.status='not_started'", "fixtures.sport_id='sr:sport:1'", "fixtures.category_id NOT IN ('[sr:category:1033, sr:category:2123]')", "market1_pres.status = 'Active'", "fixtures.scheduled_time >= #{Time.now}" ]
+       parameters = ["fixtures.status='not_started'", "fixtures.sport_id='sr:sport:1'", "fixtures.category_id NOT IN ('[sr:category:1033, sr:category:2123]')", "market1_pres.status = 'Active'", "fixtures.scheduled_time >= '#{Time.now}'" ]
        if params[:q][:tournament_name].present?
          @check_params = true
          parameters << "fixtures.tournament_name='#{params[:q][:tournament_name]}'"
@@ -32,7 +32,7 @@ class Fixtures::Soccer::PreMatchController < ApplicationController
              }
          }
          format.js
-         
+
       end
 
    end
