@@ -1,5 +1,5 @@
-<div class="col-xl-2 col-lg-2">
-    <aside class="content-sidebar">
+<div class="col-xl-2 col-lg-2 mt-40">
+    <aside class="content-sidebar mb-20">
         <h3>Sports</h3>
         <ul>
             <li><a href=<%= fixtures_soccer_lives_path%> ><i class=" blinking match-time fas fa-bolt fa-lg fa-fw mr-2 "></i>Live Games</a>
@@ -10,7 +10,7 @@
         </ul>
     </aside>
 
-    <aside class="content-sidebar">
+    <aside class="content-sidebar mb-20">
         <h3>Leagues</h3>
         <ul>
             <li class="text-gray-400"><%= link_to "UEFA Champions League", fixtures_soccer_pres_path(:'q[tournament_name]' => "UEFA Champions League") %></li>
@@ -28,7 +28,7 @@
         </ul>
     </aside>
 
-    <aside class="content-sidebar">
+    <aside class="content-sidebar mb-20">
         <h3>Countries</h3>
         <ul>
             <li class="text-gray-400"><i class="flag-icon flag-icon-gb fa-fw mr-2"></i><%= link_to "England", fixtures_soccer_pres_path(:'q[category]' => "England")%></li>

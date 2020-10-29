@@ -3,7 +3,7 @@ class Mts::SubmitCancel
    require 'json/ext'
    
    QUEUE_NAME = "skyline_skyline-Reply-node#{ENV['NODE_ID']}".freeze
-   EXCHANGE_NAME = 'skyline_skyline-Reply'.freeze
+   EXCHANGE_NAME = 'skyline_skyline-Control'.freeze
    
    
    def publish(slip_id:, code: 102 )
@@ -12,7 +12,7 @@ class Mts::SubmitCancel
 
     #connect to the mqp and send ticket
      channel = BunnyQueueService.connection.create_channel
-     exchange = channel.fanout(
+     exchange = channel.topic(
        EXCHANGE_NAME,
        :durable => true
      ) 
@@ -20,6 +20,7 @@ class Mts::SubmitCancel
      #bind to the exchange then publish
      headers = { 'replyRoutingKey' => "node#{ENV['NODE_ID']}.cancel.confirm"}
      json_data = payload(slip_id: slip_id, ts: (Time.now.to_i * 1000), code: code )
+     Rails.logger.error(json_data)
      exchange.publish(json_data, routing_key: "cancel" ,headers: headers)
    end
    

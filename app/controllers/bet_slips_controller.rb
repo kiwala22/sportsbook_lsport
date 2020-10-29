@@ -1,6 +1,7 @@
 class BetSlipsController < ApplicationController
 	before_action :authenticate_user!
 	include CurrentCart
+	include BetslipCartHelper
 	before_action :set_cart
 	def index
 		@bet_slips = current_user.bet_slips.all.order("created_at DESC").page params[:page]

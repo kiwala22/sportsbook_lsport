@@ -63,6 +63,7 @@ font-family: 'Open Sans', sans-serif;
  ***/
 
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,700|Open Sans:400,600,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&family=Roboto:wght@400;500&display=swap");
 
 /*
   Flaticon icon font: Flaticon
@@ -535,11 +536,11 @@ body {
     font-size: 12px;
     color: #ffffff;
     line-height: 1.5em;
-    font-weight: 600;
+    font-weight: 400;
     background: #50677C;
     -webkit-font-smoothing: antialiased;
     -moz-font-smoothing: antialiased;
-    font-family: "Open Sans", sans-serif;
+    font-family: "Roboto", "Open Sans", sans-serif;
     background: #50677C;
     overflow-x: hidden;
 }
@@ -567,11 +568,11 @@ h4,
 h5,
 h6 {
     position: relative;
-    font-weight: 600;
+    font-weight: 500;
     margin: 0px;
     background: none;
     line-height: 1.2em;
-    font-family: "Open Sans", sans-serif;
+    font-family: "Roboto", "Open Sans", sans-serif;
 }
 
 h1 {
@@ -611,7 +612,7 @@ textarea {
 
 p {
     position: relative;
-    font-family: "Open Sans", sans-serif;
+    font-family: "Roboto", "Open Sans", sans-serif;
 }
 
 img {
@@ -828,7 +829,7 @@ img {
     position: relative;
     display: inline-block;
     font-size: 32px;
-    font-weight: 700;
+    font-weight: 600;
     line-height: 1.4;
     z-index: 1;
     text-transform: capitalize;
@@ -842,11 +843,11 @@ img {
 
 .section-title h4 {
     font-size: 16px;
-    font-family: "Open Sans", sans-serif;
+    font-family: "Roboto", "Open Sans", sans-serif;
     margin-bottom: 10px;
     color: #F6AE2D;
     text-transform: uppercase;
-    font-weight: 600;
+    font-weight: 500;
     letter-spacing: 1px;
     margin-top: 3px;
 }
@@ -1209,27 +1210,27 @@ img {
     position: relative;
     font-size: 12px;
     letter-spacing: 1px;
-    font-weight: 700;
+    font-weight: 600;
     padding: 12px 38px;
     border-radius: 3px;
     display: inline-block;
     cursor: pointer;
     text-transform: uppercase;
     transition: 0.4s;
-    font-family: "Open Sans", sans-serif;
+    font-family: "Roboto", "Open Sans", sans-serif;
 }
 
 .bttn-small {
     position: relative;
     font-size: 11px;
-    font-weight: 700;
+    font-weight: 600;
     padding: 8px 28px;
     border-radius: 3px;
     letter-spacing: 1px;
     display: inline-block;
     cursor: pointer;
     transition: 0.4s;
-    font-family: "Open Sans", sans-serif;
+    font-family: "Roboto", "Open Sans", sans-serif;
     text-transform: uppercase;
 }
 
@@ -1397,7 +1398,7 @@ a#scrollUp {
 .header-top .single-header-top ul li a {
     color: #434a53;
     font-size: 13px;
-    font-weight: 600;
+    font-weight: 500;
 }
 
 .header-top .single-header-top ul li a i {
@@ -1580,10 +1581,10 @@ a#scrollUp {
 
 .main-menu ul li a {
     color: #F6AE2D;
-    font-weight: 700;
+    font-weight: 600;
     text-transform: uppercase;
     font-size: 14px;
-    font-family: "Open Sans", sans-serif;
+    font-family: "Roboto", "Open Sans", sans-serif;
 }
 
 .main-menu ul li:nth-last-of-type(1) .dropdown-menu .dropdown-menu,
@@ -1984,7 +1985,7 @@ Footer Area
     font-size: 22px;
     margin-bottom: 30px;
     margin-top: -4px;
-    font-weight: 600;
+    font-weight: 500;
     position: relative;
     color: #ffffff;
     text-transform: capitalize;
@@ -2203,14 +2204,14 @@ Hero Area
     color: #A3CB38;
     margin-bottom: 10px;
     text-transform: uppercase;
-    font-weight: 600;
-    font-family: "Open Sans", sans-serif;
+    font-weight: 500;
+    font-family: "Roboto", "Open Sans", sans-serif;
     font-size: 22px;
 }
 
 .hero-section .hero-area-1 .single-hero .hero-sub .hero-left h1 {
     font-size: 100px;
-    font-weight: 700;
+    font-weight: 600;
     margin-bottom: 20px;
     text-transform: uppercase;
 }
@@ -2310,15 +2311,15 @@ Hero Area
     color: #ffffff;
     margin-bottom: 10px;
     text-transform: uppercase;
-    font-family: "Open Sans", sans-serif;
-    font-weight: 600;
+    font-family: "Roboto", "Open Sans", sans-serif;
+    font-weight: 500;
     font-size: 26px;
     letter-spacing: 2px;
 }
 
 .hero-section .hero-area-2 .single-hero .hero-sub .table-cell .hero-left h1 {
     font-size: 60px;
-    font-weight: 700;
+    font-weight: 600;
     margin-bottom: 20px;
     text-transform: capitalize;
 }
@@ -2424,7 +2425,6 @@ Site Sidebar
 
 .content-sidebar {
     background: #50677C;
-    padding: 25px 0;
     color: #ffffff;
 }
 
@@ -2433,9 +2433,9 @@ Site Sidebar
     margin-bottom: 25px;
     padding-bottom: 15px;
     font-size: 14px;
-    font-weight: 700;
+    font-weight: 600;
     text-transform: uppercase;
-    font-family: "Open Sans", sans-serif;
+    font-family: "Roboto", "Open Sans", sans-serif;
     color: #ffffff;
 }
 
@@ -2459,7 +2459,7 @@ Site Sidebar
 
 .content-sidebar ul li a {
     color: #ffffff;
-    font-weight: 600;
+    font-weight: 500;
     font-size: 12px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -2477,8 +2477,6 @@ Site Sidebar
 }
 
 .web-sidebar-widget {
-    margin-top: 40px;
-    margin-bottom: 40px;
     border: 2px solid #7690A7;
     border-radius: 5px;
 }
@@ -2490,7 +2488,7 @@ Site Sidebar
 
 .web-sidebar-widget .widget-head h3 {
     font-size: 15px;
-    font-weight: 600;
+    font-weight: 500;
     color: #ffffff;
 }
 
@@ -2654,7 +2652,7 @@ Site Sidebar
 .game-box .card .card-header h3 {
     font-size: 16px;
     display: inline-block;
-    font-weight: 700;
+    font-weight: 500;
 }
 
 .game-box .card .card-header span {
@@ -2706,7 +2704,7 @@ Site Sidebar
 
 .game-box .card .card-body ul li a {
     border: 0;
-    font-weight: 700;
+    font-weight: 600;
     font-size: 12px;
 }
 
@@ -2731,7 +2729,7 @@ Site Sidebar
     border-radius: 50px;
     text-indent: 15px;
     margin-right: 10px;
-    font-weight: 700;
+    font-weight: 600;
     font-size: 12px;
     text-transform: uppercase;
 }
@@ -2742,14 +2740,14 @@ Site Sidebar
 
 .game-box .card .card-body table tr th {
     font-size: 12px;
-    font-weight: 600;
+    font-weight: 500;
     text-transform: capitalize;
     text-align: center;
 }
 
 .game-box .card .card-body table tr td {
     font-size: 12px;
-    font-weight: 600;
+    font-weight: 500;
     text-transform: capitalize;
     // text-align: center;
 }
@@ -2986,7 +2984,7 @@ Blog Area
     text-transform: capitalize;
     margin-bottom: 10px;
     line-height: 1.4em;
-    font-family: "Open Sans", sans-serif;
+    font-family: "Roboto", "Open Sans", sans-serif;
     font-weight: 400;
 }
 
@@ -3150,7 +3148,7 @@ Blog Area
 
 .blog-area .blog-details h2 {
     margin-bottom: 20px;
-    font-weight: 700;
+    font-weight: 600;
     font-size: 30px;
 }
 
@@ -3164,7 +3162,7 @@ Blog Area
 
 .blog-area .blog-all-comments h3 {
     margin-bottom: 20px;
-    font-weight: 600;
+    font-weight: 500;
 }
 
 .blog-area .blog-all-comments .blog-comments {
@@ -3198,7 +3196,7 @@ Blog Area
 }
 
 .blog-area .blog-all-comments .blog-comments .author-comments .author-designation {
-    font-weight: 700;
+    font-weight: 600;
     font-size: 14px;
     margin-bottom: 5px;
 }
@@ -3263,7 +3261,7 @@ Blog Area
 
 .blog-area .post-share-and-tag .social span {
     font-size: 20px;
-    font-weight: 700;
+    font-weight: 600;
 }
 
 .blog-area .post-share-and-tag .social a {
@@ -3334,7 +3332,7 @@ FAQ Area
     padding-bottom: 15px;
     color: #333333;
     user-select: none;
-    font-weight: 600;
+    font-weight: 500;
 }
 
 .faq-contents .accordion li a i {
@@ -3417,7 +3415,7 @@ account-form
     padding: 10px 0;
     color: #ffffff;
     border-radius: 4px;
-    font-family: "Open Sans", sans-serif;
+    font-family: "Roboto", "Open Sans", sans-serif;
     font-size: 16px;
 }
 
@@ -3458,7 +3456,7 @@ account-form
     color: #ffffff;
     font-size: 13px;
     text-align: center;
-    font-family: "Open Sans", sans-serif;
+    font-family: "Roboto", "Open Sans", sans-serif;
 }
 
 .account-form form p a {
@@ -3573,7 +3571,7 @@ feature area
 }
 
 .feature-area .single-feature a {
-    font-weight: 600;
+    font-weight: 500;
 }
 
 .feature-area .single-feature:hover img {
@@ -3605,7 +3603,7 @@ feature area
 }
 
 .feature-area .single-feature-2 h4 {
-    font-weight: 600;
+    font-weight: 500;
     margin-bottom: 15px;
     text-transform: capitalize;
     transition: 0.4s;
@@ -3637,9 +3635,9 @@ Breadcrumb area
 
 .breadcrumb-area .banner-title h2 {
     font-size: 42px;
-    font-weight: 700;
+    font-weight: 600;
     color: #ffffff;
-    font-family: "Open Sans", sans-serif;
+    font-family: "Roboto", "Open Sans", sans-serif;
     margin-bottom: 10px;
     text-transform: uppercase;
 }
@@ -3751,13 +3749,13 @@ Contact area
 }
 
 .contact-form form h4 {
-    font-weight: 600;
+    font-weight: 500;
     font-size: 24px;
     margin-bottom: 5px;
 }
 
 .contact-form form p {
-    font-family: "Open Sans", sans-serif;
+    font-family: "Roboto", "Open Sans", sans-serif;
     font-size: 16px;
     margin-bottom: 15px;
 }
@@ -3768,7 +3766,7 @@ Contact area
     border: 2px solid #ddd;
     text-indent: 15px;
     margin-bottom: 15px;
-    font-family: "Open Sans", sans-serif;
+    font-family: "Roboto", "Open Sans", sans-serif;
     font-size: 16px;
 }
 
@@ -3808,7 +3806,7 @@ Contact area
 }
 
 .contact-content p {
-    font-family: "Open Sans", sans-serif;
+    font-family: "Roboto", "Open Sans", sans-serif;
     font-size: 14px;
     margin-bottom: 5px;
     color: #434a53;
@@ -4137,7 +4135,7 @@ MIssion Vission area
 }
 
 .single-faq h4 {
-    font-weight: 700;
+    font-weight: 600;
     font-size: 20px;
     margin-bottom: 10px;
 }
@@ -4170,7 +4168,7 @@ Error Area
 }
 
 .error-cont p {
-    font-family: "Open Sans", sans-serif;
+    font-family: "Roboto", "Open Sans", sans-serif;
 }
 
 .error-cont form {
@@ -4183,7 +4181,7 @@ Error Area
     text-indent: 20px;
     height: 50px;
     transition: 0.3s;
-    font-family: "Open Sans", sans-serif;
+    font-family: "Roboto", "Open Sans", sans-serif;
 }
 
 .error-cont form input:focus {
@@ -4419,7 +4417,7 @@ Sidebar
 
 .site-sidebar .single-sidebar h3 {
     font-size: 24px;
-    font-weight: 600;
+    font-weight: 500;
     position: relative;
     margin-bottom: 20px;
     text-transform: capitalize;
@@ -4501,7 +4499,7 @@ Sidebar
     color: #ffffff;
     text-align: center;
     display: inline-block;
-    font-family: "Open Sans", sans-serif;
+    font-family: "Roboto", "Open Sans", sans-serif;
     margin: 0 1px;
 }
 
@@ -4529,7 +4527,7 @@ Sidebar
 .site-sidebar .single-sidebar .archives a {
     display: block;
     margin-bottom: 15px;
-    font-family: "Open Sans", sans-serif;
+    font-family: "Roboto", "Open Sans", sans-serif;
     color: #28333e;
 }
 
