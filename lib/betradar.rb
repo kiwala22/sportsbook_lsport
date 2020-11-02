@@ -9,8 +9,8 @@ module Betradar
    @@logger ||= Logger.new("#{Rails.root}/log/betradar.log")
    @@logger.level = Logger::ERROR
 
-   @@end_point = "https://stgapi.betradar.com/v1/"
-   @@auth_token = 's5X0wAgEmHCxDqrPnI'
+   @@end_point = "https://api.betradar.com/v1/"
+   @@auth_token = ENV['ANRL2tQf8N40oGQ4Ye']
 
    def fetch_fixtures(date)
       url = @@end_point + "sports/en/schedules/#{date}/schedule.xml"

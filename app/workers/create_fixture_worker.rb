@@ -12,7 +12,7 @@ class CreateFixtureWorker
     @@logger ||= Logger.new("#{Rails.root}/log/betradar.log")
     @@logger.level = Logger::ERROR
  
-    @@end_point = "https://stgapi.betradar.com/v1/"
+    @@end_point = "https://api.betradar.com/v1/"
     @@auth_token = ENV['BETRADAR_TOKEN']
  
     def perform(event)

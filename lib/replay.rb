@@ -8,8 +8,8 @@ module Replay
    @@logger ||= Logger.new("#{Rails.root}/log/betradar.log")
    @@logger.level = Logger::ERROR
 
-   @@end_point = "https://stgapi.betradar.com/v1/"
-   @@auth_token = 's5X0wAgEmHCxDqrPnI'
+   @@end_point = "https://api.betradar.com/v1/"
+   @@auth_token = ENV['ANRL2tQf8N40oGQ4Ye']
    
    def load_fixtures
       CSV.foreach("#{Rails.root}/public/soccer.csv", headers: true) do |row|
