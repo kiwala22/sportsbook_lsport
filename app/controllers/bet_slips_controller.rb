@@ -56,7 +56,7 @@ class BetSlipsController < ApplicationController
 					bet_slip.update!(bet_count: bets_arr.count, stake: stake, odds: total_odds, status: "Pending", potential_win_amount: potential_win_amount)
 				end					
 				#process the betslips through MTS
-				if browser.device.mobile?
+				if browser.device.mobile? || browser.device.tablet?
 					channel = "mobile"
 				else
 					channel = "internet"
