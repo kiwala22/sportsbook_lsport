@@ -23,7 +23,7 @@ class TicketConfirmWorker
 				betslip.update!(status: "Rejected", reason: "Expired")
 				betslip.bets.update_all(status: "Rejected")
 				#send a ticket cancellation request
-				Mts::SubmitCancel.new.publish(slip_id: betslip.id, code: 202)
+				Mts::SubmitCancel.new.publish(slip_id: betslip.id, code: 102)
 				
 			end
 		elsif message["result"]["status"] == "rejected"
