@@ -45,7 +45,7 @@ class BetSlipsController < ApplicationController
 				end
 				
 				#initiate the betslip
-				odds_arr = bets_arr.map{|x| x[:price].to_f}
+				odds_arr = bets_arr.map{|x| x[:odds].to_f}
 				total_odds = odds_arr.inject(:*).round(2)
 				potential_win_amount = (stake.to_f * total_odds )
 				
