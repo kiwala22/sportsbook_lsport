@@ -68,12 +68,12 @@ class BetSlipsController < ApplicationController
 					#fail the betslip and all the bets
 					#refund the user money
 					#consider a separate refund function, since it is called from three locations now 05/11/2020 Acacia
-					betslip.update!(status: "Failed") 
-					betslip.bets.update_all(status: "Failed")
+					bet_slip.update!(status: "Failed") 
+					bet_slip.bets.update_all(status: "Failed")
 					#refund the stake
 					previous_balance = current_user.balance
-					balance_after = current_user.balance = (current_user.balance + betslip.stake)
-					transaction = current_user.transactions.build(balance_before: previous_balance, balance_after: balance_after, phone_number: current_user.phone_number, status: "SUCCESS", currency: "UGX", amount: betslip.stake, category: "Refund" )
+					balance_after = current_user.balance = (current_user.balance + bet_slip.stake)
+					transaction = current_user.transactions.build(balance_before: previous_balance, balance_after: balance_after, phone_number: current_user.phone_number, status: "SUCCESS", currency: "UGX", amount: bet_slip.stake, category: "Refund" )
 					
 					BetSlip.transaction do
 						current_user.save!
