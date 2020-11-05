@@ -64,7 +64,7 @@ class BetSlipsController < ApplicationController
 
 				begin
 					Mts::SubmitTicket.new.publish(slip_id: bet_slip.id, user_channel: channel, ip: request.remote_ip )
-				rescue
+				rescue Exception => error
 					#fail the betslip and all the bets
 					#refund the user money
 					#consider a separate refund function, since it is called from three locations now 05/11/2020 Acacia
