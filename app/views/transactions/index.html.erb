@@ -39,23 +39,21 @@
                                     <%= transaction.phone_number %>
                                 </td>
                                 <% if transaction.category == "Deposit" %>
-                                <td class="deposit">+
-                                    <%= number_to_currency(transaction.amount, unit: "UGX") %>
+                                <td class="deposit">+<%= number_to_currency(transaction.amount, unit: "UGX ", precision: 0) %>
                                 </td>
                                 <% elsif (transaction.category == "Withdraw") || (transaction.category == "Bet Stake")  %>
-                                <td class="withdraw">-
-                                    <%= number_to_currency(transaction.amount, unit: "UGX") %>
+                                <td class="withdraw">-<%= number_to_currency(transaction.amount, unit: "UGX ", precision: 0) %>
                                 </td>
                                 <% else %>
                                 <td class="deposit">+
-                                    <%= number_to_currency(transaction.amount, unit: "UGX") %>
+                                    <%= number_to_currency(transaction.amount, unit: "UGX ", precision: 0) %>
                                 </td>
                                 <% end %>
                                 <td>
-                                    <%= number_to_currency(transaction.balance_before, unit: "UGX") %>
+                                    <%= number_to_currency(transaction.balance_before, unit: "UGX ", precision: 0) %>
                                 </td>
                                 <td>
-                                    <%= number_to_currency(transaction.balance_after, unit: "UGX") %>
+                                    <%= number_to_currency(transaction.balance_after, unit: "UGX ", precision: 0) %>
                                 </td>
                                 <td>
                                     <%= transaction.category %>
