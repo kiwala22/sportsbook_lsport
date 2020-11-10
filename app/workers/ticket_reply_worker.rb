@@ -30,7 +30,7 @@ class TicketReplyWorker
       end
 
       #send the cancel acknowledgement
-      Mts::SubmitAck.new.publish(slip_id: betslip.id, code: code )
+      Mts::SubmitAck.new.publish(slip_id: bet_slip.id, code: code )
 
     elsif message["result"]["status"] == "not_cancelled"
       #create a cancellation log with failed
