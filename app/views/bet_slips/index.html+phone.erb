@@ -34,10 +34,10 @@
                             <tr>
                               <td><u><a href="<%= bet_slip_path(id: bet_slip.id)%>">Betslip #<%= (i+1) %></a></u></td>
                               <td><%= bet_slip.bet_count %></td>
-                              <td><%= bet_slip.stake %></td>
+                              <td><%= number_to_currency(bet_slip.stake, unit: "UGX") %></td>
                               <td><%= bet_slip.odds %></td>
-                              <td><%= bet_slip.potential_win_amount %></td>
-                              <td><%= bet_slip.win_amount %></td>
+                              <td><%= number_to_currency(bet_slip.potential_win_amount, unit: "UGX") %></td>
+                              <td><%= number_to_currency(bet_slip.win_amount, unit: "UGX") %></td>
                               <td><%= bet_slip.status %></td>
                               <td><%= bet_slip.result %></td>
                               <td><%= bet_slip.paid %></td>

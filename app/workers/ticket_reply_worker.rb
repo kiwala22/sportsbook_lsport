@@ -6,6 +6,7 @@ class TicketReplyWorker
   
   def perform(message, routing_key)
     ticket_id = message["result"]["ticketId"]
+    code = message["result"]["reason"]["code"]
     bet_slip_cancel = BetSlipCancel.find_by(bet_slip_id: ticket_id)
     bet_slip = BetSlip.find(ticket_id)
     user = User.find(bet_slip.user_id)
@@ -27,6 +28,10 @@ class TicketReplyWorker
         user.save!
         transaction.save!
       end
+
+      #send the cancel acknowledgement
+      Mts::SubmitAck.new.publish(slip_id: betslip.id, code: code )
+
     elsif message["result"]["status"] == "not_cancelled"
       #create a cancellation log with failed
       bet_slip_cancel.update!(status: "Not Cancelled", reason: message["result"]["reason"]["message"] )
