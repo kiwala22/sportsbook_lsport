@@ -33,14 +33,14 @@
                               <td><%= (i+1) %></td>
                               <td><%= transaction.phone_number %></td>
                               <% if transaction.category == "Deposit" %>
-                                <td class="deposit">+<%= number_to_currency(transaction.amount, unit: "UGX") %></td>
+                                <td class="deposit">+<%= number_to_currency(transaction.amount, unit: "UGX ", precision: 0) %></td>
                               <% elsif transaction.category == "Withdraw" %>
-                                <td class="withdraw">-<%= number_to_currency(transaction.amount, unit: "UGX") %></td>
+                                <td class="withdraw">-<%= number_to_currency(transaction.amount, unit: "UGX ", precision: 0) %></td>
                               <% else %>
-                                <td class="deposit">+<%= number_to_currency(transaction.amount, unit: "UGX") %></td>
+                                <td class="deposit">+<%= number_to_currency(transaction.amount, unit: "UGX ", precision: 0) %></td>
                               <% end %>
-                              <td><%= number_to_currency(transaction.balance_before, unit: "UGX") %></td>
-                              <td><%= number_to_currency(transaction.balance_after, unit: "UGX") %></td>
+                              <td><%= number_to_currency(transaction.balance_before, unit: "UGX ", precision: 0) %></td>
+                              <td><%= number_to_currency(transaction.balance_after, unit: "UGX ", precision: 0) %></td>
                               <td><%= transaction.category %></td>
                               <td><%= transaction.status %></td>
                               <td><%= local_time(transaction.created_at, format: "%d/%m/%y %l:%M%P") %></td>
