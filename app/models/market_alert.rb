@@ -19,8 +19,16 @@ class MarketAlert < ApplicationRecord
          last_alert = MarketAlert.last
          if last_alert && (((Time.now.to_i * 1000) - last_alert[:timestamp].to_i) > 15000)
             #if the last update irrespective if product is more than 60 seconds ago, then manual restart
-            system('systemctl restart sneakers && systemctl restart betradar')
+            system('systemctl restart sneakers')
             
+         end
+
+         #check if mts connections are down
+         amqp_connections = `netstat -oW | grep amqps | grep ESTABLISHED  | wc -l 2>&1`;  result=$?.success?
+         if result == true
+            if amqp_connections.to_i < 3
+               system('systemctl restart betradar-betradar.1.service')
+            end
          end
          
          sleep 12
