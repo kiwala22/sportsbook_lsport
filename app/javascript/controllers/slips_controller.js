@@ -31,6 +31,9 @@ export default class extends Controller {
         outcomes.forEach(element => {
             if ($(`#slip_${element}_${data.fixture_id}`).length > 0) {
                 $(`#slip_${element}_${data.fixture_id}`).html(data[`outcome_${element}`]);
+                setTimeout(() => {
+                    $(`#slip_${element}_${data.fixture_id}`).style.color = "#F6AE2D";
+                }, 3000);
             }
         });
 
