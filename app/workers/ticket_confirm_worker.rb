@@ -9,23 +9,10 @@ class TicketConfirmWorker
 		betslip = BetSlip.find(ticket_id)
 		user = User.find(betslip.user_id)
 		if message["result"]["status"] == "accepted"
-			if betslip.bets.select(:product).include?("1")
-				time_limit = 16 
-			else
-				time_limit = 2
-			end
 			
-			if (Time.now.to_i  - betslip.created_at.to_i) <= time_limit
-				betslip.update!(status: "Active")
-				betslip.bets.update_all(status: "Active")
-			else
-				#process expired tickets
-				betslip.update!(status: "Rejected", reason: "Expired")
-				betslip.bets.update_all(status: "Rejected")
-				#send a ticket cancellation request
-				Mts::SubmitCancel.new.publish(slip_id: betslip.id, code: 102)
-				
-			end
+			betslip.update!(status: "Active")
+			betslip.bets.update_all(status: "Active")
+			
 		elsif message["result"]["status"] == "rejected"
 			betslip.update!(status: "Rejected", reason: message["result"]["reason"]["message"]) 
 			betslip.bets.update_all(status: "Rejected")

@@ -64,6 +64,8 @@ class BetSlipsController < ApplicationController
 
 				begin
 					Mts::SubmitTicket.new.publish(slip_id: bet_slip.id, user_channel: channel, ip: request.remote_ip )
+					#run a worker in future to close this ticket if no reply is made
+					TicketMonitorWorker.perform_in(16.seconds, bet_slip.id)
 				rescue Exception => error
 					#fail the betslip and all the bets
 					#refund the user money
