@@ -29,8 +29,10 @@ class TicketReplyWorker
         transaction.save!
       end
 
-      #send the cancel acknowledgement
-      Mts::SubmitAck.new.publish(slip_id: bet_slip.id, code: code )
+      if bet_slip_cancel.code == "103"
+        #send the cancel acknowledgement
+        Mts::SubmitAck.new.publish(slip_id: bet_slip.id, code: code )
+      end
 
     elsif message["result"]["status"] == "not_cancelled"
       #create a cancellation log with failed
