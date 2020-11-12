@@ -37,6 +37,10 @@ class TicketReplyWorker
     elsif message["result"]["status"] == "not_cancelled"
       #create a cancellation log with failed
       bet_slip_cancel.update!(status: "Not Cancelled", reason: message["result"]["reason"]["message"] )
+      if bet_slip_cancel.code == "103"
+        #send the cancel acknowledgement
+        Mts::SubmitAck.new.publish(slip_id: bet_slip.id, code: code )
+      end
     else
       Rails.logger.error("Unknown ticket")
       Rails.logger.error(message)
