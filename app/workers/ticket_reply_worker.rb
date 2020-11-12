@@ -31,7 +31,7 @@ class TicketReplyWorker
 
       if bet_slip_cancel.code == "103"
         #send the cancel acknowledgement
-        Mts::SubmitAck.new.publish(slip_id: bet_slip.id, code: code )
+        Mts::SubmitAck.new.publish(slip_id: bet_slip.id, code: code, status: "cancelled" )
       end
 
     elsif message["result"]["status"] == "not_cancelled"
@@ -39,7 +39,7 @@ class TicketReplyWorker
       bet_slip_cancel.update!(status: "Not Cancelled", reason: message["result"]["reason"]["message"] )
       if bet_slip_cancel.code == "103"
         #send the cancel acknowledgement
-        Mts::SubmitAck.new.publish(slip_id: bet_slip.id, code: code )
+        Mts::SubmitAck.new.publish(slip_id: bet_slip.id, code: code, status: "not_cancelled" )
       end
     else
       Rails.logger.error("Unknown ticket")
