@@ -7,7 +7,10 @@
    </div>
    <!-- Navbar brand -->
    <div>
-   <li class="nav-item active"><%= link_to image_tag("betcity_logo.png", alt: "BETSB.", height: "25vw" ,class: "img-responsive"), {action: 'index', controller: 'fixtures/soccer/pre_match'} %></li>
+   <!-- <li class="nav-item active"><#%= link_to image_tag("betcity_logo.png", alt: "SkylineBet", height: "25vw" ,class: "img-responsive"), {action: 'index', controller: 'fixtures/soccer/pre_match'} %></li> -->
+   <li class="nav-item active">
+     <a href=<%= root_path %>><h4>Skyline<span class="logo-color">Bet</span></h4></a>
+   </li>
    </div>
    <% if current_user %>
       <button class="navbar-toggler toggler-example" type="button" data-toggle="collapse" data-target="#navbarLoginShortcuts" aria-controls="navbarLoginShortcuts" aria-expanded="false" aria-label="Toggle navigation"><span class="dark-blue-text"><i
@@ -112,11 +115,11 @@
                <ul>
                   <li>
                     <a href=<%= fixtures_soccer_lives_path%> >
-                      <i class=" blinking match-time fas fa-bolt fa-lg fa-fw mr-2 "></i>Live 
+                      <i class=" blinking match-time fas fa-bolt fa-lg fa-fw mr-2 "></i>Live
                     </a>
                   </li>
                   <li>
-                    <a href= <%= fixtures_soccer_pres_path %>> 
+                    <a href= <%= fixtures_soccer_pres_path %>>
                       <i class=" match-time far fa-futbol fa-lg fa-fw mr-2 "></i>Soccer
                     </a>
                 </li>
