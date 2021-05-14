@@ -221,8 +221,8 @@ ActiveRecord::Schema.define(version: 2021_05_14_064941) do
 
   create_table "market113_lives", force: :cascade do |t|
     t.string "event_id"
-    t.decimal "outcome_74", precision: 6, scale: 2
-    t.decimal "outcome_76", precision: 6, scale: 2
+    t.decimal "outcome_Yes", precision: 6, scale: 2
+    t.decimal "outcome_No", precision: 6, scale: 2
     t.string "status"
     t.string "void_reason"
     t.json "outcome"
@@ -237,8 +237,8 @@ ActiveRecord::Schema.define(version: 2021_05_14_064941) do
 
   create_table "market113_pres", force: :cascade do |t|
     t.string "event_id"
-    t.decimal "outcome_74", precision: 6, scale: 2
-    t.decimal "outcome_76", precision: 6, scale: 2
+    t.decimal "outcome_Yes", precision: 6, scale: 2
+    t.decimal "outcome_No", precision: 6, scale: 2
     t.string "status"
     t.string "void_reason"
     t.json "outcome"
@@ -253,8 +253,8 @@ ActiveRecord::Schema.define(version: 2021_05_14_064941) do
 
   create_table "market17_lives", force: :cascade do |t|
     t.string "event_id"
-    t.decimal "outcome_74", precision: 6, scale: 2
-    t.decimal "outcome_76", precision: 6, scale: 2
+    t.decimal "outcome_Yes", precision: 6, scale: 2
+    t.decimal "outcome_No", precision: 6, scale: 2
     t.string "status"
     t.string "void_reason"
     t.json "outcome"
@@ -269,8 +269,8 @@ ActiveRecord::Schema.define(version: 2021_05_14_064941) do
 
   create_table "market17_pres", force: :cascade do |t|
     t.string "event_id"
-    t.decimal "outcome_74", precision: 6, scale: 2
-    t.decimal "outcome_76", precision: 6, scale: 2
+    t.decimal "outcome_Yes", precision: 6, scale: 2
+    t.decimal "outcome_No", precision: 6, scale: 2
     t.string "status"
     t.string "void_reason"
     t.json "outcome"
@@ -287,7 +287,7 @@ ActiveRecord::Schema.define(version: 2021_05_14_064941) do
     t.string "event_id"
     t.decimal "outcome_1", precision: 6, scale: 2
     t.decimal "outcome_2", precision: 6, scale: 2
-    t.decimal "outcome_3", precision: 6, scale: 2
+    t.decimal "outcome_X", precision: 6, scale: 2
     t.string "status"
     t.string "void_reason"
     t.json "outcome"
@@ -304,7 +304,7 @@ ActiveRecord::Schema.define(version: 2021_05_14_064941) do
     t.string "event_id"
     t.decimal "outcome_1", precision: 6, scale: 2
     t.decimal "outcome_2", precision: 6, scale: 2
-    t.decimal "outcome_3", precision: 6, scale: 2
+    t.decimal "outcome_X", precision: 6, scale: 2
     t.string "status"
     t.string "void_reason"
     t.json "outcome"
@@ -319,9 +319,9 @@ ActiveRecord::Schema.define(version: 2021_05_14_064941) do
 
   create_table "market25_lives", force: :cascade do |t|
     t.string "event_id"
-    t.decimal "outcome_9", precision: 6, scale: 2
-    t.decimal "outcome_10", precision: 6, scale: 2
-    t.decimal "outcome_11", precision: 6, scale: 2
+    t.decimal "outcome_12", precision: 6, scale: 2
+    t.decimal "outcome_1X", precision: 6, scale: 2
+    t.decimal "outcome_X2", precision: 6, scale: 2
     t.string "status"
     t.string "void_reason"
     t.json "outcome"
@@ -336,9 +336,9 @@ ActiveRecord::Schema.define(version: 2021_05_14_064941) do
 
   create_table "market25_pres", force: :cascade do |t|
     t.string "event_id"
-    t.decimal "outcome_9", precision: 6, scale: 2
-    t.decimal "outcome_10", precision: 6, scale: 2
-    t.decimal "outcome_11", precision: 6, scale: 2
+    t.decimal "outcome_12", precision: 6, scale: 2
+    t.decimal "outcome_1X", precision: 6, scale: 2
+    t.decimal "outcome_X2", precision: 6, scale: 2
     t.string "status"
     t.string "void_reason"
     t.json "outcome"
@@ -355,7 +355,7 @@ ActiveRecord::Schema.define(version: 2021_05_14_064941) do
     t.string "event_id"
     t.decimal "outcome_1", precision: 6, scale: 2
     t.decimal "outcome_2", precision: 6, scale: 2
-    t.decimal "outcome_3", precision: 6, scale: 2
+    t.decimal "outcome_X", precision: 6, scale: 2
     t.string "status"
     t.string "void_reason"
     t.json "outcome"
@@ -372,7 +372,7 @@ ActiveRecord::Schema.define(version: 2021_05_14_064941) do
     t.string "event_id"
     t.decimal "outcome_1", precision: 6, scale: 2
     t.decimal "outcome_2", precision: 6, scale: 2
-    t.decimal "outcome_3", precision: 6, scale: 2
+    t.decimal "outcome_X", precision: 6, scale: 2
     t.string "status"
     t.string "void_reason"
     t.json "outcome"
@@ -387,8 +387,8 @@ ActiveRecord::Schema.define(version: 2021_05_14_064941) do
 
   create_table "market2_lives", force: :cascade do |t|
     t.string "event_id"
-    t.decimal "outcome_12", precision: 6, scale: 2
-    t.decimal "outcome_13", precision: 6, scale: 2
+    t.decimal "outcome_Under", precision: 6, scale: 2
+    t.decimal "outcome_Over", precision: 6, scale: 2
     t.string "status"
     t.decimal "total", precision: 5, scale: 2
     t.string "void_reason"
@@ -404,8 +404,8 @@ ActiveRecord::Schema.define(version: 2021_05_14_064941) do
 
   create_table "market2_pres", force: :cascade do |t|
     t.string "event_id"
-    t.decimal "outcome_12", precision: 6, scale: 2
-    t.decimal "outcome_13", precision: 6, scale: 2
+    t.decimal "outcome_Under", precision: 6, scale: 2
+    t.decimal "outcome_Over", precision: 6, scale: 2
     t.string "status"
     t.decimal "total", precision: 5, scale: 2
     t.string "void_reason"
@@ -421,8 +421,8 @@ ActiveRecord::Schema.define(version: 2021_05_14_064941) do
 
   create_table "market3_lives", force: :cascade do |t|
     t.string "event_id"
-    t.decimal "outcome_1714", precision: 6, scale: 2
-    t.decimal "outcome_1715", precision: 6, scale: 2
+    t.decimal "outcome_1", precision: 6, scale: 2
+    t.decimal "outcome_2", precision: 6, scale: 2
     t.integer "hcp"
     t.string "status"
     t.string "void_reason"
@@ -438,8 +438,8 @@ ActiveRecord::Schema.define(version: 2021_05_14_064941) do
 
   create_table "market3_pres", force: :cascade do |t|
     t.string "event_id"
-    t.decimal "outcome_1714", precision: 6, scale: 2
-    t.decimal "outcome_1715", precision: 6, scale: 2
+    t.decimal "outcome_1", precision: 6, scale: 2
+    t.decimal "outcome_2", precision: 6, scale: 2
     t.integer "hcp"
     t.string "status"
     t.string "void_reason"
@@ -455,8 +455,8 @@ ActiveRecord::Schema.define(version: 2021_05_14_064941) do
 
   create_table "market53_lives", force: :cascade do |t|
     t.string "event_id"
-    t.decimal "outcome_1714", precision: 6, scale: 2
-    t.decimal "outcome_1715", precision: 6, scale: 2
+    t.decimal "outcome_1", precision: 6, scale: 2
+    t.decimal "outcome_2", precision: 6, scale: 2
     t.integer "hcp"
     t.string "status"
     t.string "void_reason"
@@ -472,8 +472,8 @@ ActiveRecord::Schema.define(version: 2021_05_14_064941) do
 
   create_table "market53_pres", force: :cascade do |t|
     t.string "event_id"
-    t.decimal "outcome_1714", precision: 6, scale: 2
-    t.decimal "outcome_1715", precision: 6, scale: 2
+    t.decimal "outcome_1", precision: 6, scale: 2
+    t.decimal "outcome_2", precision: 6, scale: 2
     t.integer "hcp"
     t.string "status"
     t.string "void_reason"
@@ -489,8 +489,8 @@ ActiveRecord::Schema.define(version: 2021_05_14_064941) do
 
   create_table "market77_lives", force: :cascade do |t|
     t.string "event_id"
-    t.decimal "outcome_12", precision: 6, scale: 2
-    t.decimal "outcome_13", precision: 6, scale: 2
+    t.decimal "outcome_Under", precision: 6, scale: 2
+    t.decimal "outcome_Over", precision: 6, scale: 2
     t.string "status"
     t.decimal "total", precision: 5, scale: 2
     t.string "void_reason"
@@ -506,8 +506,8 @@ ActiveRecord::Schema.define(version: 2021_05_14_064941) do
 
   create_table "market77_pres", force: :cascade do |t|
     t.string "event_id"
-    t.decimal "outcome_12", precision: 6, scale: 2
-    t.decimal "outcome_13", precision: 6, scale: 2
+    t.decimal "outcome_Under", precision: 6, scale: 2
+    t.decimal "outcome_Over", precision: 6, scale: 2
     t.string "status"
     t.decimal "total", precision: 5, scale: 2
     t.string "void_reason"
@@ -523,9 +523,9 @@ ActiveRecord::Schema.define(version: 2021_05_14_064941) do
 
   create_table "market7_lives", force: :cascade do |t|
     t.string "event_id"
-    t.decimal "outcome_9", precision: 6, scale: 2
-    t.decimal "outcome_10", precision: 6, scale: 2
-    t.decimal "outcome_11", precision: 6, scale: 2
+    t.decimal "outcome_12", precision: 6, scale: 2
+    t.decimal "outcome_1X", precision: 6, scale: 2
+    t.decimal "outcome_X2", precision: 6, scale: 2
     t.string "status"
     t.string "void_reason"
     t.json "outcome"
@@ -540,9 +540,9 @@ ActiveRecord::Schema.define(version: 2021_05_14_064941) do
 
   create_table "market7_pres", force: :cascade do |t|
     t.string "event_id"
-    t.decimal "outcome_9", precision: 6, scale: 2
-    t.decimal "outcome_10", precision: 6, scale: 2
-    t.decimal "outcome_11", precision: 6, scale: 2
+    t.decimal "outcome_12", precision: 6, scale: 2
+    t.decimal "outcome_1X", precision: 6, scale: 2
+    t.decimal "outcome_X2", precision: 6, scale: 2
     t.string "status"
     t.string "void_reason"
     t.json "outcome"
