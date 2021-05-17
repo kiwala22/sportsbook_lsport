@@ -6,13 +6,13 @@ class Backend::Fixtures::RecoverMessagesController < ApplicationController
   layout "admin_application.html.erb"
 
   def index
-    @fixtures = Fixture.joins(:market1_pre).where("fixtures.sport_id = ? AND fixtures.status != ? AND fixtures.scheduled_time < ?","sr:sport:1", "ended", (Time.now.to_datetime - 3.hours)).order(scheduled_time: :asc).page params[:page]
+    @fixtures = Fixture.joins(:market1_pre).where("fixtures.sport_id = ? AND fixtures.status != ? AND fixtures.start_date < ?","6046", "ended", (Time.now.to_datetime - 3.hours)).order(start_date: :asc).page params[:page]
   end
 
   def update
     @fixture = Fixture.find(params[:id])
-    response_pre = fetch_event_messages("pre", @fixture.event_id)
-    response_live = fetch_event_messages("liveodds", @fixture.event_id)
+    response_pre = fetch_event_messages("pre", @fixture.fixture_id)
+    response_live = fetch_event_messages("liveodds", @fixture.fixture_id)
     if (response_pre == 200 || response_live == 200)
       respond_to do |format|
         flash[:notice] = "Fixture Recovery Successful."

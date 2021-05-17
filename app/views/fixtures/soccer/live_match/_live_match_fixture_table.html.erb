@@ -2,8 +2,8 @@
       <tr data-controller="live-odds-channel #markets-channel slips fixture-channel" data-fixture-channel-fixture=<%= fixture.id %> data-live-odds-channel-fixture=<%= fixture.id %> data-markets-channel-fixture=<%= fixture.id %> data-slips-fixture=<%= fixture.id %> data-live-odds-channel-market="1" data-markets-channel-market="1" data-slips-market="1">
            <td>
                <%= link_to fixtures_soccer_live_path(id: fixture.id) do  %>
-                  <strong><%= fixture.comp_one_name %></strong>
-                  <strong><%= fixture.comp_two_name %></strong>
+                  <strong><%= fixture.part_one_name %></strong>
+                  <strong><%= fixture.part_two_name %></strong>
                <% end %>
             </td>
             <td>
@@ -14,18 +14,18 @@
             </td>
             <td>
                <a href=<%=fixtures_soccer_lives_path(id: fixture.id) %>>
-                  <%= fixture.tournament_name %> <br>
-                  <%= fixture.category %>
+                  <%= fixture.league_name %> <br>
+                  <%= fixture.location %>
                </a>
             </td>
             <td>
                <%= link_to(fixture.market1_live.outcome_1, add_bet_path(outcome_id: "1", fixture_id: fixture.id, market: "Market1Live", outcome_desc: "1X2 FT - 1") , class: "btnn intialise_input",id:"live_1_#{fixture.id}", remote: true, method: :post )%>
             </td>
             <td>
-               <%= link_to(fixture.market1_live.outcome_2, add_bet_path(outcome_id: "2", fixture_id: fixture.id, market: "Market1Live", outcome_desc: "1X2 FT - X") , class: "btnn intialise_input", id:"live_2_#{fixture.id}",remote: true, method: :post )%>
+               <%= link_to(fixture.market1_live.outcome_X, add_bet_path(outcome_id: "2", fixture_id: fixture.id, market: "Market1Live", outcome_desc: "1X2 FT - X") , class: "btnn intialise_input", id:"live_2_#{fixture.id}",remote: true, method: :post )%>
             </td>
             <td>
-               <%= link_to(fixture.market1_live.outcome_3, add_bet_path(outcome_id: "3", fixture_id: fixture.id, market: "Market1Live", outcome_desc: "1X2 FT - 2") , class: "btnn intialise_input", id:"live_3_#{fixture.id}", remote: true, method: :post )%>
+               <%= link_to(fixture.market1_live.outcome_2, add_bet_path(outcome_id: "3", fixture_id: fixture.id, market: "Market1Live", outcome_desc: "1X2 FT - 2") , class: "btnn intialise_input", id:"live_3_#{fixture.id}", remote: true, method: :post )%>
 
             </td>
       </tr>

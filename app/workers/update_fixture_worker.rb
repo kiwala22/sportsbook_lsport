@@ -30,27 +30,27 @@ class UpdateFixtureWorker
          event = Hash.from_xml(response.body)
          fixture = Fixture.where(event_id: event_id)
          if fixture && (fixture.updated_at < update_time)
-            update_attr = {scheduled_time: event["fixtures_fixture"]["fixture"]["scheduled"],
+            update_attr = {start_date: event["fixtures_fixture"]["fixture"]["scheduled"],
                status: event["fixtures_fixture"]["fixture"]["status"],
                live_odds: event["fixtures_fixture"]["fixture"]["liveodds"],
                tournament_round: event["fixtures_fixture"]["fixture"]["tournament_round"]["group_long_name"],
-               betradar_id: event["fixtures_fixture"]["fixture"]["tournament_round"]["betradar_id"],
-               tournament_id: event["fixtures_fixture"]["fixture"]["tournament"]["id"],
-               tournament_name: event["fixtures_fixture"]["fixture"]["tournament"]["name"],
+               ext_provider_id: event["fixtures_fixture"]["fixture"]["tournament_round"]["betradar_id"],
+               league_id: event["fixtures_fixture"]["fixture"]["tournament"]["id"],
+               league_name: event["fixtures_fixture"]["fixture"]["tournament"]["name"],
                sport_id: event["fixtures_fixture"]["fixture"]["tournament"]["sport"]["id"],
                sport: event["fixtures_fixture"]["fixture"]["tournament"]["sport"]["name"],
-               category_id: event["fixtures_fixture"]["fixture"]["tournament"]["category"]["id"],
-               category: event["fixtures_fixture"]["fixture"]["tournament"]["category"]["name"],
-               comp_one_id: event["fixtures_fixture"]["fixture"]["competitors"]["competitor"][0]["id"],
-               comp_one_name: event["fixtures_fixture"]["fixture"]["competitors"]["competitor"][0]["name"],
-               comp_one_abb: event["fixtures_fixture"]["fixture"]["competitors"]["competitor"][0]["abbreviation"],
-               comp_one_gender: event["fixtures_fixture"]["fixture"]["competitors"]["competitor"][0]["gender"],
-               comp_one_qualifier: event["fixtures_fixture"]["fixture"]["competitors"]["competitor"][0]["qualifier"],
-               comp_two_id: event["fixtures_fixture"]["fixture"]["competitors"]["competitor"][1]["id"],
-               comp_two_name: event["fixtures_fixture"]["fixture"]["competitors"]["competitor"][1]["name"],
-               comp_two_abb: event["fixtures_fixture"]["fixture"]["competitors"]["competitor"][1]["abbreviation"],
-               comp_two_gender: event["fixtures_fixture"]["fixture"]["competitors"]["competitor"][1]["gender"],
-               comp_two_qualifier: event["fixtures_fixture"]["fixture"]["competitors"]["competitor"][1]["qualifier"]
+               location_id: event["fixtures_fixture"]["fixture"]["tournament"]["category"]["id"],
+               location: event["fixtures_fixture"]["fixture"]["tournament"]["category"]["name"],
+               part_one_id: event["fixtures_fixture"]["fixture"]["competitors"]["competitor"][0]["id"],
+               part_one_name: event["fixtures_fixture"]["fixture"]["competitors"]["competitor"][0]["name"],
+               # comp_one_abb: event["fixtures_fixture"]["fixture"]["competitors"]["competitor"][0]["abbreviation"],
+               # comp_one_gender: event["fixtures_fixture"]["fixture"]["competitors"]["competitor"][0]["gender"],
+               # comp_one_qualifier: event["fixtures_fixture"]["fixture"]["competitors"]["competitor"][0]["qualifier"],
+               part_two_id: event["fixtures_fixture"]["fixture"]["competitors"]["competitor"][1]["id"],
+               part_two_name: event["fixtures_fixture"]["fixture"]["competitors"]["competitor"][1]["name"],
+               # comp_two_abb: event["fixtures_fixture"]["fixture"]["competitors"]["competitor"][1]["abbreviation"],
+               # comp_two_gender: event["fixtures_fixture"]["fixture"]["competitors"]["competitor"][1]["gender"],
+               # comp_two_qualifier: event["fixtures_fixture"]["fixture"]["competitors"]["competitor"][1]["qualifier"]
             }
             if event["fixtures_fixture"]["fixture"].has_key?("season")
                update_attr[:season_id] = event["fixtures_fixture"]["fixture"]["season"]["id"] 

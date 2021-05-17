@@ -31,21 +31,21 @@
           </div>
           <div class="form-row">
               <div class="col-sm-6 col-md-4">
-                    <%= f.label :category, "Category", class:"col-md-4 col-form-label" %>
+                    <%= f.label :location, "Category", class:"col-md-4 col-form-label" %>
                     <div class="col-lg-8">
                       <%= f.search_field :category_i_cont, {class: "form-control", id: "category"} %>
                     </div>
               </div>
               <div class="col-sm-6 col-md-4">
-                    <%= f.label :tournament_name, "Tournament", class:"col-md-4 col-form-label" %>
+                    <%= f.label :league_name, "Tournament", class:"col-md-4 col-form-label" %>
                     <div class="col-lg-8">
-                      <%= f.search_field :tournament_name_i_cont, {:class=>"form-control", id: "tournament_name"}%>
+                      <%= f.search_field :league_name_i_cont, {:class=>"form-control", id: "tournament_name"}%>
                     </div>
               </div>
               <div class="col-sm-6 col-md-4">
                     <%= f.label :booked, "Team", class:"col-md-4 col-form-label" %>
                     <div class="col-lg-8">
-                      <%= f.search_field :comp_one_name_or_comp_two_name_i_cont, {:class=>"form-control", id: "team"}%>
+                      <%= f.search_field :part_one_name_or_part_two_name_i_cont, {:class=>"form-control", id: "team"}%>
                     </div>
               </div>
           </div>
@@ -57,9 +57,9 @@
                     </div>
               </div>
               <div class="col-sm-6 col-md-4">
-                    <%= f.label :scheduled_time, "Kick-Off Before", class:"col-md-4 col-form-label" %>
+                    <%= f.label :start_date, "Kick-Off Before", class:"col-md-4 col-form-label" %>
                     <div class="col-lg-8">
-                      <%= f.search_field :scheduled_time_lteq, {:class=>"form-control", id: "kick_off_before"}%>
+                      <%= f.search_field :start_date_lteq, {:class=>"form-control", id: "kick_off_before"}%>
                     </div>
               </div>
               <div class="col-sm-6 col-md-4">
@@ -105,11 +105,11 @@
 			<% @fixtures.each_with_index do |fixture, i| %>
 				<tr>
           <td><%= (i+1)%></td>
-          <td><%= local_time(fixture.scheduled_time, format: "%d/%m/%y %l:%M%P") %></td>
-          <td><%= fixture.comp_one_name %>  - <%= fixture.comp_two_name%> </td>
-          <td><%= fixture.tournament_name %></td>
-           <td><%= fixture.category %></td>
-          <td><%= fixture.event_id %></td>
+          <td><%= local_time(fixture.start_date, format: "%d/%m/%y %l:%M%P") %></td>
+          <td><%= fixture.part_one_name %>  - <%= fixture.part_two_name%> </td>
+          <td><%= fixture.league_name %></td>
+           <td><%= fixture.location %></td>
+          <td><%= fixture.fixture_id %></td>
           <td><%= fixture.status %></td>
           <td><%= fixture.booked.to_s.capitalize %></td>
           <td><%= fixture.featured.to_s.capitalize %></td>

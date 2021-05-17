@@ -5,20 +5,20 @@ class Fixtures::Soccer::PreMatchController < ApplicationController
    def index
      if params[:q].present?
        @check_params = false
-       parameters = ["fixtures.status='not_started'", "fixtures.sport_id='sr:sport:1'", "fixtures.category_id NOT IN ('[sr:category:1033, sr:category:2123]')", "market1_pres.status = 'Active'", "fixtures.scheduled_time >= '#{Time.now}'" ]
-       if params[:q][:tournament_name].present?
+       parameters = ["fixtures.status='not_started'", "fixtures.sport_id='6046'", "fixtures.location_id NOT IN ('[]')", "market1_pres.status = 'Active'", "fixtures.start_date >= '#{Time.now}'" ]
+       if params[:q][:league_name].present?
          @check_params = true
-         parameters << "fixtures.tournament_name='#{params[:q][:tournament_name]}'"
+         parameters << "fixtures.league_name='#{params[:q][:league_name]}'"
        end
-       if params[:q][:category].present?
+       if params[:q][:location].present?
          @check_params = true
-         parameters << "fixtures.category='#{params[:q][:category]}'"
+         parameters << "fixtures.location='#{params[:q][:location]}'"
        end
        conditions = parameters.join(" AND ")
-       @q = Fixture.joins(:market1_pre).where(conditions).order(scheduled_time: :asc)
+       @q = Fixture.joins(:market1_pre).where(conditions).order(start_date: :asc)
      else
        @check_params = false
-       @q = Fixture.joins(:market1_pre).where("fixtures.status = ? AND fixtures.sport_id = ? AND fixtures.category_id NOT IN (?) AND fixtures.scheduled_time >= ? AND fixtures.scheduled_time <= ? AND market1_pres.status = ?", "not_started", "sr:sport:1", ["sr:category:1033","sr:category:2123"], (Time.now), (Date.today.end_of_day + 1.days),"Active").order(scheduled_time: :asc)
+       @q = Fixture.joins(:market1_pre).where("fixtures.status = ? AND fixtures.sport_id = ? AND fixtures.location_id NOT IN (?) AND fixtures.start_date >= ? AND fixtures.start_date <= ? AND market1_pres.status = ?", "not_started", "6046", [], (Time.now), (Date.today.end_of_day + 1.days),"Active").order(start_date: :asc)
      end
 
       @featured = (@q.includes(:market1_pre).where("market1_pres.status = ? AND fixtures.featured = ?", "Active", true)).page params[:page]
@@ -43,7 +43,7 @@ class Fixtures::Soccer::PreMatchController < ApplicationController
 
 
    def show
-      @fixture = Fixture.includes(:market1_pre,:market10_pre,:market16_pre,:market18_pre,:market29_pre, :market60_pre,:market63_pre,:market66_pre,:market68_pre,:market75_pre).find(params[:id])
+      @fixture = Fixture.includes(:market1_pre,:market7_pre,:market3_pre,:market2_pre,:market17_pre, :market282_pre,:market25_pre,:market53_pre,:market77_pre,:market113_pre).find(params[:id])
    end
 
    def add_bet
@@ -59,7 +59,7 @@ class Fixtures::Soccer::PreMatchController < ApplicationController
 
       if market_entry && market_entry.status == "Active"
          odd = market_entry.send(outcome)
-         session[:bet_slip]["#{fixture.comp_one_abb} - #{fixture.comp_two_abb}"] =  {fixture: fixture_id, market: market, out_come: outcome, description: "#{fixture.comp_one_abb} - #{fixture.comp_two_abb}", odd: odd}
+         session[:bet_slip]["#{fixture.part_one_name} - #{fixture.part_two_name}"] =  {fixture: fixture_id, market: market, out_come: outcome, description: "#{fixture.part_one_name} - #{fixture.part_two_name}", odd: odd}
          @bets = session[:bet_slip]
       else
          #flash the error, market has been suspended or cancelled

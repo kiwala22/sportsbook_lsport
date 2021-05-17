@@ -3,7 +3,7 @@ class Fixtures::Soccer::LiveMatchController < ApplicationController
    before_action :set_cart, only: [:index, :show]
 
    def index
-      @q = Fixture.joins(:market1_live).where("fixtures.status = ? AND fixtures.sport_id = ? AND fixtures.category_id NOT IN (?) AND market1_lives.status = ?", "live", "sr:sport:1", ["sr:category:1033","sr:category:2123"], "Active").order(scheduled_time: :asc)
+      @q = Fixture.joins(:market1_live).where("fixtures.status = ? AND fixtures.sport_id = ? AND fixtures.location_id NOT IN (?) AND market1_lives.status = ?", "live", "6046", [], "Active").order(start_date: :asc)
       
       
       @pagy, @fixtures = pagy(@q.includes(:market1_live).where("market1_lives.status = ?", "Active"))
@@ -18,7 +18,7 @@ class Fixtures::Soccer::LiveMatchController < ApplicationController
    end
 
    def show
-      @fixture = Fixture.includes(:market1_live,:market10_live,:market16_live,:market18_live,:market29_live, :market60_live,:market63_live,:market66_live,:market68_live,:market75_live).find(params[:id])
+      @fixture = Fixture.includes(:market1_live,:market7_live,:market3_live,:market2_live,:market17_live, :market282_live,:market25_live,:market53_live,:market77_live,:market113_live).find(params[:id])
       respond_to do |format|
          format.html
          format.js
@@ -38,7 +38,7 @@ class Fixtures::Soccer::LiveMatchController < ApplicationController
 
       if market_entry && market_entry.status == "Active"
          odd = market_entry.send(outcome)
-         session[:bet_slip]["#{fixture.comp_one_abb} - #{fixture.comp_two_abb}"] =  {fixture: fixture_id, market: market, out_come: outcome, description: "#{fixture.comp_one_abb} - #{fixture.comp_two_abb}", odd: odd}
+         session[:bet_slip]["#{fixture.part_one_name} - #{fixture.part_two_name}"] =  {fixture: fixture_id, market: market, out_come: outcome, description: "#{fixture.part_one_name} - #{fixture.part_two_name}", odd: odd}
          @bets = session[:bet_slip]
       else
          #flash the error, market has been suspended or cancelled

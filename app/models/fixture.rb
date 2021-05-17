@@ -3,7 +3,7 @@ class Fixture < ApplicationRecord
   include PgSearch::Model
   
   pg_search_scope :global_search, 
-  against: [:comp_one_name, :comp_two_name, :tournament_name, :category],
+  against: [:part_one_name, :part_two_name, :league_name, :location],
   using:{ 
     tsearch: {prefix: true}
   }
@@ -30,30 +30,30 @@ class Fixture < ApplicationRecord
   
   after_commit :broadcast_updates, if: :persisted?
   
-  validates :event_id, presence: true
-  validates :event_id, uniqueness: true
+  validates :fixture_id, presence: true
+  validates :fixture_id, uniqueness: true
   
   has_one :market1_live
-  has_one :market10_live
-  has_one :market16_live
-  has_one :market18_live
-  has_one :market29_live
-  has_one :market60_live
-  has_one :market63_live
-  has_one :market66_live
-  has_one :market68_live
-  has_one :market75_live
+  has_one :market7_live
+  has_one :market3_live
+  has_one :market2_live
+  has_one :market17_live
+  has_one :market282_live
+  has_one :market25_live
+  has_one :market53_live
+  has_one :market77_live
+  has_one :market113_live
   
   has_one :market1_pre
-  has_one :market10_pre
-  has_one :market16_pre
-  has_one :market18_pre
-  has_one :market29_pre
-  has_one :market60_pre
-  has_one :market63_pre
-  has_one :market66_pre
-  has_one :market68_pre
-  has_one :market75_pre
+  has_one :market7_pre
+  has_one :market3_pre
+  has_one :market2_pre
+  has_one :market17_pre
+  has_one :market282_pre
+  has_one :market25_pre
+  has_one :market53_pre
+  has_one :market77_pre
+  has_one :market113_pre
   
   has_many :bets
   

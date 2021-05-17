@@ -17,29 +17,29 @@ class CreateFixtureWorker
  
     def perform(event)
         Fixture.find_or_create_by(event_id: event["id"] ) do |fixture|
-            fixture.scheduled_time = event["scheduled"]
+            fixture.start_date = event["scheduled"]
             fixture.status = event["status"]
             fixture.live_odds = event["liveodds"]
             fixture.tournament_round = event["tournament_round"]["group_long_name"]
-            fixture.betradar_id = event["tournament_round"]["betradar_id"]
+            fixture.ext_provider_id = event["tournament_round"]["betradar_id"]
             fixture.season_id = event["season"]["id"] if event.has_key?("season")
             fixture.season_name = event["season"]["name"] if event.has_key?("season")
-            fixture.tournament_id = event["tournament"]["id"]
-            fixture.tournament_name = event["tournament"]["name"]
+            fixture.league_id = event["tournament"]["id"]
+            fixture.league_name = event["tournament"]["name"]
             fixture.sport_id = event["tournament"]["sport"]["id"]
             fixture.sport = event["tournament"]["sport"]["name"]
-            fixture.category_id = event["tournament"]["category"]["id"]
-            fixture.category = event["tournament"]["category"]["name"]
-            fixture.comp_one_id = event["competitors"]["competitor"][0]["id"]
-            fixture.comp_one_name = event["competitors"]["competitor"][0]["name"]
-            fixture.comp_one_abb = event["competitors"]["competitor"][0]["abbreviation"]
-            fixture.comp_one_gender = event["competitors"]["competitor"][0]["gender"]
-            fixture.comp_one_qualifier = event["competitors"]["competitor"][0]["qualifier"]
-            fixture.comp_two_id = event["competitors"]["competitor"][1]["id"]
-            fixture.comp_two_name = event["competitors"]["competitor"][1]["name"]
-            fixture.comp_two_abb = event["competitors"]["competitor"][1]["abbreviation"]
-            fixture.comp_two_gender = event["competitors"]["competitor"][1]["gender"]
-            fixture.comp_two_qualifier = event["competitors"]["competitor"][1]["qualifier"]
+            fixture.location_id = event["tournament"]["category"]["id"]
+            fixture.location = event["tournament"]["category"]["name"]
+            fixture.part_one_id = event["competitors"]["competitor"][0]["id"]
+            fixture.part_one_name = event["competitors"]["competitor"][0]["name"]
+            # fixture.comp_one_abb = event["competitors"]["competitor"][0]["abbreviation"]
+            # fixture.comp_one_gender = event["competitors"]["competitor"][0]["gender"]
+            # fixture.comp_one_qualifier = event["competitors"]["competitor"][0]["qualifier"]
+            fixture.part_two_id = event["competitors"]["competitor"][1]["id"]
+            fixture.part_two_name = event["competitors"]["competitor"][1]["name"]
+            # fixture.comp_two_abb = event["competitors"]["competitor"][1]["abbreviation"]
+            # fixture.comp_two_gender = event["competitors"]["competitor"][1]["gender"]
+            # fixture.comp_two_qualifier = event["competitors"]["competitor"][1]["qualifier"]
         end
     end
  end

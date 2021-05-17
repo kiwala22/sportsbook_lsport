@@ -3,7 +3,7 @@ class Fixtures::VirtualSoccer::PreMatchController < ApplicationController
    before_action :set_cart, only: [:index, :show]
    
    def index
-      @q = Fixture.joins(:market1_pre).where("fixtures.status = ? AND sport_id = ? AND fixtures.category_id IN (?) AND fixtures.scheduled_time >= ? AND fixtures.scheduled_time <= ? AND market1_pres.status = ?", "not_started", "sr:sport:1", ["sr:category:1033","sr:category:2123"], Time.now, (Date.today.end_of_day+1.days), "Active").order(scheduled_time: :asc)
+      @q = Fixture.joins(:market1_pre).where("fixtures.status = ? AND sport_id = ? AND fixtures.location_id IN (?) AND fixtures.start_date >= ? AND fixtures.start_date <= ? AND market1_pres.status = ?", "not_started", "6046", [], Time.now, (Date.today.end_of_day+1.days), "Active").order(start_date: :asc)
       
       @pagy, @fixtures = pagy(@q.includes(:market1_pre).where("market1_pres.status = ?", "Active"))
       respond_to do |format|
@@ -21,7 +21,7 @@ class Fixtures::VirtualSoccer::PreMatchController < ApplicationController
    end
 
    def show
-      @fixture = Fixture.includes(:market1_pre,:market10_pre,:market16_pre,:market18_pre,:market29_pre, :market60_pre,:market63_pre,:market66_pre,:market68_pre,:market75_pre).find(params[:id])
+      @fixture = Fixture.includes(:market1_pre,:market7_pre,:market3_pre,:market2_pre,:market17_pre, :market282_pre,:market25_pre,:market53_pre,:market77_pre,:market113_pre).find(params[:id])
    end
 
    def add_bet
@@ -37,7 +37,7 @@ class Fixtures::VirtualSoccer::PreMatchController < ApplicationController
 
       if market_entry && market_entry.status == "Active"
          odd = market_entry.send(outcome)
-         session[:bet_slip]["#{fixture.comp_one_abb} - #{fixture.comp_two_abb}"] =  {fixture: fixture_id, market: market, out_come: outcome, description: "#{fixture.comp_one_abb} - #{fixture.comp_two_abb}", odd: odd}
+         session[:bet_slip]["#{fixture.part_one_name} - #{fixture.part_two_name}"] =  {fixture: fixture_id, market: market, out_come: outcome, description: "#{fixture.part_one_name} - #{fixture.part_two_name}", odd: odd}
          @bets = session[:bet_slip]
       else
          #flash the error, market has been suspended or cancelled

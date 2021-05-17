@@ -24,7 +24,7 @@
                           <div>
                             <div>
                               <span><strong>Fixture:</strong></span>
-                              <span class="float-right"> <%= fixture.comp_one_name %> - <%= fixture.comp_two_name %></span>
+                              <span class="float-right"> <%= fixture.part_one_name %> - <%= fixture.part_two_name %></span>
                             </div>
                             <div>
                               <span><strong>Odds:</strong></span>
@@ -32,7 +32,7 @@
                             </div>
                             <div>
                               <span><strong>Tournament:</strong></span>
-                              <span class="float-right"><%= fixture.tournament_name %></span>
+                              <span class="float-right"><%= fixture.league_name %></span>
                             </div>
                             <div>
                               <span><strong>Outcome:</strong></span>
@@ -40,7 +40,7 @@
                             </div>
                             <div>
                               <span><strong>Start Time:</strong></span>
-                              <span class="float-right"><%= local_time(fixture.scheduled_time, format: "%d/%m/%Y %l:%M%P") %></span>
+                              <span class="float-right"><%= local_time(fixture.start_date, format: "%d/%m/%Y %l:%M%P") %></span>
                             </div>
                             <div>
                               <span><strong>Status:</strong></span>
