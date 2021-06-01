@@ -3,6 +3,114 @@ require 'sidekiq'
 class OddsChangeWorker
     include Sidekiq::Worker
     sidekiq_options queue: "critical", retry: false
+
+    def perform(message, routing_key)
+
+        message = JSON.parse(message)
+
+        if routing_key = "pre_match"
+            product = "3"
+        end
+
+        if routing_key = "in_play"
+            product = "1"
+        end
+
+        update_attr = {
+            
+        }
+
+        if message["Body"].has_key?("Events") 
+            if message["Body"]["Events"].is_a?(Array) 
+                message["Body"]["Events"].each do |event|
+                    if event.has_key?("FixureId")
+                        event_id = event["FixureId"]
+                        fixture = Fixture.find_by(event_id: event_id)
+                        if fixture
+                            #check if there is a markets key and if it is an arrary on a hash
+                            if event.has_key?("Markets") && event["Markets"].is_a?(Array)
+                                event["Markets"].each do |market|
+                                    #process the market
+                                    process_market(fixture.id, market, product, event_id)
+                                end
+
+                            end
+                            if event.has_key?("Markets") && event["Markets"].is_a?(Hash)
+                                market = event["Markets"]
+                                #process the market
+                                process_market(fixture.id, market, product, event_id)
+                            end
+                        end
+                    end
+                end
+            end
+
+            if message["Body"]["Events"].is_a?(Hash) 
+                event = message["Body"]["Events"]
+               if event.has_key?("FixureId")
+                    event_id = event["FixureId"]
+                    #check if there is a markets key and if it is an arrary on a hash
+
+                end 
+            end
+        end
+    end
+
+    def process_market(fixture_id, market, product, event_id)
+
+        market_status = {
+            "1" => "Active",
+            "2" => "Suspended",
+            "3" => "Settled"
+        }
+
+        producer_type = {
+            "1" => "Live",
+            "3" => "Pre"
+        }
+
+        model_name = "Market" + market["Id"] + producer_type[product]
+
+        mkt_entry = model_name.constantize.find_by(event_id: event_id)
+        update_attr = {}
+
+        if market["Id"] == "2" || market["Id"] == "77"
+            if market.has_key?("Bets")
+                market["Bets"].each do |bet|
+                    update_attr["outcome_#{bet["Name"]}"] = bet["Price"]
+                end
+            end
+
+        elsif  market["Id"] == "3" || market["Id"] == "53"
+            if market.has_key?("Bets")
+                market["Bets"].each do |bet|
+                    update_attr["outcome_#{bet["Name"]}"] = bet["Price"]
+                end
+            end
+        else
+            if market.has_key?("Bets")
+                market["Bets"].each do |bet|
+                    update_attr["outcome_#{bet["Name"]}"] = bet["Price"]
+                end
+            end
+        end
+
+        if mkt_entry
+                mkt_entry.assign_attributes(update_attr)
+        else
+            mkt_entry = model_name.constantize.new(update_attr)
+            mkt_entry.fixture_id = fixture_id
+            mkt_entry.event_id = event_id
+            #mkt_entry.save
+        end
+        if mkt_entry.save
+            #broadast this change
+            ActionCable.server.broadcast("#{producer_type[product].downcase}_odds_#{market["Id"]}_#{fixture_id}", mkt_entry.as_json)
+            ActionCable.server.broadcast("betslips_odds_#{market["Id"]}_#{fixture_id}", mkt_entry.as_json)
+        end
+
+
+    end
     
     
     
