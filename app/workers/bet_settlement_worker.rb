@@ -4,242 +4,140 @@ require 'json'
 class BetSettlementWorker
     include Sidekiq::Worker
     sidekiq_options queue: "default", retry: false
-    
-    def perform(message, sport=nil, event=nil)
-        #convert the message from the xml to an easr ruby Hash using active support
-        event_id = message["bet_settlement"]["event_id"]
-        product =  message["bet_settlement"]["product"]
-        
-        #check if there are nay voided
-        
-        #update fixture as ended
-        fixture = Fixture.find_by(event_id: event_id)
-        if fixture
-            fixture.update(status: "ended")
+
+    def perform(message, routing_key)
+
+        message = JSON.parse(message)
+
+        if routing_key = "pre_match"
+            product = "3"
+        end
+
+        if routing_key = "in_play"
+            product = "1"
+        end
+
+        update_attr = {
             
-            
-            #iterate over the outcomes and mark the markets as settled
-            if message["bet_settlement"].has_key?("outcomes") && message["bet_settlement"]["outcomes"].present?
-                if message["bet_settlement"]["outcomes"].has_key?("market") && message["bet_settlement"]["outcomes"]["market"].present?
-                    if message["bet_settlement"]["outcomes"]["market"].is_a?(Array)
-                        message["bet_settlement"]["outcomes"]["market"].each do |market|
-                            #record the match outcomes
-                            process_market(market, product, event_id, fixture.id)  
-                            
-                            #run through all the bets with event_id and settle them
-                            #call bet settlement worker        
+        }
+
+        if message["Body"].has_key?("Events") 
+            if message["Body"]["Events"].is_a?(Array) 
+                message["Body"]["Events"].each do |event|
+                    if event.has_key?("FixureId")
+                        event_id = event["FixureId"]
+                        fixture = Fixture.find_by(event_id: event_id)
+                        if fixture
+                            fixture.update(status: "ended")
+                            #check if there is a markets key and if it is an arrary on a hash
+                            if event.has_key?("Markets") && event["Markets"].is_a?(Array)
+                                event["Markets"].each do |market|
+                                    #process the market
+                                    process_settlement(fixture.id, market, product, event_id)
+                                end
+
+                            end
+                            if event.has_key?("Markets") && event["Markets"].is_a?(Hash)
+                                market = event["Markets"]
+                                #process the market
+                                process_settlement(fixture.id, market, product, event_id)
+                            end
                         end
                     end
-                    
-                    if message["bet_settlement"]["outcomes"]["market"].is_a?(Hash)
-                        #record the match outcomes
-                        process_market(message["bet_settlement"]["outcomes"]["market"], product, event_id, fixture.id)  
-                        
-                        #run through all the bets with event_id and settle them
-                        #call bet settlement worker        
-                    end
                 end
-                
+            end
+
+            if message["Body"]["Events"].is_a?(Hash) 
+                event = message["Body"]["Events"]
+               if event.has_key?("FixureId")
+                    event_id = event["FixureId"]
+                    fixture = Fixture.find_by(event_id: event_id)
+                    if fixture
+                        fixture.update(status: "ended")
+                        #check if there is a markets key and if it is an arrary on a hash
+                        if event.has_key?("Markets") && event["Markets"].is_a?(Array)
+                            event["Markets"].each do |market|
+                                #process the market
+                                process_settlement(fixture.id, market, product, event_id)
+                            end
+
+                        end
+                        if event.has_key?("Markets") && event["Markets"].is_a?(Hash)
+                            market = event["Markets"]
+                            #process the market
+                            process_settlement(fixture.id, market, product, event_id)
+                        end
+                    end
+                end 
             end
         end
     end
-    
-    def process_market(market, product, event_id, fixture_id)
+
+    def process_settlement(fixture_id, market, product, event_id)
+
+        settlement_status = {
+            "-1" => "Cancelled",
+            "1" => "Loser",
+            "2" => "Winner",
+            "3" => "Refund",
+            "4" => "HalfLost",
+            "5" => "HalfWon"
+
+        }
+
         producer_type = {
             "1" => "Live",
             "3" => "Pre"
         }
-        
+
         outcome_attr = {}
         
         update_attr = {
             "status" => "Settled"
         }
-        
-        model_name = "Market" + market["id"] + producer_type[product]
-        
-        #hard code market with similar outcomes
-        if market["id"] == "1" || market["id"] == "60"
-            
-            if market.has_key?("outcome")
-                market["outcome"].each do |out|
-                    if out["id"] == "1"
-                        outcome_attr["1"] = out["result"]
-                        outcome_attr["void_factor"] = out["void_factor"]
-                    end
-                    if out["id"] == "2"
-                        outcome_attr["2"] = out["result"]
-                        outcome_attr["void_factor"] = out["void_factor"]
-                    end
-                    if out["id"] == "3"
-                        outcome_attr["3"] = out["result"]
-                        outcome_attr["void_factor"] = out["void_factor"]
-                    end
+
+        model_name = "Market" + market["Id"] + producer_type[product]
+
+        mkt_entry = model_name.constantize.find_by(event_id: event_id)
+        update_attr = {}
+
+        if (market["Id"] == "2" || market["Id"] == "77") && market["MainLine"] == "2.5"
+            if market.has_key?("Bets")
+                market["Bets"].each do |bet|
+                    outcome_attr[bet["Name"].downcase] = bet["Settlement"]
                 end
+                update_attr["outcome"] = outcome_attr.to_json
             end
-            
-            if market.has_key?("void_reason")
-                update_attr["void_reason"] = market["void_reason"]
-            end
-            
-            update_attr["outcome"] = outcome_attr.to_json
-            
-            #update or create markets 1X2 half time and fulltime
-            mkt_entry = model_name.constantize.find_by(event_id: event_id)
-            if mkt_entry
-                mkt_entry.update(update_attr)
-            else
-                mkt_entry = model_name.constantize.new(update_attr)
-                mkt_entry.event_id = event_id
-                mkt_entry.save
-            end
-            settle_bets(fixture_id, product, market["id"], update_attr["outcome"])
-        end
-        
-        if market["id"] == "10" || market["id"] == "63"
-            #update or create markets double chance half time and fulltime
-            
-            if market.has_key?("outcome")
-                market["outcome"].each do |out|
-                    if out["id"] == "9"
-                        outcome_attr["9"] = out["result"]
-                        outcome_attr["void_factor"] = out["void_factor"]
-                    end
-                    if out["id"] == "10"
-                        outcome_attr["10"] = out["result"]
-                        outcome_attr["void_factor"] = out["void_factor"]
-                    end
-                    if out["id"] == "11"
-                        outcome_attr["11"] = out["result"]
-                        outcome_attr["void_factor"] = out["void_factor"]
-                    end
+
+        elsif  (market["Id"] == "3" || market["Id"] == "53") && market["MainLine"] = "1.0"
+            if market.has_key?("Bets")
+                market["Bets"].each do |bet|
+                    outcome_attr[bet["Name"].downcase] = bet["Settlement"]
                 end
+                update_attr["outcome"] = outcome_attr.to_json
             end
-            
-            if market.has_key?("void_reason")
-                update_attr["void_reason"] = market["void_reason"]
-            end
-            
-            update_attr["outcome"] = outcome_attr.to_json
-            
-            #update or create markets 1X2 half time and fulltime
-            mkt_entry = model_name.constantize.find_by(event_id: event_id)
-            
-            if mkt_entry
-                mkt_entry.update(update_attr)
-            else
-                mkt_entry = model_name.constantize.new(update_attr)
-                mkt_entry.event_id = event_id
-                mkt_entry.save
-            end
-            settle_bets(fixture_id, product, market["id"], update_attr["outcome"])
-        end
-        
-        if (market["id"] == "18" || market["id"] == "68") && market["specifiers"] == "total=2.5"
-            #update or create markets under and over half time and fulltime
-            
-            if market.has_key?("outcome")
-                market["outcome"].each do |out|
-                    if out["id"] == "12"
-                        outcome_attr["12"] = out["result"]
-                        outcome_attr["void_factor"] = out["void_factor"]
-                    end
-                    if out["id"] == "13"
-                        outcome_attr["13"] = out["result"]
-                        outcome_attr["void_factor"] = out["void_factor"]
-                    end
-                    
+        else
+            if market.has_key?("Bets")
+                market["Bets"].each do |bet|
+                    outcome_attr[bet["Name"].downcase] = bet["Settlement"]
                 end
+                update_attr["outcome"] = outcome_attr.to_json
             end
-            
-            if market.has_key?("void_reason")
-                update_attr["void_reason"] = market["void_reason"]
-            end
-            
-            update_attr["outcome"] = outcome_attr.to_json
-            
-            #update or create markets 1X2 half time and fulltime
-            mkt_entry = model_name.constantize.find_by(event_id: event_id)
-            if mkt_entry
-                mkt_entry.update(update_attr)
-            else
-                mkt_entry = model_name.constantize.new(update_attr)
-                mkt_entry.event_id = event_id
-                mkt_entry.save
-            end
-            settle_bets(fixture_id, product, market["id"], update_attr["outcome"])
         end
-        
-        if market["id"] == "29" || market["id"] == "75"
-            #update or create markets both to score half time and fulltime
-            
-            if market.has_key?("outcome")
-                market["outcome"].each do |out|
-                    if out["id"] == "74"
-                        outcome_attr["74"] = out["result"]
-                        outcome_attr["void_factor"] = out["void_factor"]
-                    end
-                    if out["id"] == "76"
-                        outcome_attr["76"] = out["result"]
-                        outcome_attr["void_factor"] = out["void_factor"]
-                    end
-                    
-                end
-            end
-            #update or create markets 1X2 half time and fulltime
-            if market.has_key?("void_reason")
-                update_attr["void_reason"] = market["void_reason"]
-            end
-            
-            update_attr["outcome"] = outcome_attr.to_json
-            
-            mkt_entry = model_name.constantize.find_by(event_id: event_id)
-            if mkt_entry
-                mkt_entry.update(update_attr)
-            else
-                mkt_entry = model_name.constantize.new(update_attr)
-                mkt_entry.event_id = event_id
-                mkt_entry.save
-            end
-            settle_bets(fixture_id, product, market["id"], update_attr["outcome"])
+
+        if mkt_entry
+                mkt_entry.assign_attributes(update_attr)
+        else
+            mkt_entry = model_name.constantize.new(update_attr)
+            mkt_entry.fixture_id = fixture_id
+            mkt_entry.event_id = event_id
+            mkt_entry.save
         end
-        
-        if (market["id"] == "16" || market["id"] == "66") && market["specifiers"] == "hcp=1"
-            #update or create markets under and over half time and fulltime
-            
-            if market.has_key?("outcome")
-                market["outcome"].each do |out|
-                    if out["id"] == "1714"
-                        outcome_attr["1714"] = out["result"]
-                        outcome_attr["void_factor"] = out["void_factor"]
-                    end
-                    if out["id"] == "1715"
-                        outcome_attr["1715"] = out["result"]
-                        outcome_attr["void_factor"] = out["void_factor"]
-                    end 
-                    
-                end
-            end
-            
-            if market.has_key?("void_reason")
-                update_attr["void_reason"] = market["void_reason"]
-            end
-            
-            update_attr["outcome"] = outcome_attr.to_json
-            
-            #update or create markets 1X2 half time and fulltime
-            mkt_entry = model_name.constantize.find_by(event_id: event_id)
-            if mkt_entry
-                mkt_entry.update(update_attr)
-            else
-                mkt_entry = model_name.constantize.new(update_attr)
-                mkt_entry.event_id = event_id
-                mkt_entry.save
-            end  
-            settle_bets(fixture_id, product, market["id"], update_attr["outcome"])
-        end
+
+        settle_bets(fixture_id, product, market["Id"], update_attr["outcome"])
+
     end
-    
+
     def settle_bets(fixture_id, product, market_id, outcome)
         #call worker to settle these bets
         CloseSettledBetsWorker.perform_async(fixture_id, product, market_id, outcome)
