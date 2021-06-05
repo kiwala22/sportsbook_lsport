@@ -13,7 +13,7 @@ set :repo_url, "git@bitbucket.org:skylinesmslimited/sportsbook_lsport.git"
 # Default value for :scm is :git
 # set :scm, :git
 
-set :ssh_options, {:forward_agent => true, port: 2022}
+set :ssh_options, {:forward_agent => true, port: 22}
 
 set :deploy_via, :copy
 

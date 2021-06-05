@@ -30,7 +30,7 @@ server '34.89.20.147', user: 'deploy', roles: %w{app db web}
 # For available Capistrano configuration variables see the documentation page.
 # http://capistranorb.com/documentation/getting-started/configuration/
 # Feel free to add new variables to customise your setup.
-set :deploy_to, '/var/www/html/sportsbook'
+set :deploy_to, '/var/www/sportsbook'
 set :branch, "master"
 
 
