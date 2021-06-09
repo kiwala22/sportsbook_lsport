@@ -447,6 +447,7 @@ PLATFORMS
 DEPENDENCIES
   action-cable-testing
   activeadmin (~> 2.7)
+  anycable
   anycable-rails (~> 1.0)
   audited (~> 4.9)
   bcrypt (~> 3.1.7)
