@@ -1,5 +1,9 @@
 Rails.application.configure do
   # Specify AnyCable WebSocket server URL to use by JS client
+  config.after_initialize do
+    config.action_cable.url = ActionCable.server.config.url = ENV.fetch("CABLE_URL") if AnyCable::Rails.enabled?
+  end
+  # Specify AnyCable WebSocket server URL to use by JS client
   # Specify AnyCable WebSocket server URL to use by JS client
   #commented out 1/10/20 - Acacia
   # config.after_initialize do
