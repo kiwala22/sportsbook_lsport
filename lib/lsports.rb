@@ -13,33 +13,41 @@ module Lsports
     # Credentials for distributors
     @@username = "acaciabengo@skylinesms.com"
     @@password = "tyb54634"
-
-
-    # Package IDs
-    @@prematch_package_id = ""
-    @@livematch_package_id = ""
+    @@prematch_guid = "20bc3235-eb98-422c-9c32-beacc9c9303a"
 
     # Sports
-    @@sports_id = 6046
+    @@sports_id = "6046"
 
-    # Distribution endpoint
-    @@distribution_endpoint = "https://stm-api.lsports.eu/Distribution/"
+    # Package IDs
+    @@prematch_pkg_id = "3537"
+    @@livematch_pkg_id = "3538"
+
+    # Endpoints
+    @@end_point = "https://prematch.lsports.eu/OddService/"
+    @@live_end_point = "https://inplay.lsports.eu/api/"
 
     # Starting/Enabling distribution
-    def start_distribution(package_id)
-        url = @@distribution_endpoint + "Start"
+    def start_prematch_distribution
+        url = @@endpoint + "EnablePackage?username=#{@@username}&password=#{@@password}&guid=#{@@prematch_guid}"
         uri = URI(url)
 
         req = Net::HTTP::Get.new(uri)
 
-        ## Set request body
-        request_body = {
-            "PackageId": package_id,
-            "Username": @@username,
-            "Password": @@password
-        }
+        res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https') do |http|
 
-        req.body = request_body.to_json
+            http.request(req)
+
+        end
+
+        return res.code
+
+    end
+
+    def start_livematch_distribution
+        url = @@endpoint + "EnablePackage?username=#{@@username}&password=#{@@password}&packageid=#{@@livematch_package_id}"
+        uri = URI(url)
+
+        req = Net::HTTP::Get.new(uri)
 
         res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https') do |http|
 
@@ -52,20 +60,12 @@ module Lsports
     end
 
     # Stop/Disabling Distribution
-    def stop_distribution(package_id)
-        url = @@distribution_endpoint + "Stop"
+    def stop_prematch_distribution
+        url = endpoint + "DisablePackage?username=#{@@username}&password=#{@@password}&guid=#{@@prematch_guid}"
         uri = URI(url)
 
         req = Net::HTTP::Get.new(uri)
 
-        ## Set request body
-        request_body = {
-            "PackageId": package_id,
-            "Username": @@username,
-            "Password": @@password
-        }
-
-        req.body = request_body.to_json
 
         res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https') do |http|
 
@@ -77,25 +77,57 @@ module Lsports
 
     end
 
-    ## Fetch Markets
-    def fetch_markets(package_id)
-        url = "https://stm-api.lsports.eu/Markets/Get"
+    def stop_livematch_distribution
+        url = @@endpoint + "DisablePackage?username=#{@@username}&password=#{@@password}&packageid=#{@@livematch_package_id}"
+        uri = URI(url)
+
+        req = Net::HTTP::Get.new(uri)
+
+        res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https') do |http|
+
+            http.request(req)
+
+        end
+
+        return res.code
+
+    end
+
+    ## Get Events
+    def get_events(from_date, to_date)
+
+        start_date = from_date.to_time.to_i
+        end_date = to_date.to_time.to_i
+
+        url = @@end_point + "GetEvents?username=#{@@username}&password=#{password}&guid=#{@@prematch_guid}&sports=#{}&fromdate=#{start_date}&todate=#{end_date}"
 
         uri = URI(url)
 
-        req = Net::HTTP.Get.new(uri)
+        req = Net::HTTP::Get.new(uri)
 
-        ## Set request body
-        request_body = {
-            "PackageId": package_id,
-            "Username": @@username,
-            "Password": @@password,
-            "SportsId": [@@sports_id],
-            "IsSettleable": 1,
-            "MarketType": 1
-        }
+        res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https') do |http|
 
-        req.body = request_body.to_json
+            http.request(req)
+
+        end
+        puts res.body
+        puts res.code
+
+        if response == "200"
+            return res.body
+        else
+            @@logger.error(res.body)
+            return res.body
+        end
+    end
+
+    ## Fetch Markets
+    def fetch_markets
+        url = @@end_point + "GetMarkets?username=#{@@username}&password=#{@@password}&guid=#{@@prematch_guid}"
+
+        uri = URI(url)
+
+        req = Net::HTTP::Get.new(uri)
 
         res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https') do |http|
 
@@ -106,17 +138,48 @@ module Lsports
         response = res.code
 
         if response == "200"
-            ## Create new markets and outcomes here
+            ## Create new markets
             markets = res.body
-            markets[:Markets].each do |market|
-                Market.create(market_id: market[:Id].to_i, description: market[:Name])
-                if market.has_key?(:Bets) && market[:Bets].has_key?(:Bet)
-                    if market[:Bets][:Bet].is_a?(Array)
-                        market[:Bets][:Bet].each do |outcome|
-                            Outcome.create(outcome_id: outcome[:BaseLine].to_i, description: outcome[:Name])
+            markets["Body"].each do |market|
+                Market.create(market_id: market["Id"].to_i, description: market["Name"])
+            end
+
+            return response
+        else
+            @@logger.error(res.body)
+            return res.body
+        end
+    end
+
+    def fetch_fixture_markets
+        available_markets = ["1", "2", "3", "7", "17", "25", "53", "77", "113", "282"]
+        markets = available_markets.join(",")
+
+        url = @@end_point + "GetMarkets?username=#{@@username}&password=#{@@password}&guid=#{@@prematch_guid}&sports=#{@@sports_id}&markets=#{markets}"
+
+        uri = URI(url)
+
+        req = Net::HTTP::Get.new(uri)
+
+        res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https') do |http|
+
+            http.request(req)
+
+        end
+
+        response = res.code
+
+        if response == "200"
+            ## Create market outcomes
+            markets = res.body
+            markets["Body"].each do |market|
+                if market.has_key?("Markets")
+                    if market["Markets"].is_a?(Array)
+                        market["Markets"].each do |outcome|
+                            #Outcome.create(outcome_id: outcome[:BaseLine].to_i, description: outcome[:Name])
                         end
                     else
-                        Outcome.create(outcome_id: market[:Bets][:Bet][:BaseLine].to_i, description: market[:Bets][:Bet][:Name])
+                        #Outcome.create(outcome_id: market[:Bets][:Bet][:BaseLine].to_i, description: market[:Bets][:Bet][:Name])
                     end
                 end
             end
@@ -129,26 +192,16 @@ module Lsports
     end
 
     # Fetch Fixtures
-    def fetch_prematch_fixtures(from_date, to_date)
+    def fetch_fixtures(from_date, to_date)
+
         start_date = from_date.to_time.to_i
         end_date = to_date.to_time.to_i
-        url = "https://stm-snapshot.lsports.eu/PreMatch/GetFixtures"
+
+        url = @@end_point + "GetFixtures?username=#{@@username}&password=#{@@password}&guid=#{@@prematch_guid}&fromdate=#{start_date}&todate=#{end_date}&sports=#{@@sports_id}"
 
         uri = URI(url)
 
         req = Net::HTTP.Get.new(uri)
-
-        ## Set request body
-        request_body = {
-            "PackageId": @@prematch_package_id,
-            "Username": @@username,
-            "Password": @@password,
-            "Sports": [@@sports_id],
-            "FromDate": start_date,
-            "ToDate": end_date
-        }
-
-        req.body = request_body.to_json
 
         res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https') do |http|
 
@@ -160,8 +213,8 @@ module Lsports
 
         if response == "200"
             events = res.body
-            events[:Events][:Event].each do |fixture|
-                CreateFixtureWorker.perform_async(event)
+            events["Body"].each do |fixture|
+                CreateFixtureWorker.perform_async(fixture)
             end
             return response
         else
@@ -171,31 +224,18 @@ module Lsports
     end
 
     # Fetch single Fixture
-    def fetch_prematch_fixture(fixture_id)
-        url = "https://stm-snapshot.lsports.eu/PreMatch/GetFixtures"
+    def fetch_fixture(fixture_id)
+        url = @@end_point + "GetFixtures?username=#{@@username}&password=#{@@password}&guid=#{@@prematch_guid}&sports=#{@@sports_id}&fixtures=#{fixture_id}"
 
         uri = URI(url)
 
-        req = Net::HTTP.Get.new(uri)
-
-        ## Set request body
-        request_body = {
-            "PackageId": @@prematch_package_id,
-            "Username": @@username,
-            "Password": @@password,
-            "Sports": [@@sports_id],
-            "Fixtures": [fixture_id]
-        }
-
-        req.body = request_body.to_json
+        req = Net::HTTP::Get.new(uri)
 
         res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https') do |http|
 
             http.request(req)
 
         end
-
-        response = res.code
 
         if response == "200"
             return res.body
@@ -205,24 +245,12 @@ module Lsports
         end
     end
 
-
-    def book_live_event(fixture_id)
-        url = "https://stm-api.lsports.eu/Fixtures/Subscribe"
+    def order_live_event(fixture_id)
+        url = @@live_end_point + "schedule/OrderFixtures?username=#{@@username}&password=#{@@password}&packageid=#{@@livematch_package_id}&sportids=#{@@sports_id}&fixtureids=#{fixture_id}"
 
         uri = URI(url)
 
-        req = Net::HTTP.Get.new(uri)
-
-        ## Set request body
-        request_body = {
-            "PackageId": @@livematch_package_id,
-            "Username": @@username,
-            "Password": @@password,
-            "Sports": [@@sports_id],
-            "Fixtures": [fixture_id]
-        }
-
-        req.body = request_body.to_json
+        req = Net::HTTP::Get.new(uri)
 
         res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https') do |http|
 
@@ -230,12 +258,53 @@ module Lsports
 
         end
 
-        event = res.body
-
-        if res.code == "200" && event[:Fixtures].first[:Success] == true
+        if response == "200"
             return 200
         else
+            @@logger.error(res.body)
             return 400
+        end
+    end
+
+    def cancel_live_event_order(fixture_id)
+        url = @@live_end_point + "schedule/CancelFixtureOrders?username=#{@@username}&password=#{@@password}&packageid=#{@@livematch_package_id}&sportids=#{@@sports_id}&fixtureids=#{fixture_id}"
+
+        uri = URI(url)
+
+        req = Net::HTTP::Get.new(uri)
+
+        res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https') do |http|
+
+            http.request(req)
+
+        end
+
+        if response == "200"
+            return 200
+        else
+            @@logger.error(res.body)
+            return 400
+        end
+    end
+
+    def get_live_events
+        url = @@live_end_point + "Snapshot/GetSnapshotJson?username=#{@@username}&password=#{@@password}&packageid=#{@@livematch_package_id}&sportids=#{@@sports_id}"
+
+        uri = URI(url)
+
+        req = Net::HTTP::Get.new(uri)
+
+        res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https') do |http|
+
+            http.request(req)
+
+        end
+
+        if response == "200"
+            return res.body
+        else
+            @@logger.error(res.body)
+            return res.body
         end
     end
 
