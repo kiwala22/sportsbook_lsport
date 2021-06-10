@@ -28,8 +28,16 @@ module Lsports
 
     # Starting/Enabling distribution
     def start_prematch_distribution
-        url = @@endpoint + "EnablePackage?username=#{@@username}&password=#{@@password}&guid=#{@@prematch_guid}"
+
+        url = @@end_point + "EnablePackage"
         uri = URI(url)
+        params = {
+            username: @@username,
+            password: @@password,
+            guid: @@prematch_guid
+        }
+        
+        uri.query = URI.encode_www_form(params)
 
         req = Net::HTTP::Get.new(uri)
 
@@ -44,8 +52,14 @@ module Lsports
     end
 
     def start_livematch_distribution
-        url = @@endpoint + "EnablePackage?username=#{@@username}&password=#{@@password}&packageid=#{@@livematch_package_id}"
+        url = @@live_end_point + "Package/EnablePackage"
         uri = URI(url)
+        params = {
+            username: @@username,
+            password: @@password,
+            packageid: @@livematch_pkg_id
+        }
+        uri.query = URI.encode_www_form(params)
 
         req = Net::HTTP::Get.new(uri)
 
@@ -61,8 +75,14 @@ module Lsports
 
     # Stop/Disabling Distribution
     def stop_prematch_distribution
-        url = endpoint + "DisablePackage?username=#{@@username}&password=#{@@password}&guid=#{@@prematch_guid}"
+        url = @@end_point + "DisablePackage"
         uri = URI(url)
+        params = {
+            username: @@username,
+            password: @@password,
+            guid: @@prematch_guid
+        }
+        uri.query = URI.encode_www_form(params)
 
         req = Net::HTTP::Get.new(uri)
 
@@ -78,8 +98,14 @@ module Lsports
     end
 
     def stop_livematch_distribution
-        url = @@endpoint + "DisablePackage?username=#{@@username}&password=#{@@password}&packageid=#{@@livematch_package_id}"
+        url = @@live_end_point + "Package/DisablePackage"
         uri = URI(url)
+        params = {
+            username: @@username,
+            password: @@password,
+            packageid: @@livematch_pkg_id
+        }
+        uri.query = URI.encode_www_form(params)
 
         req = Net::HTTP::Get.new(uri)
 
@@ -99,9 +125,18 @@ module Lsports
         start_date = from_date.to_time.to_i
         end_date = to_date.to_time.to_i
 
-        url = @@end_point + "GetEvents?username=#{@@username}&password=#{password}&guid=#{@@prematch_guid}&sports=#{}&fromdate=#{start_date}&todate=#{end_date}"
+        url = @@end_point + "GetEvents"
 
         uri = URI(url)
+        params = {
+            username: @@username,
+            password: @@password,
+            guid: @@prematch_guid,
+            sports: @@sports_id,
+            fromdate: start_date,
+            todate: end_date
+        }
+        uri.query = URI.encode_www_form(params)
 
         req = Net::HTTP::Get.new(uri)
 
@@ -110,8 +145,6 @@ module Lsports
             http.request(req)
 
         end
-        puts res.body
-        puts res.code
 
         if response == "200"
             return res.body
@@ -123,9 +156,15 @@ module Lsports
 
     ## Fetch Markets
     def fetch_markets
-        url = @@end_point + "GetMarkets?username=#{@@username}&password=#{@@password}&guid=#{@@prematch_guid}"
+        url = @@end_point + "GetMarkets"
 
         uri = URI(url)
+        params = {
+            username: @@username,
+            password: @@password,
+            guid: @@prematch_guid
+        }
+        uri.query = URI.encode_www_form(params)
 
         req = Net::HTTP::Get.new(uri)
 
@@ -155,9 +194,17 @@ module Lsports
         available_markets = ["1", "2", "3", "7", "17", "25", "53", "77", "113", "282"]
         markets = available_markets.join(",")
 
-        url = @@end_point + "GetMarkets?username=#{@@username}&password=#{@@password}&guid=#{@@prematch_guid}&sports=#{@@sports_id}&markets=#{markets}"
+        url = @@end_point + "GetFixtureMarkets"
 
         uri = URI(url)
+        params= {
+            username: @@username,
+            password: @@password,
+            guid: @@prematch_guid,
+            sports: @@sports_id,
+            markets: markets
+        }
+        uri.query = URI.encode_www_form(params)
 
         req = Net::HTTP::Get.new(uri)
 
@@ -197,7 +244,16 @@ module Lsports
         start_date = from_date.to_time.to_i
         end_date = to_date.to_time.to_i
 
-        url = @@end_point + "GetFixtures?username=#{@@username}&password=#{@@password}&guid=#{@@prematch_guid}&fromdate=#{start_date}&todate=#{end_date}&sports=#{@@sports_id}"
+        url = @@end_point + "GetFixtures"
+        params = {
+            username: @@username,
+            password: @@password,
+            guid: @@prematch_guid,
+            fromdate: start_date,
+            todate: end_date,
+            sports: @@sports_id
+        }
+        uri.query = URI.encode_www_form(params)
 
         uri = URI(url)
 
@@ -225,9 +281,17 @@ module Lsports
 
     # Fetch single Fixture
     def fetch_fixture(fixture_id)
-        url = @@end_point + "GetFixtures?username=#{@@username}&password=#{@@password}&guid=#{@@prematch_guid}&sports=#{@@sports_id}&fixtures=#{fixture_id}"
+        url = @@end_point + "GetFixtures"
 
         uri = URI(url)
+        params = {
+            username: @@username,
+            password: @@password,
+            guid: @@prematch_guid,
+            sports: @@sports_id,
+            fixtures: fixture_id
+        }
+        uri.query = URI.encode_www_form(params)
 
         req = Net::HTTP::Get.new(uri)
 
@@ -246,9 +310,17 @@ module Lsports
     end
 
     def order_live_event(fixture_id)
-        url = @@live_end_point + "schedule/OrderFixtures?username=#{@@username}&password=#{@@password}&packageid=#{@@livematch_package_id}&sportids=#{@@sports_id}&fixtureids=#{fixture_id}"
+        url = @@live_end_point + "schedule/OrderFixtures"
 
         uri = URI(url)
+        params = {
+            username: @@username,
+            password: @@password,
+            packageid: @@livematch_pkg_id,
+            sportids: @@sports_id,
+            fixtureids: fixture_id
+        }
+        uri.query = URI.encode_www_form(params)
 
         req = Net::HTTP::Get.new(uri)
 
@@ -267,9 +339,17 @@ module Lsports
     end
 
     def cancel_live_event_order(fixture_id)
-        url = @@live_end_point + "schedule/CancelFixtureOrders?username=#{@@username}&password=#{@@password}&packageid=#{@@livematch_package_id}&sportids=#{@@sports_id}&fixtureids=#{fixture_id}"
+        url = @@live_end_point + "schedule/CancelFixtureOrders"
 
         uri = URI(url)
+        params = {
+            username: @@username,
+            password: @@password,
+            packageid: @@livematch_pkg_id,
+            sportids: @@sports_id,
+            fixtureids: fixture_id
+        }
+        uri.query = URI.encode_www_form(params)
 
         req = Net::HTTP::Get.new(uri)
 
@@ -288,9 +368,16 @@ module Lsports
     end
 
     def get_live_events
-        url = @@live_end_point + "Snapshot/GetSnapshotJson?username=#{@@username}&password=#{@@password}&packageid=#{@@livematch_package_id}&sportids=#{@@sports_id}"
+        url = @@live_end_point + "Snapshot/GetSnapshotJson"
 
         uri = URI(url)
+        params = {
+            username: @@username,
+            password: @@password,
+            packageid: @@livematch_pkg_id,
+            sportids: @@sports_id
+        }
+        uri.query = URI.encode_www_form(params)
 
         req = Net::HTTP::Get.new(uri)
 
