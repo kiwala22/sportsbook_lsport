@@ -146,11 +146,13 @@ module Lsports
 
         end
 
+        response = res.code
+
         if response == "200"
-            return res.body
+            return JSON.parse(res.body)
         else
             @@logger.error(res.body)
-            return res.body
+            return JSON.parse(res.body)
         end
     end
 
@@ -178,7 +180,7 @@ module Lsports
 
         if response == "200"
             ## Create new markets
-            markets = res.body
+            markets = JSON.parse(res.body)
             markets["Body"].each do |market|
                 Market.create(market_id: market["Id"].to_i, description: market["Name"])
             end
@@ -186,13 +188,13 @@ module Lsports
             return response
         else
             @@logger.error(res.body)
-            return res.body
+            return JSON.parse(res.body)
         end
     end
 
     def fetch_fixture_markets
-        available_markets = ["1", "2", "3", "7", "17", "25", "53", "77", "113", "282"]
-        markets = available_markets.join(",")
+        required_markets = ["1", "2", "3", "7", "17", "25", "53", "77", "113", "282"]
+        markets = required_markets.join(",")
 
         url = @@end_point + "GetFixtureMarkets"
 
@@ -217,24 +219,49 @@ module Lsports
         response = res.code
 
         if response == "200"
-            ## Create market outcomes
-            markets = res.body
+            ## Create Fixture markets
+            markets = JSON.parse(res.body)
             markets["Body"].each do |market|
-                if market.has_key?("Markets")
-                    if market["Markets"].is_a?(Array)
-                        market["Markets"].each do |outcome|
-                            #Outcome.create(outcome_id: outcome[:BaseLine].to_i, description: outcome[:Name])
+                if market.has_key?("FixtureId")
+                    event_id = market["FixtureId"]
+                    market_status = {
+                        "1" => "Active",
+                        "2" => "Suspended",
+                        "3" => "Settled"
+                    }
+                    attrs = {}
+                    if market.has_key?("Markets") && market["Markets"].is_a?(Array)
+                        market["Markets"].each do |event|
+                            mkt = "Market" + event["Id"] + "Pre"
+                            if event.has_key?("Providers") && event["Providers"].is_a?(Array)
+                                event["Providers"].each do |provider|
+                                    if provider.has_key?("Bets") && provider["Bets"].is_a?(Array)
+                                        provider["Bets"].each do |bet|
+                                            attrs["outcome_#{bet["Name"]}"] = bet["Price"]
+                                            attrs["status"] = market_status[bet["Status"]]
+                                        end
+                                    end
+                                end
+                            end
                         end
-                    else
-                        #Outcome.create(outcome_id: market[:Bets][:Bet][:BaseLine].to_i, description: market[:Bets][:Bet][:Name])
                     end
+                end
+                mkt_entry = mkt.constantize.new(attrs)
+                mkt_entry.event_id = event_id
+
+                ## Can not save without fixture ID
+    
+                if mkt_entry.save
+                    return 200
+                else
+                    return 400
                 end
             end
 
             return response
         else
             @@logger.error(res.body)
-            return res.body
+            return JSON.parse(res.body)
         end
     end
 
@@ -245,6 +272,7 @@ module Lsports
         end_date = to_date.to_time.to_i
 
         url = @@end_point + "GetFixtures"
+        uri = URI(url)
         params = {
             username: @@username,
             password: @@password,
@@ -255,9 +283,7 @@ module Lsports
         }
         uri.query = URI.encode_www_form(params)
 
-        uri = URI(url)
-
-        req = Net::HTTP.Get.new(uri)
+        req = Net::HTTP::Get.new(uri)
 
         res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https') do |http|
 
@@ -268,7 +294,7 @@ module Lsports
         response = res.code
 
         if response == "200"
-            events = res.body
+            events = JSON.parse(res.body)
             events["Body"].each do |fixture|
                 CreateFixtureWorker.perform_async(fixture)
             end
@@ -301,11 +327,13 @@ module Lsports
 
         end
 
+        response = res.code
+
         if response == "200"
-            return res.body
+            return JSON.parse(res.body)
         else
             @@logger.error(res.body)
-            return res.body
+            return JSON.parse(res.body)
         end
     end
 
@@ -329,6 +357,8 @@ module Lsports
             http.request(req)
 
         end
+
+        response = res.code
 
         if response == "200"
             return 200
@@ -359,6 +389,8 @@ module Lsports
 
         end
 
+        response = res.code
+
         if response == "200"
             return 200
         else
@@ -387,11 +419,13 @@ module Lsports
 
         end
 
+        response = res.code
+
         if response == "200"
-            return res.body
+            return JSON.parse(res.body)
         else
             @@logger.error(res.body)
-            return res.body
+            return JSON.parse(res.body)
         end
     end
 
