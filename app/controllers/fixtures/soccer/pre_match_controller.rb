@@ -5,7 +5,8 @@ class Fixtures::Soccer::PreMatchController < ApplicationController
    def index
      if params[:q].present?
        @check_params = false
-       parameters = ["fixtures.status='not_started'", "fixtures.sport_id='6046'", "fixtures.location_id NOT IN ('[]')", "market1_pres.status = 'Active'", "fixtures.start_date >= '#{Time.now}'" ]
+       status ={"not_started": "1", "live": "2"}
+       parameters = ["fixtures.status= status[:'not_started'] ", "fixtures.sport_id='6046'", "fixtures.location_id NOT IN ('123')", "market1_pres.status = 'Active'", "fixtures.start_date >= '#{Time.now}'" ]
        if params[:q][:league_name].present?
          @check_params = true
          parameters << "fixtures.league_name='#{params[:q][:league_name]}'"
@@ -18,7 +19,7 @@ class Fixtures::Soccer::PreMatchController < ApplicationController
        @q = Fixture.joins(:market1_pre).where(conditions).order(start_date: :asc)
      else
        @check_params = false
-       @q = Fixture.joins(:market1_pre).where("fixtures.status = ? AND fixtures.sport_id = ? AND fixtures.location_id NOT IN (?) AND fixtures.start_date >= ? AND fixtures.start_date <= ? AND market1_pres.status = ?", "not_started", "6046", [], (Time.now), (Date.today.end_of_day + 1.days),"Active").order(start_date: :asc)
+       @q = Fixture.joins(:market1_pre).where("fixtures.status = ? AND fixtures.sport_id = ? AND fixtures.location_id NOT IN (?) AND fixtures.start_date >= ? AND fixtures.start_date <= ? AND market1_pres.status = ?", "status[:'not_started']", "6046", ["123"], (Time.now), (Date.today.end_of_day + 1.days),"Active").order(start_date: :asc)
      end
 
       @featured = (@q.includes(:market1_pre).where("market1_pres.status = ? AND fixtures.featured = ?", "Active", true)).page params[:page]
