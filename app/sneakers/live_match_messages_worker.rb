@@ -32,19 +32,19 @@ class LiveMatchMessagesWorker
       message_type = data["Header"]["Type"]
       case message_type
 
-      when "32"
+      when 32
           AlertsWorker.perform_async(data, routing_key)
 
-      when "3"
+      when 3
          OddsChangeWorker.perform_async(data, routing_key)
          
-      when "1"
+      when 1
          FixtureChangeWorker.perform_async(data, routing_key)
          
-      when "35"
+      when 35
          BetSettlementWorker.perform_async(data, routing_key)
          
-      when "2"
+      when 2
          LiveScoreWorker.perform_async(data, routing_key)
                 
       end
