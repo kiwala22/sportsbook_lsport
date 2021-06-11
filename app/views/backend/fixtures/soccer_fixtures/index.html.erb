@@ -19,7 +19,7 @@
               <div class="col-sm-6 col-md-4">
                     <%= f.label :event_id, "Event", class:"col-md-4 col-form-label" %>
                     <div class="col-lg-8">
-                      <%= f.search_field :event_id_eq, {:class=>"form-control", id: "event_id"}%>
+                      <%= f.search_field :fixture_id_eq, {:class=>"form-control", id: "fixture_id"}%>
                     </div>
               </div>
               <div class="col-sm-6 col-md-4">
@@ -33,7 +33,7 @@
               <div class="col-sm-6 col-md-4">
                     <%= f.label :location, "Category", class:"col-md-4 col-form-label" %>
                     <div class="col-lg-8">
-                      <%= f.search_field :category_i_cont, {class: "form-control", id: "category"} %>
+                      <%= f.search_field :location_i_cont, {class: "form-control", id: "category"} %>
                     </div>
               </div>
               <div class="col-sm-6 col-md-4">
@@ -51,9 +51,9 @@
           </div>
           <div class="form-row">
               <div class="col-sm-6 col-md-4">
-                    <%= f.label :scheduled_time, "Kick-Off After", class:"col-md-4 col-form-label" %>
+                    <%= f.label :start_date, "Kick-Off After", class:"col-md-4 col-form-label" %>
                     <div class="col-lg-8">
-                      <%= f.search_field :scheduled_time_gteq, {class: "form-control", id: "kick_off_after"} %>
+                      <%= f.search_field :start_date_gteq, {class: "form-control", id: "kick_off_after"} %>
                     </div>
               </div>
               <div class="col-sm-6 col-md-4">
@@ -90,8 +90,8 @@
         <th >No</th>
         <th >Time</th>
         <th >Game</th>
-        <th >Tournament Name</th>
-        <th >Category</th>
+        <th >League Name</th>
+        <th >Location</th>
         <th >Event ID</th>
         <th >Status</th>
         <th >Booked</th>
@@ -110,7 +110,7 @@
           <td><%= fixture.league_name %></td>
            <td><%= fixture.location %></td>
           <td><%= fixture.fixture_id %></td>
-          <td><%= fixture.status %></td>
+          <td><%= @status.key(fixture.status) %></td>
           <td><%= fixture.booked.to_s.capitalize %></td>
           <td><%= fixture.featured.to_s.capitalize %></td>
           <td>

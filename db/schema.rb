@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_14_064941) do
+ActiveRecord::Schema.define(version: 2021_06_11_093250) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -168,7 +168,7 @@ ActiveRecord::Schema.define(version: 2021_05_14_064941) do
   end
 
   create_table "fixtures", force: :cascade do |t|
-    t.string "fixture_id"
+    t.string "event_id"
     t.datetime "start_date"
     t.string "live_odds"
     t.string "status"
@@ -196,7 +196,7 @@ ActiveRecord::Schema.define(version: 2021_05_14_064941) do
     t.string "match_time"
     t.boolean "featured", default: false
     t.index ["booked"], name: "index_fixtures_on_booked"
-    t.index ["fixture_id"], name: "index_fixtures_on_fixture_id", unique: true
+    t.index ["event_id"], name: "index_fixtures_on_event_id", unique: true
     t.index ["location"], name: "index_fixtures_on_location"
     t.index ["location_id"], name: "index_fixtures_on_location_id"
     t.index ["match_status"], name: "index_fixtures_on_match_status"

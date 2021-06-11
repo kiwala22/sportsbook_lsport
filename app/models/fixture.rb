@@ -59,7 +59,7 @@ class Fixture < ApplicationRecord
   
   
   
-  include Betradar
+  include Lsports
   
   paginates_per 100
   
