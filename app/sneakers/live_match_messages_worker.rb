@@ -6,13 +6,13 @@ class LiveMatchMessagesWorker
    exchange: 'odds_feed',
    exchange_type: :topic,
    :exchange_options => {
-      :type => :fanout,
+      :type => :topic,
       :durable => true,
       :passive => true,
       :auto_delete => false,
    },
    :queue_options => {
-      # :durable => false,
+      :durable => true,
       # :auto_delete => false,
       # :exclusive => true,
       # :passive => true
