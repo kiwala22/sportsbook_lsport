@@ -1,13 +1,13 @@
-class AmqpMessagesWorker
+class LiveMatchMessagesWorker
    include Sneakers::Worker
-   QUEUE_NAME = ""
+   QUEUE_NAME = "skybet-live"
 
    @@audit_logger ||= Logger.new("#{Rails.root}/log/audit.log")
    @@audit_logger.level = Logger::INFO
    
    from_queue QUEUE_NAME,
    exchange: 'odds_feed',
-   exchange_type: :direct,
+   exchange_type: :topic,
    :exchange_options => {
       :type => :fanout,
       :durable => true,
@@ -20,6 +20,7 @@ class AmqpMessagesWorker
       # :exclusive => true,
       # :passive => true
    },
+   #routing_key: ["pre_match.#","in_play.#"],
    heartbeat: 5
 
    def work_with_params(payload, delivery_info, metadata)
