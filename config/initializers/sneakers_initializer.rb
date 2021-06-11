@@ -1,8 +1,8 @@
 require "sneakers"
 begin
    Sneakers.configure   :heartbeat => 5,
-                        :amqp => 'amqp://ANRL2tQf8N40oGQ4Ye@mq.betradar.com:5671',
-                        :vhost => '/unifiedfeed/30819',
+                        :amqp => 'amqp://sky_bet:skybet@localhost:5672',
+                        :vhost => '/',
                         # :log  => '/var/www/html/sportsbook/shared/log/sneakers.log',     # Log file #removed to let systemed manage its own logging
                         :tls => true,
                         :verify_peer => false,

@@ -7,7 +7,7 @@ class FixtureChangeWorker
     sidekiq_options retry: false
 
     def perform(message, routing_key)
-        message = JSON.parse(message)
+        
         if message["Body"].has_key?("Events") 
             if message["Body"]["Events"].is_a?(Array) 
                 message["Body"]["Events"].each do |event|

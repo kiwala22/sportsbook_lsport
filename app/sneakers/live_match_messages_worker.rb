@@ -1,25 +1,23 @@
-class AmqpMessagesWorker
+class LiveMatchMessagesWorker
    include Sneakers::Worker
-   QUEUE_NAME = ""
-
-   @@audit_logger ||= Logger.new("#{Rails.root}/log/audit.log")
-   @@audit_logger.level = Logger::INFO
+   QUEUE_NAME = "skybet-live"
    
    from_queue QUEUE_NAME,
    exchange: 'odds_feed',
-   exchange_type: :fanout,
+   exchange_type: :topic,
    :exchange_options => {
-      :type => :fanout,
+      :type => :topic,
       :durable => true,
       :passive => true,
       :auto_delete => false,
    },
    :queue_options => {
-      # :durable => false,
+      :durable => true,
       # :auto_delete => false,
       # :exclusive => true,
       # :passive => true
    },
+   #routing_key: ["pre_match.#","in_play.#"],
    heartbeat: 5
 
    def work_with_params(payload, delivery_info, metadata)
@@ -31,19 +29,19 @@ class AmqpMessagesWorker
       message_type = data["Header"]["Type"]
       case message_type
 
-      when "32"
+      when 32
           AlertsWorker.perform_async(data, routing_key)
 
-      when "3"
+      when 3
          OddsChangeWorker.perform_async(data, routing_key)
          
-      when "1"
+      when 1
          FixtureChangeWorker.perform_async(data, routing_key)
          
-      when "35"
+      when 35
          BetSettlementWorker.perform_async(data, routing_key)
          
-      when "2"
+      when 2
          LiveScoreWorker.perform_async(data, routing_key)
                 
       end

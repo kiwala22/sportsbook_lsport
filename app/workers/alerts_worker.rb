@@ -9,8 +9,6 @@ class AlertsWorker
 
     def perform(message, routing_key)
 
-        message = JSON.parse(message)
-
         if routing_key = "pre_match"
             product = "3"
         end
