@@ -224,37 +224,48 @@ module Lsports
             markets["Body"].each do |market|
                 if market.has_key?("FixtureId")
                     event_id = market["FixtureId"]
+                    fixture = Fixture.find_by(event_id: event_id)
                     market_status = {
-                        "1" => "Active",
-                        "2" => "Suspended",
-                        "3" => "Settled"
+                        1 => "Active",
+                        2 => "Suspended",
+                        3 => "Settled"
                     }
                     attrs = {}
-                    if market.has_key?("Markets") && market["Markets"].is_a?(Array)
-                        market["Markets"].each do |event|
-                            mkt = "Market" + event["Id"] + "Pre"
-                            if event.has_key?("Providers") && event["Providers"].is_a?(Array)
-                                event["Providers"].each do |provider|
-                                    if provider.has_key?("Bets") && provider["Bets"].is_a?(Array)
-                                        provider["Bets"].each do |bet|
-                                            attrs["outcome_#{bet["Name"]}"] = bet["Price"]
-                                            attrs["status"] = market_status[bet["Status"]]
+                    if fixture
+                        if market.has_key?("Markets") && market["Markets"].is_a?(Array)
+                            market["Markets"].each do |event|
+                                mkt = "Market" + (event["Id"]).to_s + "Pre"
+                                if event.has_key?("Providers") && event["Providers"].is_a?(Array)
+                                    event["Providers"].each do |provider|
+                                        if provider.has_key?("Bets") && provider["Bets"].is_a?(Array)
+                                            provider["Bets"].each do |bet|
+                                                if event["Id"] == 2 || event["Id"] == 77
+                                                    if bet["Line"] == "2.5"
+                                                        attrs["outcome_#{bet["Name"]}"] = bet["Price"]
+                                                        attrs["status"] = market_status[bet["Status"]]
+                                                    end
+                                                # BaseLine for markets 3 and 53 not clear yet
+                                                # elsif event["Id"] == 3 || event["Id"] == 53
+                                                #     if bet["Line"] == ""
+                                                #         attrs["outcome_#{bet["Name"]}"] = bet["Price"]
+                                                #         attrs["status"] = market_status[bet["Status"]]
+                                                #     end
+                                                else
+                                                    attrs["outcome_#{bet["Name"]}"] = bet["Price"]
+                                                    attrs["status"] = market_status[bet["Status"]]
+                                                end
+                                            end
                                         end
                                     end
                                 end
+                                mkt_entry = mkt.constantize.new(attrs)
+                                mkt_entry.event_id = event_id
+                                mkt_entry.fixture_id = fixture.id
+                                mkt_entry.save
+                                attrs = {}
                             end
                         end
                     end
-                end
-                mkt_entry = mkt.constantize.new(attrs)
-                mkt_entry.event_id = event_id
-
-                ## Can not save without fixture ID
-    
-                if mkt_entry.save
-                    return 200
-                else
-                    return 400
                 end
             end
 
@@ -268,17 +279,14 @@ module Lsports
     # Fetch Fixtures
     def fetch_fixtures(from_date, to_date)
 
-        start_date = from_date.to_time.to_i
-        end_date = to_date.to_time.to_i
-
         url = @@end_point + "GetFixtures"
         uri = URI(url)
         params = {
             username: @@username,
             password: @@password,
             guid: @@prematch_guid,
-            fromdate: start_date,
-            todate: end_date,
+            fromdate: from_date,
+            todate: to_date,
             sports: @@sports_id
         }
         uri.query = URI.encode_www_form(params)

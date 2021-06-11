@@ -14,9 +14,22 @@ class CreateFixtureWorker
  
    
     def perform(event)
-        Fixture.find_or_create_by(fixture_id: event["FixtureId"] ) do |fixture|
+
+        fixture_status = {
+            1 => "not_started",
+            2 => "live",
+            3 => "finished",
+            4 => "cancelled",
+            5 => "postponed",
+            6 => "interrupted",
+            7 => "Abandoned",
+            8 => "coverage lost",
+            9 => "about to start"
+        }
+    
+        Fixture.find_or_create_by(event_id: event["FixtureId"] ) do |fixture|
             fixture.start_date = event["Fixture"]["StartDate"]
-            fixture.status = event["Fixture"]["Status"]
+            fixture.status = fixture_status[event["Fixture"]["Status"]]
             # fixture.live_odds = event["liveodds"]
             # fixture.tournament_round = event["tournament_round"]["group_long_name"]
             fixture.ext_provider_id = event["Fixture"]["ExternalProviderId"]
