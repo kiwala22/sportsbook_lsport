@@ -1,9 +1,6 @@
 class LiveMatchMessagesWorker
    include Sneakers::Worker
    QUEUE_NAME = "skybet-live"
-
-   @@audit_logger ||= Logger.new("#{Rails.root}/log/audit.log")
-   @@audit_logger.level = Logger::INFO
    
    from_queue QUEUE_NAME,
    exchange: 'odds_feed',
