@@ -7,7 +7,7 @@ class AmqpMessagesWorker
    
    from_queue QUEUE_NAME,
    exchange: 'odds_feed',
-   exchange_type: :fanout,
+   exchange_type: :direct,
    :exchange_options => {
       :type => :fanout,
       :durable => true,
