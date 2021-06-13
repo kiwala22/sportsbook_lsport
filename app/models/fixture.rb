@@ -30,8 +30,8 @@ class Fixture < ApplicationRecord
   
   after_commit :broadcast_updates, if: :persisted?
   
-  validates :fixture_id, presence: true
-  validates :fixture_id, uniqueness: true
+  validates :event_id, presence: true
+  validates :event_id, uniqueness: true
   
   has_one :market1_live
   has_one :market7_live

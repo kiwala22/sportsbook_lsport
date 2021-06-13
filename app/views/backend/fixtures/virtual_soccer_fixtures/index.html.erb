@@ -17,9 +17,9 @@
                     </div>
               </div>
               <div class="col-sm-6 col-md-4">
-                    <%= f.label :fixture_id, "Event", class:"col-md-4 col-form-label" %>
+                    <%= f.label :event_id, "Event", class:"col-md-4 col-form-label" %>
                     <div class="col-lg-8">
-                      <%= f.search_field :fixture_id_eq, {:class=>"form-control", id: "event_id"}%>
+                      <%= f.search_field :event_id_eq, {:class=>"form-control", id: "event_id"}%>
                     </div>
               </div>
               <div class="col-sm-6 col-md-4">
@@ -99,10 +99,10 @@
           <td><%= (i+1)%></td>
           <td><%= local_time(fixture.start_date, format: "%d/%m/%y %l:%M%P") %></td>
           <td><%= fixture.part_one_name %>  - <%= fixture.part_two_name%> </td>
-          <td><%= fixture.league_name %></td>
-           <td><%= fixture.location %></td>
-          <td><%= fixture.fixture_id %></td>
-          <td><%= @status.key(fixture.status) %></td>
+          <td><%= fixture.league_name %> </td>
+           <td><%= fixture.location %> </td>
+          <td><%= fixture.event_id %></td>
+          <td><%= fixture.status %></td>
           <td><%= fixture.booked.to_s.capitalize %></td>
           <td>
             <% if fixture.live_odds == "bookable" && fixture.booked == false %>

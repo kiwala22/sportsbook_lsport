@@ -6,11 +6,8 @@ class Backend::Fixtures::VirtualSoccerFixturesController < ApplicationController
   layout "admin_application.html.erb"
 
   def index
-    @status ={"not_started": "1", "live": "2", "finished": "3", "cancelled": "4",
-              "postponed": "5", "interrupted": "6", "Abandoned": "7", 
-              "converage lost": "8", "about to start": "9"}
-              
-    @q = Fixture.where("sport_id = ? AND location_id NOT IN (?)","6046" ,["abc"] ).ransack(params[:q])
+    
+    @q = Fixture.where("sport_id = ? AND league_id IN (?)","6046" ,["37364", "37386", "38301", "37814"] ).ransack(params[:q])
     @fixtures = @q.result.order("start_date DESC").page params[:page]
   end
 

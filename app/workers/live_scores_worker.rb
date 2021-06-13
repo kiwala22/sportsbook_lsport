@@ -6,7 +6,6 @@ class LiveScoresWorker
 
     def perform(message, routing_key)
 
-        message = JSON.parse(message)
         update_attr = {
             
         }

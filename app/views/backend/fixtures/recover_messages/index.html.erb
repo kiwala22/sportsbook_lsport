@@ -28,8 +28,8 @@
                     <td><%= fixture.part_one_name %>  - <%= fixture.part_two_name%> </td>
                     <td><%= fixture.league_name %></td>
                     <td><%= fixture.location %></td>
-                    <td><%= fixture.fixture_id %></td>
-                    <td><%=  @status.key(fixture.status) %></td>
+                    <td><%= fixture.event_id %></td>
+                    <td><%=  fixture.status %></td>
                     <td>
                         <%= link_to "Recover", backend_fixtures_fixture_recovery_path(id: fixture.id), method: :put, :class => 'btn btn-xs btn-success booking', remote: true %>
                     </td>
