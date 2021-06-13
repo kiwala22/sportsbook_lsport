@@ -47,6 +47,8 @@ module Lsports
 
         end
 
+        puts res.body
+
         return res.code
 
     end
@@ -120,10 +122,17 @@ module Lsports
     end
 
     ## Get Events
+    ## Dates can be in format "Date.today.strftime("%F")"
+    ## Method call ex: get_events(Date.today.strftime("%F"), (Date.today + 1.day).strftime("%F"))
     def get_events(from_date, to_date)
 
+        # Convert the date to Unix timestamps
         start_date = from_date.to_time.to_i
         end_date = to_date.to_time.to_i
+
+        # Markets we require 
+        required_markets = ["1", "2", "3", "7", "17", "25", "53", "77", "113", "282"]
+        markets = required_markets.join(",") 
 
         url = @@end_point + "GetEvents"
 
@@ -134,7 +143,8 @@ module Lsports
             guid: @@prematch_guid,
             sports: @@sports_id,
             fromdate: start_date,
-            todate: end_date
+            todate: end_date,
+            markets: markets
         }
         uri.query = URI.encode_www_form(params)
 
@@ -147,12 +157,13 @@ module Lsports
         end
 
         response = res.code
+        result = JSON.parse(res.body)
 
         if response == "200"
-            return JSON.parse(res.body)
+            return result["Body"]
         else
-            @@logger.error(res.body)
-            return JSON.parse(res.body)
+            @@logger.error(result)
+            return JSON.parse(result)
         end
     end
 
@@ -277,6 +288,8 @@ module Lsports
     end
 
     # Fetch Fixtures
+    ## Use unix timestamps format for parameters
+    ## Method call ex: fetch_fixtures(1623479275, 1623565675)
     def fetch_fixtures(from_date, to_date)
 
         url = @@end_point + "GetFixtures"
@@ -345,6 +358,38 @@ module Lsports
         end
     end
 
+    def fetch_live_events_schedule
+        url = @@live_end_point + "schedule/GetInPlaySchedule"
+
+        uri = URI(url)
+        params = {
+            username: @@username,
+            password: @@password,
+            packageid: @@livematch_pkg_id,
+            sportids: @@sports_id
+        }
+        uri.query = URI.encode_www_form(params)
+
+        req = Net::HTTP::Get.new(uri)
+
+        res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https') do |http|
+
+            http.request(req)
+
+        end
+
+        response = res.code
+
+        result = JSON.parse(res.body)
+
+        if response == "200"
+            return result["Body"]
+        else
+            @@logger.error(result)
+            return result
+        end
+    end
+
     def order_live_event(fixture_id)
         url = @@live_end_point + "schedule/OrderFixtures"
 
@@ -367,8 +412,9 @@ module Lsports
         end
 
         response = res.code
+        result = JSON.parse(res.body)
 
-        if response == "200"
+        if response == "200" && result["Body"].has_key?("Ordered")
             return 200
         else
             @@logger.error(res.body)
@@ -398,8 +444,9 @@ module Lsports
         end
 
         response = res.code
+        result = JSON.parse(res.body)
 
-        if response == "200"
+        if response == "200" && result["Body"].has_key?("Cancelled")
             return 200
         else
             @@logger.error(res.body)
