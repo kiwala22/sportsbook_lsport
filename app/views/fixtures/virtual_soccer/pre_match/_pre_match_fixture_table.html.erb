@@ -17,10 +17,10 @@
                <%= link_to(fixture.market1_pre.outcome_1, add_bet_path(outcome_id: "1", fixture_id: fixture.id, market: "Market1Pre", outcome_desc: "1X2 FT - 1") , class: "btnn intialise_input", id: "pre_1_#{fixture.id}", remote: true, method: :post, data: {disable_with: "<i class='fas fa-spinner fa-spin'></i>"})%>
             </td>
             <td>
-               <%= link_to(fixture.market1_pre.outcome_X, add_bet_path(outcome_id: "2", fixture_id: fixture.id, market: "Market1Pre", outcome_desc: "1X2 FT - X") , class: "btnn intialise_input", id: "pre_2_#{fixture.id}",remote: true, method: :post, data: {disable_with: "<i class='fas fa-spinner fa-spin'></i>"} )%>
+               <%= link_to(fixture.market1_pre.outcome_X, add_bet_path(outcome_id: "X", fixture_id: fixture.id, market: "Market1Pre", outcome_desc: "1X2 FT - X") , class: "btnn intialise_input", id: "pre_2_#{fixture.id}",remote: true, method: :post, data: {disable_with: "<i class='fas fa-spinner fa-spin'></i>"} )%>
             </td>
             <td>
-               <%= link_to(fixture.market1_pre.outcome_2, add_bet_path(outcome_id: "3", fixture_id: fixture.id, market: "Market1Pre", outcome_desc: "1X2 FT - 2") , class: "btnn intialise_input", id: "pre_3_#{fixture.id}", remote: true, method: :post, data: {disable_with: "<i class='fas fa-spinner fa-spin'></i>"} )%>
+               <%= link_to(fixture.market1_pre.outcome_2, add_bet_path(outcome_id: "2", fixture_id: fixture.id, market: "Market1Pre", outcome_desc: "1X2 FT - 2") , class: "btnn intialise_input", id: "pre_3_#{fixture.id}", remote: true, method: :post, data: {disable_with: "<i class='fas fa-spinner fa-spin'></i>"} )%>
 
             </td>
       </tr>

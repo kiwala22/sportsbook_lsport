@@ -17,7 +17,7 @@ export default class extends Controller {
     }
 
     update_odds(data) {
-        const outcomes = ["1", "2", "3", "9", "10", "11", "12", "13", "74", "76", "1714", "1715"];
+        const outcomes = ["1", "X", "2", "Yes", "No", "Under", "Over", "1X", "12", "X2"];
         outcomes.forEach(element => {
             if ($(`#live_${element}_${data.fixture_id}`).length > 0) {
                 $(`#live_${element}_${data.fixture_id}`).html(data[`outcome_${element}`]);
