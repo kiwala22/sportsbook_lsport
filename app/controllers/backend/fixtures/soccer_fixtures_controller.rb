@@ -1,5 +1,5 @@
 class Backend::Fixtures::SoccerFixturesController < ApplicationController
-  include Betradar
+  include Lsports
   before_action :authenticate_admin!
 
 
@@ -13,7 +13,7 @@ class Backend::Fixtures::SoccerFixturesController < ApplicationController
 
   def update
     @fixture = Fixture.find(params[:id])
-    response = book_live_event(@fixture.event_id)
+    response = order_live_event(@fixture.event_id)
     if response == 200
       @fixture.update(booked: true)
       respond_to do |format|
