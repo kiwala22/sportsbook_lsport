@@ -241,6 +241,7 @@ module Lsports
                         2 => "Suspended",
                         3 => "Settled"
                     }
+                    @@market_description = market["Name"]
                     attrs = {}
                     if fixture
                         if market.has_key?("Markets") && market["Markets"].is_a?(Array)
@@ -254,6 +255,7 @@ module Lsports
                                                     if bet["Line"] == "2.5"
                                                         attrs["outcome_#{bet["Name"]}"] = bet["Price"]
                                                         attrs["status"] = market_status[bet["Status"]]
+                                                        Outcome.create(outcome_id: bet["Name"], description: @@market_description)
                                                     end
                                                 # BaseLine for markets 3 and 53 not clear yet
                                                 # elsif event["Id"] == 3 || event["Id"] == 53
@@ -264,6 +266,7 @@ module Lsports
                                                 else
                                                     attrs["outcome_#{bet["Name"]}"] = bet["Price"]
                                                     attrs["status"] = market_status[bet["Status"]]
+                                                    Outcome.create(outcome_id: bet["Name"], description: @@market_description)
                                                 end
                                             end
                                         end
