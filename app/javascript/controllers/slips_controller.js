@@ -27,7 +27,7 @@ export default class extends Controller {
     }
 
     update_betslip(data) {
-        const outcomes = ["1", "X", "2", "Yes", "No", "Under", "Over", "1X", "12", "X2"];
+        const outcomes = ["1", "2", "3", "9", "10", "11", "12", "13", "74", "76", "1714", "1715"];
         outcomes.forEach(element => {
             if ($(`#slip_${element}_${data.fixture_id}`).length > 0) {
                 $(`#slip_${element}_${data.fixture_id}`).html(data[`outcome_${element}`]);
