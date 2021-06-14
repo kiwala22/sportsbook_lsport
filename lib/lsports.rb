@@ -194,6 +194,8 @@ module Lsports
             markets = JSON.parse(res.body)
             markets["Body"].each do |market|
                 Market.create(market_id: market["Id"].to_i, description: market["Name"])
+                # Outcome.create(outcome_id: market["Providers"]["Bets"]["Name"], description: "#{market["Name"]} - #{market["Providers"]["Bets"]["Name"]}")
+
             end
 
             return response
