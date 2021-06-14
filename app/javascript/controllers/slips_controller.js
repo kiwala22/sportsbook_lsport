@@ -15,7 +15,8 @@ export default class extends Controller {
             market: this.data.get("market")
         }, {
             received: (data) => {
-                self.update_betslip(data)
+                const market = this.data.get("market")
+                self.update_betslip(data, market)
             }
         });
 
@@ -26,13 +27,13 @@ export default class extends Controller {
         this.subscription.unsubscribe();
     }
 
-    update_betslip(data) {
-        const outcomes = ["1", "2", "3", "9", "10", "11", "12", "13", "74", "76", "1714", "1715"];
+    update_betslip(data, market) {
+        const outcomes = ["1", "2", "X", "12", "1X", "X2", "Yes", "No", "Under", "Over"];
         outcomes.forEach(element => {
-            if ($(`#slip_${element}_${data.fixture_id}`).length > 0) {
-                $(`#slip_${element}_${data.fixture_id}`).html(data[`outcome_${element}`]);
+            if ($(`#slip_${market}_${element}_${data.fixture_id}`).length > 0) {
+                $(`#slip_${market}_${element}_${data.fixture_id}`).html(data[`outcome_${element}`]);
                 setTimeout(() => {
-                    $(`#slip_${element}_${data.fixture_id}`).css("color" , "#F6AE2D");
+                    $(`#slip_${market}_${element}_${data.fixture_id}`).css("color" , "#F6AE2D");
                 }, 3000);
             }
         });

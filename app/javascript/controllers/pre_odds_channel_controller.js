@@ -11,16 +11,17 @@ export default class extends Controller {
             market: this.data.get("market")
         }, {
             received: (data) => {
-                this.update_odds(data)
+                const market = this.data.get("market");
+                this.update_odds(data, market)
             }
         });
     }
 
-    update_odds(data) {
-        const outcomes = ["1", "2", "3", "9", "10", "11", "12", "13", "74", "76", "1714", "1715"];
+    update_odds(data, market) {
+        const outcomes = ["1", "2", "X", "12", "1X", "X2", "Yes", "No", "Under", "Over"];
         outcomes.forEach(element => {
-            if ($(`#pre_${element}_${data.fixture_id}`).length > 0) {
-                $(`#pre_${element}_${data.fixture_id}`).html(data[`outcome_${element}`]);
+            if ($(`#pre_${market}_${element}_${data.fixture_id}`).length > 0) {
+                $(`#pre_${market}_${element}_${data.fixture_id}`).html(data[`outcome_${element}`]);
             }
         });
     }
