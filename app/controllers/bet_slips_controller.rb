@@ -62,30 +62,30 @@ class BetSlipsController < ApplicationController
 					channel = "internet"
 				end
 
-				begin
-					Mts::SubmitTicket.new.publish(slip_id: bet_slip.id, user_channel: channel, ip: request.remote_ip )
-					#run a worker in future to close this ticket if no reply is made
-					TicketMonitorWorker.perform_in(16.seconds, bet_slip.id)
-				rescue Exception => error
-					#fail the betslip and all the bets
-					#refund the user money
-					#consider a separate refund function, since it is called from three locations now 05/11/2020 Acacia
-					bet_slip.update!(status: "Failed") 
-					bet_slip.bets.update_all(status: "Failed")
-					#refund the stake
-					previous_balance = current_user.balance
-					balance_after = current_user.balance = (current_user.balance + bet_slip.stake)
-					transaction = current_user.transactions.build(balance_before: previous_balance, balance_after: balance_after, phone_number: current_user.phone_number, status: "SUCCESS", currency: "UGX", amount: bet_slip.stake, category: "Refund" )
+				# begin
+				# 	Mts::SubmitTicket.new.publish(slip_id: bet_slip.id, user_channel: channel, ip: request.remote_ip )
+				# 	#run a worker in future to close this ticket if no reply is made
+				# 	TicketMonitorWorker.perform_in(16.seconds, bet_slip.id)
+				# rescue Exception => error
+				# 	#fail the betslip and all the bets
+				# 	#refund the user money
+				# 	#consider a separate refund function, since it is called from three locations now 05/11/2020 Acacia
+				# 	bet_slip.update!(status: "Failed") 
+				# 	bet_slip.bets.update_all(status: "Failed")
+				# 	#refund the stake
+				# 	previous_balance = current_user.balance
+				# 	balance_after = current_user.balance = (current_user.balance + bet_slip.stake)
+				# 	transaction = current_user.transactions.build(balance_before: previous_balance, balance_after: balance_after, phone_number: current_user.phone_number, status: "SUCCESS", currency: "UGX", amount: bet_slip.stake, category: "Refund" )
 					
-					BetSlip.transaction do
-						current_user.save!
-						transaction.save!
-					end
+				# 	BetSlip.transaction do
+				# 		current_user.save!
+				# 		transaction.save!
+				# 	end
 
-					#log the error
-					Rails.logger.error(error.message)
-					Rails.logger.error(error.backtrace.join("\n"))
-				end
+				# 	#log the error
+				# 	Rails.logger.error(error.message)
+				# 	Rails.logger.error(error.backtrace.join("\n"))
+				# end
 				
 				#delete the session and also delete the cart
 				@cart.destroy if @cart.id == session[:cart_id]

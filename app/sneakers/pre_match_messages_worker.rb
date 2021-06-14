@@ -41,7 +41,7 @@ class PreMatchMessagesWorker
          BetSettlementWorker.perform_async(data, routing_key)
          
       when 2
-         LiveScoreWorker.perform_async(data, routing_key)
+         LiveScoresWorker.perform_async(data, routing_key)
                 
       end
 

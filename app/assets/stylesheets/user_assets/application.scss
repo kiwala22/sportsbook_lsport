@@ -645,3 +645,20 @@ a:visited {
 .logo-color {
   color: #FD6A02;
 }
+
+
+
+@-webkit-keyframes yellow-fade {
+  from {
+    background: #f96;
+    opacity: 0.3
+  }
+  to {
+    background: #F6AE2D;
+  }
+}
+
+.fade-it {
+  -webkit-animation: yellow-fade 0.15s ease-in-out 0s;
+  
+}

@@ -58,13 +58,15 @@ class UpdateFixtureWorker
                part_two_id: event["Fixture"]["Participants"][1]["Id"],
                part_two_name: event["Fixture"]["Participants"][1]["Name"]
 
-               #we need to add the home and away score too
-            }
+               }
+
+            if event["Livescore"].has_key?("Scoreboard")
+               update_attr[:home_score] = event["Livescore"]["Scoreboard"]["Results"][0]["Value"]
+               update_attr[:away_score] = event["Livescore"]["Scoreboard"]["Results"][1]["Value"]
+               update_attr[:status] = fixture_status[event["Livescore"]["Scoreboard"]["Status"]]
+            end
                
-            # if event["fixtures_fixture"]["fixture"].has_key?("season")
-            #    update_attr[:season_id] = event["fixtures_fixture"]["fixture"]["season"]["id"] 
-            #    update_attr[:season_name] = event["fixtures_fixture"]["fixture"]["season"]["name"]
-            # end   
+              
             fixture.update(update_attr)
             return response.code
          else

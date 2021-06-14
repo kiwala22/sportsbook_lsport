@@ -22,6 +22,11 @@ export default class extends Controller {
         outcomes.forEach(element => {
             if ($(`#pre_${market}_${element}_${data.fixture_id}`).length > 0) {
                 $(`#pre_${market}_${element}_${data.fixture_id}`).html(data[`outcome_${element}`]);
+                $(`#pre_${market}_${element}_${data.fixture_id}`).addClass('fade-it');
+
+                setTimeout(function(){ 
+                    $(`#pre_${market}_${element}_${data.fixture_id}`).removeClass('fade-it');
+                },1000);
             }
         });
     }
