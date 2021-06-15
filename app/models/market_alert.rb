@@ -1,36 +1,36 @@
 class MarketAlert < ApplicationRecord
-   
+
    include Recovery
-   include Betradar
+   include Lsports
    
    def check_producers
       (0..5).each do 
          ["1", "3"].each do |product|
-            last_update = MarketAlert.where(:product => product, subscribed: "1").order("timestamp DESC").first
+            last_update = MarketAlert.where(:product => product).order("timestamp DESC").first
             if last_update
-               if ((Time.now.to_i * 1000) - last_update[:timestamp].to_i) > 15000
+               if ((Time.now.to_i ) - last_update[:timestamp].to_i) > 15
                   #first close all active markets 
-                  DeactivateMarketsWorker.perform_async(product)   
+                  DeactivateMarketsWorker.perform_async(product)  
+
+                  #then request recovery
+                  #try and activate the markets again
+                  #issue recovery API call
+                  recovery = request_recovery(product, last_update[:timestamp])  
+                  if recovery == "20"
+                     recovery_status = true
+                  end 
                end
             end
          end
-         
+
          #check if connection is down
          last_alert = MarketAlert.last
-         if last_alert && (((Time.now.to_i * 1000) - last_alert[:timestamp].to_i) > 15000)
+         if last_alert && (((Time.now.to_i ) - last_alert[:timestamp].to_i) > 60)
             #if the last update irrespective if product is more than 60 seconds ago, then manual restart
-            system('systemctl restart sneakers')
+            system('systemctl restart prematch-sneakers && systemctl restart inplay-sneakers && systemctl restart lsport-inplay-lsport_inplay.1.service && systemctl restart lsport-prematch-lsport_prematch.1.service')
             
          end
-
-         #check if mts connections are down
-         amqp_connections = `netstat -oW | grep amqps | grep ESTABLISHED  | wc -l 2>&1`;  result=$?.success?
-         if result == true
-            if amqp_connections.to_i < 3
-               system('systemctl restart betradar-betradar.1.service')
-            end
-         end
-         
+   
          sleep 12
       end
    end

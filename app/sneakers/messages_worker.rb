@@ -1,6 +1,6 @@
-class PreMatchMessagesWorker
+class MessagesWorker
    include Sneakers::Worker
-   QUEUE_NAME = "skybet-pre"
+   QUEUE_NAME = "skybet"
    
    from_queue QUEUE_NAME,
    exchange: 'odds_feed',
@@ -22,7 +22,7 @@ class PreMatchMessagesWorker
    def work_with_params(payload, delivery_info, metadata)
       #extract the routing key
       routing_key = delivery_info[:routing_key]
-
+      puts("routing_key: #{routing_key}")
       data = JSON.parse(payload)
       #route the messages based on subject, sport and event ID
       message_type = data["Header"]["Type"]
@@ -32,15 +32,23 @@ class PreMatchMessagesWorker
           AlertsWorker.perform_async(data, routing_key)
 
       when 3
+         puts("Odds")
+         puts(data)
          OddsChangeWorker.perform_async(data, routing_key)
          
       when 1
+         puts("Fixtures")
+         puts(data)
          FixtureChangeWorker.perform_async(data, routing_key)
          
       when 35
+         puts("Settlement")
+         puts(data)
          BetSettlementWorker.perform_async(data, routing_key)
          
       when 2
+         puts("LiveScore")
+         puts(data)
          LiveScoresWorker.perform_async(data, routing_key)
                 
       end
