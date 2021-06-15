@@ -1,6 +1,6 @@
-class PreMatchMessagesWorker
+class MessagesWorker
    include Sneakers::Worker
-   QUEUE_NAME = "skybet-pre"
+   QUEUE_NAME = "skybet"
    
    from_queue QUEUE_NAME,
    exchange: 'odds_feed',
