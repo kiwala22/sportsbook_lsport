@@ -32,15 +32,23 @@ class MessagesWorker
           AlertsWorker.perform_async(data, routing_key)
 
       when 3
+         puts("Odds")
+         puts(data)
          OddsChangeWorker.perform_async(data, routing_key)
          
       when 1
+         puts("Fixtures")
+         puts(data)
          FixtureChangeWorker.perform_async(data, routing_key)
          
       when 35
+         puts("Settlement")
+         puts(data)
          BetSettlementWorker.perform_async(data, routing_key)
          
       when 2
+         puts("LiveScore")
+         puts(data)
          LiveScoresWorker.perform_async(data, routing_key)
                 
       end
