@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_14_065216) do
+ActiveRecord::Schema.define(version: 2021_06_15_095202) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -110,7 +110,6 @@ ActiveRecord::Schema.define(version: 2021_06_14_065216) do
     t.bigint "user_id", null: false
     t.bigint "fixture_id", null: false
     t.bigint "bet_slip_id", null: false
-    t.bigint "outcome_id", null: false
     t.bigint "market_id", null: false
     t.string "result"
     t.decimal "void_factor", precision: 5, scale: 2
@@ -119,7 +118,6 @@ ActiveRecord::Schema.define(version: 2021_06_14_065216) do
     t.index ["bet_slip_id"], name: "index_bets_on_bet_slip_id"
     t.index ["fixture_id"], name: "index_bets_on_fixture_id"
     t.index ["market_id"], name: "index_bets_on_market_id"
-    t.index ["outcome_id"], name: "index_bets_on_outcome_id"
     t.index ["user_id"], name: "index_bets_on_user_id"
   end
 
@@ -686,7 +684,6 @@ ActiveRecord::Schema.define(version: 2021_06_14_065216) do
   add_foreign_key "bets", "bet_slips"
   add_foreign_key "bets", "fixtures"
   add_foreign_key "bets", "markets"
-  add_foreign_key "bets", "outcomes"
   add_foreign_key "bets", "users"
   add_foreign_key "deposits", "users"
   add_foreign_key "line_bets", "carts"
