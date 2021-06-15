@@ -6,12 +6,12 @@ class BetSettlementWorker
     sidekiq_options queue: "default", retry: false
 
     def perform(message, routing_key)
-
-        if routing_key = "pre_match"
+=
+        if routing_key == "pre_match"
             product = "3"
         end
 
-        if routing_key = "in_play"
+        if routing_key == "in_play"
             product = "1"
         end
 
