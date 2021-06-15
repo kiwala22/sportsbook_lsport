@@ -30,7 +30,7 @@ class AlertsWorker
             last_update = MarketAlert.create(product: product, timestamp:  timestamp, status:  recovery_status)
         else
             
-            if (timestamp.to_i - last_update[:timestamp].to_i) > 20000
+            if (timestamp.to_i - last_update[:timestamp].to_i) > 20
                 #first close all active markets 
                 DeactivateMarketsWorker.perform_async(product)
 
@@ -42,7 +42,7 @@ class AlertsWorker
                 end
                 #call fixture changes
                 changed_fixtures = fetch_fixture_changes()
-                
+
             end
 
             #save the damn alert anyway
