@@ -1,7 +1,7 @@
 class MarketAlert < ApplicationRecord
 
    include Recovery
-   include Lsport
+   include Lsports
    
    def check_producers
       (0..5).each do 
@@ -16,7 +16,7 @@ class MarketAlert < ApplicationRecord
                   #try and activate the markets again
                   #issue recovery API call
                   recovery = request_recovery(product, last_update[:timestamp])  
-                  if recovery == "202"
+                  if recovery == "200"
                      recovery_status = true
                   end 
                end
