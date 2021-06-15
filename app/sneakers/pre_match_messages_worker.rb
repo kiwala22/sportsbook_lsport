@@ -22,7 +22,7 @@ class PreMatchMessagesWorker
    def work_with_params(payload, delivery_info, metadata)
       #extract the routing key
       routing_key = delivery_info[:routing_key]
-
+      puts("routing_key: #{routing_key}")
       data = JSON.parse(payload)
       #route the messages based on subject, sport and event ID
       message_type = data["Header"]["Type"]

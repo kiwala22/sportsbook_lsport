@@ -16,7 +16,7 @@ class MarketAlert < ApplicationRecord
                   #try and activate the markets again
                   #issue recovery API call
                   recovery = request_recovery(product, last_update[:timestamp])  
-                  if recovery == "200"
+                  if recovery == "20"
                      recovery_status = true
                   end 
                end
@@ -27,7 +27,7 @@ class MarketAlert < ApplicationRecord
          last_alert = MarketAlert.last
          if last_alert && (((Time.now.to_i * 1000) - last_alert[:timestamp].to_i) > 60000)
             #if the last update irrespective if product is more than 60 seconds ago, then manual restart
-            system('systemctl restart sneakers && systemctl restart lsport-inplay-lsport_inplay.1.service && systemctl restart lsport-prematch-lsport_prematch.1.service')
+            system('systemctl restart prematch-sneakers && systemctl restart inplay-sneakers && systemctl restart lsport-inplay-lsport_inplay.1.service && systemctl restart lsport-prematch-lsport_prematch.1.service')
             
          end
    
