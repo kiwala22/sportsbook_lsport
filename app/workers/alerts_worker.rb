@@ -5,7 +5,7 @@ class AlertsWorker
     sidekiq_options retry: false
 
     include Recovery
-    include Betradar
+    include Lsports
 
     def perform(message, routing_key)
 
@@ -33,6 +33,16 @@ class AlertsWorker
             if (timestamp.to_i - last_update[:timestamp].to_i) > 20000
                 #first close all active markets 
                 DeactivateMarketsWorker.perform_async(product)
+
+                #try and activate the markets again
+                #issue recovery API call
+                recovery = request_recovery(product, last_update[:timestamp])  
+                if recovery == "200"
+                    recovery_status = true
+                end
+                #call fixture changes
+                changed_fixtures = fetch_fixture_changes()
+                
             end
 
             #save the damn alert anyway
