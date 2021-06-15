@@ -96,7 +96,7 @@ class BetSettlementWorker
 
         model_name = "Market" + market["Id"] + producer_type[product]
 
-        mkt_entry = model_name.constantize.find_by(event_id: event_id)
+        mkt_entry = model_name.constantize.find_by(fixture_id: fixture_id)
         update_attr = {}
 
         if (market["Id"] == "2" || market["Id"] == "77") && market["MainLine"] == "2.5"

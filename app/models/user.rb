@@ -49,7 +49,7 @@ class User < ApplicationRecord
    end
 
    def send_password_reset_code
-     message = "Your Password Reset Code is #{self.password_reset_code}"
+     message = "Your SkylineBet Password Reset Code is #{self.password_reset_code}"
      SendSMS.process_sms_now(receiver: self.phone_number, content: message, sender_id: ENV['DEFAULT_SENDER'])
      self.touch(:password_reset_sent_at)
    end
@@ -73,7 +73,7 @@ class User < ApplicationRecord
     def resend_user_pin!
       reset_pin!
       unverify!
-      message = "Your verification code is #{self.pin}"
+      message = "Your SkylineBet verification code is #{self.pin}"
       SendSMS.process_sms_now(receiver: self.phone_number, content: message, sender_id: ENV['DEFAULT_SENDER'])
       #In scenarios of automatic emails, uncomment the line below
       #VerifyMailer.with(id: self.id).verification_email.deliver_now
