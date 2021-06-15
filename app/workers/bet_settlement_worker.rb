@@ -21,8 +21,8 @@ class BetSettlementWorker
         if message["Body"].has_key?("Events") 
             if message["Body"]["Events"].is_a?(Array) 
                 message["Body"]["Events"].each do |event|
-                    if event.has_key?("FixureId")
-                        event_id = event["FixureId"]
+                    if event.has_key?("FixtureId")
+                        event_id = event["FixtureId"]
                         fixture = Fixture.find_by(event_id: event_id)
                         if fixture
                             fixture.update(status: "ended")
@@ -46,8 +46,8 @@ class BetSettlementWorker
 
             if message["Body"]["Events"].is_a?(Hash) 
                 event = message["Body"]["Events"]
-               if event.has_key?("FixureId")
-                    event_id = event["FixureId"]
+               if event.has_key?("FixtureId")
+                    event_id = event["FixtureId"]
                     fixture = Fixture.find_by(event_id: event_id)
                     if fixture
                         fixture.update(status: "ended")
@@ -98,25 +98,37 @@ class BetSettlementWorker
         mkt_entry = model_name.constantize.find_by(fixture_id: fixture_id)
         update_attr = {}
 
-        if (market["Id"] == "2" || market["Id"] == "77") && market["MainLine"] == "2.5"
-            if market.has_key?("Bets")
-                market["Bets"].each do |bet|
-                    outcome_attr[bet["Name"].downcase] = bet["Settlement"]
+        if (market["Id"] == 2 || market["Id"] == 77) && market["MainLine"] == "2.5"
+            if market.has_key?("Providers")
+                market["Providers"].each do |provider|
+                    if provider.has_key?("Bets")
+                        provider["Bets"].each do |bet|
+                            outcome_attr[bet["Name"].downcase] = bet["Settlement"]
+                        end
+                    end
                 end
                 update_attr["outcome"] = outcome_attr.to_json
             end
 
-        elsif  (market["Id"] == "3" || market["Id"] == "53") && market["MainLine"] = "1.0"
-            if market.has_key?("Bets")
-                market["Bets"].each do |bet|
-                    outcome_attr[bet["Name"].downcase] = bet["Settlement"]
+        elsif  (market["Id"] == 3 || market["Id"] == 53) && market["MainLine"] = "1.0"
+            if market.has_key?("Providers")
+                market["Providers"].each do |provider|
+                    if provider.has_key?("Bets")
+                        provider["Bets"].each do |bet|
+                            outcome_attr[bet["Name"].downcase] = bet["Settlement"]
+                        end
+                    end
                 end
                 update_attr["outcome"] = outcome_attr.to_json
             end
         else
-            if market.has_key?("Bets")
-                market["Bets"].each do |bet|
-                    outcome_attr[bet["Name"].downcase] = bet["Settlement"]
+            if market.has_key?("Providers")
+                market["Providers"].each do |provider|
+                    if provider.has_key?("Bets")
+                        provider["Bets"].each do |bet|
+                            outcome_attr[bet["Name"].downcase] = bet["Settlement"]
+                        end
+                    end
                 end
                 update_attr["outcome"] = outcome_attr.to_json
             end

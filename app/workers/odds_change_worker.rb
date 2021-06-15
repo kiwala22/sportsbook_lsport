@@ -21,8 +21,8 @@ class OddsChangeWorker
         if message["Body"].has_key?("Events") 
             if message["Body"]["Events"].is_a?(Array) 
                 message["Body"]["Events"].each do |event|
-                    if event.has_key?("FixureId")
-                        event_id = event["FixureId"]
+                    if event.has_key?("FixtureId")
+                        event_id = event["FixtureId"]
                         fixture = Fixture.find_by(event_id: event_id)
                         if fixture
                             #check if there is a markets key and if it is an arrary on a hash
@@ -45,8 +45,8 @@ class OddsChangeWorker
 
             if message["Body"]["Events"].is_a?(Hash) 
                 event = message["Body"]["Events"]
-               if event.has_key?("FixureId")
-                    event_id = event["FixureId"]
+               if event.has_key?("FixtureId")
+                    event_id = event["FixtureId"]
                     fixture = Fixture.find_by(event_id: event_id)
                     if fixture
                         #check if there is a markets key and if it is an arrary on a hash
@@ -69,11 +69,11 @@ class OddsChangeWorker
     end
 
     def process_market(fixture_id, market, product, event_id)
-
+        
         market_status = {
-            "1" => "Active",
-            "2" => "Suspended",
-            "3" => "Settled"
+            1 => "Active",
+            2 => "Suspended",
+            3 => "Settled"
         }
 
         producer_type = {
@@ -81,37 +81,50 @@ class OddsChangeWorker
             "3" => "Pre"
         }
 
-        model_name = "Market" + market["Id"] + producer_type[product]
+        model_name = "Market" + (market["Id"]).to_s + producer_type[product]
 
         mkt_entry = model_name.constantize.find_by(fixture_id: fixture_id)
+        
         update_attr = {}
 
-        if (market["Id"] == "2" || market["Id"] == "77") && market["MainLine"] == "2.5"
-            if market.has_key?("Bets")
-                market["Bets"].each do |bet|
-                    update_attr["outcome_#{bet["Name"].downcase}"] = bet["Price"]
-                    update_attr["status"] = market_status[bet["Status"]]
+        if (market["Id"] == 2 || market["Id"] == 77) && market["MainLine"] == "2.5"
+            if market.has_key?("Providers") && market["Providers"].is_a?(Array)
+                market["Providers"].each do |provider|
+                    if provider.has_key?("Bets") && provider["Bets"].is_a?(Array)
+                        provider["Bets"].each do |bet|
+                            update_attr["outcome_#{bet["Name"]}"] = bet["Price"]
+                            update_attr["status"] = market_status[bet["Status"]]
+                        end
+                    end
                 end
             end
 
-        elsif  (market["Id"] == "3" || market["Id"] == "53") && market["MainLine"] = "1.0"
-            if market.has_key?("Bets")
-                market["Bets"].each do |bet|
-                    update_attr["outcome_#{bet["Name"].downcase}"] = bet["Price"]
-                    update_attr["status"] = market_status[bet["Status"]]
+        elsif  (market["Id"] == 3 || market["Id"] == 53) && market["MainLine"] = "1.0"
+            if market.has_key?("Providers") && market["Providers"].is_a?(Array)
+                market["Providers"].each do |provider|
+                    if provider.has_key?("Bets") && provider["Bets"].is_a?(Array)
+                        provider["Bets"].each do |bet|
+                            update_attr["outcome_#{bet["Name"]}"] = bet["Price"]
+                            update_attr["status"] = market_status[bet["Status"]]
+                        end
+                    end
                 end
             end
         else
-            if market.has_key?("Bets")
-                market["Bets"].each do |bet|
-                    update_attr["outcome_#{bet["Name"].downcase}"] = bet["Price"]
-                    update_attr["status"] = market_status[bet["Status"]]
+            if market.has_key?("Providers") && market["Providers"].is_a?(Array)
+                market["Providers"].each do |provider|
+                    if provider.has_key?("Bets") && provider["Bets"].is_a?(Array)
+                        provider["Bets"].each do |bet|
+                            update_attr["outcome_#{bet["Name"]}"] = bet["Price"]
+                            update_attr["status"] = market_status[bet["Status"]]
+                        end
+                    end
                 end
             end
         end
 
         if mkt_entry
-                mkt_entry.assign_attributes(update_attr)
+            mkt_entry.assign_attributes(update_attr)
         else
             mkt_entry = model_name.constantize.new(update_attr)
             mkt_entry.fixture_id = fixture_id
@@ -122,8 +135,7 @@ class OddsChangeWorker
             #broadast this change
             ActionCable.server.broadcast("#{producer_type[product].downcase}_odds_#{market["Id"]}_#{fixture_id}", mkt_entry.as_json)
             ActionCable.server.broadcast("betslips_odds_#{market["Id"]}_#{fixture_id}", mkt_entry.as_json)
-        end
-
+        end        
 
     end
     
