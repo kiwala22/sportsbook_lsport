@@ -9,11 +9,11 @@ class AlertsWorker
 
     def perform(message, routing_key)
 
-        if routing_key = "pre_match"
+        if routing_key == "pre_match"
             product = "3"
         end
 
-        if routing_key = "in_play"
+        if routing_key == "in_play"
             product = "1"
         end
 
@@ -26,7 +26,7 @@ class AlertsWorker
         #check the market alert
         last_update = MarketAlert.where(:product => product).order("timestamp DESC").first
         if last_update == nil
-            #then create it
+            #then create it 
             last_update = MarketAlert.create(product: product, timestamp:  timestamp, status:  recovery_status)
         else
             
