@@ -93,12 +93,12 @@ class BetSettlementWorker
             "status" => "Settled"
         }
 
-        model_name = "Market" + market["Id"] + producer_type[product]
+        model_name = "Market" + (market["Id"]).to_s + producer_type[product]
 
         mkt_entry = model_name.constantize.find_by(fixture_id: fixture_id)
         update_attr = {}
 
-        if (market["Id"] == 2 || market["Id"] == 77) && market["MainLine"] == "2.5"
+        if (market["Id"] == 2 || market["Id"] == 77) && market["Line"] == "2.5"
             if market.has_key?("Providers")
                 market["Providers"].each do |provider|
                     if provider.has_key?("Bets")
@@ -110,7 +110,7 @@ class BetSettlementWorker
                 update_attr["outcome"] = outcome_attr.to_json
             end
 
-        elsif  (market["Id"] == 3 || market["Id"] == 53) && market["MainLine"] = "1.0"
+        elsif  (market["Id"] == 3 || market["Id"] == 53) && market["Line"] = "1.0"
             if market.has_key?("Providers")
                 market["Providers"].each do |provider|
                     if provider.has_key?("Bets")
