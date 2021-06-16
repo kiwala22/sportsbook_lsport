@@ -29,29 +29,45 @@ class MessagesWorker
       case message_type
 
       when 32
-          AlertsWorker.perform_async(data, routing_key)
+         puts("Alert")
+         puts(data)
 
-      when 3
-         puts("Odds")
-         puts(data)
-         OddsChangeWorker.perform_async(data, routing_key)
-         
-      when 1
-         puts("Fixtures")
-         puts(data)
-         FixtureChangeWorker.perform_async(data, routing_key)
-         
-      when 35
-         puts("Settlement")
-         puts(data)
-         BetSettlementWorker.perform_async(data, routing_key)
-         
-      when 2
-         puts("LiveScore")
-         puts(data)
-         LiveScoresWorker.perform_async(data, routing_key)
-                
-      end
+         if routing_key == "pre_match"
+            product = "3"
+         end
+
+         if routing_key == "in_play"
+            product = "1"
+         end
+
+        #extract the timestamp
+        timestamp = data["Header"]["ServerTimestamp"]
+        last_update = MarketAlert.where(:product => product).order("timestamp DESC").first
+        diff = (timestamp.to_i - last_update[:timestamp].to_i)
+        puts("Diff: #{diff}")
+        AlertsWorker.perform_async(data, routing_key)
+
+     when 3
+      puts("Odds")
+      puts(data)
+      OddsChangeWorker.perform_async(data, routing_key)
+
+   when 1
+      puts("Fixtures")
+      puts(data)
+      FixtureChangeWorker.perform_async(data, routing_key)
+
+   when 35
+      puts("Settlement")
+      puts(data)
+      BetSettlementWorker.perform_async(data, routing_key)
+
+   when 2
+      puts("LiveScore")
+      puts(data)
+      LiveScoresWorker.perform_async(data, routing_key)
+
+   end
 
       #acknowledge reception of message
       ack!
