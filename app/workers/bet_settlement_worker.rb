@@ -93,57 +93,61 @@ class BetSettlementWorker
             "status" => "Settled"
         }
 
-        model_name = "Market" + (market["Id"]).to_s + producer_type[product]
+        markets = [1, 2, 3, 7, 17, 25, 53, 77, 113, 282]
 
-        mkt_entry = model_name.constantize.find_by(fixture_id: fixture_id)
-        update_attr = {}
+        if markets.any?(market["Id"])
+            model_name = "Market" + (market["Id"]).to_s + producer_type[product]
 
-        if (market["Id"] == 2 || market["Id"] == 77) && market["Line"] == "2.5"
-            if market.has_key?("Providers")
-                market["Providers"].each do |provider|
-                    if provider.has_key?("Bets")
-                        provider["Bets"].each do |bet|
-                            outcome_attr[bet["Name"].downcase] = bet["Settlement"]
+            mkt_entry = model_name.constantize.find_by(fixture_id: fixture_id)
+            update_attr = {}
+
+            if (market["Id"] == 2 || market["Id"] == 77) && market["Line"] == "2.5"
+                if market.has_key?("Providers")
+                    market["Providers"].each do |provider|
+                        if provider.has_key?("Bets")
+                            provider["Bets"].each do |bet|
+                                outcome_attr[bet["Name"].downcase] = bet["Settlement"]
+                            end
                         end
                     end
+                    update_attr["outcome"] = outcome_attr.to_json
                 end
-                update_attr["outcome"] = outcome_attr.to_json
+
+            elsif  (market["Id"] == 3 || market["Id"] == 53) && market["Line"] = "1.0"
+                if market.has_key?("Providers")
+                    market["Providers"].each do |provider|
+                        if provider.has_key?("Bets")
+                            provider["Bets"].each do |bet|
+                                outcome_attr[bet["Name"].downcase] = bet["Settlement"]
+                            end
+                        end
+                    end
+                    update_attr["outcome"] = outcome_attr.to_json
+                end
+            else
+                if market.has_key?("Providers")
+                    market["Providers"].each do |provider|
+                        if provider.has_key?("Bets")
+                            provider["Bets"].each do |bet|
+                                outcome_attr[bet["Name"].downcase] = bet["Settlement"]
+                            end
+                        end
+                    end
+                    update_attr["outcome"] = outcome_attr.to_json
+                end
             end
 
-        elsif  (market["Id"] == 3 || market["Id"] == 53) && market["Line"] = "1.0"
-            if market.has_key?("Providers")
-                market["Providers"].each do |provider|
-                    if provider.has_key?("Bets")
-                        provider["Bets"].each do |bet|
-                            outcome_attr[bet["Name"].downcase] = bet["Settlement"]
-                        end
-                    end
-                end
-                update_attr["outcome"] = outcome_attr.to_json
+            if mkt_entry
+                    mkt_entry.assign_attributes(update_attr)
+            else
+                mkt_entry = model_name.constantize.new(update_attr)
+                mkt_entry.fixture_id = fixture_id
+                mkt_entry.event_id = event_id
+                mkt_entry.save
             end
-        else
-            if market.has_key?("Providers")
-                market["Providers"].each do |provider|
-                    if provider.has_key?("Bets")
-                        provider["Bets"].each do |bet|
-                            outcome_attr[bet["Name"].downcase] = bet["Settlement"]
-                        end
-                    end
-                end
-                update_attr["outcome"] = outcome_attr.to_json
-            end
+
+            settle_bets(fixture_id, product, market["Id"], update_attr["outcome"])
         end
-
-        if mkt_entry
-                mkt_entry.assign_attributes(update_attr)
-        else
-            mkt_entry = model_name.constantize.new(update_attr)
-            mkt_entry.fixture_id = fixture_id
-            mkt_entry.event_id = event_id
-            mkt_entry.save
-        end
-
-        settle_bets(fixture_id, product, market["Id"], update_attr["outcome"])
 
     end
 
