@@ -24,7 +24,7 @@ class AlertsWorker
         recovery_status = false
 
         #check the market alert
-        last_update = MarketAlert.where(:product => product).order("timestamp DESC").first
+        last_update = MarketAlert.where(:product => product).last
         if last_update == nil
             #then create it 
             last_update = MarketAlert.create(product: product, timestamp:  timestamp, status:  recovery_status)

@@ -6,7 +6,7 @@ class MarketAlert < ApplicationRecord
    def check_producers
       (0..5).each do 
          ["1", "3"].each do |product|
-            last_update = MarketAlert.where(:product => product).order("timestamp DESC").first
+            last_update = MarketAlert.where(:product => product).last
             if last_update
                diff = ((Time.now.to_i ) - last_update[:timestamp].to_i)
                puts("producer diff: #{diff}")
