@@ -8,6 +8,8 @@ class MarketAlert < ApplicationRecord
          ["1", "3"].each do |product|
             last_update = MarketAlert.where(:product => product).order("timestamp DESC").first
             if last_update
+               diff = ((Time.now.to_i ) - last_update[:timestamp].to_i)
+               puts("producer diff: #{diff}")
                if ((Time.now.to_i ) - last_update[:timestamp].to_i) > 20
                   #first close all active markets 
                   DeactivateMarketsWorker.perform_async(product)  
