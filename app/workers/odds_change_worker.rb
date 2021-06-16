@@ -87,7 +87,7 @@ class OddsChangeWorker
         
         update_attr = {}
 
-        if (market["Id"] == 2 || market["Id"] == 77) && market["MainLine"] == "2.5"
+        if (market["Id"] == 2 || market["Id"] == 77) && market["Line"] == "2.5"
             if market.has_key?("Providers") && market["Providers"].is_a?(Array)
                 market["Providers"].each do |provider|
                     if provider.has_key?("Bets") && provider["Bets"].is_a?(Array)
@@ -99,7 +99,7 @@ class OddsChangeWorker
                 end
             end
 
-        elsif  (market["Id"] == 3 || market["Id"] == 53) && market["MainLine"] = "1.0"
+        elsif  (market["Id"] == 3 || market["Id"] == 53) && market["Line"] = "1.0"
             if market.has_key?("Providers") && market["Providers"].is_a?(Array)
                 market["Providers"].each do |provider|
                     if provider.has_key?("Bets") && provider["Bets"].is_a?(Array)
