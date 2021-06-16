@@ -42,7 +42,7 @@ class MessagesWorker
 
         #extract the timestamp
         timestamp = data["Header"]["ServerTimestamp"]
-        last_update = MarketAlert.where(:product => product).order("timestamp DESC").first
+        last_update = MarketAlert.where(:product => product).last
         diff = (timestamp.to_i - last_update[:timestamp].to_i)
         puts("Diff: #{diff}")
         AlertsWorker.perform_async(data, routing_key)
