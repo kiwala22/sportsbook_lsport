@@ -40,7 +40,7 @@ class BetSlipsController < ApplicationController
 					if fetch_market_status(bet.market, bet.fixture_id) == "Active"
 						odd = fetch_current_odd(bet.market, bet.fixture_id, "outcome_#{bet.outcome}").to_f
 						specifier = fetch_specifier(bet.market, bet.fixture_id)
-						bets_arr << {user_id: current_user.id ,bet_slip_id: bet_slip.id,fixture_id: bet.fixture_id,market_id: market_id,outcome: bet.outcome, odds: odd, status: "Pending", product: product, outcome_desc: bet.description, specifier: specifier }
+						bets_arr << {user_id: current_user.id ,bet_slip_id: bet_slip.id,fixture_id: bet.fixture_id,market_id: market_id,outcome: bet.outcome, odds: odd, status: "Active", product: product, outcome_desc: bet.description, specifier: specifier }
 					end
 				end
 				
@@ -53,7 +53,7 @@ class BetSlipsController < ApplicationController
 					current_user.save!
 					transaction.save!
 					Bet.create!(bets_arr)
-					bet_slip.update!(bet_count: bets_arr.count, stake: stake, odds: total_odds, status: "Pending", potential_win_amount: potential_win_amount)
+					bet_slip.update!(bet_count: bets_arr.count, stake: stake, odds: total_odds, status: "Active", potential_win_amount: potential_win_amount)
 				end					
 				#process the betslips through MTS
 				if browser.device.mobile? || browser.device.tablet?

@@ -111,7 +111,7 @@ class BetSettlementWorker
                     update_attr["outcome"] = outcome_attr.to_json
                 end
 
-            elsif  (market["Id"] == 3 || market["Id"] == 53) && market["Line"] = "1.0"
+            elsif  (market["Id"] == 3 || market["Id"] == 53) && market["Line"] = "1.0 (0-0)"
                 if market.has_key?("Providers")
                     market["Providers"].each do |provider|
                         if provider.has_key?("Bets")
