@@ -36,7 +36,7 @@ class LiveScoresWorker
                                     status = score["Scoreboard"]["Status"]
                                     update_attr["status"] = soccer_status[status]
                                     match_time = (score["Scoreboard"]["Time"]).to_i
-                                    update_attr["match_time"] = Time.at(match_time).strftime("%M:%S")
+                                    update_attr["match_time"] = "#{match_time/60}:#{match_time%60}"
                                     update_attr["home_score"] = score["Scoreboard"]["Results"][0]["Value"]
                                     update_attr["away_score"] = score["Scoreboard"]["Results"][1]["Value"]
                                 end
@@ -48,7 +48,7 @@ class LiveScoresWorker
                                 status = score["Scoreboard"]["Status"]
                                 update_attr["status"] = soccer_status[status]
                                 match_time = (score["Scoreboard"]["Time"]).to_i
-                                update_attr["match_time"] = Time.at(match_time).strftime("%M:%S")
+                                update_attr["match_time"] = "#{match_time/60}:#{match_time%60}"
                                 update_attr["home_score"] = score["Scoreboard"]["Results"][0]["Value"]
                                 update_attr["away_score"] = score["Scoreboard"]["Results"][1]["Value"]
                             end
@@ -71,7 +71,7 @@ class LiveScoresWorker
                                 status = score["Scoreboard"]["Status"]
                                 update_attr["status"] = soccer_status[status]
                                 match_time = (score["Scoreboard"]["Time"]).to_i
-                                update_attr["match_time"] = Time.at(match_time).strftime("%M:%S")
+                                update_attr["match_time"] = "#{match_time/60}:#{match_time%60}"
                                 update_attr["home_score"] = score["Scoreboard"]["Results"][0]["Value"]
                                 update_attr["away_score"] = score["Scoreboard"]["Results"][1]["Value"]
                             end
@@ -82,7 +82,7 @@ class LiveScoresWorker
                             status = score["Scoreboard"]["Status"]
                             update_attr["status"] = soccer_status[status]
                             match_time = (score["Scoreboard"]["Time"]).to_i
-                            update_attr["match_time"] = Time.at(match_time).strftime("%M:%S")
+                            update_attr["match_time"] = "#{match_time/60}:#{match_time%60}"
                             update_attr["home_score"] = score["Scoreboard"]["Results"][0]["Value"]
                             update_attr["away_score"] = score["Scoreboard"]["Results"][1]["Value"]
                         end
