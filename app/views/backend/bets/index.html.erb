@@ -64,6 +64,7 @@
         <th>BetSlip ID</th>
         <th>Product</th>
         <th>Market</th>
+        <th>Outcome</th>>
         <th>Description</th>
         <th>User</th>
 				<th>Time</th>
@@ -89,6 +90,7 @@
 					<td><%= bet.bet_slip_id %></td>
 					<td><%= bet.product %></td>
 					<td><%= bet.market_id %></td>
+          <td><%= bet.outcome %></td>
 					<td><%= bet.outcome_desc %></td>
           <td><%= bet.user_id %></td>
 					<td><%= local_time(bet.created_at, format: "%d/%m/%y, %l:%M%P") %></td>
