@@ -6,46 +6,53 @@ module Recovery
     require 'net/https'
     require 'yaml'
 
-    # Credentials for distributors
-    @@username = "acaciabengo@skylinesms.com"
-    @@password = "tyb54634"
-    @@prematch_guid = "20bc3235-eb98-422c-9c32-beacc9c9303a"
+    # # Credentials for distributors
+    # @@username = "acaciabengo@skylinesms.com"
+    # @@password = "tyb54634"
+    # @@prematch_guid = "20bc3235-eb98-422c-9c32-beacc9c9303a"
 
-    # Sports
-    @@sports_id = "6046"
+    # # Sports
+    # @@sports_id = "6046"
 
-    # Package IDs
-    @@prematch_pkg_id = "3537"
-    @@livematch_pkg_id = "3538"
+    # # Package IDs
+    # @@prematch_pkg_id = "3537"
+    # @@livematch_pkg_id = "3538"
 
-    # Endpoints
-    @@end_point = "https://prematch.lsports.eu/OddService/"
-    @@live_end_point = "https://inplay.lsports.eu/api/"
+    # # Endpoints
+    # @@end_point = "https://prematch.lsports.eu/OddService/"
+    # @@live_end_point = "https://inplay.lsports.eu/api/"
     
-
+    include Lsports
 
     def request_recovery(product_id,timestamp)
+
         #try and activate the markets again
         if product == "1"
             Rails.logger.error("Resetting Live: Diff = #{((Time.now.to_i ) - last_update[:timestamp].to_i)}")
-            code , message = start_livematch_distribution
+            code , message = start_livematch
             if code == 200 && message == "Value was already set" 
                 system('systemctl restart sneakers && systemctl restart lsport-inplay-lsport_inplay.1.service')
+                sleep 3
+                response = get_live_events()
+
             end
         end
 
         if product == "3"
             Rails.logger.error("Resetting Pre: Diff = #{((Time.now.to_i ) - last_update[:timestamp].to_i)}")
-            code , message = start_prematch_distribution
+            code , message = start_prematch
             if code == 200 && message == "Value was already set" 
                 system('systemctl restart sneakers && systemctl restart lsport-prematch-lsport_prematch.1.service')
+                sleep 3
+                response = fetch_fixture_markets()
+
             end
         end 
             
     end
 
 
-    def start_prematch_distribution
+    def start_prematch
 
         url = @@end_point + "EnablePackage"
         uri = URI(url)
@@ -73,7 +80,7 @@ module Recovery
 
     end
 
-    def start_livematch_distribution
+    def start_livematch
         url = @@live_end_point + "Package/EnablePackage"
         uri = URI(url)
         params = {
