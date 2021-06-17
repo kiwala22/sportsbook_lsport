@@ -24,7 +24,7 @@ module Recovery
     
     include Lsports
 
-    def request_recovery(product_id,timestamp)
+    def request_recovery(product,timestamp)
 
         #try and activate the markets again
         if product == "1"
