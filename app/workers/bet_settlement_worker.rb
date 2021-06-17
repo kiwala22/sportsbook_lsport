@@ -136,7 +136,8 @@ class BetSettlementWorker
             end
 
             if mkt_entry
-                    mkt_entry.assign_attributes(update_attr)
+                mkt_entry.assign_attributes(update_attr)
+                mkt_entry.save
             else
                 mkt_entry = model_name.constantize.new(update_attr)
                 mkt_entry.fixture_id = fixture_id
