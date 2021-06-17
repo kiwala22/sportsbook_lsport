@@ -29,7 +29,7 @@ module Recovery
         #try and activate the markets again
         if product == "1"
             code , message = start_livematch
-            if code == 200 && message == "Value was already set" 
+            if code == 200 && message.include?("Value was already set")
                 system('systemctl restart sneakers && systemctl restart lsport-inplay-lsport_inplay.1.service')
                 sleep 3
                 response = get_live_events()
@@ -39,7 +39,7 @@ module Recovery
 
         if product == "3"
             code , message = start_prematch
-            if code == 200 && message == "Value was already set" 
+            if code == 200 && message.include?("Value was already set")
                 system('systemctl restart sneakers && systemctl restart lsport-prematch-lsport_prematch.1.service')
                 sleep 3
                 response = fetch_fixture_markets()
@@ -72,7 +72,8 @@ module Recovery
 
         # process the body
         message = JSON.parse(res.body)
-        message = message["Body"]["Message"]
+
+        message = message["Body"][0]["Response"]
 
         return res.code, message
 
@@ -98,7 +99,7 @@ module Recovery
 
         # process the body
         message = JSON.parse(res.body)
-        message = message["Body"]["Message"]
+        message = message["Body"][0]["Response"]
 
         return res.code, message
 
