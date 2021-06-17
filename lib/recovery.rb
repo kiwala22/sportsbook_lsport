@@ -99,7 +99,7 @@ module Recovery
 
         # process the body
         message = JSON.parse(res.body)
-        message = message["Body"][0]["Response"]
+        message = message["Body"]["Message"]
 
         return res.code, message
 
