@@ -5,7 +5,6 @@ class AlertsWorker
     sidekiq_options retry: false
 
     include Recovery
-    include Lsports
 
     def perform(message, routing_key)
 
@@ -33,6 +32,9 @@ class AlertsWorker
             if (timestamp.to_i - last_update[:timestamp].to_i) > 20
                 #first close all active markets 
                 DeactivateMarketsWorker.perform_async(product)
+
+               #then request recovery
+                request_recovery(product,Time.now.to_i)
 
             end
 
