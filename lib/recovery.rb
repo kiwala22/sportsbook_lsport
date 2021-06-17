@@ -28,7 +28,6 @@ module Recovery
 
         #try and activate the markets again
         if product == "1"
-            Rails.logger.error("Resetting Live: Diff = #{((Time.now.to_i ) - last_update[:timestamp].to_i)}")
             code , message = start_livematch
             if code == 200 && message == "Value was already set" 
                 system('systemctl restart sneakers && systemctl restart lsport-inplay-lsport_inplay.1.service')
@@ -39,7 +38,6 @@ module Recovery
         end
 
         if product == "3"
-            Rails.logger.error("Resetting Pre: Diff = #{((Time.now.to_i ) - last_update[:timestamp].to_i)}")
             code , message = start_prematch
             if code == 200 && message == "Value was already set" 
                 system('systemctl restart sneakers && systemctl restart lsport-prematch-lsport_prematch.1.service')
