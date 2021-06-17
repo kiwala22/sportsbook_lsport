@@ -257,18 +257,18 @@ module Lsports
                                                     if bet["Line"] == "2.5"
                                                         attrs["outcome_#{bet["Name"]}"] = bet["Price"]
                                                         attrs["status"] = market_status[bet["Status"]]
-                                                        Outcome.create(outcome_id: bet["Name"], description: @@market_description)
+                                                        # Outcome.create(outcome_id: bet["Name"], description: @@market_description)
                                                     end
                                                 # BaseLine for markets 3 and 53 not clear yet
-                                                # elsif event["Id"] == 3 || event["Id"] == 53
-                                                #     if bet["Line"] == ""
-                                                #         attrs["outcome_#{bet["Name"]}"] = bet["Price"]
-                                                #         attrs["status"] = market_status[bet["Status"]]
-                                                #     end
+                                                elsif event["Id"] == 3 || event["Id"] == 53
+                                                    if bet["Line"] == "1.0 (0-0)"
+                                                        attrs["outcome_#{bet["Name"]}"] = bet["Price"]
+                                                        attrs["status"] = market_status[bet["Status"]]
+                                                    end
                                                 else
                                                     attrs["outcome_#{bet["Name"]}"] = bet["Price"]
                                                     attrs["status"] = market_status[bet["Status"]]
-                                                    Outcome.create(outcome_id: bet["Name"], description: @@market_description)
+                                                    # Outcome.create(outcome_id: bet["Name"], description: @@market_description)
                                                 end
                                             end
                                         end

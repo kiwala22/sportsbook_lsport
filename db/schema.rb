@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_15_095202) do
+ActiveRecord::Schema.define(version: 2021_06_17_101513) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -115,6 +115,7 @@ ActiveRecord::Schema.define(version: 2021_06_15_095202) do
     t.decimal "void_factor", precision: 5, scale: 2
     t.string "outcome_desc"
     t.string "specifier"
+    t.string "outcome"
     t.index ["bet_slip_id"], name: "index_bets_on_bet_slip_id"
     t.index ["fixture_id"], name: "index_bets_on_fixture_id"
     t.index ["market_id"], name: "index_bets_on_market_id"
