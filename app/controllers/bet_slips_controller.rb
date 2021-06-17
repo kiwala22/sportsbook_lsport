@@ -40,7 +40,7 @@ class BetSlipsController < ApplicationController
 					if fetch_market_status(bet.market, bet.fixture_id) == "Active"
 						odd = fetch_current_odd(bet.market, bet.fixture_id, "outcome_#{bet.outcome}").to_f
 						specifier = fetch_specifier(bet.market, bet.fixture_id)
-						bets_arr << {user_id: current_user.id ,bet_slip_id: bet_slip.id,fixture_id: bet.fixture_id,market_id: market_id , odds: odd, status: "Pending", product: product, outcome_desc: bet.description, specifier: specifier }
+						bets_arr << {user_id: current_user.id ,bet_slip_id: bet_slip.id,fixture_id: bet.fixture_id,market_id: market_id,outcome: bet.outcome odds: odd, status: "Pending", product: product, outcome_desc: bet.description, specifier: specifier }
 					end
 				end
 				
