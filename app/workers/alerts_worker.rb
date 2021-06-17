@@ -34,15 +34,6 @@ class AlertsWorker
                 #first close all active markets 
                 DeactivateMarketsWorker.perform_async(product)
 
-                #try and activate the markets again
-                #issue recovery API call
-                # recovery = request_recovery(product, last_update[:timestamp])  
-                # if recovery == "200"
-                #     recovery_status = true
-                # end
-                # #call fixture changes
-                # changed_fixtures = fetch_fixture_changes()
-
             end
 
             #save the damn alert anyway
