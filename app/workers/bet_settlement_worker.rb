@@ -73,12 +73,12 @@ class BetSettlementWorker
     def process_settlement(fixture_id, market, product, event_id)
 
         settlement_status = {
-            "-1" => "Cancelled",
-            "1" => "Loser",
-            "2" => "Winner",
-            "3" => "Refund",
-            "4" => "HalfLost",
-            "5" => "HalfWon"
+            -1 => "Cancelled",
+            1 => "Loser",
+            2 => "Winner",
+            3 => "Refund",
+            4 => "HalfLost",
+            5 => "HalfWon"
 
         }
 
@@ -88,10 +88,6 @@ class BetSettlementWorker
         }
 
         outcome_attr = {}
-        
-        update_attr = {
-            "status" => "Settled"
-        }
 
         markets = [1, 2, 3, 7, 17, 25, 53, 77, 113, 282]
 
@@ -99,14 +95,16 @@ class BetSettlementWorker
             model_name = "Market" + (market["Id"]).to_s + producer_type[product]
 
             mkt_entry = model_name.constantize.find_by(fixture_id: fixture_id)
-            update_attr = {}
+            update_attr = {
+                "status" => "Settled"
+            }
 
             if (market["Id"] == 2 || market["Id"] == 77) && market["Line"] == "2.5"
                 if market.has_key?("Providers")
                     market["Providers"].each do |provider|
                         if provider.has_key?("Bets")
                             provider["Bets"].each do |bet|
-                                outcome_attr[bet["Name"].downcase] = bet["Settlement"]
+                                outcome_attr[bet["Name"]] = settlement_status[bet["Settlement"]]
                             end
                         end
                     end
@@ -118,7 +116,7 @@ class BetSettlementWorker
                     market["Providers"].each do |provider|
                         if provider.has_key?("Bets")
                             provider["Bets"].each do |bet|
-                                outcome_attr[bet["Name"].downcase] = bet["Settlement"]
+                                outcome_attr[bet["Name"]] = settlement_status[bet["Settlement"]]
                             end
                         end
                     end
@@ -129,7 +127,7 @@ class BetSettlementWorker
                     market["Providers"].each do |provider|
                         if provider.has_key?("Bets")
                             provider["Bets"].each do |bet|
-                                outcome_attr[bet["Name"].downcase] = bet["Settlement"]
+                                outcome_attr[bet["Name"]] = settlement_status[bet["Settlement"]]
                             end
                         end
                     end
