@@ -48,7 +48,9 @@ class LiveScoresWorker
                                 status = score["Scoreboard"]["Status"]
                                 update_attr["status"] = soccer_status[status]
                                 match_time = (score["Scoreboard"]["Time"]).to_i
-                                update_attr["match_time"] = "#{match_time/60}:#{match_time%60}"
+                                minutes = "%02d" % (match_time/60)
+                                seconds = "%02d" % (match_time%60)
+                                update_attr["match_time"] = "#{minutes}:#{seconds}"
                                 update_attr["home_score"] = score["Scoreboard"]["Results"][0]["Value"]
                                 update_attr["away_score"] = score["Scoreboard"]["Results"][1]["Value"]
                             end
