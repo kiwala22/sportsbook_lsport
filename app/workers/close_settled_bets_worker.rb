@@ -16,20 +16,23 @@ class CloseSettledBetsWorker
       outcome = ActiveSupport::JSON.decode(outcome)
       winning_bets = outcome.select {|key, value| value == "Winner"}.keys
       
-      ##Check if the bet outcome contains anything from the void factors
-      if !(void_factors & outcome.values).any?
-         if bets
-            bets.each do |bet|
-               if winning_bets.include?(bet.outcome)
-                  bet.update(result: "Win", status: "Closed")
-               else
-                  bet.update(result: "Loss", status: "Closed")
+      ##Ensure the outcome is not blank
+      if !outcome.blank?
+         ##Check if the bet outcome contains anything from the void factors
+         if !(void_factors & outcome.values).any?
+            if bets
+               bets.each do |bet|
+                  if winning_bets.include?(bet.outcome)
+                     bet.update(result: "Win", status: "Closed")
+                  else
+                     bet.update(result: "Loss", status: "Closed")
+                  end
                end
             end
-         end
-      else
-         bets.each do |bet|
-            bet.update(result: "Void", status: "Closed")
+         else
+            bets.each do |bet|
+               bet.update(result: "Void", status: "Closed")
+            end
          end
       end
    end
