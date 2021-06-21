@@ -99,24 +99,28 @@ class BetSettlementWorker
                 "status" => "Settled"
             }
 
-            if (market["Id"] == 2 || market["Id"] == 77) && market["Line"] == "2.5"
+            if (market["Id"] == 2 || market["Id"] == 77)
                 if market.has_key?("Providers")
                     market["Providers"].each do |provider|
                         if provider.has_key?("Bets")
                             provider["Bets"].each do |bet|
-                                outcome_attr[bet["Name"]] = settlement_status[bet["Settlement"]]
+                                if bet["Line"] == "2.5"
+                                    outcome_attr[bet["Name"]] = settlement_status[bet["Settlement"]]
+                                end
                             end
                         end
                     end
                     update_attr["outcome"] = outcome_attr.to_json
                 end
 
-            elsif  (market["Id"] == 3 || market["Id"] == 53) && market["Line"] = "1.0 (0-0)"
+            elsif  (market["Id"] == 3 || market["Id"] == 53)
                 if market.has_key?("Providers")
                     market["Providers"].each do |provider|
                         if provider.has_key?("Bets")
                             provider["Bets"].each do |bet|
-                                outcome_attr[bet["Name"]] = settlement_status[bet["Settlement"]]
+                                if bet["Line"] == "1.0 (0-0)"
+                                    outcome_attr[bet["Name"]] = settlement_status[bet["Settlement"]]
+                                end
                             end
                         end
                     end
