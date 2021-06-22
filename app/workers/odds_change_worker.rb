@@ -95,7 +95,7 @@ class OddsChangeWorker
                     market["Providers"].each do |provider|
                         if provider.has_key?("Bets") && provider["Bets"].is_a?(Array)
                             provider["Bets"].each do |bet|
-                               if bet["Line"] == "2.5"
+                               if bet["BaseLine"] == "2.5"
                                     update_attr["outcome_#{bet["Name"]}"] = bet["Price"]
                                     update_attr["status"] = market_status[bet["Status"]]
                                end
@@ -109,7 +109,7 @@ class OddsChangeWorker
                     market["Providers"].each do |provider|
                         if provider.has_key?("Bets") && provider["Bets"].is_a?(Array)
                             provider["Bets"].each do |bet|
-                                if bet["Line"] == "1.0 (0-0)"
+                                if bet["BaseLine"] == "-1.0 (0-0)"
                                     update_attr["outcome_#{bet["Name"]}"] = bet["Price"]
                                     update_attr["status"] = market_status[bet["Status"]]
                                 end

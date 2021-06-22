@@ -104,7 +104,7 @@ class BetSettlementWorker
                     market["Providers"].each do |provider|
                         if provider.has_key?("Bets")
                             provider["Bets"].each do |bet|
-                                if bet["Line"] == "2.5"
+                                if bet["BaseLine"] == "2.5"
                                     outcome_attr[bet["Name"]] = settlement_status[bet["Settlement"]]
                                 end
                             end
@@ -118,7 +118,7 @@ class BetSettlementWorker
                     market["Providers"].each do |provider|
                         if provider.has_key?("Bets")
                             provider["Bets"].each do |bet|
-                                if bet["Line"] == "1.0 (0-0)"
+                                if bet["BaseLine"] == "-1.0 (0-0)"
                                     outcome_attr[bet["Name"]] = settlement_status[bet["Settlement"]]
                                 end
                             end
