@@ -1,0 +1,47 @@
+<div class="game-box" id="featured">
+        <div class="card">
+            <div class="card-header">
+                <h3>Featured Fixtures - Soccer </h3> <i class='fas fa-fire fa-lg fa-fw mr-2 match-time'></i>
+            </div>
+
+            <div class="card-body">
+                <div class="tab-content" id="">
+                    <% if !@featured.empty? && @check_params == false %>
+                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab" data-controller="match-fixtures">
+                            <table class="table table-borderless ">
+                                <thead>
+                                    <tr>
+                                        <th class="col-1">Date</th>
+                                        <th class="col-4">Teams</th>
+                                        <th class="col-4">Tournament</th>
+                                        <th class="col-1">1</th>
+                                        <th class="col-1">X</th>
+                                        <th class="col-1">2</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="fixture-table-body" data-target="match-fixtures.fixtures" data-controller="" data-refresh-interval="60000" data-refresh-url="<% page_refresh_path %>" data-refresh-method="GET">
+                                    <%= render partial: 'feat_pre_match_fixture_table', locals: {featured: @featured} %>
+                                </tbody>
+                            </table>
+                            <div id="bottom">
+                                <!-- <div class="d-flex justify-content-center event">
+                                    <div data-target="match-fixtures.spinner" id="spinner"></div>
+                                </div> -->
+                                <div class="table-navigation" data-target="match-fixtures.pagination" id="paginate">
+                                    <%== pagy_nav(@pagy) %>
+                                </div>    
+                            </div>
+                            
+                        </div>
+                    <%else%>
+                        <div class="card-body">
+                            <div class="tab-content" id="">
+                                
+                                    <h6 class="event">No Featured Matches</h6>
+                            </div>
+                        </div>
+                    <% end %>
+                </div>                
+            </div>            
+        </div>
+    </div>

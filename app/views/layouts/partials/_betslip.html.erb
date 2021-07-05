@@ -1,4 +1,4 @@
-<div class="clear-slip" onclick="localStorage.removeItem('stake')"><%= link_to  "Remove All", clear_slip_path , remote: true, method: :delete %></div>
+
 <div class="bets" id = "bets-row" data-controller = "slips">
    <% if !@cart.nil? && @cart.line_bets.present?  %>
       <% @cart.line_bets.each do |bet| %>
@@ -6,7 +6,9 @@
                <div class="row">
                  <div class="col-12">
                    <div class="single-bet">
-                     <div class="col-1"><%= link_to '<i class="far fa-window-close"></i>'.html_safe, clear_bet_path(id: bet.id), remote: true, method: :delete %></div>
+                     <div class="col-1">
+                        <%= link_to '<i class="far fa-window-close"></i>'.html_safe, clear_bet_path(id: bet.id), remote: true, method: :delete %>
+                      </div>
                       <div id="comp-names" class="col-9"><span> <%= bet.fixture.part_one_name %> - <%= bet.fixture.part_two_name %> </span><span> <%= bet.description %></span></div>
                       <div data-target="slips.odd" class="col-2 float-right" id= <%= "slip_#{bet.market.scan(/\d/).join}_#{bet.outcome}_#{bet.fixture.id}" %> ><%= fetch_current_odd(bet.market, bet.fixture_id, bet.outcome) %></div>
                    </div>

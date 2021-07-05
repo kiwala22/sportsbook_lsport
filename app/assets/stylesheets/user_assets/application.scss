@@ -662,3 +662,23 @@ a:visited {
   -webkit-animation: yellow-fade 0.15s ease-in-out 0s;
   
 }
+
+.banner-img{
+    min-height: 100px;
+    background-size: contain;
+}
+
+.banner-img-mbl{
+    min-height: 60px;
+    background-size: contain;
+}
+
+.side-banner{
+    min-height: 400px;
+    background-size: contain;
+}
+
+.show-more{
+    margin-left: 2%;
+    margin-bottom: 1%
+}

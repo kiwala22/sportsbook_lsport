@@ -35,6 +35,7 @@ Rails.application.routes.draw do
          match 'pre' => 'pre_match#show', via: [:get]
          match 'lives' => 'live_match#index', via: [:get]
          match 'live' => 'live_match#show', via: [:get]
+         match 'featured' => 'pre_match#featured', via: [:get]
 
       end
       namespace :virtual_soccer do
