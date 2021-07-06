@@ -13,4 +13,9 @@ export default class extends Controller {
         //console.log(this.betslipTarget.classList)
     }
 
+    popSlip() {
+        $("#myModal").modal('show');
+        $('h5.modal-title').text("BetSlip");
+    }
+
 }

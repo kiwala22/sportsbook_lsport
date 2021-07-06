@@ -4,10 +4,340 @@
         padding-left: 0;
     }
 
+    .modal-header-custom {
+        background-color: #7690A7;
+    }
+    .modal-body-custom {
+        background-color: #5F7b95;
+    }
+
     .logo-color {
       color: #FD6A02;
     }
-    
+
+    .card-header:first-child {
+        border-radius: 0px;
+    }
+    .content-wrapper {
+        margin-bottom: 50px;
+        overflow-x: hidden;
+    }
+    .game-box .card .card-header h3 {
+        font-size: 14px;
+    }
+    .table td,
+    .table th {
+        padding: 0.75rem 0.75rem;
+    }
+    .game-box .card .card-body table tr td a.btnn {
+        padding: 0.25rem 0.5rem;
+    }
+    .bttn-small {
+        padding: 5px 10px;
+    }
+    .navbar-toggler {
+        color: #ffffff;
+    }
+    .dropdown-item {
+        color: #ffffff;
+        font-weight: 500;
+    }
+    #mobile-shortcuts {
+        display: flex;
+        flex-flow: row;
+        margin-right: -15px;
+        margin-left: -15px;
+        background: #50677C;
+        padding: 0.75rem;
+    }
+    #navbarSideShortcuts {
+        margin-right: -15px;
+        margin-left: -15px;
+        //   background: #50677C;
+        padding: 0.25rem 0.75rem;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        overflow: unset;
+        li {
+            a {
+                color: inherit;
+            }
+            a:hover {
+                text-decoration: underline;
+                color: inherit;
+            }
+        }
+    }
+    #menuLeagues>ul>li,
+    #menuCountry>ul>li,
+    #menuSports>ul>li {
+        padding: 0.5rem 0.75rem;
+    }
+    #menuLeagues,
+    #menuCountry,
+    #menuSports {
+        margin-bottom: 0.75rem;
+        background: #28333e;
+    }
+    .m-footer-list {
+        padding: 0 2rem;
+        line-height: 24px;
+    }
+    .slip-ticket-count {
+        border-radius: 50%;
+        line-height: 24px;
+        width: 24px;
+        background: #F6AE2D;
+        color: #ffffff;
+        text-align: center;
+        margin-right: 0.5rem
+    }
+    .footer-slip {
+        display: flex !important;
+        flex-flow: row;
+        //   line-height: 1.5rem;
+        >li>a>i {
+            margin-right: 10px;
+            margin-left: 10px;
+        }
+    }
+    .content-wrapper {
+        padding: 15px;
+        // overflow-x: auto;
+    }
+    .tab-content {
+        overflow-x: auto;
+    }
+    .mobile-betslip {
+        padding: 20px 25px;
+        background: #E7ECEF;
+        position: absolute;
+        left: 0;
+        width: 85%;
+        flex-shrink: 0;
+        z-index: 50;
+        margin-left: 7.5%;
+        border: 2px solid #F6AE2D;
+        border-radius: 5px;
+        /* border-bottom: none; */
+        color: #28333e;
+        padding-bottom: 30px;
+        min-height: 50%;
+        a {
+            color: #28333e;
+            text-decoration: underline;
+        }
+        a:hover {
+            cursor: pointer;
+        }
+    }
+    .single-bet #comp-names {
+        font-size: 12px;
+    }
+    .mobile-betslip .total-wins {
+        border-bottom: 1px solid #F6AE2D;
+        padding: 10px 10px;
+    }
+    .mobile-betslip .total-bet {
+        border-top: 1px solid #F6AE2D;
+        border-bottom: 1px solid #F6AE2D;
+        //padding: 10px 10px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        padding-left: 10px;
+    }
+    .phone-betslip {
+        padding-left: 10px;
+        padding-right: 8px;
+    }
+    #stake-input {
+        line-height: 1.5rem;
+    }
+    .mobile-betslip {
+        display: none;
+    }
+    .mobile-betslip.active {
+        display: block;
+    }
+    .mobile-betslip .action-tab {
+        padding-bottom: 10px;
+    }
+    .banner-image {
+        width: 100% !important;
+        padding: 2px !important;
+    }
+    .col,
+    .col-1,
+    .col-10,
+    .col-11,
+    .col-12,
+    .col-2, // .col-3,
+    .col-4,
+    .col-5,
+    .col-6,
+    .col-7,
+    .col-8,
+    .col-9,
+    .col-auto,
+    .col-lg,
+    .col-lg-1,
+    .col-lg-10,
+    .col-lg-11,
+    .col-lg-12,
+    .col-lg-2,
+    .col-lg-3,
+    .col-lg-4,
+    .col-lg-5,
+    .col-lg-6,
+    .col-lg-7,
+    .col-lg-8,
+    .col-lg-9,
+    .col-lg-auto,
+    .col-md,
+    .col-md-1,
+    .col-md-10,
+    .col-md-11,
+    .col-md-12,
+    .col-md-2,
+    .col-md-3,
+    .col-md-4,
+    .col-md-5,
+    .col-md-6,
+    .col-md-7,
+    .col-md-8,
+    .col-md-9,
+    .col-md-auto,
+    .col-sm,
+    .col-sm-1,
+    .col-sm-10,
+    .col-sm-11,
+    .col-sm-12,
+    .col-sm-2,
+    .col-sm-3,
+    .col-sm-4,
+    .col-sm-5,
+    .col-sm-6,
+    .col-sm-7,
+    .col-sm-8,
+    .col-sm-9,
+    .col-sm-auto,
+    .col-xl,
+    .col-xl-1,
+    .col-xl-10,
+    .col-xl-11,
+    .col-xl-12,
+    .col-xl-2,
+    .col-xl-3,
+    .col-xl-4,
+    .col-xl-5,
+    .col-xl-6,
+    .col-xl-7,
+    .col-xl-8,
+    .col-xl-9,
+    .col-xl-auto {
+        position: relative;
+        width: 100%;
+        padding-right: 0px;
+        padding-left: 0px;
+    }
+    .web-sidebar-widget .widget-body {
+        padding: 15px;
+        color: #ffffff;
+        font-size: 14px;
+        background-color: #5F7b95;
+    }
+    .content-center {
+        background: #182137;
+        margin-bottom: 40px;
+        margin-top: 30px;
+        padding: 20px;
+        border-radius: 5px;
+    }
+    .market-label-fixture {
+        padding: 8px 20px !important;
+        border-radius: 4px;
+    }
+    .fixture-box {
+        margin-bottom: 30px;
+        padding: 5px;
+    }
+    .fix-body {
+        padding: 20px;
+        padding-top: 10px !important;
+    }
+    .wagger-btn {
+        margin-bottom: 5px;
+    }
+    .close-linebet {
+        padding: 5px;
+    }
+    .submit-search {
+        margin-left: -72px;
+    }
+    .submit-btn {
+        margin-left: -86px;
+    }
+    .game-box .card .card-header span a.btnn {
+        padding: 5px 17px;
+        border-radius: 4px;
+        display: inline-block;
+        color: #ffffff;
+        background: #F6AE2D;
+    }
+    .game-box .card .card-header span a.btnn:hover {
+        background-color: #F6AE2D;
+        border-color: #F6AE2D;
+        box-shadow: 0 0 0 0.1rem #F6AE2D;
+    }
+    .upcoming {
+        padding: .75rem 0.75rem;
+    }
+}
+
+//Custom padding for larger screens
+@media only screen and (min-width: 700px) {
+  .tablet-forms {
+    padding-left: 20%;
+    padding-right: 20%;
+  }
+    .banner-image {
+        width: 100% !important;
+        padding: 2px !important;
+    }
+    .modal-header-custom {
+        background-color: #7690A7;
+    }
+    .modal-body-custom {
+        background-color: #5F7b95;
+    }
+}
+
+//Custom media queries specifically for ipad pro
+/* ----------- iPad Pro ----------- */
+/* Portrait and Landscape */
+@media only screen
+  and (min-width: 1024px)
+  and (max-height: 1366px)
+  and (-webkit-min-device-pixel-ratio: 1.5) {
+    .banner-image {
+        width: 100% !important;
+        padding: 2px !important;
+    }
+    .modal-header-custom {
+        background-color: #7690A7;
+    }
+    .modal-body-custom {
+        background-color: #5F7b95;
+    }
+    .container-fluid {
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    .logo-color {
+      color: #FD6A02;
+    }
+
     .card-header:first-child {
         border-radius: 0px;
     }
@@ -234,6 +564,12 @@
         color: #ffffff;
         font-size: 14px;
         background-color: #5F7b95;
+    }
+    @media only screen and (min-width: 700px) {
+      .tablet-forms {
+        padding-left: 20%;
+        padding-right: 20%;
+      }
     }
     .content-center {
         background: #182137;

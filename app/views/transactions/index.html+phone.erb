@@ -34,7 +34,7 @@
                               <td><%= transaction.phone_number %></td>
                               <% if transaction.category == "Deposit" %>
                                 <td class="deposit">+<%= number_to_currency(transaction.amount, unit: "UGX ", precision: 0) %></td>
-                              <% elsif transaction.category == "Withdraw" || (transaction.category == "Bet Stake") %>
+                              <% elsif transaction.category == "Withdraw" %>
                                 <td class="withdraw">-<%= number_to_currency(transaction.amount, unit: "UGX ", precision: 0) %></td>
                               <% else %>
                                 <td class="deposit">+<%= number_to_currency(transaction.amount, unit: "UGX ", precision: 0) %></td>

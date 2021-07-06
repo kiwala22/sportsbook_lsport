@@ -1,546 +1,147 @@
-<div class="game-box">
+<% provide(:title, "Home") %>
+
+<!-- First Banner here -->
+<%= render "banner" %>
+<!-- Live matches -->
+<div class="game-box" id="featured">
     <div class="card">
         <div class="card-header">
-            <h3>Football Games</h3>
-            <span>Live Play</span><input type="checkbox" id="switch" /><label for="switch">Toggle</label>
+            <h3>Live Fixtures - Soccer </h3> <i class=" blinking match-time fas fa-bolt fa-lg fa-fw mr-2"></i>
+        </div>
+        <% if !@live_fixtures.empty? %>
+            <div class="card-body">
+                <div class="tab-content" id="">
+                    <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="home-tab">
+                        <table class="table table-borderless ">
+                            <thead>
+                                <tr>
+                                    <th class="col-1">Date</th>
+                                    <th class="col-4">Teams</th>
+                                    <th class="col-4">Tournament</th>
+                                    <th class="col-1">1</th>
+                                    <th class="col-1">X</th>
+                                    <th class="col-1">2</th>
+                                </tr>
+                            </thead>
+                            <tbody id="fixture-table-body-1" data-controller="refresh" data-refresh-interval="60000" data-refresh-url="<% page_refresh_path %>" data-refresh-method="GET">
+                                <%= render partial: 'live_fixture_table', locals: {live_fixtures: @live_fixtures} %>
+                            </tbody>
+
+                        </table>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="">
+                <%= link_to "Show More".html_safe, fixtures_soccer_lives_path, id: "live-tab", class: "bttn-small btn-fill show-more" %>
+            </div>
+        <% else %>
+            <div class="card-body">
+                <div class="tab-content" id="">
+                    <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="home-tab">
+                        <h6 class=" event">No Live Matches</h6>                
+                    </div>
+                </div>
+            </div>
+        <% end %>
+    </div>
+</div>
+
+
+<!-- Second Banner here -->
+<%= render "banner1" %>
+<!-- Start Featured Fixtures Table -->
+
+<div class="game-box" id="featured">
+    <div class="card">
+        <div class="card-header">
+            <h3>Featured Fixtures - Soccer </h3> <i class='fas fa-fire fa-lg fa-fw mr-2 match-time'></i>
+        </div>
+        <% if !@featured.empty? && @check_params == false %>
+        <div class="card-body">
+            <div class="tab-content" id="">
+                <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="home-tab">
+                    <table class="table table-borderless ">
+                        <thead>
+                            <tr>
+                                <th class="col-1">Date</th>
+                                <th class="col-4">Teams</th>
+                                <th class="col-4">Tournament</th>
+                                <th class="col-1">1</th>
+                                <th class="col-1">X</th>
+                                <th class="col-1">2</th>
+                            </tr>
+                        </thead>
+                        <tbody id="fixture-table-body-1" data-controller="refresh" data-refresh-interval="60000" data-refresh-url="<% page_refresh_path %>" data-refresh-method="GET">
+                            <%= render partial: 'feat_prematch_fixture_table', locals: {featured: @featured} %>
+                        </tbody>
+                    </table>
+                    
+                </div>
+            </div>
+            <div class="">
+                <%= link_to "Show More".html_safe, fixtures_soccer_featured_path, id: "live-tab", class: "bttn-small btn-fill show-more" %>
+            </div>
+        </div>
+        <%else%>
+            <div class="card-body">
+                <div class="tab-content" id="">
+                    <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="home-tab">
+                        <h6 class="event">No Featured Matches</h6>
+                    </div>
+                </div>
+            </div>
+        <% end %>
+    </div>
+</div>
+
+<!-- End Featured Fixtures Table -->
+<!-- Third Banner here -->
+<%= render "banner2" %>
+<!-- Start All Fixtures Table -->
+<div class="game-box">
+    <div class="card" >
+        <div class="card-header">
+            <h3 >Upcoming Fixtures - Soccer <i class='fas fa-futbol fa-lg fa-fw mr-2 match-time'></i></h3>
         </div>
         <div class="card-body">
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                <li class="nav-item">
-                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Today</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Tomorrow</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">All Matches</a>
-                </li>
-
-            </ul>
             <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                    <table class="table table-hover table-borderless table-striped">
-                        <thead>
-                            <tr>
-                                <th scope="col">Date</th>
-                                <th scope="col">Teams</th>
-                                <th scope="col">1</th>
-                                <th scope="col">3 Way <br>X</th>
-                                <th scope="col">2</th>
-                                <th scope="col">Yes</th>
-                                <th scope="col">No</th>
-                                <th scope="col">Sta</th>
-                                <th scope="col">+</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-
-                        </tbody>
-                    </table>
-                </div>
-                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                    <table class="table table-hover table-borderless table-striped">
-                        <thead>
-                            <tr>
-                                <th scope="col">Date</th>
-                                <th scope="col">Teams</th>
-                                <th scope="col">1</th>
-                                <th scope="col">3 Way <br>X</th>
-                                <th scope="col">2</th>
-                                <th scope="col">Yes</th>
-                                <th scope="col">No</th>
-                                <th scope="col">Sta</th>
-                                <th scope="col">+</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                        </tbody>
-                    </table>
-                </div>
-                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                    <table class="table table-hover table-borderless table-striped">
-                        <thead>
-                            <tr>
-                                <th scope="col">Date</th>
-                                <th scope="col">Teams</th>
-                                <th scope="col">1</th>
-                                <th scope="col">3 Way <br>X</th>
-                                <th scope="col">2</th>
-                                <th scope="col">Yes</th>
-                                <th scope="col">No</th>
-                                <th scope="col">Sta</th>
-                                <th scope="col">+</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>04:15 <br> 13th Feb</td>
-                                <td>
-                                    <img src="assets/images/icons/teams/1.png" alt=""><br>
-                                    <img src="assets/images/icons/teams/2.png" alt="">
-                                </td>
-                                <td>
-                                    <strong>EC Noroeste SP</strong>
-                                    <strong>Batatais FC SP</strong>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="">
-                                        <img src="assets/images/icons/stat.png" alt="">
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>04:15 <br> 13th Feb</td>
-                                <td>
-                                    <img src="assets/images/icons/teams/3.png" alt=""><br>
-                                    <img src="assets/images/icons/teams/4.png" alt="">
-                                </td>
-                                <td>
-                                    <strong>EC Noroeste SP</strong>
-                                    <strong>Batatais FC SP</strong>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="">
-                                        <img src="assets/images/icons/stat.png" alt="">
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>04:15 <br> 13th Feb</td>
-                                <td>
-                                    <img src="assets/images/icons/teams/5.png" alt=""><br>
-                                    <img src="assets/images/icons/teams/6.png" alt="">
-                                </td>
-                                <td>
-                                    <strong>EC Noroeste SP</strong>
-                                    <strong>Batatais FC SP</strong>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="">
-                                        <img src="assets/images/icons/stat.png" alt="">
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>04:15 <br> 13th Feb</td>
-                                <td>
-                                    <img src="assets/images/icons/teams/7.png" alt=""><br>
-                                    <img src="assets/images/icons/teams/8.png" alt="">
-                                </td>
-                                <td>
-                                    <strong>EC Noroeste SP</strong>
-                                    <strong>Batatais FC SP</strong>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="">
-                                        <img src="assets/images/icons/stat.png" alt="">
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>04:15 <br> 13th Feb</td>
-                                <td>
-                                    <img src="assets/images/icons/teams/9.png" alt=""><br>
-                                    <img src="assets/images/icons/teams/10.png" alt="">
-                                </td>
-                                <td>
-                                    <strong>EC Noroeste SP</strong>
-                                    <strong>Batatais FC SP</strong>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="">
-                                        <img src="assets/images/icons/stat.png" alt="">
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>04:15 <br> 13th Feb</td>
-                                <td>
-                                    <img src="assets/images/icons/teams/9.png" alt=""><br>
-                                    <img src="assets/images/icons/teams/10.png" alt="">
-                                </td>
-                                <td>
-                                    <strong>EC Noroeste SP</strong>
-                                    <strong>Batatais FC SP</strong>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="">
-                                        <img src="assets/images/icons/stat.png" alt="">
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>04:15 <br> 13th Feb</td>
-                                <td>
-                                    <img src="assets/images/icons/teams/9.png" alt=""><br>
-                                    <img src="assets/images/icons/teams/10.png" alt="">
-                                </td>
-                                <td>
-                                    <strong>EC Noroeste SP</strong>
-                                    <strong>Batatais FC SP</strong>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="">
-                                        <img src="assets/images/icons/stat.png" alt="">
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>04:15 <br> 13th Feb</td>
-                                <td>
-                                    <img src="assets/images/icons/teams/9.png" alt=""><br>
-                                    <img src="assets/images/icons/teams/10.png" alt="">
-                                </td>
-                                <td>
-                                    <strong>EC Noroeste SP</strong>
-                                    <strong>Batatais FC SP</strong>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="">
-                                        <img src="assets/images/icons/stat.png" alt="">
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>04:15 <br> 13th Feb</td>
-                                <td>
-                                    <img src="assets/images/icons/teams/9.png" alt=""><br>
-                                    <img src="assets/images/icons/teams/10.png" alt="">
-                                </td>
-                                <td>
-                                    <strong>EC Noroeste SP</strong>
-                                    <strong>Batatais FC SP</strong>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="">
-                                        <img src="assets/images/icons/stat.png" alt="">
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>04:15 <br> 13th Feb</td>
-                                <td>
-                                    <img src="assets/images/icons/teams/9.png" alt=""><br>
-                                    <img src="assets/images/icons/teams/10.png" alt="">
-                                </td>
-                                <td>
-                                    <strong>EC Noroeste SP</strong>
-                                    <strong>Batatais FC SP</strong>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="">
-                                        <img src="assets/images/icons/stat.png" alt="">
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>04:15 <br> 13th Feb</td>
-                                <td>
-                                    <img src="assets/images/icons/teams/9.png" alt=""><br>
-                                    <img src="assets/images/icons/teams/10.png" alt="">
-                                </td>
-                                <td>
-                                    <strong>EC Noroeste SP</strong>
-                                    <strong>Batatais FC SP</strong>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="">
-                                        <img src="assets/images/icons/stat.png" alt="">
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>04:15 <br> 13th Feb</td>
-                                <td>
-                                    <img src="assets/images/icons/teams/9.png" alt=""><br>
-                                    <img src="assets/images/icons/teams/10.png" alt="">
-                                </td>
-                                <td>
-                                    <strong>EC Noroeste SP</strong>
-                                    <strong>Batatais FC SP</strong>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="">
-                                        <img src="assets/images/icons/stat.png" alt="">
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>04:15 <br> 13th Feb</td>
-                                <td>
-                                    <img src="assets/images/icons/teams/9.png" alt=""><br>
-                                    <img src="assets/images/icons/teams/10.png" alt="">
-                                </td>
-                                <td>
-                                    <strong>EC Noroeste SP</strong>
-                                    <strong>Batatais FC SP</strong>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                                <td>
-                                    <a href="">
-                                        <img src="assets/images/icons/stat.png" alt="">
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="" class="btnn">2.36</a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                <% if @fixtures.present? %>
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab" data-controller="match-fixtures">                       
+                    
+                        <table class="table table-borderless ">
+                            <thead>
+                                <tr>
+                                    <th class="col-1">Date</th>
+                                    <th class="col-4">Teams</th>
+                                    <th class="col-4">Tournament</th>
+                                    <th class="col-1">1</th>
+                                    <th class="col-1">X</th>
+                                    <th class="col-1">2</th>
+                                </tr>
+                            </thead>
+                            <tbody id="fixture-table-body" data-target="match-fixtures.fixtures" data-controller="fixture-channel pre-odds-channel refresh"  data-refresh-interval="60000" data-refresh-url="<% page_refresh_path %>" data-refresh-method="GET">
+                                    <%= render partial: 'pre_match_fixture_table', locals: {fixtures: @fixtures} %>
+                            </tbody>
+                        </table>
+                        <div id="bottom" >
+                            <div class="d-flex justify-content-center">
+                                <div data-target="match-fixtures.spinner" id="spinner"></div>
+                            </div>
+                            <div class="table-navigation" 
+                            data-target="match-fixtures.pagination" id="paginate">
+                                <%== pagy_nav(@pagy) %>
+                            </div>
+                        </div>
+                    </div>
+                <% else %>
+                    <td>
+                        <h6 class="event">No Upcoming Events </h6>
+                    </td>
+                <% end %>                   
             </div>
         </div>
     </div>
 </div>
 
-<p>
-    <%= link_to 'Api Users', api_users_path %>
-</p>
-
-<p>
-    <%= link_to 'Create API Users', new_api_user_path %>
-</p>
-
-<p>
-    <%= link_to 'Deposit Money', new_transaction_path %>
-</p>
-
-<p>
-    <%= link_to 'Withdraw Money', transfer_path %>
-</p>
-
-<p>
-    <%= link_to "log out", destroy_user_session_path, :method => :get%>
-</p>
+<!-- End All Fixtures Table -->

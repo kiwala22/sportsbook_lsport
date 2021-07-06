@@ -8,7 +8,7 @@ Rails.application.routes.draw do
    # Serve websocket cable requests in-process
    mount ActionCable.server => '/cable'
 
-   root to: 'fixtures/soccer/pre_match#index'
+   root to: 'home#index'
 
    namespace :confirmation do
       match 'airtel/payment' => 'airtel_uganda#create', via: [:post, :get]

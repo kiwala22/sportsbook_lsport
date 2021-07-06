@@ -2,7 +2,7 @@
 <div class="login">
    <div class="content-center cl-grey">
       <div class="row justify-content-center">
-         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 tablet-forms">
 
             <div class="web-sidebar-widget login-widget">
                <div class="widget-head">
@@ -22,7 +22,7 @@
                         <%= f.password_field :password, autocomplete: "current-password", class:"form-control",id: 'password', required: true, "data-target":"toggle.unhide"  %>
                         <i  class="fa fa-eye mobile-show"data-target="toggle.show" data-action="click->toggle#password" aria-hidden="true">&nbsp;</i>
 
-                        
+
                      </div>
 
                      <% if devise_mapping.rememberable? %>

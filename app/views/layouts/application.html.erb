@@ -56,7 +56,6 @@
                         <div class="col-xl-7 col-lg-7 col-md-7 col-sm-12 mt-40">
                             <div>
                                 <%= render partial: "layouts/partials/flash" %>
-                                <%= render partial: "fixtures/soccer/pre_match/banner"%>
                                 <%= yield %>
                             </div>
                         </div>
@@ -65,11 +64,13 @@
 
                               <div class="web-sidebar-widget">
                                   <div class="widget-head">
-                                      <h3 class="float-left">Betslip</h3>
-                                    <div class="" onclick="localStorage.removeItem('stake')">
-                                      <%= link_to  '<i class="far fa-window-close"></i>'.html_safe, clear_slip_path , remote: true, method: :delete , class:"float-right"%>
-                                    </div>
-                                    <br>
+                                        <h3 class="float-left">Betslip</h3>
+                                        <% if !@cart.nil? && @cart.line_bets.present?  %>
+                                            <div class="" onclick="localStorage.removeItem('stake')">
+                                                <%= link_to '<i class="far fa-times-circle fa-2x" data-toggle="tooltip" data-placement="top" title="Clear BetSlip"></i>'.html_safe, clear_slip_path , remote: true, method: :delete , class:"float-right"%>
+                                            </div>
+                                        <% end %>
+                                        <br>
                                   </div>
                                   <div class="widget-body" id="betslip" data-controller="betslip" data-betslip-interval="30000" data-betslip-url="<%= refresh_slip_path %>" data-betslip-method="POST" >
                                       <%= render 'layouts/partials/betslip.html.erb' %>

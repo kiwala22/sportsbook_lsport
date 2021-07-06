@@ -2,7 +2,7 @@
 <div class="registration" >
   <div class="content-center cl-grey">
     <div class="row justify-content-center">
-      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 tablet-forms">
 
         <div class="web-sidebar-widget login-widget">
           <div class="widget-head">
@@ -53,10 +53,10 @@
 
               <span class="error_desc"><%= resource.errors[:password_confirmation].first if resource.errors[:password_confirmation].present? %> </span>
             </div>
-            
+
             <div class="form-group">
                 <div class="row" style="padding-left: 7px;">
-                  <span class="col-10"><%= f.label :agreement, "I am over 18 years of age and I accept SkylineBet’s <a href='/' class='terms'>Terms And Conditions</a> and <a href='/' class='terms'>Privacy Policy</a>".html_safe, id: "label_remember_me" %></span>
+                  <span class="col-10"><%= f.label :agreement, "I am over 18 years of age and I accept BetCity’s <a href='/' class='terms'>Terms And Conditions</a> and <a href='/' class='terms'>Privacy Policy</a>".html_safe, id: "label_remember_me" %></span>
                   <span class="col-1"><%= f.check_box :agreement, id: "agreement" %></span>
                 </div>
                 <div class="error_msg">
