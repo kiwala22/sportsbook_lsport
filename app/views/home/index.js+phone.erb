@@ -1,0 +1,4 @@
+Turbolinks.clearCache();
+$("#fixture-table-body-live").html("<%= j (render :partial => 'live_fixture_table' , locals: {fixtures: @fixtures}) %> ");
+$("#fixture-table-body-1").html("<%= j (render :partial => 'feat_prematch_fixture_table' , locals: {fixtures: @fixtures}) %>")
+$("#fixture-table-body").html("<%= j (render :partial => 'pre_match_fixture_table' , locals: {fixtures: @fixtures}) %> ")

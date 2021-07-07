@@ -8,7 +8,7 @@
         <div class="card-header">
             <h3>Live Fixtures - Soccer </h3> <i class=" blinking match-time fas fa-bolt fa-lg fa-fw mr-2"></i>
         </div>
-        <% if !@live_fixtures.empty? %>
+        <% if @live_fixtures.present? %>
             <div class="card-body">
                 <div class="tab-content" id="">
                     <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="home-tab">
@@ -23,8 +23,8 @@
                                     <th class="col-1">2</th>
                                 </tr>
                             </thead>
-                            <tbody id="fixture-table-body-1" data-controller="refresh" data-refresh-interval="60000" data-refresh-url="<% page_refresh_path %>" data-refresh-method="GET">
-                                <%= render partial: 'live_fixture_table', locals: {live_fixtures: @live_fixtures} %>
+                            <tbody id="fixture-table-body-live" data-controller="refresh" data-refresh-interval="60000" data-refresh-url="<% home_page_refresh_path %>" data-refresh-method="GET">
+                                <%= render partial: 'live_fixture_table' %>
                             </tbody>
 
                         </table>
@@ -72,8 +72,8 @@
                                 <th class="col-1">2</th>
                             </tr>
                         </thead>
-                        <tbody id="fixture-table-body-1" data-controller="refresh" data-refresh-interval="60000" data-refresh-url="<% page_refresh_path %>" data-refresh-method="GET">
-                            <%= render partial: 'feat_prematch_fixture_table', locals: {featured: @featured} %>
+                        <tbody id="fixture-table-body-1" data-controller="refresh" data-refresh-interval="60000" data-refresh-url="<% home_page_refresh_path %>" data-refresh-method="GET">
+                            <%= render partial: 'feat_prematch_fixture_table' %>
                         </tbody>
                     </table>
                     
@@ -106,7 +106,7 @@
         </div>
         <div class="card-body">
             <div class="tab-content" id="myTabContent">
-                <% if @fixtures.present? %>
+                <% if @prematch_fixtures.present? %>
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab" data-controller="match-fixtures">                       
                     
                         <table class="table table-borderless ">
@@ -120,8 +120,8 @@
                                     <th class="col-1">2</th>
                                 </tr>
                             </thead>
-                            <tbody id="fixture-table-body" data-target="match-fixtures.fixtures" data-controller="fixture-channel pre-odds-channel refresh"  data-refresh-interval="60000" data-refresh-url="<% page_refresh_path %>" data-refresh-method="GET">
-                                    <%= render partial: 'pre_match_fixture_table', locals: {fixtures: @fixtures} %>
+                            <tbody id="fixture-table-body" data-target="match-fixtures.fixtures" data-controller="fixture-channel pre-odds-channel refresh"  data-refresh-interval="60000" data-refresh-url="<% home_page_refresh_path %>" data-refresh-method="GET">
+                                    <%= render partial: 'pre_match_fixture_table' %>
                             </tbody>
                         </table>
                         <div id="bottom" >

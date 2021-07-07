@@ -19,9 +19,11 @@ Rails.application.routes.draw do
    match '/refresh_slip', to: "line_bets#refresh", via: [:post]
    match '/page_refresh', to: "fixtures/soccer/pre_match#page_refresh", via: [:get]
    match '/virtual_page_refresh', to: "fixtures/virtual_soccer/pre_match#page_refresh", via: [:get]
+   match '/home_page_refresh', to: "home#page_refresh", via: [:get]
    match '/add_bet', to: "line_bets#create", via: [:post]
    match '/clear_slip', to: "line_bets#destroy", via: [:delete]
    match '/clear_bet', to: "line_bets#line_bet_delete", via: [:delete]
+   match '/button_display', to: "line_bets#close_betslip_button_display", via: [:get]
 
    match 'password_reset' => "password_reset#new", via: [:post, :get]
    match 'reset' => "password_reset#create", via: [:put]

@@ -32,7 +32,8 @@
             <ul class="d-flex justify-content-between m-footer-list" data-controller="footer">
                <li class="footer-slip">
                   <div class="slip-ticket-count" id="slip-ticket-count" data-target="footer.count" data-action="click->main#popSlip">
-                     <%= (@cart && @cart.line_bets.exists?) ? @cart.line_bets.count : 0 %></div>
+                     <%= (@cart && @cart.line_bets.exists?) ? @cart.line_bets.count : 0 %>
+                  </div>
                   <div data-action="click->main#popSlip">Betslip</div>
                </li>
                <li>

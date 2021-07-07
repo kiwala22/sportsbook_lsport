@@ -13,6 +13,7 @@ export default class extends Controller {
             received: (data) => {
                 const market = this.data.get("market");
                 this.update_odds(data, market)
+                this.update_feat_odds(data, market)
             }
         });
     }
@@ -26,6 +27,20 @@ export default class extends Controller {
 
                 setTimeout(function(){ 
                     $(`#pre_${market}_${element}_${data.fixture_id}`).removeClass('fade-it');
+                },1000);
+            }
+        });
+    }
+
+    update_feat_odds(data, market) {
+        const outcomes = ["1", "2", "X", "12", "1X", "X2", "Yes", "No", "Under", "Over"];
+        outcomes.forEach(element => {
+            if ($(`#pre_feat_${market}_${element}_${data.fixture_id}`).length > 0) {
+                $(`#pre_feat_${market}_${element}_${data.fixture_id}`).html(data[`outcome_${element}`]);
+                $(`#pre_feat_${market}_${element}_${data.fixture_id}`).addClass('fade-it');
+
+                setTimeout(function(){ 
+                    $(`#pre_feat_${market}_${element}_${data.fixture_id}`).removeClass('fade-it');
                 },1000);
             }
         });

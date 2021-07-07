@@ -52,7 +52,9 @@
             <div class="container-fluid">
                <% unless controller.controller_name == "verify" %>
                   <!-- Betslip container -->
-                  <%= render partial: "layouts/partials/betslip" %>
+                  <div class="widget-body" id="betslip">
+                     <%= render 'layouts/partials/betslip' %>
+                  </div>
                <% end %>
             </div>
             <div class="row">

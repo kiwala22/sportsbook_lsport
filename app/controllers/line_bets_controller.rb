@@ -1,7 +1,7 @@
 class LineBetsController < ApplicationController
    protect_from_forgery :except => [:refresh, :line_bet_delete, :create, :destroy]
    include CurrentCart
-   before_action :set_cart, only: [:create, :destroy, :refresh]
+   before_action :set_cart, only: [:create, :destroy, :refresh, :close_betslip_button_display]
    # before_action :set_line_item, only: [:show, :edit, :update, :destroy]
 
 
@@ -57,4 +57,14 @@ class LineBetsController < ApplicationController
          format.js
       end
    end
+
+   def close_betslip_button_display
+      games_on_slip = @cart.line_bets.count()
+  
+      respond_to do |format|
+        format.json{
+          render json: { games: games_on_slip }
+         }
+      end
+    end
 end
