@@ -163,6 +163,7 @@
         padding-bottom: 10px;
     }
     .banner-image {
+        height: 100px !important;
         width: 100% !important;
         padding: 2px !important;
     }
@@ -301,6 +302,7 @@
     padding-right: 20%;
   }
     .banner-image {
+        height: 120px !important;
         width: 100% !important;
         padding: 2px !important;
     }
@@ -320,6 +322,7 @@
   and (max-height: 1366px)
   and (-webkit-min-device-pixel-ratio: 1.5) {
     .banner-image {
+        height: 170px !important;
         width: 100% !important;
         padding: 2px !important;
     }

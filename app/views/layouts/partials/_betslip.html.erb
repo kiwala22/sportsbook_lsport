@@ -3,7 +3,7 @@
    <% if !@cart.nil? && @cart.line_bets.present?  %>
       <% @cart.line_bets.each do |bet| %>
             <% if fetch_market_status(bet.market, bet.fixture_id) == "Active" %>
-               <div class="row">
+               <div class="row lineBet">
                  <div class="col-12">
                    <div class="single-bet">
                      <div class="col-1">
