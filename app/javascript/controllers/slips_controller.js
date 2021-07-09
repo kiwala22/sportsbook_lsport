@@ -32,9 +32,12 @@ export default class extends Controller {
         outcomes.forEach(element => {
             if ($(`#slip_${market}_${element}_${data.fixture_id}`).length > 0) {
                 $(`#slip_${market}_${element}_${data.fixture_id}`).html(data[`outcome_${element}`]);
+                 $(`#slip_${market}_${element}_${data.fixture_id}`).css("color" , "#F6AE2D");
                 setTimeout(() => {
-                    $(`#slip_${market}_${element}_${data.fixture_id}`).css("color" , "#F6AE2D");
+                    $(`#slip_${market}_${element}_${data.fixture_id}`).css("color" , "#ffffff");
                 }, 3000);
+
+                this.update_odds();
             }
         });
 
@@ -43,6 +46,33 @@ export default class extends Controller {
             this.onCalculateWin(localStorage.getItem("stake"));
         }
 
+    }
+
+    update_odds() {
+        if ($('.lineBet').length != 0){
+            
+            let odds = [];
+            let myDiv = $('.lineBet');
+            for (let index = 0; index < myDiv.length; index++) {
+                const lineBet = $(myDiv[index]);
+                let singleBet = lineBet.find('.single-bet')
+                let odd = parseFloat(singleBet.children().last().html())
+                odds.push(odd);
+            }
+            this.calculate_odd_update(odds);
+        }
+    }
+
+    calculate_odd_update(arr) {
+        let newOdds = (arr.reduce((a, b) => a * b, 1)).toFixed(2);
+        $('#total-odds').html(`${newOdds}`);
+
+        if ($('#stake-input').val() !== null && ($('#stake-input').val() >= 1000 || $('#stake-input').val() <= 1000000)) {
+            let newAmount = ($('#stake-input').val() * newOdds).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            $('#total-wins').html(`UGX ${newAmount}`);
+        }else {
+            $('#total-wins').html('');
+        }
     }
 
     calculate_odds() {
