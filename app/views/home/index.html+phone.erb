@@ -5,7 +5,7 @@
 <div class="game-box" id="featured">
     <div class="card">
         <div class="card-header">
-            <h3>Live Fixtures - Soccer</h3>
+            <h3>Live Fixtures - Soccer </h3><i class=" blinking match-time fas fa-bolt fa-lg fa-fw mr-2"></i>
         </div>
         <% if !@live_fixtures.empty?  %>
         <div class="card-body">
@@ -55,7 +55,7 @@
 <div class="game-box" id="featured">
     <div class="card">
         <div class="card-header">
-            <h3>Featured Fixtures - Soccer</h3>
+            <h3>Featured Fixtures - Soccer</h3> <i class='fas fa-fire fa-lg fa-fw mr-2 match-time'></i>
         </div>
         <% if !@featured.empty? && @check_params == false %>
           <div class="card-body">
