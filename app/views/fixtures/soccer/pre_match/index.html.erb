@@ -1,52 +1,5 @@
 <% provide(:title, "Pre Match Soccer") %>
 
-<!-- Start Featured Fixtures Table -->
-
-    <div class="game-box" id="featured">
-        <div class="card">
-            <div class="card-header">
-                <h3>Featured Fixtures - Soccer </h3> <i class='fas fa-fire fa-lg fa-fw mr-2 match-time'></i>
-            </div>
-            <% if !@featured.empty? && @check_params == false %>
-            <div class="card-body">
-                <div class="tab-content" id="">
-                    <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="home-tab">
-                        <table class="table table-borderless ">
-                            <thead>
-                                <tr>
-                                    <th class="col-1">Date</th>
-                                    <th class="col-4">Teams</th>
-                                    <th class="col-4">Tournament</th>
-                                    <th class="col-1">1</th>
-                                    <th class="col-1">X</th>
-                                    <th class="col-1">2</th>
-                                </tr>
-                            </thead>
-                            <tbody id="fixture-table-body-1" data-controller="refresh" data-refresh-interval="60000" data-refresh-url="<% page_refresh_path %>" data-refresh-method="GET">
-                                <%= render partial: 'feat_pre_match_fixture_table', locals: {featured: @featured} %>
-                            </tbody>
-                        </table>
-                        
-                    </div>
-                </div>
-                <div class="text-center mb-2">
-                    <%= link_to "Show More".html_safe, fixtures_soccer_featured_path, id: "live-tab", class: "match-time show-more" %>
-                </div>
-            </div>
-            <%else%>
-                <div class="card-body">
-                    <div class="tab-content" id="">
-                        <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="home-tab">
-                            <h6 class="event">No Featured Matches</h6>
-                        </div>
-                    </div>
-                </div>
-            <% end %>
-        </div>
-    </div>
-
-<!-- End Featured Fixtures Table -->
-
 <!-- Start All Fixtures Table -->
 <div class="game-box">
 

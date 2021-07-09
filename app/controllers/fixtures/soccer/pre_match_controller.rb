@@ -4,34 +4,24 @@ class Fixtures::Soccer::PreMatchController < ApplicationController
 
    def index
      if params[:q].present?
-       @check_params = false
-       parameters = ["fixtures.status= 'not_started'", "fixtures.sport_id='6046'", "fixtures.league_id NOT IN ('37364', '37386', '38301', '37814')", "market1_pres.status = 'Active'", "fixtures.start_date >= '#{Time.now}'" ]
-       if params[:q][:league_name].present?
-         @check_params = true
-         parameters << "fixtures.league_name='#{params[:q][:league_name]}'"
-       end
-       if params[:q][:location].present?
-         @check_params = true
-         parameters << "fixtures.location='#{params[:q][:location]}'"
-       end
-       conditions = parameters.join(" AND ")
-       @q = Fixture.joins(:market1_pre).where(conditions).order(start_date: :asc)
+      parameters = ["fixtures.status= 'not_started'", "fixtures.sport_id='6046'", "fixtures.league_id NOT IN ('37364', '37386', '38301', '37814')", "market1_pres.status = 'Active'", "fixtures.start_date >= '#{Time.now}'" ]
+      if params[:q][:league_name].present?
+      parameters << "fixtures.league_name='#{params[:q][:league_name]}'"
+      end
+      if params[:q][:location].present?
+      parameters << "fixtures.location='#{params[:q][:location]}'"
+      end
+      conditions = parameters.join(" AND ")
+      @q = Fixture.joins(:market1_pre).where(conditions).order(start_date: :asc)
      else
-       @check_params = false
-       @q = Fixture.joins(:market1_pre).where("fixtures.status = ? AND fixtures.sport_id = ? AND fixtures.league_id NOT IN (?) AND fixtures.start_date >= ? AND fixtures.start_date <= ? AND market1_pres.status = ?", "not_started", "6046", ["37364", "37386", "38301", "37814"], (Time.now), (Date.today.end_of_day + 1.days), "Active").order(start_date: :asc)
+      @q = Fixture.joins(:market1_pre).where("fixtures.status = ? AND fixtures.sport_id = ? AND fixtures.league_id NOT IN (?) AND fixtures.start_date >= ? AND fixtures.start_date <= ? AND market1_pres.status = ?", "not_started", "6046", ["37364", "37386", "38301", "37814"], (Time.now), (Date.today.end_of_day + 10.months), "Active").order(start_date: :asc)
      end
 
-      # @live_q = Fixture.joins(:market1_live).where("fixtures.status = ? AND fixtures.sport_id = ? AND fixtures.league_id NOT IN (?) AND market1_lives.status = ?", "live", "6046", ["37364", "37386", "38301", "37814"], "Active").order(start_date: :asc)
-      # @live_fixtures = @live_q.includes(:market1_live).where("market1_lives.status = ?", "Active").limit(10)
-
-
-      @featured = @q.includes(:market1_pre).where("market1_pres.status = ? AND fixtures.featured = ?", "Active", true).limit(10)
       @pagy, @fixtures = pagy(@q.includes(:market1_pre).where("market1_pres.status = ?", "Active"))
       respond_to do |format|
          format.html
          format.json {
             render json: {
-              featured: render_to_string(partial: "feat_pre_match_fixture_table", locals: {featured: @featured}, formats: [:html]),
               fixtures: render_to_string(partial: "pre_match_fixture_table", locals: {fixtures: @fixtures}, formats: [:html]), pagination: view_context.pagy_nav(@pagy)
              }
          }
@@ -43,10 +33,20 @@ class Fixtures::Soccer::PreMatchController < ApplicationController
 
 
    def featured    
-       @check_params = false
-      @q = Fixture.joins(:market1_pre).where("fixtures.status = ? AND fixtures.sport_id = ? AND fixtures.league_id NOT IN (?) AND fixtures.start_date >= ? AND fixtures.start_date <= ? AND market1_pres.status = ?", "not_started", "6046", ["37364", "37386", "38301", "37814"], (Time.now), (Date.today.end_of_day + 1.days), "Active").order(start_date: :asc)
+      @q = Fixture.joins(:market1_pre).where("fixtures.status = ? AND fixtures.sport_id = ? AND fixtures.league_id NOT IN (?) AND fixtures.start_date >= ? AND fixtures.start_date <= ? AND market1_pres.status = ?", "not_started", "6046", ["37364", "37386", "38301", "37814"], (Time.now), (Date.today.end_of_day + 10.months), "Active").order(start_date: :asc)
 
       @pagy, @featured = pagy(@q.includes(:market1_pre).where("market1_pres.status = ? AND fixtures.featured = ?", "Active", true))
+      
+      respond_to do |format|
+         format.html
+         format.js
+         format.json {
+            render json: {
+              fixtures: render_to_string(partial: "feat_pre_match_fixture_table", locals: {featured: @featured}, formats: [:html]), pagination: view_context.pagy_nav(@pagy)
+             }
+         }
+
+      end
      
    end
 
