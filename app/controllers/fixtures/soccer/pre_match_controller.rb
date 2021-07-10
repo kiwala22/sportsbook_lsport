@@ -39,12 +39,12 @@ class Fixtures::Soccer::PreMatchController < ApplicationController
       
       respond_to do |format|
          format.html
-         format.js
          format.json {
             render json: {
               fixtures: render_to_string(partial: "feat_pre_match_fixture_table", locals: {featured: @featured}, formats: [:html]), pagination: view_context.pagy_nav(@pagy)
              }
          }
+         format.js
 
       end
      

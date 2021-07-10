@@ -1,5 +1,5 @@
 <% @featured.each do |fixture| %>
-    <tr>
+   <tr data-controller="pre-odds-channel #markets-channel slips" data-pre-odds-channel-fixture=<%= fixture.id %> data-markets-channel-fixture=<%= fixture.id %> data-slips-fixture=<%= fixture.id %> data-pre-odds-channel-market="1" data-markets-channel-market="1" data-slips-market="1" >
         <td>
            <a href=<%=fixtures_soccer_pre_path(id: fixture.id) %>>
             <%= local_time(fixture.start_date, format: '%H:%M:%S') %> <br>

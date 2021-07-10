@@ -10,8 +10,8 @@
             
             <div class="card-body">
                 <div class="tab-content" id="">
-                    <% if !@featured.empty? %>
-                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab" data-controller="match-fixtures">
+                    <% if @featured.present? %>
+                        <div class="tab-pane fade show active" id="#home" role="tabpanel" aria-labelledby="home-tab" data-controller="match-fixtures">
                             <table class="table table-borderless ">
                                 <thead>
                                     <tr>
