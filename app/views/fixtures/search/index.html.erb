@@ -8,27 +8,24 @@
             <div class="tab-content" id="">
                 <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="home-tab">
                     <table class="table table-borderless ">
-                         <% if @fixtures.present? %>
-                        <thead>
-	                            <tr>
-	                                <th class="col-1">Date</th>
-	                                <th class="col-4">Teams</th>
-	                                <th class="col-4">Tournament</th>
-	                                <th class="col-1">1</th>
-	                                <th class="col-1">X</th>
-	                                <th class="col-1">2</th>
-	                            </tr>
-                        </thead>
+                        <% if @fixtures.present? %>
+                            <thead>
+                                <tr>
+                                    <th class="col-1">Date</th>
+                                    <th class="col-4">Teams</th>
+                                    <th class="col-4">Tournament</th>
+                                    <th class="col-1">1</th>
+                                    <th class="col-1">X</th>
+                                    <th class="col-1">2</th>
+                                </tr>
+                            </thead>
                         
-                        <tbody id="search-results">
-                           
+                            <tbody id="search-results">
                                 <%= render partial: 'search_table', locals: {fixtures: @fixtures} %>
-                        
-	                        <% else %>
-	                                <%= render partial: 'no_events'%>
-	                            
-	                        <% end %>
-                        </tbody>
+                            </tbody>
+                        <% else %>
+                            <%= render partial: 'no_events'%>
+                        <% end %>
                     </table>
                 </div>
             </div>
