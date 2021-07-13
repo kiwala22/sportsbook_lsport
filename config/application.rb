@@ -22,7 +22,7 @@ module SkylineSportsbook
       
       config.time_zone = 'UTC'
       config.active_record.default_timezone = :local
-      
+
       #add fonts to assets path
       config.assets.paths << Rails.root.join("app", "assets", "fonts")
       # fonts
@@ -36,5 +36,6 @@ module SkylineSportsbook
 
       # config.log_level = :info # commented out 03/10/20 - Acacia
       # config.logger = ActiveSupport::TaggedLogging.new(ActiveSupport::Logger.new(STDOUT))
+
    end
 end
