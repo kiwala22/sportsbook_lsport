@@ -36,5 +36,8 @@ module SkylineSportsbook
 
       # config.log_level = :info # commented out 03/10/20 - Acacia
       # config.logger = ActiveSupport::TaggedLogging.new(ActiveSupport::Logger.new(STDOUT))
+
+      #add rack deflater Acacia - 13/07/2021
+      config.middleware.insert_after ActionDispatch::Static, Rack::Deflater
    end
 end
