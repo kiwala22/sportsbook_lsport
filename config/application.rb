@@ -22,6 +22,9 @@ module SkylineSportsbook
       
       config.time_zone = 'UTC'
       config.active_record.default_timezone = :local
+
+      #add rack deflater Acacia - 13/07/2021
+      config.middleware.insert_after ActionDispatch::Static, Rack::Deflater
       
       #add fonts to assets path
       config.assets.paths << Rails.root.join("app", "assets", "fonts")
@@ -37,7 +40,5 @@ module SkylineSportsbook
       # config.log_level = :info # commented out 03/10/20 - Acacia
       # config.logger = ActiveSupport::TaggedLogging.new(ActiveSupport::Logger.new(STDOUT))
 
-      #add rack deflater Acacia - 13/07/2021
-      config.middleware.insert_after ActionDispatch::Static, Rack::Deflater
    end
 end
