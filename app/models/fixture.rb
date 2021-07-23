@@ -43,6 +43,14 @@ class Fixture < ApplicationRecord
   has_one :market53_live
   has_one :market77_live
   has_one :market113_live
+  has_one :market52_live
+  has_one :market63_live
+  has_one :market28_live
+  has_one :market41_live
+  has_one :market42_live
+  has_one :market43_live
+  has_one :market44_live
+  has_one :market49_live
   
   has_one :market1_pre
   has_one :market7_pre
@@ -54,6 +62,14 @@ class Fixture < ApplicationRecord
   has_one :market53_pre
   has_one :market77_pre
   has_one :market113_pre
+  has_one :market52_pre
+  has_one :market63_pre
+  has_one :market28_pre
+  has_one :market41_pre
+  has_one :market42_pre
+  has_one :market43_pre
+  has_one :market44_pre
+  has_one :market49_pre
   
   has_many :bets
   
