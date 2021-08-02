@@ -9,7 +9,11 @@ class DeactivateMarketsWorker
          "1" => "Live",
          "3" => "Pre"
       }
-      markets = ["1","113", "17", "25", "282","2", "3", "53", "77", "7"]
+      markets = [
+         "1", "2", "3", "7", "17", "25",
+         "28", "41", "42", "43", "44", "49", 
+         "52", "53", "63", "77", "113", "282"
+      ]
       
       markets.each do |market|
          model_name = "Market" + market + producer_type[product]

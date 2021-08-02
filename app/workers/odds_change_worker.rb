@@ -70,7 +70,11 @@ class OddsChangeWorker
 
     def process_market(fixture_id, market, product, event_id)
 
-        markets = [1, 2, 3, 7, 17, 25, 53, 77, 113, 282]
+        markets = [
+            1, 2, 3, 7, 17, 25, 28,
+            41, 42, 43, 44, 49, 52,
+            53, 63, 77, 113, 282
+        ]
         
         market_status = {
             1 => "Active",
@@ -90,7 +94,7 @@ class OddsChangeWorker
             
             update_attr = {}
 
-            if (market["Id"] == 2 || market["Id"] == 77)
+            if [2, 28, 77].include?(market["Id"])# == 2 || market["Id"] == 77)
                 if market.has_key?("Providers") && market["Providers"].is_a?(Array)
                     market["Providers"].each do |provider|
                         if provider.has_key?("Bets") && provider["Bets"].is_a?(Array)
@@ -104,7 +108,7 @@ class OddsChangeWorker
                     end
                 end
 
-            elsif  (market["Id"] == 3 || market["Id"] == 53)
+            elsif  [3, 52, 53, 63].include?(market["Id"])# == 3 || market["Id"] == 53)
                 if market.has_key?("Providers") && market["Providers"].is_a?(Array)
                     market["Providers"].each do |provider|
                         if provider.has_key?("Bets") && provider["Bets"].is_a?(Array)

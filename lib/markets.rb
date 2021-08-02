@@ -8,7 +8,7 @@ module Markets
                 fixture_id = fixture.id
                 event_id = fixture.event_id
     
-                ["1", "282"].each do |mkt|
+                ["1", "282", "41", "42", "43", "44", "49"].each do |mkt|
                     model_name = "Market"+mkt+"Pre"
                     market = model_name.constantize.find_by(fixture_id: fixture_id)
                     if market
@@ -38,7 +38,7 @@ module Markets
                     end
                 end
     
-                ["2", "77"].each do |mkt|
+                ["2", "77", "28"].each do |mkt|
                     model_name = "Market"+mkt+"Pre"
                     market = model_name.constantize.find_by(fixture_id: fixture_id)
                     if market
@@ -53,7 +53,7 @@ module Markets
                     end
                 end
     
-                ["3", "53"].each do |mkt|
+                ["3", "53", "52", "63"].each do |mkt|
                     model_name = "Market"+mkt+"Pre"
                     market = model_name.constantize.find_by(fixture_id: fixture_id)
                     if market
@@ -99,7 +99,7 @@ module Markets
                 fixture_id = fixture.id
                 event_id = fixture.event_id
 
-                ["1", "282"].each do |mkt|
+                ["1", "282", "41", "42", "43", "44", "49"].each do |mkt|
                     model_name = "Market"+mkt+"Live"
                     market = model_name.constantize.find_by(fixture_id: fixture_id)
                     if market
@@ -129,7 +129,7 @@ module Markets
                     end
                 end
 
-                ["2", "77"].each do |mkt|
+                ["2", "77", "28"].each do |mkt|
                     model_name = "Market"+mkt+"Live"
                     market = model_name.constantize.find_by(fixture_id: fixture_id)
                     if market
@@ -144,7 +144,7 @@ module Markets
                     end
                 end
 
-                ["3", "53"].each do |mkt|
+                ["3", "53", "52", "63"].each do |mkt|
                     model_name = "Market"+mkt+"Live"
                     market = model_name.constantize.find_by(fixture_id: fixture_id)
                     if market

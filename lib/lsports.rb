@@ -124,7 +124,7 @@ module Lsports
     ## Get Events
     ## Dates can be in format "Date.today.strftime("%F")"
     ## Method call ex: get_events(Date.today.strftime("%F"), (Date.today + 1.day).strftime("%F"))
-    def get_events(from_date, to_date)
+    def get_events(from_date, to_date, sports_id)
 
         # Convert the date to Unix timestamps
         start_date = from_date.to_time.to_i
@@ -141,7 +141,7 @@ module Lsports
             username: @@username,
             password: @@password,
             guid: @@prematch_guid,
-            sports: @@sports_id,
+            sports: sports_id,
             fromdate: start_date,
             todate: end_date,
             markets: markets
@@ -205,8 +205,8 @@ module Lsports
         end
     end
 
-    def fetch_fixture_markets
-        required_markets = ["1", "2", "3", "7", "17", "25", "53", "77", "113", "282"]
+    def fetch_fixture_markets(sports_id)
+        required_markets = ["1", "2", "3", "7", "17", "25", "28", "41", "42", "43", "44", "49", "52", "53", "63", "77", "113", "282"]
         markets = required_markets.join(",")
 
         url = @@end_point + "GetFixtureMarkets"
@@ -216,7 +216,7 @@ module Lsports
             username: @@username,
             password: @@password,
             guid: @@prematch_guid,
-            sports: @@sports_id,
+            sports: sports_id,
             markets: markets
         }
         uri.query = URI.encode_www_form(params)
@@ -253,14 +253,14 @@ module Lsports
                                     event["Providers"].each do |provider|
                                         if provider.has_key?("Bets") && provider["Bets"].is_a?(Array)
                                             provider["Bets"].each do |bet|
-                                                if event["Id"] == 2 || event["Id"] == 77
+                                                if [2, 28, 77].include?(event["Id"])# == 2 || event["Id"] == 77 || event["Id"] == 28
                                                     if bet["BaseLine"] == "2.5"
                                                         attrs["outcome_#{bet["Name"]}"] = bet["Price"]
                                                         attrs["status"] = market_status[bet["Status"]]
                                                         # Outcome.create(outcome_id: bet["Name"], description: @@market_description)
                                                     end
                                                 # BaseLine for markets 3 and 53 not clear yet
-                                                elsif event["Id"] == 3 || event["Id"] == 53
+                                                elsif [3, 52, 53, 63].include?(event["Id"])# == 3 || event["Id"] == 53
                                                     if bet["BaseLine"] == "-1.0 (0-0)"
                                                         attrs["outcome_#{bet["Name"]}"] = bet["Price"]
                                                         attrs["status"] = market_status[bet["Status"]]
@@ -295,7 +295,7 @@ module Lsports
     # Fetch Fixtures
     ## Use unix timestamps format for parameters
     ## Method call ex: fetch_fixtures(1623479275, 1623565675)
-    def fetch_fixtures(from_date, to_date)
+    def fetch_fixtures(from_date, to_date, sports_id)
 
         url = @@end_point + "GetFixtures"
         uri = URI(url)
@@ -305,7 +305,7 @@ module Lsports
             guid: @@prematch_guid,
             fromdate: from_date,
             todate: to_date,
-            sports: @@sports_id
+            sports: sports_id
         }
         uri.query = URI.encode_www_form(params)
 
@@ -332,7 +332,7 @@ module Lsports
     end
 
     # Fetch single Fixture
-    def fetch_fixture(fixture_id)
+    def fetch_fixture(fixture_id, sports_id)
         url = @@end_point + "GetFixtures"
 
         uri = URI(url)
@@ -340,7 +340,7 @@ module Lsports
             username: @@username,
             password: @@password,
             guid: @@prematch_guid,
-            sports: @@sports_id,
+            sports: sports_id,
             fixtures: fixture_id
         }
         uri.query = URI.encode_www_form(params)
@@ -363,7 +363,7 @@ module Lsports
         end
     end
 
-    def fetch_live_events_schedule
+    def fetch_live_events_schedule(sports_id)
         url = @@live_end_point + "schedule/GetInPlaySchedule"
 
         uri = URI(url)
@@ -371,7 +371,7 @@ module Lsports
             username: @@username,
             password: @@password,
             packageid: @@livematch_pkg_id,
-            sportids: @@sports_id
+            sportids: sports_id
         }
         uri.query = URI.encode_www_form(params)
 
@@ -395,7 +395,7 @@ module Lsports
         end
     end
 
-    def order_live_event(fixture_id)
+    def order_live_event(fixture_id, sports_id)
         url = @@live_end_point + "schedule/OrderFixtures"
 
         uri = URI(url)
@@ -403,7 +403,7 @@ module Lsports
             username: @@username,
             password: @@password,
             packageid: @@livematch_pkg_id,
-            sportids: @@sports_id,
+            sportids: sports_id,
             fixtureids: fixture_id
         }
         uri.query = URI.encode_www_form(params)
@@ -427,7 +427,7 @@ module Lsports
         end
     end
 
-    def cancel_live_event_order(fixture_id)
+    def cancel_live_event_order(fixture_id, sports_id)
         url = @@live_end_point + "schedule/CancelFixtureOrders"
 
         uri = URI(url)
@@ -435,7 +435,7 @@ module Lsports
             username: @@username,
             password: @@password,
             packageid: @@livematch_pkg_id,
-            sportids: @@sports_id,
+            sportids: sports_id,
             fixtureids: fixture_id
         }
         uri.query = URI.encode_www_form(params)
@@ -459,7 +459,7 @@ module Lsports
         end
     end
 
-    def get_live_events
+    def get_live_events(sports_id)
         url = @@live_end_point + "Snapshot/GetSnapshotJson"
 
         uri = URI(url)
@@ -467,7 +467,7 @@ module Lsports
             username: @@username,
             password: @@password,
             packageid: @@livematch_pkg_id,
-            sportids: @@sports_id
+            sportids: sports_id
         }
         uri.query = URI.encode_www_form(params)
 
