@@ -1,21 +1,30 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
+  skip_before_action :verify_authenticity_token, :only => :create
   layout "application"
   include CurrentCart
   before_action :set_cart
-  # before_action :configure_sign_up_params, only: [:create]
-  # before_action :configure_account_update_params, only: [:update]
+  respond_to :json
 
   # GET /resource/sign_up
-  # def new
-  #   super
-  # end
+  def new
+    # super
+    redirect_to root_path
+  end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+  def create
+    # super
+    user = User.new sign_up_params
+    if user.save
+      sign_in(user)
+      render :json=> {message: "Sign Up Success. Please verify phone number"}, :status=>200
+    else
+      warden.custom_failure!
+      render :json=> {message: user.errors.full_messages[0]}, :status=>500
+    end
+  end
 
   # GET /resource/edit
   # def edit

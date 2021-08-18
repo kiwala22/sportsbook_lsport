@@ -32,8 +32,10 @@ default: &default
     - .ttf
     - .woff
     - .woff2
+    - .webp
 
   extensions:
+    - .jsx
     - .mjs
     - .js
     - .sass
@@ -47,6 +49,7 @@ default: &default
     - .gif
     - .jpeg
     - .jpg
+    - .webp
 
 development:
   <<: *default
@@ -71,10 +74,9 @@ development:
     quiet: false
     pretty: false
     headers:
-      'Access-Control-Allow-Origin': '*'
+      "Access-Control-Allow-Origin": "*"
     watch_options:
-      ignored: '**/node_modules/**'
-
+      ignored: "**/node_modules/**"
 
 test:
   <<: *default

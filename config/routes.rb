@@ -1,5 +1,16 @@
 Rails.application.routes.draw do
 
+  root to: 'home#index'
+
+  ##React routes
+  match "cart_fixtures" => "line_bets#cart_fixtures", via: [:get]
+  namespace :api do
+   namespace :v1 do
+      match 'check_user' => "current_user#check_current_user", via: [:get]
+      match 'home' => "home#index", via: [:get]
+   end
+  end
+
   match '/faqs', to: "footer_tabs#faqs", via: [:get]
   match '/rules', to: "footer_tabs#rules", via: [:get]
   match '/contacts', to: "footer_tabs#contacts", via: [:get]
@@ -7,8 +18,6 @@ Rails.application.routes.draw do
   match '/privacy', to: "footer_tabs#privacy", via: [:get]
    # Serve websocket cable requests in-process
    mount ActionCable.server => '/cable'
-
-   root to: 'home#index'
 
    namespace :confirmation do
       match 'airtel/payment' => 'airtel_uganda#create', via: [:post, :get]
@@ -25,10 +34,10 @@ Rails.application.routes.draw do
    match '/clear_bet', to: "line_bets#line_bet_delete", via: [:delete]
    match '/button_display', to: "line_bets#close_betslip_button_display", via: [:get]
 
-   match 'password_reset' => "password_reset#new", via: [:post, :get]
-   match 'reset' => "password_reset#create", via: [:put]
-   match 'verify_reset' => "password_reset#edit", via: [:post, :get]
-   match 'password_update' => "password_reset#update", via: [:put]
+   match 'password_reset' => "password_reset#new", via: [:get]
+   match 'reset' => "password_reset#create", via: [:post]
+   match 'verify_reset' => "password_reset#edit", via: [:get]
+   match 'password_update' => "password_reset#update", via: [:post]
 
    namespace :fixtures do
       match 'search' => 'search#index', via: [:get]
@@ -55,7 +64,7 @@ Rails.application.routes.draw do
    match 'resend_verify' => "verify#create", via: [:post]
    match 'new_verify' => "verify#new", via: [:get]
    match 'send_verification' => "verify#verify_via_email", via: [:get]
-   match 'verify' => "verify#update", via: [:put]
+   match 'verify' => "verify#update", via: [:post]
 
    namespace :backend do
       namespace :fixtures do
@@ -94,8 +103,15 @@ Rails.application.routes.draw do
       end
    end
 
+   ## Devise routes for the react FE
+
+   # match 'users/sign_in' => "users/sessions/create", via: [:post]
+
+
    devise_for :users, path: 'users',  controllers: {
-      sessions: 'users/sessions'
+      sessions: 'users/sessions',
+      registrations: 'users/registrations',
+      passwords: 'users/passwords'
    }
 
    devise_for :admins, :skip => [:registrations], path: 'admins',  controllers:{

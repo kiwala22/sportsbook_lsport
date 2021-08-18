@@ -1,7 +1,8 @@
 class LineBetsController < ApplicationController
    protect_from_forgery :except => [:refresh, :line_bet_delete, :create, :destroy]
    include CurrentCart
-   before_action :set_cart, only: [:create, :destroy, :refresh, :close_betslip_button_display]
+   include BetslipCartHelper
+   before_action :set_cart, only: [:create, :destroy, :refresh, :close_betslip_button_display, :cart_fixtures]
    # before_action :set_line_item, only: [:show, :edit, :update, :destroy]
 
 
@@ -36,20 +37,35 @@ class LineBetsController < ApplicationController
      @line_bet = LineBet.find(params[:id])
      @cart = Cart.find(@line_bet.cart_id)
      @line_bet.delete
-     respond_to do |format|
-       format.js
-     end
+   #   respond_to do |format|
+   #     format.js
+   #   end
+      render json: {"status": "OK"}
+   end
+
+   def cart_fixtures
+      @games = @cart.line_bets
+      fixtures = []
+      @games.each do |bet|
+         if fetch_market_status(bet.market, bet.fixture_id) == "Active"
+            fixtures << { "fixtureId": bet.fixture_id, "partOne": bet.fixture.part_one_name, "partTwo": bet.fixture.part_two_name, "id": bet.id, 
+               "market": bet.market, "description": bet.description, "outcome": bet.outcome, "odd": fetch_current_odd(bet.market, bet.fixture_id, bet.outcome) }
+         end
+      end
+
+      render json: fixtures
    end
 
    def destroy
       @cart.destroy if @cart.id == session[:cart_id]
       session[:cart_id] = nil
-      respond_to do |format|
-         format.html { 
-            flash[:notice] = "Your slip is now currently empty"
-			   redirect_back(fallback_location: root_path)
-         }
-      end
+      # respond_to do |format|
+      #    format.html { 
+      #       flash[:notice] = "Your slip is now currently empty"
+		# 	   redirect_back(fallback_location: root_path)
+      #    }
+      # end
+      render json: {"status": "OK"}
    end
 
    def refresh

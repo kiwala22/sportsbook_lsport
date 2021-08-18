@@ -27,19 +27,13 @@
     </head>
 
     <body onunload="">
-        <!-- start page loading -->
-        <!-- <div id="preloader">
-        <div class="row loader">
-           <div class="loader-icon"></div>
-        </div>
-        <!-- end page loading -->
         <div class="wrapper root-app">
             <!-- top navbar-->
-            <header class="header-area gradient-bg">
+            <header class="header-area gradient-bg heading">
                 <%= render partial: "layouts/partials/topnavbar" %>
             </header>
             <!-- Main section-->
-            <section class="section-container">
+            <section class="section-container topping">
                 <!-- Page content-->
                 <div class="content-wrapper">
 
@@ -55,18 +49,7 @@
                             <% unless controller.controller_name == "verify" %>
                                 <div class="col-xl-3 col-lg-3 col-md-3 hidden-sm-down mt-20 px-lg-1 px-xl-1 px-md-1">
 
-                                    <div class="web-sidebar-widget">
-                                        <div class="widget-head" >
-                                            <h3 class="float-left">Betslip</h3>
-                                            <div id="close-button" data-controller="main" data-main-interval="1000"  onclick="localStorage.removeItem('stake')">
-                                                <%= link_to '<i class="far fa-times-circle fa-2x" data-toggle="tooltip" data-placement="top" title="Clear BetSlip"></i>'.html_safe, clear_slip_path , remote: true, method: :delete , class:"float-right"%>
-                                            </div>
-                                            <br>
-                                        </div>
-                                        <div class="widget-body" id="betslip" data-controller="betslip" data-betslip-interval="30000" data-betslip-url="<%= refresh_slip_path %>" data-betslip-method="POST" >
-                                            <%= render 'layouts/partials/betslip.html.erb' %>
-                                        </div>
-                                    </div>
+                                    <%= render 'layouts/partials/betslip.html.erb' %>
                                     <br>
                                     <%= render "layouts/partials/side_banner"%>
                                 </div>

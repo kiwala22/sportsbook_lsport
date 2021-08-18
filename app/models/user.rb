@@ -21,6 +21,7 @@ class User < ApplicationRecord
 
    validates :phone_number, presence: true
    validates :phone_number, uniqueness: true
+   validates :email, uniqueness: true
    validates :phone_number, format: {with: /\A(256)\d{9}\z/}
    validates :first_name, presence: true
    validates :last_name, presence: true
