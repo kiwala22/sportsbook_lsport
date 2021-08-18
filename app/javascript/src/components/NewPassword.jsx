@@ -79,14 +79,14 @@ const NewPassword = (props) => {
                           type={showPassword ? "text" : "password"}
                           placeholder="Please enter a minimum of 8 characters"
                           ref={password}
+                          className="form-control-tbb"
                         />
-                        <InputGroup.Append id="inputPassword">
-                          <InputGroup.Text
-                            onClick={() => setShowPassword(!showPassword)}
-                          >
-                            {showPassword ? <BsEyeSlash /> : <BsEye />}
-                          </InputGroup.Text>
-                        </InputGroup.Append>
+                        <span
+                          className="Bs-icon"
+                          onClick={() => setShowPassword(!showPassword)}
+                        >
+                          {showPassword ? <BsEye /> : <BsEyeSlash />}
+                        </span>
                         <Form.Control.Feedback type="invalid">
                           Password is Required!
                         </Form.Control.Feedback>
@@ -100,16 +100,14 @@ const NewPassword = (props) => {
                           type={showConfirmation ? "text" : "password"}
                           placeholder="Please enter a minimum of 8 characters"
                           ref={passwordConfirmation}
+                          className="form-control-tbb"
                         />
-                        <InputGroup.Append id="inputPasswordConfirmation">
-                          <InputGroup.Text
-                            onClick={() =>
-                              setShowConfirmation(!showConfirmation)
-                            }
-                          >
-                            {showConfirmation ? <BsEyeSlash /> : <BsEye />}
-                          </InputGroup.Text>
-                        </InputGroup.Append>
+                        <span
+                          className="Bs-icon"
+                          onClick={() => setShowConfirmation(!showConfirmation)}
+                        >
+                          {showConfirmation ? <BsEye /> : <BsEyeSlash />}
+                        </span>
                         <Form.Control.Feedback type="invalid">
                           Password Confirmation is Required!
                         </Form.Control.Feedback>

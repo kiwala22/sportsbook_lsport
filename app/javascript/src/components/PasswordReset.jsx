@@ -2,12 +2,14 @@ import cogoToast from "cogo-toast";
 import React, { useState } from "react";
 import { Button, Form, Spinner } from "react-bootstrap";
 import ReactDOM from "react-dom";
+import PhoneInput from "react-phone-number-input";
 import Requests from "../utilities/Requests";
 
 const PasswordReset = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [validated, setValidated] = useState(false);
-  const phoneNumber = React.createRef();
+  // const phoneNumber = React.createRef();
+  const [phoneNumber, setPhoneNumber] = useState("");
 
   const submit = (e) => {
     setIsLoading(true);
@@ -18,7 +20,7 @@ const PasswordReset = () => {
     } else {
       e.preventDefault();
       let path = "/reset";
-      let values = { phone_number: phoneNumber.current.value };
+      let values = { phone_number: phoneNumber.substring(1) };
       Requests.isPostRequest(path, values)
         .then((response) => {
           setIsLoading(false);
@@ -59,13 +61,21 @@ const PasswordReset = () => {
                   <Form noValidate validated={validated} onSubmit={submit}>
                     <Form.Group controlId="formBasicPhoneNumber">
                       <Form.Label>Phone Number</Form.Label>
-                      <Form.Control
+                      <PhoneInput
+                        international={false}
+                        defaultCountry="UG"
+                        value={phoneNumber}
+                        onChange={setPhoneNumber}
+                        className="form-control"
+                        required={true}
+                      />
+                      {/* <Form.Control
                         type="text"
                         className="form-control"
                         placeholder="2567123123123"
                         required
                         ref={phoneNumber}
-                      />
+                      /> */}
                       <Form.Control.Feedback type="invalid">
                         Please Enter your Phone Number!
                       </Form.Control.Feedback>

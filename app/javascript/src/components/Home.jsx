@@ -12,6 +12,23 @@ const Home = (props) => {
   const [liveGames, setLiveGames] = useState([]);
   const [featuredGames, setFeaturedGames] = useState([]);
   const [prematchGames, setPrematchGames] = useState([]);
+  const market = "1";
+  const outcomes = [
+    "1",
+    "2",
+    "X",
+    "12",
+    "1X",
+    "X2",
+    "Yes",
+    "No",
+    "Under",
+    "Over",
+  ];
+  // const prematchRefs = useRef([]);
+  // prematchRefs.current = prematchGames.map(
+  //   (el, i) => prematchRefs.current[i] ?? createRef()
+  // );
 
   useEffect(() => loadGames(), []);
 
@@ -31,10 +48,35 @@ const Home = (props) => {
       });
   };
 
-  const fixtureOutcome = () => {};
+  const updateMatchInfo = (data, market) => {
+    outcomes.forEach((element) => {
+      if (
+        document.getElementById(
+          `pre_${market}_${element}_${data.fixture_id}`
+        ) !== null
+      ) {
+        document.getElementById(
+          `pre_${market}_${element}_${data.fixture_id}`
+        ).innerHTML = data[`outcome_${element}`];
+        // $(`#pre_${market}_${element}_${data.fixture_id}`).addClass('fade-it');
+
+        // setTimeout(function(){
+        //     $(`#pre_${market}_${element}_${data.fixture_id}`).removeClass('fade-it');
+        // },1000);
+      } else if (
+        document.getElementById(
+          `pre_feat_${market}_${element}_${data.fixture_id}`
+        ) !== null
+      ) {
+        document.getElementById(
+          `pre_feat_${market}_${element}_${data.fixture_id}`
+        ).innerHTML = data[`outcome_${element}`];
+      }
+    });
+  };
 
   const displayLiveGames = () => {
-    return liveGames.map((fixture) => (
+    return liveGames.map((fixture, index) => (
       <tr
         key={shortUUID.generate()}
         // data-controller="live-odds-channel fixture-channel"
@@ -123,26 +165,17 @@ const Home = (props) => {
   };
 
   const displayFeaturedGames = (games, prefix) => {
-    return games.map((fixture) => (
+    return games.map((fixture, index) => (
       <PreOddsChannel
         key={shortUUID.generate()}
         channel="PreOddsChannel"
         fixture={fixture.id}
-        market="1"
+        market={market}
         received={(data) => {
-          loadGames();
-          // console.log(data);
+          updateMatchInfo(data, market);
         }}
       >
-        <tr
-        // data-controller="pre-odds-channel #markets-channel slips"
-        // data-pre-odds-channel-fixture=""
-        // data-markets-channel-fixture=""
-        // data-slips-fixture=""
-        // data-pre-odds-channel-market="1"
-        // data-markets-channel-market="1"
-        // data-slips-market="1"
-        >
+        <tr>
           <td>
             <a href={`/fixtures/soccer/pre?id=${fixture.id}`}>
               <Moment local format="HH:mm:ss">
@@ -168,11 +201,12 @@ const Home = (props) => {
             <a
               className="btnn intialise_input"
               id={`pre${prefix}_1_1_${fixture.id}`}
-              data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
-              data-remote="true"
-              rel="nofollow"
-              data-method="post"
-              href={`/add_bet?fixture_id=${fixture.id}&market=Market1Pre&outcome_desc=1X2+FT+-+1&outcome_id=1`}
+              // ref={prematchRefs.current[index]}
+              // onClick={() => console.log(prematchRefs.current[index].current)}
+              // data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
+              // data-remote="true"
+              // data-method="post"
+              // href={`/add_bet?fixture_id=${fixture.id}&market=Market1Pre&outcome_desc=1X2+FT+-+1&outcome_id=1`}
             >
               {fixture.outcome_1}
             </a>
@@ -182,11 +216,7 @@ const Home = (props) => {
             <a
               className="btnn intialise_input"
               id={`pre${prefix}_1_X_${fixture.id}`}
-              data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
-              data-remote="true"
-              rel="nofollow"
-              data-method="post"
-              href={`/add_bet?fixture_id=${fixture.id}&market=Market1Pre&outcome_desc=1X2+FT+-+1&outcome_id=X`}
+              // href={`/add_bet?fixture_id=${fixture.id}&market=Market1Pre&outcome_desc=1X2+FT+-+1&outcome_id=X`}
             >
               {fixture.outcome_X}
             </a>
@@ -196,11 +226,7 @@ const Home = (props) => {
             <a
               className="btnn intialise_input"
               id={`pre${prefix}_1_2_${fixture.id}`}
-              data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
-              data-remote="true"
-              rel="nofollow"
-              data-method="post"
-              href={`/add_bet?fixture_id=${fixture.id}&market=Market1Pre&outcome_desc=1X2+FT+-+1&outcome_id=2`}
+              // href={`/add_bet?fixture_id=${fixture.id}&market=Market1Pre&outcome_desc=1X2+FT+-+1&outcome_id=2`}
             >
               {fixture.outcome_2}
             </a>
@@ -247,13 +273,7 @@ const Home = (props) => {
                           <th className="col-1">2</th>
                         </tr>
                       </thead>
-                      <tbody
-                      // id="fixture-table-body-live"
-                      // data-controller="refresh"
-                      // data-refresh-interval="60000"
-                      // data-refresh-url="<% home_page_refresh_path %>"
-                      // data-refresh-method="GET"
-                      >
+                      <tbody id="fixture-table-body-live">
                         {/* <%= render partial: 'live_fixture_table' %> */}
                         {displayLiveGames()}
                       </tbody>
@@ -269,7 +289,6 @@ const Home = (props) => {
                 >
                   Show More
                 </a>
-                {/* <%= link_to "Show More".html_safe, fixtures_soccer_lives_path, id: "live-tab", className: "match-time show-more" %> */}
               </div>
             </>
           )}
@@ -321,13 +340,7 @@ const Home = (props) => {
                         <th className="col-1">2</th>
                       </tr>
                     </thead>
-                    <tbody
-                    // id="fixture-table-body-1"
-                    // data-controller="refresh"
-                    // data-refresh-interval="60000"
-                    // data-refresh-url="<% home_page_refresh_path %>"
-                    // data-refresh-method="GET"
-                    >
+                    <tbody id="fixture-table-body-1">
                       {displayFeaturedGames(featuredGames, "_feat")}
                       {/* <%= render partial: 'feat_prematch_fixture_table' %> */}
                     </tbody>
@@ -342,7 +355,6 @@ const Home = (props) => {
                 >
                   Show More
                 </a>
-                {/* <%= link_to "Show More".html_safe, fixtures_soccer_featured_path, id: "live-tab", className: "match-time show-more" %> */}
               </div>
             </div>
           )}
@@ -397,14 +409,7 @@ const Home = (props) => {
                         <th className="col-1">2</th>
                       </tr>
                     </thead>
-                    <tbody
-                      id="fixture-table-body"
-                      // data-target="match-fixtures.fixtures"
-                      // data-controller="fixture-channel pre-odds-channel refresh"
-                      // data-refresh-interval="60000"
-                      // data-refresh-url="<% home_page_refresh_path %>"
-                      // data-refresh-method="GET"
-                    >
+                    <tbody id="fixture-table-body">
                       {displayFeaturedGames(prematchGames, "")}
                       {/* <%= render partial: 'pre_match_fixture_table' %> */}
                     </tbody>
@@ -425,8 +430,6 @@ const Home = (props) => {
                         >
                           Show More
                         </a>
-                        {/* <%= link_to "Show More".html_safe, fixtures_soccer_pres_path, id: "pre-tab", 
-                                          className: "match-time show-more" %> */}
                       </div>
                     </div>
                   </div>

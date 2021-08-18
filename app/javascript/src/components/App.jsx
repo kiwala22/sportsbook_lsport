@@ -1,5 +1,6 @@
 // import "antd/dist/antd.css";
 import React from "react";
+import "react-phone-number-input/style.css";
 import "../css/App";
 import BetSlip from "./BetSlip";
 import Footer from "./Footer";

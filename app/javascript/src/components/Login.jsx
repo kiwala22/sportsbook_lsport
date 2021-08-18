@@ -9,12 +9,13 @@ import {
   Spinner,
 } from "react-bootstrap";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
+import PhoneInput from "react-phone-number-input";
 import Requests from "../utilities/Requests";
 import SignUp from "./SignUp";
 
 const Login = (props) => {
   const [show, setShow] = useState(false);
-  const userPhoneNumber = React.createRef();
+  // const userPhoneNumber = React.createRef();
   const userPassword = React.createRef();
   const userRemember = React.createRef();
   const [remember, setRemember] = useState(false);
@@ -22,6 +23,7 @@ const Login = (props) => {
   const signUpRef = React.createRef();
   const [isLoading, setIsLoading] = useState(false);
   const [validated, setValidated] = useState(false);
+  const [phoneNumber, setPhoneNumber] = useState("");
 
   const close = () => {
     setShow(false);
@@ -47,7 +49,7 @@ const Login = (props) => {
       let path = "/users/sign_in";
       let variables = {
         user: {
-          phone_number: userPhoneNumber.current.value,
+          phone_number: phoneNumber.substring(1),
           password: userPassword.current.value,
           remember_me: userRemember.current.checked,
         },
@@ -91,12 +93,20 @@ const Login = (props) => {
           <Form noValidate validated={validated} onSubmit={handleLogin}>
             <Form.Group controlId="formBasicPhoneNumber">
               <Form.Label>Phone Number</Form.Label>
-              <Form.Control
+              <PhoneInput
+                international={false}
+                defaultCountry="UG"
+                value={phoneNumber}
+                onChange={setPhoneNumber}
+                className="form-control"
+                required={true}
+              />
+              {/* <Form.Control
                 required
                 type="text"
                 placeholder="Phone Number"
                 ref={userPhoneNumber}
-              />
+              /> */}
               <Form.Control.Feedback type="invalid">
                 Phone Number is Required!
               </Form.Control.Feedback>

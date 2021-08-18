@@ -9,12 +9,14 @@ import {
   Spinner,
 } from "react-bootstrap";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
+import PhoneInput from "react-phone-number-input";
 import Requests from "../utilities/Requests";
 
 const SignUp = (props) => {
   const [show, setShow] = useState(false);
   const userEmail = React.createRef();
-  const userPhoneNumber = React.createRef();
+  // const userPhoneNumber = React.createRef();
+  const [phoneNumber, setPhoneNumber] = useState("");
   const userPassword = React.createRef();
   const userAgreement = React.createRef();
   const userFirstName = React.createRef();
@@ -51,7 +53,7 @@ const SignUp = (props) => {
       let variables = {
         user: {
           email: userEmail.current.value,
-          phone_number: userPhoneNumber.current.value,
+          phone_number: phoneNumber.substring(1),
           first_name: userFirstName.current.value,
           last_name: userLastName.current.value,
           password: userPassword.current.value,
@@ -104,12 +106,20 @@ const SignUp = (props) => {
             </Form.Group>
             <Form.Group controlId="formBasicPhoneNumber">
               <Form.Label>Phone Number</Form.Label>
-              <Form.Control
+              <PhoneInput
+                international={false}
+                defaultCountry="UG"
+                value={phoneNumber}
+                onChange={setPhoneNumber}
+                className="form-control"
+                required={true}
+              />
+              {/* <Form.Control
                 required
                 type="text"
                 placeholder="256772000001"
                 ref={userPhoneNumber}
-              />
+              /> */}
               <Form.Control.Feedback type="invalid">
                 Phone Number is Required!
               </Form.Control.Feedback>
