@@ -22,54 +22,18 @@
         <%= yield :vendor_css_area %>
         <%= csrf_meta_tags %>
         <%= csp_meta_tag %>
-        <%= action_cable_meta_tag %>        
+        <%= action_cable_meta_tag %>    
+        <!-- =============== APP SCRIPTS ===============-->
+            <%= javascript_pack_tag 'user_application', 'data-turbolinks-track': 'reload'  %>
+            <%= yield :vendor_js_area %>
+
+            <%= yield :body_area %>    
 
     </head>
 
     <body onunload="">
-        <div class="wrapper root-app">
-            <!-- top navbar-->
-            <header class="header-area gradient-bg heading">
-                <%= render partial: "layouts/partials/topnavbar" %>
-            </header>
-            <!-- Main section-->
-            <section class="section-container topping">
-                <!-- Page content-->
-                <div class="content-wrapper">
-
-                    <div class="container-fluid">
-                        <div class="row">
-                            <%= render partial: "layouts/partials/sidebar" %>
-                            <div class="col-xl-7 col-lg-7 col-md-7 col-sm-12 mt-20 px-lg-1 px-xl-1 px-md-1">
-                                <div>
-                                    <%= render partial: "layouts/partials/flash" %>
-                                    <%= yield %>
-                                </div>
-                            </div>
-                            <% unless controller.controller_name == "verify" %>
-                                <div class="col-xl-3 col-lg-3 col-md-3 hidden-sm-down mt-20 px-lg-1 px-xl-1 px-md-1">
-
-                                    <%= render 'layouts/partials/betslip.html.erb' %>
-                                    <br>
-                                    <%= render "layouts/partials/side_banner"%>
-                                </div>
-
-                            <% end %>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <!-- Page footer-->
-            <footer class="footer-container">
-                <%= render partial: "layouts/partials/footer" %>
-            </footer>
-            <!-- =============== APP SCRIPTS ===============-->
-            <%= javascript_pack_tag 'user_application', 'data-turbolinks-track': 'reload'  %>
-            <%= yield :vendor_js_area %>
-
-            <%= yield :body_area %>
+        <div id="root-app">
+        
         </div>
     <body>
-
-
 </html>

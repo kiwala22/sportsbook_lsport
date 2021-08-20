@@ -1,5 +1,4 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import BannerOne from "../Images/side_banner_1.webp";
 import BannerTwo from "../Images/side_banner_2.webp";
 
@@ -21,8 +20,3 @@ const SideBanner = () => {
   );
 };
 export default SideBanner;
-
-document.addEventListener("DOMContentLoaded", () => {
-  const banner = document.getElementById("banners");
-  banner && ReactDOM.render(<SideBanner />, banner);
-});

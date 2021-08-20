@@ -1,33 +1,23 @@
-// import "antd/dist/antd.css";
 import React from "react";
+import ReactDOM from "react-dom";
 import "react-phone-number-input/style.css";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "../css/App";
-import BetSlip from "./BetSlip";
-import Footer from "./Footer";
-import Home from "./Home";
-import Navbar from "./Navbar";
-import NewPassword from "./NewPassword";
-import PasswordCode from "./PasswordCode";
-import PasswordReset from "./PasswordReset";
-import SideBanner from "./SideBanner";
-import Sidebar from "./Sidebar";
-import Verify from "./Verify";
+import Base from "./Base";
 
 const App = (props) => {
   return (
     <>
-      <Navbar />
-      <Home />
-      <Footer />
-      <Sidebar />
-      <BetSlip />
-      <SideBanner />
-      <Verify />
-      <PasswordReset />
-      <PasswordCode />
-      <NewPassword />
+      <Router>
+        <Switch>
+          <Route path="/" component={Base} />
+        </Switch>
+      </Router>
     </>
   );
 };
 
-export default App;
+document.addEventListener("DOMContentLoaded", () => {
+  const app = document.getElementById("root-app");
+  app && ReactDOM.render(<App />, app);
+});

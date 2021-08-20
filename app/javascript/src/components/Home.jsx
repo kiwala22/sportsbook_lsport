@@ -1,11 +1,13 @@
 import "channels";
 import cogoToast from "cogo-toast";
 import React, { useEffect, useState } from "react";
-import ReactDOM from "react-dom";
 import Moment from "react-moment";
+import { Link } from "react-router-dom";
 import shortUUID from "short-uuid";
-import PreOddsChannel from "../../channels/fixtures_channel";
-import MarketsChannel from "../../channels/markets_channel";
+import LiveOddsChannel from "../../channels/liveOddsChannel";
+import MarketsChannel from "../../channels/marketsChannel";
+// import OddsChannel from "../../channels/fixtures_channel";
+import PreOddsChannel from "../../channels/preOddsChannel";
 import Banner from "../Images/web_banner_main.webp";
 import Requests from "../utilities/Requests";
 
@@ -13,17 +15,74 @@ const Home = (props) => {
   const [liveGames, setLiveGames] = useState([]);
   const [featuredGames, setFeaturedGames] = useState([]);
   const [prematchGames, setPrematchGames] = useState([]);
+  const [games, setGames] = useState({});
 
-  useEffect(() => loadGames(), []);
+  useEffect(() => loadLiveGames(), []);
+  useEffect(() => loadPreMatchGames(), []);
+  useEffect(() => loadFeaturedGames(), []);
 
-  const loadGames = () => {
-    let path = "/api/v1/home";
+  // const loadGames = () => {
+  //   let path = "/api/v1/home";
+  //   let values = {};
+  //   Requests.isGetRequest(path, values)
+  //     .then((response) => {
+  //       loadLiveGames(response.data.live);
+  //       // loadPreMatchGames(response.data.prematch);
+  //       // loadFeaturedGames(response.data.featured);
+  //     })
+  //     .catch((error) => {
+  //       cogoToast.error(error.message, {
+  //         hideAfter: 5,
+  //       });
+  //     });
+  // };
+
+  const loadLiveGames = () => {
+    let path = "/api/v1/live";
     let values = {};
     Requests.isGetRequest(path, values)
       .then((response) => {
-        setLiveGames(response.data.live);
-        setFeaturedGames(response.data.featured);
-        setPrematchGames(response.data.prematch);
+        var liveGames = response.data.live;
+        setGames((prevState) => ({
+          ...prevState,
+          live: liveGames,
+        }));
+      })
+      .catch((error) => {
+        cogoToast.error(error.message, {
+          hideAfter: 5,
+        });
+      });
+  };
+
+  const loadPreMatchGames = () => {
+    let path = "/api/v1/prematch";
+    let values = {};
+    Requests.isGetRequest(path, values)
+      .then((response) => {
+        var preMatch = response.data.prematch;
+        setGames((prevState) => ({
+          ...prevState,
+          prematch: preMatch,
+        }));
+      })
+      .catch((error) => {
+        cogoToast.error(error.message, {
+          hideAfter: 5,
+        });
+      });
+  };
+
+  const loadFeaturedGames = () => {
+    let path = "/api/v1/featured";
+    let values = {};
+    Requests.isGetRequest(path, values)
+      .then((response) => {
+        var featured = response.data.featured;
+        setGames((prevState) => ({
+          ...prevState,
+          featured: featured,
+        }));
       })
       .catch((error) => {
         cogoToast.error(error.message, {
@@ -33,6 +92,7 @@ const Home = (props) => {
   };
 
   const updateMatchInfo = (data, currentState, setState) => {
+    console.log(currentState);
     let fixtureIndex = currentState.findIndex((el) => data.fixture_id == el.id);
     if (data.status !== "Active") {
       currentState.splice(fixtureIndex, 1);
@@ -54,90 +114,101 @@ const Home = (props) => {
 
   const displayLiveGames = (games, setState) => {
     return games.map((fixture) => (
-      <tr
+      <LiveOddsChannel
         key={shortUUID.generate()}
-        // data-controller="live-odds-channel fixture-channel"
-        // data-fixture-channel-fixture=""
-        // data-live-odds-channel-fixture=""
-        // data-markets-channel-fixture=""
-        // data-slips-fixture=""
-        // data-live-odds-channel-market="1"
-        // data-markets-channel-market="1"
-        // data-slips-market="1"
+        channel="LiveOddsChannel"
+        fixture={fixture.id}
+        market="1"
+        received={(data) => {
+          console.log(data);
+          //updateMatchInfo(data, games, setState);
+        }}
       >
-        <td>
-          {/* <%= link_to fixtures_soccer_live_path(id: fixture.id) do  %> */}
-          <a href={`/fixtures/soccer/live?id=${fixture.id}`}>
-            <strong>{fixture.part_one_name}</strong>
-            <strong>{fixture.part_two_name}</strong>
-          </a>
-          {/* <% end %> */}
-        </td>
-        <td>
-          {/* <%= link_to fixtures_soccer_live_path(id: fixture.id) do  %> */}
-          <a href={`/fixtures/soccer/live?id=${fixture.id}`}>
-            <strong>
-              <span
-                className="blinking match-time"
-                id={`match_time_${fixture.id}`}
-              >
-                {fixture.match_time}
-              </span>
-            </strong>
-            <strong>
-              <span className="score" id={`match_score_${fixture.id}`}>
-                {fixture.home_score} - {fixture.away_score}
-              </span>
-            </strong>
-          </a>
-          {/* <% end %> */}
-        </td>
-        <td>
-          <a href={`/fixtures/soccer/live?id=${fixture.id}`}>
-            {fixture.league_name} <br />
-            {fixture.location}
-          </a>
-        </td>
-        <td>
-          <a
-            className="btnn intialise_input"
-            id={`live_1_1_${fixture.id}`}
-            data-remote="true"
-            rel="nofollow"
-            data-method="post"
-            href={`/add_bet?fixture_id=${fixture.id}&market=Market1Live&outcome_desc=1X2+FT+-+1&outcome_id=1`}
-          >
-            {fixture.outcome_1}
-          </a>
-          {/* <%= link_to(fixture.market1_live.outcome_1, add_bet_path(outcome_id: "1", fixture_id: fixture.id, market: "Market1Live", outcome_desc: "1X2 FT - 1") , class: "btnn intialise_input",id:"live_1_1_#{fixture.id}", remote: true, method: :post )%> */}
-        </td>
-        <td>
-          <a
-            className="btnn intialise_input"
-            id={`live_1_X_${fixture.id}`}
-            data-remote="true"
-            rel="nofollow"
-            data-method="post"
-            href={`/add_bet?fixture_id=${fixture.id}&market=Market1Live&outcome_desc=1X2+FT+-+X&outcome_id=X`}
-          >
-            {fixture.outcome_X}
-          </a>
-          {/* <%= link_to(fixture.market1_live.outcome_X, add_bet_path(outcome_id: "X", fixture_id: fixture.id, market: "Market1Live", outcome_desc: "1X2 FT - X") , class: "btnn intialise_input", id:"live_1_X_#{fixture.id}",remote: true, method: :post )%> */}
-        </td>
-        <td>
-          <a
-            className="btnn intialise_input"
-            id={`live_1_2_${fixture.id}`}
-            data-remote="true"
-            rel="nofollow"
-            data-method="post"
-            href={`/add_bet?fixture_id=${fixture.id}&market=Market1Live&outcome_desc=1X2+FT+-+2&outcome_id=2`}
-          >
-            {fixture.outcome_2}
-          </a>
-          {/* <%= link_to(fixture.market1_live.outcome_2, add_bet_path(outcome_id: "2", fixture_id: fixture.id, market: "Market1Live", outcome_desc: "1X2 FT - 2") , class: "btnn intialise_input", id:"live_1_2_#{fixture.id}", remote: true, method: :post )%> */}
-        </td>
-      </tr>
+        <tr
+          key={shortUUID.generate()}
+          // data-controller="live-odds-channel fixture-channel"
+          // data-fixture-channel-fixture=""
+          // data-live-odds-channel-fixture=""
+          // data-markets-channel-fixture=""
+          // data-slips-fixture=""
+          // data-live-odds-channel-market="1"
+          // data-markets-channel-market="1"
+          // data-slips-market="1"
+        >
+          <td>
+            {/* <%= link_to fixtures_soccer_live_path(id: fixture.id) do  %> */}
+            <a href={`/fixtures/soccer/live?id=${fixture.id}`}>
+              <strong>{fixture.part_one_name}</strong>
+              <strong>{fixture.part_two_name}</strong>
+            </a>
+            {/* <% end %> */}
+          </td>
+          <td>
+            {/* <%= link_to fixtures_soccer_live_path(id: fixture.id) do  %> */}
+            <a href={`/fixtures/soccer/live?id=${fixture.id}`}>
+              <strong>
+                <span
+                  className="blinking match-time"
+                  id={`match_time_${fixture.id}`}
+                >
+                  {fixture.match_time}
+                </span>
+              </strong>
+              <strong>
+                <span className="score" id={`match_score_${fixture.id}`}>
+                  {fixture.home_score} - {fixture.away_score}
+                </span>
+              </strong>
+            </a>
+            {/* <% end %> */}
+          </td>
+          <td>
+            <a href={`/fixtures/soccer/live?id=${fixture.id}`}>
+              {fixture.league_name} <br />
+              {fixture.location}
+            </a>
+          </td>
+          <td>
+            <a
+              className="btnn intialise_input"
+              id={`live_1_1_${fixture.id}`}
+              data-remote="true"
+              rel="nofollow"
+              data-method="post"
+              href={`/add_bet?fixture_id=${fixture.id}&market=Market1Live&outcome_desc=1X2+FT+-+1&outcome_id=1`}
+            >
+              {fixture.outcome_1}
+            </a>
+            {/* <%= link_to(fixture.market1_live.outcome_1, add_bet_path(outcome_id: "1", fixture_id: fixture.id, market: "Market1Live", outcome_desc: "1X2 FT - 1") , class: "btnn intialise_input",id:"live_1_1_#{fixture.id}", remote: true, method: :post )%> */}
+          </td>
+          <td>
+            <a
+              className="btnn intialise_input"
+              id={`live_1_X_${fixture.id}`}
+              data-remote="true"
+              rel="nofollow"
+              data-method="post"
+              href={`/add_bet?fixture_id=${fixture.id}&market=Market1Live&outcome_desc=1X2+FT+-+X&outcome_id=X`}
+            >
+              {fixture.outcome_X}
+            </a>
+            {/* <%= link_to(fixture.market1_live.outcome_X, add_bet_path(outcome_id: "X", fixture_id: fixture.id, market: "Market1Live", outcome_desc: "1X2 FT - X") , class: "btnn intialise_input", id:"live_1_X_#{fixture.id}",remote: true, method: :post )%> */}
+          </td>
+          <td>
+            <a
+              className="btnn intialise_input"
+              id={`live_1_2_${fixture.id}`}
+              data-remote="true"
+              rel="nofollow"
+              data-method="post"
+              href={`/add_bet?fixture_id=${fixture.id}&market=Market1Live&outcome_desc=1X2+FT+-+2&outcome_id=2`}
+            >
+              {fixture.outcome_2}
+            </a>
+            {/* <%= link_to(fixture.market1_live.outcome_2, add_bet_path(outcome_id: "2", fixture_id: fixture.id, market: "Market1Live", outcome_desc: "1X2 FT - 2") , class: "btnn intialise_input", id:"live_1_2_#{fixture.id}", remote: true, method: :post )%> */}
+          </td>
+        </tr>
+      </LiveOddsChannel>
     ));
   };
 
@@ -149,7 +220,8 @@ const Home = (props) => {
         fixture={fixture.id}
         market="1"
         received={(data) => {
-          updateMatchInfo(data, games, setState);
+          console.log(data);
+          //updateMatchInfo(data, games, setState);
         }}
       >
         <MarketsChannel
@@ -247,7 +319,7 @@ const Home = (props) => {
             </h3>
           </div>
           {/* <% if @live_fixtures.present? %> */}
-          {liveGames.length && (
+          {games.live && (
             <>
               <div className="card-body">
                 <div className="tab-content" id="">
@@ -269,26 +341,25 @@ const Home = (props) => {
                       </thead>
                       <tbody>
                         {/* <%= render partial: 'live_fixture_table' %> */}
-                        {displayLiveGames(liveGames, setLiveGames)}
+                        {displayLiveGames(games.live, setGames)}
                       </tbody>
                     </table>
                   </div>
                 </div>
               </div>
               <div className="text-center mb-2">
-                <a
-                  id="live-tab"
+                <Link
                   className="match-time show-more"
-                  href="/fixtures/soccer/lives"
+                  to={"/fixtures/soccer/lives/"}
                 >
                   Show More
-                </a>
+                </Link>
                 {/* <%= link_to "Show More".html_safe, fixtures_soccer_lives_path, id: "live-tab", className: "match-time show-more" %> */}
               </div>
             </>
           )}
           {/* <% else %> */}
-          {!liveGames.length && (
+          {!games.live && (
             <div className="card-body">
               <div className="tab-content" id="">
                 <div
@@ -316,7 +387,7 @@ const Home = (props) => {
             </h3>
           </div>
           {/* <% if !@featured.empty? %> */}
-          {featuredGames.length && (
+          {games.featured && (
             <div className="card-body">
               <div className="tab-content" id="">
                 <div
@@ -336,11 +407,7 @@ const Home = (props) => {
                       </tr>
                     </thead>
                     <tbody>
-                      {displayFeaturedGames(
-                        featuredGames,
-                        "_feat",
-                        setPrematchGames
-                      )}
+                      {displayFeaturedGames(games.featured, "_feat", setGames)}
                       {/* <%= render partial: 'feat_prematch_fixture_table' %> */}
                     </tbody>
                   </table>
@@ -359,7 +426,7 @@ const Home = (props) => {
             </div>
           )}
           {/* <%else%> */}
-          {!featuredGames.length && (
+          {!games.featured && (
             <div className="card-body">
               <div className="tab-content" id="">
                 <div
@@ -390,7 +457,7 @@ const Home = (props) => {
           <div className="card-body">
             <div className="tab-content" id="myTabContent">
               {/* <% if @prematch_fixtures.present? %> */}
-              {prematchGames.length && (
+              {games.prematch && (
                 <div
                   className="tab-pane fade show active"
                   id="home"
@@ -410,11 +477,7 @@ const Home = (props) => {
                       </tr>
                     </thead>
                     <tbody id="fixture-table-body">
-                      {displayFeaturedGames(
-                        prematchGames,
-                        "",
-                        setPrematchGames
-                      )}
+                      {displayFeaturedGames(games.prematch, "", setGames)}
                       {/* <%= render partial: 'pre_match_fixture_table' %> */}
                     </tbody>
                   </table>
@@ -442,7 +505,7 @@ const Home = (props) => {
                 </div>
               )}
               {/* <% else %> */}
-              {!prematchGames.length && (
+              {!games.prematch && (
                 <div className="card-body">
                   <div className="tab-content" id="">
                     <div>
@@ -460,8 +523,3 @@ const Home = (props) => {
   );
 };
 export default Home;
-
-document.addEventListener("DOMContentLoaded", () => {
-  const home = document.getElementById("home");
-  home && ReactDOM.render(<Home />, home);
-});

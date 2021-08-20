@@ -6,7 +6,7 @@ class HomeController < ApplicationController
 		
 	end
 
-	def page_refresh
-		render :action => :index and return
-	 end
+	# def page_refresh
+	# 	render :action => :index and return
+	#  end
 end

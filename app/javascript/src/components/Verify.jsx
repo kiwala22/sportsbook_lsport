@@ -1,7 +1,6 @@
 import cogoToast from "cogo-toast";
 import React, { useState } from "react";
 import { Button, Form, Spinner } from "react-bootstrap";
-import ReactDOM from "react-dom";
 import Requests from "../utilities/Requests";
 
 const Verify = (props) => {
@@ -26,7 +25,10 @@ const Verify = (props) => {
         .then((response) => {
           cogoToast.success(response.data.message, { hideAfter: 5 });
           setIsLoading(false);
-          window.location.replace("/");
+          props.history.push("/");
+          setTimeout(() => {
+            window.location.reload();
+          });
         })
         .catch((error) => {
           cogoToast.error(
@@ -79,7 +81,6 @@ const Verify = (props) => {
                       <Form.Control
                         type="text"
                         className="form-control"
-                        id="verificationCode"
                         placeholder="Ex: 123123"
                         required
                         ref={verificationCode}
@@ -157,8 +158,3 @@ const Verify = (props) => {
 };
 
 export default Verify;
-
-document.addEventListener("DOMContentLoaded", () => {
-  const verify = document.getElementById("verify");
-  verify && ReactDOM.render(<Verify />, verify);
-});

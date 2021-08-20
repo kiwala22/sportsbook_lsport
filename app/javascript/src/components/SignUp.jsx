@@ -66,9 +66,9 @@ const SignUp = (props) => {
           close();
           cogoToast.success(response.data.message, { hideAfter: 5 });
           setIsLoading(false);
-          // props.history.push("/new_verify");
-          var url = "/new_verify";
-          window.location.replace(url);
+          window.location.replace("/new_verify/");
+          // var url = "/new_verify";
+          // window.location.replace(url);
           // window.location.reload();
         })
         .catch((error) => {

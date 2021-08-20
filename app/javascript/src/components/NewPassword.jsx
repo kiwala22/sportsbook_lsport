@@ -1,7 +1,6 @@
 import cogoToast from "cogo-toast";
 import React, { useState } from "react";
 import { Button, Form, InputGroup, Spinner } from "react-bootstrap";
-import ReactDOM from "react-dom";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
 import Requests from "../utilities/Requests";
 
@@ -38,8 +37,9 @@ const NewPassword = (props) => {
         .then((response) => {
           cogoToast.success(response.data.message, { hideAfter: 5 });
           setIsLoading(false);
+          props.history.push("/");
           setTimeout(() => {
-            window.location.replace("/");
+            window.location.reload();
           }, 1000);
         })
         .catch((error) => {
@@ -145,8 +145,3 @@ const NewPassword = (props) => {
 };
 
 export default NewPassword;
-
-document.addEventListener("DOMContentLoaded", () => {
-  const password = document.getElementById("new-password");
-  password && ReactDOM.render(<NewPassword />, password);
-});

@@ -2,10 +2,9 @@ import "channels";
 import cogoToast from "cogo-toast";
 import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
-import ReactDOM from "react-dom";
 import shortUUID from "short-uuid";
-import BetslipChannel from "../../channels/fixtures_channel";
-import MarketsChannel from "../../channels/markets_channel";
+import BetslipChannel from "../../channels/betSlipsChannel";
+import MarketsChannel from "../../channels/marketsChannel";
 import currencyFormatter from "../utilities/CurrencyFormatter";
 import Request from "../utilities/Requests";
 import UserLogin from "../utilities/UserLogin";
@@ -203,65 +202,66 @@ const BetSlip = (props) => {
   };
   return (
     <>
-      <div className="widget-head">
-        <h3 className="float-left">Betslip</h3>
+      <div className="web-sidebar-widget" id="betSlip">
+        <div className="widget-head">
+          <h3 className="float-left">Betslip</h3>
+          {isVisible && (
+            <div
+              id="close-button"
+              // data-controller="main"
+              // data-main-interval="1000"
+            >
+              <a className="float-right" onClick={() => clearBetSlip()}>
+                <i
+                  className="far fa-times-circle fa-2x"
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="Clear BetSlip"
+                ></i>
+              </a>
+            </div>
+          )}
+          <br />
+        </div>
         {isVisible && (
-          <div
-            id="close-button"
-            // data-controller="main"
-            // data-main-interval="1000"
-          >
-            <a className="float-right" onClick={() => clearBetSlip()}>
-              <i
-                className="far fa-times-circle fa-2x"
-                data-toggle="tooltip"
-                data-placement="top"
-                title="Clear BetSlip"
-              ></i>
-            </a>
-          </div>
-        )}
-        <br />
-      </div>
-      {isVisible && (
-        <div className="widget-body" id="betslip">
-          <div className="bets" id="bets-row" data-controller="slips">
-            {slipGames()}
-            <div className="total-bet">
-              <span className="col-8 px-1">
-                <input
-                  type="number"
-                  name="stake"
-                  id="stake-input"
-                  placeholder="Min Stake: UGX 1,000"
-                  className=""
-                  value={stake}
-                  id="stakeInput"
-                  onChange={(event) => {
-                    setStake(event.target.value);
-                  }}
-                />
-              </span>
-              <span
-                className="col-4 px-1"
-                id="total-odds"
-                data-target="slips.total"
-              >
-                {totalOdds()}
-              </span>
-            </div>
-            <div className="">
-              <span id="amount-limits" className="limits"></span>
-            </div>
-            <div className="total-wins">
-              <span>Payout</span>
-              <span id="total-wins" data-target="slips.wins">
-                {win}
-              </span>
-            </div>
-            {userSignedIn && (
-              <div className="actions">
-                {/* <a
+          <div className="widget-body" id="betslip">
+            <div className="bets" id="bets-row" data-controller="slips">
+              {slipGames()}
+              <div className="total-bet">
+                <span className="col-8 px-1">
+                  <input
+                    type="number"
+                    name="stake"
+                    id="stake-input"
+                    placeholder="Min Stake: UGX 1,000"
+                    className=""
+                    value={stake}
+                    id="stakeInput"
+                    onChange={(event) => {
+                      setStake(event.target.value);
+                    }}
+                  />
+                </span>
+                <span
+                  className="col-4 px-1"
+                  id="total-odds"
+                  data-target="slips.total"
+                >
+                  {totalOdds()}
+                </span>
+              </div>
+              <div className="">
+                <span id="amount-limits" className="limits"></span>
+              </div>
+              <div className="total-wins">
+                <span>Payout</span>
+                <span id="total-wins" data-target="slips.wins">
+                  {win}
+                </span>
+              </div>
+              {userSignedIn && (
+                <div className="actions">
+                  {/* <a
                   onClick={(event) => {
                     placeBet(event.target);
                   }}
@@ -271,38 +271,34 @@ const BetSlip = (props) => {
                 >
                   PLACE BET
                 </a> */}
-                <Button
-                  id="place_bet"
-                  onClick={(event) => {
-                    placeBet(event.target);
-                  }}
-                  className="btn btn-block btn-primary mt-lg login-btn border-transparent"
-                  data-disable-with="<i class='fas fa-spinner fa-spin'></i> Placing Bet..."
-                >
-                  PLACE BET
-                </Button>
-              </div>
-            )}
-            {!userSignedIn && (
-              <Login notice="Login before placing bet..">
-                <Button
-                  id="slip_login"
-                  className="btn btn-block btn-primary mt-lg login-btn border-transparent"
-                >
-                  PLACE BET
-                </Button>
-              </Login>
-            )}
+                  <Button
+                    id="place_bet"
+                    onClick={(event) => {
+                      placeBet(event.target);
+                    }}
+                    className="btn btn-block btn-primary mt-lg login-btn border-transparent"
+                    data-disable-with="<i class='fas fa-spinner fa-spin'></i> Placing Bet..."
+                  >
+                    PLACE BET
+                  </Button>
+                </div>
+              )}
+              {!userSignedIn && (
+                <Login notice="Login before placing bet..">
+                  <Button
+                    id="slip_login"
+                    className="btn btn-block btn-primary mt-lg login-btn border-transparent"
+                  >
+                    PLACE BET
+                  </Button>
+                </Login>
+              )}
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </>
   );
 };
 
 export default BetSlip;
-
-document.addEventListener("DOMContentLoaded", () => {
-  const slip = document.getElementById("betSlip");
-  slip && ReactDOM.render(<BetSlip />, slip);
-});

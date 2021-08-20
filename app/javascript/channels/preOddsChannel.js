@@ -2,7 +2,7 @@
 import React from "react";
 import consumer from "./consumer";
 
-export default function (props) {
+const PreOddsChannel = (props) => {
   consumer.subscriptions.create(
     {
       channel: props.channel,
@@ -10,17 +10,20 @@ export default function (props) {
       market: props.market,
     },
     {
-      connected() {
-        //when channel is ready for use
-      },
-      disconnected() {
-        //when channel is disconnected
-      },
+      //   connected() {
+      //     //when channel is ready for use
+      //   },
+      //   disconnected() {
+      //     //when channel is disconnected
+      //   },
       received(data) {
+        console.log("received Data");
         //when data is received
         props.received(data);
       },
     }
   );
   return <>{props.children}</>;
-}
+};
+
+export default PreOddsChannel;

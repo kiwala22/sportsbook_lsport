@@ -1,11 +1,9 @@
 import cogoToast from "cogo-toast";
 import React, { useState } from "react";
 import { Button, Form, Spinner } from "react-bootstrap";
-import ReactDOM from "react-dom";
 import Requests from "../utilities/Requests";
-import NewPassword from "./NewPassword";
 
-const PasswordCode = () => {
+const PasswordCode = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [validated, setValidated] = useState(false);
   const resetCode = React.createRef();
@@ -27,12 +25,9 @@ const PasswordCode = () => {
         .then((response) => {
           cogoToast.success(response.data.message, { hideAfter: 5 });
           setIsLoading(false);
-          <NewPassword token={response.data.token} />;
-          setTimeout(() => {
-            window.location.replace(
-              `/users/password/edit?reset_password_token=${response.data.token}`
-            );
-          }, 1000);
+          props.history.push(
+            `/users/password/edit?reset_password_token=${response.data.token}`
+          );
         })
         .catch((error) => {
           cogoToast.error(
@@ -111,8 +106,3 @@ const PasswordCode = () => {
 };
 
 export default PasswordCode;
-
-document.addEventListener("DOMContentLoaded", () => {
-  const password = document.getElementById("password-edit");
-  password && ReactDOM.render(<PasswordCode />, password);
-});

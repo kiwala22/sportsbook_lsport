@@ -1,11 +1,10 @@
 import cogoToast from "cogo-toast";
 import React, { useState } from "react";
 import { Button, Form, Spinner } from "react-bootstrap";
-import ReactDOM from "react-dom";
 import PhoneInput from "react-phone-number-input";
 import Requests from "../utilities/Requests";
 
-const PasswordReset = () => {
+const PasswordReset = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [validated, setValidated] = useState(false);
   // const phoneNumber = React.createRef();
@@ -25,9 +24,7 @@ const PasswordReset = () => {
         .then((response) => {
           setIsLoading(false);
           cogoToast.success(response.data.message, { hideAfter: 5 });
-          setTimeout(() => {
-            window.location.replace("/verify_reset");
-          }, 2000);
+          props.history.push("/verify_reset/");
         })
         .catch((error) => {
           cogoToast.error(
@@ -42,7 +39,6 @@ const PasswordReset = () => {
     setValidated(true);
     e.preventDefault();
     setIsLoading(true);
-    console.log("testing");
     setTimeout(() => {
       setIsLoading(false);
     }, 3000);
@@ -116,8 +112,3 @@ const PasswordReset = () => {
 };
 
 export default PasswordReset;
-
-document.addEventListener("DOMContentLoaded", () => {
-  const passwordReset = document.getElementById("password-reset");
-  passwordReset && ReactDOM.render(<PasswordReset />, passwordReset);
-});

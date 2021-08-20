@@ -1,7 +1,7 @@
 import cogoToast from "cogo-toast";
 import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
-import ReactDOM from "react-dom";
+import { Link } from "react-router-dom";
 import currencyFormatter from "../utilities/CurrencyFormatter";
 import Requests from "../utilities/Requests";
 import UserLogin from "../utilities/UserLogin";
@@ -19,6 +19,7 @@ const Navbar = (props) => {
   const checkUserLoginStatus = () => {
     UserLogin.currentUserLogin()
       .then((data) => {
+        console.log(data.message);
         if (data.message == "Authorized") {
           if (data.user.verified) {
             setUserSignedIn(true);
@@ -35,8 +36,9 @@ const Navbar = (props) => {
     Requests.isGetRequest(path, values)
       .then((response) => {
         cogoToast.success(response.data.message, { hideAfter: 5 });
+        // props.history.push("/");
         setTimeout(() => {
-          window.location.replace("/");
+          window.location.reload();
         }, 1000);
       })
       .catch((error) => {
@@ -66,11 +68,11 @@ const Navbar = (props) => {
               <div className="navbar-nav">
                 <ul className="navbar-nav mr-auto">
                   <li className="nav-item active">
-                    <a href="/">
+                    <Link to={"/"}>
                       <h4>
                         Skyline<span className="logo-color">Bet</span>
                       </h4>
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>
@@ -184,8 +186,3 @@ const Navbar = (props) => {
 };
 
 export default Navbar;
-
-document.addEventListener("DOMContentLoaded", () => {
-  const nav = document.getElementById("navbar");
-  ReactDOM.render(<Navbar />, nav);
-});

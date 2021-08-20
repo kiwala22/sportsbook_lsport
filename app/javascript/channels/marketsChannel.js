@@ -2,7 +2,7 @@
 import React from "react";
 import consumer from "./consumer";
 
-export default function (props) {
+const MarketsChannel = (props) => {
   consumer.subscriptions.create(
     {
       channel: props.channel,
@@ -22,4 +22,6 @@ export default function (props) {
     }
   );
   return <>{props.children}</>;
-}
+};
+
+export default MarketsChannel;

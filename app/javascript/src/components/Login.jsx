@@ -10,6 +10,7 @@ import {
 } from "react-bootstrap";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
 import PhoneInput from "react-phone-number-input";
+import { Link } from "react-router-dom";
 import Requests from "../utilities/Requests";
 import SignUp from "./SignUp";
 
@@ -59,6 +60,7 @@ const Login = (props) => {
           setIsLoading(false);
           close();
           cogoToast.success(response.data.message, { hideAfter: 5 });
+          // props.history.push()
           setTimeout(() => {
             window.location.reload();
           }, 1000);
@@ -78,9 +80,10 @@ const Login = (props) => {
 
   const passwordReset = () => {
     cogoToast.success("Provide Your Phone Number.", { hideAfter: 5 });
-    setTimeout(() => {
-      window.location.replace("/password_reset");
-    }, 2000);
+    // setTimeout(() => {
+    //   window.location.replace("/password_reset");
+    // }, 2000);
+    close();
   };
 
   return (
@@ -178,9 +181,13 @@ const Login = (props) => {
             Sign up
           </a>
           <br />
-          <a className="devise_forms" onClick={passwordReset}>
+          <Link
+            className="devise_forms"
+            to={"/password_reset/"}
+            onClick={passwordReset}
+          >
             Forgot your password?
-          </a>
+          </Link>
         </Modal.Body>
       </Modal>
       <SignUp>

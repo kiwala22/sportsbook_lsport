@@ -7,7 +7,16 @@ Rails.application.routes.draw do
   namespace :api do
    namespace :v1 do
       match 'check_user' => "current_user#check_current_user", via: [:get]
-      match 'home' => "home#index", via: [:get]
+      match 'verification' => "current_user#user_verification", via: [:get]
+      match 'live' => "home#live", via: [:get]
+      match 'prematch' => "home#prematch", via: [:get]
+      match 'featured' => "home#featured", via: [:get]
+      namespace :fixtures do
+         namespace :soccer do
+           match 'live' => "live_match#index", via: [:get]
+           match 'pre' => "pre_match#index", via: [:get]
+         end
+      end
    end
   end
 
