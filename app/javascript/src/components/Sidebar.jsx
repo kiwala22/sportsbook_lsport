@@ -22,7 +22,7 @@ const Sidebar = (props) => {
             <li>
               <Link
                 className="match-time show-more"
-                to={"/fixtures/soccer/pre/"}
+                to={"/fixtures/soccer/pres/"}
               >
                 <i className="match-time far fa-futbol fa-lg fa-fw mr-2 "></i>
                 Soccer
@@ -41,40 +41,124 @@ const Sidebar = (props) => {
           <h3>Leagues</h3>
           <ul>
             <li className="text-gray-400">
-              <a href="#">UEFA Champions League</a>
+              <Link
+                to={{
+                  pathname: "/fixtures/soccer/pres",
+                  search: `q%5Bleague_name%5D=UEFA+Champions+League`,
+                }}
+              >
+                UEFA Champions League
+              </Link>
             </li>
             <li className="text-gray-400">
-              <a href="#">UEFA Europa League</a>
+              <Link
+                to={{
+                  pathname: "/fixtures/soccer/pres",
+                  search: `q%5Bleague_name%5D=UEFA+Europa+League`,
+                }}
+              >
+                UEFA Europa League
+              </Link>
             </li>
             <li className="text-gray-400">
-              <a href="#">English Premier League</a>
+              <Link
+                to={{
+                  pathname: "/fixtures/soccer/pres",
+                  search: `q%5Bleague_name%5D=English+Premier+League`,
+                }}
+              >
+                English Premier League
+              </Link>
             </li>
             <li className="text-gray-400">
-              <a href="#">Serie A</a>
+              <Link
+                to={{
+                  pathname: "/fixtures/soccer/pres",
+                  search: `q%5Bleague_name%5D=Serie+A`,
+                }}
+              >
+                Serie A
+              </Link>
             </li>
             <li className="text-gray-400">
-              <a href="#">La Liga</a>
+              <Link
+                to={{
+                  pathname: "/fixtures/soccer/pres",
+                  search: `q%5Bleague_name%5D=La+Liga`,
+                }}
+              >
+                La Liga
+              </Link>
             </li>
             <li className="text-gray-400">
-              <a href="#">Bundesliga</a>
+              <Link
+                to={{
+                  pathname: "/fixtures/soccer/pres",
+                  search: `q%5Bleague_name%5D=Bundesliga`,
+                }}
+              >
+                Bundesliga
+              </Link>
             </li>
             <li className="text-gray-400">
-              <a href="#">French Ligue 1</a>
+              <Link
+                to={{
+                  pathname: "/fixtures/soccer/pres",
+                  search: `q%5Bleague_name%5D=French+Ligue+1`,
+                }}
+              >
+                French Ligue 1
+              </Link>
             </li>
             <li className="text-gray-400">
-              <a href="#">Portuguese Liga</a>
+              <Link
+                to={{
+                  pathname: "/fixtures/soccer/pres",
+                  search: `q%5Bleague_name%5D=Portuguese+Liga`,
+                }}
+              >
+                Portuguese Liga
+              </Link>
             </li>
             <li className="text-gray-400">
-              <a href="#">A-League</a>
+              <Link
+                to={{
+                  pathname: "/fixtures/soccer/pres",
+                  search: `q%5Bleague_name%5D=A-league`,
+                }}
+              >
+                A-League
+              </Link>
             </li>
             <li className="text-gray-400">
-              <a href="#">K-League</a>
+              <Link
+                to={{
+                  pathname: "/fixtures/soccer/pres",
+                  search: `q%5Bleague_name%5D=K-league`,
+                }}
+              >
+                K-League
+              </Link>
             </li>
             <li className="text-gray-400">
-              <a href="#">J-League</a>
+              <Link
+                to={{
+                  pathname: "/fixtures/soccer/pres",
+                  search: `q%5Bleague_name%5D=J-league`,
+                }}
+              >
+                J-League
+              </Link>
             </li>
             <li className="text-gray-400">
-              <a href="#">Brazil Serie A</a>
+              <Link
+                to={{
+                  pathname: "/fixtures/soccer/pres",
+                  search: `q%5Bleague_name%5D=Brazil+Serie+A`,
+                }}
+              >
+                Brazil Serie A
+              </Link>
             </li>
           </ul>
         </aside>
@@ -83,35 +167,91 @@ const Sidebar = (props) => {
           <ul>
             <li className="text-gray-400">
               <i className="flag-icon flag-icon-gb fa-fw mr-2"></i>
-              <a href="#">England</a>
+              <Link
+                to={{
+                  pathname: "/fixtures/soccer/pres",
+                  search: `q%5Blocation%5D=England`,
+                }}
+              >
+                England
+              </Link>
             </li>
             <li className="text-gray-400">
               <i className="flag-icon flag-icon-es fa-fw mr-2"></i>
-              <a href="#">Spain</a>
+              <Link
+                to={{
+                  pathname: "/fixtures/soccer/pres",
+                  search: `q%5Blocation%5D=Spain`,
+                }}
+              >
+                Spain
+              </Link>
             </li>
             <li className="text-gray-400">
               <i className="flag-icon flag-icon-de fa-fw mr-2"></i>
-              <a href="#">Germany</a>
+              <Link
+                to={{
+                  pathname: "/fixtures/soccer/pres",
+                  search: `q%5Blocation%5D=Germany`,
+                }}
+              >
+                Germany
+              </Link>
             </li>
             <li className="text-gray-400">
               <i className="flag-icon flag-icon-it fa-fw mr-2"></i>
-              <a href="#">Italy</a>
+              <Link
+                to={{
+                  pathname: "/fixtures/soccer/pres",
+                  search: `q%5Blocation%5D=Italy`,
+                }}
+              >
+                Italy
+              </Link>
             </li>
             <li className="text-gray-400">
               <i className="flag-icon flag-icon-fr fa-fw mr-2"></i>
-              <a href="#">France</a>
+              <Link
+                to={{
+                  pathname: "/fixtures/soccer/pres",
+                  search: `q%5Blocation%5D=France`,
+                }}
+              >
+                France
+              </Link>
             </li>
             <li className="text-gray-400">
               <i className="flag-icon flag-icon-br fa-fw mr-2"></i>
-              <a href="#">Brazil</a>
+              <Link
+                to={{
+                  pathname: "/fixtures/soccer/pres",
+                  search: `q%5Blocation%5D=Brazil`,
+                }}
+              >
+                Brazil
+              </Link>
             </li>
             <li className="text-gray-400">
               <i className="flag-icon flag-icon-au fa-fw mr-2"></i>
-              <a href="#">Australia</a>
+              <Link
+                to={{
+                  pathname: "/fixtures/soccer/pres",
+                  search: `q%5Blocation%5D=Australia`,
+                }}
+              >
+                Australia
+              </Link>
             </li>
             <li className="text-gray-400">
               <i className="flag-icon flag-icon-cn fa-fw mr-2"></i>
-              <a href="#">China</a>
+              <Link
+                to={{
+                  pathname: "/fixtures/soccer/pres",
+                  search: `q%5Blocation%5D=China`,
+                }}
+              >
+                China
+              </Link>
             </li>
           </ul>
         </aside>

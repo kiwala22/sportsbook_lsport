@@ -60,7 +60,7 @@ const Base = (props) => {
                     {/* <%= yield %> */}
                     <Switch>
                       <Route
-                        path="/fixtures/soccer/pre"
+                        path="/fixtures/soccer/pres/"
                         component={PreMatches}
                       />
                       <Route
