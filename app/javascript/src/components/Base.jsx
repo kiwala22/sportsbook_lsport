@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Route, Switch } from "react-router-dom";
+import Bets from "./Bets";
 //{Link}
 import BetSlip from "./BetSlip";
+import Deposit from "./Deposit";
+import Faqs from "./Faqs";
 import Footer from "./Footer";
 import Home from "./Home";
 import LiveMatches from "./LiveMatches";
@@ -10,9 +13,15 @@ import NewPassword from "./NewPassword";
 import PasswordCode from "./PasswordCode";
 import PasswordReset from "./PasswordReset";
 import PreMatches from "./PreMatches";
+import Privacy from "./Privacy";
+import Rules from "./Rules";
 import SideBanner from "./SideBanner";
 import Sidebar from "./Sidebar";
+import Support from "./Support";
+import Terms from "./Terms";
+import Transactions from "./Transactions";
 import Verify from "./Verify";
+import Withdraw from "./Withdraw";
 
 const Base = (props) => {
   const [currentUser, setCurrentUser] = useState("");
@@ -59,6 +68,15 @@ const Base = (props) => {
                     {/* <%= render partial: "layouts/partials/flash" %> */}
                     {/* <%= yield %> */}
                     <Switch>
+                      <Route path="/bet_slips/" component={Bets} />
+                      <Route path="/transactions/" component={Transactions} />
+                      <Route path="/deposit/" component={Deposit} />
+                      <Route path="/withdraw/" component={Withdraw} />
+                      <Route path="/faqs/" component={Faqs} />
+                      <Route path="/rules/" component={Rules} />
+                      <Route path="/privacy/" component={Privacy} />
+                      <Route path="/terms/" component={Terms} />
+                      <Route path="/contacts/" component={Support} />
                       <Route
                         path="/fixtures/soccer/pres/"
                         component={PreMatches}

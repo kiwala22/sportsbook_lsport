@@ -10,6 +10,7 @@ import {
 } from "react-bootstrap";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
 import PhoneInput from "react-phone-number-input";
+import { Link } from "react-router-dom";
 import Requests from "../utilities/Requests";
 
 const SignUp = (props) => {
@@ -203,14 +204,14 @@ const SignUp = (props) => {
                   required
                 />
                 <FormCheck.Label className="remember-me">
-                  I am over 18 years of age and I accept SkylineBet’s
-                  <a href="/terms" className="terms">
+                  I am over 18 years of age and I accept SkylineBet’s{" "}
+                  <Link to={"/terms/"} className="terms" onClick={close}>
                     Terms And Conditions
-                  </a>{" "}
+                  </Link>{" "}
                   and{" "}
-                  <a href="/privacy" className="terms">
+                  <Link to={"/privacy/"} className="terms" onClick={close}>
                     Privacy Policy
-                  </a>
+                  </Link>
                 </FormCheck.Label>
                 <Form.Control.Feedback type="invalid">
                   You must agree before submitting.

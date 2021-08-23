@@ -11,6 +11,8 @@ Rails.application.routes.draw do
       match 'live' => "home#live", via: [:get]
       match 'prematch' => "home#prematch", via: [:get]
       match 'featured' => "home#featured", via: [:get]
+      match 'transactions' => "transactions#index", via: [:get]
+      match 'bets' => "bets#index", via: [:get]
       namespace :fixtures do
          namespace :soccer do
            match 'live' => "live_match#index", via: [:get]
@@ -66,10 +68,11 @@ Rails.application.routes.draw do
       end
    end
 
-   resources :transactions, only: [:new, :index]
-   match 'deposit' => "transactions#deposit", via: [:post]
-   match 'transfer' => "transactions#transfer", via: [:get]
-   match 'withdraw' => "transactions#withdraw", via: [:post]
+   resources :transactions, only: [:index]
+   match 'deposit' => "transactions#deposit", via: [:get]
+   match 'perform_deposit' => "transactions#perform_deposit", via: [:post]
+   match 'withdraw' => "transactions#withdraw", via: [:get]
+   match 'perform_withdraw' => "transactions#perform_withdraw", via: [:post]
    match 'resend_verify' => "verify#create", via: [:post]
    match 'new_verify' => "verify#new", via: [:get]
    match 'send_verification' => "verify#verify_via_email", via: [:get]

@@ -89,7 +89,7 @@ const Login = (props) => {
   return (
     <>
       <Modal show={show} onHide={close} backdrop="static" keyboard={false}>
-        <Modal.Header closeButton closeLabel="Remove">
+        <Modal.Header closeButton closeLabel="Remove" className="modal-header">
           <Modal.Title>{props.notice || "Login"}</Modal.Title>
         </Modal.Header>
         <Modal.Body className="modal-body">

@@ -99,13 +99,12 @@ const Navbar = (props) => {
                       </a>
                     </li>
                   </ul>
-                  <a className="bttn-small btn-fill" id="deposit" href="#">
-                    <i className="fas fa-wallet fa-lg"></i> Deposit
-                  </a>
+                  <Link to={"/deposit/"} className="bttn-small btn-fill">
+                    Deposit
+                  </Link>
                   <li className="nav-item dropdown no-arrow">
                     <a
                       className="nav-link dropdown-toggle"
-                      href="#"
                       id="userDropdown"
                       role="button"
                       data-toggle="dropdown"
@@ -118,31 +117,25 @@ const Navbar = (props) => {
                       className="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                       aria-labelledby="userDropdown"
                     >
-                      <a className="dropdown-item words" href="#">
+                      <a className="dropdown-item words">
                         <i className="far fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                         {userInfo.first_name}
                       </a>
-                      <a
+                      <Link
+                        to={"/transactions/"}
                         className="dropdown-item trans"
-                        href="<%= transactions_path %>"
                       >
                         <i className="fas fa-landmark fa-sm fa-fw mr-2 text-gray-400"></i>{" "}
                         Transactions
-                      </a>
-                      <a
-                        className="dropdown-item trans"
-                        href="<%= bet_slips_path %>"
-                      >
+                      </Link>
+                      <Link to={"/bet_slips/"} className="dropdown-item trans">
                         <i className="fas fa-receipt fa-sm fa-fw mr-2 text-gray-400"></i>{" "}
-                        Tickets
-                      </a>
-                      <a
-                        className="dropdown-item trans"
-                        href="<%= transfer_path %>"
-                      >
+                        Bet Tickets
+                      </Link>
+                      <Link to={"/withdraw/"} className="dropdown-item trans">
                         <i className="fas fa-money-bill-wave fa-sm fa-fw mr-2 text-gray-400"></i>{" "}
                         Withdraw
-                      </a>
+                      </Link>
                       <div className="dropdown-divider"></div>
                       <a className="dropdown-item trans" onClick={logOut}>
                         <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>{" "}
@@ -153,9 +146,6 @@ const Navbar = (props) => {
                 </div>
               )}
 
-              {/* <% if current_user && current_user.verified? %>
-                
-                <% else %> */}
               {!userSignedIn && (
                 <div className="navbar-nav ml-auto">
                   <SignUp>
@@ -176,7 +166,6 @@ const Navbar = (props) => {
                   </Login>
                 </div>
               )}
-              {/* <% end %> */}
             </div>
           </div>
         </nav>

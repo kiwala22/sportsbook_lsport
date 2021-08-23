@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Footer = (props) => {
   return (
@@ -10,19 +11,19 @@ const Footer = (props) => {
               <div className="col-xl-12 col-lg-12 col-md-12 col-sm-6">
                 <ul className="footer-size">
                   <li>
-                    <a href="#">Faq</a>
+                    <Link to={"/faqs/"}>Faqs</Link>
                   </li>
                   <li>
-                    <a href="#">Privacy</a>
+                    <Link to={"/privacy/"}>Privacy</Link>
                   </li>
                   <li>
-                    <a href="#">Game Rules</a>
+                    <Link to={"/rules/"}>Game Rules</Link>
                   </li>
                   <li>
-                    <a href="#">Terms and Conditions</a>
+                    <Link to={"/terms/"}>Terms and Condition</Link>
                   </li>
                   <li>
-                    <a href="#">Support contact</a>
+                    <Link to={"/contacts/"}>Support Contacts</Link>
                   </li>
                   <li>
                     SkylineBet is licensed by the National Gaming Board of

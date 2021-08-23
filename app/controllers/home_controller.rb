@@ -5,8 +5,4 @@ class HomeController < ApplicationController
 	def index
 		
 	end
-
-	# def page_refresh
-	# 	render :action => :index and return
-	#  end
 end

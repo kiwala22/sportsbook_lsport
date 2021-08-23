@@ -236,7 +236,7 @@ const Home = (props) => {
           <tr>
             <td>
               <a href={`/fixtures/soccer/pre?id=${fixture.id}`}>
-                <Moment local format="HH:mm:ss">
+                <Moment local={true} format="HH:mm:ss">
                   {fixture.start_date}
                 </Moment>
                 <br />
