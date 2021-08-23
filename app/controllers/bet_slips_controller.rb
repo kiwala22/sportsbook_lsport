@@ -3,7 +3,7 @@ class BetSlipsController < ApplicationController
 	include CurrentCart
 	include BetslipCartHelper
 	before_action :set_cart
-	
+
 	def index
 		
 	end
@@ -113,9 +113,9 @@ class BetSlipsController < ApplicationController
 		
 	end
 	
-	def show
-		@bet_slip = BetSlip.find(params[:id])
-	end
+	# def show
+	# 	@bet_slip = BetSlip.find(params[:id])
+	# end
 	
 	def update
 	end
