@@ -2,13 +2,13 @@ import "channels";
 import cogoToast from "cogo-toast";
 import React, { useEffect, useState } from "react";
 import Moment from "react-moment";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import shortUUID from "short-uuid";
 import MarketsChannel from "../../channels/marketsChannel";
 import PreOddsChannel from "../../channels/preOddsChannel";
 import Requests from "../utilities/Requests";
 
-const PreMatches = (props) => {
+const Search = (props) => {
   const [games, setGames] = useState([]);
 
   useEffect(() => loadPreMatchGames(), [props]);
@@ -16,7 +16,7 @@ const PreMatches = (props) => {
   useEffect(() => loadPreMatchGames(), []);
 
   const loadPreMatchGames = () => {
-    let path = `/api/v1/fixtures/soccer/pre${props.location.search}`;
+    let path = `/api/v1/fixtures/search${props.location.search}`;
     let values = {};
     Requests.isGetRequest(path, values)
       .then((response) => {
@@ -77,7 +77,7 @@ const PreMatches = (props) => {
               <a
                 className="btnn intialise_input"
                 id={`pre_1_1_${fixture.id}`}
-                data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
+                data-disable-with="<i className='fas fa-spinner fa-spin'></i>"
                 data-remote="true"
                 rel="nofollow"
                 data-method="post"
@@ -85,13 +85,13 @@ const PreMatches = (props) => {
               >
                 {fixture.outcome_1}
               </a>
-              {/* <%= link_to(fixture.market1_pre.outcome_1, add_bet_path(outcome_id: "1", fixture_id: fixture.id, market: "Market1Pre", outcome_desc: "1X2 FT - 1") , class: "btnn intialise_input",id: "pre_feat_1_1_#{fixture.id}", remote: true, method: :post, data: {disable_with: "<i class='fas fa-spinner fa-spin'></i>"})%> */}
+              {/* <%= link_to(fixture.market1_pre.outcome_1, add_bet_path(outcome_id: "1", fixture_id: fixture.id, market: "Market1Pre", outcome_desc: "1X2 FT - 1") , className: "btnn intialise_input",id: "pre_feat_1_1_#{fixture.id}", remote: true, method: :post, data: {disable_with: "<i className='fas fa-spinner fa-spin'></i>"})%> */}
             </td>
             <td>
               <a
                 className="btnn intialise_input"
                 id={`pre_1_X_${fixture.id}`}
-                data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
+                data-disable-with="<i className='fas fa-spinner fa-spin'></i>"
                 data-remote="true"
                 rel="nofollow"
                 data-method="post"
@@ -104,7 +104,7 @@ const PreMatches = (props) => {
               <a
                 className="btnn intialise_input"
                 id={`pre_1_2_${fixture.id}`}
-                data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
+                data-disable-with="<i className='fas fa-spinner fa-spin'></i>"
                 data-remote="true"
                 rel="nofollow"
                 data-method="post"
@@ -121,27 +121,18 @@ const PreMatches = (props) => {
 
   return (
     <>
-      <div className="game-box">
+      <div className="game-box" id="search">
         <div className="card">
           <div className="card-header">
-            <h3>
-              Upcoming Fixtures - Soccer{" "}
-              <i className="fas fa-futbol fa-lg fa-fw mr-2 match-time"></i>
-            </h3>
-            <span className="float-right ">
-              <Link className="btnn btn-blink" to={"/fixtures/soccer/lives"}>
-                <i className="fas fa-bolt"></i> Live
-              </Link>
-            </span>
+            <h3>Search Results </h3>{" "}
+            <i className="fas fa-search fa-lg fa-fw mr-2 match-time"></i>
           </div>
           <div className="card-body">
-            <div className="tab-content" id="myTabContent">
+            <div className="tab-content" id="">
               <div
                 className="tab-pane fade show active"
-                id="home"
                 role="tabpanel"
                 aria-labelledby="home-tab"
-                data-controller=""
               >
                 <table className="table table-borderless ">
                   <thead>
@@ -154,26 +145,18 @@ const PreMatches = (props) => {
                       <th className="col-1">2</th>
                     </tr>
                   </thead>
-                  <tbody id="fixture-table-body">
+
+                  <tbody id="search-results">
                     {games && displayPreMatchGames(games, setGames)}
                     {games.length == 0 && (
                       <tr>
                         <td colSpan="6">
-                          <span className="noEvents">No Matches Found</span>
+                          <span className="noEvents">No Results Matched</span>
                         </td>
                       </tr>
                     )}
                   </tbody>
                 </table>
-                <div id="bottom">
-                  <div className="d-flex justify-content-center">
-                    <div
-                      data-target="match-fixtures.spinner"
-                      id="spinner"
-                    ></div>
-                  </div>
-                  <div className="table-navigation">{/* Pagination */}</div>
-                </div>
               </div>
             </div>
           </div>
@@ -183,4 +166,4 @@ const PreMatches = (props) => {
   );
 };
 
-export default PreMatches;
+export default Search;

@@ -7,13 +7,13 @@ import LiveOddsChannel from "../../channels/liveOddsChannel";
 // import MarketsChannel from "../../channels/marketsChannel";
 import Requests from "../utilities/Requests";
 
-const LiveMatches = (props) => {
+const LiveVirtualMatches = (props) => {
   const [games, setGames] = useState([]);
 
   useEffect(() => loadLiveGames(), []);
 
   const loadLiveGames = () => {
-    let path = "/api/v1/fixtures/soccer/live";
+    let path = "/api/v1/fixtures/virtual_soccer/virtual_live";
     let values = {};
     Requests.isGetRequest(path, values)
       .then((response) => {
@@ -122,11 +122,14 @@ const LiveMatches = (props) => {
         <div className="card">
           <div className="card-header">
             <h3>
-              Live Fixtures - Soccer{" "}
+              Live-Match Fixtures - Virtual Soccer{" "}
               <i className=" blinking match-time fas fa-bolt fa-lg fa-fw mr-2"></i>
             </h3>
             <span className="float-right">
-              <Link className="btnn btn-blink" to={"/fixtures/soccer/pres/"}>
+              <Link
+                className="btnn btn-blink"
+                to={"/fixtures/virtual_soccer/pres/"}
+              >
                 <i className="fas fa-futbol"></i> Pre-Match
               </Link>
             </span>
@@ -173,4 +176,4 @@ const LiveMatches = (props) => {
   );
 };
 
-export default LiveMatches;
+export default LiveVirtualMatches;

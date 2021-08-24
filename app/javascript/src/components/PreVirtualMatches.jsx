@@ -8,7 +8,7 @@ import MarketsChannel from "../../channels/marketsChannel";
 import PreOddsChannel from "../../channels/preOddsChannel";
 import Requests from "../utilities/Requests";
 
-const PreMatches = (props) => {
+const PreVirtualMatches = (props) => {
   const [games, setGames] = useState([]);
 
   useEffect(() => loadPreMatchGames(), [props]);
@@ -16,7 +16,7 @@ const PreMatches = (props) => {
   useEffect(() => loadPreMatchGames(), []);
 
   const loadPreMatchGames = () => {
-    let path = `/api/v1/fixtures/soccer/pre${props.location.search}`;
+    let path = `/api/v1/fixtures/virtual_soccer/virtual_pre${props.location.search}`;
     let values = {};
     Requests.isGetRequest(path, values)
       .then((response) => {
@@ -125,11 +125,14 @@ const PreMatches = (props) => {
         <div className="card">
           <div className="card-header">
             <h3>
-              Upcoming Fixtures - Soccer{" "}
+              Upcoming Fixtures - Virtual Soccer{" "}
               <i className="fas fa-futbol fa-lg fa-fw mr-2 match-time"></i>
             </h3>
             <span className="float-right ">
-              <Link className="btnn btn-blink" to={"/fixtures/soccer/lives"}>
+              <Link
+                className="btnn btn-blink"
+                to={"/fixtures/virtual_soccer/lives"}
+              >
                 <i className="fas fa-bolt"></i> Live
               </Link>
             </span>
@@ -183,4 +186,4 @@ const PreMatches = (props) => {
   );
 };
 
-export default PreMatches;
+export default PreVirtualMatches;

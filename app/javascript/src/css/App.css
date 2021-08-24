@@ -1,3 +1,50 @@
+body {
+  color: #ffffff;
+  /* font-size: 12px;
+  overflow-x: hidden; */
+  overflow-y: auto;
+}
+
+a {
+  color: #fff;
+  text-decoration: none;
+  background-color: transparent;
+  outline: none;
+  cursor: pointer;
+  transition: color 0.3s;
+  -webkit-text-decoration-skip: objects;
+}
+a:hover {
+  color: #fff;
+}
+a:active {
+  color: #fff;
+}
+a:active,
+a:hover {
+  text-decoration: none;
+  /* outline: 0; */
+}
+a:focus {
+  text-decoration: none;
+  /* outline: 0; */
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #fff;
+  margin-bottom: 0;
+}
+
+.noEvents {
+  position: sticky;
+  left: 40%;
+}
+
 .modal-header {
   background-color: #7690a7 !important;
 }

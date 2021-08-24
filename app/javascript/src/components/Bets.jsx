@@ -31,16 +31,16 @@ const Bets = () => {
 
   return (
     <>
-      <div class="game-box">
-        <div class="card">
-          <div class="card-header">
+      <div className="game-box">
+        <div className="card">
+          <div className="card-header">
             <h3>Bet Tickets</h3>
           </div>
-          <div class="card-body">
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
-              <li class="nav-item">
+          <div className="card-body">
+            <ul className="nav nav-tabs" id="myTab" role="tablist">
+              <li className="nav-item">
                 <a
-                  class="nav-link active"
+                  className="nav-link active"
                   id="home-tab"
                   data-toggle="tab"
                   role="tab"
@@ -51,14 +51,14 @@ const Bets = () => {
                 </a>
               </li>
             </ul>
-            <div class="tab-content" id="myTabContent">
+            <div className="tab-content" id="myTabContent">
               <div
-                class="tab-pane fade show active table-responsive"
+                className="tab-pane fade show active table-responsive"
                 id="home"
                 role="tabpanel"
                 aria-labelledby="home-tab"
               >
-                <table class="table table-borderless table-striped">
+                <table className="table table-borderless table-striped">
                   <thead>
                     <tr>
                       <th>#No</th>
@@ -74,9 +74,9 @@ const Bets = () => {
                       <th>Receipt</th>
                     </tr>
                   </thead>
-                  {bets && (
-                    <tbody>
-                      {bets.map((bet, index) => (
+                  <tbody>
+                    {bets &&
+                      bets.map((bet, index) => (
                         <tr key={shortUUID.generate()}>
                           <td>{bet.id}</td>
                           <td>{bet.bet_count}</td>
@@ -101,11 +101,14 @@ const Bets = () => {
                           </td>
                         </tr>
                       ))}
-                    </tbody>
-                  )}
-                  {bets.length == 0 && (
-                    <h6 class="event">No Bet Tickets Found</h6>
-                  )}
+                    {bets.length == 0 && (
+                      <tr>
+                        <td colSpan="11">
+                          <span className="noEvents">No Bet Tickets Found</span>
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
                 </table>
               </div>
             </div>

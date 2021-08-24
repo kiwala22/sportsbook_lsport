@@ -29,11 +29,13 @@ const Sidebar = (props) => {
               </Link>
             </li>
             <li>
-              <a href="#">
-                {" "}
+              <Link
+                className="match-time show-more"
+                to={"/fixtures/virtual_soccer/pres/"}
+              >
                 <i className="match-time fas fa-trophy fa-lg fa-fw mr-2 "></i>
                 Virtual Soccer
-              </a>
+              </Link>
             </li>
           </ul>
         </aside>

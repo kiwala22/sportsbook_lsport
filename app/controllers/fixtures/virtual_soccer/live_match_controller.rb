@@ -3,16 +3,6 @@ class Fixtures::VirtualSoccer::LiveMatchController < ApplicationController
    before_action :set_cart, only: [:index, :show]
 
    def index
-      @q = Fixture.joins(:market1_live).where("fixtures.status = ? AND fixtures.sport_id = ? AND fixtures.league_id IN (?) AND market1_lives.status = ? ", "live", "6046", ["37364", "37386", "38301", "37814"], "Active").order(start_date: :asc)
-      
-      @pagy, @fixtures = pagy(@q.includes(:market1_live).where("market1_lives.status = ?", "Active"))
-      respond_to do |format|
-         format.html
-         format.js
-         format.json {
-            render json: { fixtures: render_to_string(partial: "live_match_fixture_table", locals: {fixtures: @fixtures}, formats: [:html]), pagination: view_context.pagy_nav(@pagy) }
-         }
-      end
 
    end
 

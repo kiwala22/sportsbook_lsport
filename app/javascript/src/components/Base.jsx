@@ -8,13 +8,16 @@ import Faqs from "./Faqs";
 import Footer from "./Footer";
 import Home from "./Home";
 import LiveMatches from "./LiveMatches";
+import LiveVirtualMatches from "./LiveVirtualMatches";
 import Navbar from "./Navbar";
 import NewPassword from "./NewPassword";
 import PasswordCode from "./PasswordCode";
 import PasswordReset from "./PasswordReset";
 import PreMatches from "./PreMatches";
+import PreVirtualMatches from "./PreVirtualMatches";
 import Privacy from "./Privacy";
 import Rules from "./Rules";
+import Search from "./Search";
 import SideBanner from "./SideBanner";
 import Sidebar from "./Sidebar";
 import Support from "./Support";
@@ -77,6 +80,15 @@ const Base = (props) => {
                       <Route path="/privacy/" component={Privacy} />
                       <Route path="/terms/" component={Terms} />
                       <Route path="/contacts/" component={Support} />
+                      <Route path="/fixtures/search/" component={Search} />
+                      <Route
+                        path="/fixtures/virtual_soccer/pres/"
+                        component={PreVirtualMatches}
+                      />
+                      <Route
+                        path="/fixtures/virtual_soccer/lives/"
+                        component={LiveVirtualMatches}
+                      />
                       <Route
                         path="/fixtures/soccer/pres/"
                         component={PreMatches}

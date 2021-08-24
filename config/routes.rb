@@ -8,9 +8,9 @@ Rails.application.routes.draw do
    namespace :v1 do
       match 'check_user' => "current_user#check_current_user", via: [:get]
       match 'verification' => "current_user#user_verification", via: [:get]
-      match 'live' => "home#live", via: [:get]
-      match 'prematch' => "home#prematch", via: [:get]
-      match 'featured' => "home#featured", via: [:get]
+      match 'home' => "home#index", via: [:get]
+      # match 'prematch' => "home#prematch", via: [:get]
+      # match 'featured' => "home#featured", via: [:get]
       match 'transactions' => "transactions#index", via: [:get]
       match 'bets' => "bets#index", via: [:get]
       namespace :fixtures do
@@ -18,6 +18,11 @@ Rails.application.routes.draw do
            match 'live' => "live_match#index", via: [:get]
            match 'pre' => "pre_match#index", via: [:get]
          end
+         namespace :virtual_soccer do
+            match 'virtual_live' => "live_match#index", via: [:get]
+            match 'virtual_pre' => "pre_match#index", via: [:get]
+         end
+         match 'search' => "search#index", via: [:get]
       end
    end
   end

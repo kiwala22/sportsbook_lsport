@@ -114,7 +114,13 @@ const Transactions = () => {
                         </tr>
                       ))}
                     {transactions.length == 0 && (
-                      <h6 className="event">No Transactions Found</h6>
+                      <tr>
+                        <td colSpan="8">
+                          <span className="noEvents">
+                            No Transactions Found
+                          </span>
+                        </td>
+                      </tr>
                     )}
                   </tbody>
                 </table>

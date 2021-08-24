@@ -15,74 +15,17 @@ const Home = (props) => {
   const [liveGames, setLiveGames] = useState([]);
   const [featuredGames, setFeaturedGames] = useState([]);
   const [prematchGames, setPrematchGames] = useState([]);
-  const [games, setGames] = useState({});
 
-  useEffect(() => loadLiveGames(), []);
-  useEffect(() => loadPreMatchGames(), []);
-  useEffect(() => loadFeaturedGames(), []);
+  useEffect(() => loadGames(), []);
 
-  // const loadGames = () => {
-  //   let path = "/api/v1/home";
-  //   let values = {};
-  //   Requests.isGetRequest(path, values)
-  //     .then((response) => {
-  //       loadLiveGames(response.data.live);
-  //       // loadPreMatchGames(response.data.prematch);
-  //       // loadFeaturedGames(response.data.featured);
-  //     })
-  //     .catch((error) => {
-  //       cogoToast.error(error.message, {
-  //         hideAfter: 5,
-  //       });
-  //     });
-  // };
-
-  const loadLiveGames = () => {
-    let path = "/api/v1/live";
+  const loadGames = () => {
+    let path = "/api/v1/home";
     let values = {};
     Requests.isGetRequest(path, values)
       .then((response) => {
-        var liveGames = response.data.live;
-        setGames((prevState) => ({
-          ...prevState,
-          live: liveGames,
-        }));
-      })
-      .catch((error) => {
-        cogoToast.error(error.message, {
-          hideAfter: 5,
-        });
-      });
-  };
-
-  const loadPreMatchGames = () => {
-    let path = "/api/v1/prematch";
-    let values = {};
-    Requests.isGetRequest(path, values)
-      .then((response) => {
-        var preMatch = response.data.prematch;
-        setGames((prevState) => ({
-          ...prevState,
-          prematch: preMatch,
-        }));
-      })
-      .catch((error) => {
-        cogoToast.error(error.message, {
-          hideAfter: 5,
-        });
-      });
-  };
-
-  const loadFeaturedGames = () => {
-    let path = "/api/v1/featured";
-    let values = {};
-    Requests.isGetRequest(path, values)
-      .then((response) => {
-        var featured = response.data.featured;
-        setGames((prevState) => ({
-          ...prevState,
-          featured: featured,
-        }));
+        setLiveGames(response.data.live);
+        setPrematchGames(response.data.prematch);
+        setFeaturedGames(response.data.featured);
       })
       .catch((error) => {
         cogoToast.error(error.message, {
@@ -318,61 +261,48 @@ const Home = (props) => {
               <i className=" blinking match-time fas fa-bolt fa-lg fa-fw mr-2"></i>
             </h3>
           </div>
-          {/* <% if @live_fixtures.present? %> */}
-          {games.live && (
-            <>
-              <div className="card-body">
-                <div className="tab-content" id="">
-                  <div
-                    className="tab-pane fade show active"
-                    role="tabpanel"
-                    aria-labelledby="home-tab"
-                  >
-                    <table className="table table-borderless">
-                      <thead>
-                        <tr>
-                          <th className="col-4">Teams</th>
-                          <th className="col-1">Score</th>
-                          <th className="col-4">Tournament</th>
-                          <th className="col-1">1</th>
-                          <th className="col-1">X</th>
-                          <th className="col-1">2</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {/* <%= render partial: 'live_fixture_table' %> */}
-                        {displayLiveGames(games.live, setGames)}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-              <div className="text-center mb-2">
-                <Link
-                  className="match-time show-more"
-                  to={"/fixtures/soccer/lives/"}
-                >
-                  Show More
-                </Link>
-                {/* <%= link_to "Show More".html_safe, fixtures_soccer_lives_path, id: "live-tab", className: "match-time show-more" %> */}
-              </div>
-            </>
-          )}
-          {/* <% else %> */}
-          {!games.live && (
-            <div className="card-body">
-              <div className="tab-content" id="">
-                <div
-                  className="tab-pane fade show active"
-                  role="tabpanel"
-                  aria-labelledby="home-tab"
-                >
-                  <h6 className=" event">No Live Matches</h6>
-                </div>
+          <div className="card-body">
+            <div className="tab-content" id="">
+              <div
+                className="tab-pane fade show active"
+                role="tabpanel"
+                aria-labelledby="home-tab"
+              >
+                <table className="table table-borderless">
+                  <thead>
+                    <tr>
+                      <th className="col-4">Teams</th>
+                      <th className="col-1">Score</th>
+                      <th className="col-4">Tournament</th>
+                      <th className="col-1">1</th>
+                      <th className="col-1">X</th>
+                      <th className="col-1">2</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {liveGames && displayLiveGames(liveGames, setLiveGames)}
+                    {liveGames.length == 0 && (
+                      <tr>
+                        <td colSpan="6">
+                          <span className="noEvents">
+                            No Live Matches Found
+                          </span>
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
               </div>
             </div>
-          )}
-          {/* <% end %> */}
+          </div>
+          <div className="text-center mb-2">
+            <Link
+              className="match-time show-more"
+              to={"/fixtures/soccer/lives/"}
+            >
+              Show More
+            </Link>
+          </div>
         </div>
       </div>
 
@@ -386,60 +316,46 @@ const Home = (props) => {
               <i className="fas fa-fire fa-lg fa-fw mr-2 match-time"></i>{" "}
             </h3>
           </div>
-          {/* <% if !@featured.empty? %> */}
-          {games.featured && (
-            <div className="card-body">
-              <div className="tab-content" id="">
-                <div
-                  className="tab-pane fade show active"
-                  role="tabpanel"
-                  aria-labelledby="home-tab"
-                >
-                  <table className="table table-borderless ">
-                    <thead>
+          <div className="card-body">
+            <div className="tab-content" id="">
+              <div
+                className="tab-pane fade show active"
+                role="tabpanel"
+                aria-labelledby="home-tab"
+              >
+                <table className="table table-borderless ">
+                  <thead>
+                    <tr>
+                      <th className="col-1">Date</th>
+                      <th className="col-4">Teams</th>
+                      <th className="col-4">Tournament</th>
+                      <th className="col-1">1</th>
+                      <th className="col-1">X</th>
+                      <th className="col-1">2</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {featuredGames &&
+                      displayFeaturedGames(
+                        featuredGames,
+                        "_feat",
+                        setFeaturedGames
+                      )}
+                    {featuredGames.length == 0 && (
                       <tr>
-                        <th className="col-1">Date</th>
-                        <th className="col-4">Teams</th>
-                        <th className="col-4">Tournament</th>
-                        <th className="col-1">1</th>
-                        <th className="col-1">X</th>
-                        <th className="col-1">2</th>
+                        <td colSpan="6">
+                          <span className="noEvents">
+                            No Featured Matches Found
+                          </span>
+                        </td>
                       </tr>
-                    </thead>
-                    <tbody>
-                      {displayFeaturedGames(games.featured, "_feat", setGames)}
-                      {/* <%= render partial: 'feat_prematch_fixture_table' %> */}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-              <div className="text-center mb-2">
-                <a
-                  id="live-tab"
-                  className="match-time show-more"
-                  href="/fixtures/soccer/featured"
-                >
-                  Show More
-                </a>
-                {/* <%= link_to "Show More".html_safe, fixtures_soccer_featured_path, id: "live-tab", className: "match-time show-more" %> */}
+                    )}
+                  </tbody>
+                </table>
               </div>
             </div>
-          )}
-          {/* <%else%> */}
-          {!games.featured && (
-            <div className="card-body">
-              <div className="tab-content" id="">
-                <div
-                  className="tab-pane fade show active"
-                  role="tabpanel"
-                  aria-labelledby="home-tab"
-                >
-                  <h6 className="event">No Featured Matches</h6>
-                </div>
-              </div>
-            </div>
-          )}
-          {/* <% end %> */}
+            <div className="text-center mb-2">{/* Pagination */}</div>
+          </div>
         </div>
       </div>
 
@@ -456,8 +372,7 @@ const Home = (props) => {
           </div>
           <div className="card-body">
             <div className="tab-content" id="myTabContent">
-              {/* <% if @prematch_fixtures.present? %> */}
-              {games.prematch && (
+              {prematchGames && (
                 <div
                   className="tab-pane fade show active"
                   id="home"
@@ -477,8 +392,19 @@ const Home = (props) => {
                       </tr>
                     </thead>
                     <tbody id="fixture-table-body">
-                      {displayFeaturedGames(games.prematch, "", setGames)}
-                      {/* <%= render partial: 'pre_match_fixture_table' %> */}
+                      {prematchGames &&
+                        displayFeaturedGames(
+                          prematchGames,
+                          "",
+                          setPrematchGames
+                        )}
+                      {prematchGames.length == 0 && (
+                        <tr>
+                          <td colSpan="6">
+                            <span className="noEvents">No Matches Found</span>
+                          </td>
+                        </tr>
+                      )}
                     </tbody>
                   </table>
                   <div id="bottom">
@@ -490,31 +416,17 @@ const Home = (props) => {
                     </div>
                     <div className="table-navigation">
                       <div className="text-center mb-4">
-                        <a
-                          id="pre-tab"
+                        <Link
                           className="match-time show-more"
-                          href="/fixtures/soccer/pres"
+                          to={"/fixtures/soccer/pres/"}
                         >
                           Show More
-                        </a>
-                        {/* <%= link_to "Show More".html_safe, fixtures_soccer_pres_path, id: "pre-tab", 
-                                          className: "match-time show-more" %> */}
+                        </Link>
                       </div>
                     </div>
                   </div>
                 </div>
               )}
-              {/* <% else %> */}
-              {!games.prematch && (
-                <div className="card-body">
-                  <div className="tab-content" id="">
-                    <div>
-                      <h6 className="event">No Upcoming Events</h6>
-                    </div>
-                  </div>
-                </div>
-              )}
-              {/* <% end %>                    */}
             </div>
           </div>
         </div>

@@ -1,7 +1,9 @@
+import { DownOutlined } from "@ant-design/icons";
+import { Dropdown, Menu } from "antd";
 import cogoToast from "cogo-toast";
 import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import currencyFormatter from "../utilities/CurrencyFormatter";
 import Requests from "../utilities/Requests";
 import UserLogin from "../utilities/UserLogin";
@@ -11,6 +13,7 @@ import SignUp from "./SignUp";
 const Navbar = (props) => {
   const [userInfo, setUserInfo] = useState([]);
   const [userSignedIn, setUserSignedIn] = useState(false);
+  const searchRef = React.createRef();
 
   useEffect(() => {
     checkUserLoginStatus();
@@ -30,13 +33,21 @@ const Navbar = (props) => {
       .catch((error) => console.log(error));
   };
 
+  const performSearch = (e) => {
+    e.preventDefault();
+    props.history.push({
+      pathname: "/fixtures/search",
+      search: `?search=${searchRef.current.value}`,
+    });
+  };
+
   const logOut = () => {
     let path = "/users/sign_out";
     let values = {};
     Requests.isGetRequest(path, values)
       .then((response) => {
         cogoToast.success(response.data.message, { hideAfter: 5 });
-        // props.history.push("/");
+        props.history.push("/");
         setTimeout(() => {
           window.location.reload();
         }, 1000);
@@ -50,6 +61,43 @@ const Navbar = (props) => {
         );
       });
   };
+
+  const menu = (
+    <Menu>
+      <Menu.Item key="1">
+        <a className="dropdown-item words">
+          <i className="far fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+          {userInfo.first_name}
+        </a>
+      </Menu.Item>
+      <Menu.Item key="2">
+        <Link to={"/transactions/"} className="dropdown-item trans">
+          <i className="fas fa-landmark fa-sm fa-fw mr-2 text-gray-400"></i>{" "}
+          Transactions
+        </Link>
+      </Menu.Item>
+      <Menu.Item key="3">
+        <Link to={"/bet_slips/"} className="dropdown-item trans">
+          <i className="fas fa-receipt fa-sm fa-fw mr-2 text-gray-400"></i> Bet
+          Tickets
+        </Link>
+      </Menu.Item>
+      <Menu.Item key="4">
+        <Link to={"/withdraw/"} className="dropdown-item trans">
+          <i className="fas fa-money-bill-wave fa-sm fa-fw mr-2 text-gray-400"></i>{" "}
+          Withdraw
+        </Link>
+      </Menu.Item>
+      <div className="dropdown-divider"></div>
+      <Menu.Item key="5" onClick={logOut}>
+        <a className="dropdown-item trans">
+          <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>{" "}
+          Logout
+        </a>
+      </Menu.Item>
+    </Menu>
+  );
+
   return (
     <>
       <div>
@@ -77,13 +125,14 @@ const Navbar = (props) => {
                 </ul>
               </div>
               <div className="search">
-                <form className="form-inline mr-auto">
+                <form className="form-inline mr-auto" onSubmit={performSearch}>
                   <input
                     type="text"
                     className="form-control"
                     placeholder="Search for any event..."
                     id="search"
-                    onChange={() => console.log(event.target.value)}
+                    ref={searchRef}
+                    // onChange={() => console.log(event.target.value)}
                   />
                   <i className="fa fa-search fa-lg" id="glass"></i>
                 </form>
@@ -102,47 +151,20 @@ const Navbar = (props) => {
                   <Link to={"/deposit/"} className="bttn-small btn-fill">
                     Deposit
                   </Link>
-                  <li className="nav-item dropdown no-arrow">
+                  <Dropdown
+                    overlay={menu}
+                    className="nav-link dropdown-toggle"
+                    // onVisibleChange={this.handleVisibleChange}
+                    // visible={this.state.visible}
+                  >
                     <a
-                      className="nav-link dropdown-toggle"
-                      id="userDropdown"
-                      role="button"
-                      data-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false"
+                      className="ant-dropdown-link"
+                      // onClick={(e) => e.preventDefault()}
                     >
-                      <i className="far fa-user fa-lg text-gray-400"></i>
+                      <i className="far fa-user fa-lg text-gray-400"></i>{" "}
+                      <DownOutlined style={{ color: "#fff" }} />
                     </a>
-                    <div
-                      className="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                      aria-labelledby="userDropdown"
-                    >
-                      <a className="dropdown-item words">
-                        <i className="far fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                        {userInfo.first_name}
-                      </a>
-                      <Link
-                        to={"/transactions/"}
-                        className="dropdown-item trans"
-                      >
-                        <i className="fas fa-landmark fa-sm fa-fw mr-2 text-gray-400"></i>{" "}
-                        Transactions
-                      </Link>
-                      <Link to={"/bet_slips/"} className="dropdown-item trans">
-                        <i className="fas fa-receipt fa-sm fa-fw mr-2 text-gray-400"></i>{" "}
-                        Bet Tickets
-                      </Link>
-                      <Link to={"/withdraw/"} className="dropdown-item trans">
-                        <i className="fas fa-money-bill-wave fa-sm fa-fw mr-2 text-gray-400"></i>{" "}
-                        Withdraw
-                      </Link>
-                      <div className="dropdown-divider"></div>
-                      <a className="dropdown-item trans" onClick={logOut}>
-                        <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>{" "}
-                        Logout
-                      </a>
-                    </div>
-                  </li>
+                  </Dropdown>
                 </div>
               )}
 
@@ -174,4 +196,4 @@ const Navbar = (props) => {
   );
 };
 
-export default Navbar;
+export default withRouter(Navbar);
