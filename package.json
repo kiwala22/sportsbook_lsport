@@ -27,6 +27,7 @@
         "actioncable": "^5.2.4-4",
         "animate.css": "3.7.0",
         "antd": "^4.16.11",
+        "antd-country-phone-input": "^4.1.0",
         "axios": "^0.21.1",
         "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
         "bootstrap": "^4.5.0",
@@ -57,6 +58,7 @@
         "echarts": "^4.9.0",
         "fastclick": "1.0.6",
         "flot": "themicon/flot",
+        "google-libphonenumber": "^3.2.22",
         "html5sortable": "0.9.8",
         "i18next": "12.0.0",
         "i18next-xhr-backend": "1.5.1",
@@ -118,6 +120,7 @@
         "webp-loader": "^0.6.0",
         "webpack-jquery-ui": "^2.0.1",
         "whirl": "github:themicon/whirl",
+        "world_countries_lists": "^2.2.0",
         "x-editable": "1.5.1"
     },
     "devDependencies": {

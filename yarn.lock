@@ -1489,6 +1489,11 @@ ansi-styles@^3.2.0, ansi-styles@^3.2.1:
   dependencies:
     color-convert "^1.9.0"
 
+antd-country-phone-input@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/antd-country-phone-input/-/antd-country-phone-input-4.1.0.tgz#5eb6bb6c7baf3bf27ebd8e20071beca5044a36a4"
+  integrity sha512-fvv/ssEujPEy+AS4qTKphJVF+KxgeTa2dwUTHjzGs9yH7uV+ts3VWEwcyk/UDBEGbJ31w1gXxeEJcPEDgvkt5w==
+
 antd@^4.16.11:
   version "4.16.11"
   resolved "https://registry.yarnpkg.com/antd/-/antd-4.16.11.tgz#924116b0de7370f914e9de6c8c5a4bf019b3d668"
@@ -4784,6 +4789,11 @@ globule@^1.0.0:
     glob "~7.1.1"
     lodash "~4.17.10"
     minimatch "~3.0.2"
+
+google-libphonenumber@^3.2.22:
+  version "3.2.22"
+  resolved "https://registry.yarnpkg.com/google-libphonenumber/-/google-libphonenumber-3.2.22.tgz#04d1df75324d4210c1bbfba0c238a0b08c594d22"
+  integrity sha512-lzEllxWc05n/HEv75SsDrA7zdEVvQzTZimItZm/TZ5XBs7cmx2NJmSlA5I0kZbdKNu8GFETBhSpo+SOhx0JslA==
 
 got@^7.0.0:
   version "7.1.0"
@@ -10922,6 +10932,11 @@ worker-farm@^1.7.0:
   integrity sha512-rvw3QTZc8lAxyVrqcSGVm5yP/IJ2UcB3U0graE3LCFoZ0Yn2x4EoVSqJKdB/T5M+FLcRPjz4TDacRf3OCfNUzw==
   dependencies:
     errno "~0.1.7"
+
+world_countries_lists@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/world_countries_lists/-/world_countries_lists-2.2.0.tgz#d9b57b5949e53c6f8e5cf3b582f2ce52bb27275e"
+  integrity sha512-qRT0tHsqjS0DJy6iurjccOcfCjfArOVK2KC3+SGvXAqlWop3GHabQlycrw96U5iZUe8iN4AYPEk2Rbg5YhOCMQ==
 
 wrap-ansi@^5.1.0:
   version "5.1.0"

@@ -1,260 +1,217 @@
+import { LockOutlined } from "@ant-design/icons";
+import { Button, Checkbox, Form, Input, Modal } from "antd";
 import cogoToast from "cogo-toast";
 import React, { useState } from "react";
-import {
-  Button,
-  Form,
-  FormCheck,
-  InputGroup,
-  Modal,
-  Spinner,
-} from "react-bootstrap";
-import { BsEye, BsEyeSlash } from "react-icons/bs";
-import PhoneInput from "react-phone-number-input";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
+import PhoneFormat from "../utilities/phoneNumber";
 import Requests from "../utilities/Requests";
+import PhoneInput from "./PhoneInput";
 
 const SignUp = (props) => {
   const [show, setShow] = useState(false);
-  const userEmail = React.createRef();
-  // const userPhoneNumber = React.createRef();
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const userPassword = React.createRef();
-  const userAgreement = React.createRef();
-  const userFirstName = React.createRef();
-  const userLastName = React.createRef();
-  const userPasswordConfirmation = React.createRef();
-  const [agreement, setAgreement] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [form] = Form.useForm();
   const [isLoading, setIsLoading] = useState(false);
-  const [validated, setValidated] = useState(false);
 
   const close = () => {
     setShow(false);
   };
 
-  const onClickCheckBox = (event) => {
-    const target = event.target;
-    const value = target.type === "checkbox" ? target.checked : target.value;
-    setAgreement(value);
-  };
-
-  const handleSignUp = (e) => {
+  const handleSignUp = (values) => {
     setIsLoading(true);
-    const form = e.currentTarget;
-    if (form.checkValidity() === false) {
-      e.preventDefault();
-      e.stopPropagation();
+    if (values.phone_number.code !== 256) {
+      cogoToast.error("Invalid Country Code.", 5);
       setTimeout(() => {
         setIsLoading(false);
-      }, 1000);
-    } else {
-      e.preventDefault();
-      let path = "/users";
-      let variables = {
-        user: {
-          email: userEmail.current.value,
-          phone_number: phoneNumber.substring(1),
-          first_name: userFirstName.current.value,
-          last_name: userLastName.current.value,
-          password: userPassword.current.value,
-          password_confirmation: userPasswordConfirmation.current.value,
-          agreement: userAgreement.current.checked,
-        },
-      };
-      Requests.isPostRequest(path, variables)
-        .then((response) => {
-          close();
-          cogoToast.success(response.data.message, { hideAfter: 5 });
-          setIsLoading(false);
-          window.location.replace("/new_verify/");
-          // var url = "/new_verify";
-          // window.location.replace(url);
-          // window.location.reload();
-        })
-        .catch((error) => {
-          cogoToast.error(
-            error.response ? error.response.data.message : error.message,
-            {
-              hideAfter: 10,
-            }
-          );
-          setIsLoading(false);
-        });
+      }, 2000);
+      return;
     }
-    setValidated(true);
+    let phoneNumber = PhoneFormat(values.phone_number.phone);
+    let path = "/users";
+    let variables = {
+      user: {
+        email: values.email,
+        phone_number: phoneNumber,
+        first_name: values.first_name,
+        last_name: values.last_name,
+        password: values.password,
+        password_confirmation: values.password_confirmation,
+        agreement: values.agreement,
+      },
+    };
+    Requests.isPostRequest(path, variables)
+      .then((response) => {
+        close();
+        cogoToast.success(response.data.message, { hideAfter: 5 });
+        setIsLoading(false);
+        props.history.push("/new_verify/");
+      })
+      .catch((error) => {
+        cogoToast.error(
+          error.response ? error.response.data.message : error.message,
+          {
+            hideAfter: 10,
+          }
+        );
+        setIsLoading(false);
+      });
   };
 
   return (
     <>
-      <Modal show={show} onHide={close} backdrop="static" keyboard={false}>
-        <Modal.Header closeButton closeLabel="Remove" className="modal-header">
-          <Modal.Title>Sign Up</Modal.Title>
-        </Modal.Header>
-        <Modal.Body className="modal-body">
-          <Form noValidate validated={validated} onSubmit={handleSignUp}>
-            <Form.Group controlId="formBasicEmail">
-              <Form.Label>Email</Form.Label>
-              <Form.Control
-                required
-                type="email"
-                placeholder="johndoe@example.com"
-                ref={userEmail}
-              />
-              <Form.Control.Feedback type="invalid">
-                Email is Required!
-              </Form.Control.Feedback>
-            </Form.Group>
-            <Form.Group controlId="formBasicPhoneNumber">
-              <Form.Label>Phone Number</Form.Label>
-              <PhoneInput
-                international={false}
-                defaultCountry="UG"
-                value={phoneNumber}
-                onChange={setPhoneNumber}
-                className="form-control"
-                required={true}
-              />
-              {/* <Form.Control
-                required
-                type="text"
-                placeholder="256772000001"
-                ref={userPhoneNumber}
-              /> */}
-              <Form.Control.Feedback type="invalid">
-                Phone Number is Required!
-              </Form.Control.Feedback>
-            </Form.Group>
-            <Form.Group controlId="formBasicFirstName">
-              <Form.Label>First Name</Form.Label>
-              <Form.Control
-                required
-                type="text"
-                placeholder="John"
-                ref={userFirstName}
-              />
-              <Form.Control.Feedback type="invalid">
-                First Name is Required!
-              </Form.Control.Feedback>
-            </Form.Group>
-
-            <Form.Group controlId="formBasicLastName">
-              <Form.Label>Last Name</Form.Label>
-              <Form.Control
-                required
-                type="text"
-                placeholder="Doe"
-                ref={userLastName}
-              />
-              <Form.Control.Feedback type="invalid">
-                Last Name is Required!
-              </Form.Control.Feedback>
-            </Form.Group>
-            <Form.Group controlId="formBasicPassword">
-              <Form.Label>Password</Form.Label>
-              <InputGroup hasValidation>
-                <Form.Control
-                  required
-                  type={showPassword ? "text" : "password"}
-                  placeholder="Please enter a minimum of 8 characters"
-                  ref={userPassword}
-                  className="form-control-tbb"
-                />
-                <span
-                  className="Bs-icon"
-                  onClick={() => setShowPassword(!showPassword)}
-                >
-                  {showPassword ? <BsEye /> : <BsEyeSlash />}
-                </span>
-                <Form.Control.Feedback type="invalid">
-                  Password is Required!
-                </Form.Control.Feedback>
-              </InputGroup>
-            </Form.Group>
-            <Form.Group controlId="formBasicPasswordConfirmation">
-              <Form.Label>Password Confirmation</Form.Label>
-              <InputGroup hasValidation>
-                <Form.Control
-                  required
-                  type={showConfirmation ? "text" : "password"}
-                  placeholder="Please enter a minimum of 8 characters"
-                  ref={userPasswordConfirmation}
-                  className="form-control-tbb"
-                />
-                <span
-                  className="Bs-icon"
-                  onClick={() => setShowConfirmation(!showConfirmation)}
-                >
-                  {showConfirmation ? <BsEye /> : <BsEyeSlash />}
-                </span>
-                <Form.Control.Feedback type="invalid">
-                  Password Confirmation is Required!
-                </Form.Control.Feedback>
-              </InputGroup>
-            </Form.Group>
-
-            <Form.Group className="" controlId="formBasicCheckBox">
-              <FormCheck>
-                <FormCheck.Input
-                  id="agreement"
-                  ref={userAgreement}
-                  checked={agreement}
-                  onChange={onClickCheckBox}
-                  name="user[agreement]"
-                  required
-                />
-                <FormCheck.Label className="remember-me">
-                  I am over 18 years of age and I accept SkylineBet’s{" "}
-                  <Link to={"/terms/"} className="terms" onClick={close}>
-                    Terms And Conditions
-                  </Link>{" "}
-                  and{" "}
-                  <Link to={"/privacy/"} className="terms" onClick={close}>
-                    Privacy Policy
-                  </Link>
-                </FormCheck.Label>
-                <Form.Control.Feedback type="invalid">
-                  You must agree before submitting.
-                </Form.Control.Feedback>
-              </FormCheck>
-            </Form.Group>
-            <Button
-              type="submit"
-              className="btn btn-block btn-primary mt-lg login-btn"
-              disabled={isLoading}
-            >
-              {isLoading ? (
-                <>
-                  <Spinner
-                    as="span"
-                    animation="border"
-                    size="sm"
-                    role="status"
-                    aria-hidden="true"
-                  />{" "}
-                  Loading...
-                </>
-              ) : (
-                "Sign Up"
-              )}
-            </Button>
-          </Form>
-          {/* <a
-            className="devise_forms"
-            onClick={() => {
-              setShow(false);
-              loginRef.current.click();
-            }}
+      <Modal
+        title="Sign Up"
+        visible={show}
+        onCancel={close}
+        footer={null}
+        backdrop="static"
+        keyboard={false}
+        scrollable={true}
+        // closeIcon={<CloseOutlined />}
+        confirmLoading={true}
+        maskClosable={false}
+      >
+        <Form
+          form={form}
+          layout="vertical"
+          onFinish={handleSignUp}
+          initialValues={{ phone_number: { short: "UG" } }}
+        >
+          <Form.Item
+            name="email"
+            label="E-mail"
+            rules={[
+              {
+                type: "email",
+                message: "Please input a valid E-mail!",
+              },
+              {
+                required: true,
+                message: "Please input your E-mail!",
+              },
+            ]}
           >
-            Login
-          </a> */}
-        </Modal.Body>
+            <Input className="form-control" />
+          </Form.Item>
+          <br />
+          <Form.Item
+            name="phone_number"
+            label="Phone Number"
+            rules={[
+              { required: true, message: "Please provide a Phone Number!" },
+            ]}
+          >
+            <PhoneInput />
+          </Form.Item>
+          <br />
+          <Form.Item
+            name="first_name"
+            label="First Name"
+            rules={[
+              {
+                required: true,
+                message: "Please input your First Name!",
+                whitespace: true,
+              },
+            ]}
+          >
+            <Input className="form-control" />
+          </Form.Item>
+          <br />
+          <Form.Item
+            name="last_name"
+            label="Last Name"
+            rules={[
+              {
+                required: true,
+                message: "Please input your Last Name!",
+                whitespace: true,
+              },
+            ]}
+          >
+            <Input className="form-control" />
+          </Form.Item>
+          <br />
+          <Form.Item
+            name="password"
+            label="Password"
+            rules={[
+              {
+                required: true,
+                message: "Please input your password!",
+              },
+            ]}
+            hasFeedback
+          >
+            <Input.Password
+              prefix={<LockOutlined className="site-form-item-icon" />}
+            />
+          </Form.Item>
+          <br />
+          <Form.Item
+            name="password_confirmation"
+            label="Confirm Password"
+            dependencies={["password"]}
+            hasFeedback
+            rules={[
+              {
+                required: true,
+                message: "Please confirm your password!",
+              },
+              ({ getFieldValue }) => ({
+                validator(_, value) {
+                  if (!value || getFieldValue("password") === value) {
+                    return Promise.resolve();
+                  }
+
+                  return Promise.reject(
+                    new Error(
+                      "The two passwords that you entered do not match!"
+                    )
+                  );
+                },
+              }),
+            ]}
+          >
+            <Input.Password
+              prefix={<LockOutlined className="site-form-item-icon" />}
+            />
+          </Form.Item>
+          <br />
+          <Form.Item
+            name="agreement"
+            valuePropName="checked"
+            rules={[
+              {
+                validator: (_, value) =>
+                  value
+                    ? Promise.resolve()
+                    : Promise.reject(new Error("Should accept agreement")),
+              },
+            ]}
+          >
+            <Checkbox>
+              I am over 18 years of age and I accept SkylineBet’s{" "}
+              <Link to={"/terms/"} className="terms" onClick={close}>
+                Terms And Conditions
+              </Link>{" "}
+              and{" "}
+              <Link to={"/privacy/"} className="terms" onClick={close}>
+                Privacy Policy
+              </Link>
+            </Checkbox>
+          </Form.Item>
+          <br />
+          <Button
+            htmlType="submit"
+            block
+            className="btn btn-block btn-primary mt-lg login-btn"
+            loading={isLoading}
+          >
+            Sign Up
+          </Button>
+        </Form>
       </Modal>
-      {/* <Login>
-          <a ref={loginRef} style={{ display: "none" }}>
-            Login
-          </a>
-        </Login> */}
+
       {React.cloneElement(props.children, {
         onClick: () => setShow(!show),
       })}
@@ -262,4 +219,4 @@ const SignUp = (props) => {
   );
 };
 
-export default SignUp;
+export default withRouter(SignUp);

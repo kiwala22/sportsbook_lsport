@@ -1,8 +1,9 @@
 import { DownOutlined } from "@ant-design/icons";
-import { Dropdown, Menu } from "antd";
+import { Button, Dropdown, Form, Input, Menu } from "antd";
+//import { Button, DatePicker, Form, Input, message, Modal, Select } from "antd";
 import cogoToast from "cogo-toast";
 import React, { useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
+// import { Button } from "react-bootstrap";
 import { Link, withRouter } from "react-router-dom";
 import currencyFormatter from "../utilities/CurrencyFormatter";
 import Requests from "../utilities/Requests";
@@ -13,7 +14,7 @@ import SignUp from "./SignUp";
 const Navbar = (props) => {
   const [userInfo, setUserInfo] = useState([]);
   const [userSignedIn, setUserSignedIn] = useState(false);
-  const searchRef = React.createRef();
+  const formRef = React.createRef();
 
   useEffect(() => {
     checkUserLoginStatus();
@@ -33,11 +34,10 @@ const Navbar = (props) => {
       .catch((error) => console.log(error));
   };
 
-  const performSearch = (e) => {
-    e.preventDefault();
+  const performSearch = (values) => {
     props.history.push({
       pathname: "/fixtures/search",
-      search: `?search=${searchRef.current.value}`,
+      search: `?search=${values.search}`,
     });
   };
 
@@ -125,17 +125,23 @@ const Navbar = (props) => {
                 </ul>
               </div>
               <div className="search">
-                <form className="form-inline mr-auto" onSubmit={performSearch}>
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Search for any event..."
-                    id="search"
-                    ref={searchRef}
-                    // onChange={() => console.log(event.target.value)}
-                  />
-                  <i className="fa fa-search fa-lg" id="glass"></i>
-                </form>
+                <Form ref={formRef} layout="vertical" onFinish={performSearch}>
+                  <Form.Item
+                    name="search"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please provide a search value.",
+                      },
+                    ]}
+                  >
+                    <Input
+                      className="form-control"
+                      placeholder="Search for any event..."
+                      suffix={<i className="fa fa-search fa-lg" id="glass"></i>}
+                    />
+                  </Form.Item>
+                </Form>
               </div>
 
               {userSignedIn && (
@@ -174,6 +180,7 @@ const Navbar = (props) => {
                     <Button
                       id="signup"
                       className="bttn-small btn-fill border-transparent"
+                      style={{ background: "#f6ae2d", color: "#fff" }}
                     >
                       <i className="fas fa-key fa-fw"></i> Sign Up
                     </Button>
@@ -182,6 +189,7 @@ const Navbar = (props) => {
                     <Button
                       id="login"
                       className="bttn-small btn-fill ml-2 border-transparent"
+                      style={{ background: "#f6ae2d", color: "#fff" }}
                     >
                       <i className="fas fa-lock fa-fw"></i> Login
                     </Button>

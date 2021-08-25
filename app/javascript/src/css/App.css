@@ -45,6 +45,49 @@ h6 {
   left: 40%;
 }
 
+.ant-form-item {
+  margin-bottom: 0px !important;
+}
+
+.ant-modal-header {
+  color: #fff;
+  background: #7690a7;
+}
+
+.ant-modal-content {
+  background-color: #5f7b95;
+  color: #fff;
+}
+.custom-btn {
+  background: #f6ae2d !important;
+  color: #fff !important;
+}
+
+.form-control-antd {
+  border-radius: 0.25rem !important;
+}
+
+.ant-input-affix-wrapper {
+  border-radius: 0.25rem;
+  height: calc(1.5em + 0.75rem + 2px);
+}
+
+.ant-checkbox-wrapper {
+  color: #fff;
+}
+
+.ant-input-password-icon {
+  color: rgba(0, 0, 0, 0.45);
+}
+
+.ant-form-item-label
+  > label.ant-form-item-required:not(.ant-form-item-required-mark-optional)::before {
+  color: #ffa600;
+}
+
+.ant-input {
+  border-radius: 0.25rem;
+}
 .modal-header {
   background-color: #7690a7 !important;
 }
