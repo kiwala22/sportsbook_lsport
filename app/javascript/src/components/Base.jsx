@@ -1,5 +1,7 @@
+import cogoToast from "cogo-toast";
 import React, { useEffect, useState } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
+import Requests from "../utilities/Requests";
 import Bets from "./Bets";
 //{Link}
 import BetSlip from "./BetSlip";
@@ -25,20 +27,22 @@ import Terms from "./Terms";
 import Transactions from "./Transactions";
 import Verify from "./Verify";
 import Withdraw from "./Withdraw";
-
 const Base = (props) => {
   const [currentUser, setCurrentUser] = useState("");
-  // const [verified, setVerified] = useState(false);
-  // const [signedIn, setSignedIn] = useState(false);
+  const [verified, setVerified] = useState(false);
+  const [signedIn, setSignedIn] = useState(false);
 
-  useEffect(() => console.log("Loaded"), []);
+  useEffect(() => {
+    checkUserVerification();
+  }, []);
 
   const checkUserVerification = () => {
-    let path = "/verification";
+    let path = "/api/v1/verification";
     let values = {};
     Requests.isGetRequest(path, values)
       .then((response) => {
         if (response.data.message == "Verified") {
+          console.log(response.data.message);
           setVerified(true);
           setSignedIn(true);
         } else if (
@@ -49,6 +53,15 @@ const Base = (props) => {
       })
       .catch((error) => console.log(error));
   };
+
+  // function requireAuth(nextState, replace) {
+  //   if (signedIn && !verified) {
+  //     replace("/new_verify");
+  //     cogoToast.error("Please verify your phone number first.", 5);
+  //   } else {
+  //     cogoToast.error("This is working as expected.", 5);
+  //   }
+  // }
 
   return (
     <>
@@ -107,20 +120,29 @@ const Base = (props) => {
                         path="/password_reset/"
                         component={PasswordReset}
                       />
-                      <Route path={["/"]} component={Home} />
+                      <Route
+                        exact
+                        path="/"
+                        render={() => {
+                          let check = signedIn && !verified;
+                          if (check) {
+                            cogoToast.error("Verify Phone Number First.", 5);
+                          }
+                          return check ? (
+                            <Redirect to="/new_verify/" />
+                          ) : (
+                            <Home />
+                          );
+                        }}
+                      />
                     </Switch>
                   </div>
                 </div>
-                {/* <% unless controller.controller_name == "verify" %> */}
                 <div className="col-xl-3 col-lg-3 col-md-3 hidden-sm-down mt-20 px-lg-1 px-xl-1 px-md-1">
-                  {/* <%= render 'layouts/partials/betslip.html.erb' %> */}
-                  <BetSlip />
+                  {props.location.pathname !== "/new_verify" && <BetSlip />}
                   <br />
-                  {/* <%= render "layouts/partials/side_banner"%> */}
                   <SideBanner />
                 </div>
-
-                {/* <% end %> */}
               </div>
             </div>
           </div>

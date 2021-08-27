@@ -69,9 +69,11 @@ const BetSlip = (props) => {
     Request.isGetRequest(path, values)
       .then((response) => {
         let data = response.data;
-        setGames(data);
-        let visible = data.length > 0 ? true : false;
-        setIsVisible(visible);
+        if (data instanceof Array) {
+          setGames(data);
+          let visible = data.length > 0 ? true : false;
+          setIsVisible(visible);
+        }
       })
       .catch((error) => {
         cogoToast.error(

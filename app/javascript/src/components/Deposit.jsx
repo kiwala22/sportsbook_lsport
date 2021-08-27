@@ -1,33 +1,27 @@
+import { Button, Form, Input } from "antd";
 import cogoToast from "cogo-toast";
 import React, { useState } from "react";
-import { Button, Form, Spinner } from "react-bootstrap";
-import PhoneInput from "react-phone-number-input";
+import PhoneInput from "./PhoneInput";
 // import Requests from "../utilities/Requests";
 
 const Deposit = (props) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [validated, setValidated] = useState(false);
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const amount = React.createRef();
+  const [form] = Form.useForm();
 
-  const performDeposit = (e) => {
+  const performDeposit = (values) => {
     setIsLoading(true);
-    const form = e.currentTarget;
-    if (form.checkValidity() === false) {
-      e.preventDefault();
-      e.stopPropagation();
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 1000);
-    } else {
-      // process deposit here
-      e.preventDefault();
-      cogoToast.success("Deposit Processing coming soon.", 5);
+    if (values.phone_number.code !== 256) {
+      cogoToast.error("Invalid Country Code.", 5);
       setTimeout(() => {
         setIsLoading(false);
       }, 2000);
+      return;
     }
-    setValidated(true);
+    // process deposit here
+    cogoToast.success("Deposit Processing coming soon.", 5);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
   };
   return (
     <>
@@ -41,62 +35,45 @@ const Deposit = (props) => {
                 </div>
                 <div className="widget-body">
                   <Form
-                    noValidate
-                    validated={validated}
-                    onSubmit={performDeposit}
+                    form={form}
+                    layout="vertical"
+                    onFinish={performDeposit}
+                    initialValues={{ phone_number: { short: "UG" } }}
                   >
-                    <Form.Group controlId="formBasicPhoneNumber">
-                      <Form.Label>Phone Number</Form.Label>
-                      <PhoneInput
-                        international={false}
-                        defaultCountry="UG"
-                        value={phoneNumber}
-                        onChange={setPhoneNumber}
-                        className="form-control"
-                        required={true}
-                      />
-                      {/* <Form.Control
-                required
-                type="text"
-                placeholder="Phone Number"
-                ref={userPhoneNumber}
-              /> */}
-                      <Form.Control.Feedback type="invalid">
-                        Phone Number is Required!
-                      </Form.Control.Feedback>
-                    </Form.Group>
-                    <Form.Group controlId="formBasicAmount">
-                      <Form.Label>Amount</Form.Label>
-                      <Form.Control
-                        required
-                        type="number"
-                        placeholder="Amount"
-                        ref={amount}
-                      />
-                      <Form.Control.Feedback type="invalid">
-                        Amount is Required!
-                      </Form.Control.Feedback>
-                    </Form.Group>
-                    <hr></hr>
-                    <Button
-                      type="submit"
-                      className="btn btn-block btn-primary mt-lg login-btn"
-                      disabled={isLoading}
+                    <Form.Item
+                      name="phone_number"
+                      label="Phone Number"
+                      rules={[
+                        {
+                          required: true,
+                          message: "Please provide a Phone Number!",
+                        },
+                      ]}
                     >
-                      {isLoading ? (
-                        <>
-                          <Spinner
-                            as="span"
-                            animation="border"
-                            size="sm"
-                            role="status"
-                            aria-hidden="true"
-                          />{" "}
-                          Loading...
-                        </>
-                      ) : (
-                        "Make Deposit"
-                      )}
+                      <PhoneInput />
+                    </Form.Item>
+                    <br />
+                    <Form.Item
+                      name="amount"
+                      label="Amount"
+                      rules={[
+                        { required: true, message: "Please enter amount!" },
+                      ]}
+                    >
+                      <Input
+                        prefix={"UGX"}
+                        placeholder="Amount"
+                        type="number"
+                      />
+                    </Form.Item>
+                    <br />
+                    <Button
+                      htmlType="submit"
+                      block
+                      className="btn btn-block btn-primary mt-lg login-btn"
+                      loading={isLoading}
+                    >
+                      Make Deposit
                     </Button>
                   </Form>
                 </div>

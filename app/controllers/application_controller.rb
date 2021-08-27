@@ -1,4 +1,4 @@
-class ApplicationController < ActionController::Base
+class ApplicationController < ActionController::Base 
   protect_from_forgery with: :exception, prepend: true
   include Pagy::Backend
 
@@ -26,6 +26,7 @@ class ApplicationController < ActionController::Base
   end
 
 
+
   protected
 
   def configure_permitted_parameters
@@ -42,7 +43,7 @@ class ApplicationController < ActionController::Base
 
   def redirect_if_unverified
     if user_signed_in? && !current_user.verified?
-      redirect_to new_verify_url, notice: "Please verify your phone number"
+      redirect_to new_verify_url, format: :json
     end
   end
 

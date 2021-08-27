@@ -1,46 +1,34 @@
+import { Button, Form, Input } from "antd";
 import cogoToast from "cogo-toast";
 import React, { useState } from "react";
-import { Button, Form, Spinner } from "react-bootstrap";
 import Requests from "../utilities/Requests";
 
 const Verify = (props) => {
-  const verificationCode = React.createRef();
+  const [form] = Form.useForm();
   const [isLoading, setIsLoading] = useState(false);
-  const [validated, setValidated] = useState(false);
 
-  const handleVerification = (e) => {
+  const handleVerification = (data) => {
     setIsLoading(true);
-    const form = e.currentTarget;
-    if (form.checkValidity() === false) {
-      e.preventDefault();
-      e.stopPropagation();
-      setTimeout(() => {
+    let path = "/verify";
+    let values = { pin: data.verificationCode };
+    Requests.isPostRequest(path, values)
+      .then((response) => {
+        cogoToast.success(response.data.message, { hideAfter: 5 });
         setIsLoading(false);
-      }, 1000);
-    } else {
-      e.preventDefault();
-      let path = "/verify";
-      let values = { pin: verificationCode.current.value };
-      Requests.isPostRequest(path, values)
-        .then((response) => {
-          cogoToast.success(response.data.message, { hideAfter: 5 });
-          setIsLoading(false);
-          props.history.push("/");
-          setTimeout(() => {
-            window.location.reload();
-          });
-        })
-        .catch((error) => {
-          cogoToast.error(
-            error.response ? error.response.data.message : error.message,
-            {
-              hideAfter: 10,
-            }
-          );
-          setIsLoading(false);
+        props.history.push("/");
+        setTimeout(() => {
+          window.location.reload();
         });
-    }
-    setValidated(true);
+      })
+      .catch((error) => {
+        cogoToast.error(
+          error.response ? error.response.data.message : error.message,
+          {
+            hideAfter: 10,
+          }
+        );
+        setIsLoading(false);
+      });
   };
 
   const resendVerification = (e) => {
@@ -72,42 +60,30 @@ const Verify = (props) => {
                 </div>
                 <div className="widget-body">
                   <Form
-                    noValidate
-                    validated={validated}
-                    onSubmit={handleVerification}
+                    form={form}
+                    layout="vertical"
+                    onFinish={handleVerification}
                   >
-                    <Form.Group controlId="formBasicCode">
-                      <Form.Label>Verification Code</Form.Label>
-                      <Form.Control
-                        type="text"
-                        className="form-control"
-                        placeholder="Ex: 123123"
-                        required
-                        ref={verificationCode}
-                      />
-                      <Form.Control.Feedback type="invalid">
-                        Please Enter a Code!
-                      </Form.Control.Feedback>
-                    </Form.Group>
-                    <Button
-                      type="submit"
-                      className="btn btn-block btn-primary mt-lg login-btn"
-                      disabled={isLoading}
+                    <Form.Item
+                      name="verificationCode"
+                      label="Verification Code"
+                      rules={[
+                        {
+                          required: true,
+                          message: "Please provide a verification Code!",
+                        },
+                      ]}
                     >
-                      {isLoading ? (
-                        <>
-                          <Spinner
-                            as="span"
-                            animation="border"
-                            size="sm"
-                            role="status"
-                            aria-hidden="true"
-                          />{" "}
-                          Loading...
-                        </>
-                      ) : (
-                        "Verify"
-                      )}
+                      <Input prefix={"XXX"} placeholder="Verification Code" />
+                    </Form.Item>
+                    <br />
+                    <Button
+                      htmlType="submit"
+                      block
+                      className="btn btn-block btn-primary mt-lg login-btn"
+                      loading={isLoading}
+                    >
+                      Verify
                     </Button>
                   </Form>
                   <br />
@@ -120,39 +96,6 @@ const Verify = (props) => {
           </div>
         </div>
       </div>
-
-      {/* <Modal show={show} onHide={close} backdrop="static" keyboard={false}>
-        <Modal.Header
-          closeButton
-          closeLabel="Remove"
-          style={{ backgroundColor: "#7690A7" }}
-        >
-          <Modal.Title>Verify Phone Number</Modal.Title>
-        </Modal.Header>
-        <Modal.Body style={{ backgroundColor: "#5F7b95" }}>
-          <form onSubmit={handleVerification}>
-            <div className="form-group">
-              <label>Verification Code</label>
-              <input
-                type="text"
-                className="form-control"
-                id="verificationCode"
-                required
-                ref={verificationCode}
-              />
-            </div>
-            <div className="actions">
-              <button
-                name="button"
-                type="submit"
-                className="btn btn-block btn-primary mt-lg login-btn"
-              >
-                Verify
-              </button>
-            </div>
-          </form>
-        </Modal.Body>
-      </Modal> */}
     </>
   );
 };

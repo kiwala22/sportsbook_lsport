@@ -52,12 +52,53 @@ h6 {
 .ant-modal-header {
   color: #fff;
   background: #7690a7;
+  border-radius: 5px 5px 0 0;
 }
 
 .ant-modal-content {
   background-color: #5f7b95;
   color: #fff;
+  border-radius: 5px;
 }
+
+.ant-table-thead > tr > th {
+  background: #7690a7;
+}
+
+.ant-table {
+  color: #fff;
+  background: #5f7b95;
+}
+
+.ant-pagination-item-active {
+  background: #5f7b95;
+  border-color: #fd6a02;
+}
+
+.ant-table-tbody > tr.ant-table-row:hover > td {
+  background: transparent;
+}
+
+.ant-table-tbody > tr.ant-table-placeholder:hover > td {
+  background: transparent;
+}
+
+.ant-pagination {
+  color: #f6ae2d;
+}
+
+.ant-table-pagination.ant-pagination {
+  margin: 5px 0;
+}
+
+.ant-table-tbody > tr > td {
+  border-bottom: 1px solid #9baebf;
+}
+
+.ant-table-thead > tr > th {
+  border-bottom: 1px solid #9baebf;
+}
+
 .custom-btn {
   background: #f6ae2d !important;
   color: #fff !important;

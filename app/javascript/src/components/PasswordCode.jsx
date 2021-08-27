@@ -1,45 +1,33 @@
+import { Button, Form, Input } from "antd";
 import cogoToast from "cogo-toast";
 import React, { useState } from "react";
-import { Button, Form, Spinner } from "react-bootstrap";
 import Requests from "../utilities/Requests";
 
 const PasswordCode = (props) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [validated, setValidated] = useState(false);
-  const resetCode = React.createRef();
+  const [form] = Form.useForm();
 
-  const handleVerification = (e) => {
+  const handleVerification = (data) => {
     setIsLoading(true);
-    const form = e.currentTarget;
-    if (form.checkValidity() === false) {
-      e.preventDefault();
-      e.stopPropagation();
-      setTimeout(() => {
+    let path = "/password_update";
+    let values = { reset_code: data.resetCode };
+    Requests.isPostRequest(path, values)
+      .then((response) => {
+        cogoToast.success(response.data.message, { hideAfter: 5 });
         setIsLoading(false);
-      }, 1000);
-    } else {
-      e.preventDefault();
-      let path = "/password_update";
-      let values = { reset_code: resetCode.current.value };
-      Requests.isPostRequest(path, values)
-        .then((response) => {
-          cogoToast.success(response.data.message, { hideAfter: 5 });
-          setIsLoading(false);
-          props.history.push(
-            `/users/password/edit?reset_password_token=${response.data.token}`
-          );
-        })
-        .catch((error) => {
-          cogoToast.error(
-            error.response ? error.response.data.message : error.message,
-            {
-              hideAfter: 10,
-            }
-          );
-          setIsLoading(false);
-        });
-    }
-    setValidated(true);
+        props.history.push(
+          `/users/password/edit?reset_password_token=${response.data.token}`
+        );
+      })
+      .catch((error) => {
+        cogoToast.error(
+          error.response ? error.response.data.message : error.message,
+          {
+            hideAfter: 10,
+          }
+        );
+        setIsLoading(false);
+      });
   };
   return (
     <>
@@ -53,48 +41,32 @@ const PasswordCode = (props) => {
                 </div>
                 <div className="widget-body">
                   <Form
-                    noValidate
-                    validated={validated}
-                    onSubmit={handleVerification}
+                    form={form}
+                    layout="vertical"
+                    onFinish={handleVerification}
                   >
-                    <Form.Group controlId="formBasicPhoneNumber">
-                      <Form.Label>Reset Code</Form.Label>
-                      <Form.Control
-                        type="text"
-                        className="form-control"
-                        placeholder="123000"
-                        required
-                        ref={resetCode}
-                      />
-                      <Form.Control.Feedback type="invalid">
-                        Please Enter Reset Code!
-                      </Form.Control.Feedback>
-                    </Form.Group>
-                    <Button
-                      type="submit"
-                      className="btn btn-block btn-primary mt-lg login-btn"
-                      disabled={isLoading}
+                    <Form.Item
+                      name="resetCode"
+                      label="Reset Code"
+                      rules={[
+                        {
+                          required: true,
+                          message: "Please provide a Reset Code!",
+                        },
+                      ]}
                     >
-                      {isLoading ? (
-                        <>
-                          <Spinner
-                            as="span"
-                            animation="border"
-                            size="sm"
-                            role="status"
-                            aria-hidden="true"
-                          />{" "}
-                          Loading...
-                        </>
-                      ) : (
-                        "Confirm"
-                      )}
+                      <Input prefix={"XXX"} placeholder="Reset Code" />
+                    </Form.Item>
+                    <br />
+                    <Button
+                      htmlType="submit"
+                      block
+                      className="btn btn-block btn-primary mt-lg login-btn"
+                      loading={isLoading}
+                    >
+                      Confirm
                     </Button>
                   </Form>
-                  {/* <br />
-                  <p style={{ textAlign: "center" }} className="devise_forms">
-                    <a onClick={resendVerification}>Resend Code</a>
-                  </p> */}
                 </div>
               </div>
             </div>

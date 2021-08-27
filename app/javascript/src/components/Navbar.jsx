@@ -65,32 +65,32 @@ const Navbar = (props) => {
   const menu = (
     <Menu>
       <Menu.Item key="1">
-        <a className="dropdown-item words">
+        <a>
           <i className="far fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
           {userInfo.first_name}
         </a>
       </Menu.Item>
       <Menu.Item key="2">
-        <Link to={"/transactions/"} className="dropdown-item trans">
+        <Link to={"/transactions/"}>
           <i className="fas fa-landmark fa-sm fa-fw mr-2 text-gray-400"></i>{" "}
           Transactions
         </Link>
       </Menu.Item>
       <Menu.Item key="3">
-        <Link to={"/bet_slips/"} className="dropdown-item trans">
+        <Link to={"/bet_slips/"}>
           <i className="fas fa-receipt fa-sm fa-fw mr-2 text-gray-400"></i> Bet
           Tickets
         </Link>
       </Menu.Item>
       <Menu.Item key="4">
-        <Link to={"/withdraw/"} className="dropdown-item trans">
+        <Link to={"/withdraw/"}>
           <i className="fas fa-money-bill-wave fa-sm fa-fw mr-2 text-gray-400"></i>{" "}
           Withdraw
         </Link>
       </Menu.Item>
       <div className="dropdown-divider"></div>
       <Menu.Item key="5" onClick={logOut}>
-        <a className="dropdown-item trans">
+        <a>
           <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>{" "}
           Logout
         </a>
@@ -160,16 +160,18 @@ const Navbar = (props) => {
                   <Dropdown
                     overlay={menu}
                     className="nav-link dropdown-toggle"
+                    trigger={["click"]}
+                    arrow={true}
                     // onVisibleChange={this.handleVisibleChange}
                     // visible={this.state.visible}
                   >
-                    <a
+                    <span
                       className="ant-dropdown-link"
                       // onClick={(e) => e.preventDefault()}
                     >
                       <i className="far fa-user fa-lg text-gray-400"></i>{" "}
                       <DownOutlined style={{ color: "#fff" }} />
-                    </a>
+                    </span>
                   </Dropdown>
                 </div>
               )}

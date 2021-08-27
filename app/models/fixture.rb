@@ -77,7 +77,7 @@ class Fixture < ApplicationRecord
   
   include Lsports
   
-  paginates_per 100
+  paginates_per 2
   
   def broadcast_updates
     #check if change was on status

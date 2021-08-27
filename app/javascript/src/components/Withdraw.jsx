@@ -1,32 +1,20 @@
+import { Button, Form, Input } from "antd";
 import cogoToast from "cogo-toast";
 import React, { useState } from "react";
-import { Button, Form, Spinner } from "react-bootstrap";
 // import Requests from "../utilities/Requests";
 
 const Withdraw = (props) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [validated, setValidated] = useState(false);
-  const amount = React.createRef();
+  const [form] = Form.useForm();
 
-  const performWithdraw = (e) => {
+  const performWithdraw = () => {
     setIsLoading(true);
-    const form = e.currentTarget;
-    if (form.checkValidity() === false) {
-      e.preventDefault();
-      e.stopPropagation();
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 1000);
-    } else {
-      // process withdraw here
-      e.preventDefault();
-      cogoToast.success("Withdraw Processing coming soon.", 5);
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 2000);
-    }
-    setValidated(true);
+    cogoToast.success("Withdraw Processing coming soon.", 5);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
   };
+
   return (
     <>
       <div className="login">
@@ -39,42 +27,31 @@ const Withdraw = (props) => {
                 </div>
                 <div className="widget-body">
                   <Form
-                    noValidate
-                    validated={validated}
-                    onSubmit={performWithdraw}
+                    form={form}
+                    layout="vertical"
+                    onFinish={performWithdraw}
                   >
-                    <Form.Group controlId="formBasicAmount">
-                      <Form.Label>Amount</Form.Label>
-                      <Form.Control
-                        required
-                        type="number"
-                        placeholder="Amount"
-                        ref={amount}
-                      />
-                      <Form.Control.Feedback type="invalid">
-                        Amount is Required!
-                      </Form.Control.Feedback>
-                    </Form.Group>
-                    <hr></hr>
-                    <Button
-                      type="submit"
-                      className="btn btn-block btn-primary mt-lg login-btn"
-                      disabled={isLoading}
+                    <Form.Item
+                      name="amount"
+                      label="Amount"
+                      rules={[
+                        { required: true, message: "Please enter amount!" },
+                      ]}
                     >
-                      {isLoading ? (
-                        <>
-                          <Spinner
-                            as="span"
-                            animation="border"
-                            size="sm"
-                            role="status"
-                            aria-hidden="true"
-                          />{" "}
-                          Loading...
-                        </>
-                      ) : (
-                        "Make Withdraw"
-                      )}
+                      <Input
+                        prefix={"UGX"}
+                        placeholder="Amount"
+                        type="number"
+                      />
+                    </Form.Item>
+                    <br />
+                    <Button
+                      htmlType="submit"
+                      block
+                      className="btn btn-block btn-primary mt-lg login-btn"
+                      loading={isLoading}
+                    >
+                      Make Withdraw
                     </Button>
                   </Form>
                 </div>

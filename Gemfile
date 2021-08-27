@@ -115,3 +115,4 @@ gem "anycable"
 gem "anycable-rails", "~> 1.0"
 gem 'webmock', '~> 2.1'
 gem 'mimemagic', github: 'mimemagicrb/mimemagic', ref: '01f92d86d15d85cfd0f20dabd025dcbd36a8a60f'
+gem 'will_paginate'

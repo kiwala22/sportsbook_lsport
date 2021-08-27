@@ -1,47 +1,41 @@
+import { Button, Form } from "antd";
 import cogoToast from "cogo-toast";
 import React, { useState } from "react";
-import { Button, Form, Spinner } from "react-bootstrap";
-import PhoneInput from "react-phone-number-input";
+import PhoneFormat from "../utilities/phoneNumber";
 import Requests from "../utilities/Requests";
+import PhoneInput from "./PhoneInput";
 
 const PasswordReset = (props) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [validated, setValidated] = useState(false);
-  // const phoneNumber = React.createRef();
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [form] = Form.useForm();
 
-  const submit = (e) => {
+  const submit = (data) => {
     setIsLoading(true);
-    const form = e.currentTarget;
-    if (form.checkValidity() === false) {
-      e.preventDefault();
-      e.stopPropagation();
-    } else {
-      e.preventDefault();
-      let path = "/reset";
-      let values = { phone_number: phoneNumber.substring(1) };
-      Requests.isPostRequest(path, values)
-        .then((response) => {
-          setIsLoading(false);
-          cogoToast.success(response.data.message, { hideAfter: 5 });
-          props.history.push("/verify_reset/");
-        })
-        .catch((error) => {
-          cogoToast.error(
-            error.response ? error.response.data.message : error.message,
-            {
-              hideAfter: 5,
-            }
-          );
-          setIsLoading(false);
-        });
+    if (data.phone_number.code !== 256) {
+      cogoToast.error("Invalid Country Code.", 5);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 2000);
+      return;
     }
-    setValidated(true);
-    e.preventDefault();
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 3000);
+    let phoneNumber = PhoneFormat(data.phone_number.phone);
+    let path = "/reset";
+    let values = { phone_number: phoneNumber };
+    Requests.isPostRequest(path, values)
+      .then((response) => {
+        setIsLoading(false);
+        cogoToast.success(response.data.message, { hideAfter: 5 });
+        props.history.push("/verify_reset/");
+      })
+      .catch((error) => {
+        cogoToast.error(
+          error.response ? error.response.data.message : error.message,
+          {
+            hideAfter: 5,
+          }
+        );
+        setIsLoading(false);
+      });
   };
   return (
     <>
@@ -54,53 +48,34 @@ const PasswordReset = (props) => {
                   <h3 className="heading-center">Recover With Phone Number</h3>
                 </div>
                 <div className="widget-body">
-                  <Form noValidate validated={validated} onSubmit={submit}>
-                    <Form.Group controlId="formBasicPhoneNumber">
-                      <Form.Label>Phone Number</Form.Label>
-                      <PhoneInput
-                        international={false}
-                        defaultCountry="UG"
-                        value={phoneNumber}
-                        onChange={setPhoneNumber}
-                        className="form-control"
-                        required={true}
-                      />
-                      {/* <Form.Control
-                        type="text"
-                        className="form-control"
-                        placeholder="2567123123123"
-                        required
-                        ref={phoneNumber}
-                      /> */}
-                      <Form.Control.Feedback type="invalid">
-                        Please Enter your Phone Number!
-                      </Form.Control.Feedback>
-                    </Form.Group>
-                    <Button
-                      type="submit"
-                      className="btn btn-block btn-primary mt-lg login-btn"
-                      disabled={isLoading}
+                  <Form
+                    form={form}
+                    layout="vertical"
+                    onFinish={submit}
+                    initialValues={{ phone_number: { short: "UG" } }}
+                  >
+                    <Form.Item
+                      name="phone_number"
+                      label="Phone Number"
+                      rules={[
+                        {
+                          required: true,
+                          message: "Please provide a Phone Number!",
+                        },
+                      ]}
                     >
-                      {isLoading ? (
-                        <>
-                          <Spinner
-                            as="span"
-                            animation="border"
-                            size="sm"
-                            role="status"
-                            aria-hidden="true"
-                          />{" "}
-                          Loading...
-                        </>
-                      ) : (
-                        "Send Reset Code"
-                      )}
+                      <PhoneInput />
+                    </Form.Item>
+                    <br />
+                    <Button
+                      htmlType="submit"
+                      block
+                      className="btn btn-block btn-primary mt-lg login-btn"
+                      loading={isLoading}
+                    >
+                      Send Reset Code
                     </Button>
                   </Form>
-                  {/* <br />
-                  <p style={{ textAlign: "center" }} className="devise_forms">
-                    <a onClick={resendVerification}>Resend Code</a>
-                  </p> */}
                 </div>
               </div>
             </div>
