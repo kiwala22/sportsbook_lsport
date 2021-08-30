@@ -1,10 +1,10 @@
 // import "jquery";
 // import "jquery-ui";
 import "jquery-migrate";
-require("./popper.js")
+require("./popper.js");
 import "bootstrap";
 require("./owl.carousel.min.js");
-require("./parallax.min.js")
+require("./parallax.min.js");
 import "magnific-popup";
 require("./imagesloaded.pkgd.min.js");
 require("./isotope.pkgd.min.js");

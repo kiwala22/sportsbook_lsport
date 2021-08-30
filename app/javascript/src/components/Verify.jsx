@@ -1,6 +1,7 @@
 import { Button, Form, Input } from "antd";
 import cogoToast from "cogo-toast";
 import React, { useState } from "react";
+import { withRouter } from "react-router";
 import Requests from "../utilities/Requests";
 
 const Verify = (props) => {
@@ -100,4 +101,4 @@ const Verify = (props) => {
   );
 };
 
-export default Verify;
+export default withRouter(Verify);

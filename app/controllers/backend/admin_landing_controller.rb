@@ -1,7 +1,7 @@
 class Backend::AdminLandingController < ApplicationController
   before_action :authenticate_admin!
 
-  layout "admin_application.html.erb"
+  layout 'admin_application.html.erb'
 
   def index
     ##Dates
@@ -17,12 +17,34 @@ class Backend::AdminLandingController < ApplicationController
     ((Date.today - 21)..Date.today).each do |date|
       ##Push dates to the dates Array
       dates.push(date.to_s)
+
       ##Get stake totals per day
-      stake_totals = BetSlip.where("created_at >= ? and created_at <= ?", date.beginning_of_day, date.end_of_day).sum(:stake)
+      stake_totals =
+        BetSlip
+          .where(
+            'created_at >= ? and created_at <= ?',
+            date.beginning_of_day,
+            date.end_of_day
+          )
+          .sum(:stake)
+
       ##Get amounts won totals per day
-      amount_won_totals = BetSlip.where("created_at >= ? and created_at <= ?", date.beginning_of_day, date.end_of_day).sum(:win_amount)
+      amount_won_totals =
+        BetSlip
+          .where(
+            'created_at >= ? and created_at <= ?',
+            date.beginning_of_day,
+            date.end_of_day
+          )
+          .sum(:win_amount)
+
       ##Get total bets placed per day
-      bets_totals = BetSlip.where("created_at >= ? and created_at <= ?", date.beginning_of_day, date.end_of_day).count()
+      bets_totals =
+        BetSlip.where(
+          'created_at >= ? and created_at <= ?',
+          date.beginning_of_day,
+          date.end_of_day
+        ).count
 
       ##Push all values in the respective arrays
       stake.push(stake_totals)

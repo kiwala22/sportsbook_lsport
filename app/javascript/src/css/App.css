@@ -70,6 +70,10 @@ h6 {
   background: #5f7b95;
 }
 
+.ant-table table {
+  text-align: center;
+}
+
 .ant-pagination-item-active {
   background: #5f7b95;
   border-color: #fd6a02;

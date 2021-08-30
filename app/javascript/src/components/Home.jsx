@@ -80,10 +80,15 @@ const Home = (props) => {
           //   updateMatchInfo(data, games, setState);
           // }}
         >
-          <a>
+          <Link
+            to={{
+              pathname: "/fixtures/soccer/live",
+              search: `id=${fixture.id}`,
+            }}
+          >
             <strong>{fixture.part_one_name}</strong>
             <strong>{fixture.part_two_name}</strong>
-          </a>
+          </Link>
         </MarketsChannel>
       ),
     },
@@ -189,10 +194,15 @@ const Home = (props) => {
           //   updateMatchInfo(data, games, setState);
           // }}
         >
-          <a>
+          <Link
+            to={{
+              pathname: "/fixtures/soccer/pre",
+              search: `id=${fixture.id}`,
+            }}
+          >
             <strong>{fixture.part_one_name}</strong>
             <strong>{fixture.part_two_name}</strong>
-          </a>
+          </Link>
         </MarketsChannel>
       ),
     },

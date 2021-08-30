@@ -8,6 +8,6 @@ class Confirmation::MtnUgandaController < ApplicationController
   def create
     @@mtn_logger.error(request.body)
 
-    render status: 200, json: {response: "OK"}
+    render status: 200, json: { response: 'OK' }
   end
 end

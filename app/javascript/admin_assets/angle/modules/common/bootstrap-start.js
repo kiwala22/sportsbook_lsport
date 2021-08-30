@@ -1,31 +1,29 @@
 // Start Bootstrap JS
 // -----------------------------------
 
-import $ from 'jquery';
+import $ from "jquery";
 
 function initBootstrap() {
+  // necessary check at least til BS doesn't require jQuery
+  if (!$.fn || !$.fn.tooltip || !$.fn.popover) return;
 
-    // necessary check at least til BS doesn't require jQuery
-    if (!$.fn || !$.fn.tooltip || !$.fn.popover) return;
+  // POPOVER
+  // -----------------------------------
 
-    // POPOVER
-    // -----------------------------------
+  $('[data-toggle="popover"]').popover();
 
-    $('[data-toggle="popover"]').popover();
+  // TOOLTIP
+  // -----------------------------------
 
-    // TOOLTIP
-    // -----------------------------------
+  $('[data-toggle="tooltip"]').tooltip({
+    container: "body",
+  });
 
-    $('[data-toggle="tooltip"]').tooltip({
-        container: 'body'
-    });
-
-    // DROPDOWN INPUTS
-    // -----------------------------------
-    $('.dropdown input').on('click focus', function(event) {
-        event.stopPropagation();
-    });
-
+  // DROPDOWN INPUTS
+  // -----------------------------------
+  $(".dropdown input").on("click focus", function (event) {
+    event.stopPropagation();
+  });
 }
 
 export default initBootstrap;

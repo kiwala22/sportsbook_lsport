@@ -1,3 +1,2 @@
-
 // Parsley (validation)
-import 'parsleyjs/dist/parsley.min.js';
+import "parsleyjs/dist/parsley.min.js";

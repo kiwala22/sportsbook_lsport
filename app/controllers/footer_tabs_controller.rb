@@ -1,21 +1,11 @@
 class FooterTabsController < ApplicationController
-  def faqs
-  	
-  end
+  def faqs; end
 
-  def rules
+  def rules; end
 
-  end
+  def contacts; end
 
-  def contacts
+  def terms; end
 
-  end
-
-  def terms
-
-  end
-
-  def privacy
-
-  end
+  def privacy; end
 end

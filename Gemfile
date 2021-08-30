@@ -40,7 +40,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'action-cable-testing'
 end
 
@@ -48,11 +48,12 @@ group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
+
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
-  gem "capistrano", "~> 3.10", require: false
-  gem "capistrano-rails", "~> 1.3", require: false
+  gem 'capistrano', '~> 3.10', require: false
+  gem 'capistrano-rails', '~> 1.3', require: false
   gem 'capistrano-ext'
   gem 'capistrano-passenger'
   gem 'capistrano-rvm'
@@ -61,27 +62,30 @@ group :development do
 end
 
 group :test do
-   gem 'rspec-rails'
+  gem 'rspec-rails'
+
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'
+
   # Easy installation and use of chromedriver to run system tests with Chrome
- # gem 'chromedriver-helper'
+  # gem 'chromedriver-helper'
   gem 'webdrivers'
   gem 'factory_bot'
   gem 'faker'
   gem 'shoulda-matchers'
   gem 'rspec-sidekiq'
   gem 'database_cleaner-active_record'
-  gem "factory_bot_rails"
+  gem 'factory_bot_rails'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 gem 'dotenv-rails'
 gem 'activeadmin', '~> 2.7'
-gem 'inherited_resources', git: 'https://github.com/activeadmin/inherited_resources'
+gem 'inherited_resources',
+    git: 'https://github.com/activeadmin/inherited_resources'
 gem 'devise'
 gem 'draper'
 gem 'pundit'
@@ -92,12 +96,12 @@ gem 'gon'
 gem 'kaminari'
 gem 'jwt'
 gem 'openssl'
-gem "audited", "~> 4.9"
-gem "roo", "~> 2.8.0"
-gem "brakeman"
-gem "sentry-raven"
+gem 'audited', '~> 4.9'
+gem 'roo', '~> 2.8.0'
+gem 'brakeman'
+gem 'sentry-raven'
 gem 'webpacker', '~> 4.0'
-gem "bunny", ">= 2.16.1"
+gem 'bunny', '>= 2.16.1'
 gem 'sneakers'
 # gem 'httparty', '~> 0.13.7'
 # gem 'rb-readline'
@@ -107,12 +111,15 @@ gem 'jquery-ui-rails'
 gem 'momentjs-rails', '>= 2.9.0'
 gem 'pagy', '~> 3.5'
 gem 'flag-icons-rails'
-gem "browser"
+gem 'browser'
 gem 'pg_search'
 gem 'newrelic_rpm'
 gem 'local_time'
-gem "anycable"
-gem "anycable-rails", "~> 1.0"
+gem 'anycable'
+gem 'anycable-rails', '~> 1.0'
 gem 'webmock', '~> 2.1'
-gem 'mimemagic', github: 'mimemagicrb/mimemagic', ref: '01f92d86d15d85cfd0f20dabd025dcbd36a8a60f'
+gem 'mimemagic',
+    github: 'mimemagicrb/mimemagic',
+    ref: '01f92d86d15d85cfd0f20dabd025dcbd36a8a60f'
 gem 'will_paginate'
+gem 'prettier'

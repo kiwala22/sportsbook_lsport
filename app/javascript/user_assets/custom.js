@@ -20,7 +20,6 @@
 //   }
 // };
 
-
 // document.addEventListener("turbolinks:load", function() {
 //     betSlip();
 //     //initialiseInput();
@@ -49,13 +48,13 @@
 //     });
 // })
 $(document).ready(function () {
-  window.onpageshow = function(evt) {
+  window.onpageshow = function (evt) {
     if (evt.persisted) {
       document.body.style.display = "none";
       location.reload();
     }
   };
-})
-document.addEventListener("turbolinks:load", function() {
+});
+document.addEventListener("turbolinks:load", function () {
   $("#flash").fadeOut(3000);
-})
+});

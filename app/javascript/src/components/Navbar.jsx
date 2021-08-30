@@ -3,7 +3,6 @@ import { Button, Dropdown, Form, Input, Menu } from "antd";
 //import { Button, DatePicker, Form, Input, message, Modal, Select } from "antd";
 import cogoToast from "cogo-toast";
 import React, { useEffect, useState } from "react";
-// import { Button } from "react-bootstrap";
 import { Link, withRouter } from "react-router-dom";
 import currencyFormatter from "../utilities/CurrencyFormatter";
 import Requests from "../utilities/Requests";
@@ -14,16 +13,20 @@ import SignUp from "./SignUp";
 const Navbar = (props) => {
   const [userInfo, setUserInfo] = useState([]);
   const [userSignedIn, setUserSignedIn] = useState(false);
+  const [verified, setVerified] = useState(false);
   const formRef = React.createRef();
 
   useEffect(() => {
     checkUserLoginStatus();
   }, []);
 
+  useEffect(() => {
+    verificationStatus();
+  }, []);
+
   const checkUserLoginStatus = () => {
     UserLogin.currentUserLogin()
       .then((data) => {
-        console.log(data.message);
         if (data.message == "Authorized") {
           if (data.user.verified) {
             setUserSignedIn(true);
@@ -33,6 +36,18 @@ const Navbar = (props) => {
       })
       .catch((error) => console.log(error));
   };
+
+  function verificationStatus() {
+    let path = "/api/v1/verification";
+    let values = {};
+    Requests.isGetRequest(path, values)
+      .then((response) => {
+        if (response.data.message == "Verified") {
+          setVerified(true);
+        }
+      })
+      .catch((error) => console.log(error));
+  }
 
   const performSearch = (values) => {
     props.history.push({
@@ -176,7 +191,7 @@ const Navbar = (props) => {
                 </div>
               )}
 
-              {!userSignedIn && (
+              {!userSignedIn && userInfo.length == 0 && (
                 <div className="navbar-nav ml-auto">
                   <SignUp>
                     <Button
@@ -196,6 +211,18 @@ const Navbar = (props) => {
                       <i className="fas fa-lock fa-fw"></i> Login
                     </Button>
                   </Login>
+                </div>
+              )}
+              {userInfo.length !== 0 && !verified && (
+                <div className="navbar-nav ml-auto">
+                  <Button
+                    id="verify-logout"
+                    className="bttn-small btn-fill border-transparent"
+                    style={{ background: "#f6ae2d", color: "#fff" }}
+                    onClick={logOut}
+                  >
+                    <i className="fas fa-key fa-fw"></i> Log Out
+                  </Button>
                 </div>
               )}
             </div>

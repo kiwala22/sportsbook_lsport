@@ -44,6 +44,9 @@ const SignUp = (props) => {
         cogoToast.success(response.data.message, { hideAfter: 5 });
         setIsLoading(false);
         props.history.push("/new_verify/");
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
       })
       .catch((error) => {
         cogoToast.error(

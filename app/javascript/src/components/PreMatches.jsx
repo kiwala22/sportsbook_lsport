@@ -3,7 +3,7 @@ import "channels";
 import cogoToast from "cogo-toast";
 import React, { useEffect, useState } from "react";
 import Moment from "react-moment";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import shortUUID from "short-uuid";
 import MarketsChannel from "../../channels/marketsChannel";
 import PreOddsChannel from "../../channels/preOddsChannel";
@@ -90,10 +90,15 @@ const PreMatches = (props) => {
           //   updateMatchInfo(data, games, setState);
           // }}
         >
-          <a>
+          <Link
+            to={{
+              pathname: "/fixtures/soccer/pre",
+              search: `id=${fixture.id}`,
+            }}
+          >
             <strong>{fixture.part_one_name}</strong>
             <strong>{fixture.part_two_name}</strong>
-          </a>
+          </Link>
         </MarketsChannel>
       ),
     },
@@ -205,4 +210,4 @@ const PreMatches = (props) => {
   );
 };
 
-export default PreMatches;
+export default withRouter(PreMatches);

@@ -3,6 +3,7 @@
 class Users::PasswordsController < Devise::PasswordsController
   prepend_before_action :require_no_authentication
   respond_to :json
+
   # GET /resource/password/new
   def new
     # super
@@ -32,12 +33,16 @@ class Users::PasswordsController < Devise::PasswordsController
         sign_in(resource_name, resource)
       else
         flash_message = :updated_not_active
-        render json: {message: flash_message}, status: 500
+        render json: { message: flash_message }, status: 500
       end
-      render json: {message: "Your Password has been reset successfully. You are now Logged in."}, status: 200
+      render json: {
+               message:
+                 'Your Password has been reset successfully. You are now Logged in.'
+             },
+             status: 200
     else
       set_minimum_password_length
-      render json: {message: resource.errors.full_messages[0]}, status: 500
+      render json: { message: resource.errors.full_messages[0] }, status: 500
     end
   end
 

@@ -69,10 +69,15 @@ const LiveMatches = (props) => {
           //   updateMatchInfo(data, games, setState);
           // }}
         >
-          <a>
+          <Link
+            to={{
+              pathname: "/fixtures/soccer/live",
+              search: `id=${fixture.id}`,
+            }}
+          >
             <strong>{fixture.part_one_name}</strong>
             <strong>{fixture.part_two_name}</strong>
-          </a>
+          </Link>
         </MarketsChannel>
       ),
     },

@@ -3,7 +3,7 @@ import "channels";
 import cogoToast from "cogo-toast";
 import React, { useEffect, useState } from "react";
 import Moment from "react-moment";
-// import { Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import shortUUID from "short-uuid";
 import MarketsChannel from "../../channels/marketsChannel";
 import PreOddsChannel from "../../channels/preOddsChannel";
@@ -187,4 +187,4 @@ const Search = (props) => {
   );
 };
 
-export default Search;
+export default withRouter(Search);

@@ -16,7 +16,8 @@ import NewPassword from "./NewPassword";
 import PasswordCode from "./PasswordCode";
 import PasswordReset from "./PasswordReset";
 import PreMatches from "./PreMatches";
-import PreVirtualMatches from "./PreVirtualMatches";
+import PreviewLive from "./PreviewLive";
+import PreviewPre from "./PreviewPre";
 import Privacy from "./Privacy";
 import Rules from "./Rules";
 import Search from "./Search";
@@ -36,13 +37,12 @@ const Base = (props) => {
     checkUserVerification();
   }, []);
 
-  const checkUserVerification = () => {
+  function checkUserVerification() {
     let path = "/api/v1/verification";
     let values = {};
     Requests.isGetRequest(path, values)
       .then((response) => {
         if (response.data.message == "Verified") {
-          console.log(response.data.message);
           setVerified(true);
           setSignedIn(true);
         } else if (
@@ -52,16 +52,15 @@ const Base = (props) => {
         }
       })
       .catch((error) => console.log(error));
-  };
+  }
 
-  // function requireAuth(nextState, replace) {
-  //   if (signedIn && !verified) {
-  //     replace("/new_verify");
-  //     cogoToast.error("Please verify your phone number first.", 5);
-  //   } else {
-  //     cogoToast.error("This is working as expected.", 5);
-  //   }
-  // }
+  function redirectOnUnverified(variable, component) {
+    var Component = component;
+    if (variable) {
+      cogoToast.error("Verify Phone Number First.", 5);
+    }
+    return variable ? <Redirect to="/new_verify/" /> : <Component />;
+  }
 
   return (
     <>
@@ -93,24 +92,112 @@ const Base = (props) => {
                       <Route path="/privacy/" component={Privacy} />
                       <Route path="/terms/" component={Terms} />
                       <Route path="/contacts/" component={Support} />
-                      <Route path="/fixtures/search/" component={Search} />
+                      <Route
+                        path="/fixtures/search/"
+                        // component={Search}
+                        render={() => {
+                          let check = signedIn && !verified;
+                          if (check) {
+                            cogoToast.error("Verify Phone Number First.", 5);
+                          }
+                          return check ? (
+                            <Redirect to="/new_verify/" />
+                          ) : (
+                            <Search />
+                          );
+                        }}
+                      />
+                      <Route
+                        path="/fixtures/soccer/pre"
+                        // component={PreviewPre}
+                        render={() => {
+                          let check = signedIn && !verified;
+                          if (check) {
+                            cogoToast.error("Verify Phone Number First.", 5);
+                          }
+                          return check ? (
+                            <Redirect to="/new_verify/" />
+                          ) : (
+                            <PreviewPre />
+                          );
+                        }}
+                      />
+                      <Route
+                        path="/fixtures/soccer/live"
+                        // component={PreviewLive}
+                        render={() => {
+                          let check = signedIn && !verified;
+                          if (check) {
+                            cogoToast.error("Verify Phone Number First.", 5);
+                          }
+                          return check ? (
+                            <Redirect to="/new_verify/" />
+                          ) : (
+                            <PreviewLive />
+                          );
+                        }}
+                      />
                       <Route
                         path="/fixtures/virtual_soccer/pres/"
-                        component={PreVirtualMatches}
+                        // component={PreVirtualMatches}
+                        render={() => {
+                          let check = signedIn && !verified;
+                          redirectOnUnverified(check, "PreVirtualMatches");
+                        }}
                       />
                       <Route
                         path="/fixtures/virtual_soccer/lives/"
-                        component={LiveVirtualMatches}
+                        // component={LiveVirtualMatches}
+                        render={() => {
+                          let check = signedIn && !verified;
+                          if (check) {
+                            cogoToast.error("Verify Phone Number First.", 5);
+                          }
+                          return check ? (
+                            <Redirect to="/new_verify/" />
+                          ) : (
+                            <LiveVirtualMatches />
+                          );
+                        }}
                       />
                       <Route
                         path="/fixtures/soccer/pres/"
-                        component={PreMatches}
+                        // component={PreMatches}
+                        render={() => {
+                          let check = signedIn && !verified;
+                          if (check) {
+                            cogoToast.error("Verify Phone Number First.", 5);
+                          }
+                          return check ? (
+                            <Redirect to="/new_verify/" />
+                          ) : (
+                            <PreMatches />
+                          );
+                        }}
                       />
                       <Route
                         path="/fixtures/soccer/lives"
-                        component={LiveMatches}
+                        // component={LiveMatches}
+                        render={() => {
+                          let check = signedIn && !verified;
+                          if (check) {
+                            cogoToast.error("Verify Phone Number First.", 5);
+                          }
+                          return check ? (
+                            <Redirect to="/new_verify/" />
+                          ) : (
+                            <LiveMatches />
+                          );
+                        }}
                       />
-                      <Route path="/new_verify/" component={Verify} />
+                      <Route
+                        path="/new_verify/"
+                        component={Verify}
+                        // render={() => {
+                        //   let check = !signedIn;
+                        //   return check ? <Redirect to="/" /> : <Verify />;
+                        // }}
+                      />
                       <Route
                         path="/users/password/edit"
                         component={NewPassword}
@@ -139,7 +226,8 @@ const Base = (props) => {
                   </div>
                 </div>
                 <div className="col-xl-3 col-lg-3 col-md-3 hidden-sm-down mt-20 px-lg-1 px-xl-1 px-md-1">
-                  {props.location.pathname !== "/new_verify" && <BetSlip />}
+                  {/* {props.location.pathname !== "/new_verify" && <BetSlip />} */}
+                  <BetSlip />
                   <br />
                   <SideBanner />
                 </div>
