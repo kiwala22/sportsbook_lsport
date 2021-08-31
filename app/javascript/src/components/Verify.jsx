@@ -1,12 +1,14 @@
 import { Button, Form, Input } from "antd";
 import cogoToast from "cogo-toast";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { withRouter } from "react-router";
 import Requests from "../utilities/Requests";
 
 const Verify = (props) => {
   const [form] = Form.useForm();
   const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch();
 
   const handleVerification = (data) => {
     setIsLoading(true);
@@ -16,6 +18,11 @@ const Verify = (props) => {
       .then((response) => {
         cogoToast.success(response.data.message, { hideAfter: 5 });
         setIsLoading(false);
+        dispatch({
+          type: "signedInVerify",
+          payload: true,
+          user: response.data.user,
+        });
         props.history.push("/");
         setTimeout(() => {
           window.location.reload();

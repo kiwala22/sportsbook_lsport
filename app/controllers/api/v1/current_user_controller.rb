@@ -12,9 +12,10 @@ class Api::V1::CurrentUserController < ApplicationController
 
   def user_verification
     if user_signed_in? && current_user.verified?
-      render json: { message: 'Verified' }, status: 200
+      render json: { user: current_user, message: 'Verified' }, status: 200
     elsif user_signed_in? && !current_user.verified?
       render json: {
+               user: current_user,
                message: 'Verify'
              },
              status: 200

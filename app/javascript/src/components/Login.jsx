@@ -41,7 +41,6 @@ const Login = (props) => {
         setIsLoading(false);
         close();
         cogoToast.success(response.data.message, { hideAfter: 5 });
-        console.log(response.data);
         // props.history.push()
         setTimeout(() => {
           window.location.reload();

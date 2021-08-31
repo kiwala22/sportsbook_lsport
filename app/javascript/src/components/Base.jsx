@@ -1,5 +1,6 @@
 import cogoToast from "cogo-toast";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Redirect, Route, Switch } from "react-router-dom";
 import Requests from "../utilities/Requests";
 import Bets from "./Bets";
@@ -30,10 +31,10 @@ import Terms from "./Terms";
 import Transactions from "./Transactions";
 import Verify from "./Verify";
 import Withdraw from "./Withdraw";
+
 const Base = (props) => {
-  const [currentUser, setCurrentUser] = useState("");
-  const [verified, setVerified] = useState(false);
-  const [signedIn, setSignedIn] = useState(false);
+  const dispatch = useDispatch();
+  const { signedIn, verified } = useSelector((state) => state);
 
   useEffect(() => {
     checkUserVerification();
@@ -45,10 +46,15 @@ const Base = (props) => {
     Requests.isGetRequest(path, values)
       .then((response) => {
         if (response.data.message == "Verified") {
-          setVerified(true);
-          setSignedIn(true);
+          dispatch({
+            type: "signedInVerify",
+            payload: true,
+            user: response.data.user,
+          });
         } else if (response.data.message == "Verify") {
-          setSignedIn(true);
+          dispatch({ type: "signin", payload: true });
+        } else {
+          dispatch({ type: "notSignedInNotVerify", payload: false });
         }
       })
       .catch((error) => console.log(error));
@@ -58,7 +64,7 @@ const Base = (props) => {
     let variable = signedIn && !verified;
     var Component = component;
     if (variable) {
-      cogoToast.error("Please Verify Your Phone Number First.", 5);
+      cogoToast.info("Please Verify Your Phone Number First.", 5);
     }
     return variable ? <Redirect to="/new_verify/" /> : <Component />;
   }
@@ -140,7 +146,18 @@ const Base = (props) => {
                           return redirectOnUnverified(LiveMatches);
                         }}
                       />
-                      <Route path="/new_verify/" component={Verify} />
+                      <Route
+                        path="/new_verify/"
+                        render={() => {
+                          return !signedIn ? (
+                            <Redirect to="/" />
+                          ) : signedIn && verified ? (
+                            <Redirect to="/" />
+                          ) : (
+                            <Verify />
+                          );
+                        }}
+                      />
                       <Route
                         path="/users/password/edit"
                         component={NewPassword}

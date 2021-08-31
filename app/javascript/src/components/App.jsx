@@ -1,10 +1,11 @@
-// import "antd/dist/antd.css";
 import React from "react";
 import ReactDOM from "react-dom";
 import "react-phone-number-input/style.css";
+import { Provider } from "react-redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "../css/Antd.less";
 import "../css/App";
+import store from "../store";
 import Base from "./Base";
 
 const App = (props) => {
@@ -21,5 +22,11 @@ const App = (props) => {
 
 document.addEventListener("DOMContentLoaded", () => {
   const app = document.getElementById("root-app");
-  app && ReactDOM.render(<App />, app);
+  app &&
+    ReactDOM.render(
+      <Provider store={store}>
+        <App />
+      </Provider>,
+      app
+    );
 });

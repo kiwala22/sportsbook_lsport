@@ -2,6 +2,7 @@ import { LockOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input, Modal } from "antd";
 import cogoToast from "cogo-toast";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import PhoneFormat from "../utilities/phoneNumber";
 import Requests from "../utilities/Requests";
@@ -11,6 +12,7 @@ const SignUp = (props) => {
   const [show, setShow] = useState(false);
   const [form] = Form.useForm();
   const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch();
 
   const close = () => {
     setShow(false);
@@ -43,10 +45,8 @@ const SignUp = (props) => {
         close();
         cogoToast.success(response.data.message, { hideAfter: 5 });
         setIsLoading(false);
+        dispatch({ type: "signin", payload: true });
         props.history.push("/new_verify/");
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000);
       })
       .catch((error) => {
         cogoToast.error(

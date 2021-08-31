@@ -29,7 +29,8 @@ class VerifyController < ApplicationController
 
       # redirect_to root_path, notice: "Your phone number has been verified!"
       render json: {
-               message: 'Your phone number has been verified!'
+               message: 'Your phone number has been verified!',
+               user: current_user
              },
              status: 200
     else
