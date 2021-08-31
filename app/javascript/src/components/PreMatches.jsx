@@ -1,3 +1,4 @@
+import { DropboxOutlined } from "@ant-design/icons";
 import { Table } from "antd";
 import "channels";
 import cogoToast from "cogo-toast";
@@ -195,6 +196,19 @@ const PreMatches = (props) => {
                       size="middle"
                       rowKey={() => {
                         return shortUUID.generate();
+                      }}
+                      locale={{
+                        emptyText: (
+                          <>
+                            <span>
+                              <DropboxOutlined style={{ fontSize: 40 }} />
+                            </span>
+                            <br />
+                            <span style={{ fontSize: 18 }}>
+                              No Fixtures Found
+                            </span>
+                          </>
+                        ),
                       }}
                       pagination={{ pageSize: 100 }}
                     />

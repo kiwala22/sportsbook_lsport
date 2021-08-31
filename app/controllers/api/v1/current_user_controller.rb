@@ -15,7 +15,7 @@ class Api::V1::CurrentUserController < ApplicationController
       render json: { message: 'Verified' }, status: 200
     elsif user_signed_in? && !current_user.verified?
       render json: {
-               message: 'Please verify your phone number first.'
+               message: 'Verify'
              },
              status: 200
     else

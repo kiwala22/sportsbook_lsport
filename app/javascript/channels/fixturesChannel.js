@@ -17,7 +17,6 @@ const FixtureChannel = (props) => {
       },
       received(data) {
         //when data is received
-        console.log("received");
         props.received(data);
       },
     }

@@ -6,6 +6,7 @@ import { BsDash } from "react-icons/bs";
 import Moment from "react-moment";
 import { Link, withRouter } from "react-router-dom";
 import shortUUID from "short-uuid";
+import FixtureChannel from "../../channels/fixturesChannel";
 import LiveOddsChannel from "../../channels/liveOddsChannel";
 import MarketsChannel from "../../channels/marketsChannel";
 import PreOddsChannel from "../../channels/preOddsChannel";
@@ -74,11 +75,9 @@ const Home = (props) => {
         <MarketsChannel
           channel="MarketsChannel"
           fixture={fixture.id}
-          received={(data) => {}}
-          // received={(data) => {
-          //   console.log(data);
-          //   updateMatchInfo(data, games, setState);
-          // }}
+          received={(data) => {
+            console.log(data);
+          }}
         >
           <Link
             to={{
@@ -96,16 +95,26 @@ const Home = (props) => {
       title: "Score",
       render: (_, fixture) => (
         <>
-          <a>
-            <strong>
-              <span className="blinking match-time">{fixture.match_time}</span>
-            </strong>
-            <strong>
-              <span className="score">
-                {fixture.home_score} <BsDash /> {fixture.away_score}
-              </span>
-            </strong>
-          </a>
+          <FixtureChannel
+            channel="FixtureChannel"
+            fixture={fixture.id}
+            received={(data) => {
+              console.log(data);
+            }}
+          >
+            <a>
+              <strong>
+                <span className="blinking match-time">
+                  {fixture.match_time}
+                </span>
+              </strong>
+              <strong>
+                <span className="score">
+                  {fixture.home_score} <BsDash /> {fixture.away_score}
+                </span>
+              </strong>
+            </a>
+          </FixtureChannel>
         </>
       ),
     },

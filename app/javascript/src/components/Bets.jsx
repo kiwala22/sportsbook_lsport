@@ -1,7 +1,7 @@
+import { DropboxOutlined } from "@ant-design/icons";
 import { Button, Table } from "antd";
 import cogoToast from "cogo-toast";
 import React, { useEffect, useState } from "react";
-// import { Button } from "react-bootstrap";
 import Moment from "react-moment";
 import shortUUID from "short-uuid";
 import currencyFormatter from "../utilities/CurrencyFormatter";
@@ -142,6 +142,19 @@ const Bets = () => {
                       size="middle"
                       rowKey={() => {
                         return shortUUID.generate();
+                      }}
+                      locale={{
+                        emptyText: (
+                          <>
+                            <span>
+                              <DropboxOutlined style={{ fontSize: 40 }} />
+                            </span>
+                            <br />
+                            <span style={{ fontSize: 18 }}>
+                              No Tickets Found
+                            </span>
+                          </>
+                        ),
                       }}
                       pagination={{ pageSize: 25 }}
                     />

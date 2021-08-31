@@ -1,9 +1,11 @@
+import { DropboxOutlined } from "@ant-design/icons";
 import { Table } from "antd";
 import "channels";
 import cogoToast from "cogo-toast";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import shortUUID from "short-uuid";
+import FixtureChannel from "../../channels/fixturesChannel";
 import LiveOddsChannel from "../../channels/liveOddsChannel";
 import MarketsChannel from "../../channels/marketsChannel";
 import Requests from "../utilities/Requests";
@@ -41,11 +43,9 @@ const LiveVirtualMatches = (props) => {
         <MarketsChannel
           channel="MarketsChannel"
           fixture={fixture.id}
-          received={(data) => {}}
-          // received={(data) => {
-          //   console.log(data);
-          //   updateMatchInfo(data, games, setState);
-          // }}
+          received={(data) => {
+            console.log(data);
+          }}
         >
           <a>
             <strong>{fixture.part_one_name}</strong>
@@ -58,16 +58,24 @@ const LiveVirtualMatches = (props) => {
       title: "Score",
       render: (_, fixture) => (
         <>
-          <a>
-            <strong>
-              <span className="blinking match-time">{fixture.match_time}</span>
-            </strong>
-            <strong>
-              <span className="score">
-                {fixture.home_score} <BsDash /> {fixture.away_score}
-              </span>
-            </strong>
-          </a>
+          <FixtureChannel
+            channel="FixtureChannel"
+            fixture={fixture.id}
+            received={(data) => console.log(data)}
+          >
+            <a>
+              <strong>
+                <span className="blinking match-time">
+                  {fixture.match_time}
+                </span>
+              </strong>
+              <strong>
+                <span className="score">
+                  {fixture.home_score} <BsDash /> {fixture.away_score}
+                </span>
+              </strong>
+            </a>
+          </FixtureChannel>
         </>
       ),
     },
@@ -163,6 +171,19 @@ const LiveVirtualMatches = (props) => {
                         size="middle"
                         rowKey={() => {
                           return shortUUID.generate();
+                        }}
+                        locale={{
+                          emptyText: (
+                            <>
+                              <span>
+                                <DropboxOutlined style={{ fontSize: 40 }} />
+                              </span>
+                              <br />
+                              <span style={{ fontSize: 18 }}>
+                                No Fixtures Found
+                              </span>
+                            </>
+                          ),
                         }}
                         pagination={{ pageSize: 100 }}
                       />

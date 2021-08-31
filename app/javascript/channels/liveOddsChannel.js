@@ -10,12 +10,12 @@ const LiveOddsChannel = (props) => {
       market: props.market,
     },
     {
-      //   connected() {
-      //     //when channel is ready for use
-      //   },
-      //   disconnected() {
-      //     //when channel is disconnected
-      //   },
+      connected() {
+        //when channel is ready for use
+      },
+      disconnected() {
+        //when channel is disconnected
+      },
       received(data) {
         //when data is received
         props.received(data);

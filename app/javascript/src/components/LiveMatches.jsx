@@ -1,3 +1,4 @@
+import { DropboxOutlined } from "@ant-design/icons";
 import { Table } from "antd";
 import "channels";
 import cogoToast from "cogo-toast";
@@ -5,6 +6,7 @@ import React, { useEffect, useState } from "react";
 import { BsDash } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import shortUUID from "short-uuid";
+import FixtureChannel from "../../channels/fixturesChannel";
 import LiveOddsChannel from "../../channels/liveOddsChannel";
 import MarketsChannel from "../../channels/marketsChannel";
 import Requests from "../utilities/Requests";
@@ -38,7 +40,7 @@ const LiveMatches = (props) => {
   const updateMatchInfo = (data, currentState, setState) => {
     console.log(currentState);
     let fixtureIndex = currentState.findIndex((el) => data.fixture_id == el.id);
-    if (data.status !== "Active") {
+    if (data.market_status !== "Active") {
       currentState.splice(fixtureIndex, 1);
       let newState = Array.from(currentState);
       setState(newState);
@@ -50,6 +52,7 @@ const LiveMatches = (props) => {
         outcome_1: data.outcome_1,
         outcome_X: data.outcome_X,
         outcome_2: data.outcome_2,
+        market_status: data.market_status,
       },
     };
     let newState = Array.from(currentState);
@@ -63,11 +66,9 @@ const LiveMatches = (props) => {
         <MarketsChannel
           channel="MarketsChannel"
           fixture={fixture.id}
-          received={(data) => {}}
-          // received={(data) => {
-          //   console.log(data);
-          //   updateMatchInfo(data, games, setState);
-          // }}
+          received={(data) => {
+            console.log(data);
+          }}
         >
           <Link
             to={{
@@ -85,16 +86,24 @@ const LiveMatches = (props) => {
       title: "Score",
       render: (_, fixture) => (
         <>
-          <a>
-            <strong>
-              <span className="blinking match-time">{fixture.match_time}</span>
-            </strong>
-            <strong>
-              <span className="score">
-                {fixture.home_score} <BsDash /> {fixture.away_score}
-              </span>
-            </strong>
-          </a>
+          <FixtureChannel
+            channel="FixtureChannel"
+            fixture={fixture.id}
+            received={(data) => console.log(data)}
+          >
+            <a>
+              <strong>
+                <span className="blinking match-time">
+                  {fixture.match_time}
+                </span>
+              </strong>
+              <strong>
+                <span className="score">
+                  {fixture.home_score} <BsDash /> {fixture.away_score}
+                </span>
+              </strong>
+            </a>
+          </FixtureChannel>
         </>
       ),
     },
@@ -188,8 +197,26 @@ const LiveMatches = (props) => {
                         columns={columns}
                         dataSource={games}
                         size="middle"
+                        rowClassName={(record) =>
+                          record.market_status == "Active"
+                            ? "show-row"
+                            : "hide-row"
+                        }
                         rowKey={() => {
                           return shortUUID.generate();
+                        }}
+                        locale={{
+                          emptyText: (
+                            <>
+                              <span>
+                                <DropboxOutlined style={{ fontSize: 40 }} />
+                              </span>
+                              <br />
+                              <span style={{ fontSize: 18 }}>
+                                No Fixtures Found
+                              </span>
+                            </>
+                          ),
                         }}
                         pagination={{ pageSize: 100 }}
                       />

@@ -5,25 +5,6 @@ class Fixtures::VirtualSoccer::LiveMatchController < ApplicationController
   def index; end
 
   def show
-    @fixture =
-      Fixture
-        .includes(
-          :market1_live,
-          :market7_live,
-          :market3_live,
-          :market2_live,
-          :market17_live,
-          :market282_live,
-          :market25_live,
-          :market53_live,
-          :market77_live,
-          :market113_live
-        )
-        .find(params[:id])
-    respond_to do |format|
-      format.html
-      format.js
-    end
   end
 
   def add_bet
@@ -54,12 +35,6 @@ class Fixtures::VirtualSoccer::LiveMatchController < ApplicationController
 
     #check the sessions if there is an existing fixture
 
-    respond_to { |format| format.js }
-  end
-
-  def clear_slip
-    session[:bet_slip] = nil
-    @bets = session[:bet_slip]
     respond_to { |format| format.js }
   end
 end

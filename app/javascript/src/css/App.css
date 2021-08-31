@@ -70,8 +70,16 @@ h6 {
   background: #5f7b95;
 }
 
+.hide-row {
+  display: none;
+}
+
 .ant-table table {
   text-align: center;
+}
+
+.ant-table-empty .ant-table-tbody > tr.ant-table-placeholder {
+  color: aliceblue;
 }
 
 .ant-pagination-item-active {

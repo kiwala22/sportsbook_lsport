@@ -80,13 +80,6 @@ class LineBetsController < ApplicationController
   def destroy
     @cart.destroy if @cart.id == session[:cart_id]
     session[:cart_id] = nil
-
-    # respond_to do |format|
-    #    format.html {
-    #       flash[:notice] = "Your slip is now currently empty"
-    # 	   redirect_back(fallback_location: root_path)
-    #    }
-    # end
     render json: { 'status': 'OK' }
   end
 

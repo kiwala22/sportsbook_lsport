@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import Requests from "../utilities/Requests";
 import Bets from "./Bets";
-//{Link}
 import BetSlip from "./BetSlip";
 import Deposit from "./Deposit";
 import Faqs from "./Faqs";
@@ -17,7 +16,10 @@ import PasswordCode from "./PasswordCode";
 import PasswordReset from "./PasswordReset";
 import PreMatches from "./PreMatches";
 import PreviewLive from "./PreviewLive";
+import PreviewLiveVirtual from "./PreviewLiveVirtual";
 import PreviewPre from "./PreviewPre";
+import PreviewPreVirtual from "./PreviewPreVirtual";
+import PreVirtualMatches from "./PreVirtualMatches";
 import Privacy from "./Privacy";
 import Rules from "./Rules";
 import Search from "./Search";
@@ -45,19 +47,18 @@ const Base = (props) => {
         if (response.data.message == "Verified") {
           setVerified(true);
           setSignedIn(true);
-        } else if (
-          response.data.message == "Please verify your phone number first."
-        ) {
+        } else if (response.data.message == "Verify") {
           setSignedIn(true);
         }
       })
       .catch((error) => console.log(error));
   }
 
-  function redirectOnUnverified(variable, component) {
+  function redirectOnUnverified(component) {
+    let variable = signedIn && !verified;
     var Component = component;
     if (variable) {
-      cogoToast.error("Verify Phone Number First.", 5);
+      cogoToast.error("Please Verify Your Phone Number First.", 5);
     }
     return variable ? <Redirect to="/new_verify/" /> : <Component />;
   }
@@ -65,23 +66,16 @@ const Base = (props) => {
   return (
     <>
       <div className="wrapper root-app">
-        {/* top navbar */}
         <header className="header-area gradient-bg heading">
-          {/* <%= render partial: "layouts/partials/topnavbar" %> */}
           <Navbar />
         </header>
-        {/* Main section */}
         <section className="section-container topping">
-          {/* Page content */}
           <div className="content-wrapper">
             <div className="container-fluid">
               <div className="row">
-                {/* <%= render partial: "layouts/partials/sidebar" %> */}
                 <Sidebar />
                 <div className="col-xl-7 col-lg-7 col-md-7 col-sm-12 mt-20 px-lg-1 px-xl-1 px-md-1">
                   <div>
-                    {/* <%= render partial: "layouts/partials/flash" %> */}
-                    {/* <%= yield %> */}
                     <Switch>
                       <Route path="/bet_slips/" component={Bets} />
                       <Route path="/transactions/" component={Transactions} />
@@ -94,110 +88,59 @@ const Base = (props) => {
                       <Route path="/contacts/" component={Support} />
                       <Route
                         path="/fixtures/search/"
-                        // component={Search}
                         render={() => {
-                          let check = signedIn && !verified;
-                          if (check) {
-                            cogoToast.error("Verify Phone Number First.", 5);
-                          }
-                          return check ? (
-                            <Redirect to="/new_verify/" />
-                          ) : (
-                            <Search />
-                          );
+                          return redirectOnUnverified(Search);
                         }}
                       />
                       <Route
-                        path="/fixtures/soccer/pre"
-                        // component={PreviewPre}
+                        path="/fixtures/soccer/pre/"
                         render={() => {
-                          let check = signedIn && !verified;
-                          if (check) {
-                            cogoToast.error("Verify Phone Number First.", 5);
-                          }
-                          return check ? (
-                            <Redirect to="/new_verify/" />
-                          ) : (
-                            <PreviewPre />
-                          );
+                          return redirectOnUnverified(PreviewPre);
                         }}
                       />
                       <Route
-                        path="/fixtures/soccer/live"
-                        // component={PreviewLive}
+                        path="/fixtures/virtual_soccer/pre/"
                         render={() => {
-                          let check = signedIn && !verified;
-                          if (check) {
-                            cogoToast.error("Verify Phone Number First.", 5);
-                          }
-                          return check ? (
-                            <Redirect to="/new_verify/" />
-                          ) : (
-                            <PreviewLive />
-                          );
+                          return redirectOnUnverified(PreviewPreVirtual);
+                        }}
+                      />
+                      <Route
+                        path="/fixtures/soccer/live/"
+                        render={() => {
+                          return redirectOnUnverified(PreviewLive);
+                        }}
+                      />
+                      <Route
+                        path="/fixtures/virtual_soccer/live/"
+                        render={() => {
+                          return redirectOnUnverified(PreviewLiveVirtual);
                         }}
                       />
                       <Route
                         path="/fixtures/virtual_soccer/pres/"
-                        // component={PreVirtualMatches}
                         render={() => {
-                          let check = signedIn && !verified;
-                          redirectOnUnverified(check, "PreVirtualMatches");
+                          return redirectOnUnverified(PreVirtualMatches);
                         }}
                       />
                       <Route
                         path="/fixtures/virtual_soccer/lives/"
-                        // component={LiveVirtualMatches}
                         render={() => {
-                          let check = signedIn && !verified;
-                          if (check) {
-                            cogoToast.error("Verify Phone Number First.", 5);
-                          }
-                          return check ? (
-                            <Redirect to="/new_verify/" />
-                          ) : (
-                            <LiveVirtualMatches />
-                          );
+                          return redirectOnUnverified(LiveVirtualMatches);
                         }}
                       />
                       <Route
                         path="/fixtures/soccer/pres/"
-                        // component={PreMatches}
                         render={() => {
-                          let check = signedIn && !verified;
-                          if (check) {
-                            cogoToast.error("Verify Phone Number First.", 5);
-                          }
-                          return check ? (
-                            <Redirect to="/new_verify/" />
-                          ) : (
-                            <PreMatches />
-                          );
+                          return redirectOnUnverified(PreMatches);
                         }}
                       />
                       <Route
                         path="/fixtures/soccer/lives"
-                        // component={LiveMatches}
                         render={() => {
-                          let check = signedIn && !verified;
-                          if (check) {
-                            cogoToast.error("Verify Phone Number First.", 5);
-                          }
-                          return check ? (
-                            <Redirect to="/new_verify/" />
-                          ) : (
-                            <LiveMatches />
-                          );
+                          return redirectOnUnverified(LiveMatches);
                         }}
                       />
-                      <Route
-                        path="/new_verify/"
-                        component={Verify}
-                        // render={() => {
-                        //   let check = !signedIn;
-                        //   return check ? <Redirect to="/" /> : <Verify />;
-                        // }}
-                      />
+                      <Route path="/new_verify/" component={Verify} />
                       <Route
                         path="/users/password/edit"
                         component={NewPassword}
@@ -211,23 +154,14 @@ const Base = (props) => {
                         exact
                         path="/"
                         render={() => {
-                          let check = signedIn && !verified;
-                          if (check) {
-                            cogoToast.error("Verify Phone Number First.", 5);
-                          }
-                          return check ? (
-                            <Redirect to="/new_verify/" />
-                          ) : (
-                            <Home />
-                          );
+                          return redirectOnUnverified(Home);
                         }}
                       />
                     </Switch>
                   </div>
                 </div>
                 <div className="col-xl-3 col-lg-3 col-md-3 hidden-sm-down mt-20 px-lg-1 px-xl-1 px-md-1">
-                  {/* {props.location.pathname !== "/new_verify" && <BetSlip />} */}
-                  <BetSlip />
+                  {props.location.pathname !== "/new_verify/" && <BetSlip />}
                   <br />
                   <SideBanner />
                 </div>
@@ -235,9 +169,7 @@ const Base = (props) => {
             </div>
           </div>
         </section>
-        {/* Page footer */}
         <footer className="footer-container">
-          {/* <%= render partial: "layouts/partials/footer" %> */}
           <Footer />
         </footer>
       </div>

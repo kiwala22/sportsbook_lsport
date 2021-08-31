@@ -1,3 +1,4 @@
+import { DropboxOutlined } from "@ant-design/icons";
 import { Table } from "antd";
 import cogoToast from "cogo-toast";
 import React, { useEffect, useState } from "react";
@@ -138,6 +139,19 @@ const Transactions = () => {
                       size="middle"
                       rowKey={() => {
                         return shortUUID.generate();
+                      }}
+                      locale={{
+                        emptyText: (
+                          <>
+                            <span>
+                              <DropboxOutlined style={{ fontSize: 40 }} />
+                            </span>
+                            <br />
+                            <span style={{ fontSize: 18 }}>
+                              No Transactions Found
+                            </span>
+                          </>
+                        ),
                       }}
                       pagination={{ pageSize: 25 }}
                     />

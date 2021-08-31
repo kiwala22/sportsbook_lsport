@@ -9,7 +9,7 @@ import MarketsChannel from "../../channels/marketsChannel";
 import Requests from "../utilities/Requests";
 import Spinner from "./Spinner";
 
-const PreviewLive = (props) => {
+const PreviewLiveVirtual = (props) => {
   const [fixture, setFixture] = useState([]);
   const [pageLoading, setPageLoading] = useState(true);
 
@@ -18,7 +18,7 @@ const PreviewLive = (props) => {
   }, [props]);
 
   function getfixture() {
-    var path = `/api/v1/fixtures/soccer/live_fixture${props.location.search}`;
+    var path = `/api/v1/fixtures/virtual_soccer/live_fixture${props.location.search}`;
     var values = {};
     Requests.isGetRequest(path, values)
       .then((response) => {
@@ -269,4 +269,4 @@ const PreviewLive = (props) => {
   );
 };
 
-export default withRouter(PreviewLive);
+export default withRouter(PreviewLiveVirtual);

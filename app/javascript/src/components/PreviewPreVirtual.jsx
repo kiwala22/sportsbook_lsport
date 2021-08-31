@@ -3,13 +3,12 @@ import cogoToast from "cogo-toast";
 import React, { useEffect, useState } from "react";
 import { BsDash } from "react-icons/bs";
 import { Link, withRouter } from "react-router-dom";
-import FixtureChannel from "../../channels/fixturesChannel";
-import LiveOddsChannel from "../../channels/liveOddsChannel";
 import MarketsChannel from "../../channels/marketsChannel";
+import PreOddsChannel from "../../channels/preOddsChannel";
 import Requests from "../utilities/Requests";
 import Spinner from "./Spinner";
 
-const PreviewLive = (props) => {
+const PreviewPreVirtual = (props) => {
   const [fixture, setFixture] = useState([]);
   const [pageLoading, setPageLoading] = useState(true);
 
@@ -18,7 +17,7 @@ const PreviewLive = (props) => {
   }, [props]);
 
   function getfixture() {
-    var path = `/api/v1/fixtures/soccer/live_fixture${props.location.search}`;
+    var path = `/api/v1/fixtures/virtual_soccer/pre_fixture${props.location.search}`;
     var values = {};
     Requests.isGetRequest(path, values)
       .then((response) => {
@@ -40,46 +39,28 @@ const PreviewLive = (props) => {
           <div className="game-box">
             <div className="card" id="show-markets">
               <div className="card-header">
-                <FixtureChannel
-                  channel="FixtureChannel"
+                <MarketsChannel
+                  channel="MarketsChannel"
                   fixture={fixture.id}
                   received={(data) => console.log(data)}
                 >
                   <h6>
-                    <span className="float-left">
-                      <span>
-                        {fixture.part_one_name}{" "}
-                        <span className="score">
-                          {fixture.home_score} <BsDash /> {fixture.away_score}{" "}
-                        </span>
-                        {fixture.part_two_name}
-                      </span>
-                    </span>
-                    <span className="float-right blinking match-time">
-                      {fixture.match_time}
-                    </span>
+                    {fixture.part_one_name} <BsDash /> {fixture.part_two_name}{" "}
+                    {fixture.league_name} {fixture.location}
                   </h6>
-                </FixtureChannel>
+                </MarketsChannel>
               </div>
               <div className="card-body">
                 <div className="row">
                   <div className="col-lg-12">
-                    <MarketsChannel
-                      channel="MarketsChannel"
-                      fixture={fixture.id}
-                      received={(data) => console.log(data)}
-                    >
-                      <div className="market-label">
-                        <div className="row">
-                          <div className="col-lg-12 ">
-                            Match Result 1X2 - FT
-                          </div>
-                        </div>
+                    <div className="market-label">
+                      <div className="row">
+                        <div className="col-lg-12 ">Match Result 1X2 - FT</div>
                       </div>
-                    </MarketsChannel>
+                    </div>
                     <div className="market-odds mb-3 mt-3">
-                      <LiveOddsChannel
-                        channel="LiveOddsChannel"
+                      <PreOddsChannel
+                        channel="PreOddsChannel"
                         fixture={fixture.id}
                         market="1"
                         received={(data) => console.log(data)}
@@ -110,7 +91,7 @@ const PreviewLive = (props) => {
                             </Link>
                           </div>
                         </div>
-                      </LiveOddsChannel>
+                      </PreOddsChannel>
                     </div>
                     <div className="market-label">
                       <div className="row">
@@ -118,8 +99,8 @@ const PreviewLive = (props) => {
                       </div>
                     </div>
                     <div className="market-odds mb-3 mt-3">
-                      <LiveOddsChannel
-                        channel="LiveOddsChannel"
+                      <PreOddsChannel
+                        channel="PreOddsChannel"
                         fixture={fixture.id}
                         market="7"
                         received={(data) => console.log(data)}
@@ -150,7 +131,7 @@ const PreviewLive = (props) => {
                             </Link>
                           </div>
                         </div>
-                      </LiveOddsChannel>
+                      </PreOddsChannel>
                     </div>
                     <div className="market-label">
                       <div className="row">
@@ -160,8 +141,8 @@ const PreviewLive = (props) => {
                       </div>
                     </div>
                     <div className="market-odds mb-3 mt-3">
-                      <LiveOddsChannel
-                        channel="LiveOddsChannel"
+                      <PreOddsChannel
+                        channel="PreOddsChannel"
                         fixture={fixture.id}
                         market="3"
                         received={(data) => console.log(data)}
@@ -188,7 +169,7 @@ const PreviewLive = (props) => {
                             </Link>
                           </div>
                         </div>
-                      </LiveOddsChannel>
+                      </PreOddsChannel>
                     </div>
                     <div className="market-label">
                       <div className="row">
@@ -198,8 +179,8 @@ const PreviewLive = (props) => {
                       </div>
                     </div>
                     <div className="market-odds mb-3 mt-3">
-                      <LiveOddsChannel
-                        channel="LiveOddsChannel"
+                      <PreOddsChannel
+                        channel="PreOddsChannel"
                         fixture={fixture.id}
                         market="2"
                         received={(data) => console.log(data)}
@@ -222,7 +203,7 @@ const PreviewLive = (props) => {
                             </Link>
                           </div>
                         </div>
-                      </LiveOddsChannel>
+                      </PreOddsChannel>
                     </div>
 
                     <div className="market-label">
@@ -231,8 +212,8 @@ const PreviewLive = (props) => {
                       </div>
                     </div>
                     <div className="market-odds mb-3 mt-3">
-                      <LiveOddsChannel
-                        channel="LiveOddsChannel"
+                      <PreOddsChannel
+                        channel="PreOddsChannel"
                         fixture={fixture.id}
                         market="17"
                         received={(data) => console.log(data)}
@@ -255,7 +236,7 @@ const PreviewLive = (props) => {
                             </Link>
                           </div>
                         </div>
-                      </LiveOddsChannel>
+                      </PreOddsChannel>
                     </div>
                   </div>
                 </div>
@@ -269,4 +250,4 @@ const PreviewLive = (props) => {
   );
 };
 
-export default withRouter(PreviewLive);
+export default withRouter(PreviewPreVirtual);

@@ -44,6 +44,10 @@ class Api::V1::Fixtures::Soccer::PreMatchController < ApplicationController
       fixture['outcome_1'] = event.market1_pre.outcome_1
       fixture['outcome_X'] = event.market1_pre.outcome_X
       fixture['outcome_2'] = event.market1_pre.outcome_2
+
+      ## Add market status to the fixture
+      fixture["market_status"] = event.market1_pre.status
+
       @prematch.push(fixture)
     end
     render json: @prematch
