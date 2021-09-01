@@ -42,7 +42,11 @@ class LineBetsController < ApplicationController
         )
     end
 
-    respond_to { |format| @line_bet.save ? format.js : format.js }
+    ## After adding the line_bet to cart, send all line_bets in cart to react state
+    if @line_bet.save 
+      cart_fixtures() && return
+    end
+
   end
 
   def line_bet_delete
@@ -50,9 +54,6 @@ class LineBetsController < ApplicationController
     @cart = Cart.find(@line_bet.cart_id)
     @line_bet.delete
 
-    #   respond_to do |format|
-    #     format.js
-    #   end
     render json: { 'status': 'OK' }
   end
 
@@ -83,9 +84,6 @@ class LineBetsController < ApplicationController
     render json: { 'status': 'OK' }
   end
 
-  def refresh
-    respond_to { |format| format.js }
-  end
 
   def close_betslip_button_display
     games_on_slip = @cart.line_bets.count

@@ -2,15 +2,18 @@ import "channels";
 import cogoToast from "cogo-toast";
 import React, { useEffect, useState } from "react";
 import { BsDash } from "react-icons/bs";
-import { Link, withRouter } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { withRouter } from "react-router-dom";
 import MarketsChannel from "../../channels/marketsChannel";
 import PreOddsChannel from "../../channels/preOddsChannel";
+import addBet from "../redux/actions";
 import Requests from "../utilities/Requests";
 import Spinner from "./Spinner";
 
 const PreviewPreVirtual = (props) => {
   const [fixture, setFixture] = useState([]);
   const [pageLoading, setPageLoading] = useState(true);
+  const dispatcher = useDispatch();
 
   useEffect(() => {
     getfixture();
@@ -67,28 +70,61 @@ const PreviewPreVirtual = (props) => {
                       >
                         <div className="row">
                           <div className="col-lg-4">
-                            <Link className="btn btn-light wagger-btn intialise_input">
+                            <a
+                              className="btn btn-light wagger-btn intialise_input"
+                              onClick={() =>
+                                addBet(
+                                  dispatcher,
+                                  "1",
+                                  "Market1Pre",
+                                  fixture.id,
+                                  "1X2 FT - 1"
+                                )
+                              }
+                            >
                               <span>Home Win</span>
                               <span className="wagger-amt">
                                 {fixture.outcome_mkt1_1}
                               </span>
-                            </Link>
+                            </a>
                           </div>
                           <div className="col-lg-4">
-                            <Link className="btn btn-light wagger-btn intialise_input">
+                            <a
+                              className="btn btn-light wagger-btn intialise_input"
+                              onClick={() =>
+                                addBet(
+                                  dispatcher,
+                                  "X",
+                                  "Market1Pre",
+                                  fixture.id,
+                                  "1X2 FT - X"
+                                )
+                              }
+                            >
                               <span>Draw</span>
                               <span className="wagger-amt">
                                 {fixture.outcome_mkt1_X}
                               </span>
-                            </Link>
+                            </a>
                           </div>
                           <div className="col-lg-4">
-                            <Link className="btn btn-light wagger-btn intialise_input">
+                            <a
+                              className="btn btn-light wagger-btn intialise_input"
+                              onClick={() =>
+                                addBet(
+                                  dispatcher,
+                                  "2",
+                                  "Market1Pre",
+                                  fixture.id,
+                                  "1X2 FT - 2"
+                                )
+                              }
+                            >
                               <span>Away Win</span>
                               <span className="wagger-amt">
                                 {fixture.outcome_mkt1_2}
                               </span>
-                            </Link>
+                            </a>
                           </div>
                         </div>
                       </PreOddsChannel>
@@ -107,28 +143,61 @@ const PreviewPreVirtual = (props) => {
                       >
                         <div className="row market">
                           <div className="col-lg-4">
-                            <Link className="btn btn-light wagger-btn intialise_input">
+                            <a
+                              className="btn btn-light wagger-btn intialise_input"
+                              onClick={() =>
+                                addBet(
+                                  dispatcher,
+                                  "1X",
+                                  "Market7Pre",
+                                  fixture.id,
+                                  "Double Chance FT - HW/DR"
+                                )
+                              }
+                            >
                               <span>Home Win / Draw</span>
                               <span className="wagger-amt">
                                 {fixture.outcome_mkt7_1X}
                               </span>
-                            </Link>
+                            </a>
                           </div>
                           <div className="col-lg-4">
-                            <Link className="btn btn-light wagger-btn intialise_input">
+                            <a
+                              className="btn btn-light wagger-btn intialise_input"
+                              onClick={() =>
+                                addBet(
+                                  dispatcher,
+                                  "12",
+                                  "Market7Pre",
+                                  fixture.id,
+                                  "Double Chance FT - HW/AW"
+                                )
+                              }
+                            >
                               <span>Home / Away</span>
                               <span className="wagger-amt">
                                 {fixture.outcome_mkt7_12}
                               </span>
-                            </Link>
+                            </a>
                           </div>
                           <div className="col-lg-4">
-                            <Link className="btn btn-light wagger-btn intialise_input">
+                            <a
+                              className="btn btn-light wagger-btn intialise_input"
+                              onClick={() =>
+                                addBet(
+                                  dispatcher,
+                                  "X2",
+                                  "Market7Pre",
+                                  fixture.id,
+                                  "Double Chance FT - DR/AW"
+                                )
+                              }
+                            >
                               <span>Draw / Away Win</span>
                               <span className="wagger-amt">
                                 {fixture.outcome_mkt7_X2}
                               </span>
-                            </Link>
+                            </a>
                           </div>
                         </div>
                       </PreOddsChannel>
@@ -149,24 +218,46 @@ const PreviewPreVirtual = (props) => {
                       >
                         <div className="row">
                           <div className="col-lg-6">
-                            <Link className="btn btn-light wagger-btn intialise_input">
+                            <a
+                              className="btn btn-light wagger-btn intialise_input"
+                              onClick={() =>
+                                addBet(
+                                  dispatcher,
+                                  "1",
+                                  "Market3Pre",
+                                  fixture.id,
+                                  "Handicap 1 FT - HW"
+                                )
+                              }
+                            >
                               <span>
                                 Home <BsDash />1
                               </span>
                               <span className="wagger-amt">
                                 {fixture.outcome_mkt3_1}
                               </span>
-                            </Link>
+                            </a>
                           </div>
                           <div className="col-lg-6">
-                            <Link className="btn btn-light wagger-btn intialise_input">
+                            <a
+                              className="btn btn-light wagger-btn intialise_input"
+                              onClick={() =>
+                                addBet(
+                                  dispatcher,
+                                  "2",
+                                  "Market3Pre",
+                                  fixture.id,
+                                  "Handicap 1 FT - AW"
+                                )
+                              }
+                            >
                               <span>
                                 Away <BsDash />1
                               </span>
                               <span className="wagger-amt">
                                 {fixture.outcome_mkt3_2}
                               </span>
-                            </Link>
+                            </a>
                           </div>
                         </div>
                       </PreOddsChannel>
@@ -187,20 +278,42 @@ const PreviewPreVirtual = (props) => {
                       >
                         <div className="row">
                           <div className="col-lg-6">
-                            <Link className="btn btn-light wagger-btn intialise_input">
+                            <a
+                              className="btn btn-light wagger-btn intialise_input"
+                              onClick={() =>
+                                addBet(
+                                  dispatcher,
+                                  "Under",
+                                  "Market2Pre",
+                                  fixture.id,
+                                  "Total 2.5 FT - Under 2.5"
+                                )
+                              }
+                            >
                               <span>Under 2.5</span>
                               <span className="wagger-amt">
                                 {fixture.outcome_mkt2_Under}
                               </span>
-                            </Link>
+                            </a>
                           </div>
                           <div className="col-lg-6">
-                            <Link className="btn btn-light wagger-btn intialise_input">
+                            <a
+                              className="btn btn-light wagger-btn intialise_input"
+                              onClick={() =>
+                                addBet(
+                                  dispatcher,
+                                  "Over",
+                                  "Market2Pre",
+                                  fixture.id,
+                                  "Total 2.5 FT - Over 2.5"
+                                )
+                              }
+                            >
                               <span>Over 2.5</span>
                               <span className="wagger-amt">
                                 {fixture.outcome_mkt2_Over}
                               </span>
-                            </Link>
+                            </a>
                           </div>
                         </div>
                       </PreOddsChannel>
@@ -220,20 +333,42 @@ const PreviewPreVirtual = (props) => {
                       >
                         <div className="row">
                           <div className="col-lg-6">
-                            <Link className="btn btn-light wagger-btn intialise_input">
+                            <a
+                              className="btn btn-light wagger-btn intialise_input"
+                              onClick={() =>
+                                addBet(
+                                  dispatcher,
+                                  "Yes",
+                                  "Market17Pre",
+                                  fixture.id,
+                                  "Both To Score FT - Yes"
+                                )
+                              }
+                            >
                               <span>Yes</span>
                               <span className="wagger-amt">
                                 {fixture.outcome_mkt17_Yes}
                               </span>
-                            </Link>
+                            </a>
                           </div>
                           <div className="col-lg-6">
-                            <Link className="btn btn-light wagger-btn intialise_input">
+                            <a
+                              className="btn btn-light wagger-btn intialise_input"
+                              onClick={() =>
+                                addBet(
+                                  dispatcher,
+                                  "No",
+                                  "Market17Pre",
+                                  fixture.id,
+                                  "Both To Score FT - No"
+                                )
+                              }
+                            >
                               <span>No</span>
                               <span className="wagger-amt">
                                 {fixture.outcome_mkt17_No}
                               </span>
-                            </Link>
+                            </a>
                           </div>
                         </div>
                       </PreOddsChannel>

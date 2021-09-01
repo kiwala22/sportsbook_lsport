@@ -5,7 +5,7 @@ import { Provider } from "react-redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "../css/Antd.less";
 import "../css/App";
-import store from "../store";
+import store from "../redux/store";
 import Base from "./Base";
 
 const App = (props) => {

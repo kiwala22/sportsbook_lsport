@@ -108,24 +108,6 @@ const BetReceipt = (props) => {
           </span>
         </div>
       </Modal>
-      {/* <Modal
-        show={show}
-        onHide={close}
-        backdrop="static"
-        keyboard={false}
-        centered
-        size="sm"
-      >
-        <Modal.Header closeButton className="modal-header">
-          <Modal.Title style={{ fontSize: 18 }}>
-            BetSlip #{props.data.id} <BsDash />{" "}
-            {props.data.result || "Result Pending"}
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body className="modal-body">
-          
-        </Modal.Body>
-      </Modal> */}
       {React.cloneElement(props.children, {
         onClick: () => setShow(!show),
       })}

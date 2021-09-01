@@ -4,16 +4,19 @@ import "channels";
 import cogoToast from "cogo-toast";
 import React, { useEffect, useState } from "react";
 import Moment from "react-moment";
+import { useDispatch } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import shortUUID from "short-uuid";
 import MarketsChannel from "../../channels/marketsChannel";
 import PreOddsChannel from "../../channels/preOddsChannel";
+import addBet from "../redux/actions";
 import Requests from "../utilities/Requests";
 import Spinner from "./Spinner";
 
 const PreMatches = (props) => {
   const [games, setGames] = useState([]);
   const [pageLoading, setPageLoading] = useState(true);
+  const dispatcher = useDispatch();
 
   useEffect(() => {
     loadPreMatchGames();
@@ -125,10 +128,13 @@ const PreMatches = (props) => {
     {
       title: "1",
       dataIndex: "outcome_1",
-      render: (outcome) => (
+      render: (outcome, fixture) => (
         <a
           className="btnn intialise_input"
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
+          onClick={() =>
+            addBet(dispatcher, "1", "Market1Pre", fixture.id, "1X2 FT - 1")
+          }
         >
           {parseFloat(outcome).toFixed(2)}
         </a>
@@ -137,10 +143,13 @@ const PreMatches = (props) => {
     {
       title: "X",
       dataIndex: "outcome_X",
-      render: (outcome) => (
+      render: (outcome, fixture) => (
         <a
           className="btnn intialise_input"
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
+          onClick={() =>
+            addBet(dispatcher, "X", "Market1Pre", fixture.id, "1X2 FT - X")
+          }
         >
           {parseFloat(outcome).toFixed(2)}
         </a>
@@ -149,10 +158,13 @@ const PreMatches = (props) => {
     {
       title: "2",
       dataIndex: "outcome_2",
-      render: (outcome) => (
+      render: (outcome, fixture) => (
         <a
           className="btnn intialise_input"
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
+          onClick={() =>
+            addBet(dispatcher, "2", "Market1Pre", fixture.id, "1X2 FT - 2")
+          }
         >
           {parseFloat(outcome).toFixed(2)}
         </a>

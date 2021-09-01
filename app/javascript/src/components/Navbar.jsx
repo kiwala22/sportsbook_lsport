@@ -143,13 +143,8 @@ const Navbar = (props) => {
                     className="nav-link dropdown-toggle"
                     trigger={["click"]}
                     arrow={true}
-                    // onVisibleChange={this.handleVisibleChange}
-                    // visible={this.state.visible}
                   >
-                    <span
-                      className="ant-dropdown-link"
-                      // onClick={(e) => e.preventDefault()}
-                    >
+                    <span className="ant-dropdown-link">
                       <i className="far fa-user fa-lg text-gray-400"></i>{" "}
                       <DownOutlined style={{ color: "#fff" }} />
                     </span>

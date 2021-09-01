@@ -24,7 +24,7 @@ const Login = (props) => {
       cogoToast.error("Invalid Country Code.", 5);
       setTimeout(() => {
         setIsLoading(false);
-      }, 2000);
+      }, 1000);
       return;
     }
     let phoneNumber = PhoneFormat(values.phone_number.phone);

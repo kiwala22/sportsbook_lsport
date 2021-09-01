@@ -1,3 +1,4 @@
+import { BarcodeOutlined } from "@ant-design/icons";
 import { Button, Form, Input } from "antd";
 import cogoToast from "cogo-toast";
 import React, { useState } from "react";
@@ -55,7 +56,10 @@ const PasswordCode = (props) => {
                         },
                       ]}
                     >
-                      <Input prefix={"XXX"} placeholder="Reset Code" />
+                      <Input
+                        prefix={<BarcodeOutlined />}
+                        placeholder="Reset Code"
+                      />
                     </Form.Item>
                     <br />
                     <Button

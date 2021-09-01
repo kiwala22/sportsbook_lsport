@@ -1,32 +1,27 @@
+import { Button } from "antd";
 import "channels";
 import cogoToast from "cogo-toast";
 import React, { useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
 import shortUUID from "short-uuid";
 import BetslipChannel from "../../channels/betSlipsChannel";
 import MarketsChannel from "../../channels/marketsChannel";
 import currencyFormatter from "../utilities/CurrencyFormatter";
 import Request from "../utilities/Requests";
-import UserLogin from "../utilities/UserLogin";
 import Login from "./Login";
 
 const BetSlip = (props) => {
-  const [games, setGames] = useState([]);
-  const [isVisible, setIsVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [win, setWin] = useState("UGX 0");
   const intialStake = localStorage.getItem("stake") || "";
   const [stake, setStake] = useState(intialStake);
-  const refreshTime = 30000;
-  const [userSignedIn, setUserSignedIn] = useState(false);
-  const [userInfo, setUserInfo] = useState([]);
+  const userSignedIn = useSelector((state) => state.signedIn);
+  const games = useSelector((state) => state.games);
+  const dispatcher = useDispatch();
 
   useEffect(() => {
     loadCartGames();
     calculateWin();
-  }, []);
-
-  useEffect(() => {
-    checkUserLoginStatus();
   }, []);
 
   useEffect(() => {
@@ -37,43 +32,13 @@ const BetSlip = (props) => {
     calculateWin();
   }, [stake]);
 
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     loadCartGames();
-  //   }, refreshTime);
-
-  //   return () => clearInterval(interval);
-  // }, []);
-
-  const checkUserLoginStatus = () => {
-    UserLogin.currentUserLogin()
-      .then((data) => {
-        if (data.message == "Authorized") {
-          setUserSignedIn(true);
-          setUserInfo(data.user);
-        }
-      })
-      .catch((error) =>
-        cogoToast.error(
-          error.response ? error.response.data.message : error.message,
-          {
-            hideAfter: 5,
-          }
-        )
-      );
-  };
-
   const loadCartGames = () => {
     let path = "/cart_fixtures";
     let values = {};
     Request.isGetRequest(path, values)
       .then((response) => {
         let data = response.data;
-        if (data instanceof Array) {
-          setGames(data);
-          let visible = data.length > 0 ? true : false;
-          setIsVisible(visible);
-        }
+        dispatcher({ type: "addBet", payload: data });
       })
       .catch((error) => {
         cogoToast.error(
@@ -106,14 +71,14 @@ const BetSlip = (props) => {
 
   const clearBetSlip = () => {
     window.localStorage.removeItem("stake");
-    let url = "clear_slip";
+    let path = "/clear_slip";
     let values = {};
-    Request.isDeleteRequest(url, values)
+    Request.isDeleteRequest(path, values)
       .then((response) => {
         if (response.data.status == "OK") {
-          loadCartGames();
+          dispatcher({ type: "addBet", payload: [] });
           cogoToast.success("Your Betslip is now empty.", {
-            hideAfter: 7,
+            hideAfter: 5,
           });
         }
       })
@@ -135,14 +100,14 @@ const BetSlip = (props) => {
         fixture={bet.fixtureId}
         market={bet.market.match(/\d/g).join("")}
         received={(data) => {
-          loadCartGames();
+          console.log(data);
         }}
       >
         <MarketsChannel
           channel="MarketsChannel"
           fixture={bet.fixtureId}
           received={(data) => {
-            loadCartGames();
+            console.log(data);
           }}
         >
           <div className="row lineBet">
@@ -167,7 +132,7 @@ const BetSlip = (props) => {
                     bet.outcome
                   }_${bet.fixtureId}`}
                 >
-                  {bet.odd}
+                  {parseFloat(bet.odd).toFixed(2)}
                 </div>
               </div>
             </div>
@@ -178,9 +143,9 @@ const BetSlip = (props) => {
   };
 
   const deleteLineBet = (id) => {
-    const url = `clear_bet?id=${id}`;
+    const path = `/clear_bet?id=${id}`;
     const values = {};
-    Request.isDeleteRequest(url, values)
+    Request.isDeleteRequest(path, values)
       .then((response) => {
         if (response.data.status == "OK") {
           loadCartGames();
@@ -197,22 +162,22 @@ const BetSlip = (props) => {
   };
 
   const placeBet = (e) => {
+    setIsLoading(true);
     window.localStorage.removeItem("stake");
     cogoToast.success("Bet placing will be implemented soon.", {
       hideAfter: 7,
     });
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
   };
   return (
     <>
       <div className="web-sidebar-widget" id="betSlip">
         <div className="widget-head">
           <h3 className="float-left">Betslip</h3>
-          {isVisible && (
-            <div
-              id="close-button"
-              // data-controller="main"
-              // data-main-interval="1000"
-            >
+          {games.length > 0 && (
+            <div id="close-button">
               <a className="float-right" onClick={() => clearBetSlip()}>
                 <i
                   className="far fa-times-circle fa-2x"
@@ -225,7 +190,7 @@ const BetSlip = (props) => {
           )}
           <br />
         </div>
-        {isVisible && (
+        {games.length > 0 && (
           <div className="widget-body" id="betslip">
             <div className="bets" id="bets-row" data-controller="slips">
               {slipGames()}
@@ -235,6 +200,7 @@ const BetSlip = (props) => {
                     type="number"
                     name="stake"
                     id="stake-input"
+                    style={{ color: "black" }}
                     placeholder="Min Stake: UGX 1,000"
                     className=""
                     value={stake}
@@ -263,23 +229,13 @@ const BetSlip = (props) => {
               </div>
               {userSignedIn && (
                 <div className="actions">
-                  {/* <a
-                  onClick={(event) => {
-                    placeBet(event.target);
-                  }}
-                  className="btn btn-block btn-primary mt-lg login-btn"
-                  id="place_bet"
-                  data-disable-with="<i class='fas fa-spinner fa-spin'></i> Placing Bet..."
-                >
-                  PLACE BET
-                </a> */}
                   <Button
                     id="place_bet"
+                    loading={isLoading}
                     onClick={(event) => {
                       placeBet(event.target);
                     }}
                     className="btn btn-block btn-primary mt-lg login-btn border-transparent"
-                    data-disable-with="<i class='fas fa-spinner fa-spin'></i> Placing Bet..."
                   >
                     PLACE BET
                   </Button>
@@ -289,6 +245,7 @@ const BetSlip = (props) => {
                 <Login notice="Login before placing bet..">
                   <Button
                     id="slip_login"
+                    loading={isLoading}
                     className="btn btn-block btn-primary mt-lg login-btn border-transparent"
                   >
                     PLACE BET

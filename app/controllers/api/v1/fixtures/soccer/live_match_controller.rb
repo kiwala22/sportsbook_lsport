@@ -34,16 +34,9 @@ class Api::V1::Fixtures::Soccer::LiveMatchController < ApplicationController
   end
 
   def show
-    @fixture =
-    Fixture
-      .includes(
-        :market1_live,
-        :market7_live,
-        :market3_live,
-        :market2_live,
-        :market17_live
-      )
-      .find(params[:id])
+    @fixture =Fixture.includes(:market1_live,:market7_live,:market3_live,:market2_live,:market17_live).find(params[:id])
+
+    fixture = @fixture.as_json
     
     ## Add outcomes to the fixture
     fixture['outcome_mkt1_1'] = @fixture.market1_live.outcome_1

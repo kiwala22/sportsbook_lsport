@@ -4,6 +4,7 @@ import cogoToast from "cogo-toast";
 import React, { useEffect, useState } from "react";
 import { BsDash } from "react-icons/bs";
 import Moment from "react-moment";
+import { useDispatch } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import shortUUID from "short-uuid";
 import FixtureChannel from "../../channels/fixturesChannel";
@@ -11,6 +12,7 @@ import LiveOddsChannel from "../../channels/liveOddsChannel";
 import MarketsChannel from "../../channels/marketsChannel";
 import PreOddsChannel from "../../channels/preOddsChannel";
 import Banner from "../Images/web_banner_main.webp";
+import addBet from "../redux/actions";
 import Requests from "../utilities/Requests";
 import Spinner from "./Spinner";
 
@@ -19,6 +21,7 @@ const Home = (props) => {
   const [featuredGames, setFeaturedGames] = useState([]);
   const [prematchGames, setPrematchGames] = useState([]);
   const [pageLoading, setPageLoading] = useState(true);
+  const dispatcher = useDispatch();
 
   useEffect(() => loadGames(), []);
 
@@ -50,7 +53,7 @@ const Home = (props) => {
   const updateMatchInfo = (data, currentState, setState) => {
     console.log(currentState);
     let fixtureIndex = currentState.findIndex((el) => data.fixture_id == el.id);
-    if (data.status !== "Active") {
+    if (data.market_status !== "Active") {
       currentState.splice(fixtureIndex, 1);
       let newState = Array.from(currentState);
       setState(newState);
@@ -140,10 +143,13 @@ const Home = (props) => {
     {
       title: "1",
       dataIndex: "outcome_1",
-      render: (outcome) => (
+      render: (outcome, fixture) => (
         <a
           className="btnn intialise_input"
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
+          onClick={() =>
+            addBet(dispatcher, "1", "Market1Live", fixture.id, "1X2 FT - 1")
+          }
         >
           {parseFloat(outcome).toFixed(2)}
         </a>
@@ -152,10 +158,13 @@ const Home = (props) => {
     {
       title: "X",
       dataIndex: "outcome_X",
-      render: (outcome) => (
+      render: (outcome, fixture) => (
         <a
           className="btnn intialise_input"
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
+          onClick={() =>
+            addBet(dispatcher, "X", "Market1Live", fixture.id, "1X2 FT - X")
+          }
         >
           {parseFloat(outcome).toFixed(2)}
         </a>
@@ -164,10 +173,13 @@ const Home = (props) => {
     {
       title: "2",
       dataIndex: "outcome_2",
-      render: (outcome) => (
+      render: (outcome, fixture) => (
         <a
           className="btnn intialise_input"
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
+          onClick={() =>
+            addBet(dispatcher, "2", "Market1Live", fixture.id, "1X2 FT - 2")
+          }
         >
           {parseFloat(outcome).toFixed(2)}
         </a>
@@ -237,10 +249,13 @@ const Home = (props) => {
     {
       title: "1",
       dataIndex: "outcome_1",
-      render: (outcome) => (
+      render: (outcome, fixture) => (
         <a
           className="btnn intialise_input"
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
+          onClick={() =>
+            addBet(dispatcher, "1", "Market1Pre", fixture.id, "1X2 FT - 1")
+          }
         >
           {parseFloat(outcome).toFixed(2)}
         </a>
@@ -249,10 +264,13 @@ const Home = (props) => {
     {
       title: "X",
       dataIndex: "outcome_X",
-      render: (outcome) => (
+      render: (outcome, fixture) => (
         <a
           className="btnn intialise_input"
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
+          onClick={() =>
+            addBet(dispatcher, "X", "Market1Pre", fixture.id, "1X2 FT - X")
+          }
         >
           {parseFloat(outcome).toFixed(2)}
         </a>
@@ -261,10 +279,13 @@ const Home = (props) => {
     {
       title: "2",
       dataIndex: "outcome_2",
-      render: (outcome) => (
+      render: (outcome, fixture) => (
         <a
           className="btnn intialise_input"
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
+          onClick={() =>
+            addBet(dispatcher, "2", "Market1Pre", fixture.id, "1X2 FT - 2")
+          }
         >
           {parseFloat(outcome).toFixed(2)}
         </a>
