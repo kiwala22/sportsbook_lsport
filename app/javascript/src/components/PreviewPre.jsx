@@ -7,6 +7,7 @@ import { withRouter } from "react-router-dom";
 import MarketsChannel from "../../channels/marketsChannel";
 import PreOddsChannel from "../../channels/preOddsChannel";
 import addBet from "../redux/actions";
+import oddsFormatter from "../utilities/oddsFormatter";
 import Requests from "../utilities/Requests";
 import Spinner from "./Spinner";
 
@@ -84,7 +85,7 @@ const PreviewPre = (props) => {
                             >
                               <span>Home Win</span>
                               <span className="wagger-amt">
-                                {fixture.outcome_mkt1_1}
+                                {oddsFormatter(fixture.outcome_mkt1_1)}
                               </span>
                             </a>
                           </div>
@@ -103,7 +104,7 @@ const PreviewPre = (props) => {
                             >
                               <span>Draw</span>
                               <span className="wagger-amt">
-                                {fixture.outcome_mkt1_X}
+                                {oddsFormatter(fixture.outcome_mkt1_X)}
                               </span>
                             </a>
                           </div>
@@ -122,7 +123,7 @@ const PreviewPre = (props) => {
                             >
                               <span>Away Win</span>
                               <span className="wagger-amt">
-                                {fixture.outcome_mkt1_2}
+                                {oddsFormatter(fixture.outcome_mkt1_2)}
                               </span>
                             </a>
                           </div>
@@ -157,7 +158,7 @@ const PreviewPre = (props) => {
                             >
                               <span>Home Win / Draw</span>
                               <span className="wagger-amt">
-                                {fixture.outcome_mkt7_1X}
+                                {oddsFormatter(fixture.outcome_mkt7_1X)}
                               </span>
                             </a>
                           </div>
@@ -176,7 +177,7 @@ const PreviewPre = (props) => {
                             >
                               <span>Home / Away</span>
                               <span className="wagger-amt">
-                                {fixture.outcome_mkt7_12}
+                                {oddsFormatter(fixture.outcome_mkt7_12)}
                               </span>
                             </a>
                           </div>
@@ -195,7 +196,7 @@ const PreviewPre = (props) => {
                             >
                               <span>Draw / Away Win</span>
                               <span className="wagger-amt">
-                                {fixture.outcome_mkt7_X2}
+                                {oddsFormatter(fixture.outcome_mkt7_X2)}
                               </span>
                             </a>
                           </div>
@@ -234,7 +235,7 @@ const PreviewPre = (props) => {
                                 Home <BsDash />1
                               </span>
                               <span className="wagger-amt">
-                                {fixture.outcome_mkt3_1}
+                                {oddsFormatter(fixture.outcome_mkt3_1)}
                               </span>
                             </a>
                           </div>
@@ -255,7 +256,7 @@ const PreviewPre = (props) => {
                                 Away <BsDash />1
                               </span>
                               <span className="wagger-amt">
-                                {fixture.outcome_mkt3_2}
+                                {oddsFormatter(fixture.outcome_mkt3_2)}
                               </span>
                             </a>
                           </div>
@@ -292,7 +293,7 @@ const PreviewPre = (props) => {
                             >
                               <span>Under 2.5</span>
                               <span className="wagger-amt">
-                                {fixture.outcome_mkt2_Under}
+                                {oddsFormatter(fixture.outcome_mkt2_Under)}
                               </span>
                             </a>
                           </div>
@@ -311,7 +312,7 @@ const PreviewPre = (props) => {
                             >
                               <span>Over 2.5</span>
                               <span className="wagger-amt">
-                                {fixture.outcome_mkt2_Over}
+                                {oddsFormatter(fixture.outcome_mkt2_Over)}
                               </span>
                             </a>
                           </div>
@@ -347,7 +348,7 @@ const PreviewPre = (props) => {
                             >
                               <span>Yes</span>
                               <span className="wagger-amt">
-                                {fixture.outcome_mkt17_Yes}
+                                {oddsFormatter(fixture.outcome_mkt17_Yes)}
                               </span>
                             </a>
                           </div>
@@ -366,7 +367,7 @@ const PreviewPre = (props) => {
                             >
                               <span>No</span>
                               <span className="wagger-amt">
-                                {fixture.outcome_mkt17_No}
+                                {oddsFormatter(fixture.outcome_mkt17_No)}
                               </span>
                             </a>
                           </div>

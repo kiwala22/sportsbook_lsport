@@ -28,6 +28,10 @@ class Api::V1::HomeController < ApplicationController
       fixture['outcome_1'] = event.market1_live.outcome_1
       fixture['outcome_X'] = event.market1_live.outcome_X
       fixture['outcome_2'] = event.market1_live.outcome_2
+
+      ## Add market status to the fixture
+      fixture["market_status"] = event.market1_live.status
+
       live.push(fixture)
     end
 
@@ -65,6 +69,10 @@ class Api::V1::HomeController < ApplicationController
       fixture['outcome_1'] = event.market1_pre.outcome_1
       fixture['outcome_X'] = event.market1_pre.outcome_X
       fixture['outcome_2'] = event.market1_pre.outcome_2
+
+      ## Add market status to the fixture
+      fixture["market_status"] = event.market1_pre.status
+
       prematch.push(fixture)
     end
 
@@ -88,6 +96,10 @@ class Api::V1::HomeController < ApplicationController
       fixture['outcome_1'] = event.market1_pre.outcome_1
       fixture['outcome_X'] = event.market1_pre.outcome_X
       fixture['outcome_2'] = event.market1_pre.outcome_2
+
+      ## Add market status to the fixture
+      fixture["market_status"] = event.market1_pre.status
+
       featured.push(fixture)
     end
 

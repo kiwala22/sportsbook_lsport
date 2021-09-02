@@ -13,7 +13,7 @@ class BetSlipsController < ApplicationController
     stake = bet_slips_params[:stake].to_f
 
     #First check if stake is with in the limits
-    if stake > 1_000_000 || stake < 1000
+    if stake > 1000000 || stake < 1000
       flash[:alert] =
         'Stake should be between 1,000 and 1,000,000. Change amount and try again.'
       redirect_back(fallback_location: root_path) && return

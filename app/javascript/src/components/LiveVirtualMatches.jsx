@@ -10,6 +10,8 @@ import FixtureChannel from "../../channels/fixturesChannel";
 import LiveOddsChannel from "../../channels/liveOddsChannel";
 import MarketsChannel from "../../channels/marketsChannel";
 import addBet from "../redux/actions";
+import * as DataUpdate from "../utilities/DataUpdate";
+import oddsFormatter from "../utilities/oddsFormatter";
 import Requests from "../utilities/Requests";
 import Spinner from "./Spinner";
 
@@ -39,6 +41,12 @@ const LiveVirtualMatches = (props) => {
       });
   };
 
+  const updateMatchInfo = (data, currentState, setState) => {
+    let updatedData = DataUpdate.marketOneUpdates(data, currentState);
+    let newState = Array.from(updatedData);
+    setState(newState);
+  };
+
   const columns = [
     {
       title: "Teams",
@@ -47,7 +55,7 @@ const LiveVirtualMatches = (props) => {
           channel="MarketsChannel"
           fixture={fixture.id}
           received={(data) => {
-            console.log(data);
+            updateMatchInfo(data, games, setGames);
           }}
         >
           <Link
@@ -69,7 +77,7 @@ const LiveVirtualMatches = (props) => {
           <FixtureChannel
             channel="FixtureChannel"
             fixture={fixture.id}
-            received={(data) => console.log(data)}
+            received={(data) => updateMatchInfo(data, games, setGames)}
           >
             <a>
               <strong>
@@ -95,8 +103,7 @@ const LiveVirtualMatches = (props) => {
           fixture={fixture.id}
           market="1"
           received={(data) => {
-            console.log(data);
-            //updateMatchInfo(data, games, setState);
+            updateMatchInfo(data, games, setGames);
           }}
         >
           <a>
@@ -117,7 +124,7 @@ const LiveVirtualMatches = (props) => {
             addBet(dispatcher, "1", "Market1Live", fixture.id, "1X2 FT - 1")
           }
         >
-          {parseFloat(outcome).toFixed(2)}
+          {oddsFormatter(outcome)}
         </a>
       ),
     },
@@ -132,7 +139,7 @@ const LiveVirtualMatches = (props) => {
             addBet(dispatcher, "X", "Market1Live", fixture.id, "1X2 FT - X")
           }
         >
-          {parseFloat(outcome).toFixed(2)}
+          {oddsFormatter(outcome)}
         </a>
       ),
     },
@@ -147,7 +154,7 @@ const LiveVirtualMatches = (props) => {
             addBet(dispatcher, "2", "Market1Live", fixture.id, "1X2 FT - 2")
           }
         >
-          {parseFloat(outcome).toFixed(2)}
+          {oddsFormatter(outcome)}
         </a>
       ),
     },
@@ -186,6 +193,11 @@ const LiveVirtualMatches = (props) => {
                         columns={columns}
                         dataSource={games}
                         size="middle"
+                        rowClassName={(record) =>
+                          record.market_status == "Active"
+                            ? "show-row"
+                            : "hide-row"
+                        }
                         rowKey={() => {
                           return shortUUID.generate();
                         }}

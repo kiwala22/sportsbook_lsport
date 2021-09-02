@@ -15,6 +15,7 @@ class Market1Live < ApplicationRecord
       fixture['outcome_1'] = self.outcome_1
       fixture['outcome_X'] = self.outcome_X
       fixture['outcome_2'] = self.outcome_2
+      fixture["market_status"] = self.status
 
       # Make the broadcasts
       CableWorker.perform_async("live_odds_1_#{self.fixture_id}", fixture)

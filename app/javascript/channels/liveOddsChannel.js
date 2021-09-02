@@ -22,6 +22,7 @@ const LiveOddsChannel = (props) => {
       },
     }
   );
+
   return <>{props.children}</>;
 };
 

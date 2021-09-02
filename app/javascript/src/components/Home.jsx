@@ -13,6 +13,8 @@ import MarketsChannel from "../../channels/marketsChannel";
 import PreOddsChannel from "../../channels/preOddsChannel";
 import Banner from "../Images/web_banner_main.webp";
 import addBet from "../redux/actions";
+import * as DataUpdate from "../utilities/DataUpdate";
+import oddsFormatter from "../utilities/oddsFormatter";
 import Requests from "../utilities/Requests";
 import Spinner from "./Spinner";
 
@@ -51,23 +53,8 @@ const Home = (props) => {
   };
 
   const updateMatchInfo = (data, currentState, setState) => {
-    console.log(currentState);
-    let fixtureIndex = currentState.findIndex((el) => data.fixture_id == el.id);
-    if (data.market_status !== "Active") {
-      currentState.splice(fixtureIndex, 1);
-      let newState = Array.from(currentState);
-      setState(newState);
-      return;
-    }
-    currentState[fixtureIndex] = {
-      ...currentState[fixtureIndex],
-      ...{
-        outcome_1: data.outcome_1,
-        outcome_X: data.outcome_X,
-        outcome_2: data.outcome_2,
-      },
-    };
-    let newState = Array.from(currentState);
+    let updatedData = DataUpdate.marketOneUpdates(data, currentState);
+    let newState = Array.from(updatedData);
     setState(newState);
   };
 
@@ -79,7 +66,7 @@ const Home = (props) => {
           channel="MarketsChannel"
           fixture={fixture.id}
           received={(data) => {
-            console.log(data);
+            updateMatchInfo(data, liveGames, setLiveGames);
           }}
         >
           <Link
@@ -102,7 +89,7 @@ const Home = (props) => {
             channel="FixtureChannel"
             fixture={fixture.id}
             received={(data) => {
-              console.log(data);
+              updateMatchInfo(data, liveGames, setLiveGames);
             }}
           >
             <a>
@@ -129,8 +116,7 @@ const Home = (props) => {
           fixture={fixture.id}
           market="1"
           received={(data) => {
-            console.log(data);
-            //updateMatchInfo(data, games, setState);
+            updateMatchInfo(data, liveGames, setLiveGames);
           }}
         >
           <a>
@@ -151,7 +137,7 @@ const Home = (props) => {
             addBet(dispatcher, "1", "Market1Live", fixture.id, "1X2 FT - 1")
           }
         >
-          {parseFloat(outcome).toFixed(2)}
+          {oddsFormatter(outcome)}
         </a>
       ),
     },
@@ -166,7 +152,7 @@ const Home = (props) => {
             addBet(dispatcher, "X", "Market1Live", fixture.id, "1X2 FT - X")
           }
         >
-          {parseFloat(outcome).toFixed(2)}
+          {oddsFormatter(outcome)}
         </a>
       ),
     },
@@ -181,7 +167,7 @@ const Home = (props) => {
             addBet(dispatcher, "2", "Market1Live", fixture.id, "1X2 FT - 2")
           }
         >
-          {parseFloat(outcome).toFixed(2)}
+          {oddsFormatter(outcome)}
         </a>
       ),
     },
@@ -209,11 +195,9 @@ const Home = (props) => {
         <MarketsChannel
           channel="MarketsChannel"
           fixture={fixture.id}
-          received={(data) => {}}
-          // received={(data) => {
-          //   console.log(data);
-          //   updateMatchInfo(data, games, setState);
-          // }}
+          received={(data) => {
+            updateMatchInfo(data, prematchGames, setPrematchGames);
+          }}
         >
           <Link
             to={{
@@ -235,8 +219,7 @@ const Home = (props) => {
           fixture={fixture.id}
           market="1"
           received={(data) => {
-            console.log(data);
-            //updateMatchInfo(data, games, setState);
+            updateMatchInfo(data, prematchGames, setPrematchGames);
           }}
         >
           <a>
@@ -257,7 +240,7 @@ const Home = (props) => {
             addBet(dispatcher, "1", "Market1Pre", fixture.id, "1X2 FT - 1")
           }
         >
-          {parseFloat(outcome).toFixed(2)}
+          {oddsFormatter(outcome)}
         </a>
       ),
     },
@@ -272,7 +255,7 @@ const Home = (props) => {
             addBet(dispatcher, "X", "Market1Pre", fixture.id, "1X2 FT - X")
           }
         >
-          {parseFloat(outcome).toFixed(2)}
+          {oddsFormatter(outcome)}
         </a>
       ),
     },
@@ -287,7 +270,110 @@ const Home = (props) => {
             addBet(dispatcher, "2", "Market1Pre", fixture.id, "1X2 FT - 2")
           }
         >
-          {parseFloat(outcome).toFixed(2)}
+          {oddsFormatter(outcome)}
+        </a>
+      ),
+    },
+  ];
+
+  const columns_feat = [
+    {
+      title: "Date",
+      dataIndex: "start_date",
+      render: (date) => (
+        <>
+          <a>
+            <Moment local={true} format="HH:mm:ss">
+              {date}
+            </Moment>
+            <br />
+            <Moment format="MM/DD/YY">{date}</Moment>
+          </a>
+        </>
+      ),
+    },
+    {
+      title: "Teams",
+      render: (_, fixture) => (
+        <MarketsChannel
+          channel="MarketsChannel"
+          fixture={fixture.id}
+          received={(data) => {
+            updateMatchInfo(data, featuredGames, setFeaturedGames);
+          }}
+        >
+          <Link
+            to={{
+              pathname: "/fixtures/soccer/pre",
+              search: `id=${fixture.id}`,
+            }}
+          >
+            <strong>{fixture.part_one_name}</strong>
+            <strong>{fixture.part_two_name}</strong>
+          </Link>
+        </MarketsChannel>
+      ),
+    },
+    {
+      title: "Tournament",
+      render: (_, fixture) => (
+        <PreOddsChannel
+          channel="PreOddsChannel"
+          fixture={fixture.id}
+          market="1"
+          received={(data) => {
+            updateMatchInfo(data, featuredGames, setFeaturedGames);
+          }}
+        >
+          <a>
+            {fixture.league_name} <br />
+            {fixture.location}
+          </a>
+        </PreOddsChannel>
+      ),
+    },
+    {
+      title: "1",
+      dataIndex: "outcome_1",
+      render: (outcome, fixture) => (
+        <a
+          className="btnn intialise_input"
+          data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
+          onClick={() =>
+            addBet(dispatcher, "1", "Market1Pre", fixture.id, "1X2 FT - 1")
+          }
+        >
+          {oddsFormatter(outcome)}
+        </a>
+      ),
+    },
+    {
+      title: "X",
+      dataIndex: "outcome_X",
+      render: (outcome, fixture) => (
+        <a
+          className="btnn intialise_input"
+          data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
+          onClick={() =>
+            addBet(dispatcher, "X", "Market1Pre", fixture.id, "1X2 FT - X")
+          }
+        >
+          {oddsFormatter(outcome)}
+        </a>
+      ),
+    },
+    {
+      title: "2",
+      dataIndex: "outcome_2",
+      render: (outcome, fixture) => (
+        <a
+          className="btnn intialise_input"
+          data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
+          onClick={() =>
+            addBet(dispatcher, "2", "Market1Pre", fixture.id, "1X2 FT - 2")
+          }
+        >
+          {oddsFormatter(outcome)}
         </a>
       ),
     },
@@ -323,6 +409,11 @@ const Home = (props) => {
                       columns={columns_live}
                       dataSource={liveGames}
                       size="middle"
+                      rowClassName={(record) =>
+                        record.market_status == "Active"
+                          ? "show-row"
+                          : "hide-row"
+                      }
                       rowKey={() => {
                         return shortUUID.generate();
                       }}
@@ -361,9 +452,14 @@ const Home = (props) => {
                   >
                     <Table
                       className="table-striped-rows"
-                      columns={columns_pre}
+                      columns={columns_feat}
                       dataSource={featuredGames}
                       size="middle"
+                      rowClassName={(record) =>
+                        record.market_status == "Active"
+                          ? "show-row"
+                          : "hide-row"
+                      }
                       rowKey={() => {
                         return shortUUID.generate();
                       }}
@@ -400,6 +496,11 @@ const Home = (props) => {
                       columns={columns_pre}
                       dataSource={prematchGames}
                       size="middle"
+                      rowClassName={(record) =>
+                        record.market_status == "Active"
+                          ? "show-row"
+                          : "hide-row"
+                      }
                       rowKey={() => {
                         return shortUUID.generate();
                       }}

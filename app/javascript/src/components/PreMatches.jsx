@@ -10,6 +10,8 @@ import shortUUID from "short-uuid";
 import MarketsChannel from "../../channels/marketsChannel";
 import PreOddsChannel from "../../channels/preOddsChannel";
 import addBet from "../redux/actions";
+import * as DataUpdate from "../utilities/DataUpdate";
+import oddsFormatter from "../utilities/oddsFormatter";
 import Requests from "../utilities/Requests";
 import Spinner from "./Spinner";
 
@@ -46,23 +48,8 @@ const PreMatches = (props) => {
   };
 
   const updateMatchInfo = (data, currentState, setState) => {
-    console.log(currentState);
-    let fixtureIndex = currentState.findIndex((el) => data.fixture_id == el.id);
-    if (data.status !== "Active") {
-      currentState.splice(fixtureIndex, 1);
-      let newState = Array.from(currentState);
-      setState(newState);
-      return;
-    }
-    currentState[fixtureIndex] = {
-      ...currentState[fixtureIndex],
-      ...{
-        outcome_1: data.outcome_1,
-        outcome_X: data.outcome_X,
-        outcome_2: data.outcome_2,
-      },
-    };
-    let newState = Array.from(currentState);
+    let updatedData = DataUpdate.marketOneUpdates(data, currentState);
+    let newState = Array.from(updatedData);
     setState(newState);
   };
 
@@ -88,11 +75,9 @@ const PreMatches = (props) => {
         <MarketsChannel
           channel="MarketsChannel"
           fixture={fixture.id}
-          received={(data) => {}}
-          // received={(data) => {
-          //   console.log(data);
-          //   updateMatchInfo(data, games, setState);
-          // }}
+          received={(data) => {
+            updateMatchInfo(data, games, setGames);
+          }}
         >
           <Link
             to={{
@@ -114,8 +99,7 @@ const PreMatches = (props) => {
           fixture={fixture.id}
           market="1"
           received={(data) => {
-            console.log(data);
-            //updateMatchInfo(data, games, setState);
+            updateMatchInfo(data, games, setGames);
           }}
         >
           <a>
@@ -136,7 +120,7 @@ const PreMatches = (props) => {
             addBet(dispatcher, "1", "Market1Pre", fixture.id, "1X2 FT - 1")
           }
         >
-          {parseFloat(outcome).toFixed(2)}
+          {oddsFormatter(outcome)}
         </a>
       ),
     },
@@ -151,7 +135,7 @@ const PreMatches = (props) => {
             addBet(dispatcher, "X", "Market1Pre", fixture.id, "1X2 FT - X")
           }
         >
-          {parseFloat(outcome).toFixed(2)}
+          {oddsFormatter(outcome)}
         </a>
       ),
     },
@@ -166,7 +150,7 @@ const PreMatches = (props) => {
             addBet(dispatcher, "2", "Market1Pre", fixture.id, "1X2 FT - 2")
           }
         >
-          {parseFloat(outcome).toFixed(2)}
+          {oddsFormatter(outcome)}
         </a>
       ),
     },
@@ -206,6 +190,11 @@ const PreMatches = (props) => {
                       columns={columns}
                       dataSource={games}
                       size="middle"
+                      rowClassName={(record) =>
+                        record.market_status == "Active"
+                          ? "show-row"
+                          : "hide-row"
+                      }
                       rowKey={() => {
                         return shortUUID.generate();
                       }}

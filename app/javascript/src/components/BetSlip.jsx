@@ -51,7 +51,9 @@ const BetSlip = (props) => {
   };
 
   const totalOdds = () => {
-    let odds = games.map((bet) => parseFloat(bet.odd));
+    let odds = games
+      .filter((bet) => bet.market_status === "Active")
+      .map((el) => parseFloat(el.odd));
     return odds.reduce((a, b) => a * b, 1).toFixed(2);
   };
 
@@ -66,7 +68,7 @@ const BetSlip = (props) => {
       newAmount = parseFloat(stake) * odds;
       localStorage.setItem("stake", stake);
     }
-    setWin(currencyFormatter(newAmount));
+    return currencyFormatter(newAmount);
   };
 
   const clearBetSlip = () => {
@@ -92,54 +94,70 @@ const BetSlip = (props) => {
       });
   };
 
+  function updateSlipGames(data, games) {
+    if (games !== undefined) {
+      let fixtureIndex = games.findIndex((el) => data.id == el.fixtureId);
+      games[fixtureIndex] = {
+        ...games[fixtureIndex],
+        ...{
+          market_status: data.market_status,
+          odd: data[`outcome_${games[fixtureIndex].outcome}`],
+        },
+      };
+      dispatcher({ type: "addBet", payload: games });
+    }
+  }
+
   const slipGames = () => {
-    return games.map((bet) => (
-      <BetslipChannel
-        key={shortUUID.generate()}
-        channel="BetslipChannel"
-        fixture={bet.fixtureId}
-        market={bet.market.match(/\d/g).join("")}
-        received={(data) => {
-          console.log(data);
-        }}
-      >
-        <MarketsChannel
-          channel="MarketsChannel"
+    return games
+      .filter((el) => el.market_status === "Active")
+      .map((bet) => (
+        <BetslipChannel
+          key={shortUUID.generate()}
+          channel="BetslipChannel"
           fixture={bet.fixtureId}
+          market={bet.market.match(/\d/g).join("")}
           received={(data) => {
-            console.log(data);
+            updateSlipGames(data, games);
           }}
         >
-          <div className="row lineBet">
-            <div className="col-12 px-2">
-              <div className="single-bet">
-                <div className="col-1 px-1">
-                  <a onClick={() => deleteLineBet(bet.id)}>
-                    <i className="far fa-times-circle"></i>
-                  </a>
-                </div>
-                <div id="comp-names" className="col-9 px-1">
-                  <span>
-                    {" "}
-                    {bet.partOne} - {bet.partTwo}{" "}
-                  </span>
-                  <span>{bet.description}</span>
-                </div>
-                <div
-                  data-target="slips.odd"
-                  className="col-2 px-1 text-left"
-                  id={`slip_${bet.market.match(/\d/g).join("")}_${
-                    bet.outcome
-                  }_${bet.fixtureId}`}
-                >
-                  {parseFloat(bet.odd).toFixed(2)}
+          <MarketsChannel
+            channel="MarketsChannel"
+            fixture={bet.fixtureId}
+            received={(data) => {
+              updateSlipGames(data, games);
+            }}
+          >
+            <div className="row lineBet">
+              <div className="col-12 px-2">
+                <div className="single-bet">
+                  <div className="col-1 px-1">
+                    <a onClick={() => deleteLineBet(bet.id)}>
+                      <i className="far fa-times-circle"></i>
+                    </a>
+                  </div>
+                  <div id="comp-names" className="col-9 px-1">
+                    <span>
+                      {" "}
+                      {bet.partOne} - {bet.partTwo}{" "}
+                    </span>
+                    <span>{bet.description}</span>
+                  </div>
+                  <div
+                    data-target="slips.odd"
+                    className="col-2 px-1 text-left"
+                    id={`slip_${bet.market.match(/\d/g).join("")}_${
+                      bet.outcome
+                    }_${bet.fixtureId}`}
+                  >
+                    {parseFloat(bet.odd).toFixed(2)}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </MarketsChannel>
-      </BetslipChannel>
-    ));
+          </MarketsChannel>
+        </BetslipChannel>
+      ));
   };
 
   const deleteLineBet = (id) => {
@@ -224,7 +242,7 @@ const BetSlip = (props) => {
               <div className="total-wins">
                 <span>Payout</span>
                 <span id="total-wins" data-target="slips.wins">
-                  {win}
+                  {calculateWin()}
                 </span>
               </div>
               {userSignedIn && (
