@@ -7,7 +7,7 @@ import Moment from "react-moment";
 import shortUUID from "short-uuid";
 import currencyFormatter from "../utilities/CurrencyFormatter";
 import Requests from "../utilities/Requests";
-import Spinner from "./Spinner";
+import Preview from "./Skeleton";
 
 const Transactions = () => {
   const [transactions, setTransactions] = useState([]);
@@ -162,7 +162,8 @@ const Transactions = () => {
           </div>
         </>
       )}
-      {pageLoading && <Spinner />}
+      {/* {pageLoading && <Spinner />} */}
+      {pageLoading && <Preview />}
     </>
   );
 };

@@ -7,7 +7,7 @@ import shortUUID from "short-uuid";
 import currencyFormatter from "../utilities/CurrencyFormatter";
 import Requests from "../utilities/Requests";
 import BetReceipt from "./BetReceipt";
-import Spinner from "./Spinner";
+import Preview from "./Skeleton";
 
 const Bets = () => {
   const [bets, setBets] = useState([]);
@@ -165,7 +165,8 @@ const Bets = () => {
           </div>
         </>
       )}
-      {pageLoading && <Spinner />}
+      {/* {pageLoading && <Spinner />} */}
+      {pageLoading && <Preview />}
     </>
   );
 };

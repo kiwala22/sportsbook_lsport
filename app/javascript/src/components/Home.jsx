@@ -16,7 +16,8 @@ import addBet from "../redux/actions";
 import * as DataUpdate from "../utilities/DataUpdate";
 import oddsFormatter from "../utilities/oddsFormatter";
 import Requests from "../utilities/Requests";
-import Spinner from "./Spinner";
+import Preview from "./Skeleton";
+// import Spinner from "./Spinner";
 
 const Home = (props) => {
   const [liveGames, setLiveGames] = useState([]);
@@ -128,7 +129,7 @@ const Home = (props) => {
     },
     {
       title: "1",
-      dataIndex: "outcome_1",
+      dataIndex: "outcome_mkt1_1",
       render: (outcome, fixture) => (
         <a
           className="btnn intialise_input"
@@ -143,7 +144,7 @@ const Home = (props) => {
     },
     {
       title: "X",
-      dataIndex: "outcome_X",
+      dataIndex: "outcome_mkt1_X",
       render: (outcome, fixture) => (
         <a
           className="btnn intialise_input"
@@ -158,7 +159,7 @@ const Home = (props) => {
     },
     {
       title: "2",
-      dataIndex: "outcome_2",
+      dataIndex: "outcome_mkt1_2",
       render: (outcome, fixture) => (
         <a
           className="btnn intialise_input"
@@ -231,7 +232,7 @@ const Home = (props) => {
     },
     {
       title: "1",
-      dataIndex: "outcome_1",
+      dataIndex: "outcome_mkt1_1",
       render: (outcome, fixture) => (
         <a
           className="btnn intialise_input"
@@ -246,7 +247,7 @@ const Home = (props) => {
     },
     {
       title: "X",
-      dataIndex: "outcome_X",
+      dataIndex: "outcome_mkt1_X",
       render: (outcome, fixture) => (
         <a
           className="btnn intialise_input"
@@ -261,7 +262,7 @@ const Home = (props) => {
     },
     {
       title: "2",
-      dataIndex: "outcome_2",
+      dataIndex: "outcome_mkt1_2",
       render: (outcome, fixture) => (
         <a
           className="btnn intialise_input"
@@ -334,7 +335,7 @@ const Home = (props) => {
     },
     {
       title: "1",
-      dataIndex: "outcome_1",
+      dataIndex: "outcome_mkt1_1",
       render: (outcome, fixture) => (
         <a
           className="btnn intialise_input"
@@ -349,7 +350,7 @@ const Home = (props) => {
     },
     {
       title: "X",
-      dataIndex: "outcome_X",
+      dataIndex: "outcome_mkt1_X",
       render: (outcome, fixture) => (
         <a
           className="btnn intialise_input"
@@ -364,7 +365,7 @@ const Home = (props) => {
     },
     {
       title: "2",
-      dataIndex: "outcome_2",
+      dataIndex: "outcome_mkt1_2",
       render: (outcome, fixture) => (
         <a
           className="btnn intialise_input"
@@ -410,7 +411,7 @@ const Home = (props) => {
                       dataSource={liveGames}
                       size="middle"
                       rowClassName={(record) =>
-                        record.market_status == "Active"
+                        record.market_mkt1_status == "Active"
                           ? "show-row"
                           : "hide-row"
                       }
@@ -456,7 +457,7 @@ const Home = (props) => {
                       dataSource={featuredGames}
                       size="middle"
                       rowClassName={(record) =>
-                        record.market_status == "Active"
+                        record.market_mkt1_status == "Active"
                           ? "show-row"
                           : "hide-row"
                       }
@@ -497,7 +498,7 @@ const Home = (props) => {
                       dataSource={prematchGames}
                       size="middle"
                       rowClassName={(record) =>
-                        record.market_status == "Active"
+                        record.market_mkt1_status == "Active"
                           ? "show-row"
                           : "hide-row"
                       }
@@ -521,7 +522,7 @@ const Home = (props) => {
           </div>
         </>
       )}
-      {pageLoading && <Spinner />}
+      {pageLoading && <Preview />}
     </>
   );
 };

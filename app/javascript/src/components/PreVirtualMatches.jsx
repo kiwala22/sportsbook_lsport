@@ -13,7 +13,7 @@ import addBet from "../redux/actions";
 import * as DataUpdate from "../utilities/DataUpdate";
 import oddsFormatter from "../utilities/oddsFormatter";
 import Requests from "../utilities/Requests";
-import Spinner from "./Spinner";
+import Preview from "./Skeleton";
 
 const PreVirtualMatches = (props) => {
   const [games, setGames] = useState([]);
@@ -105,7 +105,7 @@ const PreVirtualMatches = (props) => {
     },
     {
       title: "1",
-      dataIndex: "outcome_1",
+      dataIndex: "outcome_mkt1_1",
       render: (outcome, fixture) => (
         <a
           className="btnn intialise_input"
@@ -120,7 +120,7 @@ const PreVirtualMatches = (props) => {
     },
     {
       title: "X",
-      dataIndex: "outcome_X",
+      dataIndex: "outcome_mkt1_X",
       render: (outcome, fixture) => (
         <a
           className="btnn intialise_input"
@@ -135,7 +135,7 @@ const PreVirtualMatches = (props) => {
     },
     {
       title: "2",
-      dataIndex: "outcome_2",
+      dataIndex: "outcome_mkt1_2",
       render: (outcome, fixture) => (
         <a
           className="btnn intialise_input"
@@ -185,7 +185,7 @@ const PreVirtualMatches = (props) => {
                       dataSource={games}
                       size="middle"
                       rowClassName={(record) =>
-                        record.market_status == "Active"
+                        record.market_mkt1_status == "Active"
                           ? "show-row"
                           : "hide-row"
                       }
@@ -214,7 +214,8 @@ const PreVirtualMatches = (props) => {
           </div>
         </>
       )}
-      {pageLoading && <Spinner />}
+      {/* {pageLoading && <Spinner />} */}
+      {pageLoading && <Preview />}
     </>
   );
 };

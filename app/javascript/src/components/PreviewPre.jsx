@@ -7,9 +7,10 @@ import { withRouter } from "react-router-dom";
 import MarketsChannel from "../../channels/marketsChannel";
 import PreOddsChannel from "../../channels/preOddsChannel";
 import addBet from "../redux/actions";
+import * as DataUpdate from "../utilities/DataUpdate";
 import oddsFormatter from "../utilities/oddsFormatter";
 import Requests from "../utilities/Requests";
-import Spinner from "./Spinner";
+import Preview from "./Skeleton";
 
 const PreviewPre = (props) => {
   const [fixture, setFixture] = useState([]);
@@ -36,6 +37,16 @@ const PreviewPre = (props) => {
       });
   }
 
+  const updateMatchInfo = (data, currentState, setState, market, channel) => {
+    let updatedData = DataUpdate.fixtureUpdate(
+      data,
+      currentState,
+      market,
+      channel
+    );
+    setState(updatedData);
+  };
+
   return (
     <>
       {!pageLoading && (
@@ -46,7 +57,15 @@ const PreviewPre = (props) => {
                 <MarketsChannel
                   channel="MarketsChannel"
                   fixture={fixture.id}
-                  received={(data) => console.log(data)}
+                  received={(data) => {
+                    updateMatchInfo(
+                      data,
+                      fixture,
+                      setFixture,
+                      `${data.market}`,
+                      "Market"
+                    );
+                  }}
                 >
                   <h6>
                     {fixture.part_one_name} <BsDash /> {fixture.part_two_name}{" "}
@@ -67,7 +86,15 @@ const PreviewPre = (props) => {
                         channel="PreOddsChannel"
                         fixture={fixture.id}
                         market="1"
-                        received={(data) => console.log(data)}
+                        received={(data) => {
+                          updateMatchInfo(
+                            data,
+                            fixture,
+                            setFixture,
+                            "1",
+                            "Pre"
+                          );
+                        }}
                       >
                         <div className="row">
                           <div className="col-lg-4">
@@ -85,7 +112,9 @@ const PreviewPre = (props) => {
                             >
                               <span>Home Win</span>
                               <span className="wagger-amt">
-                                {oddsFormatter(fixture.outcome_mkt1_1)}
+                                {fixture.market_mkt1_status == "Active"
+                                  ? oddsFormatter(fixture.outcome_mkt1_1)
+                                  : 1.0}
                               </span>
                             </a>
                           </div>
@@ -104,7 +133,9 @@ const PreviewPre = (props) => {
                             >
                               <span>Draw</span>
                               <span className="wagger-amt">
-                                {oddsFormatter(fixture.outcome_mkt1_X)}
+                                {fixture.market_mkt1_status == "Active"
+                                  ? oddsFormatter(fixture.outcome_mkt1_X)
+                                  : 1.0}
                               </span>
                             </a>
                           </div>
@@ -123,7 +154,9 @@ const PreviewPre = (props) => {
                             >
                               <span>Away Win</span>
                               <span className="wagger-amt">
-                                {oddsFormatter(fixture.outcome_mkt1_2)}
+                                {fixture.market_mkt1_status == "Active"
+                                  ? oddsFormatter(fixture.outcome_mkt1_2)
+                                  : 1.0}
                               </span>
                             </a>
                           </div>
@@ -140,7 +173,15 @@ const PreviewPre = (props) => {
                         channel="PreOddsChannel"
                         fixture={fixture.id}
                         market="7"
-                        received={(data) => console.log(data)}
+                        received={(data) => {
+                          updateMatchInfo(
+                            data,
+                            fixture,
+                            setFixture,
+                            "7",
+                            "Pre"
+                          );
+                        }}
                       >
                         <div className="row market">
                           <div className="col-lg-4">
@@ -158,7 +199,9 @@ const PreviewPre = (props) => {
                             >
                               <span>Home Win / Draw</span>
                               <span className="wagger-amt">
-                                {oddsFormatter(fixture.outcome_mkt7_1X)}
+                                {fixture.market_mkt7_status == "Active"
+                                  ? oddsFormatter(fixture.outcome_mkt7_1X)
+                                  : 1.0}
                               </span>
                             </a>
                           </div>
@@ -177,7 +220,9 @@ const PreviewPre = (props) => {
                             >
                               <span>Home / Away</span>
                               <span className="wagger-amt">
-                                {oddsFormatter(fixture.outcome_mkt7_12)}
+                                {fixture.market_mkt7_status == "Active"
+                                  ? oddsFormatter(fixture.outcome_mkt7_12)
+                                  : 1.0}
                               </span>
                             </a>
                           </div>
@@ -196,7 +241,9 @@ const PreviewPre = (props) => {
                             >
                               <span>Draw / Away Win</span>
                               <span className="wagger-amt">
-                                {oddsFormatter(fixture.outcome_mkt7_X2)}
+                                {fixture.market_mkt7_status == "Active"
+                                  ? oddsFormatter(fixture.outcome_mkt7_X2)
+                                  : 1.0}
                               </span>
                             </a>
                           </div>
@@ -215,7 +262,15 @@ const PreviewPre = (props) => {
                         channel="PreOddsChannel"
                         fixture={fixture.id}
                         market="3"
-                        received={(data) => console.log(data)}
+                        received={(data) => {
+                          updateMatchInfo(
+                            data,
+                            fixture,
+                            setFixture,
+                            "3",
+                            "Pre"
+                          );
+                        }}
                       >
                         <div className="row">
                           <div className="col-lg-6">
@@ -235,7 +290,9 @@ const PreviewPre = (props) => {
                                 Home <BsDash />1
                               </span>
                               <span className="wagger-amt">
-                                {oddsFormatter(fixture.outcome_mkt3_1)}
+                                {fixture.market_mkt3_status == "Active"
+                                  ? oddsFormatter(fixture.outcome_mkt3_1)
+                                  : 1.0}
                               </span>
                             </a>
                           </div>
@@ -256,7 +313,9 @@ const PreviewPre = (props) => {
                                 Away <BsDash />1
                               </span>
                               <span className="wagger-amt">
-                                {oddsFormatter(fixture.outcome_mkt3_2)}
+                                {fixture.market_mkt3_status == "Active"
+                                  ? oddsFormatter(fixture.outcome_mkt3_2)
+                                  : 1.0}
                               </span>
                             </a>
                           </div>
@@ -275,7 +334,15 @@ const PreviewPre = (props) => {
                         channel="PreOddsChannel"
                         fixture={fixture.id}
                         market="2"
-                        received={(data) => console.log(data)}
+                        received={(data) => {
+                          updateMatchInfo(
+                            data,
+                            fixture,
+                            setFixture,
+                            "2",
+                            "Pre"
+                          );
+                        }}
                       >
                         <div className="row">
                           <div className="col-lg-6">
@@ -293,7 +360,9 @@ const PreviewPre = (props) => {
                             >
                               <span>Under 2.5</span>
                               <span className="wagger-amt">
-                                {oddsFormatter(fixture.outcome_mkt2_Under)}
+                                {fixture.market_mkt2_status == "Active"
+                                  ? oddsFormatter(fixture.outcome_mkt2_Under)
+                                  : 1.0}
                               </span>
                             </a>
                           </div>
@@ -312,7 +381,9 @@ const PreviewPre = (props) => {
                             >
                               <span>Over 2.5</span>
                               <span className="wagger-amt">
-                                {oddsFormatter(fixture.outcome_mkt2_Over)}
+                                {fixture.market_mkt2_status == "Active"
+                                  ? oddsFormatter(fixture.outcome_mkt2_Over)
+                                  : 1.0}
                               </span>
                             </a>
                           </div>
@@ -330,7 +401,15 @@ const PreviewPre = (props) => {
                         channel="PreOddsChannel"
                         fixture={fixture.id}
                         market="17"
-                        received={(data) => console.log(data)}
+                        received={(data) => {
+                          updateMatchInfo(
+                            data,
+                            fixture,
+                            setFixture,
+                            "17",
+                            "Pre"
+                          );
+                        }}
                       >
                         <div className="row">
                           <div className="col-lg-6">
@@ -348,7 +427,9 @@ const PreviewPre = (props) => {
                             >
                               <span>Yes</span>
                               <span className="wagger-amt">
-                                {oddsFormatter(fixture.outcome_mkt17_Yes)}
+                                {fixture.market_mkt17_status == "Active"
+                                  ? oddsFormatter(fixture.outcome_mkt17_Yes)
+                                  : 1.0}
                               </span>
                             </a>
                           </div>
@@ -367,7 +448,9 @@ const PreviewPre = (props) => {
                             >
                               <span>No</span>
                               <span className="wagger-amt">
-                                {oddsFormatter(fixture.outcome_mkt17_No)}
+                                {fixture.market_mkt17_status == "Active"
+                                  ? oddsFormatter(fixture.outcome_mkt17_No)
+                                  : 1.0}
                               </span>
                             </a>
                           </div>
@@ -381,7 +464,8 @@ const PreviewPre = (props) => {
           </div>
         </>
       )}
-      {pageLoading && <Spinner />}
+      {/* {pageLoading && <Spinner />} */}
+      {pageLoading && <Preview />}
     </>
   );
 };

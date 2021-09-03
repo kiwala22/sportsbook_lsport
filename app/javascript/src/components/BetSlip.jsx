@@ -52,7 +52,11 @@ const BetSlip = (props) => {
 
   const totalOdds = () => {
     let odds = games
-      .filter((bet) => bet.market_status === "Active")
+      .filter(
+        (bet) =>
+          bet[`market_mkt${bet.market.match(/\d/g).join("")}_status`] ===
+          "Active"
+      )
       .map((el) => parseFloat(el.odd));
     return odds.reduce((a, b) => a * b, 1).toFixed(2);
   };
@@ -97,11 +101,13 @@ const BetSlip = (props) => {
   function updateSlipGames(data, games) {
     if (games !== undefined) {
       let fixtureIndex = games.findIndex((el) => data.id == el.fixtureId);
+      let prefix = `mkt${games[fixtureIndex].market.match(/\d/g).join("")}`;
+      let gameOutcome = games[fixtureIndex].outcome;
       games[fixtureIndex] = {
         ...games[fixtureIndex],
         ...{
-          market_status: data.market_status,
-          odd: data[`outcome_${games[fixtureIndex].outcome}`],
+          [`market_${prefix}_status`]: data[`market_${prefix}_status`],
+          odd: data[`outcome_${prefix}_${gameOutcome}`],
         },
       };
       dispatcher({ type: "addBet", payload: games });
@@ -110,7 +116,10 @@ const BetSlip = (props) => {
 
   const slipGames = () => {
     return games
-      .filter((el) => el.market_status === "Active")
+      .filter(
+        (el) =>
+          el[`market_mkt${el.market.match(/\d/g).join("")}_status`] === "Active"
+      )
       .map((bet) => (
         <BetslipChannel
           key={shortUUID.generate()}

@@ -12,7 +12,7 @@ import PreOddsChannel from "../../channels/preOddsChannel";
 import addBet from "../redux/actions";
 import * as DataUpdate from "../utilities/DataUpdate";
 import Requests from "../utilities/Requests";
-import Spinner from "./Spinner";
+import Preview from "./Skeleton";
 
 const Search = (props) => {
   const [games, setGames] = useState([]);
@@ -104,7 +104,7 @@ const Search = (props) => {
     },
     {
       title: "1",
-      dataIndex: "outcome_1",
+      dataIndex: "outcome_mkt1_1",
       render: (outcome, fixture) => (
         <a
           className="btnn intialise_input"
@@ -119,7 +119,7 @@ const Search = (props) => {
     },
     {
       title: "X",
-      dataIndex: "outcome_X",
+      dataIndex: "outcome_mkt1_X",
       render: (outcome, fixture) => (
         <a
           className="btnn intialise_input"
@@ -134,7 +134,7 @@ const Search = (props) => {
     },
     {
       title: "2",
-      dataIndex: "outcome_2",
+      dataIndex: "outcome_mkt1_2",
       render: (outcome, fixture) => (
         <a
           className="btnn intialise_input"
@@ -171,6 +171,11 @@ const Search = (props) => {
                       columns={columns}
                       dataSource={games}
                       size="middle"
+                      rowClassName={(record) =>
+                        record.market_mkt1_status == "Active"
+                          ? "show-row"
+                          : "hide-row"
+                      }
                       rowKey={() => {
                         return shortUUID.generate();
                       }}
@@ -196,7 +201,8 @@ const Search = (props) => {
           </div>
         </>
       )}
-      {pageLoading && <Spinner />}
+      {/* {pageLoading && <Spinner />} */}
+      {pageLoading && <Preview />}
     </>
   );
 };

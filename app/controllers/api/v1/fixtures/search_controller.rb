@@ -18,12 +18,10 @@ class Api::V1::Fixtures::SearchController < ApplicationController
       fixture = event.as_json
 
       ## Add outcomes to the data
-      fixture['outcome_1'] = event.market1_pre.outcome_1
-
-
-      
-      fixture['outcome_X'] = event.market1_pre.outcome_X
-      fixture['outcome_2'] = event.market1_pre.outcome_2
+      fixture['outcome_mkt1_1'] = event.market1_pre.outcome_1
+      fixture['outcome_mkt1_X'] = event.market1_pre.outcome_X
+      fixture['outcome_mkt1_2'] = event.market1_pre.outcome_2
+      fixture['market_mkt1_status'] = event.market1_pre.status
       results.push(fixture)
     end
 

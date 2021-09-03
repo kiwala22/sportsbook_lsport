@@ -8,11 +8,25 @@ class Market2Pre < ApplicationRecord
 
 
    def broadcast_updates
-      CableWorker.perform_async("pre_odds_2_#{self.fixture_id}", self.as_json)
-      CableWorker.perform_async("betslips_2_#{self.fixture_id}", self.as_json)
+      # Find the corresponding fixture
+      fixture = Fixture.find(self.fixture_id).as_json
+
+      # Add necessary outcome fields to the fixture
+      fixture['outcome_mkt2_Under'] = self.outcome_Under
+      fixture['outcome_mkt2_Over'] = self.outcome_Over
+      fixture["market_mkt2_status"] = self.status
+
+      # Make the broadcasts
+      CableWorker.perform_async("pre_odds_2_#{self.fixture_id}", fixture)
+      CableWorker.perform_async("betslips_2_#{self.fixture_id}", fixture)
       
       if saved_change_to_status?
-         CableWorker.perform_async("markets_#{self.fixture_id}", self.as_json)
+         # Add market status to the fixture object
+         fixture["market_mkt2_status"] = self.status
+         fixture["market"] = "2"
+
+         #Make the broadcast
+         CableWorker.perform_async("markets_#{self.fixture_id}", fixture)
       end
    end
 end
