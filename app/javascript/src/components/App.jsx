@@ -1,3 +1,4 @@
+import "antd-mobile/dist/antd-mobile.less";
 import React from "react";
 import ReactDOM from "react-dom";
 import "react-phone-number-input/style.css";

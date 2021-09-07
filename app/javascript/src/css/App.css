@@ -5,6 +5,48 @@ body {
   overflow-y: auto;
 }
 
+.am-navbar {
+  background-color: #28333e;
+}
+
+.ant-drawer-content {
+  background-color: #50677c;
+}
+
+.ant-drawer-header {
+  background-color: #50677c;
+}
+
+.ant-drawer-content-wrapper {
+  width: 95%;
+}
+
+.am-drawer-sidebar {
+  width: 100%;
+  padding-top: 65px;
+  height: 100%;
+  background-color: #50677c;
+  padding-left: 20px;
+}
+
+.ant-menu-sub.ant-menu-inline {
+  background: #50677c;
+}
+
+.ant-menu-sub.ant-menu-inline {
+  color: #ffffff;
+}
+.ant-menu-item a {
+  color: #ffffff;
+}
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+  background-color: #f6ae2d;
+}
+
+.am-list-body {
+  padding-top: 65px;
+}
+
 a {
   color: #fff;
   text-decoration: none;

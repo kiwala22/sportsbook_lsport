@@ -5,6 +5,7 @@ const initialState = {
   verified: false,
   userInfo: {},
   games: [],
+  displaySider: false,
 };
 
 function reducer(state = initialState, action) {
@@ -22,6 +23,8 @@ function reducer(state = initialState, action) {
       return { ...state, signedIn: action.payload };
     case "addBet":
       return { ...state, games: action.payload };
+    case "sider":
+      return { ...state, displaySider: action.payload };
     default:
       return state;
   }

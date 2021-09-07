@@ -11,9 +11,13 @@ import FixtureChannel from "../../channels/fixturesChannel";
 import LiveOddsChannel from "../../channels/liveOddsChannel";
 import MarketsChannel from "../../channels/marketsChannel";
 import PreOddsChannel from "../../channels/preOddsChannel";
+import MobileBanner1 from "../Images/mobile_banner_1.webp";
+import MobileBanner2 from "../Images/mobile_banner_2.webp";
+import MobileBanner3 from "../Images/mobile_banner_3.webp";
 import Banner from "../Images/web_banner_main.webp";
 import addBet from "../redux/actions";
 import * as DataUpdate from "../utilities/DataUpdate";
+import Mobile from "../utilities/Mobile";
 import oddsFormatter from "../utilities/oddsFormatter";
 import Requests from "../utilities/Requests";
 import Preview from "./Skeleton";
@@ -384,11 +388,19 @@ const Home = (props) => {
     <>
       {!pageLoading && (
         <>
-          <div className="card ">
-            <div className="card-header side-banner ">
-              <img src={Banner} className="banner-image" />
+          {Mobile.isMobile() ? (
+            <div className="card ">
+              <div className="card-header side-banner ">
+                <img src={MobileBanner1} className="banner-image" />
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="card ">
+              <div className="card-header side-banner ">
+                <img src={Banner} className="banner-image" />
+              </div>
+            </div>
+          )}
           <br />
           <div className="game-box" id="live">
             <div className="card">
@@ -435,6 +447,14 @@ const Home = (props) => {
           </div>
 
           {/* <!-- Start Featured Fixtures Table --> */}
+          {Mobile.isMobile() && (
+            <div className="card ">
+              <div className="card-header side-banner ">
+                <img src={MobileBanner2} className="banner-image" />
+              </div>
+            </div>
+          )}
+          <br />
 
           <div className="game-box" id="featured">
             <div className="card">
@@ -475,6 +495,14 @@ const Home = (props) => {
           {/* <!-- End Featured Fixtures Table --> */}
 
           {/* <!-- Start All Fixtures Table --> */}
+          {Mobile.isMobile() && (
+            <div className="card ">
+              <div className="card-header side-banner ">
+                <img src={MobileBanner3} className="banner-image" />
+              </div>
+            </div>
+          )}
+          <br />
           <div className="game-box">
             <div className="card">
               <div className="card-header">

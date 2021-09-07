@@ -29,6 +29,7 @@
     "animate.css": "3.7.0",
     "antd": "^4.16.11",
     "antd-country-phone-input": "^4.1.0",
+    "antd-mobile": "^2.3.4",
     "axios": "^0.21.1",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "bootstrap": "^4.5.0",

@@ -1,8 +1,27 @@
+import { Button, Drawer } from "antd";
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import Mobile from "../utilities/Mobile";
+import Login from "./Login";
+import SignUp from "./SignUp";
 
 const Sidebar = (props) => {
-  return (
+  const dispatcher = useDispatch();
+  const open = useSelector((state) => state.displaySider);
+  const signedIn = useSelector((state) => state.signedIn);
+
+  // useEffect(
+  //   (prevProps) => {
+  //     const { location } = props;
+  //     if (location !== prevProps.location && open) {
+  //       onClose();
+  //     }
+  //   },
+  //   [props]
+  // );
+
+  const sidebar = (
     <>
       <div className="col-xl-2 col-lg-2 mt-20 px-lg-1 px-xl-1 px-md-1">
         <aside className="content-sidebar mb-20">
@@ -258,6 +277,59 @@ const Sidebar = (props) => {
           </ul>
         </aside>
       </div>
+    </>
+  );
+
+  function onClose() {
+    dispatcher({ type: "sider", payload: false });
+  }
+
+  return (
+    <>
+      {Mobile.isMobile() && (
+        <>
+          <Drawer
+            title={
+              <Link to={"/"}>
+                <h4>
+                  Skyline<span className="logo-color">Bet</span>
+                </h4>
+              </Link>
+            }
+            placement="left"
+            closable={true}
+            onClose={() => onClose()}
+            visible={open}
+            key="left"
+            style={{ backgroundColor: "#50677c" }}
+          >
+            {!signedIn && (
+              <span>
+                <SignUp>
+                  <Button
+                    id="signup"
+                    className="bttn-small btn-fill border-transparent"
+                    style={{ background: "#f6ae2d", color: "#fff" }}
+                  >
+                    <i className="fas fa-key fa-fw"></i> Register
+                  </Button>
+                </SignUp>
+                <Login>
+                  <Button
+                    id="login"
+                    className="bttn-small btn-fill ml-2 border-transparent"
+                    style={{ background: "#f6ae2d", color: "#fff" }}
+                  >
+                    <i className="fas fa-lock fa-fw"></i> Login
+                  </Button>
+                </Login>
+              </span>
+            )}
+            {sidebar}
+          </Drawer>
+        </>
+      )}
+      {!Mobile.isMobile() && sidebar}
     </>
   );
 };

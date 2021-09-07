@@ -7,6 +7,7 @@ import shortUUID from "short-uuid";
 import BetslipChannel from "../../channels/betSlipsChannel";
 import MarketsChannel from "../../channels/marketsChannel";
 import currencyFormatter from "../utilities/CurrencyFormatter";
+import Mobile from "../utilities/Mobile";
 import Request from "../utilities/Requests";
 import Login from "./Login";
 
@@ -200,89 +201,95 @@ const BetSlip = (props) => {
   };
   return (
     <>
-      <div className="web-sidebar-widget" id="betSlip">
-        <div className="widget-head">
-          <h3 className="float-left">Betslip</h3>
-          {games.length > 0 && (
-            <div id="close-button">
-              <a className="float-right" onClick={() => clearBetSlip()}>
-                <i
-                  className="far fa-times-circle fa-2x"
-                  data-toggle="tooltip"
-                  data-placement="top"
-                  title="Clear BetSlip"
-                ></i>
-              </a>
-            </div>
-          )}
-          <br />
-        </div>
-        {games.length > 0 && (
-          <div className="widget-body" id="betslip">
-            <div className="bets" id="bets-row" data-controller="slips">
-              {slipGames()}
-              <div className="total-bet">
-                <span className="col-8 px-1">
-                  <input
-                    type="number"
-                    name="stake"
-                    id="stake-input"
-                    style={{ color: "black" }}
-                    placeholder="Min Stake: UGX 1,000"
-                    className=""
-                    value={stake}
-                    id="stakeInput"
-                    onChange={(event) => {
-                      setStake(event.target.value);
-                    }}
-                  />
-                </span>
-                <span
-                  className="col-4 px-1"
-                  id="total-odds"
-                  data-target="slips.total"
-                >
-                  {totalOdds()}
-                </span>
+      {!Mobile.isMobile() && (
+        <>
+          <>
+            <div className="web-sidebar-widget" id="betSlip">
+              <div className="widget-head">
+                <h3 className="float-left">Betslip</h3>
+                {games.length > 0 && (
+                  <div id="close-button">
+                    <a className="float-right" onClick={() => clearBetSlip()}>
+                      <i
+                        className="far fa-times-circle fa-2x"
+                        data-toggle="tooltip"
+                        data-placement="top"
+                        title="Clear BetSlip"
+                      ></i>
+                    </a>
+                  </div>
+                )}
+                <br />
               </div>
-              <div className="">
-                <span id="amount-limits" className="limits"></span>
-              </div>
-              <div className="total-wins">
-                <span>Payout</span>
-                <span id="total-wins" data-target="slips.wins">
-                  {calculateWin()}
-                </span>
-              </div>
-              {userSignedIn && (
-                <div className="actions">
-                  <Button
-                    id="place_bet"
-                    loading={isLoading}
-                    onClick={(event) => {
-                      placeBet(event.target);
-                    }}
-                    className="btn btn-block btn-primary mt-lg login-btn border-transparent"
-                  >
-                    PLACE BET
-                  </Button>
+              {games.length > 0 && (
+                <div className="widget-body" id="betslip">
+                  <div className="bets" id="bets-row" data-controller="slips">
+                    {slipGames()}
+                    <div className="total-bet">
+                      <span className="col-8 px-1">
+                        <input
+                          type="number"
+                          name="stake"
+                          id="stake-input"
+                          style={{ color: "black" }}
+                          placeholder="Min Stake: UGX 1,000"
+                          className=""
+                          value={stake}
+                          id="stakeInput"
+                          onChange={(event) => {
+                            setStake(event.target.value);
+                          }}
+                        />
+                      </span>
+                      <span
+                        className="col-4 px-1"
+                        id="total-odds"
+                        data-target="slips.total"
+                      >
+                        {totalOdds()}
+                      </span>
+                    </div>
+                    <div className="">
+                      <span id="amount-limits" className="limits"></span>
+                    </div>
+                    <div className="total-wins">
+                      <span>Payout</span>
+                      <span id="total-wins" data-target="slips.wins">
+                        {calculateWin()}
+                      </span>
+                    </div>
+                    {userSignedIn && (
+                      <div className="actions">
+                        <Button
+                          id="place_bet"
+                          loading={isLoading}
+                          onClick={(event) => {
+                            placeBet(event.target);
+                          }}
+                          className="btn btn-block btn-primary mt-lg login-btn border-transparent"
+                        >
+                          PLACE BET
+                        </Button>
+                      </div>
+                    )}
+                    {!userSignedIn && (
+                      <Login notice="Login before placing bet..">
+                        <Button
+                          id="slip_login"
+                          loading={isLoading}
+                          className="btn btn-block btn-primary mt-lg login-btn border-transparent"
+                        >
+                          PLACE BET
+                        </Button>
+                      </Login>
+                    )}
+                  </div>
                 </div>
               )}
-              {!userSignedIn && (
-                <Login notice="Login before placing bet..">
-                  <Button
-                    id="slip_login"
-                    loading={isLoading}
-                    className="btn btn-block btn-primary mt-lg login-btn border-transparent"
-                  >
-                    PLACE BET
-                  </Button>
-                </Login>
-              )}
             </div>
-          </div>
-        )}
-      </div>
+          </>
+        </>
+      )}
     </>
   );
 };
