@@ -60,7 +60,7 @@ const Navbar = (props) => {
     <Menu>
       <Menu.Item key="1">
         <a>
-          <UserOutlined />
+          <UserOutlined className="mr-2 text-gray-400" />
           {userInfo.first_name}
         </a>
       </Menu.Item>
