@@ -31,7 +31,7 @@ server '34.89.20.147', user: 'deploy', roles: %w{app db web}
 # http://capistranorb.com/documentation/getting-started/configuration/
 # Feel free to add new variables to customise your setup.
 set :deploy_to, '/var/www/sportsbook'
-set :branch, "master"
+set :branch, "UI_FE"
 
 
 
