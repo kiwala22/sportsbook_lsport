@@ -1,0 +1,56 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * ------------------------------
+ * --- Vendor assets
+ * ------------------------------
+ * ---- FontAwesome
+ *= require @fortawesome/fontawesome-free/css/brands.css
+ *= require @fortawesome/fontawesome-free/css/regular.css
+ *= require @fortawesome/fontawesome-free/css/solid.css
+ *= require @fortawesome/fontawesome-free/css/fontawesome.css
+ * ---- Simple Line Icons
+ *= require simple-line-icons/css/simple-line-icons
+ * ---- Animate.css
+ *= require animate.css/animate.min
+ * ---- Whirl (spinners)
+ *= require whirl/dist/whirl
+ *
+ * ------------------------------
+ * --- Assets paths redefinition
+ * ------------------------------
+ *= require admin_assets/fonts
+ *= require admin_assets/vendor.assets
+ *
+ * ------------------------------
+ * --- Angle Main Stylesheet
+ * ------------------------------
+ *= require admin_assets/bootstrap
+ *= require admin_assets/app
+ *= require soccer_fixtures
+ *= require admin_assets/time_picker
+ */
+
+
+ .navbar-header > a {
+    color: #ffff
+ }
+.pagination {
+    clear: both;
+    color: #60605F !important;
+    font-size: 14px !important;
+    margin-bottom: 10px;
+    margin-top: 15px;
+}
+.pagination span {
+    margin-right: 4px;
+}
+.pagination a {
+    color: #C63918;
+    text-decoration: none;
+}
+
+// .container .alert-top {
+//   padding-top: 10px;
+// }

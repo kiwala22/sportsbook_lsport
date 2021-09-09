@@ -1,0 +1,71 @@
+/*!
+ *
+ * Angle - Bootstrap Admin Template
+ *
+ * Version: 4.7.1
+ * Author: @themicon_co
+ * Website: http://themicon.co
+ * License: https://wrapbootstrap.com/help/licenses
+ *
+ */
+
+// Bootstrap
+@import "admin_assets/bootstrap/functions.scss";
+@import "admin_assets/bootstrap/variables.scss";
+@import "admin_assets/bootstrap/mixins.scss";
+// Variables
+@import "admin_assets/app/common/variables";
+// Layout
+@import "admin_assets/app/layout/layout";
+@import "admin_assets/app/layout/layout-extra";
+@import "admin_assets/app/layout/layout-animation";
+@import "admin_assets/app/layout/top-navbar";
+@import "admin_assets/app/layout/sidebar";
+@import "admin_assets/app/layout/offsidebar";
+@import "admin_assets/app/layout/user-block";
+@import "admin_assets/app/layout/settings";
+// Common
+@import "admin_assets/app/common/typo";
+@import "admin_assets/app/common/bootstrap-reset";
+@import "admin_assets/app/common/bootstrap-custom";
+@import "admin_assets/app/common/button-extra";
+@import "admin_assets/app/common/placeholder";
+@import "admin_assets/app/common/cards";
+@import "admin_assets/app/common/circles";
+@import "admin_assets/app/common/dropdown-extra";
+@import "admin_assets/app/common/half-float";
+@import "admin_assets/app/common/animate";
+@import "admin_assets/app/common/slim-scroll";
+@import "admin_assets/app/common/inputs";
+@import "admin_assets/app/common/utils";
+@import "admin_assets/app/common/print";
+// Elements
+@import "admin_assets/app/elements/nestable";
+@import "admin_assets/app/elements/notify";
+@import "admin_assets/app/elements/spinner";
+@import "admin_assets/app/elements/portlets";
+// Charts
+@import "admin_assets/app/charts/radial-bar";
+@import "admin_assets/app/charts/chart-flot";
+@import "admin_assets/app/charts/chart-easypie";
+// Form elements
+@import "admin_assets/app/forms/form-validation";
+@import "admin_assets/app/forms/form-tags";
+@import "admin_assets/app/forms/form-datepicker";
+@import "admin_assets/app/forms/form-wizard";
+@import "admin_assets/app/forms/form-imgcrop";
+@import "admin_assets/app/forms/dropzone";
+@import "admin_assets/app/forms/plugins";
+// Tables
+@import "admin_assets/app/tables/datatable";
+@import "admin_assets/app/tables/table-extras";
+@import "admin_assets/app/tables/bootgrid";
+// Maps
+@import "admin_assets/app/maps/gmap";
+@import "admin_assets/app/maps/vector-map";
+// Extras
+@import "admin_assets/app/extras/timeline";
+@import "admin_assets/app/extras/todo";
+@import "admin_assets/app/extras/calendar";
+@import "admin_assets/app/extras/mailbox";
+@import "admin_assets/app/extras/plans";

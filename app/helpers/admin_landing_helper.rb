@@ -1,0 +1,2 @@
+module AdminLandingHelper
+end

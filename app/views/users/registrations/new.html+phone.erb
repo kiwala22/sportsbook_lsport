@@ -1,0 +1,78 @@
+<% provide(:title, "Sign Up") %>
+<div class="registration" >
+  <div class="content-center cl-grey">
+    <div class="row justify-content-center">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 tablet-forms">
+
+        <div class="web-sidebar-widget login-widget">
+          <div class="widget-head">
+            <h3>Signup</h3>
+          </div>
+          <div class="widget-body">
+            <%= form_for(resource, as: resource_name, url: registration_path(resource_name), :html => {:"data-parsley-validate" => '' }) do |f| %>
+
+            <div class="form-group">
+              <%= f.label :email %><br />
+              <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control",placeholder:"johndoe@ex.com" %>
+              <span class="error_desc"><%= resource.errors[:email].first if resource.errors[:email].present? %> </span>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :phone_number %><br />
+              <%= f.text_field :phone_number, autofocus: true, class: "form-control", required: true,placeholder:"ex: 256772000001" %>
+              <span class="error_desc"><%= resource.errors[:phone_number].first if resource.errors[:phone_number].present? %> </span>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :first_name %><br />
+              <%= f.text_field :first_name, autofocus: true, class: "form-control" , required: true,placeholder:"John" %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :last_name %><br />
+              <%= f.text_field :last_name, autofocus: true, class: "form-control", required: true,placeholder:"Deo" %>
+            </div>
+
+            <div class="form-group" data-controller="toggle">
+              <%= f.label :password %>
+
+              <%= f.password_field :password, class: "form-control", required: true,      "data-target":"toggle.unhide" %>
+                 <i  class="fa fa-eye mobile-show"data-target="toggle.show" data-action="click->toggle#password" aria-hidden="true" ></i>
+
+
+              <% if @minimum_password_length %>
+                <span>(<%= @minimum_password_length %> characters minimum)</span>
+              <% end %>
+              <span class="error_desc"><%= resource.errors[:password].first if resource.errors[:password].present? %> </span>
+            </div>
+
+            <div class="form-group" data-controller="toggle">
+              <%= f.label :password_confirmation %><br />
+              <%= f.password_field :password_confirmation, class: "form-control", required: true, "data-target":"toggle.unhide" %>
+                 <i  class="fa fa-eye mobile-show"data-target="toggle.show" data-action="click->toggle#password" aria-hidden="true" ></i>
+
+              <span class="error_desc"><%= resource.errors[:password_confirmation].first if resource.errors[:password_confirmation].present? %> </span>
+            </div>
+
+            <div class="form-group">
+                <div class="row" style="padding-left: 7px;">
+                  <span class="col-10"><%= f.label :agreement, "I am over 18 years of age and I accept BetCity’s <a href='/' class='terms'>Terms And Conditions</a> and <a href='/' class='terms'>Privacy Policy</a>".html_safe, id: "label_remember_me" %></span>
+                  <span class="col-1"><%= f.check_box :agreement, id: "agreement" %></span>
+                </div>
+                <div class="error_msg">
+                  <span class="error_desc"><%= "Checkbox must be ticked" if resource.errors[:agreement].present? %> </span>
+                </div>
+            </div>
+
+            <div class="actions">
+              <%= f.button "Sign up", class: "btn btn-block btn-primary mt-lg login-btn", data: {disable_with: "<i class='fas fa-spinner fa-spin'></i> Signing up..."} %>
+            </div>
+            <% end %>
+
+            <%= render "users/shared/links" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

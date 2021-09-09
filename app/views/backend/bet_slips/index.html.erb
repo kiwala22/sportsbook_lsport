@@ -1,0 +1,97 @@
+<div class="content-heading">
+    <div>
+        <span>Bet Slips</span>
+        <small>Bet Slips</small>
+    </div>
+</div>
+
+<div class="card card-default">
+   <div class="card-body">
+		 <%= search_form_for @q, url: backend_bet_slips_path, html: { method: :get } do |f| %>
+      <fieldset>
+          <div class="form-row">
+              <div class="col-lg-6">
+                <%= f.label :result, "Result", class:"col-md-4 col-form-label" %>
+                <div class="col-lg-8">
+                  <%= f.select :result_eq, BetSlip.bet_slip_results.values, {}, {:class=>"form-control", id: "result"}%>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <%= f.label :status, "Status", class:"col-md-4 col-form-label" %>
+                <div class="col-lg-8">
+                  <%= f.select :status_eq, BetSlip.bet_slip_statuses.values, {}, {:class=>"form-control", id: "status"}%>
+                </div>
+              </div>
+          </div>
+      </fieldset>
+			<fieldset>
+        <div class="form-row">
+            <div class="col-lg-6">
+                  <%= f.label :created_at, "Bet Placed After", class:"col-md-4 col-form-label" %>
+                  <div class="col-lg-8">
+                    <%= f.search_field :created_at_gteq, {class: "form-control", id: "kick_off_after"} %>
+                  </div>
+            </div>
+            <div class="col-lg-6">
+                  <%= f.label :created_at, "Bet Placed Before", class:"col-md-4 col-form-label" %>
+                  <div class="col-lg-8">
+                    <%= f.search_field :created_at_lteq, {:class=>"form-control", id: "kick_off_before"}%>
+                  </div>
+            </div>
+        </div>
+			</fieldset>
+      <!-- <div class="card-footer"> -->
+         <div class="clearfix">
+            <div class="float-right">
+               <%= f.submit 'Search', :class=>'btn btn-danger mb-2' %>
+            </div>
+         </div>
+      <!-- </div> -->
+			<% end %>
+   </div>
+</div>
+
+<div class="table-responsive">
+  <!-- table table-striped table-bordered table-hover -->
+  <table class="table table-striped table-bordered table-hoverlarge-12 columns large-centered">
+    <thead>
+      <tr>
+        <th>No</th>
+        <th>Games</th>
+        <th>Stake</th>
+        <th>Odds</th>
+        <th>Potential Win</th>
+        <th>Amount Won</th>
+        <th>Status</th>
+        <th>Result</th>
+        <th>Paid</th>
+				<th>Time</th>
+        <th>Actions </th>
+      </tr>
+    </thead>
+    <tbody>
+			<% @bet_slips.each_with_index do |bet_slip, i| %>
+				<tr>
+          <td><u><a href="<%= backend_bet_slip_path(id: bet_slip.id)%>"><%= bet_slip.id %></a></u></td>
+					<td><%= bet_slip.bet_count %></td>
+					<td><%= bet_slip.stake %></td>
+					<td><%= bet_slip.odds %></td>
+					<td><%= bet_slip.potential_win_amount %></td>
+					<td><%= bet_slip.win_amount %></td>
+					<td><%= bet_slip.status%></td>
+					<td><%= bet_slip.result %></td>
+					<td><%= bet_slip.paid %></td>
+          <td><%= local_time(bet_slip.created_at, format: "%d/%m/%y %l:%M%P") %></td>
+          <% if bet_slip.status == "Active" || bet_slip.status == "Pending" %>
+            <td>
+              <%= link_to "Cancel", backend_bet_slips_cancel_path(slip: bet_slip.id), method: :post %>
+            </td>
+          <% else %>
+            <td></td>
+          <% end %>
+				</tr>
+			<% end %>
+    </tbody>
+  </table>
+	<%= paginate @bet_slips %>
+</div>

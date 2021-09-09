@@ -1,0 +1,17 @@
+# Fetch all fixtures for the next 3 days 15mins apart
+DATETODAY= date +%F
+DATEPLUSONE= date +%F --date='1 day'
+DATEPLUSTWO= date +%F --date='2 day'
+
+5 0 * * * /bin/bash -l -c "cd /var/www/html/sportsbook/current && bundle exec -e production rake fixtures  --silent"
+10 0 * * * /bin/bash -l -c "cd /var/www/html/sportsbook/current && bundle exec -e production   rake fixtures  --silent"
+15 0 * * * /bin/bash -l -c "cd /var/www/html/sportsbook/current && bundle exec -e production   rake fixtures  --silent"
+
+#Check for all fixture changes every 6 hours
+1 0,6,12,18 * * * /bin/bash -l -c "cd /var/www/html/sportsbook/current && bin/rails runner -e production  'Fixture.new.fetch_fixture_changes' --silent"
+
+#Update all descriptions daily at 12:30 am
+20 0 * * * /bin/bash -l -c "cd /var/www/html/sportsbook/current && bin/rails runner -e production  'Fixture.new.update_betstop_reasons' --silent"
+25 0 * * * /bin/bash -l -c "cd /var/www/html/sportsbook/current && bin/rails runner -e production  'Fixture.new.update_betting_status' --silent"
+30 0 * * * /bin/bash -l -c "cd /var/www/html/sportsbook/current && bin/rails runner -e production  'Fixture.new.update_match_status' --silent"
+35 0 * * * /bin/bash -l -c "cd /var/www/html/sportsbook/current && bin/rails runner -e production  'Fixture.new.update_void_reasons' --silent"

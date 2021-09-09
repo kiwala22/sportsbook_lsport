@@ -1,0 +1,147 @@
+<!-- START Sidebar (left)-->
+<div class="aside-inner">
+   <nav class="sidebar" data-sidebar-anyclick-close="">
+      <!-- START sidebar nav-->
+      <ul class="sidebar-nav">
+         <!-- Iterates over all sidebar items-->
+         <li class="">
+            <a href="#analytics" title="Dashboard">
+               <em class="icon-graph"></em>
+               <span data-localize="sidebar.nav.DASHBOARD">Analytics</span>
+            </a>
+            <ul id="bet_analytics" class="sidebar-nav sidebar-subnav collapse">
+               <li class="<%= 'active' if controller.controller_name == 'admin_landing' %>">
+                  <a href="<%= authenticated_admins_root_path %>" title="bets">
+                     <span>Bet Analytics</span>
+                  </a>
+               </li>
+               <li class="<%= 'active' if controller.controller_name == 'transactions_analytics' %>">
+                  <a href="<%= backend_transactions_analytics_path %>" title="Transactions">
+                     <span>Transaction Analytics</span>
+                  </a>
+               </li>
+            </ul>
+         </li>
+
+         <li class="">
+            <a href="#finances" title="Finances" data-toggle="collapse">
+               <em class="far fa-money-bill-alt"></em>
+               <span data-localize="sidebar.nav.DASHBOARD">Finances</span>
+            </a>
+            <ul id="finances" class="sidebar-nav sidebar-subnav collapse">
+               <li class="<%= 'active' if controller.controller_name == 'withdraws' %>">
+                  <a href="<%= backend_withdraws_path %>" title="Withdraws">
+                     <span>Withdraws</span>
+                  </a>
+               </li>
+               <li class="<%= 'active' if controller.controller_name == 'deposits' %>">
+                  <a href="<%= backend_deposits_path %>" title="Deposits">
+                     <span>Deposits</span>
+                  </a>
+               </li>
+            </ul>
+         </li>
+
+         <li class="<%= 'active' if controller.controller_name == 'bet_users' %>">
+            <a href="<%= backend_users_path %>" title="Users">
+               <em class="fas fa-users"></em>
+               <span data-localize="sidebar.nav.DASHBOARD">Users</span>
+            </a>
+         </li>
+
+         <li class="">
+             <a href="#fixtures" title="Fixtures">
+               <em class="fas fa-futbol"></em>
+               <span data-localize="sidebar.nav.DASHBOARD">Fixtures</span>
+            </a>
+            <ul id="fixtures" class="sidebar-nav sidebar-subnav collapse">
+               <li class="<%= 'active' if controller.controller_name == 'Fixtures::soccer_fixtures' %>">
+                  <a href="<%= backend_fixtures_soccer_fixtures_path %>" title="Soccer">
+                     <span>Soccer</span>
+                  </a>
+               </li>
+               <li class="<%= 'active' if controller.controller_name == 'Fixtures::virtual_soccer_fixtures' %>">
+                  <a href="<%= backend_fixtures_virtual_soccer_fixtures_path %>" title="Soccer">
+                     <span>Virtual Soccer</span>
+                  </a>
+               </li>
+               <li class="<%= 'active' if controller.controller_name == 'Fixtures::recover_messages' %>">
+                  <a href="<%= backend_fixtures_fixture_recovery_path %>" title="Soccer">
+                     <span>Fixture Recovery</span>
+                  </a>
+               </li>
+            </ul>
+         </li>
+
+         <li class="">
+            <a href="#Bettings" title="Bettings" data-toggle="collapse">
+               <em class="fas fa-receipt"></em>
+               <span data-localize="sidebar.nav.DASHBOARD">Bettings</span>
+            </a>
+            <ul id="Bettings" class="sidebar-nav sidebar-subnav collapse">
+               <li class="<%= 'active' if controller.controller_name == 'bet_slips' %>">
+                  <a href="<%= backend_bet_slips_path %>" title="BetSlips">
+                     <span>BetSlips</span>
+                  </a>
+               </li>
+               <li class="<%= 'active' if controller.controller_name == 'bets' %>">
+                  <a href="<%= backend_bets_path %>" title="Bets">
+                     <span>Bets</span>
+                  </a>
+               </li>
+            </ul>
+         </li>
+
+         <li class="">
+            <a href="#descriptions" title="Descriptions" data-toggle="collapse">
+               <em class="fas fa-info-circle"></em>
+               <span data-localize="sidebar.nav.DASHBOARD">Descriptions</span>
+            </a>
+            <ul id="descriptions" class="sidebar-nav sidebar-subnav collapse">
+               <li class="<%= 'active' if controller.controller_name == 'betstop_reasons' %>">
+                  <a href="<%= backend_betstop_reasons_path %>" title="Betstop Reasons">
+                     <span>Betstop Reasons</span>
+                  </a>
+               </li>
+               <li class="<%= 'active' if controller.controller_name == 'betting_statuses' %>">
+                  <a href="<%= backend_betting_statuses_path %>" title="Betting Statuses">
+                     <span>Betting Statuses</span>
+                  </a>
+               </li>
+               <li class="<%= 'active' if controller.controller_name == 'void_reasons' %>">
+                  <a href="<%= backend_void_reasons_path %>" title="Void Reasons">
+                     <span>Void Reasons</span>
+                  </a>
+               </li>
+               <li class="<%= 'active' if controller.controller_name == 'match_statuses' %>">
+                  <a href="<%= backend_match_statuses_path %>" title="Match Statuses">
+                     <span>Match Statuses</span>
+                  </a>
+               </li>
+            </ul>
+         </li>
+
+         <li class="<%= 'active' if controller.controller_name == 'api_users' %>">
+            <a href="#ai_developer" title="ApiUsers" data-toggle="collapse" id="Developers">
+               <em class="fa fa-code"></em>
+               <span>Developer</span>
+            </a>
+            <ul id="ai_developer" class="sidebar-nav sidebar-subnav collapse">
+               <li id="api_users">
+                  <a href="<%= backend_api_users_path %>" title="Api Users">
+                     <span>API Users</span>
+                  </a>
+               </li>
+               <li>
+                  <a href="<%= new_backend_api_user_path %>" title="New Api User" id='create_api_user'>
+                     <span>Create API Users</span>
+                  </a>
+               </li>
+
+            </ul>
+         </li>
+      </ul>
+      <!-- END sidebar nav-->
+   </nav>
+</div>
+<!-- END Sidebar (left)-->

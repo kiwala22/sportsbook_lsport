@@ -1,0 +1,2 @@
+module FooterTabsHelper
+end

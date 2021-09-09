@@ -1,0 +1,176 @@
+<nav class="navbar d-flex justify-content-between">
+   <!-- Collapse button -->
+   <div>
+   <button class="navbar-toggler toggler-example" type="button" data-toggle="collapse" data-target="#navbarSideShortcuts" aria-controls="navbarSideShortcuts" aria-expanded="false" aria-label="Toggle navigation"><span class="dark-blue-text"><i
+         class="fas fa-bars fa-1x"></i></span>
+      </button>
+   </div>
+   <!-- Navbar brand -->
+   <div>
+   <!-- <li class="nav-item active"><#%= link_to image_tag("betcity_logo.png", alt: "SkylineBet", height: "25vw" ,class: "img-responsive"), {action: 'index', controller: 'fixtures/soccer/pre_match'} %></li> -->
+   <li class="nav-item active">
+     <a href=<%= root_path %>><h4>Skyline<span class="logo-color">Bet</span></h4></a>
+   </li>
+   </div>
+   <% if current_user %>
+      <button class="navbar-toggler toggler-example" type="button" data-toggle="collapse" data-target="#navbarLoginShortcuts" aria-controls="navbarLoginShortcuts" aria-expanded="false" aria-label="Toggle navigation"><span class="dark-blue-text"><i
+        class="far fa-user fa-lg text-gray-400"></i></span>
+      </button>
+       <!-- logged in menu  -->
+      <div class="collapse navbar-collapse" id="navbarLoginShortcuts" >
+
+      <!-- Links -->
+      <ul class="navbar-nav mr-auto">
+
+         <li class="nav-item">
+            <a class="dropdown-item words" href="#">
+               <i class="far fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+               <%= current_user.first_name %>
+            </a>
+         </li>
+         <li class="nav-item active">
+            <a class="dropdown-item trans" href="#">
+               <i class="fas fa-money-bill-wave fa-sm fa-fw mr-2 text-gray-400"></i>
+               Balance: UGX <%= current_user.balance %>
+            </a>
+         </li>
+         <li class="nav-item">
+            <a class="dropdown-item trans" href="<%= new_transaction_path %>">
+               <i class="fas fa-money-bill-wave fa-sm fa-fw mr-2 text-gray-400"></i>
+               Deposit
+            </a>
+         </li>
+         <li class="nav-item">
+            <a class="dropdown-item trans" href="<%= transactions_path %>">
+               <i class="fas fa-landmark fa-sm fa-fw mr-2 text-gray-400"></i>
+               Transactions
+            </a>
+         </li>
+         <li class="nav-item">
+            <a class="dropdown-item trans" href="<%= bet_slips_path %>">
+               <i class="fas fa-receipt fa-sm fa-fw mr-2 text-gray-400"></i>
+               Tickets
+            </a>
+         </li>
+         <li class="nav-item">
+            <a class="dropdown-item trans" href="<%= transfer_path %>">
+               <i class="fas fa-money-bill-wave fa-sm fa-fw mr-2 text-gray-400"></i>
+               Withdraw
+            </a>
+         </li>
+         <li class="nav-item">
+            <a class="dropdown-item trans" href="<%= destroy_user_session_path %>">
+               <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+               Logout
+            </a>
+         </li>
+
+      </ul>
+      <!-- Links -->
+
+      </div>
+   <% else %>
+      <div class="">
+
+            <a id="signup" class="bttn-small btn-fill ml-1" href=<%=new_user_registration_path %> >Join</a>
+            <a id="login" class="bttn-small btn-fill ml-1" href=<%=new_user_session_path %>>Login</a>
+
+      </div>
+   <% end %>
+
+   <!-- shortcuts  -->
+   <div class="collapse navbar-collapse" id="navbarSideShortcuts">
+
+         <div class="col-12" >
+              <%= form_tag(fixtures_search_path, method: :get, class: "form-inline mr-auto") do |f| %>
+                      <%= text_field_tag(:search, params[:search], placeholder:"Search for...",class: "form-control", id:"search" ) %>
+                      <i class="fa fa-search fa-lg" id="glass"></i>
+              <% end %>
+        </div>
+   <br>
+      <div class="row">
+         <div class="col-12">
+            <ul id="mobile-shortcuts" class="d-flex justify-content-between">
+               <li class="col-3">
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#menuSports" role="collapse" aria-haspopup="true" aria-expanded="false" aria-controls="menuSports">
+                  Sports</a>
+               </li>
+               <li class="col-3">
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#menuLeagues" role="collapse" aria-haspopup="true" aria-expanded="false" aria-controls="menuLeagues">
+                  Leagues
+                  </a>
+               </li>
+               <li class="col-3">
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#menuCountry" role="collapse" aria-haspopup="true" aria-expanded="false" aria-controls="menuCountry">
+                  Countries </a>
+               </li>
+            </ul>
+         </div>
+
+      </div>
+
+      <div class="row">
+         <div class="col">
+            <div id="menuSports" class="collapse">
+               <ul>
+                  <li>
+                    <a href=<%= fixtures_soccer_lives_path%> >
+                      <i class=" blinking match-time fas fa-bolt fa-lg fa-fw mr-2 "></i>Live
+                    </a>
+                  </li>
+                  <li>
+                    <a href= <%= fixtures_soccer_pres_path %>>
+                      <i class=" match-time far fa-futbol fa-lg fa-fw mr-2 "></i>Soccer
+                    </a>
+                </li>
+                  <li>
+                    <a href= <%= fixtures_virtual_soccer_pres_path %>>
+                     <i class="match-time fas fa-trophy fa-lg fa-fw mr-2 "></i>Virtual Soccer
+                    </a>
+                  </li>
+               </ul>
+            </div>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col">
+            <div id="menuLeagues" class="collapse">
+              <ul>
+                <li class="text-gray-400"><%= link_to "UEFA Champions League", fixtures_soccer_pres_path(:'q[league_name]' => "UEFA Champions League") %></li>
+                <li class="text-gray-400"><%= link_to "UEFA Europa League", fixtures_soccer_pres_path(:'q[league_name]' => "UEFA Europa League") %></li>
+                <li class="text-gray-400"><%= link_to "English Premier League", fixtures_soccer_pres_path(:'q[league_name]' => "Premier League", :'q[location]' => "England") %></li>
+                <li class="text-gray-400"><%= link_to "Serie A", fixtures_soccer_pres_path(:'q[league_name]' => "Serie A", :'q[location]' => "Italy") %></li>
+                <li class="text-gray-400"><%= link_to "La Liga", fixtures_soccer_pres_path(:'q[league_name]' => "Primera Division", :'q[location]' => "Spain") %></li>
+                <li class="text-gray-400"><%= link_to "Bundesliga", fixtures_soccer_pres_path(:'q[league_name]' => "Bundesliga", :'q[location]' => "Germany") %></li>
+                <li class="text-gray-400"><%= link_to "French Ligue 1", fixtures_soccer_pres_path(:'q[league_name]' => "Ligue 1", :'q[location]' => "France") %></li>
+                <li class="text-gray-400"><%= link_to "Portuguese Liga", fixtures_soccer_pres_path(:'q[league_name]' => "Primeira Liga", :'q[location]' => "Portugal") %></li>
+                <li class="text-gray-400"><%= link_to "A-League", fixtures_soccer_pres_path(:'q[league_name]' => "A-League", :'q[location]' => "Australia") %></li>
+                <li class="text-gray-400"><%= link_to "K-League", fixtures_soccer_pres_path(:'q[league_name]' => "K-League", :'q[location]' => "South Korea") %></li>
+                <li class="text-gray-400"><%= link_to "J-League", fixtures_soccer_pres_path(:'q[league_name]' => "J-League", :'q[location]' => "Japan") %></li>
+                <li class="text-gray-400"><%= link_to "Brazil Serie A", fixtures_soccer_pres_path(:'q[league_name]' => "Brasilero Serie A", :'q[location]' => "Brazil") %></li>
+              </ul>
+            </div>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col">
+            <div id="menuCountry" class="collapse">
+              <ul>
+                  <li class="text-gray-400"><i class="flag-icon flag-icon-gb fa-fw mr-2"></i><%= link_to "England", fixtures_soccer_pres_path(:'q[location]' => "England")%></li>
+                  <li class="text-gray-400"><i class="flag-icon flag-icon-es fa-fw mr-2"></i><%= link_to "Spain", fixtures_soccer_pres_path(:'q[location]' => "Spain")%></li>
+                  <li class="text-gray-400"><i class="flag-icon flag-icon-de fa-fw mr-2"></i><%= link_to "Germany", fixtures_soccer_pres_path(:'q[location]' => "Germany")%></li>
+                  <li class="text-gray-400"><i class="flag-icon flag-icon-it fa-fw mr-2"></i><%= link_to "Italy", fixtures_soccer_pres_path(:'q[location]' => "Italy")%></li>
+                  <li class="text-gray-400"><i class="flag-icon flag-icon-fr fa-fw mr-2"></i><%= link_to "France", fixtures_soccer_pres_path(:'q[location]' => "France")%></li>
+                  <li class="text-gray-400"><i class="flag-icon flag-icon-br fa-fw mr-2"></i><%= link_to "Brazil", fixtures_soccer_pres_path(:'q[location]' => "Brazil")%></li>
+                  <li class="text-gray-400"><i class="flag-icon flag-icon-au fa-fw mr-2"></i><%= link_to "Australia", fixtures_soccer_pres_path(:'q[location]' => "Australia")%></li>
+                  <li class="text-gray-400"><i class="flag-icon flag-icon-cn fa-fw mr-2"></i><%= link_to "China", fixtures_soccer_pres_path(:'q[location]' => "China")%></li>
+              </ul>
+            </div>
+         </div>
+      </div>
+
+  </div>
+
+
+
+</nav>

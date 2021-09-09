@@ -1,0 +1,59 @@
+<!--Copyright Area-->
+<div class="copyright">
+   <div class="container">
+      <div class="row">
+         <div class="col-12">
+            <div>
+            </div>
+
+            <div class="collapse navbar-collapse" id="footer_more">
+               <div class="row">
+                  <div class="col-12">
+                     <ul id="mobile-shortcuts2" class="d-flex justify-content-between">
+                        <li class="col-2">
+                           <a href=<%=faqs_path%> >Faqs</a>
+                        </li>
+                        <li class="col-3">
+                           <a href=<%=privacy_path%> >Privacy </a>
+                        </li>
+                        <li class="col-3">
+                           <a href=<%=rules_path%> >Rules</a>
+                        </li>
+                        <li class="col-4">
+                           <a href=<%=terms_path%> >T & Cs </a>
+                        </li>
+                     </ul>
+                  </div>
+
+               </div>
+            </div>
+
+
+            <ul class="d-flex justify-content-between m-footer-list" data-controller="footer">
+               <li class="footer-slip">
+                  <div class="slip-ticket-count" id="slip-ticket-count" data-target="footer.count" data-action="click->main#popSlip">
+                     <%= (@cart && @cart.line_bets.exists?) ? @cart.line_bets.count : 0 %>
+                  </div>
+                  <div data-action="click->main#popSlip">Betslip</div>
+               </li>
+               <li>
+                  <a href=<%=contacts_path%>><i class="fa fa-phone fa-1x fa-fw"></i>Contact </a>
+               </li>
+               <li>
+                  <!-- <a href="">More <i class="fas fa-bars fa-1x fa-fw"></i></a> -->
+                  <a class="navbar-toggler toggler-example" data-toggle="collapse" data-target="#footer_more" >
+                     More
+                     <span class="dark-blue-text"><i
+                     class="fas fa-bars fa-1x fa-fw"></i></span>
+                  </a>
+
+
+               </li>
+
+            </ul>
+            <%#= image_tag("tagline1.png", alt: "Gaming Board Licensed.", height: "25vw",width:'100%' ,class: "") %>
+         </div>
+      </div>
+   </div>
+</div>
+<!--/Copyright Area-->

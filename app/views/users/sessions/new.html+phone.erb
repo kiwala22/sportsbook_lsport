@@ -1,0 +1,45 @@
+<% provide(:title, "Sign In") %>
+<div class="login">
+   <div class="content-center cl-grey">
+      <div class="row justify-content-center">
+         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 tablet-forms">
+
+            <div class="web-sidebar-widget login-widget">
+               <div class="widget-head">
+                     <h3>Log in</h3>
+               </div>
+               <div class="widget-body">
+                     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+                     <%= render "devise/shared/error_messages", resource: resource %>
+
+                     <div class="form-group">
+                        <%= f.label :login, "Phone Number" %><br />
+                        <%= f.text_field :phone_number, autofocus: true , class: "form-control", id: 'phone_number', placeholder:"ex: 256772000001",required: true%>
+                     </div>
+
+                     <div class="form-group" data-controller="toggle">
+                        <%= f.label :password , "Password"%>
+                        <%= f.password_field :password, autocomplete: "current-password", class:"form-control",id: 'password', required: true, "data-target":"toggle.unhide"  %>
+                        <i  class="fa fa-eye mobile-show"data-target="toggle.show" data-action="click->toggle#password" aria-hidden="true">&nbsp;</i>
+
+
+                     </div>
+
+                     <% if devise_mapping.rememberable? %>
+                     <div class="form-group" id="remember_me">
+                        <%= f.check_box :remember_me %>
+                        <%= f.label :remember_me, id: "label_remember_me" %>
+                     </div>
+                     <% end %>
+
+                     <div class="actions">
+                        <%= f.button "Login" , class: "btn btn-block btn-primary mt-lg login-btn", data: {disable_with: "<i class='fas fa-spinner fa-spin'></i> Signing in..."} %>
+                     </div>
+                     <% end %>
+                     <%= render "users/shared/links" %>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

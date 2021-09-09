@@ -1,0 +1,43 @@
+<div class="content-heading">
+    <div>
+        <span>Unsettled Fixtures</span>
+        <small>Unsettled Soccer Fixtures</small>
+    </div>
+</div>
+
+<div class="table-responsive container-fluid">
+  <!-- table table-striped table-bordered table-hover -->
+  <table class="fixture table table-striped table-bordered table-hoverlarge-12 columns large-centered">
+    <thead>
+      <tr>
+        <th >Time</th>
+        <th >Game</th>
+        <th >League Name</th>
+        <th >Location</th>
+        <th >Event ID</th>
+        <th >Status</th>
+        <th >Recover</th>
+        <th >Score</th>
+      </tr>
+    </thead>
+    <tbody>
+		<% @fixtures.each_with_index do |fixture, i| %>
+            <% if fixture.market1_pre.status == "Active" %>
+                <tr>
+                    <td><%= local_time(fixture.scheduled_time, format: "%d/%m/%y %l:%M%P") %></td>
+                    <td><%= fixture.part_one_name %>  - <%= fixture.part_two_name%> </td>
+                    <td><%= fixture.league_name %></td>
+                    <td><%= fixture.location %></td>
+                    <td><%= fixture.event_id %></td>
+                    <td><%=  fixture.status %></td>
+                    <td>
+                        <%= link_to "Recover", backend_fixtures_fixture_recovery_path(id: fixture.id), method: :put, :class => 'btn btn-xs btn-success booking', remote: true %>
+                    </td>
+                    <td><%= "#{fixture.home_score} - #{fixture.away_score} " %></td>
+                </tr>
+            <% end %>
+		<% end %>
+    </tbody>
+  </table>
+	<%= paginate @fixtures %>
+</div>

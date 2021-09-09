@@ -1,0 +1,28 @@
+<% @live_fixtures.each do |fixture| %>
+   <tr data-controller="live-odds-channel #markets-channel slips fixture-channel" data-fixture-channel-fixture=<%= fixture.id %> data-live-odds-channel-fixture=<%= fixture.id %> data-markets-channel-fixture=<%= fixture.id %> data-slips-fixture=<%= fixture.id %> data-live-odds-channel-market="1" data-markets-channel-market="1" data-slips-market="1">
+           <td>
+               <%= link_to fixtures_soccer_live_path(id: fixture.id) do  %>
+                  <strong><%= fixture.part_one_name %></strong>
+                  <strong><%= fixture.part_two_name %></strong>
+                  <strong><%= fixture.league_name %></strong>
+               <% end %>
+            </td>
+            <td>
+               <%= link_to fixtures_soccer_live_path(id: fixture.id) do  %>
+                  <strong><span class="blinking match-time" id=<%="match_time_#{fixture.id}"%>><%= fixture.match_time %></span></strong>
+                  <strong><span class="score" id=<%="match_score_#{fixture.id}"%>><%= fixture.home_score %> - <%= fixture.away_score %></span></strong>
+               <% end %>
+            </td>
+            <td>
+               <%= link_to(fixture.market1_live.outcome_1, add_bet_path(outcome_id: "1", fixture_id: fixture.id, market: "Market1Live", outcome_desc: "1X2 FT - 1") , class: "btnn intialise_input",id:"live_1_1_#{fixture.id}", remote: true, method: :post )%>
+            </td>
+            <td>
+               <%= link_to(fixture.market1_live.outcome_X, add_bet_path(outcome_id: "X", fixture_id: fixture.id, market: "Market1Live", outcome_desc: "1X2 FT - X") , class: "btnn intialise_input", id:"live_1_X_#{fixture.id}",remote: true, method: :post )%>
+            </td>
+            <td>
+               <%= link_to(fixture.market1_live.outcome_2, add_bet_path(outcome_id: "2", fixture_id: fixture.id, market: "Market1Live", outcome_desc: "1X2 FT - 2") , class: "btnn intialise_input", id:"live_1_2_#{fixture.id}", remote: true, method: :post )%>
+
+            </td>
+      </tr>
+
+<% end %>
