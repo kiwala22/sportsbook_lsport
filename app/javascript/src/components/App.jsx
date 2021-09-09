@@ -5,7 +5,7 @@ import "react-phone-number-input/style.css";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "../css/Antd.less";
-import "../css/App.css";
+// import "../css/App.css";
 import store from "../redux/store";
 import Base from "./Base";
 
