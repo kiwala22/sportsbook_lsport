@@ -335,3 +335,13 @@ h6 {
 .custom-li-margin {
   margin-right: 0.75rem !important;
 }
+
+.mobile-table-padding {
+  padding-right: 3px !important;
+  padding-left: 3px !important;
+}
+
+.mobile-table-padding-games {
+  padding-right: 1px !important;
+  padding-left: 1px !important;
+}

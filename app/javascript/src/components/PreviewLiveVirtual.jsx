@@ -9,6 +9,7 @@ import LiveOddsChannel from "../../channels/liveOddsChannel";
 import MarketsChannel from "../../channels/marketsChannel";
 import addBet from "../redux/actions";
 import * as DataUpdate from "../utilities/DataUpdate";
+import Mobile from "../utilities/Mobile";
 import oddsFormatter from "../utilities/oddsFormatter";
 import Requests from "../utilities/Requests";
 import Preview from "./Skeleton";
@@ -52,7 +53,7 @@ const PreviewLiveVirtual = (props) => {
     <>
       {!pageLoading && (
         <>
-          <div className="game-box">
+          <div className={Mobile.isMobile() ? "fixture-box" : "game-box"}>
             <div className="card" id="show-markets">
               <div className="card-header">
                 <FixtureChannel
@@ -78,9 +79,11 @@ const PreviewLiveVirtual = (props) => {
                   </h6>
                 </FixtureChannel>
               </div>
-              <div className="card-body">
+              <div className={Mobile.isMobile() ? "fix-body" : "card-body"}>
                 <div className="row">
-                  <div className="col-lg-12">
+                  <div
+                    className={Mobile.isMobile() ? "col-sm-12" : "col-lg-12"}
+                  >
                     <MarketsChannel
                       channel="MarketsChannel"
                       fixture={fixture.id}
@@ -94,7 +97,13 @@ const PreviewLiveVirtual = (props) => {
                         );
                       }}
                     >
-                      <div className="market-label">
+                      <div
+                        className={
+                          Mobile.isMobile()
+                            ? "market-label market-label-fixture"
+                            : "market-label"
+                        }
+                      >
                         <div className="row">
                           <div className="col-lg-12 ">
                             Match Result 1X2 - FT
@@ -184,7 +193,13 @@ const PreviewLiveVirtual = (props) => {
                         </div>
                       </LiveOddsChannel>
                     </div>
-                    <div className="market-label">
+                    <div
+                      className={
+                        Mobile.isMobile()
+                          ? "market-label market-label-fixture"
+                          : "market-label"
+                      }
+                    >
                       <div className="row">
                         <div className="col-lg-12 ">Double Chance - FT</div>
                       </div>
@@ -271,7 +286,13 @@ const PreviewLiveVirtual = (props) => {
                         </div>
                       </LiveOddsChannel>
                     </div>
-                    <div className="market-label">
+                    <div
+                      className={
+                        Mobile.isMobile()
+                          ? "market-label market-label-fixture"
+                          : "market-label"
+                      }
+                    >
                       <div className="row">
                         <div className="col-lg-12 ">
                           Asian Handicap 1 Goal - FT
@@ -343,7 +364,13 @@ const PreviewLiveVirtual = (props) => {
                         </div>
                       </LiveOddsChannel>
                     </div>
-                    <div className="market-label">
+                    <div
+                      className={
+                        Mobile.isMobile()
+                          ? "market-label market-label-fixture"
+                          : "market-label"
+                      }
+                    >
                       <div className="row">
                         <div className="col-lg-12 ">
                           Under 2.5 / Over 2.5 - FT
@@ -412,7 +439,13 @@ const PreviewLiveVirtual = (props) => {
                       </LiveOddsChannel>
                     </div>
 
-                    <div className="market-label">
+                    <div
+                      className={
+                        Mobile.isMobile()
+                          ? "market-label market-label-fixture"
+                          : "market-label"
+                      }
+                    >
                       <div className="row">
                         <div className="col-lg-12 ">Both to Score - FT</div>
                       </div>

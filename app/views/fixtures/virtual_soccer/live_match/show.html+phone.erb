@@ -1,6 +1,0 @@
-<% provide(:title, "Live Virtual Soccer") %>
-<div class="fixture-box">
-    <div class="card" id="show-markets" data-controller="fixture-channel markets-channel refresh" data-refresh-interval="60000" data-refresh-url=<%="/fixtures/virtual_soccer/live.js?id=#{@fixture.id}" %> data-refresh-method="GET" data-markets-channel-url=<%="/fixtures/virtual_soccer/live.js?id=#{@fixture.id}" %> data-markets-channel-method="GET" data-markets-channel-fixture=<%= @fixture.id %> data-fixture-channel-fixture=<%= @fixture.id %>>
-        <%= render partial: 'show_markets', locals: {fixture: @fixture} %>
-    </div>
-</div>

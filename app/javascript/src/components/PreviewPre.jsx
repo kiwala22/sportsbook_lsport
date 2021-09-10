@@ -8,6 +8,7 @@ import MarketsChannel from "../../channels/marketsChannel";
 import PreOddsChannel from "../../channels/preOddsChannel";
 import addBet from "../redux/actions";
 import * as DataUpdate from "../utilities/DataUpdate";
+import Mobile from "../utilities/Mobile";
 import oddsFormatter from "../utilities/oddsFormatter";
 import Requests from "../utilities/Requests";
 import Preview from "./Skeleton";
@@ -51,7 +52,7 @@ const PreviewPre = (props) => {
     <>
       {!pageLoading && (
         <>
-          <div className="game-box">
+          <div className={Mobile.isMobile() ? "fixture-box" : "game-box"}>
             <div className="card" id="show-markets">
               <div className="card-header">
                 <MarketsChannel
@@ -73,10 +74,18 @@ const PreviewPre = (props) => {
                   </h6>
                 </MarketsChannel>
               </div>
-              <div className="card-body">
+              <div className={Mobile.isMobile() ? "fix-body" : "card-body"}>
                 <div className="row">
-                  <div className="col-lg-12">
-                    <div className="market-label">
+                  <div
+                    className={Mobile.isMobile() ? "col-sm-12" : "col-lg-12"}
+                  >
+                    <div
+                      className={
+                        Mobile.isMobile()
+                          ? "market-label market-label-fixture"
+                          : "market-label"
+                      }
+                    >
                       <div className="row">
                         <div className="col-lg-12 ">Match Result 1X2 - FT</div>
                       </div>
@@ -163,7 +172,13 @@ const PreviewPre = (props) => {
                         </div>
                       </PreOddsChannel>
                     </div>
-                    <div className="market-label">
+                    <div
+                      className={
+                        Mobile.isMobile()
+                          ? "market-label market-label-fixture"
+                          : "market-label"
+                      }
+                    >
                       <div className="row">
                         <div className="col-lg-12 ">Double Chance - FT</div>
                       </div>
@@ -250,7 +265,13 @@ const PreviewPre = (props) => {
                         </div>
                       </PreOddsChannel>
                     </div>
-                    <div className="market-label">
+                    <div
+                      className={
+                        Mobile.isMobile()
+                          ? "market-label market-label-fixture"
+                          : "market-label"
+                      }
+                    >
                       <div className="row">
                         <div className="col-lg-12 ">
                           Asian Handicap 1 Goal - FT
@@ -322,7 +343,13 @@ const PreviewPre = (props) => {
                         </div>
                       </PreOddsChannel>
                     </div>
-                    <div className="market-label">
+                    <div
+                      className={
+                        Mobile.isMobile()
+                          ? "market-label market-label-fixture"
+                          : "market-label"
+                      }
+                    >
                       <div className="row">
                         <div className="col-lg-12 ">
                           Under 2.5 / Over 2.5 - FT
@@ -391,7 +418,13 @@ const PreviewPre = (props) => {
                       </PreOddsChannel>
                     </div>
 
-                    <div className="market-label">
+                    <div
+                      className={
+                        Mobile.isMobile()
+                          ? "market-label market-label-fixture"
+                          : "market-label"
+                      }
+                    >
                       <div className="row">
                         <div className="col-lg-12 ">Both to Score - FT</div>
                       </div>

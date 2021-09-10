@@ -402,7 +402,12 @@ const Home = (props) => {
             </div>
           )}
           <br />
-          <div className="game-box" id="live">
+          <div
+            className={
+              Mobile.isMobile() ? "game-box mobile-table-padding" : "game-box"
+            }
+            id="live"
+          >
             <div className="card">
               <div className="card-header">
                 <h3>
@@ -456,7 +461,12 @@ const Home = (props) => {
           )}
           <br />
 
-          <div className="game-box" id="featured">
+          <div
+            className={
+              Mobile.isMobile() ? "game-box mobile-table-padding" : "game-box"
+            }
+            id="featured"
+          >
             <div className="card">
               <div className="card-header">
                 <h3>
@@ -503,7 +513,11 @@ const Home = (props) => {
             </div>
           )}
           <br />
-          <div className="game-box">
+          <div
+            className={
+              Mobile.isMobile() ? "game-box mobile-table-padding" : "game-box"
+            }
+          >
             <div className="card">
               <div className="card-header">
                 <h3>

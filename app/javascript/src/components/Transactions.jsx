@@ -6,6 +6,7 @@ import { BsDash, BsPlus } from "react-icons/bs";
 import Moment from "react-moment";
 import shortUUID from "short-uuid";
 import currencyFormatter from "../utilities/CurrencyFormatter";
+import Mobile from "../utilities/Mobile";
 import Requests from "../utilities/Requests";
 import Preview from "./Skeleton";
 
@@ -40,10 +41,14 @@ const Transactions = () => {
     {
       title: "#No",
       render: (_, data, index) => index + 1,
+      responsive: ["md"],
     },
     {
       title: "Phone Number",
       dataIndex: "phone_number",
+      render: (phone) => {
+        return "0" + phone.slice(3);
+      },
     },
     {
       title: "Amount",
@@ -105,7 +110,11 @@ const Transactions = () => {
     <>
       {!pageLoading && (
         <>
-          <div className="game-box">
+          <div
+            className={
+              Mobile.isMobile() ? "game-box mobile-table-padding" : "game-box"
+            }
+          >
             <div className="card">
               <div className="card-header">
                 <h3>Transactions</h3>

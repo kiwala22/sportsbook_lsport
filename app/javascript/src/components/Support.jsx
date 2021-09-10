@@ -1,10 +1,15 @@
 import React from "react";
 import { BsEnvelope, BsSearch } from "react-icons/bs";
+import Mobile from "../utilities/Mobile";
 
 const Support = () => {
   return (
     <>
-      <div className="game-box">
+      <div
+        className={
+          Mobile.isMobile() ? "game-box mobile-table-padding" : "game-box"
+        }
+      >
         <div className="card">
           <div className="card-header">
             <h3>Contact Us</h3>

@@ -1,9 +1,14 @@
 import React from "react";
+import Mobile from "../utilities/Mobile";
 
 const Rules = () => {
   return (
     <>
-      <div className="game-box">
+      <div
+        className={
+          Mobile.isMobile() ? "game-box mobile-table-padding" : "game-box"
+        }
+      >
         <div className="card">
           <div className="card-header">
             <h3>Betting Rules</h3>

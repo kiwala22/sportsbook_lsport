@@ -11,6 +11,7 @@ import MarketsChannel from "../../channels/marketsChannel";
 import PreOddsChannel from "../../channels/preOddsChannel";
 import addBet from "../redux/actions";
 import * as DataUpdate from "../utilities/DataUpdate";
+import Mobile from "../utilities/Mobile";
 import oddsFormatter from "../utilities/oddsFormatter";
 import Requests from "../utilities/Requests";
 import Preview from "./Skeleton";
@@ -154,7 +155,13 @@ const PreVirtualMatches = (props) => {
     <>
       {!pageLoading && (
         <>
-          <div className="game-box">
+          <div
+            className={
+              Mobile.isMobile()
+                ? "game-box mobile-table-padding-games"
+                : "game-box"
+            }
+          >
             <div className="card">
               <div className="card-header">
                 <h3>

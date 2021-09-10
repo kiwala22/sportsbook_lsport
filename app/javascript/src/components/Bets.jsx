@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import Moment from "react-moment";
 import shortUUID from "short-uuid";
 import currencyFormatter from "../utilities/CurrencyFormatter";
+import Mobile from "../utilities/Mobile";
 import Requests from "../utilities/Requests";
 import BetReceipt from "./BetReceipt";
 import Preview from "./Skeleton";
@@ -40,6 +41,7 @@ const Bets = () => {
     {
       title: "#No",
       render: (_, data, index) => index + 1,
+      responsive: ["md"],
     },
     {
       title: "Games",
@@ -103,7 +105,11 @@ const Bets = () => {
     <>
       {!pageLoading && (
         <>
-          <div className="game-box">
+          <div
+            className={
+              Mobile.isMobile() ? "game-box mobile-table-padding" : "game-box"
+            }
+          >
             <div className="card">
               <div className="card-header">
                 <h3>Bet Tickets</h3>

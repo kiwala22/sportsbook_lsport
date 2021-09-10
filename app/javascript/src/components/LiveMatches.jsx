@@ -12,6 +12,7 @@ import LiveOddsChannel from "../../channels/liveOddsChannel";
 import MarketsChannel from "../../channels/marketsChannel";
 import addBet from "../redux/actions";
 import * as DataUpdate from "../utilities/DataUpdate";
+import Mobile from "../utilities/Mobile";
 import oddsFormatter from "../utilities/oddsFormatter";
 import Requests from "../utilities/Requests";
 import Preview from "./Skeleton";
@@ -59,15 +60,28 @@ const LiveMatches = (props) => {
             updateMatchInfo(data, games, setGames);
           }}
         >
-          <Link
-            to={{
-              pathname: "/fixtures/soccer/live",
-              search: `id=${fixture.id}`,
-            }}
-          >
-            <strong>{fixture.part_one_name}</strong>
-            <strong>{fixture.part_two_name}</strong>
-          </Link>
+          {Mobile.isMobile ? (
+            <Link
+              to={{
+                pathname: "/fixtures/soccer/live",
+                search: `id=${fixture.id}`,
+              }}
+            >
+              <strong>{fixture.part_one_name}</strong>
+              <strong>{fixture.part_two_name}</strong>
+              <strong>{fixture.league_name}</strong>
+            </Link>
+          ) : (
+            <Link
+              to={{
+                pathname: "/fixtures/soccer/live",
+                search: `id=${fixture.id}`,
+              }}
+            >
+              <strong>{fixture.part_one_name}</strong>
+              <strong>{fixture.part_two_name}</strong>
+            </Link>
+          )}
         </MarketsChannel>
       ),
     },
@@ -98,6 +112,7 @@ const LiveMatches = (props) => {
     },
     {
       title: "Tournament",
+      responsive: ["md"],
       render: (_, fixture) => (
         <LiveOddsChannel
           channel="LiveOddsChannel"
@@ -165,7 +180,14 @@ const LiveMatches = (props) => {
     <>
       {!pageLoading && (
         <>
-          <div className="game-box" id="live">
+          <div
+            className={
+              Mobile.isMobile()
+                ? "game-box mobile-table-padding-games"
+                : "game-box"
+            }
+            id="live"
+          >
             <div className="card">
               <div className="card-header">
                 <h3>
