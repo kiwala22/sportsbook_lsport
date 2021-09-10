@@ -60,7 +60,7 @@ const LiveMatches = (props) => {
             updateMatchInfo(data, games, setGames);
           }}
         >
-          {Mobile.isMobile ? (
+          {Mobile.isMobile() ? (
             <Link
               to={{
                 pathname: "/fixtures/soccer/live",
