@@ -301,15 +301,14 @@ const Sidebar = (props) => {
             onClose={() => onClose()}
             visible={open}
             key="left"
-            style={{ backgroundColor: "#50677c" }}
+            className="drawer-bg"
           >
             {!signedIn && (
               <span>
                 <SignUp>
                   <Button
                     id="signup"
-                    className="bttn-small btn-fill border-transparent"
-                    style={{ background: "#f6ae2d", color: "#fff" }}
+                    className="bttn-small btn-fill border-transparent register-btn"
                   >
                     <i className="fas fa-key fa-fw"></i> Register
                   </Button>
@@ -317,8 +316,7 @@ const Sidebar = (props) => {
                 <Login>
                   <Button
                     id="login"
-                    className="bttn-small btn-fill ml-2 border-transparent"
-                    style={{ background: "#f6ae2d", color: "#fff" }}
+                    className="bttn-small btn-fill ml-2 border-transparent register-btn"
                   >
                     <i className="fas fa-lock fa-fw"></i> Login
                   </Button>

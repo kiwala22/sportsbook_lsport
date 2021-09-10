@@ -57,10 +57,10 @@ const Navbar = (props) => {
   };
 
   const menu = (
-    <Menu>
+    <Menu className="custom-dropdown-list">
       <Menu.Item key="1">
         <a>
-          <UserOutlined className="mr-2 text-gray-400" />
+          <UserOutlined className="custom-li-margin text-gray-400" />
           {userInfo.first_name}
         </a>
       </Menu.Item>
@@ -85,7 +85,7 @@ const Navbar = (props) => {
       <div className="dropdown-divider"></div>
       <Menu.Item key="5" onClick={logOut}>
         <a>
-          <LogoutOutlined className="mr-2 text-gray-400" />
+          <LogoutOutlined className="custom-li-margin text-gray-400" />
           Logout
         </a>
       </Menu.Item>
@@ -93,10 +93,10 @@ const Navbar = (props) => {
   );
 
   const mobileMenu = (
-    <Menu>
+    <Menu className="custom-dropdown-list">
       <Menu.Item key="1">
         <a>
-          <UserOutlined className="mr-2 text-gray-400" />
+          <UserOutlined className="custom-li-margin text-gray-400" />
           {userInfo.first_name}
         </a>
       </Menu.Item>
@@ -132,7 +132,7 @@ const Navbar = (props) => {
       <div className="dropdown-divider"></div>
       <Menu.Item key="7" onClick={logOut}>
         <a>
-          <LogoutOutlined className="mr-2 text-gray-400" />
+          <LogoutOutlined className="custom-li-margin text-gray-400" />
           Logout
         </a>
       </Menu.Item>
@@ -208,7 +208,7 @@ const Navbar = (props) => {
                     >
                       <span className="ant-dropdown-link">
                         <i className="far fa-user fa-lg text-gray-400"></i>{" "}
-                        <DownOutlined style={{ color: "#fff" }} />
+                        <DownOutlined className="c-white" />
                       </span>
                     </Dropdown>
                   </div>
@@ -219,8 +219,7 @@ const Navbar = (props) => {
                     <SignUp>
                       <Button
                         id="signup"
-                        className="bttn-small btn-fill border-transparent"
-                        style={{ background: "#f6ae2d", color: "#fff" }}
+                        className="bttn-small btn-fill border-transparent register-btn"
                       >
                         <i className="fas fa-key fa-fw"></i> Sign Up
                       </Button>
@@ -228,8 +227,7 @@ const Navbar = (props) => {
                     <Login>
                       <Button
                         id="login"
-                        className="bttn-small btn-fill ml-2 border-transparent"
-                        style={{ background: "#f6ae2d", color: "#fff" }}
+                        className="bttn-small btn-fill ml-2 border-transparent register-btn"
                       >
                         <i className="fas fa-lock fa-fw"></i> Login
                       </Button>
@@ -240,8 +238,7 @@ const Navbar = (props) => {
                   <div className="navbar-nav ml-auto">
                     <Button
                       id="verify-logout"
-                      className="bttn-small btn-fill border-transparent"
-                      style={{ background: "#f6ae2d", color: "#fff" }}
+                      className="bttn-small btn-fill border-transparent register-btn"
                       onClick={logOut}
                     >
                       <i className="fas fa-key fa-fw"></i> Log Out
@@ -277,20 +274,16 @@ const Navbar = (props) => {
                       className="mr-3"
                       color="#F6AE2D"
                     >
-                      <FileDoneOutlined
-                        style={{ fontSize: "18px", color: "#fff" }}
-                      />
+                      <FileDoneOutlined className="font-18 c-white" />
                     </Badge>,
                     <Dropdown
                       overlay={mobileMenu}
                       className="dropdown-toggle"
-                      style={{ padding: ".55rem" }}
                       trigger={["click"]}
                       arrow={true}
                     >
                       <span className="ant-dropdown-link">
-                        <UserOutlined />{" "}
-                        <DownOutlined style={{ color: "#fff" }} />
+                        <UserOutlined /> <DownOutlined className="c-white" />
                       </span>
                     </Dropdown>,
                   ]
@@ -299,8 +292,7 @@ const Navbar = (props) => {
                     <div className="navbar-nav ml-auto">
                       <Button
                         id="verify-logout"
-                        className="bttn-small btn-fill border-transparent"
-                        style={{ background: "#f6ae2d", color: "#fff" }}
+                        className="bttn-small btn-fill border-transparent register-btn"
                         onClick={logOut}
                       >
                         <i className="fas fa-key fa-fw"></i> Log Out
@@ -321,9 +313,7 @@ const Navbar = (props) => {
                       className="mr-3"
                       color="#F6AE2D"
                     >
-                      <FileDoneOutlined
-                        style={{ fontSize: "18px", color: "#fff" }}
-                      />
+                      <FileDoneOutlined className="font-18 c-white" />
                     </Badge>,
                   ]
             }
@@ -334,11 +324,7 @@ const Navbar = (props) => {
               </h4>
             </Link>
           </NavBar>
-          {showSearch && (
-            <div style={{ width: "100%", paddingLeft: 15, paddingRight: 15 }}>
-              {search}
-            </div>
-          )}
+          {showSearch && <div className="mobile-search">{search}</div>}
         </>
       )}
     </>

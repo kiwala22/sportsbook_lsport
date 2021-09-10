@@ -435,7 +435,7 @@ const Home = (props) => {
                   </div>
                 </div>
               </div>
-              <div className="text-center mb-2 mt-2">
+              <div className="text-center mb-2 mt-2 custom-anchor">
                 <Link
                   className="match-time show-more"
                   to={"/fixtures/soccer/lives/"}
@@ -535,7 +535,7 @@ const Home = (props) => {
                       }}
                       pagination={{ pageSize: 50 }}
                     />
-                    <div className="text-center mb-2">
+                    <div className="text-center mb-2 custom-anchor">
                       <Link
                         className="match-time show-more"
                         to={"/fixtures/soccer/pres/"}

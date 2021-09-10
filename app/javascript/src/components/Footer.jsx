@@ -18,7 +18,7 @@ const Footer = (props) => {
                       <div className="col-12">
                         <ul
                           id="mobile-shortcuts2"
-                          className="d-flex justify-content-between"
+                          className="d-flex justify-content-between custom-anchor"
                         >
                           <li className="col-2">
                             <Link to={"/faqs/"}>Faqs</Link>
@@ -35,7 +35,7 @@ const Footer = (props) => {
                   </div>
 
                   <ul
-                    className="d-flex justify-content-between m-footer-list"
+                    className="d-flex justify-content-between m-footer-list custom-anchor"
                     data-controller="footer"
                   >
                     <li>
@@ -69,7 +69,7 @@ const Footer = (props) => {
             <>
               <div className="row">
                 <div className="col-xl-12 col-lg-12 col-md-12 col-sm-6">
-                  <ul className="footer-size">
+                  <ul className="footer-size custom-anchor">
                     <li>
                       <Link to={"/faqs/"}>Faqs</Link>
                     </li>

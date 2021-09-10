@@ -202,12 +202,10 @@ const PreMatches = (props) => {
                         emptyText: (
                           <>
                             <span>
-                              <DropboxOutlined style={{ fontSize: 40 }} />
+                              <DropboxOutlined className="font-40" />
                             </span>
                             <br />
-                            <span style={{ fontSize: 18 }}>
-                              No Fixtures Found
-                            </span>
+                            <span className="font-18">No Fixtures Found</span>
                           </>
                         ),
                       }}

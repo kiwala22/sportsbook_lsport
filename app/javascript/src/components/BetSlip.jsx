@@ -231,9 +231,8 @@ const BetSlip = (props) => {
                           type="number"
                           name="stake"
                           id="stake-input"
-                          style={{ color: "black" }}
                           placeholder="Min Stake: UGX 1,000"
-                          className=""
+                          className="input-color"
                           value={stake}
                           id="stakeInput"
                           onChange={(event) => {

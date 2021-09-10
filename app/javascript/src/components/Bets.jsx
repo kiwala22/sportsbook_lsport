@@ -91,12 +91,7 @@ const Bets = () => {
       title: "Receipt",
       render: (_, data) => (
         <BetReceipt data={data}>
-          <Button
-            type="dashed"
-            ghost
-            size="sm"
-            style={{ color: "#f6ae2d", borderColor: "#f6ae2d" }}
-          >
+          <Button type="dashed" ghost size="sm">
             Receipt
           </Button>
         </BetReceipt>
@@ -147,12 +142,10 @@ const Bets = () => {
                         emptyText: (
                           <>
                             <span>
-                              <DropboxOutlined style={{ fontSize: 40 }} />
+                              <DropboxOutlined className="font-40" />
                             </span>
                             <br />
-                            <span style={{ fontSize: 18 }}>
-                              No Tickets Found
-                            </span>
+                            <span className="font-18">No Tickets Found</span>
                           </>
                         ),
                       }}

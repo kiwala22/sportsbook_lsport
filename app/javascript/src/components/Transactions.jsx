@@ -144,10 +144,10 @@ const Transactions = () => {
                         emptyText: (
                           <>
                             <span>
-                              <DropboxOutlined style={{ fontSize: 40 }} />
+                              <DropboxOutlined className="font-40" />
                             </span>
                             <br />
-                            <span style={{ fontSize: 18 }}>
+                            <span className="font-18">
                               No Transactions Found
                             </span>
                           </>
