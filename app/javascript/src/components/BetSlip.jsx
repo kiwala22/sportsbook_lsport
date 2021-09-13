@@ -1,4 +1,4 @@
-import { Button } from "antd";
+import { Button, Modal } from "antd";
 import "channels";
 import cogoToast from "cogo-toast";
 import React, { useEffect, useState } from "react";
@@ -18,6 +18,7 @@ const BetSlip = (props) => {
   const [stake, setStake] = useState(intialStake);
   const userSignedIn = useSelector((state) => state.signedIn);
   const games = useSelector((state) => state.games);
+  const show = useSelector((state) => state.showBetSlip);
   const dispatcher = useDispatch();
 
   useEffect(() => {
@@ -87,6 +88,9 @@ const BetSlip = (props) => {
           cogoToast.success("Your Betslip is now empty.", {
             hideAfter: 5,
           });
+          if (Mobile.isMobile()) {
+            close();
+          }
         }
       })
       .catch((error) => {
@@ -215,6 +219,69 @@ const BetSlip = (props) => {
       });
   };
 
+  function close() {
+    dispatcher({ type: "mobileBetSlip", payload: false });
+  }
+
+  const betSlipData = (
+    <div className="bets" id="bets-row" data-controller="slips">
+      {slipGames()}
+      <div className="total-bet">
+        <span className="col-8 px-1">
+          <input
+            type="number"
+            name="stake"
+            id="stake-input"
+            placeholder="Min Stake: UGX 1,000"
+            className="input-color"
+            value={stake}
+            id="stakeInput"
+            onChange={(event) => {
+              setStake(event.target.value);
+            }}
+          />
+        </span>
+        <span className="col-4 px-1" id="total-odds" data-target="slips.total">
+          {totalOdds()}
+        </span>
+      </div>
+      <div className="">
+        <span id="amount-limits" className="limits"></span>
+      </div>
+      <div className="total-wins">
+        <span>Payout</span>
+        <span id="total-wins" data-target="slips.wins">
+          {calculateWin()}
+        </span>
+      </div>
+      {userSignedIn && (
+        <div className="actions">
+          <Button
+            id="place_bet"
+            loading={isLoading}
+            onClick={(event) => {
+              placeBet(event.target);
+            }}
+            className="btn btn-block btn-primary mt-lg login-btn border-transparent"
+          >
+            PLACE BET
+          </Button>
+        </div>
+      )}
+      {!userSignedIn && (
+        <Login notice="Login before placing bet..">
+          <Button
+            id="slip_login"
+            loading={isLoading}
+            className="btn btn-block btn-primary mt-lg login-btn border-transparent"
+          >
+            PLACE BET
+          </Button>
+        </Login>
+      )}
+    </div>
+  );
+
   return (
     <>
       {!Mobile.isMobile() && (
@@ -239,71 +306,45 @@ const BetSlip = (props) => {
               </div>
               {games.length > 0 && (
                 <div className="widget-body" id="betslip">
-                  <div className="bets" id="bets-row" data-controller="slips">
-                    {slipGames()}
-                    <div className="total-bet">
-                      <span className="col-8 px-1">
-                        <input
-                          type="number"
-                          name="stake"
-                          id="stake-input"
-                          placeholder="Min Stake: UGX 1,000"
-                          className="input-color"
-                          value={stake}
-                          id="stakeInput"
-                          onChange={(event) => {
-                            setStake(event.target.value);
-                          }}
-                        />
-                      </span>
-                      <span
-                        className="col-4 px-1"
-                        id="total-odds"
-                        data-target="slips.total"
-                      >
-                        {totalOdds()}
-                      </span>
-                    </div>
-                    <div className="">
-                      <span id="amount-limits" className="limits"></span>
-                    </div>
-                    <div className="total-wins">
-                      <span>Payout</span>
-                      <span id="total-wins" data-target="slips.wins">
-                        {calculateWin()}
-                      </span>
-                    </div>
-                    {userSignedIn && (
-                      <div className="actions">
-                        <Button
-                          id="place_bet"
-                          loading={isLoading}
-                          onClick={(event) => {
-                            placeBet(event.target);
-                          }}
-                          className="btn btn-block btn-primary mt-lg login-btn border-transparent"
-                        >
-                          PLACE BET
-                        </Button>
-                      </div>
-                    )}
-                    {!userSignedIn && (
-                      <Login notice="Login before placing bet..">
-                        <Button
-                          id="slip_login"
-                          loading={isLoading}
-                          className="btn btn-block btn-primary mt-lg login-btn border-transparent"
-                        >
-                          PLACE BET
-                        </Button>
-                      </Login>
-                    )}
-                  </div>
+                  {betSlipData}
                 </div>
               )}
             </div>
           </>
         </>
+      )}
+      {Mobile.isMobile() && (
+        <Modal
+          title={
+            <>
+              <h5>BETSLIP</h5>
+            </>
+          }
+          visible={show}
+          onCancel={close}
+          footer={null}
+          backdrop="static"
+          keyboard={false}
+          scrollable={true}
+          confirmLoading={true}
+          maskClosable={false}
+        >
+          {games.length > 0 && (
+            <>
+              <div id="close-button" className="clear-slip">
+                <a className="float-right" onClick={() => clearBetSlip()}>
+                  <i
+                    className="far fa-times-circle fa-2x"
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="Clear BetSlip"
+                  ></i>
+                </a>
+              </div>
+              {betSlipData}
+            </>
+          )}
+        </Modal>
       )}
     </>
   );

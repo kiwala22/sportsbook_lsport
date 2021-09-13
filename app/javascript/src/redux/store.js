@@ -6,6 +6,7 @@ const initialState = {
   userInfo: {},
   games: [],
   displaySider: false,
+  showBetSlip: false,
 };
 
 function reducer(state = initialState, action) {
@@ -27,6 +28,8 @@ function reducer(state = initialState, action) {
       return { ...state, userInfo: action.payload };
     case "sider":
       return { ...state, displaySider: action.payload };
+    case "mobileBetSlip":
+      return { ...state, showBetSlip: action.payload };
     default:
       return state;
   }

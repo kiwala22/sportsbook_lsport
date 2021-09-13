@@ -159,6 +159,10 @@ const Navbar = (props) => {
     </Form>
   );
 
+  function showMobileBetSlip() {
+    dispatch({ type: "mobileBetSlip", payload: true });
+  }
+
   return (
     <>
       {!Mobile.isMobile() && (
@@ -270,14 +274,17 @@ const Navbar = (props) => {
                     />,
                     <Badge
                       count={slipGames}
+                      key="1"
                       showZero
                       className="mr-3"
                       color="#F6AE2D"
+                      onClick={showMobileBetSlip}
                     >
                       <FileDoneOutlined className="font-18 c-white" />
                     </Badge>,
                     <Dropdown
                       overlay={mobileMenu}
+                      key="3"
                       className="dropdown-toggle"
                       trigger={["click"]}
                       arrow={true}
@@ -309,9 +316,11 @@ const Navbar = (props) => {
                     />,
                     <Badge
                       count={slipGames}
+                      key="1"
                       showZero
                       className="mr-3"
                       color="#F6AE2D"
+                      onClick={showMobileBetSlip}
                     >
                       <FileDoneOutlined className="font-18 c-white" />
                     </Badge>,
