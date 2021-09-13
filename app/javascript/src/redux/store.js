@@ -23,6 +23,8 @@ function reducer(state = initialState, action) {
       return { ...state, signedIn: action.payload };
     case "addBet":
       return { ...state, games: action.payload };
+    case "userUpdate":
+      return { ...state, userInfo: action.payload };
     case "sider":
       return { ...state, displaySider: action.payload };
     default:

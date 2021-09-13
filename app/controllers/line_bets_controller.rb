@@ -63,6 +63,7 @@ class LineBetsController < ApplicationController
     @games.each do |bet|
       if fetch_market_status(bet.market, bet.fixture_id) == 'Active'
         fixtures << {
+          'cartId': bet.cart_id,
           'fixtureId': bet.fixture_id,
           'partOne': bet.fixture.part_one_name,
           'partTwo': bet.fixture.part_two_name,

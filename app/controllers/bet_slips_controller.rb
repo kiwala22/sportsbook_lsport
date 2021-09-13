@@ -14,9 +14,7 @@ class BetSlipsController < ApplicationController
 
     #First check if stake is with in the limits
     if stake > 1000000 || stake < 1000
-      flash[:alert] =
-        'Stake should be between 1,000 and 1,000,000. Change amount and try again.'
-      redirect_back(fallback_location: root_path) && return
+      render json: {message: "Amount should be between 1,000 and 1,000,000"}, status: 400
     end
 
     #check if the stake is present and contains only digits
@@ -91,11 +89,11 @@ class BetSlipsController < ApplicationController
         end
 
         #process the betslips through MTS
-        if browser.device.mobile? || browser.device.tablet?
-          channel = 'mobile'
-        else
-          channel = 'internet'
-        end
+        # if browser.device.mobile? || browser.device.tablet?
+        #   channel = 'mobile'
+        # else
+        #   channel = 'internet'
+        # end
 
         # begin
         # 	Mts::SubmitTicket.new.publish(slip_id: bet_slip.id, user_channel: channel, ip: request.remote_ip )
@@ -127,36 +125,27 @@ class BetSlipsController < ApplicationController
         session[:cart_id] = nil
 
         #redirect to home page with a notification
-        redirect_to root_path, notice: 'Thank You! Bets are being processed. '
+        render json: { message: 'Thank You! Bets have been placed.', user: current_user }, status: 200
       else
-        flash[:alert] =
-          'You have insufficient balance on your account. Please deposit some money.'
-        redirect_back(fallback_location: root_path) #, alert: "You have insufficient balance on your account. Please deposit some money. "
+        render json: {message: 'You have insufficient balance on your account. Please deposit some money.'}, status: 400
       end
     else
-      flash[:alert] = 'Please add a correct stake amount'
-      redirect_back(fallback_location: root_path)
+      render json: {message: 'Please add a correct stake amount'}, status: 400
       #redirect_to root_path, alert: "Please add a correct stake amount "
     end
   rescue Exception => error
     #log the error and redirect with an alert
     Rails.logger.error(error.message)
     Rails.logger.error(error.backtrace.join("\n"))
-    flash[:alert] = 'Oops! Something went wrong.'
-    redirect_back(fallback_location: root_path)
-    #redirect_to root_path, alert: "Oops! Something went wrong."
+    render json: {message: 'Oops! Something went wrong.'}, status: 400
   end
-
-  # def show
-  # 	@bet_slip = BetSlip.find(params[:id])
-  # end
 
   def update; end
 
   private
 
   def bet_slips_params
-    params.permit(:cart_id, :stake)
+    params.require(:bet_slip).permit(:cart_id, :stake)
   end
 
   def fetch_market_status(market, fixture_id)

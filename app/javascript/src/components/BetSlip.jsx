@@ -8,7 +8,7 @@ import BetslipChannel from "../../channels/betSlipsChannel";
 import MarketsChannel from "../../channels/marketsChannel";
 import currencyFormatter from "../utilities/CurrencyFormatter";
 import Mobile from "../utilities/Mobile";
-import Request from "../utilities/Requests";
+import { default as Request, default as Requests } from "../utilities/Requests";
 import Login from "./Login";
 
 const BetSlip = (props) => {
@@ -77,7 +77,7 @@ const BetSlip = (props) => {
   };
 
   const clearBetSlip = () => {
-    window.localStorage.removeItem("stake");
+    localStorage.removeItem("stake");
     let path = "/clear_slip";
     let values = {};
     Request.isDeleteRequest(path, values)
@@ -189,16 +189,32 @@ const BetSlip = (props) => {
       });
   };
 
-  const placeBet = (e) => {
+  const placeBet = () => {
     setIsLoading(true);
-    window.localStorage.removeItem("stake");
-    cogoToast.success("Bet placing will be implemented soon.", {
-      hideAfter: 7,
-    });
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
+    var cartId = games[0].cartId;
+    const path = "/bet_slips";
+    const values = { bet_slip: { cart_id: cartId, stake: stake } };
+    localStorage.removeItem("stake");
+    Requests.isPostRequest(path, values)
+      .then((response) => {
+        dispatcher({ type: "addBet", payload: [] });
+        dispatcher({ type: "userUpdate", payload: response.data.user });
+        cogoToast.success(response.data.message, {
+          hideAfter: 5,
+        });
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        cogoToast.error(
+          error.response ? error.response.data.message : error.message,
+          {
+            hideAfter: 5,
+          }
+        );
+        setIsLoading(false);
+      });
   };
+
   return (
     <>
       {!Mobile.isMobile() && (

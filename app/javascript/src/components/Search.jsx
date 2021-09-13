@@ -153,7 +153,14 @@ const Search = (props) => {
     <>
       {!pageLoading && (
         <>
-          <div className="game-box" id="search">
+          <div
+            className={
+              Mobile.isMobile()
+                ? "game-box mobile-table-padding-games"
+                : "game-box"
+            }
+            id="search"
+          >
             <div className="card">
               <div className="card-header">
                 <h3>Search Results </h3>{" "}
