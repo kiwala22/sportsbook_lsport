@@ -344,7 +344,7 @@ const BetSlip = (props) => {
               {betSlipData}
             </>
           )}
-          {games.length == 0 && <p>Empty BetSlip...</p>}
+          {games.length == 0 && <p className="MobileEmpty">Empty BetSlip...</p>}
         </Modal>
       )}
     </>

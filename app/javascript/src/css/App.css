@@ -345,3 +345,9 @@ h6 {
   padding-right: 1px !important;
   padding-left: 1px !important;
 }
+
+.MobileEmpty {
+  text-align: center !important;
+  color: #f6ae2d !important;
+  font-size: 14px !important;
+}
