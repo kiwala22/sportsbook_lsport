@@ -11,6 +11,7 @@ import MarketsChannel from "../../channels/marketsChannel";
 import PreOddsChannel from "../../channels/preOddsChannel";
 import addBet from "../redux/actions";
 import * as DataUpdate from "../utilities/DataUpdate";
+import Mobile from "../utilities/Mobile";
 import Requests from "../utilities/Requests";
 import Preview from "./Skeleton";
 
