@@ -11,20 +11,10 @@ const Sidebar = (props) => {
   const open = useSelector((state) => state.displaySider);
   const signedIn = useSelector((state) => state.signedIn);
 
-  // useEffect(
-  //   (prevProps) => {
-  //     const { location } = props;
-  //     if (location !== prevProps.location && open) {
-  //       onClose();
-  //     }
-  //   },
-  //   [props]
-  // );
-
   const sidebar = (
     <>
       <div className="col-xl-2 col-lg-2 mt-20 px-lg-1 px-xl-1 px-md-1">
-        <aside className="content-sidebar mb-20">
+        <aside className="content-sidebar mb-20" onClick={onClose}>
           <Link to={"/"}>
             <h3>Sports</h3>
           </Link>
@@ -60,7 +50,7 @@ const Sidebar = (props) => {
         </aside>
         <aside className="content-sidebar mb-20">
           <h3>Leagues</h3>
-          <ul>
+          <ul onClick={onClose}>
             <li className="text-gray-400">
               <Link
                 to={{
@@ -185,7 +175,7 @@ const Sidebar = (props) => {
         </aside>
         <aside className="content-sidebar mb-20">
           <h3>Countries</h3>
-          <ul>
+          <ul onClick={onClose}>
             <li className="text-gray-400">
               <i className="flag-icon flag-icon-gb fa-fw mr-2"></i>
               <Link
@@ -281,7 +271,9 @@ const Sidebar = (props) => {
   );
 
   function onClose() {
-    dispatcher({ type: "sider", payload: false });
+    if (Mobile.isMobile()) {
+      dispatcher({ type: "sider", payload: false });
+    }
   }
 
   return (
@@ -290,7 +282,7 @@ const Sidebar = (props) => {
         <>
           <Drawer
             title={
-              <Link to={"/"}>
+              <Link to={"/"} onClick={onClose}>
                 <h4>
                   Skyline<span className="logo-color">Bet</span>
                 </h4>

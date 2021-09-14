@@ -168,7 +168,7 @@ const PreVirtualMatches = (props) => {
                   Upcoming Fixtures - Virtual Soccer{" "}
                   <i className="fas fa-futbol fa-lg fa-fw mr-2 match-time"></i>
                 </h3>
-                <span className="float-right ">
+                <span className="float-right custom-span">
                   <Link
                     className="btnn btn-blink"
                     to={"/fixtures/virtual_soccer/lives"}

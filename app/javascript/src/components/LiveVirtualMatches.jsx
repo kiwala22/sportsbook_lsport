@@ -190,10 +190,10 @@ const LiveVirtualMatches = (props) => {
             <div className="card">
               <div className="card-header">
                 <h3>
-                  Live-Match Fixtures - Virtual Soccer{" "}
+                  Live Fixtures - Virtual Soccer{" "}
                   <i className=" blinking match-time fas fa-bolt fa-lg fa-fw mr-2"></i>
                 </h3>
-                <span className="float-right">
+                <span className="float-right custom-span">
                   <Link
                     className="btnn btn-blink"
                     to={"/fixtures/virtual_soccer/pres/"}
