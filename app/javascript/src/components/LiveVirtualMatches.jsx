@@ -198,7 +198,7 @@ const LiveVirtualMatches = (props) => {
                     className="btnn btn-blink"
                     to={"/fixtures/virtual_soccer/pres/"}
                   >
-                    <i className="fas fa-futbol"></i> Pre-Match
+                    <i className="fas fa-futbol"></i> PreMatch
                   </Link>
                 </span>
               </div>

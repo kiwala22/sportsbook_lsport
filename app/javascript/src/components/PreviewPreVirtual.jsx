@@ -123,7 +123,7 @@ const PreviewPreVirtual = (props) => {
                               <span className="wagger-amt">
                                 {fixture.market_mkt1_status == "Active"
                                   ? oddsFormatter(fixture.outcome_mkt1_1)
-                                  : 1.0}
+                                  : oddsFormatter(1.0)}
                               </span>
                             </a>
                           </div>
@@ -144,7 +144,7 @@ const PreviewPreVirtual = (props) => {
                               <span className="wagger-amt">
                                 {fixture.market_mkt1_status == "Active"
                                   ? oddsFormatter(fixture.outcome_mkt1_X)
-                                  : 1.0}
+                                  : oddsFormatter(1.0)}
                               </span>
                             </a>
                           </div>
@@ -165,7 +165,7 @@ const PreviewPreVirtual = (props) => {
                               <span className="wagger-amt">
                                 {fixture.market_mkt1_status == "Active"
                                   ? oddsFormatter(fixture.outcome_mkt1_2)
-                                  : 1.0}
+                                  : oddsFormatter(1.0)}
                               </span>
                             </a>
                           </div>
@@ -216,7 +216,7 @@ const PreviewPreVirtual = (props) => {
                               <span className="wagger-amt">
                                 {fixture.market_mkt7_status == "Active"
                                   ? oddsFormatter(fixture.outcome_mkt7_1X)
-                                  : 1.0}
+                                  : oddsFormatter(1.0)}
                               </span>
                             </a>
                           </div>
@@ -237,7 +237,7 @@ const PreviewPreVirtual = (props) => {
                               <span className="wagger-amt">
                                 {fixture.market_mkt7_status == "Active"
                                   ? oddsFormatter(fixture.outcome_mkt7_12)
-                                  : 1.0}
+                                  : oddsFormatter(1.0)}
                               </span>
                             </a>
                           </div>
@@ -258,7 +258,7 @@ const PreviewPreVirtual = (props) => {
                               <span className="wagger-amt">
                                 {fixture.market_mkt7_status == "Active"
                                   ? oddsFormatter(fixture.outcome_mkt7_X2)
-                                  : 1.0}
+                                  : oddsFormatter(1.0)}
                               </span>
                             </a>
                           </div>
@@ -313,7 +313,7 @@ const PreviewPreVirtual = (props) => {
                               <span className="wagger-amt">
                                 {fixture.market_mkt3_status == "Active"
                                   ? oddsFormatter(fixture.outcome_mkt3_1)
-                                  : 1.0}
+                                  : oddsFormatter(1.0)}
                               </span>
                             </a>
                           </div>
@@ -336,7 +336,7 @@ const PreviewPreVirtual = (props) => {
                               <span className="wagger-amt">
                                 {fixture.market_mkt3_status == "Active"
                                   ? oddsFormatter(fixture.outcome_mkt3_2)
-                                  : 1.0}
+                                  : oddsFormatter(1.0)}
                               </span>
                             </a>
                           </div>
@@ -389,7 +389,7 @@ const PreviewPreVirtual = (props) => {
                               <span className="wagger-amt">
                                 {fixture.market_mkt2_status == "Active"
                                   ? oddsFormatter(fixture.outcome_mkt2_Under)
-                                  : 1.0}
+                                  : oddsFormatter(1.0)}
                               </span>
                             </a>
                           </div>
@@ -410,7 +410,7 @@ const PreviewPreVirtual = (props) => {
                               <span className="wagger-amt">
                                 {fixture.market_mkt2_status == "Active"
                                   ? oddsFormatter(fixture.outcome_mkt2_Over)
-                                  : 1.0}
+                                  : oddsFormatter(1.0)}
                               </span>
                             </a>
                           </div>
@@ -462,7 +462,7 @@ const PreviewPreVirtual = (props) => {
                               <span className="wagger-amt">
                                 {fixture.market_mkt17_status == "Active"
                                   ? oddsFormatter(fixture.outcome_mkt17_Yes)
-                                  : 1.0}
+                                  : oddsFormatter(1.0)}
                               </span>
                             </a>
                           </div>
@@ -483,7 +483,7 @@ const PreviewPreVirtual = (props) => {
                               <span className="wagger-amt">
                                 {fixture.market_mkt17_status == "Active"
                                   ? oddsFormatter(fixture.outcome_mkt17_No)
-                                  : 1.0}
+                                  : oddsFormatter(1.0)}
                               </span>
                             </a>
                           </div>

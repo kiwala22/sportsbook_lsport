@@ -24,7 +24,13 @@ const Navbar = (props) => {
   const formRef = React.createRef();
   const { signedIn, verified, userInfo } = useSelector((state) => state);
   const [showSearch, setShowSearch] = useState(false);
-  const slipGames = useSelector((state) => state.games.length);
+  const slipGames = useSelector((state) => {
+    return state.games.filter((el) => {
+      return (
+        el[`market_mkt${el.market.match(/\d/g).join("")}_status`] === "Active"
+      );
+    }).length;
+  });
 
   const performSearch = (values) => {
     setShowSearch(false);
