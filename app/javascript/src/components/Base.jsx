@@ -2,6 +2,7 @@ import cogoToast from "cogo-toast";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, Route, Switch } from "react-router-dom";
+import Mobile from "../utilities/Mobile";
 import Requests from "../utilities/Requests";
 import Bets from "./Bets";
 import BetSlip from "./BetSlip";
@@ -186,7 +187,13 @@ const Base = (props) => {
             </div>
           </div>
         </section>
-        <footer className="footer-container">
+        <footer
+          className={
+            Mobile.isMobile()
+              ? "footer-container mobile-footer"
+              : "footer-container"
+          }
+        >
           <Footer />
         </footer>
       </div>
