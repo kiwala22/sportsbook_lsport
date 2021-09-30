@@ -1,0 +1,32 @@
+class PreMarket < ApplicationRecord
+  belongs_to :fixture
+
+  validates :market_identifier, presence: true
+  validates :market_identifier, uniqueness: true
+  validates :fixture_id, presence: true
+  validates :fixture_id, uniqueness: true
+
+  after_commit :broadcast_updates, if: :persisted?
+   
+   
+   def broadcast_updates
+      # Find the corresponding fixture
+      fixture = Fixture.find(self.fixture_id).as_json
+
+      # Add necessary odds and status to the fixture
+      fixture["odds"] = self.odds
+      fixture["market_mkt#{self.market_identifier}_status"] = self.status
+
+      # Make the broadcasts
+      CableWorker.perform_async("pre_odds_#{self.market_identifier}_#{self.fixture_id}", fixture)
+      CableWorker.perform_async("betslips_#{self.market_identifier}_#{self.fixture_id}", fixture)
+      
+      if saved_change_to_status?
+         # Add market status to the fixture object
+         fixture["market_mkt#{self.market_identifier}_status"] = self.status
+
+         #Make the broadcast
+         CableWorker.perform_async("markets_#{self.fixture_id}", fixture)
+      end
+   end
+end

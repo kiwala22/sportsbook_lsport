@@ -245,39 +245,40 @@ module Lsports
                     }
                     @@market_description = market["Name"]
                     attrs = {}
+                    outcomes = {}
                     if fixture
                         if market.has_key?("Markets") && market["Markets"].is_a?(Array)
                             market["Markets"].each do |event|
-                                mkt = "Market" + (event["Id"]).to_s + "Pre"
+                                # mkt = "Market" + (event["Id"]).to_s + "Pre"
+                                mkt = "PreMarket"
                                 if event.has_key?("Providers") && event["Providers"].is_a?(Array)
                                     event["Providers"].each do |provider|
                                         if provider.has_key?("Bets") && provider["Bets"].is_a?(Array)
                                             provider["Bets"].each do |bet|
-                                                if [2, 28, 77].include?(event["Id"])# == 2 || event["Id"] == 77 || event["Id"] == 28
+                                                if [2, 28, 77].include?(event["Id"])
                                                     if bet["BaseLine"] == "2.5"
-                                                        attrs["outcome_#{bet["Name"]}"] = bet["Price"]
+                                                        outcomes["outcome_#{bet["Name"]}"] = bet["Price"]
                                                         attrs["status"] = market_status[bet["Status"]]
-                                                        # Outcome.create(outcome_id: bet["Name"], description: @@market_description)
                                                     end
-                                                # BaseLine for markets 3 and 53 not clear yet
-                                                elsif [3, 52, 53, 63].include?(event["Id"])# == 3 || event["Id"] == 53
+                                                elsif [3, 52, 53, 63].include?(event["Id"])
                                                     if bet["BaseLine"] == "-1.0 (0-0)"
-                                                        attrs["outcome_#{bet["Name"]}"] = bet["Price"]
+                                                        outcomes["outcome_#{bet["Name"]}"] = bet["Price"]
                                                         attrs["status"] = market_status[bet["Status"]]
                                                     end
                                                 else
-                                                    attrs["outcome_#{bet["Name"]}"] = bet["Price"]
+                                                    outcomes["outcome_#{bet["Name"]}"] = bet["Price"]
                                                     attrs["status"] = market_status[bet["Status"]]
-                                                    # Outcome.create(outcome_id: bet["Name"], description: @@market_description)
                                                 end
                                             end
+                                            attrs["odds"] = outcomes.to_json
                                         end
                                     end
                                 end
                                 mkt_entry = mkt.constantize.new(attrs)
-                                mkt_entry.event_id = event_id
+                                mkt_entry.market_identifier = event["Id"]
                                 mkt_entry.fixture_id = fixture.id
                                 mkt_entry.save
+                                outcomes = {}
                                 attrs = {}
                             end
                         end

@@ -29,14 +29,14 @@ class OddsChangeWorker
                             if event.has_key?("Markets") && event["Markets"].is_a?(Array)
                                 event["Markets"].each do |market|
                                     #process the market
-                                    process_market(fixture.id, market, product, event_id)
+                                    process_market(fixture.id, market, product)
                                 end
 
                             end
                             if event.has_key?("Markets") && event["Markets"].is_a?(Hash)
                                 market = event["Markets"]
                                 #process the market
-                                process_market(fixture.id, market, product, event_id)
+                                process_market(fixture.id, market, product)
                             end
                         end
                     end
@@ -53,14 +53,14 @@ class OddsChangeWorker
                         if event.has_key?("Markets") && event["Markets"].is_a?(Array)
                             event["Markets"].each do |market|
                                 #process the market
-                                process_market(fixture.id, market, product, event_id)
+                                process_market(fixture.id, market, product)
                             end
 
                         end
                         if event.has_key?("Markets") && event["Markets"].is_a?(Hash)
                             market = event["Markets"]
                             #process the market
-                            process_market(fixture.id, market, product, event_id)
+                            process_market(fixture.id, market, product)
                         end
                     end
                 end 
@@ -68,7 +68,7 @@ class OddsChangeWorker
         end
     end
 
-    def process_market(fixture_id, market, product, event_id)
+    def process_market(fixture_id, market, product)
 
         markets = [
             1, 2, 3, 7, 17, 25, 28,
@@ -88,36 +88,40 @@ class OddsChangeWorker
         }
 
         if markets.any?(market["Id"])
-            model_name = "Market" + (market["Id"]).to_s + producer_type[product]
+            # model_name = "Market" + (market["Id"]).to_s + producer_type[product]
+            model_name = producer_type[product] + "Market"
 
-            mkt_entry = model_name.constantize.find_by(fixture_id: fixture_id)
+            mkt_entry = model_name.constantize.find_by(fixture_id: fixture_id, market_identifier: market["Id"])
             
             update_attr = {}
+            outcomes = {}
 
-            if [2, 28, 77].include?(market["Id"])# == 2 || market["Id"] == 77)
+            if [2, 28, 77].include?(market["Id"])
                 if market.has_key?("Providers") && market["Providers"].is_a?(Array)
                     market["Providers"].each do |provider|
                         if provider.has_key?("Bets") && provider["Bets"].is_a?(Array)
                             provider["Bets"].each do |bet|
                                if bet["BaseLine"] == "2.5"
-                                    update_attr["outcome_#{bet["Name"]}"] = bet["Price"]
+                                    outcomes["outcome_#{bet["Name"]}"] = bet["Price"]
                                     update_attr["status"] = market_status[bet["Status"]]
                                end
                             end
+                            update_attr["odds"] = outcomes.to_json
                         end
                     end
                 end
 
-            elsif  [3, 52, 53, 63].include?(market["Id"])# == 3 || market["Id"] == 53)
+            elsif  [3, 52, 53, 63].include?(market["Id"])
                 if market.has_key?("Providers") && market["Providers"].is_a?(Array)
                     market["Providers"].each do |provider|
                         if provider.has_key?("Bets") && provider["Bets"].is_a?(Array)
                             provider["Bets"].each do |bet|
                                 if bet["BaseLine"] == "-1.0 (0-0)"
-                                    update_attr["outcome_#{bet["Name"]}"] = bet["Price"]
+                                    outcomes["outcome_#{bet["Name"]}"] = bet["Price"]
                                     update_attr["status"] = market_status[bet["Status"]]
                                 end
                             end
+                            update_attr["odds"] = outcomes.to_json
                         end
                     end
                 end
@@ -126,9 +130,10 @@ class OddsChangeWorker
                     market["Providers"].each do |provider|
                         if provider.has_key?("Bets") && provider["Bets"].is_a?(Array)
                             provider["Bets"].each do |bet|
-                                update_attr["outcome_#{bet["Name"]}"] = bet["Price"]
+                                outcomes["outcome_#{bet["Name"]}"] = bet["Price"]
                                 update_attr["status"] = market_status[bet["Status"]]
                             end
+                            update_attr["odds"] = outcomes.to_json
                         end
                     end
                 end
@@ -136,17 +141,18 @@ class OddsChangeWorker
 
             if mkt_entry
                 mkt_entry.assign_attributes(update_attr)
+                mkt_entry.save
             else
                 mkt_entry = model_name.constantize.new(update_attr)
                 mkt_entry.fixture_id = fixture_id
-                mkt_entry.event_id = event_id
-                #mkt_entry.save
+                mkt_entry.market_identifier = market["Id"]
+                mkt_entry.save
             end
-            if mkt_entry.save
-                #broadast this change
-                ActionCable.server.broadcast("#{producer_type[product].downcase}_odds_#{market["Id"]}_#{fixture_id}", mkt_entry.as_json)
-                ActionCable.server.broadcast("betslips_odds_#{market["Id"]}_#{fixture_id}", mkt_entry.as_json)
-            end
+            # if mkt_entry.save
+            #     #broadast this change
+            #     ActionCable.server.broadcast("#{producer_type[product].downcase}_odds_#{market["Id"]}_#{fixture_id}", mkt_entry.as_json)
+            #     ActionCable.server.broadcast("betslips_odds_#{market["Id"]}_#{fixture_id}", mkt_entry.as_json)
+            # end
         end     
 
     end

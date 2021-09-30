@@ -96,9 +96,11 @@ class BetSettlementWorker
         ]
 
         if markets.any?(market["Id"])
-            model_name = "Market" + (market["Id"]).to_s + producer_type[product]
+            #model_name = "Market" + (market["Id"]).to_s + producer_type[product]
+            model_name = producer_type[product] + "Market"
 
-            mkt_entry = model_name.constantize.find_by(fixture_id: fixture_id)
+            mkt_entry = model_name.constantize.find_by(fixture_id: fixture_id, market_identifier: market["Id"])
+            
             update_attr = {
                 "status" => "Settled"
             }
@@ -114,7 +116,7 @@ class BetSettlementWorker
                             end
                         end
                     end
-                    update_attr["outcome"] = outcome_attr.to_json
+                    update_attr["results"] = outcome_attr.to_json
                 end
 
             elsif  [3, 52, 53, 63].include?(market["Id"])# == 3 || market["Id"] == 53)
@@ -128,7 +130,7 @@ class BetSettlementWorker
                             end
                         end
                     end
-                    update_attr["outcome"] = outcome_attr.to_json
+                    update_attr["results"] = outcome_attr.to_json
                 end
             else
                 if market.has_key?("Providers")
@@ -139,7 +141,7 @@ class BetSettlementWorker
                             end
                         end
                     end
-                    update_attr["outcome"] = outcome_attr.to_json
+                    update_attr["results"] = outcome_attr.to_json
                 end
             end
 
@@ -149,11 +151,11 @@ class BetSettlementWorker
             else
                 mkt_entry = model_name.constantize.new(update_attr)
                 mkt_entry.fixture_id = fixture_id
-                mkt_entry.event_id = event_id
+                mkt_entry.market_identifier = market["Id"]
                 mkt_entry.save
             end
 
-            settle_bets(fixture_id, product, market["Id"], update_attr["outcome"])
+            settle_bets(fixture_id, product, market["Id"], update_attr["results"])
         end
 
     end
