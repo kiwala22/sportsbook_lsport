@@ -198,7 +198,7 @@ const Search = (props) => {
                           </>
                         ),
                       }}
-                      pagination={{ pageSize: 100 }}
+                      pagination={{ defaultPageSize: 50 }}
                     />
                   </div>
                 </div>

@@ -547,7 +547,7 @@ const Home = (props) => {
                       rowKey={() => {
                         return shortUUID.generate();
                       }}
-                      pagination={{ pageSize: 50 }}
+                      pagination={{ defaultPageSize: 50 }}
                     />
                     <div className="text-center mb-2 custom-anchor">
                       <Link
