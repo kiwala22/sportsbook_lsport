@@ -6,31 +6,30 @@ class Api::V1::HomeController < ApplicationController
     ##Live games
     @live_q =
       Fixture
-        .joins(:market1_live)
+        .joins(:live_market)
         .where(
-          'fixtures.status = ? AND fixtures.sport_id = ? AND fixtures.league_id NOT IN (?) AND market1_lives.status = ?',
+          'fixtures.status = ? AND fixtures.sport_id = ? AND fixtures.league_id NOT IN (?) AND live_markets.market_identifier = ? AND live_markets.status = ?',
           'live',
           '6046',
           %w[37364 37386 38301 37814],
+          '1',
           'Active'
         )
         .order(start_date: :asc)
     @live_fixtures =
       @live_q
-        .includes(:market1_live)
-        .where('market1_lives.status = ?', 'Active')
+        .includes(:live_market)
+        .where('live_markets.status = ? AND live_markets.market_identifier', 'Active', '1')
         .limit(10)
     @live_fixtures.each do |event|
       ## convert  fixture to json
       fixture = event.as_json
 
       ## Add outcomes to the data
-      fixture['outcome_mkt1_1'] = event.market1_live.outcome_1
-      fixture['outcome_mkt1_X'] = event.market1_live.outcome_X
-      fixture['outcome_mkt1_2'] = event.market1_live.outcome_2
+      fixture["market_#{event.live_market.market_identifier}_odds"] = event.live_market.odds
 
       ## Add market status to the fixture
-      fixture["market_mkt1_status"] = event.market1_live.status
+      fixture["market_#{event.live_market.market_identifier}_status"] = event.live_market.status
 
       live.push(fixture)
     end
@@ -40,25 +39,27 @@ class Api::V1::HomeController < ApplicationController
     ##All Prematch
     @q =
       Fixture
-        .joins(:market1_pre)
+        .joins(:pre_market)
         .where(
-          'fixtures.status = ? AND fixtures.sport_id = ? AND fixtures.league_id NOT IN (?) AND fixtures.start_date >= ? AND fixtures.start_date <= ? AND market1_pres.status = ?',
+          'fixtures.status = ? AND fixtures.sport_id = ? AND fixtures.league_id NOT IN (?) AND fixtures.start_date >= ? AND fixtures.start_date <= ? AND pre_markets.status = ? AND pre_markets.market_identifier = ?',
           'not_started',
           '6046',
           %w[37364 37386 38301 37814],
           (Time.now),
           (Date.today.end_of_day + 10.months),
-          'Active'
+          'Active',
+          '1'
         )
         .order(start_date: :asc)
 
     ##PreMatch games
     @prematch_fixtures =
       @q
-        .includes(:market1_pre)
+        .includes(:pre_market)
         .where(
-          'market1_pres.status = ? AND fixtures.featured = ?',
+          'pre_markets.status = ? AND pre_markets.market_identifier = ? AND fixtures.featured = ?',
           'Active',
+          '1',
           false
         )
     @prematch_fixtures.each do |event|
@@ -66,12 +67,10 @@ class Api::V1::HomeController < ApplicationController
       fixture = event.as_json
 
       ## Add outcomes to the data
-      fixture['outcome_mkt1_1'] = event.market1_pre.outcome_1
-      fixture['outcome_mkt1_X'] = event.market1_pre.outcome_X
-      fixture['outcome_mkt1_2'] = event.market1_pre.outcome_2
+      fixture["market_#{event.pre_market.market_identifier}_odds"] = event.pre_market.odds
 
       ## Add market status to the fixture
-      fixture["market_mkt1_status"] = event.market1_pre.status
+      fixture["market_#{event.pre_market.market_identifier}_status"] = event.pre_market.status
 
       prematch.push(fixture)
     end
@@ -81,24 +80,23 @@ class Api::V1::HomeController < ApplicationController
     ##Featured games
     @featured =
       @q
-        .includes(:market1_pre)
-        .where(
-          'market1_pres.status = ? AND fixtures.featured = ?',
-          'Active',
-          true
-        )
+      .includes(:pre_market)
+      .where(
+        'pre_markets.status = ? AND pre_markets.market_identifier = ? AND fixtures.featured = ?',
+        'Active',
+        '1',
+        true
+      )
         .limit(10)
     @featured.each do |event|
       ## convert  fixture to json
       fixture = event.as_json
 
       ## Add outcomes to the data
-      fixture['outcome_mkt1_1'] = event.market1_pre.outcome_1
-      fixture['outcome_mkt1_X'] = event.market1_pre.outcome_X
-      fixture['outcome_mkt1_2'] = event.market1_pre.outcome_2
+      fixture["market_#{event.pre_market.market_identifier}_odds"] = event.pre_market.odds
 
       ## Add market status to the fixture
-      fixture["market_mkt1_status"] = event.market1_pre.status
+      fixture["market_#{event.pre_market.market_identifier}_status"] = event.pre_market.status
 
       featured.push(fixture)
     end

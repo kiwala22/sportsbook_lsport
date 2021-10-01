@@ -5,7 +5,8 @@ class Api::V1::Fixtures::Soccer::PreMatchController < ApplicationController
         "fixtures.status= 'not_started'",
         "fixtures.sport_id='6046'",
         "fixtures.league_id NOT IN ('37364', '37386', '38301', '37814')",
-        "market1_pres.status = 'Active'",
+        "pre_markets.status = 'Active'",
+        "pre_markets.identifier = '1'",
         "fixtures.start_date >= '#{Time.now}'"
       ]
       if params[:q][:league_name].present?
@@ -15,38 +16,43 @@ class Api::V1::Fixtures::Soccer::PreMatchController < ApplicationController
         parameters << "fixtures.location='#{params[:q][:location]}'"
       end
       conditions = parameters.join(' AND ')
-      @q = Fixture.joins(:market1_pre).where(conditions).order(start_date: :asc)
+      @q = Fixture.joins(:pre_market).where(conditions).order(start_date: :asc)
     else
       @q =
-        Fixture
-          .joins(:market1_pre)
-          .where(
-            'fixtures.status = ? AND fixtures.sport_id = ? AND fixtures.league_id NOT IN (?) AND fixtures.start_date >= ? AND fixtures.start_date <= ? AND market1_pres.status = ?',
-            'not_started',
-            '6046',
-            %w[37364 37386 38301 37814],
-            (Time.now),
-            (Date.today.end_of_day + 10.months),
-            'Active'
-          )
-          .order(start_date: :asc)
+      Fixture
+        .joins(:pre_market)
+        .where(
+          'fixtures.status = ? AND fixtures.sport_id = ? AND fixtures.league_id NOT IN (?) AND fixtures.start_date >= ? AND fixtures.start_date <= ? AND pre_markets.status = ? AND pre_markets.market_identifier = ?',
+          'not_started',
+          '6046',
+          %w[37364 37386 38301 37814],
+          (Time.now),
+          (Date.today.end_of_day + 10.months),
+          'Active',
+          '1'
+        )
+        .order(start_date: :asc)
     end
 
     @prematch = []
 
     @fixtures =
-      @q.includes(:market1_pre).where('market1_pres.status = ?', 'Active')
+    @q
+    .includes(:pre_market)
+    .where(
+      'pre_markets.status = ? AND pre_markets.market_identifier = ?',
+      'Active',
+      '1'
+    )
     @fixtures.each do |event|
       ## convert  fixture to json
       fixture = event.as_json
 
       ## Add outcomes to the data
-      fixture['outcome_mkt1_1'] = event.market1_pre.outcome_1
-      fixture['outcome_mkt1_X'] = event.market1_pre.outcome_X
-      fixture['outcome_mkt1_2'] = event.market1_pre.outcome_2
+      fixture["market_#{event.pre_market.market_identifier}_odds"] = event.pre_market.odds
 
       ## Add market status to the fixture
-      fixture["market_mkt1_status"] = event.market1_pre.status
+      fixture["market_#{event.pre_market.market_identifier}_status"] = event.pre_market.status
 
       @prematch.push(fixture)
     end
@@ -54,40 +60,21 @@ class Api::V1::Fixtures::Soccer::PreMatchController < ApplicationController
   end
 
   def show
-    @fixture =
-      Fixture
-        .includes(
-          :market1_pre,
-          :market7_pre,
-          :market3_pre,
-          :market2_pre,
-          :market17_pre
-        )
-        .find(params[:id]) 
+    @fixture =Fixture.includes(:pre_market).find(params[:id])
+
+    ##Required Markets
+    markets = [1, 2, 3, 7, 17]
+
     fixture = @fixture.as_json
-
+    
     ## Add outcomes and market statuses to the fixture
-    fixture['outcome_mkt1_1'] = @fixture.market1_pre.outcome_1
-    fixture['outcome_mkt1_X'] = @fixture.market1_pre.outcome_X
-    fixture['outcome_mkt1_2'] = @fixture.market1_pre.outcome_2
-    fixture['market_mkt1_status'] = @fixture.market1_pre.status
+    markets.each do |market_identifier|
+      ## Add outcomes to the data
+      fixture["market_#{market_identifier}_odds"] = @fixture.pre_market.where(market_identifier: market_identifier).odds
 
-    fixture['outcome_mkt7_1X'] = @fixture.market7_pre.outcome_1X
-    fixture['outcome_mkt7_12'] = @fixture.market7_pre.outcome_12
-    fixture['outcome_mkt7_X2'] = @fixture.market7_pre.outcome_X2
-    fixture['market_mkt7_status'] = @fixture.market7_pre.status
-
-    fixture['outcome_mkt3_1'] = @fixture.market3_pre.outcome_1
-    fixture['outcome_mkt3_2'] = @fixture.market3_pre.outcome_2
-    fixture['market_mkt3_status'] = @fixture.market3_pre.status
-
-    fixture['outcome_mkt2_Under'] = @fixture.market2_pre.outcome_Under
-    fixture['outcome_mkt2_Over'] = @fixture.market2_pre.outcome_Over
-    fixture['market_mkt2_status'] = @fixture.market2_pre.status
-
-    fixture['outcome_mkt17_Yes'] = @fixture.market17_pre.outcome_Yes
-    fixture['outcome_mkt17_No'] = @fixture.market17_pre.outcome_No
-    fixture['market_mkt17_status'] = @fixture.market17_pre.status
+      ## Add market status to the fixture
+      fixture["market_#{market_identifier}_status"] = @fixture.pre_market.where(market_identifier: market_identifier).status
+    end
 
     render json: fixture
       

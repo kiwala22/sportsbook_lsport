@@ -14,8 +14,8 @@ class LiveMarket < ApplicationRecord
     fixture = Fixture.find(self.fixture_id).as_json
 
     # Add necessary odds and status to the fixture
-    fixture["odds"] = self.odds
-    fixture["market_mkt#{self.market_identifier}_status"] = self.status
+    fixture["market_#{self.market_identifier}_odds"] = self.odds
+    fixture["market_#{self.market_identifier}_status"] = self.status
 
     # Make the broadcasts
     CableWorker.perform_async("live_odds_#{self.market_identifier}_#{self.fixture_id}", fixture)
@@ -23,7 +23,7 @@ class LiveMarket < ApplicationRecord
     
     if saved_change_to_status?
        # Add market status to the fixture object
-       fixture["market_mkt#{self.market_identifier}_status"] = self.status
+       fixture["market_#{self.market_identifier}_status"] = self.status
 
        #Make the broadcast
        CableWorker.perform_async("markets_#{self.fixture_id}", fixture)

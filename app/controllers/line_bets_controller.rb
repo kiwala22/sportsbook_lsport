@@ -15,12 +15,13 @@ class LineBetsController < ApplicationController
 
   def create
     outcome = params[:outcome_id]
-    market = params[:market]
+    market = params[:market] ## Ex: PreMarket or LiveMarket
+    identifier = params[:identifier]
     fixture_id = params[:fixture_id].to_i
     description = params[:outcome_desc]
 
     fixture = Fixture.find(fixture_id)
-    market_entry = market.constantize.find_by(fixture_id: fixture_id)
+    market_entry = market.constantize.find_by(fixture_id: fixture_id, market_identifier: identifier)
 
     #check if the bet already exists
     @line_bet = LineBet.find_by(fixture_id: fixture.id, cart_id: @cart.id)
@@ -28,7 +29,8 @@ class LineBetsController < ApplicationController
       @line_bet.assign_attributes(
         outcome: outcome,
         market: market,
-        odd: market_entry.send("outcome_#{outcome}").to_f,
+        market_identifier: identifier,
+        odd: market_entry.send(odds["outcome_#{outcome}"]).to_f,
         description: description
       )
     else
@@ -37,7 +39,8 @@ class LineBetsController < ApplicationController
           fixture_id: fixture.id,
           outcome: outcome,
           market: market,
-          odd: market_entry.send("outcome_#{outcome}").to_f,
+          market_identifier: identifier,
+          odd: market_entry.send(odds["outcome_#{outcome}"]).to_f,
           description: description
         )
     end
@@ -61,7 +64,7 @@ class LineBetsController < ApplicationController
     @games = @cart.line_bets
     fixtures = []
     @games.each do |bet|
-      if fetch_market_status(bet.market, bet.fixture_id) == 'Active'
+      if fetch_market_status(bet.market, bet.market_identifier, bet.fixture_id) == 'Active'
         fixtures << {
           'cartId': bet.cart_id,
           'fixtureId': bet.fixture_id,
@@ -71,8 +74,8 @@ class LineBetsController < ApplicationController
           'market': bet.market,
           'description': bet.description,
           'outcome': bet.outcome,
-          'odd': fetch_current_odd(bet.market, bet.fixture_id, bet.outcome),
-          "market_mkt#{bet.market.scan(/\d/).join}_status": "Active"
+          'odd': fetch_current_odd(bet.market, bet.market_identifier, bet.fixture_id, bet.outcome),
+          "market_mkt#{bet.market_identifier,}_status": "Active"
         }
       end
     end
