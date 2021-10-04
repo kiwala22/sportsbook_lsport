@@ -22,14 +22,16 @@ class Api::V1::HomeController < ApplicationController
         .where('live_markets.status = ? AND live_markets.market_identifier = ?', 'Active', '1')
         .limit(10)
     @live_fixtures.each do |event|
+      ## Find specific market
+      market = event.live_markets.where(market_identifier: 1).first
       ## convert  fixture to json
       fixture = event.as_json
 
       ## Add outcomes to the data
-      fixture["market_#{event.live_market.market_identifier}_odds"] = event.live_market.odds
+      fixture["market_#{market.market_identifier}_odds"] = market.odds
 
       ## Add market status to the fixture
-      fixture["market_#{event.live_market.market_identifier}_status"] = event.live_market.status
+      fixture["market_#{market.market_identifier}_status"] = market.status
 
       live.push(fixture)
     end
@@ -63,14 +65,16 @@ class Api::V1::HomeController < ApplicationController
           false
         )
     @prematch_fixtures.each do |event|
+      ## Find specific market
+      market = event.pre_markets.where(market_identifier: 1).first
       ## convert  fixture to json
       fixture = event.as_json
 
       ## Add outcomes to the data
-      fixture["market_#{event.pre_market.market_identifier}_odds"] = event.pre_market.odds
+      fixture["market_#{market.market_identifier}_odds"] = market.odds
 
       ## Add market status to the fixture
-      fixture["market_#{event.pre_market.market_identifier}_status"] = event.pre_market.status
+      fixture["market_#{market.market_identifier}_status"] = market.status
 
       prematch.push(fixture)
     end
@@ -89,14 +93,17 @@ class Api::V1::HomeController < ApplicationController
       )
         .limit(10)
     @featured.each do |event|
+      ## Find specific market
+      market = event.pre_markets.where(market_identifier: 1).first
+
       ## convert  fixture to json
       fixture = event.as_json
 
       ## Add outcomes to the data
-      fixture["market_#{event.pre_market.market_identifier}_odds"] = event.pre_market.odds
+      fixture["market_#{market.market_identifier}_odds"] = market.odds
 
       ## Add market status to the fixture
-      fixture["market_#{event.pre_market.market_identifier}_status"] = event.pre_market.status
+      fixture["market_#{market.market_identifier}_status"] = market.status
 
       featured.push(fixture)
     end

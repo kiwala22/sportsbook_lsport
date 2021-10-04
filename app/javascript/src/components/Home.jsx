@@ -1,10 +1,10 @@
+import { DropboxOutlined } from "@ant-design/icons";
 import { Table } from "antd";
 import "channels";
 import cogoToast from "cogo-toast";
 import React, { useEffect, useState } from "react";
 import { BsDash } from "react-icons/bs";
 import Moment from "react-moment";
-import { DropboxOutlined } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import shortUUID from "short-uuid";
@@ -134,8 +134,7 @@ const Home = (props) => {
     },
     {
       title: "1",
-      dataIndex: "outcome_mkt1_1",
-      render: (outcome, fixture) => (
+      render: (_, fixture) => (
         <a
           className="btnn intialise_input"
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
@@ -143,14 +142,13 @@ const Home = (props) => {
             addBet(dispatcher, "1", "Market1Live", fixture.id, "1X2 FT - 1")
           }
         >
-          {oddsFormatter(outcome)}
+          {oddsFormatter(fixture.market_1_odds["outcome_1"])}
         </a>
       ),
     },
     {
       title: "X",
-      dataIndex: "outcome_mkt1_X",
-      render: (outcome, fixture) => (
+      render: (_, fixture) => (
         <a
           className="btnn intialise_input"
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
@@ -158,14 +156,13 @@ const Home = (props) => {
             addBet(dispatcher, "X", "Market1Live", fixture.id, "1X2 FT - X")
           }
         >
-          {oddsFormatter(outcome)}
+          {oddsFormatter(fixture.market_1_odds["outcome_X"])}
         </a>
       ),
     },
     {
       title: "2",
-      dataIndex: "outcome_mkt1_2",
-      render: (outcome, fixture) => (
+      render: (_, fixture) => (
         <a
           className="btnn intialise_input"
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
@@ -173,7 +170,7 @@ const Home = (props) => {
             addBet(dispatcher, "2", "Market1Live", fixture.id, "1X2 FT - 2")
           }
         >
-          {oddsFormatter(outcome)}
+          {oddsFormatter(fixture.market_1_odds["outcome_2"])}
         </a>
       ),
     },
@@ -237,8 +234,7 @@ const Home = (props) => {
     },
     {
       title: "1",
-      dataIndex: "outcome_mkt1_1",
-      render: (outcome, fixture) => (
+      render: (_, fixture) => (
         <a
           className="btnn intialise_input"
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
@@ -246,14 +242,13 @@ const Home = (props) => {
             addBet(dispatcher, "1", "Market1Pre", fixture.id, "1X2 FT - 1")
           }
         >
-          {oddsFormatter(outcome)}
+          {oddsFormatter(fixture.market_1_odds["outcome_1"])}
         </a>
       ),
     },
     {
       title: "X",
-      dataIndex: "outcome_mkt1_X",
-      render: (outcome, fixture) => (
+      render: (_, fixture) => (
         <a
           className="btnn intialise_input"
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
@@ -261,14 +256,13 @@ const Home = (props) => {
             addBet(dispatcher, "X", "Market1Pre", fixture.id, "1X2 FT - X")
           }
         >
-          {oddsFormatter(outcome)}
+          {oddsFormatter(fixture.market_1_odds["outcome_X"])}
         </a>
       ),
     },
     {
       title: "2",
-      dataIndex: "outcome_mkt1_2",
-      render: (outcome, fixture) => (
+      render: (_, fixture) => (
         <a
           className="btnn intialise_input"
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
@@ -276,7 +270,7 @@ const Home = (props) => {
             addBet(dispatcher, "2", "Market1Pre", fixture.id, "1X2 FT - 2")
           }
         >
-          {oddsFormatter(outcome)}
+          {oddsFormatter(fixture.market_1_odds["outcome_2"])}
         </a>
       ),
     },
@@ -340,8 +334,7 @@ const Home = (props) => {
     },
     {
       title: "1",
-      dataIndex: "outcome_mkt1_1",
-      render: (outcome, fixture) => (
+      render: (_, fixture) => (
         <a
           className="btnn intialise_input"
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
@@ -349,14 +342,13 @@ const Home = (props) => {
             addBet(dispatcher, "1", "Market1Pre", fixture.id, "1X2 FT - 1")
           }
         >
-          {oddsFormatter(outcome)}
+          {oddsFormatter(fixture.market_1_odds["outcome_1"])}
         </a>
       ),
     },
     {
       title: "X",
-      dataIndex: "outcome_mkt1_X",
-      render: (outcome, fixture) => (
+      render: (_, fixture) => (
         <a
           className="btnn intialise_input"
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
@@ -364,14 +356,13 @@ const Home = (props) => {
             addBet(dispatcher, "X", "Market1Pre", fixture.id, "1X2 FT - X")
           }
         >
-          {oddsFormatter(outcome)}
+          {oddsFormatter(fixture.market_1_odds["outcome_X"])}
         </a>
       ),
     },
     {
       title: "2",
-      dataIndex: "outcome_mkt1_2",
-      render: (outcome, fixture) => (
+      render: (_, fixture) => (
         <a
           className="btnn intialise_input"
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
@@ -379,7 +370,7 @@ const Home = (props) => {
             addBet(dispatcher, "2", "Market1Pre", fixture.id, "1X2 FT - 2")
           }
         >
-          {oddsFormatter(outcome)}
+          {oddsFormatter(fixture.market_1_odds["outcome_2"])}
         </a>
       ),
     },
@@ -429,7 +420,7 @@ const Home = (props) => {
                       dataSource={liveGames}
                       size="middle"
                       rowClassName={(record) =>
-                        record.market_mkt1_status == "Active"
+                        record.market_1_status == "Active"
                           ? "show-row"
                           : "hide-row"
                       }
@@ -499,7 +490,7 @@ const Home = (props) => {
                       dataSource={featuredGames}
                       size="middle"
                       rowClassName={(record) =>
-                        record.market_mkt1_status == "Active"
+                        record.market_1_status == "Active"
                           ? "show-row"
                           : "hide-row"
                       }
@@ -563,7 +554,7 @@ const Home = (props) => {
                       dataSource={prematchGames}
                       size="middle"
                       rowClassName={(record) =>
-                        record.market_mkt1_status == "Active"
+                        record.market_1_status == "Active"
                           ? "show-row"
                           : "hide-row"
                       }
