@@ -3,7 +3,7 @@ class Api::V1::Fixtures::SearchController < ApplicationController
     results = []
     @fixtures =
       Fixture
-        .joins(:pre_market)
+        .joins(:pre_markets)
         .global_search(params[:search])
         .where(
           'fixtures.status = ? 

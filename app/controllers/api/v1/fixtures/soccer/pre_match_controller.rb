@@ -6,7 +6,7 @@ class Api::V1::Fixtures::Soccer::PreMatchController < ApplicationController
         "fixtures.sport_id='6046'",
         "fixtures.league_id NOT IN ('37364', '37386', '38301', '37814')",
         "pre_markets.status = 'Active'",
-        "pre_markets.identifier = '1'",
+        "pre_markets.market_identifier = '1'",
         "fixtures.start_date >= '#{Time.now}'"
       ]
       if params[:q][:league_name].present?
@@ -16,11 +16,11 @@ class Api::V1::Fixtures::Soccer::PreMatchController < ApplicationController
         parameters << "fixtures.location='#{params[:q][:location]}'"
       end
       conditions = parameters.join(' AND ')
-      @q = Fixture.joins(:pre_market).where(conditions).order(start_date: :asc)
+      @q = Fixture.joins(:pre_markets).where(conditions).order(start_date: :asc)
     else
       @q =
       Fixture
-        .joins(:pre_market)
+        .joins(:pre_markets)
         .where(
           'fixtures.status = ? AND fixtures.sport_id = ? AND fixtures.league_id NOT IN (?) AND fixtures.start_date >= ? AND fixtures.start_date <= ? AND pre_markets.status = ? AND pre_markets.market_identifier = ?',
           'not_started',
@@ -30,20 +30,12 @@ class Api::V1::Fixtures::Soccer::PreMatchController < ApplicationController
           (Date.today.end_of_day + 10.months),
           'Active',
           '1'
-        )
-        .order(start_date: :asc)
+        ).order(start_date: :asc)
     end
 
     @prematch = []
 
-    @fixtures =
-    @q
-    .includes(:pre_market)
-    .where(
-      'pre_markets.status = ? AND pre_markets.market_identifier = ?',
-      'Active',
-      '1'
-    )
+    @fixtures = @q.includes(:pre_markets).where('pre_markets.status = ? AND pre_markets.market_identifier = ?', 'Active','1' )
     @fixtures.each do |event|
       ## convert  fixture to json
       fixture = event.as_json
@@ -60,7 +52,7 @@ class Api::V1::Fixtures::Soccer::PreMatchController < ApplicationController
   end
 
   def show
-    @fixture =Fixture.includes(:pre_market).find(params[:id])
+    @fixture =Fixture.includes(:pre_markets).find(params[:id])
 
     ##Required Markets
     markets = [1, 2, 3, 7, 17]

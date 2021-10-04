@@ -4,6 +4,7 @@ import cogoToast from "cogo-toast";
 import React, { useEffect, useState } from "react";
 import { BsDash } from "react-icons/bs";
 import Moment from "react-moment";
+import { DropboxOutlined } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import shortUUID from "short-uuid";
@@ -435,6 +436,17 @@ const Home = (props) => {
                       rowKey={() => {
                         return shortUUID.generate();
                       }}
+                      locale={{
+                        emptyText: (
+                          <>
+                            <span>
+                              <DropboxOutlined className="font-40" />
+                            </span>
+                            <br />
+                            <span className="font-18">No Fixtures Found</span>
+                          </>
+                        ),
+                      }}
                       pagination={false}
                     />
                   </div>
@@ -494,6 +506,17 @@ const Home = (props) => {
                       rowKey={() => {
                         return shortUUID.generate();
                       }}
+                      locale={{
+                        emptyText: (
+                          <>
+                            <span>
+                              <DropboxOutlined className="font-40" />
+                            </span>
+                            <br />
+                            <span className="font-18">No Fixtures Found</span>
+                          </>
+                        ),
+                      }}
                       pagination={{ pageSize: 10 }}
                     />
                   </div>
@@ -546,6 +569,17 @@ const Home = (props) => {
                       }
                       rowKey={() => {
                         return shortUUID.generate();
+                      }}
+                      locale={{
+                        emptyText: (
+                          <>
+                            <span>
+                              <DropboxOutlined className="font-40" />
+                            </span>
+                            <br />
+                            <span className="font-18">No Fixtures Found</span>
+                          </>
+                        ),
                       }}
                       pagination={{ defaultPageSize: 50 }}
                     />

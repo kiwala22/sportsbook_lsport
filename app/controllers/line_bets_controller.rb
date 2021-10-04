@@ -75,7 +75,7 @@ class LineBetsController < ApplicationController
           'description': bet.description,
           'outcome': bet.outcome,
           'odd': fetch_current_odd(bet.market, bet.market_identifier, bet.fixture_id, bet.outcome),
-          "market_mkt#{bet.market_identifier,}_status": "Active"
+          "market_mkt#{bet.market_identifier}_status": "Active"
         }
       end
     end
@@ -90,11 +90,11 @@ class LineBetsController < ApplicationController
   end
 
 
-  def close_betslip_button_display
-    games_on_slip = @cart.line_bets.count
+  # def close_betslip_button_display
+  #   games_on_slip = @cart.line_bets.count
 
-    respond_to do |format|
-      format.json { render json: { games: games_on_slip } }
-    end
-  end
+  #   respond_to do |format|
+  #     format.json { render json: { games: games_on_slip } }
+  #   end
+  # end
 end

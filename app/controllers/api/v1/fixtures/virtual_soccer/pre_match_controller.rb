@@ -3,7 +3,7 @@ class Api::V1::Fixtures::VirtualSoccer::PreMatchController < ApplicationControll
     virtual = []
     @q =
     Fixture
-      .joins(:pre_market)
+      .joins(:pre_markets)
       .where(
         'fixtures.status = ? AND fixtures.sport_id = ? AND fixtures.league_id NOT IN (?) AND fixtures.start_date >= ? AND fixtures.start_date <= ? AND pre_markets.status = ? AND pre_markets.market_identifier = ?',
         'not_started',
@@ -13,17 +13,10 @@ class Api::V1::Fixtures::VirtualSoccer::PreMatchController < ApplicationControll
         (Date.today.end_of_day + 10.months),
         'Active',
         '1'
-      )
-      .order(start_date: :asc)
+      ).order(start_date: :asc)
 
-   @fixtures =
-    @q
-    .includes(:pre_market)
-    .where(
-      'pre_markets.status = ? AND pre_markets.market_identifier = ?',
-      'Active',
-      '1'
-    )
+   @fixtures = @q.includes(:pre_markets).where('pre_markets.status = ? AND pre_markets.market_identifier = ?',
+      'Active', '1' )
 
     @fixtures.each do |event|
       ## convert  fixture to json
@@ -41,7 +34,7 @@ class Api::V1::Fixtures::VirtualSoccer::PreMatchController < ApplicationControll
   end
 
   def show
-    @fixture =Fixture.includes(:pre_market).find(params[:id])
+    @fixture =Fixture.includes(:pre_markets).find(params[:id])
 
     ##Required Markets
     markets = [1, 2, 3, 7, 17]

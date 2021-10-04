@@ -6,7 +6,7 @@ class Api::V1::HomeController < ApplicationController
     ##Live games
     @live_q =
       Fixture
-        .joins(:live_market)
+        .joins(:live_markets)
         .where(
           'fixtures.status = ? AND fixtures.sport_id = ? AND fixtures.league_id NOT IN (?) AND live_markets.market_identifier = ? AND live_markets.status = ?',
           'live',
@@ -18,8 +18,8 @@ class Api::V1::HomeController < ApplicationController
         .order(start_date: :asc)
     @live_fixtures =
       @live_q
-        .includes(:live_market)
-        .where('live_markets.status = ? AND live_markets.market_identifier', 'Active', '1')
+        .includes(:live_markets)
+        .where('live_markets.status = ? AND live_markets.market_identifier = ?', 'Active', '1')
         .limit(10)
     @live_fixtures.each do |event|
       ## convert  fixture to json
@@ -39,7 +39,7 @@ class Api::V1::HomeController < ApplicationController
     ##All Prematch
     @q =
       Fixture
-        .joins(:pre_market)
+        .joins(:pre_markets)
         .where(
           'fixtures.status = ? AND fixtures.sport_id = ? AND fixtures.league_id NOT IN (?) AND fixtures.start_date >= ? AND fixtures.start_date <= ? AND pre_markets.status = ? AND pre_markets.market_identifier = ?',
           'not_started',
@@ -55,7 +55,7 @@ class Api::V1::HomeController < ApplicationController
     ##PreMatch games
     @prematch_fixtures =
       @q
-        .includes(:pre_market)
+        .includes(:pre_markets)
         .where(
           'pre_markets.status = ? AND pre_markets.market_identifier = ? AND fixtures.featured = ?',
           'Active',
@@ -80,7 +80,7 @@ class Api::V1::HomeController < ApplicationController
     ##Featured games
     @featured =
       @q
-      .includes(:pre_market)
+      .includes(:pre_markets)
       .where(
         'pre_markets.status = ? AND pre_markets.market_identifier = ? AND fixtures.featured = ?',
         'Active',
