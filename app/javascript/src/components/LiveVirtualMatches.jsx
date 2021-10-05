@@ -3,7 +3,7 @@ import { Table } from "antd";
 import "channels";
 import cogoToast from "cogo-toast";
 import React, { useEffect, useState } from "react";
-// import { BsDash } from "react-icons/bs";
+import { BsDash } from "react-icons/bs";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import shortUUID from "short-uuid";
@@ -88,9 +88,15 @@ const LiveVirtualMatches = (props) => {
                 </span>
               </strong>
               <strong>
-                <span className="score">
-                  {fixture.home_score} - {fixture.away_score}
-                </span>
+              {Mobile.isMobile() ? (
+                  <span className="score">
+                    {fixture.home_score} - {fixture.away_score}
+                  </span>
+                ) : (
+                  <span className="score">
+                    {fixture.home_score} <BsDash /> {fixture.away_score}
+                  </span>
+                )}
               </strong>
             </a>
           </FixtureChannel>
