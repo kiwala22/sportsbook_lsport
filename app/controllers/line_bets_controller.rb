@@ -2,14 +2,7 @@ class LineBetsController < ApplicationController
   protect_from_forgery except: %i[refresh line_bet_delete create destroy]
   include CurrentCart
   include BetslipCartHelper
-  before_action :set_cart,
-                only: %i[
-                  create
-                  destroy
-                  refresh
-                  close_betslip_button_display
-                  cart_fixtures
-                ]
+  before_action :set_cart, only: %i[create destroy refresh close_betslip_button_display cart_fixtures ]
 
   # before_action :set_line_item, only: [:show, :edit, :update, :destroy]
 
@@ -30,7 +23,7 @@ class LineBetsController < ApplicationController
         outcome: outcome,
         market: market,
         market_identifier: identifier,
-        odd: market_entry.send(odds["outcome_#{outcome}"]).to_f,
+        odd: market_entry.send('odds')["outcome_#{outcome}"].to_f.round(2),
         description: description
       )
     else
@@ -40,7 +33,7 @@ class LineBetsController < ApplicationController
           outcome: outcome,
           market: market,
           market_identifier: identifier,
-          odd: market_entry.send(odds["outcome_#{outcome}"]).to_f,
+          odd: market_entry.send('odds')["outcome_#{outcome}"].to_f.round(2),
           description: description
         )
     end
@@ -72,10 +65,11 @@ class LineBetsController < ApplicationController
           'partTwo': bet.fixture.part_two_name,
           'id': bet.id,
           'market': bet.market,
+          'marketIdentifier': bet.market_identifier,
           'description': bet.description,
           'outcome': bet.outcome,
           'odd': fetch_current_odd(bet.market, bet.market_identifier, bet.fixture_id, bet.outcome),
-          "market_mkt#{bet.market_identifier}_status": "Active"
+          "market_#{bet.market_identifier}_status": "Active"
         }
       end
     end

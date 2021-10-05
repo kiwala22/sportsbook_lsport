@@ -139,7 +139,7 @@ const Home = (props) => {
           className="btnn intialise_input"
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
           onClick={() =>
-            addBet(dispatcher, "1", "Market1Live", fixture.id, "1X2 FT - 1")
+            addBet(dispatcher, "1", "LiveMarket", fixture.id, "1X2 FT - 1", '1')
           }
         >
           {oddsFormatter(fixture.market_1_odds["outcome_1"])}
@@ -153,7 +153,7 @@ const Home = (props) => {
           className="btnn intialise_input"
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
           onClick={() =>
-            addBet(dispatcher, "X", "Market1Live", fixture.id, "1X2 FT - X")
+            addBet(dispatcher, "X", "LiveMarket", fixture.id, "1X2 FT - X", '1')
           }
         >
           {oddsFormatter(fixture.market_1_odds["outcome_X"])}
@@ -167,7 +167,7 @@ const Home = (props) => {
           className="btnn intialise_input"
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
           onClick={() =>
-            addBet(dispatcher, "2", "Market1Live", fixture.id, "1X2 FT - 2")
+            addBet(dispatcher, "2", "LiveMarket", fixture.id, "1X2 FT - 2", '1')
           }
         >
           {oddsFormatter(fixture.market_1_odds["outcome_2"])}
@@ -239,7 +239,7 @@ const Home = (props) => {
           className="btnn intialise_input"
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
           onClick={() =>
-            addBet(dispatcher, "1", "Market1Pre", fixture.id, "1X2 FT - 1")
+            addBet(dispatcher, "1", "PreMarket", fixture.id, "1X2 FT - 1", '1')
           }
         >
           {oddsFormatter(fixture.market_1_odds["outcome_1"])}
@@ -253,7 +253,7 @@ const Home = (props) => {
           className="btnn intialise_input"
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
           onClick={() =>
-            addBet(dispatcher, "X", "Market1Pre", fixture.id, "1X2 FT - X")
+            addBet(dispatcher, "X", "PreMarket", fixture.id, "1X2 FT - X", '1')
           }
         >
           {oddsFormatter(fixture.market_1_odds["outcome_X"])}
@@ -267,7 +267,7 @@ const Home = (props) => {
           className="btnn intialise_input"
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
           onClick={() =>
-            addBet(dispatcher, "2", "Market1Pre", fixture.id, "1X2 FT - 2")
+            addBet(dispatcher, "2", "PreMarket", fixture.id, "1X2 FT - 2",'1')
           }
         >
           {oddsFormatter(fixture.market_1_odds["outcome_2"])}
@@ -339,7 +339,7 @@ const Home = (props) => {
           className="btnn intialise_input"
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
           onClick={() =>
-            addBet(dispatcher, "1", "Market1Pre", fixture.id, "1X2 FT - 1")
+            addBet(dispatcher, "1", "PreMarket", fixture.id, "1X2 FT - 1", '1')
           }
         >
           {oddsFormatter(fixture.market_1_odds["outcome_1"])}
@@ -353,7 +353,7 @@ const Home = (props) => {
           className="btnn intialise_input"
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
           onClick={() =>
-            addBet(dispatcher, "X", "Market1Pre", fixture.id, "1X2 FT - X")
+            addBet(dispatcher, "X", "PreMarket", fixture.id, "1X2 FT - X", '1')
           }
         >
           {oddsFormatter(fixture.market_1_odds["outcome_X"])}
@@ -367,7 +367,7 @@ const Home = (props) => {
           className="btnn intialise_input"
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
           onClick={() =>
-            addBet(dispatcher, "2", "Market1Pre", fixture.id, "1X2 FT - 2")
+            addBet(dispatcher, "2", "PreMarket", fixture.id, "1X2 FT - 2", '1')
           }
         >
           {oddsFormatter(fixture.market_1_odds["outcome_2"])}

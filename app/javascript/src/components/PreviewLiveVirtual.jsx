@@ -134,16 +134,17 @@ const PreviewLiveVirtual = (props) => {
                                 addBet(
                                   dispatcher,
                                   "1",
-                                  "Market1Live",
+                                  "LiveMarket",
                                   fixture.id,
-                                  "1X2 FT - 1"
+                                  "1X2 FT - 1",
+                                  "1"
                                 )
                               }
                             >
                               <span>Home Win</span>
                               <span className="wagger-amt">
-                                {fixture.market_mkt1_status == "Active"
-                                  ? oddsFormatter(fixture.outcome_mkt1_1)
+                                {fixture.market_1_status == "Active"
+                                  ? oddsFormatter(fixture.market_1_odds["outcome_1"])
                                   : oddsFormatter(1.0)}
                               </span>
                             </a>
@@ -155,16 +156,17 @@ const PreviewLiveVirtual = (props) => {
                                 addBet(
                                   dispatcher,
                                   "X",
-                                  "Market1Live",
+                                  "LiveMarket",
                                   fixture.id,
-                                  "1X2 FT - X"
+                                  "1X2 FT - X",
+                                  "1"
                                 )
                               }
                             >
                               <span>Draw</span>
                               <span className="wagger-amt">
-                                {fixture.market_mkt1_status == "Active"
-                                  ? oddsFormatter(fixture.outcome_mkt1_X)
+                                {fixture.market_1_status == "Active"
+                                  ? oddsFormatter(fixture.market_1_odds["outcome_X"])
                                   : oddsFormatter(1.0)}
                               </span>
                             </a>
@@ -176,16 +178,17 @@ const PreviewLiveVirtual = (props) => {
                                 addBet(
                                   dispatcher,
                                   "2",
-                                  "Market1Live",
+                                  "LiveMarket",
                                   fixture.id,
-                                  "1X2 FT - 2"
+                                  "1X2 FT - 2",
+                                  "1"
                                 )
                               }
                             >
                               <span>Away Win</span>
                               <span className="wagger-amt">
-                                {fixture.market_mkt1_status == "Active"
-                                  ? oddsFormatter(fixture.outcome_mkt1_2)
+                                {fixture.market_1_status == "Active"
+                                  ? oddsFormatter(fixture.market_1_odds["outcome_1"])
                                   : oddsFormatter(1.0)}
                               </span>
                             </a>
@@ -227,16 +230,17 @@ const PreviewLiveVirtual = (props) => {
                                 addBet(
                                   dispatcher,
                                   "1X",
-                                  "Market7Live",
+                                  "LiveMarket",
                                   fixture.id,
-                                  "Double Chance FT - HW/DR"
+                                  "Double Chance FT - HW/DR",
+                                  "7"
                                 )
                               }
                             >
                               <span>Home Win / Draw</span>
                               <span className="wagger-amt">
-                                {fixture.market_mkt7_status == "Active"
-                                  ? oddsFormatter(fixture.outcome_mkt7_1X)
+                                {fixture.market_7_status == "Active"
+                                  ? oddsFormatter(fixture.market_7_odds["outcome_1X"])
                                   : oddsFormatter(1.0)}
                               </span>
                             </a>
@@ -248,16 +252,17 @@ const PreviewLiveVirtual = (props) => {
                                 addBet(
                                   dispatcher,
                                   "12",
-                                  "Market7Live",
+                                  "LiveMarket",
                                   fixture.id,
-                                  "Double Chance FT - HW/AW"
+                                  "Double Chance FT - HW/AW",
+                                  "7"
                                 )
                               }
                             >
                               <span>Home / Away</span>
                               <span className="wagger-amt">
-                                {fixture.market_mkt7_status == "Active"
-                                  ? oddsFormatter(fixture.outcome_mkt7_12)
+                                {fixture.market_7_status == "Active"
+                                  ? oddsFormatter(fixture.market_7_odds["outcome_12"])
                                   : oddsFormatter(1.0)}
                               </span>
                             </a>
@@ -269,16 +274,17 @@ const PreviewLiveVirtual = (props) => {
                                 addBet(
                                   dispatcher,
                                   "X2",
-                                  "Market7Live",
+                                  "LiveMarket",
                                   fixture.id,
-                                  "Double Chance FT - DR/AW"
+                                  "Double Chance FT - DR/AW",
+                                  "7"
                                 )
                               }
                             >
                               <span>Draw / Away Win</span>
                               <span className="wagger-amt">
-                                {fixture.market_mkt7_status == "Active"
-                                  ? oddsFormatter(fixture.outcome_mkt7_X2)
+                                {fixture.market_7_status == "Active"
+                                  ? oddsFormatter(fixture.market_7_odds["outcome_X2"])
                                   : oddsFormatter(1.0)}
                               </span>
                             </a>
@@ -322,9 +328,10 @@ const PreviewLiveVirtual = (props) => {
                                 addBet(
                                   dispatcher,
                                   "1",
-                                  "Market3Live",
+                                  "LiveMarket",
                                   fixture.id,
-                                  "Handicap 1 FT - HW"
+                                  "Handicap 1 FT - HW",
+                                  "3"
                                 )
                               }
                             >
@@ -332,8 +339,8 @@ const PreviewLiveVirtual = (props) => {
                                 Home <BsDash />1
                               </span>
                               <span className="wagger-amt">
-                                {fixture.market_mkt3_status == "Active"
-                                  ? oddsFormatter(fixture.outcome_mkt3_1)
+                                {fixture.market_3_status == "Active"
+                                  ? oddsFormatter(fixture.market_3_odds["outcome_1"])
                                   : oddsFormatter(1.0)}
                               </span>
                             </a>
@@ -345,9 +352,10 @@ const PreviewLiveVirtual = (props) => {
                                 addBet(
                                   dispatcher,
                                   "2",
-                                  "Market3Live",
+                                  "LiveMarket",
                                   fixture.id,
-                                  "Handicap 1 FT - AW"
+                                  "Handicap 1 FT - AW",
+                                  "3"
                                 )
                               }
                             >
@@ -355,8 +363,8 @@ const PreviewLiveVirtual = (props) => {
                                 Away <BsDash />1
                               </span>
                               <span className="wagger-amt">
-                                {fixture.market_mkt3_status == "Active"
-                                  ? oddsFormatter(fixture.outcome_mkt3_2)
+                                {fixture.market_3_status == "Active"
+                                  ? oddsFormatter(fixture.market_3_odds["outcome_2"])
                                   : oddsFormatter(1.0)}
                               </span>
                             </a>
@@ -400,16 +408,17 @@ const PreviewLiveVirtual = (props) => {
                                 addBet(
                                   dispatcher,
                                   "Under",
-                                  "Market2Live",
+                                  "LiveMarket",
                                   fixture.id,
-                                  "Total 2.5 FT - Under 2.5"
+                                  "Total 2.5 FT - Under 2.5",
+                                  "2"
                                 )
                               }
                             >
                               <span>Under 2.5</span>
                               <span className="wagger-amt">
-                                {fixture.market_mkt2_status == "Active"
-                                  ? oddsFormatter(fixture.outcome_mkt2_Under)
+                                {fixture.market_2_status == "Active"
+                                  ? oddsFormatter(fixture.market_2_odds["outcome_Under"])
                                   : oddsFormatter(1.0)}
                               </span>
                             </a>
@@ -421,16 +430,17 @@ const PreviewLiveVirtual = (props) => {
                                 addBet(
                                   dispatcher,
                                   "Over",
-                                  "Market2Live",
+                                  "LiveMarket",
                                   fixture.id,
-                                  "Total 2.5 FT - Over 2.5"
+                                  "Total 2.5 FT - Over 2.5",
+                                  "2"
                                 )
                               }
                             >
                               <span>Over 2.5</span>
                               <span className="wagger-amt">
-                                {fixture.market_mkt2_status == "Active"
-                                  ? oddsFormatter(fixture.outcome_mkt2_Over)
+                                {fixture.market_2_status == "Active"
+                                  ? oddsFormatter(fixture.market_2_odds["outcome_Over"])
                                   : oddsFormatter(1.0)}
                               </span>
                             </a>
@@ -473,16 +483,17 @@ const PreviewLiveVirtual = (props) => {
                                 addBet(
                                   dispatcher,
                                   "Yes",
-                                  "Market17Live",
+                                  "LiveMarket",
                                   fixture.id,
-                                  "Both To Score FT - Yes"
+                                  "Both To Score FT - Yes",
+                                  "17"
                                 )
                               }
                             >
                               <span>Yes</span>
                               <span className="wagger-amt">
-                                {fixture.market_mkt17_status == "Active"
-                                  ? oddsFormatter(fixture.outcome_mkt17_Yes)
+                                {fixture.market_17_status == "Active"
+                                  ? oddsFormatter(fixture.market_17_odds["outcome_Yes"])
                                   : oddsFormatter(1.0)}
                               </span>
                             </a>
@@ -494,16 +505,17 @@ const PreviewLiveVirtual = (props) => {
                                 addBet(
                                   dispatcher,
                                   "No",
-                                  "Market17Live",
+                                  "LiveMarket",
                                   fixture.id,
-                                  "Both To Score FT - No"
+                                  "Both To Score FT - No",
+                                  "17"
                                 )
                               }
                             >
                               <span>No</span>
                               <span className="wagger-amt">
-                                {fixture.market_mkt17_status == "Active"
-                                  ? oddsFormatter(fixture.outcome_mkt17_No)
+                                {fixture.market_17_status == "Active"
+                                  ? oddsFormatter(fixture.market_17_odds["outcome_No"])
                                   : oddsFormatter(1.0)}
                               </span>
                             </a>

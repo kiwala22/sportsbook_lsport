@@ -18,10 +18,7 @@ class Api::V1::Fixtures::Soccer::PreMatchController < ApplicationController
       conditions = parameters.join(' AND ')
       @q = Fixture.joins(:pre_markets).where(conditions).order(start_date: :asc)
     else
-      @q =
-      Fixture
-        .joins(:pre_markets)
-        .where(
+      @q = Fixture.joins(:pre_markets).where(
           'fixtures.status = ? AND fixtures.sport_id = ? AND fixtures.league_id NOT IN (?) AND fixtures.start_date >= ? AND fixtures.start_date <= ? AND pre_markets.status = ? AND pre_markets.market_identifier = ?',
           'not_started',
           '6046',
@@ -39,12 +36,13 @@ class Api::V1::Fixtures::Soccer::PreMatchController < ApplicationController
     @fixtures.each do |event|
       ## convert  fixture to json
       fixture = event.as_json
+      market = event.pre_markets.where(market_identifier: 1).first
 
       ## Add outcomes to the data
-      fixture["market_#{event.pre_market.market_identifier}_odds"] = event.pre_market.odds
+      fixture["market_#{market.market_identifier}_odds"] = market.odds
 
       ## Add market status to the fixture
-      fixture["market_#{event.pre_market.market_identifier}_status"] = event.pre_market.status
+      fixture["market_#{market.market_identifier}_status"] = market.status
 
       @prematch.push(fixture)
     end
@@ -62,10 +60,11 @@ class Api::V1::Fixtures::Soccer::PreMatchController < ApplicationController
     ## Add outcomes and market statuses to the fixture
     markets.each do |market_identifier|
       ## Add outcomes to the data
-      fixture["market_#{market_identifier}_odds"] = @fixture.pre_market.where(market_identifier: market_identifier).odds
+      market = @fixture.pre_markets.where(market_identifier: market_identifier).first
+      fixture["market_#{market_identifier}_odds"] = market.odds
 
       ## Add market status to the fixture
-      fixture["market_#{market_identifier}_status"] = @fixture.pre_market.where(market_identifier: market_identifier).status
+      fixture["market_#{market_identifier}_status"] = market.status
     end
 
     render json: fixture

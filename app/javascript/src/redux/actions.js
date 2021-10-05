@@ -5,7 +5,8 @@ export default function addBet(
   outcomeId,
   market,
   fixtureId,
-  outcomeDesc
+  outcomeDesc,
+  marketIdentifier
 ) {
   const dispatch = dispatcher;
   let path = "/add_bet";
@@ -14,6 +15,7 @@ export default function addBet(
     fixture_id: fixtureId,
     market: market,
     outcome_desc: outcomeDesc,
+    identifier: marketIdentifier
   };
   Requests.isPostRequest(path, values)
     .then((response) => {

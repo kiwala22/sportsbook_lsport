@@ -1,18 +1,14 @@
 class Api::V1::Fixtures::Soccer::LiveMatchController < ApplicationController
   def index
     @lives = []
-    @q =
-    Fixture
-    .joins(:live_markets)
-    .where(
+    @q = Fixture.joins(:live_markets).where(
       'fixtures.status = ? AND fixtures.sport_id = ? AND fixtures.league_id NOT IN (?) AND live_markets.market_identifier = ? AND live_markets.status = ?',
       'live',
       '6046',
       %w[37364 37386 38301 37814],
       '1',
       'Active'
-    )
-    .order(start_date: :asc)
+    ).order(start_date: :asc)
 
     @fixtures =
       @q.includes(:live_markets)
@@ -20,14 +16,16 @@ class Api::V1::Fixtures::Soccer::LiveMatchController < ApplicationController
 
     @fixtures.each do |event|
       ## convert  fixture to json
+      market = event.live_markets.where(market_identifier: 1).first
+      ## convert  fixture to json
       fixture = event.as_json
 
       ## Add outcomes to the data
-      fixture["market_#{event.live_market.market_identifier}_odds"] = event.live_market.odds
+      fixture["market_#{market.market_identifier}_odds"] = market.odds
 
       ## Add market status to the fixture
-      fixture["market_#{event.live_market.market_identifier}_status"] = event.live_market.status
-      
+      fixture["market_#{market.market_identifier}_status"] = market.status
+
       @lives.push(fixture)
     end
     render json: @lives
@@ -43,11 +41,13 @@ class Api::V1::Fixtures::Soccer::LiveMatchController < ApplicationController
     
     ## Add outcomes and market statuses to the fixture
     markets.each do |market_identifier|
+      
+      market = @fixture.live_markets.where(market_identifier: market_identifier).first
       ## Add outcomes to the data
-      fixture["market_#{market_identifier}_odds"] = @fixture.live_market.where(market_identifier: market_identifier).odds
+      fixture["market_#{market_identifier}_odds"] = market.odds
 
       ## Add market status to the fixture
-      fixture["market_#{market_identifier}_status"] = @fixture.live_market.where(market_identifier: market_identifier).status
+      fixture["market_#{market_identifier}_status"] = market.status
     end
 
     render json: fixture

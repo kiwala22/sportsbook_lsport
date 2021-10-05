@@ -53,14 +53,15 @@ class BetSlipsController < ApplicationController
                 bet.market,
                 bet.market_identifier,
                 bet.fixture_id,
-                "outcome_#{bet.outcome}"
+                bet.outcome
               ).to_f
+            puts odd
             specifier = fetch_specifier(bet.market, bet.market_identifier, bet.fixture_id)
             bets_arr << {
               user_id: current_user.id,
               bet_slip_id: bet_slip.id,
               fixture_id: bet.fixture_id,
-              market_id: market_id,
+              market_identifier: market_id,
               outcome: bet.outcome,
               odds: odd,
               status: 'Active',
@@ -73,8 +74,10 @@ class BetSlipsController < ApplicationController
 
         #initiate the betslip
         odds_arr = bets_arr.map { |x| x[:odds].to_f }
+        puts odds_arr
         total_odds = odds_arr.inject(:*).round(2)
-        potential_win_amount = (stake.to_f * total_odds)
+        puts total_odds
+        potential_win_amount = (stake.to_f * total_odds.to_f)
 
         BetSlip.transaction do
           current_user.save!
@@ -148,14 +151,5 @@ class BetSlipsController < ApplicationController
   def bet_slips_params
     params.require(:bet_slip).permit(:cart_id, :stake)
   end
-
-  def fetch_market_status(market, fixture_id)
-    status = market.constantize.find_by(fixture_id: fixture_id).status
-    return status
-  end
-
-  def fetch_current_odd(market, fixture_id, outcome)
-    odd = market.constantize.find_by(fixture_id: fixture_id).send(outcome)
-    return odd
-  end
+ 
 end

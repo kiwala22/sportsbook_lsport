@@ -4,23 +4,17 @@ class Api::V1::HomeController < ApplicationController
     live = []
 
     ##Live games
-    @live_q =
-      Fixture
-        .joins(:live_markets)
-        .where(
+    @live_q =  Fixture.joins(:live_markets).where(
           'fixtures.status = ? AND fixtures.sport_id = ? AND fixtures.league_id NOT IN (?) AND live_markets.market_identifier = ? AND live_markets.status = ?',
           'live',
           '6046',
           %w[37364 37386 38301 37814],
           '1',
-          'Active'
-        )
-        .order(start_date: :asc)
-    @live_fixtures =
-      @live_q
-        .includes(:live_markets)
-        .where('live_markets.status = ? AND live_markets.market_identifier = ?', 'Active', '1')
-        .limit(10)
+          'Active' ).order(start_date: :asc)
+
+    @live_fixtures = @live_q.includes(:live_markets)
+        .where('live_markets.status = ? AND live_markets.market_identifier = ?', 'Active', '1').limit(10)
+        
     @live_fixtures.each do |event|
       ## Find specific market
       market = event.live_markets.where(market_identifier: 1).first
