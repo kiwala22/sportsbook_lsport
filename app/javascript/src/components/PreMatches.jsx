@@ -126,7 +126,6 @@ const PreMatches = (props) => {
     },
     {
       title: "X",
-      dataIndex: "outcome_mkt1_X",
       render: (_, fixture) => (
         <a
           className="btnn intialise_input"
@@ -141,7 +140,6 @@ const PreMatches = (props) => {
     },
     {
       title: "2",
-      dataIndex: "outcome_mkt1_2",
       render: (_, fixture) => (
         <a
           className="btnn intialise_input"
