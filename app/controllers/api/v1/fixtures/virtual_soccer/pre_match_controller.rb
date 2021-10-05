@@ -5,7 +5,7 @@ class Api::V1::Fixtures::VirtualSoccer::PreMatchController < ApplicationControll
     Fixture
       .joins(:pre_markets)
       .where(
-        'fixtures.status = ? AND fixtures.sport_id = ? AND fixtures.league_id NOT IN (?) AND fixtures.start_date >= ? AND fixtures.start_date <= ? AND pre_markets.status = ? AND pre_markets.market_identifier = ?',
+        'fixtures.status = ? AND fixtures.sport_id = ? AND fixtures.league_id IN (?) AND fixtures.start_date >= ? AND fixtures.start_date <= ? AND pre_markets.status = ? AND pre_markets.market_identifier = ?',
         'not_started',
         '6046',
         %w[37364 37386 38301 37814],
