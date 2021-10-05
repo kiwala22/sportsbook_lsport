@@ -2,8 +2,8 @@ import { DropboxOutlined } from "@ant-design/icons";
 import { Table } from "antd";
 import "channels";
 import cogoToast from "cogo-toast";
-import { BsDash } from "react-icons/bs";
 import React, { useEffect, useState } from "react";
+import { BsDash } from "react-icons/bs";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import shortUUID from "short-uuid";
@@ -60,28 +60,15 @@ const LiveVirtualMatches = (props) => {
             updateMatchInfo(data, games, setGames);
           }}
         >
-          {Mobile.isMobile() ? (
-            <Link
-              to={{
-                pathname: "/fixtures/virtual_soccer/live",
-                search: `id=${fixture.id}`,
-              }}
-            >
-              <strong>{fixture.part_one_name}</strong>
-              <strong>{fixture.part_two_name}</strong>
-              <strong>{fixture.league_name}</strong>
-            </Link>
-          ) : (
-            <Link
-              to={{
-                pathname: "/fixtures/virtual_soccer/live",
-                search: `id=${fixture.id}`,
-              }}
-            >
-              <strong>{fixture.part_one_name}</strong>
-              <strong>{fixture.part_two_name}</strong>
-            </Link>
-          )}
+          <Link
+            to={{
+              pathname: "/fixtures/virtual_soccer/live",
+              search: `id=${fixture.id}`,
+            }}
+          >
+            {fixture.part_one_name} <br />
+            {fixture.part_two_name}
+          </Link>
         </MarketsChannel>
       ),
     },
@@ -136,7 +123,7 @@ const LiveVirtualMatches = (props) => {
           className="btnn intialise_input"
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
           onClick={() =>
-            addBet(dispatcher, "1", "LiveMarket", fixture.id, "1X2 FT - 1", '1')
+            addBet(dispatcher, "1", "LiveMarket", fixture.id, "1X2 FT - 1", "1")
           }
         >
           {oddsFormatter(fixture.market_1_odds["outcome_1"])}
@@ -150,7 +137,7 @@ const LiveVirtualMatches = (props) => {
           className="btnn intialise_input"
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
           onClick={() =>
-            addBet(dispatcher, "X", "LiveMarket", fixture.id, "1X2 FT - X", '1')
+            addBet(dispatcher, "X", "LiveMarket", fixture.id, "1X2 FT - X", "1")
           }
         >
           {oddsFormatter(fixture.market_1_odds["outcome_X"])}
@@ -164,7 +151,7 @@ const LiveVirtualMatches = (props) => {
           className="btnn intialise_input"
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
           onClick={() =>
-            addBet(dispatcher, "2", "LiveMarket", fixture.id, "1X2 FT - 2", '1')
+            addBet(dispatcher, "2", "LiveMarket", fixture.id, "1X2 FT - 2", "1")
           }
         >
           {oddsFormatter(fixture.market_1_odds["outcome_2"])}

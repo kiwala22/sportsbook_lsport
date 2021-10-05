@@ -60,28 +60,15 @@ const LiveMatches = (props) => {
             updateMatchInfo(data, games, setGames);
           }}
         >
-          {Mobile.isMobile() ? (
-            <Link
-              to={{
-                pathname: "/fixtures/soccer/live",
-                search: `id=${fixture.id}`,
-              }}
-            >
-              <strong>{fixture.part_one_name}</strong>
-              <strong>{fixture.part_two_name}</strong>
-              <strong>{fixture.league_name}</strong>
-            </Link>
-          ) : (
-            <Link
-              to={{
-                pathname: "/fixtures/soccer/live",
-                search: `id=${fixture.id}`,
-              }}
-            >
-              <strong>{fixture.part_one_name}</strong>
-              <strong>{fixture.part_two_name}</strong>
-            </Link>
-          )}
+          <Link
+            to={{
+              pathname: "/fixtures/soccer/live",
+              search: `id=${fixture.id}`,
+            }}
+          >
+            {fixture.part_one_name} <br />
+            {fixture.part_two_name}
+          </Link>
         </MarketsChannel>
       ),
     },
@@ -101,9 +88,15 @@ const LiveMatches = (props) => {
                 </span>
               </strong>
               <strong>
-                <span className="score">
-                  {fixture.home_score} <BsDash /> {fixture.away_score}
-                </span>
+                {Mobile.isMobile() ? (
+                  <span className="score">
+                    {fixture.home_score} - {fixture.away_score}
+                  </span>
+                ) : (
+                  <span className="score">
+                    {fixture.home_score} <BsDash /> {fixture.away_score}
+                  </span>
+                )}
               </strong>
             </a>
           </FixtureChannel>
@@ -136,7 +129,7 @@ const LiveMatches = (props) => {
           className="btnn intialise_input"
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
           onClick={() =>
-            addBet(dispatcher, "1", "LiveMarket", fixture.id, "1X2 FT - 1", '1')
+            addBet(dispatcher, "1", "LiveMarket", fixture.id, "1X2 FT - 1", "1")
           }
         >
           {oddsFormatter(fixture.market_1_odds["outcome_1"])}
@@ -150,7 +143,7 @@ const LiveMatches = (props) => {
           className="btnn intialise_input"
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
           onClick={() =>
-            addBet(dispatcher, "X", "LiveMarket", fixture.id, "1X2 FT - X", '1')
+            addBet(dispatcher, "X", "LiveMarket", fixture.id, "1X2 FT - X", "1")
           }
         >
           {oddsFormatter(fixture.market_1_odds["outcome_X"])}
@@ -164,7 +157,7 @@ const LiveMatches = (props) => {
           className="btnn intialise_input"
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
           onClick={() =>
-            addBet(dispatcher, "2", "LiveMarket", fixture.id, "1X2 FT - 2", '1')
+            addBet(dispatcher, "2", "LiveMarket", fixture.id, "1X2 FT - 2", "1")
           }
         >
           {oddsFormatter(fixture.market_1_odds["outcome_2"])}
