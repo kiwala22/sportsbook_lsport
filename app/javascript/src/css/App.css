@@ -315,6 +315,8 @@ h6 {
   width: 100% !important;
   padding-left: 15px !important;
   padding-right: 15px !important;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .c-white {
