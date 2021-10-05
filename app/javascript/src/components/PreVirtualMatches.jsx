@@ -80,8 +80,8 @@ const PreVirtualMatches = (props) => {
               search: `id=${fixture.id}`,
             }}
           >
-            <strong>{fixture.part_one_name}</strong>
-            <strong>{fixture.part_two_name}</strong>
+            {fixture.part_one_name} <br />
+            {fixture.part_two_name}
           </Link>
         </MarketsChannel>
       ),

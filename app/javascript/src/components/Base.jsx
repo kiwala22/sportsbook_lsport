@@ -77,11 +77,17 @@ const Base = (props) => {
           <Navbar />
         </header>
         <section className="section-container topping">
-          <div className="content-wrapper">
+          <div className="content-wrapper mobile-signup py-0">
             <div className="container-fluid">
               <div className="row">
                 <Sidebar />
-                <div className="col-xl-7 col-lg-7 col-md-7 col-sm-12 mt-20 px-lg-1 px-xl-1 px-md-1">
+                <div
+                  className={
+                    Mobile.isMobile()
+                      ? "col-sm-12 mt-20 px-lg-1 px-xl-1 px-md-1"
+                      : "col-xl-7 col-lg-7 col-md-7 col-sm-12 mt-20 px-lg-1 px-xl-1 px-md-1"
+                  }
+                >
                   <div>
                     <Switch>
                       <Route path="/bet_slips/" component={Bets} />
@@ -178,11 +184,17 @@ const Base = (props) => {
                     </Switch>
                   </div>
                 </div>
-                <div className="col-xl-3 col-lg-3 col-md-3 hidden-sm-down mt-20 px-lg-1 px-xl-1 px-md-1">
-                  {props.location.pathname !== "/new_verify/" && <BetSlip />}
-                  <br />
-                  <SideBanner />
-                </div>
+                {!Mobile.isMobile() ? (
+                  <div className="col-xl-3 col-lg-3 col-md-3 hidden-sm-down mt-20 px-lg-1 px-xl-1 px-md-1">
+                    {props.location.pathname !== "/new_verify/" && <BetSlip />}
+                    <br />
+                    <SideBanner />
+                  </div>
+                ) : (
+                  <>
+                    {props.location.pathname !== "/new_verify/" && <BetSlip />}
+                  </>
+                )}
               </div>
             </div>
           </div>

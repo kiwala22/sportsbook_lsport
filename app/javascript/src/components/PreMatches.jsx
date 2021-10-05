@@ -23,7 +23,7 @@ const PreMatches = (props) => {
 
   useEffect(() => {
     loadPreMatchGames();
-  }, [props]);
+  }, [props.location]);
 
   useEffect(() => {
     loadPreMatchGames();
@@ -86,8 +86,8 @@ const PreMatches = (props) => {
               search: `id=${fixture.id}`,
             }}
           >
-            <strong>{fixture.part_one_name}</strong>
-            <strong>{fixture.part_two_name}</strong>
+            {fixture.part_one_name} <br />
+            {fixture.part_two_name}
           </Link>
         </MarketsChannel>
       ),
@@ -117,7 +117,7 @@ const PreMatches = (props) => {
           className="btnn intialise_input"
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
           onClick={() =>
-            addBet(dispatcher, "1", "PreMarket", fixture.id, "1X2 FT - 1", '1')
+            addBet(dispatcher, "1", "PreMarket", fixture.id, "1X2 FT - 1", "1")
           }
         >
           {oddsFormatter(fixture.market_1_odds["outcome_1"])}
@@ -131,7 +131,7 @@ const PreMatches = (props) => {
           className="btnn intialise_input"
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
           onClick={() =>
-            addBet(dispatcher, "X", "PreMarket", fixture.id, "1X2 FT - X", '1')
+            addBet(dispatcher, "X", "PreMarket", fixture.id, "1X2 FT - X", "1")
           }
         >
           {oddsFormatter(fixture.market_1_odds["outcome_X"])}
@@ -145,7 +145,7 @@ const PreMatches = (props) => {
           className="btnn intialise_input"
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
           onClick={() =>
-            addBet(dispatcher, "2", "PreMarket", fixture.id, "1X2 FT - 2", '1')
+            addBet(dispatcher, "2", "PreMarket", fixture.id, "1X2 FT - 2", "1")
           }
         >
           {oddsFormatter(fixture.market_1_odds["outcome_2"])}
