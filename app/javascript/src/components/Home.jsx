@@ -83,7 +83,7 @@ const Home = (props) => {
           channel="MarketsChannel"
           fixture={fixture.id}
           received={(data) => {
-            updateMatchInfo(data, liveGames, setLiveGames, "1", "Markets");
+            updateMatchInfo(data, liveGames, setLiveGames, "1", "Market");
           }}
         >
           <Link
@@ -200,11 +200,12 @@ const Home = (props) => {
       render: (date) => (
         <>
           <a>
-            <Moment local={true} format="HH:mm:ss">
+            <Moment format="ddd MM/DD">{date}</Moment>
+            <br />
+            <Moment local={true} format="HH:mm a">
               {date}
             </Moment>
-            <br />
-            <Moment format="MM/DD/YY">{date}</Moment>
+            
           </a>
         </>
       ),
@@ -216,7 +217,7 @@ const Home = (props) => {
           channel="MarketsChannel"
           fixture={fixture.id}
           received={(data) => {
-            updateMatchInfo(data, prematchGames, setPrematchGames);
+            updateMatchInfo(data, prematchGames, setPrematchGames, "1", "Market");
           }}
         >
           <Link
@@ -239,7 +240,7 @@ const Home = (props) => {
           fixture={fixture.id}
           market="1"
           received={(data) => {
-            updateMatchInfo(data, prematchGames, setPrematchGames);
+            updateMatchInfo(data, prematchGames, setPrematchGames, "1", "Pre");
           }}
         >
           <a>
@@ -300,11 +301,11 @@ const Home = (props) => {
       render: (date) => (
         <>
           <a>
-            <Moment local={true} format="HH:mm:ss">
+            <Moment format="ddd MM/DD">{date}</Moment>
+            <br />
+            <Moment local={true} format="HH:mm a">
               {date}
             </Moment>
-            <br />
-            <Moment format="MM/DD/YY">{date}</Moment>
           </a>
         </>
       ),
@@ -316,7 +317,7 @@ const Home = (props) => {
           channel="MarketsChannel"
           fixture={fixture.id}
           received={(data) => {
-            updateMatchInfo(data, featuredGames, setFeaturedGames);
+            updateMatchInfo(data, featuredGames, setFeaturedGames, "1","Market");
           }}
         >
           <Link
@@ -339,7 +340,7 @@ const Home = (props) => {
           fixture={fixture.id}
           market="1"
           received={(data) => {
-            updateMatchInfo(data, featuredGames, setFeaturedGames);
+            updateMatchInfo(data, featuredGames, setFeaturedGames,"1", "Pre");
           }}
         >
           <a>

@@ -43,9 +43,20 @@ const LiveMatches = (props) => {
       });
   };
 
-  const updateMatchInfo = (data, currentState, setState) => {
-    let updatedData = DataUpdate.marketOneUpdates(data, currentState);
-    let newState = Array.from(updatedData);
+  const updateMatchInfo = (data, currentState, setState, market, channel) => {
+    let fixtureIndex = currentState.findIndex((el) => data.id == el.id);
+    let fixture = currentState[fixtureIndex];
+    let updatedFixture = DataUpdate.fixtureUpdate(
+      data,
+      fixture,
+      market,
+      channel
+    );
+    currentState[fixtureIndex] = {
+      ...currentState[fixtureIndex],
+      ...updatedFixture,
+    };
+    let newState = Array.from(currentState);
     setState(newState);
   };
 
@@ -57,7 +68,7 @@ const LiveMatches = (props) => {
           channel="MarketsChannel"
           fixture={fixture.id}
           received={(data) => {
-            updateMatchInfo(data, games, setGames);
+            updateMatchInfo(data, games, setGames,"1", "Market");
           }}
         >
           <Link
@@ -79,7 +90,7 @@ const LiveMatches = (props) => {
           <FixtureChannel
             channel="FixtureChannel"
             fixture={fixture.id}
-            received={(data) => updateMatchInfo(data, games, setGames)}
+            received={(data) => updateMatchInfo(data, games, setGames,"1", "Fixture")}
           >
             <a>
               <strong>
@@ -112,7 +123,7 @@ const LiveMatches = (props) => {
           fixture={fixture.id}
           market="1"
           received={(data) => {
-            updateMatchInfo(data, games, setGames);
+            updateMatchInfo(data, games, setGames,"1","Live");
           }}
         >
           <a>

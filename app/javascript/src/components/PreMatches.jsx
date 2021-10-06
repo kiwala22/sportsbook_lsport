@@ -48,9 +48,20 @@ const PreMatches = (props) => {
       });
   };
 
-  const updateMatchInfo = (data, currentState, setState) => {
-    let updatedData = DataUpdate.marketOneUpdates(data, currentState);
-    let newState = Array.from(updatedData);
+  const updateMatchInfo = (data, currentState, setState, market, channel) => {
+    let fixtureIndex = currentState.findIndex((el) => data.id == el.id);
+    let fixture = currentState[fixtureIndex];
+    let updatedFixture = DataUpdate.fixtureUpdate(
+      data,
+      fixture,
+      market,
+      channel
+    );
+    currentState[fixtureIndex] = {
+      ...currentState[fixtureIndex],
+      ...updatedFixture,
+    };
+    let newState = Array.from(currentState);
     setState(newState);
   };
 
@@ -61,11 +72,11 @@ const PreMatches = (props) => {
       render: (date) => (
         <>
           <a>
-            <Moment local={true} format="HH:mm:ss">
+            <Moment format=" ddd MM/DD">{date}</Moment>
+            <br />
+            <Moment local={true} format="HH:mm a">
               {date}
             </Moment>
-            <br />
-            <Moment format="MM/DD/YY">{date}</Moment>
           </a>
         </>
       ),
@@ -77,7 +88,7 @@ const PreMatches = (props) => {
           channel="MarketsChannel"
           fixture={fixture.id}
           received={(data) => {
-            updateMatchInfo(data, games, setGames);
+            updateMatchInfo(data, games, setGames, "1", "Market");
           }}
         >
           <Link
@@ -100,7 +111,7 @@ const PreMatches = (props) => {
           fixture={fixture.id}
           market="1"
           received={(data) => {
-            updateMatchInfo(data, games, setGames);
+            updateMatchInfo(data, games, setGames, "1", "Pre");
           }}
         >
           <a>

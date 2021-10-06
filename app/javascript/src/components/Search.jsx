@@ -41,12 +41,22 @@ const Search = (props) => {
       });
   };
 
-  const updateMatchInfo = (data, currentState, setState) => {
-    let updatedData = DataUpdate.marketOneUpdates(data, currentState);
-    let newState = Array.from(updatedData);
+  const updateMatchInfo = (data, currentState, setState, market, channel) => {
+    let fixtureIndex = currentState.findIndex((el) => data.id == el.id);
+    let fixture = currentState[fixtureIndex];
+    let updatedFixture = DataUpdate.fixtureUpdate(
+      data,
+      fixture,
+      market,
+      channel
+    );
+    currentState[fixtureIndex] = {
+      ...currentState[fixtureIndex],
+      ...updatedFixture,
+    };
+    let newState = Array.from(currentState);
     setState(newState);
   };
-
   const columns = [
     {
       title: "Date",
@@ -54,11 +64,11 @@ const Search = (props) => {
       render: (date) => (
         <>
           <a>
-            <Moment local={true} format="HH:mm:ss">
-              {date}
-            </Moment>
+            <Moment format="ddd MM/DD">{date}</Moment>
             <br />
-            <Moment format="MM/DD/YY">{date}</Moment>
+            <Moment local={true} format="HH:mm a">
+              {date}
+            </Moment>           
           </a>
         </>
       ),
@@ -70,7 +80,7 @@ const Search = (props) => {
           channel="MarketsChannel"
           fixture={fixture.id}
           received={(data) => {
-            updateMatchInfo(data, games, setGames);
+            updateMatchInfo(data, games, setGames, "1","Market");
           }}
         >
           <Link
@@ -79,8 +89,9 @@ const Search = (props) => {
               search: `id=${fixture.id}`,
             }}
           >
-            <strong>{fixture.part_one_name}</strong>
-            <strong>{fixture.part_two_name}</strong>
+            {fixture.part_one_name}
+            <br />
+            {fixture.part_two_name}
           </Link>
         </MarketsChannel>
       ),
@@ -93,7 +104,7 @@ const Search = (props) => {
           fixture={fixture.id}
           market="1"
           received={(data) => {
-            updateMatchInfo(data, games, setGames);
+            updateMatchInfo(data, games, setGames, "1", "Pre");
           }}
         >
           <a>
