@@ -12,16 +12,15 @@ class Fixture < ApplicationRecord
     "Select One" => "",
     "not_started" => "not_started",
     "live" => "live",
-    "suspended" => "suspended",
-    "ended" => "ended",
-    "closed" => "closed",
+    "finished" => "finished",
     "cancelled" => "cancelled",
-    "delayed" => "delayed",
     "interrupted" => "interrupted",
     "postponed" => "postponed",
-    "abandoned" => "abandoned"
+    "abandoned" => "Abandoned",
+    "about to start" => "about to start",
+    "coverage lost" => "coverage lost"
+
   }
-  
   enum booking_status: {
     "Select one" => "",
     "True" => true,

@@ -5,6 +5,78 @@
     </div>
 </div>
 
+<div class="card card-default">
+   <div class="card-body">
+		 <%= search_form_for @q, url: backend_fixtures_soccer_fixtures_path, html: { method: :get } do |f| %>
+      <fieldset>
+          <div class="form-row">
+              <div class="col-sm-6 col-md-4">
+                    <%= f.label :status, "Status", class:"col-md-4 col-form-label" %>
+                    <div class="col-lg-8">
+                      <%= f.select :status_eq, Fixture.fixture_statuses.values, {}, { class: "form-control", id: "status"} %>
+                    </div>
+              </div>
+              <div class="col-sm-6 col-md-4">
+                    <%= f.label :event_id, "Event", class:"col-md-4 col-form-label" %>
+                    <div class="col-lg-8">
+                      <%= f.search_field :event_id_eq, {:class=>"form-control", id: "fixture_id"}%>
+                    </div>
+              </div>
+              <div class="col-sm-6 col-md-4">
+                    <%= f.label :booked, "Booking Status", class:"col-md-4 col-form-label" %>
+                    <div class="col-lg-8">
+                      <%= f.select :booked_eq, Fixture.booking_statuses.values, {} ,{ class: "form-control", id: "status"} %>
+                    </div>
+              </div>
+          </div>
+          <div class="form-row">
+              <div class="col-sm-6 col-md-4">
+                    <%= f.label :location, "Location", class:"col-md-4 col-form-label" %>
+                    <div class="col-lg-8">
+                      <%= f.search_field :location_i_cont, {class: "form-control", id: "category"} %>
+                    </div>
+              </div>
+              <div class="col-sm-6 col-md-4">
+                    <%= f.label :league_name, "League", class:"col-md-4 col-form-label" %>
+                    <div class="col-lg-8">
+                      <%= f.search_field :league_name_i_cont, {:class=>"form-control", id: "tournament_name"}%>
+                    </div>
+              </div>
+              <div class="col-sm-6 col-md-4">
+                    <%= f.label :booked, "Team", class:"col-md-4 col-form-label" %>
+                    <div class="col-lg-8">
+                      <%= f.search_field :part_one_name_or_part_two_name_i_cont, {:class=>"form-control", id: "team"}%>
+                    </div>
+              </div>
+          </div>
+          <div class="form-row">
+              <div class="col-sm-6 col-md-4">
+                    <%= f.label :start_date, "Kick-Off After", class:"col-md-4 col-form-label" %>
+                    <div class="col-lg-8">
+                      <%= f.search_field :start_date_gteq, {class: "form-control", id: "kick_off_after"} %>
+                    </div>
+              </div>
+              <div class="col-sm-6 col-md-4">
+                    <%= f.label :start_date, "Kick-Off Before", class:"col-md-4 col-form-label" %>
+                    <div class="col-lg-8">
+                      <%= f.search_field :start_date_lteq, {:class=>"form-control", id: "kick_off_before"}%>
+                    </div>
+              </div>
+              
+          </div>
+      </fieldset>
+
+      <!-- <div class="card-footer"> -->
+         <div class="clearfix">
+            <div class="float-right">
+               <%= f.submit 'Search', :class=>'btn btn-danger mb-2' %>
+            </div>
+         </div>
+      <!-- </div> -->
+			<% end %>
+   </div>
+</div>
+
 <div class="table-responsive container-fluid">
   <!-- table table-striped table-bordered table-hover -->
   <table class="fixture table table-striped table-bordered table-hoverlarge-12 columns large-centered">
@@ -22,9 +94,9 @@
     </thead>
     <tbody>
 		<% @fixtures.each_with_index do |fixture, i| %>
-            <% if fixture.market1_pre.status == "Active" %>
+            <% if fixture.pre_markets.where(market_identifier: '1', status: "Active")  %>
                 <tr>
-                    <td><%= local_time(fixture.scheduled_time, format: "%d/%m/%y %l:%M%P") %></td>
+                    <td><%= local_time(fixture.start_date, format: "%d/%m/%y %l:%M%P") %></td>
                     <td><%= fixture.part_one_name %>  - <%= fixture.part_two_name%> </td>
                     <td><%= fixture.league_name %></td>
                     <td><%= fixture.location %></td>
