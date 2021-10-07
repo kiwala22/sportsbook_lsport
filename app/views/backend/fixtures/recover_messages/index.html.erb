@@ -7,7 +7,7 @@
 
 <div class="card card-default">
    <div class="card-body">
-		 <%= search_form_for @q, url: backend_fixtures_soccer_fixtures_path, html: { method: :get } do |f| %>
+		 <%= search_form_for @q, url: backend_fixtures_fixture_recovery_path, html: { method: :get } do |f| %>
       <fieldset>
           <div class="form-row">
               <div class="col-sm-6 col-md-4">
@@ -94,7 +94,7 @@
     </thead>
     <tbody>
 		<% @fixtures.each_with_index do |fixture, i| %>
-            <% if fixture.pre_markets.where(market_identifier: '1', status: "Active")  %>
+            <% if fixture  %>
                 <tr>
                     <td><%= local_time(fixture.start_date, format: "%d/%m/%y %l:%M%P") %></td>
                     <td><%= fixture.part_one_name %>  - <%= fixture.part_two_name%> </td>

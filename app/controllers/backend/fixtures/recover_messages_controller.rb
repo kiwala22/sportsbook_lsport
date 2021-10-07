@@ -11,7 +11,7 @@ class Backend::Fixtures::RecoverMessagesController < ApplicationController
           '6046',
           'finished',
           (Time.now.to_datetime - 3.hours)
-        ).ransack(params[:q])
+        ).joins(:pre_markets).where("pre_markets.market_identifier =? AND pre_markets.status =?", '1',"Active").ransack(params[:q])
 
     @fixtures =@q.result.order(start_date: :asc).page params[:page]
   end
