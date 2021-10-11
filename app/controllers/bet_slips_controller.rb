@@ -55,7 +55,6 @@ class BetSlipsController < ApplicationController
                 bet.fixture_id,
                 bet.outcome
               ).to_f
-            puts odd
             specifier = fetch_specifier(bet.market, bet.market_identifier, bet.fixture_id)
             bets_arr << {
               user_id: current_user.id,
@@ -74,9 +73,7 @@ class BetSlipsController < ApplicationController
 
         #initiate the betslip
         odds_arr = bets_arr.map { |x| x[:odds].to_f }
-        puts odds_arr
         total_odds = odds_arr.inject(:*).round(2)
-        puts total_odds
         potential_win_amount = (stake.to_f * total_odds.to_f)
 
         BetSlip.transaction do

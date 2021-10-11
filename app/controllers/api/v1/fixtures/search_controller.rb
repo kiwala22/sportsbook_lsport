@@ -8,7 +8,7 @@ class Api::V1::Fixtures::SearchController < ApplicationController
       fixture = event.as_json
       market = event.pre_markets.where(market_identifier: 1).first
       ## Add outcomes to the data
-      fixture["market_#{market.market_identifier}_odds"] = market.odds
+      fixture["market_#{market.market_identifier}_odds"] = JSON.parse(market.odds)
 
       ## Add market status to the fixture
       fixture["market_#{market.market_identifier}_status"] = market.status
