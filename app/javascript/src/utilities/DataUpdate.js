@@ -39,7 +39,7 @@ export function fixtureUpdate(data, fixture, market, channel) {
   fixture = {
     ...fixture,
     ...{
-      [`market_${market}_odds`]: data[`market_${market}_odds`],
+      [`market_${market}_odds`]: JSON.parse(data[`market_${market}_odds`]),
       [`market_${market}_status`]: data[`market_${market}_status`],
     },
   };
