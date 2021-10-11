@@ -76,6 +76,7 @@ const LiveVirtualMatches = (props) => {
               pathname: "/fixtures/virtual_soccer/live",
               search: `id=${fixture.id}`,
             }}
+            className="show-more"
           >
             {fixture.part_one_name} <br />
             {fixture.part_two_name}
@@ -90,7 +91,9 @@ const LiveVirtualMatches = (props) => {
           <FixtureChannel
             channel="FixtureChannel"
             fixture={fixture.id}
-            received={(data) => updateMatchInfo(data, games, setGames, "1", "Fixture")}
+            received={(data) =>
+              updateMatchInfo(data, games, setGames, "1", "Fixture")
+            }
           >
             <a>
               <strong>
@@ -99,7 +102,7 @@ const LiveVirtualMatches = (props) => {
                 </span>
               </strong>
               <strong>
-              {Mobile.isMobile() ? (
+                {Mobile.isMobile() ? (
                   <span className="score">
                     {fixture.home_score} - {fixture.away_score}
                   </span>

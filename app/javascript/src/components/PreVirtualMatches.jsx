@@ -90,6 +90,7 @@ const PreVirtualMatches = (props) => {
               pathname: "/fixtures/virtual_soccer/pre",
               search: `id=${fixture.id}`,
             }}
+            className="show-more"
           >
             {fixture.part_one_name} <br />
             {fixture.part_two_name}

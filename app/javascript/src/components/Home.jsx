@@ -91,6 +91,7 @@ const Home = (props) => {
               pathname: "/fixtures/soccer/live",
               search: `id=${fixture.id}`,
             }}
+            className="show-more"
           >
             {fixture.part_one_name} <br />
             {fixture.part_two_name}
@@ -230,6 +231,7 @@ const Home = (props) => {
               pathname: "/fixtures/soccer/pre",
               search: `id=${fixture.id}`,
             }}
+            className="show-more"
           >
             {fixture.part_one_name} <br />
             {fixture.part_two_name}
@@ -336,6 +338,7 @@ const Home = (props) => {
               pathname: "/fixtures/soccer/pre",
               search: `id=${fixture.id}`,
             }}
+            className="show-more"
           >
             {fixture.part_one_name} <br />
             {fixture.part_two_name}
@@ -603,7 +606,7 @@ const Home = (props) => {
                       }}
                       pagination={{ defaultPageSize: 50 }}
                     />
-                    <div className="text-center mb-2 custom-anchor">
+                    <div className="text-center mb-2 mt-2 custom-anchor">
                       <Link
                         className="match-time show-more"
                         to={"/fixtures/soccer/pres/"}

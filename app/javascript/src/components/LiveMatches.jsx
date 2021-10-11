@@ -68,7 +68,7 @@ const LiveMatches = (props) => {
           channel="MarketsChannel"
           fixture={fixture.id}
           received={(data) => {
-            updateMatchInfo(data, games, setGames,"1", "Market");
+            updateMatchInfo(data, games, setGames, "1", "Market");
           }}
         >
           <Link
@@ -76,6 +76,7 @@ const LiveMatches = (props) => {
               pathname: "/fixtures/soccer/live",
               search: `id=${fixture.id}`,
             }}
+            className="show-more"
           >
             {fixture.part_one_name} <br />
             {fixture.part_two_name}
@@ -90,7 +91,9 @@ const LiveMatches = (props) => {
           <FixtureChannel
             channel="FixtureChannel"
             fixture={fixture.id}
-            received={(data) => updateMatchInfo(data, games, setGames,"1", "Fixture")}
+            received={(data) =>
+              updateMatchInfo(data, games, setGames, "1", "Fixture")
+            }
           >
             <a>
               <strong>
@@ -123,7 +126,7 @@ const LiveMatches = (props) => {
           fixture={fixture.id}
           market="1"
           received={(data) => {
-            updateMatchInfo(data, games, setGames,"1","Live");
+            updateMatchInfo(data, games, setGames, "1", "Live");
           }}
         >
           <a>
