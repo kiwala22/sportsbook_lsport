@@ -14,7 +14,7 @@ class LiveMarket < ApplicationRecord
     fixture = Fixture.find(self.fixture_id).as_json
 
     # Add necessary odds and status to the fixture
-    fixture["market_#{self.market_identifier}_odds"] = self.odds
+    fixture["market_#{self.market_identifier}_odds"] = JSON.parse(self.odds)
     fixture["market_#{self.market_identifier}_status"] = self.status
 
     # Make the broadcasts
