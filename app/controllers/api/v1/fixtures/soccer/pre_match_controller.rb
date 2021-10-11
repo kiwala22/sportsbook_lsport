@@ -61,10 +61,13 @@ class Api::V1::Fixtures::Soccer::PreMatchController < ApplicationController
     markets.each do |market_identifier|
       ## Add outcomes to the data
       market = @fixture.pre_markets.where(market_identifier: market_identifier).first
-      fixture["market_#{market_identifier}_odds"] = JSON.parse(market.odds)
+      if market
+        ## Add outcomes to the data
+        fixture["market_#{market_identifier}_odds"] = JSON.parse(market.odds)
 
-      ## Add market status to the fixture
-      fixture["market_#{market_identifier}_status"] = market.status
+        ## Add market status to the fixture
+        fixture["market_#{market_identifier}_status"] = market.status
+      end
     end
 
     render json: fixture
