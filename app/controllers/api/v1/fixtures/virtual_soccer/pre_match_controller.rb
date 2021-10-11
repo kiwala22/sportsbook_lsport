@@ -24,7 +24,7 @@ class Api::V1::Fixtures::VirtualSoccer::PreMatchController < ApplicationControll
       market = event.pre_markets.where(market_identifier: 1).first
 
       ## Add outcomes to the data
-      fixture["market_#{market.market_identifier}_odds"] = JSON.parse(market.odds)
+      fixture["market_#{market.market_identifier}_odds"] = market.odds.as_json
 
       ## Add market status to the fixture
       fixture["market_#{market.market_identifier}_status"] = market.status
@@ -48,7 +48,7 @@ class Api::V1::Fixtures::VirtualSoccer::PreMatchController < ApplicationControll
       market = @fixture.pre_markets.where(market_identifier: market_identifier).first
       if market
         ## Add outcomes to the data
-        fixture["market_#{market_identifier}_odds"] = JSON.parse(market.odds)
+        fixture["market_#{market_identifier}_odds"] = market.odds.as_json
 
         ## Add market status to the fixture
         fixture["market_#{market_identifier}_status"] = market.status
