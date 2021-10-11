@@ -47,6 +47,7 @@ const Home = (props) => {
           setLiveGames(data.live);
           setPrematchGames(data.prematch);
           setFeaturedGames(data.featured);
+          console.log(data.prematch);
         }
         setPageLoading(false);
       })
