@@ -102,11 +102,11 @@ class OddsChangeWorker
                         if provider.has_key?("Bets") && provider["Bets"].is_a?(Array)
                             provider["Bets"].each do |bet|
                                if bet["BaseLine"] == "2.5"
-                                    outcomes["outcome_#{bet["Name"]}"] = bet["Price"]
+                                    outcomes.store("outcome_#{bet["Name"]}", bet["Price"])
                                     update_attr["status"] = market_status[bet["Status"]]
                                end
                             end
-                            update_attr["odds"] = outcomes.to_json
+                            update_attr["odds"] = outcomes
                         end
                     end
                 end
@@ -117,11 +117,11 @@ class OddsChangeWorker
                         if provider.has_key?("Bets") && provider["Bets"].is_a?(Array)
                             provider["Bets"].each do |bet|
                                 if bet["BaseLine"] == "-1.0 (0-0)"
-                                    outcomes["outcome_#{bet["Name"]}"] = bet["Price"]
+                                    outcomes.store("outcome_#{bet["Name"]}", bet["Price"])
                                     update_attr["status"] = market_status[bet["Status"]]
                                 end
                             end
-                            update_attr["odds"] = outcomes.to_json
+                            update_attr["odds"] = outcomes
                         end
                     end
                 end
@@ -130,16 +130,18 @@ class OddsChangeWorker
                     market["Providers"].each do |provider|
                         if provider.has_key?("Bets") && provider["Bets"].is_a?(Array)
                             provider["Bets"].each do |bet|
-                                outcomes["outcome_#{bet["Name"]}"] = bet["Price"]
+                                outcomes.store("outcome_#{bet["Name"]}", bet["Price"])
                                 update_attr["status"] = market_status[bet["Status"]]
                             end
-                            update_attr["odds"] = outcomes.to_json
+                            update_attr["odds"] = outcomes
                         end
                     end
                 end
             end
 
             if mkt_entry
+                prevOdds = mkt_entry.odds
+                update_attr["odds"] = prevOdds.merge!(outcomes)
                 mkt_entry.assign_attributes(update_attr)
                 mkt_entry.save
             else

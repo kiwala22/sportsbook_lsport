@@ -111,12 +111,12 @@ class BetSettlementWorker
                         if provider.has_key?("Bets")
                             provider["Bets"].each do |bet|
                                 if bet["BaseLine"] == "2.5"
-                                    outcome_attr[bet["Name"]] = settlement_status[bet["Settlement"]]
+                                    outcome_attr.store(bet["Name"],settlement_status[bet["Settlement"]])
                                 end
                             end
                         end
                     end
-                    update_attr["results"] = outcome_attr.to_json
+                    update_attr["results"] = outcome_attr
                 end
 
             elsif  [3, 52, 53, 63].include?(market["Id"])# == 3 || market["Id"] == 53)
@@ -125,23 +125,23 @@ class BetSettlementWorker
                         if provider.has_key?("Bets")
                             provider["Bets"].each do |bet|
                                 if bet["BaseLine"] == "-1.0 (0-0)"
-                                    outcome_attr[bet["Name"]] = settlement_status[bet["Settlement"]]
+                                    outcome_attr.store(bet["Name"],settlement_status[bet["Settlement"]])
                                 end
                             end
                         end
                     end
-                    update_attr["results"] = outcome_attr.to_json
+                    update_attr["results"] = outcome_attr
                 end
             else
                 if market.has_key?("Providers")
                     market["Providers"].each do |provider|
                         if provider.has_key?("Bets")
                             provider["Bets"].each do |bet|
-                                outcome_attr[bet["Name"]] = settlement_status[bet["Settlement"]]
+                                outcome_attr.store(bet["Name"],settlement_status[bet["Settlement"]])
                             end
                         end
                     end
-                    update_attr["results"] = outcome_attr.to_json
+                    update_attr["results"] = outcome_attr
                 end
             end
 

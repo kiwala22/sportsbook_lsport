@@ -233,7 +233,8 @@ module Lsports
 
         if response == "200"
             ## Create Fixture markets
-            markets = JSON.parse(res.body)
+            markets = JSON.parse(res.body).as_json
+            
             markets["Body"].each do |market|
                 if market.has_key?("FixtureId")
                     event_id = market["FixtureId"]
@@ -257,20 +258,20 @@ module Lsports
                                             provider["Bets"].each do |bet|
                                                 if [2, 28, 77].include?(event["Id"])
                                                     if bet["BaseLine"] == "2.5"
-                                                        outcomes["outcome_#{bet["Name"]}"] = bet["Price"]
+                                                        outcomes.store("outcome_#{bet["Name"]}", bet["Price"])
                                                         attrs["status"] = market_status[bet["Status"]]
                                                     end
                                                 elsif [3, 52, 53, 63].include?(event["Id"])
                                                     if bet["BaseLine"] == "-1.0 (0-0)"
-                                                        outcomes["outcome_#{bet["Name"]}"] = bet["Price"]
+                                                        outcomes.store("outcome_#{bet["Name"]}", bet["Price"])
                                                         attrs["status"] = market_status[bet["Status"]]
                                                     end
                                                 else
-                                                    outcomes["outcome_#{bet["Name"]}"] = bet["Price"]
+                                                    outcomes.store("outcome_#{bet["Name"]}", bet["Price"])
                                                     attrs["status"] = market_status[bet["Status"]]
                                                 end
                                             end
-                                            attrs["odds"] = outcomes.to_json
+                                            attrs["odds"] = outcomes
                                         end
                                     end
                                 end
