@@ -68,7 +68,13 @@ const LiveMatches = (props) => {
           channel="MarketsChannel"
           fixture={fixture.id}
           received={(data) => {
-            updateMatchInfo(data, games, setGames, "1", "Market");
+            updateMatchInfo(
+              data,
+              games,
+              setGames,
+              data.market_identifier,
+              "Market"
+            );
           }}
         >
           <Link

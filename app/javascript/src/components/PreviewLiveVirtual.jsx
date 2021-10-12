@@ -92,7 +92,7 @@ const PreviewLiveVirtual = (props) => {
                           data,
                           fixture,
                           setFixture,
-                          `${data.market}`,
+                          data.market_identifier,
                           "Market"
                         );
                       }}
@@ -144,7 +144,9 @@ const PreviewLiveVirtual = (props) => {
                               <span>Home Win</span>
                               <span className="wagger-amt">
                                 {fixture.market_1_status == "Active"
-                                  ? oddsFormatter(fixture.market_1_odds["outcome_1"])
+                                  ? oddsFormatter(
+                                      fixture.market_1_odds["outcome_1"]
+                                    )
                                   : oddsFormatter(1.0)}
                               </span>
                             </a>
@@ -166,7 +168,9 @@ const PreviewLiveVirtual = (props) => {
                               <span>Draw</span>
                               <span className="wagger-amt">
                                 {fixture.market_1_status == "Active"
-                                  ? oddsFormatter(fixture.market_1_odds["outcome_X"])
+                                  ? oddsFormatter(
+                                      fixture.market_1_odds["outcome_X"]
+                                    )
                                   : oddsFormatter(1.0)}
                               </span>
                             </a>
@@ -188,7 +192,9 @@ const PreviewLiveVirtual = (props) => {
                               <span>Away Win</span>
                               <span className="wagger-amt">
                                 {fixture.market_1_status == "Active"
-                                  ? oddsFormatter(fixture.market_1_odds["outcome_1"])
+                                  ? oddsFormatter(
+                                      fixture.market_1_odds["outcome_1"]
+                                    )
                                   : oddsFormatter(1.0)}
                               </span>
                             </a>
@@ -240,7 +246,9 @@ const PreviewLiveVirtual = (props) => {
                               <span>Home Win / Draw</span>
                               <span className="wagger-amt">
                                 {fixture.market_7_status == "Active"
-                                  ? oddsFormatter(fixture.market_7_odds["outcome_1X"])
+                                  ? oddsFormatter(
+                                      fixture.market_7_odds["outcome_1X"]
+                                    )
                                   : oddsFormatter(1.0)}
                               </span>
                             </a>
@@ -262,7 +270,9 @@ const PreviewLiveVirtual = (props) => {
                               <span>Home / Away</span>
                               <span className="wagger-amt">
                                 {fixture.market_7_status == "Active"
-                                  ? oddsFormatter(fixture.market_7_odds["outcome_12"])
+                                  ? oddsFormatter(
+                                      fixture.market_7_odds["outcome_12"]
+                                    )
                                   : oddsFormatter(1.0)}
                               </span>
                             </a>
@@ -284,7 +294,9 @@ const PreviewLiveVirtual = (props) => {
                               <span>Draw / Away Win</span>
                               <span className="wagger-amt">
                                 {fixture.market_7_status == "Active"
-                                  ? oddsFormatter(fixture.market_7_odds["outcome_X2"])
+                                  ? oddsFormatter(
+                                      fixture.market_7_odds["outcome_X2"]
+                                    )
                                   : oddsFormatter(1.0)}
                               </span>
                             </a>
@@ -340,7 +352,9 @@ const PreviewLiveVirtual = (props) => {
                               </span>
                               <span className="wagger-amt">
                                 {fixture.market_3_status == "Active"
-                                  ? oddsFormatter(fixture.market_3_odds["outcome_1"])
+                                  ? oddsFormatter(
+                                      fixture.market_3_odds["outcome_1"]
+                                    )
                                   : oddsFormatter(1.0)}
                               </span>
                             </a>
@@ -364,7 +378,9 @@ const PreviewLiveVirtual = (props) => {
                               </span>
                               <span className="wagger-amt">
                                 {fixture.market_3_status == "Active"
-                                  ? oddsFormatter(fixture.market_3_odds["outcome_2"])
+                                  ? oddsFormatter(
+                                      fixture.market_3_odds["outcome_2"]
+                                    )
                                   : oddsFormatter(1.0)}
                               </span>
                             </a>
@@ -418,7 +434,9 @@ const PreviewLiveVirtual = (props) => {
                               <span>Under 2.5</span>
                               <span className="wagger-amt">
                                 {fixture.market_2_status == "Active"
-                                  ? oddsFormatter(fixture.market_2_odds["outcome_Under"])
+                                  ? oddsFormatter(
+                                      fixture.market_2_odds["outcome_Under"]
+                                    )
                                   : oddsFormatter(1.0)}
                               </span>
                             </a>
@@ -440,7 +458,9 @@ const PreviewLiveVirtual = (props) => {
                               <span>Over 2.5</span>
                               <span className="wagger-amt">
                                 {fixture.market_2_status == "Active"
-                                  ? oddsFormatter(fixture.market_2_odds["outcome_Over"])
+                                  ? oddsFormatter(
+                                      fixture.market_2_odds["outcome_Over"]
+                                    )
                                   : oddsFormatter(1.0)}
                               </span>
                             </a>
@@ -493,7 +513,9 @@ const PreviewLiveVirtual = (props) => {
                               <span>Yes</span>
                               <span className="wagger-amt">
                                 {fixture.market_17_status == "Active"
-                                  ? oddsFormatter(fixture.market_17_odds["outcome_Yes"])
+                                  ? oddsFormatter(
+                                      fixture.market_17_odds["outcome_Yes"]
+                                    )
                                   : oddsFormatter(1.0)}
                               </span>
                             </a>
@@ -515,7 +537,9 @@ const PreviewLiveVirtual = (props) => {
                               <span>No</span>
                               <span className="wagger-amt">
                                 {fixture.market_17_status == "Active"
-                                  ? oddsFormatter(fixture.market_17_odds["outcome_No"])
+                                  ? oddsFormatter(
+                                      fixture.market_17_odds["outcome_No"]
+                                    )
                                   : oddsFormatter(1.0)}
                               </span>
                             </a>

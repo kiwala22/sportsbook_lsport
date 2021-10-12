@@ -1,8 +1,4 @@
 class PreMarket < ApplicationRecord
-
-  require 'logger'
-
-  @@logger ||= Logger.new("#{Rails.root}/log/market_odds.log")
   
   belongs_to :fixture
 
@@ -20,7 +16,6 @@ class PreMarket < ApplicationRecord
 
       # Add necessary odds and status to the fixture
       fixture["market_#{self.market_identifier}_odds"] = self.odds
-      @@logger.info("#{self.market_identifier} : #{self.odds}");
       fixture["market_#{self.market_identifier}_status"] = self.status
 
       # Make the broadcasts
@@ -30,6 +25,9 @@ class PreMarket < ApplicationRecord
       if saved_change_to_status?
          # Add market status to the fixture object
          fixture["market_#{self.market_identifier}_status"] = self.status
+
+         # Specify which market
+         fixture["market_identifier"] = self.market_identifier
 
          #Make the broadcast
          CableWorker.perform_async("markets_#{self.fixture_id}", fixture)

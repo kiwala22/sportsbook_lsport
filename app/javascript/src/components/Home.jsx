@@ -83,7 +83,13 @@ const Home = (props) => {
           channel="MarketsChannel"
           fixture={fixture.id}
           received={(data) => {
-            updateMatchInfo(data, liveGames, setLiveGames, "1", "Market");
+            updateMatchInfo(
+              data,
+              liveGames,
+              setLiveGames,
+              data.market_identifier,
+              "Market"
+            );
           }}
         >
           <Link
@@ -222,7 +228,7 @@ const Home = (props) => {
               data,
               prematchGames,
               setPrematchGames,
-              "1",
+              data.market_identifier,
               "Market"
             );
           }}
@@ -329,7 +335,7 @@ const Home = (props) => {
               data,
               featuredGames,
               setFeaturedGames,
-              "1",
+              data.market_identifier,
               "Market"
             );
           }}
