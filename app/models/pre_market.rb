@@ -1,4 +1,9 @@
 class PreMarket < ApplicationRecord
+
+  require 'logger'
+
+  @@logger ||= Logger.new("#{Rails.root}/log/market_odds.log")
+  
   belongs_to :fixture
 
   validates :market_identifier, presence: true
@@ -15,6 +20,7 @@ class PreMarket < ApplicationRecord
 
       # Add necessary odds and status to the fixture
       fixture["market_#{self.market_identifier}_odds"] = self.odds
+      @@logger.info("#{self.market_identifier} : #{self.odds}");
       fixture["market_#{self.market_identifier}_status"] = self.status
 
       # Make the broadcasts
