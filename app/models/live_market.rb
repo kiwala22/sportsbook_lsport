@@ -25,6 +25,9 @@ class LiveMarket < ApplicationRecord
        # Add market status to the fixture object
        fixture["market_#{self.market_identifier}_status"] = self.status
 
+       # Specify which market
+       fixture["market_identifier"] = self.market_identifier
+
        #Make the broadcast
        CableWorker.perform_async("markets_#{self.fixture_id}", fixture)
     end
