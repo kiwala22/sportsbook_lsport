@@ -140,6 +140,8 @@ class OddsChangeWorker
             end
 
             if mkt_entry
+                prevOdds = mkt_entry.odds
+                update_attr["odds"] = prevOdds.merge!(outcomes)
                 mkt_entry.assign_attributes(update_attr)
                 mkt_entry.save
             else

@@ -22,7 +22,7 @@ class Api::V1::HomeController < ApplicationController
       fixture = event.as_json
 
       ## Add outcomes to the data
-      fixture["market_#{market.market_identifier}_odds"] = market.odds.as_json
+      fixture["market_#{market.market_identifier}_odds"] = market.odds
 
       ## Add market status to the fixture
       fixture["market_#{market.market_identifier}_status"] = market.status
@@ -65,7 +65,7 @@ class Api::V1::HomeController < ApplicationController
       fixture = event.as_json
 
       ## Add outcomes to the data
-      fixture["market_#{market.market_identifier}_odds"] = JSON.parse(market.odds)
+      fixture["market_#{market.market_identifier}_odds"] = market.odds
 
       ## Add market status to the fixture
       fixture["market_#{market.market_identifier}_status"] = market.status
@@ -94,7 +94,7 @@ class Api::V1::HomeController < ApplicationController
       fixture = event.as_json
 
       ## Add outcomes to the data
-      fixture["market_#{market.market_identifier}_odds"] = market.odds.as_json
+      fixture["market_#{market.market_identifier}_odds"] = market.odds
 
       ## Add market status to the fixture
       fixture["market_#{market.market_identifier}_status"] = market.status
