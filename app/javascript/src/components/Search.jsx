@@ -64,7 +64,7 @@ const Search = (props) => {
       render: (date) => (
         <>
           <a>
-            <Moment local={true} format="HH:mm a">
+            <Moment local={true} format="HH:mm">
               {date}
             </Moment>
             <br />  
