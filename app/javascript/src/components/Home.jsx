@@ -39,7 +39,6 @@ const Home = (props) => {
     Requests.isGetRequest(path, values)
       .then((response) => {
         var data = response.data;
-        console.log(data.prematch);
         if (
           data.live instanceof Array &&
           data.prematch instanceof Array &&
