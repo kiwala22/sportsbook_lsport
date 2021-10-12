@@ -10,7 +10,7 @@ class Api::V1::Fixtures::SearchController < ApplicationController
       
       if market
         ## Add outcomes to the data
-        fixture["market_#{market.market_identifier}_odds"] = market.odds.as_json
+        fixture["market_#{market.market_identifier}_odds"] = market.odds
 
         ## Add market status to the fixture
         fixture["market_#{market.market_identifier}_status"] = market.status
