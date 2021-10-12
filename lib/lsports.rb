@@ -13,7 +13,7 @@ module Lsports
     # Credentials for distributors
     @@username = "acaciabengo@skylinesms.com"
     @@password = "tyb54634"
-    @@prematch_guid = "20bc3235-eb98-422c-9c32-beacc9c9303a" 41.210.147.236
+    @@prematch_guid = "20bc3235-eb98-422c-9c32-beacc9c9303a"
 
     # Sports
     @@sports_id = "6046"
