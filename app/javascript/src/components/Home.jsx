@@ -39,6 +39,7 @@ const Home = (props) => {
     Requests.isGetRequest(path, values)
       .then((response) => {
         var data = response.data;
+        console.log(data.prematch);
         if (
           data.live instanceof Array &&
           data.prematch instanceof Array &&
@@ -47,7 +48,6 @@ const Home = (props) => {
           setLiveGames(data.live);
           setPrematchGames(data.prematch);
           setFeaturedGames(data.featured);
-          console.log(data.prematch);
         }
         setPageLoading(false);
       })
