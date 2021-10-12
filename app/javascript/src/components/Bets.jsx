@@ -84,7 +84,7 @@ const Bets = () => {
       title: "Bet Time",
       dataIndex: "created_at",
       render: (time) => (
-        <Moment local={true} format="DD/MM/YY HH:mm a">
+        <Moment local={true} format=" HH:mm a DD/MMM">
           {time}
         </Moment>
       ),

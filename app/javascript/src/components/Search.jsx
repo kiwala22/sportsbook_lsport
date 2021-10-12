@@ -64,11 +64,11 @@ const Search = (props) => {
       render: (date) => (
         <>
           <a>
-            <Moment format="ddd MM/DD">{date}</Moment>
-            <br />
             <Moment local={true} format="HH:mm a">
               {date}
-            </Moment>           
+            </Moment>
+            <br />  
+            <Moment format="MMM/DD">{date}</Moment>           
           </a>
         </>
       ),

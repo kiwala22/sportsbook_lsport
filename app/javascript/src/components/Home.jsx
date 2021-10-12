@@ -201,11 +201,12 @@ const Home = (props) => {
       render: (date) => (
         <>
           <a>
-            <Moment format="ddd MM/DD">{date}</Moment>
-            <br />
             <Moment local={true} format="HH:mm a">
               {date}
             </Moment>
+            <br />
+            <Moment format="MMM/DD">{date}</Moment>
+            
           </a>
         </>
       ),
@@ -308,11 +309,11 @@ const Home = (props) => {
       render: (date) => (
         <>
           <a>
-            <Moment format="ddd MM/DD">{date}</Moment>
-            <br />
             <Moment local={true} format="HH:mm a">
               {date}
             </Moment>
+            <br />
+            <Moment format="MMM/DD">{date}</Moment>
           </a>
         </>
       ),

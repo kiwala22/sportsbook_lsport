@@ -67,7 +67,7 @@ const BetReceipt = (props) => {
                   <strong>Start Time:</strong>
                 </span>
                 <span className="float-right">
-                  <Moment local={true} format="ddd DD/MM HH:mm a">
+                  <Moment local={true} format="DD/MMM HH:mm a">
                     {bet.fixture.start_date}
                   </Moment>
                 </span>
