@@ -68,7 +68,7 @@ const Search = (props) => {
               {date}
             </Moment>
             <br />  
-            <Moment format="MMM/DD">{date}</Moment>           
+            <Moment format="DD-MMM">{date}</Moment>           
           </a>
         </>
       ),
