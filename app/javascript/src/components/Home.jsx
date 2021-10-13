@@ -82,6 +82,7 @@ const Home = (props) => {
         <MarketsChannel
           channel="MarketsChannel"
           fixture={fixture.id}
+          market="1"
           received={(data) => {
             updateMatchInfo(
               data,
@@ -212,7 +213,6 @@ const Home = (props) => {
             </Moment>
             <br />
             <Moment format="DD-MMM">{date}</Moment>
-            
           </a>
         </>
       ),
@@ -223,6 +223,7 @@ const Home = (props) => {
         <MarketsChannel
           channel="MarketsChannel"
           fixture={fixture.id}
+          market="1"
           received={(data) => {
             updateMatchInfo(
               data,
@@ -330,6 +331,7 @@ const Home = (props) => {
         <MarketsChannel
           channel="MarketsChannel"
           fixture={fixture.id}
+          market="1"
           received={(data) => {
             updateMatchInfo(
               data,
