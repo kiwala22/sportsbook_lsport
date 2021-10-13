@@ -211,7 +211,7 @@ const Home = (props) => {
               {date}
             </Moment>
             <br />
-            <Moment format="MMM/DD">{date}</Moment>
+            <Moment format="DD-MMM">{date}</Moment>
             
           </a>
         </>
@@ -319,7 +319,7 @@ const Home = (props) => {
               {date}
             </Moment>
             <br />
-            <Moment format="MMM/DD">{date}</Moment>
+            <Moment format="DD-MMM">{date}</Moment>
           </a>
         </>
       ),
