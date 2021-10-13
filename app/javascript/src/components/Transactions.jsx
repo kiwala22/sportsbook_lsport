@@ -55,23 +55,19 @@ const Transactions = () => {
       dataIndex: "amount",
       render: (amount, transaction) =>
         transaction.category === "Deposit" ? (
-          <span className="deposit">
-            <BsPlus className="Bs-transaction-icon" />
+          <span className="deposit">            
             {currencyFormatter(amount)}
           </span>
         ) : transaction.category === "Withdraw" ? (
-          <span className="withdraw">
-            <BsDash className="Bs-transaction-icon" />
+          <span className="withdraw">            
             {currencyFormatter(amount)}
           </span>
         ) : transaction.category === "Bet Stake" ? (
-          <span className="withdraw">
-            <BsDash className="Bs-transaction-icon" />
+          <span className="withdraw">            
             {currencyFormatter(amount)}
           </span>
         ) : (
-          <span className="deposit">
-            <BsPlus className="Bs-transaction-icon" />
+          <span className="deposit">            
             {currencyFormatter(amount)}
           </span>
         ),
