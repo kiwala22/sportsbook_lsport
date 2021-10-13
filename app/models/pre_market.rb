@@ -14,13 +14,15 @@ class PreMarket < ApplicationRecord
       # Find the corresponding fixture
       fixture = Fixture.find(self.fixture_id).as_json
 
-      # Add necessary odds and status to the fixture
-      fixture["market_#{self.market_identifier}_odds"] = self.odds
-      fixture["market_#{self.market_identifier}_status"] = self.status
+      if saved_change_to_odds?
+        # Add necessary odds and status to the fixture
+        fixture["market_#{self.market_identifier}_odds"] = self.odds
+        fixture["market_#{self.market_identifier}_status"] = self.status
 
-      # Make the broadcasts
-      CableWorker.perform_async("pre_odds_#{self.market_identifier}_#{self.fixture_id}", fixture)
-      CableWorker.perform_async("betslips_#{self.market_identifier}_#{self.fixture_id}", fixture)
+        # Make the broadcasts
+        CableWorker.perform_async("pre_odds_#{self.market_identifier}_#{self.fixture_id}", fixture)
+        CableWorker.perform_async("betslips_#{self.market_identifier}_#{self.fixture_id}", fixture)
+      end
       
       if saved_change_to_status?
          # Add market status to the fixture object
@@ -29,8 +31,9 @@ class PreMarket < ApplicationRecord
          # Specify which market
          fixture["market_identifier"] = self.market_identifier
 
-         #Make the broadcast
-         CableWorker.perform_async("markets_#{self.fixture_id}", fixture)
+         #Make the broadcast for market and betslip
+         CableWorker.perform_async("betslips_#{self.market_identifier}_#{self.fixture_id}", fixture)
+         CableWorker.perform_async("markets_#{self.market_identifier}_#{self.fixture_id}", fixture)
       end
    end
 end

@@ -3,7 +3,7 @@
 # .NET, PHP, Python, Node, and Go applications with deep visibility and low
 # overhead.  For more information, visit www.newrelic.com.
 #
-# Generated September 15, 2020
+# Generated October 13, 2021
 #
 # This configuration file is custom generated for NewRelic Administration
 #
@@ -16,7 +16,7 @@ common:
 
   # Your application name. Renaming here affects where data displays in New
   # Relic.  For more details, see https://docs.newrelic.com/docs/apm/new-relic-apm/maintenance/renaming-applications
-  app_name: Skyline Sportsbook
+  app_name: SportsBook Lsports
 
   distributed_tracing:
     enabled: true
@@ -32,7 +32,7 @@ common:
 # If your application has other named environments, configure them here.
 development:
   <<: *default_settings
-  app_name: Skyline Sportsbook (Development)
+  app_name: SportsBook Lsports (Development)
 
 test:
   <<: *default_settings
@@ -41,7 +41,7 @@ test:
 
 staging:
   <<: *default_settings
-  app_name: Skyline Sportsbook (Staging)
+  app_name: SportsBook Lsports (Staging)
 
 production:
   <<: *default_settings

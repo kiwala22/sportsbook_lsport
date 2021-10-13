@@ -36,6 +36,17 @@ export function fixtureUpdate(data, fixture, market, channel) {
     };
     return fixture;
   }
+
+  if (channel === "Market") {
+    fixture = {
+      ...fixture,
+      ...{
+        [`market_${market}_status`]: data[`market_${market}_status`],
+      },
+    };
+    return fixture;
+  }
+
   fixture = {
     ...fixture,
     ...{
