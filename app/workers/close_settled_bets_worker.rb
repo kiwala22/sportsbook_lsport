@@ -13,8 +13,8 @@ class CloseSettledBetsWorker
       #find the fixture
       fixture = Fixture.find(fixture_id)
       bets = fixture.bets.where(product: product, market_id: market_id, status: "Active")
-      outcome = ActiveSupport::JSON.decode(outcome)
-      winning_bets = outcome.select {|key, value| value == "Winner"}.keys
+      # outcome = ActiveSupport::JSON.decode(outcome)
+      winning_bets = outcome["results"].select {|key, value| value == "Winner"}.keys
       
       ##Ensure the outcome is not blank
       if !outcome.blank?
