@@ -19,7 +19,6 @@ class Backend::Fixtures::SoccerFixturesController < ApplicationController
   def update
     @fixture = Fixture.find(params[:id])
     response = order_live_event(@fixture.event_id, @fixture.sport_id)
-    puts response
     if response == 200
       @fixture.update(booked: true)
       respond_to do |format|
