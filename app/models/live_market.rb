@@ -18,6 +18,9 @@ class LiveMarket < ApplicationRecord
       fixture["market_#{self.market_identifier}_odds"] = self.odds
       fixture["market_#{self.market_identifier}_status"] = self.status
 
+      # Specify which market
+      fixture["market_identifier"] = self.market_identifier
+
       # Make the broadcasts
       CableWorker.perform_async("live_odds_#{self.market_identifier}_#{self.fixture_id}", fixture)
       CableWorker.perform_async("betslips_#{self.market_identifier}_#{self.fixture_id}", fixture)
