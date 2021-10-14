@@ -6,7 +6,9 @@ module BetslipCartHelper
    end
    
    def fetch_current_odd(market, identifier, fixture_id, outcome)
-      odd = market.constantize.find_by(fixture_id: fixture_id, market_identifier: identifier).send("odds")["outcome_#{outcome}"].to_f.round(2)
+      odd = 1.0
+      oddValue = market.constantize.find_by(fixture_id: fixture_id, market_identifier: identifier).send("odds")["outcome_#{outcome}"]
+      odd = oddValue.to_f.round(2) unless oddValue.nil?
       return odd
    end
    

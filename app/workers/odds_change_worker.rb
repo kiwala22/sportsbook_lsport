@@ -106,7 +106,7 @@ class OddsChangeWorker
                                     update_attr["status"] = market_status[bet["Status"]]
                                end
                             end
-                            update_attr["odds"] = outcomes
+                            # update_attr["odds"] = outcomes
                         end
                     end
                 end
@@ -121,7 +121,7 @@ class OddsChangeWorker
                                     update_attr["status"] = market_status[bet["Status"]]
                                 end
                             end
-                            update_attr["odds"] = outcomes
+                            # update_attr["odds"] = outcomes
                         end
                     end
                 end
@@ -133,7 +133,7 @@ class OddsChangeWorker
                                 outcomes.store("outcome_#{bet["Name"]}", bet["Price"])
                                 update_attr["status"] = market_status[bet["Status"]]
                             end
-                            update_attr["odds"] = outcomes
+                            # update_attr["odds"] = outcomes
                         end
                     end
                 end
@@ -145,6 +145,7 @@ class OddsChangeWorker
                 mkt_entry.assign_attributes(update_attr)
                 mkt_entry.save
             else
+                update_attr["odds"] = outcomes
                 mkt_entry = model_name.constantize.new(update_attr)
                 mkt_entry.fixture_id = fixture_id
                 mkt_entry.market_identifier = market["Id"]

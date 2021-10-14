@@ -18,6 +18,9 @@ class PreMarket < ApplicationRecord
         # Add necessary odds and status to the fixture
         fixture["market_#{self.market_identifier}_odds"] = self.odds
         fixture["market_#{self.market_identifier}_status"] = self.status
+        
+        # Specify which market
+        fixture["market_identifier"] = self.market_identifier
 
         # Make the broadcasts
         CableWorker.perform_async("pre_odds_#{self.market_identifier}_#{self.fixture_id}", fixture)

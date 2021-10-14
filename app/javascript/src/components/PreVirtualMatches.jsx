@@ -69,7 +69,7 @@ const PreVirtualMatches = (props) => {
             <Moment local={true} format="HH:mm">
               {date}
             </Moment>
-            <br />  
+            <br />
             <Moment format="DD-MMM">{date}</Moment>
           </a>
         </>
@@ -112,7 +112,13 @@ const PreVirtualMatches = (props) => {
           fixture={fixture.id}
           market="1"
           received={(data) => {
-            updateMatchInfo(data, games, setGames, "1", "Pre");
+            updateMatchInfo(
+              data,
+              games,
+              setGames,
+              data.market_identifier,
+              "Pre"
+            );
           }}
         >
           <a>
@@ -132,7 +138,9 @@ const PreVirtualMatches = (props) => {
             addBet(dispatcher, "1", "PreMarket", fixture.id, "1X2 FT - 1", "1")
           }
         >
-          {oddsFormatter(fixture.market_1_odds["outcome_1"])}
+          {fixture.market_1_odds === undefined
+            ? parseFloat(1.0).toFixed(2)
+            : oddsFormatter(fixture.market_1_odds["outcome_1"])}
         </a>
       ),
     },
@@ -146,7 +154,9 @@ const PreVirtualMatches = (props) => {
             addBet(dispatcher, "X", "PreMarket", fixture.id, "1X2 FT - X", "1")
           }
         >
-          {oddsFormatter(fixture.market_1_odds["outcome_X"])}
+          {fixture.market_1_odds === undefined
+            ? parseFloat(1.0).toFixed(2)
+            : oddsFormatter(fixture.market_1_odds["outcome_X"])}
         </a>
       ),
     },
@@ -160,7 +170,9 @@ const PreVirtualMatches = (props) => {
             addBet(dispatcher, "2", "PreMarket", fixture.id, "1X2 FT - 2", "1")
           }
         >
-          {oddsFormatter(fixture.market_1_odds["outcome_2"])}
+          {fixture.market_1_odds === undefined
+            ? parseFloat(1.0).toFixed(2)
+            : oddsFormatter(fixture.market_1_odds["outcome_2"])}
         </a>
       ),
     },

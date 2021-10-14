@@ -132,7 +132,13 @@ const LiveMatches = (props) => {
           fixture={fixture.id}
           market="1"
           received={(data) => {
-            updateMatchInfo(data, games, setGames, "1", "Live");
+            updateMatchInfo(
+              data,
+              games,
+              setGames,
+              data.market_identifier,
+              "Live"
+            );
           }}
         >
           <a>
@@ -152,7 +158,9 @@ const LiveMatches = (props) => {
             addBet(dispatcher, "1", "LiveMarket", fixture.id, "1X2 FT - 1", "1")
           }
         >
-          {oddsFormatter(fixture.market_1_odds["outcome_1"])}
+          {fixture.market_1_odds === undefined
+            ? parseFloat(1.0).toFixed(2)
+            : oddsFormatter(fixture.market_1_odds["outcome_1"])}
         </a>
       ),
     },
@@ -166,7 +174,9 @@ const LiveMatches = (props) => {
             addBet(dispatcher, "X", "LiveMarket", fixture.id, "1X2 FT - X", "1")
           }
         >
-          {oddsFormatter(fixture.market_1_odds["outcome_X"])}
+          {fixture.market_1_odds === undefined
+            ? parseFloat(1.0).toFixed(2)
+            : oddsFormatter(fixture.market_1_odds["outcome_X"])}
         </a>
       ),
     },
@@ -180,7 +190,9 @@ const LiveMatches = (props) => {
             addBet(dispatcher, "2", "LiveMarket", fixture.id, "1X2 FT - 2", "1")
           }
         >
-          {oddsFormatter(fixture.market_1_odds["outcome_2"])}
+          {fixture.market_1_odds === undefined
+            ? parseFloat(1.0).toFixed(2)
+            : oddsFormatter(fixture.market_1_odds["outcome_2"])}
         </a>
       ),
     },
