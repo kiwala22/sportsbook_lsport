@@ -45,7 +45,15 @@ class Api::V1::Fixtures::VirtualSoccer::PreMatchController < ApplicationControll
     ## Add outcomes and market statuses to the fixture
     markets.each do |market_identifier|
       ## Add outcomes to the data
-      market = @fixture.pre_markets.where(market_identifier: market_identifier).first
+      case market_identifier
+      when 2
+        market = @fixture.pre_markets.where(market_identifier: market_identifier, specifier: "2.5").first
+      when 3
+        market = @fixture.pre_markets.where(market_identifier: market_identifier, specifier: "-1.0 (0-0)").first
+      else
+        market = @fixture.pre_markets.where(market_identifier: market_identifier).first
+      end
+      
       if market
         ## Add outcomes to the data
         fixture["market_#{market_identifier}_odds"] = market.odds

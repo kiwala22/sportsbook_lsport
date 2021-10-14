@@ -206,8 +206,6 @@ module Lsports
     end
 
     def fetch_fixture_markets(sports_id)
-        required_markets = ["1", "2", "3", "7", "17", "25", "28", "41", "42", "43", "44", "49", "52", "53", "63", "77", "113", "282"]
-        markets = required_markets.join(",")
 
         url = @@end_point + "GetFixtureMarkets"
 
@@ -216,8 +214,7 @@ module Lsports
             username: @@username,
             password: @@password,
             guid: @@prematch_guid,
-            sports: sports_id,
-            markets: markets
+            sports: sports_id
         }
         uri.query = URI.encode_www_form(params)
 
@@ -247,6 +244,7 @@ module Lsports
                     @@market_description = market["Name"]
                     attrs = {}
                     outcomes = {}
+                    
                     if fixture
                         if market.has_key?("Markets") && market["Markets"].is_a?(Array)
                             market["Markets"].each do |event|
@@ -255,32 +253,44 @@ module Lsports
                                 if event.has_key?("Providers") && event["Providers"].is_a?(Array)
                                     event["Providers"].each do |provider|
                                         if provider.has_key?("Bets") && provider["Bets"].is_a?(Array)
-                                            provider["Bets"].each do |bet|
-                                                if [2, 28, 77].include?(event["Id"])
-                                                    if bet["BaseLine"] == "2.5"
+                                            if provider["Bets"].any? { |el| el.has_key?("BaseLine") }
+                                                bets = provider["Bets"].group_by{ |vl| vl["BaseLine"]}
+                                                bets.each do |key, value|
+                                                    attrs["specifier"] = key
+                                                    value.each do |bet|
                                                         outcomes.store("outcome_#{bet["Name"]}", bet["Price"])
                                                         attrs["status"] = market_status[bet["Status"]]
                                                     end
-                                                elsif [3, 52, 53, 63].include?(event["Id"])
-                                                    if bet["BaseLine"] == "-1.0 (0-0)"
-                                                        outcomes.store("outcome_#{bet["Name"]}", bet["Price"])
-                                                        attrs["status"] = market_status[bet["Status"]]
-                                                    end
-                                                else
+                                                    ##Save the market with specifier
+                                                    attrs["odds"] = outcomes
+
+                                                    mkt_entry = mkt.constantize.new(attrs)
+                                                    mkt_entry.market_identifier = event["Id"]
+                                                    mkt_entry.fixture_id = fixture.id
+                                                    mkt_entry.save
+
+                                                    outcomes = {}
+                                                    attrs = {}
+                                                end
+                                            else
+                                                provider["Bets"].each do |bet|
                                                     outcomes.store("outcome_#{bet["Name"]}", bet["Price"])
                                                     attrs["status"] = market_status[bet["Status"]]
                                                 end
+
+                                                ##Save the market with no specifier
+                                                attrs["odds"] = outcomes
+                                                mkt_entry = mkt.constantize.new(attrs)
+                                                mkt_entry.market_identifier = event["Id"]
+                                                mkt_entry.fixture_id = fixture.id
+                                                mkt_entry.save
+                                                
+                                                outcomes = {}
+                                                attrs = {}
                                             end
-                                            attrs["odds"] = outcomes
                                         end
                                     end
                                 end
-                                mkt_entry = mkt.constantize.new(attrs)
-                                mkt_entry.market_identifier = event["Id"]
-                                mkt_entry.fixture_id = fixture.id
-                                mkt_entry.save
-                                outcomes = {}
-                                attrs = {}
                             end
                         end
                     end
