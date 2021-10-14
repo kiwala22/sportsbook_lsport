@@ -89,80 +89,79 @@ class BetSettlementWorker
 
         outcome_attr = {}
 
-        markets = [
-            1, 2, 3, 7, 17, 25, 28,
-            41, 42, 43, 44, 49, 52, 
-            53, 63, 77, 113, 282
-        ]
+        #model_name = "Market" + (market["Id"]).to_s + producer_type[product]
+        model_name = producer_type[product] + "Market"
+        
+        update_attr = {
+            "status" => "Settled"
+        }
 
-        if markets.any?(market["Id"])
-            #model_name = "Market" + (market["Id"]).to_s + producer_type[product]
-            model_name = producer_type[product] + "Market"
-
-            mkt_entry = model_name.constantize.find_by(fixture_id: fixture_id, market_identifier: market["Id"])
-            
-            update_attr = {
-                "status" => "Settled"
-            }
-
-            if [2, 28, 77].include?(market["Id"])# == 2 || market["Id"] == 77)
-                if market.has_key?("Providers")
-                    market["Providers"].each do |provider|
-                        if provider.has_key?("Bets")
-                            provider["Bets"].each do |bet|
-                                if bet["BaseLine"] == "2.5"
-                                    outcome_attr.store(bet["Name"],settlement_status[bet["Settlement"]])
-                                end
-                            end
-                        end
-                    end
-                    update_attr["results"] = outcome_attr
-                end
-
-            elsif  [3, 52, 53, 63].include?(market["Id"])# == 3 || market["Id"] == 53)
-                if market.has_key?("Providers")
-                    market["Providers"].each do |provider|
-                        if provider.has_key?("Bets")
-                            provider["Bets"].each do |bet|
-                                if bet["BaseLine"] == "-1.0 (0-0)"
-                                    outcome_attr.store(bet["Name"],settlement_status[bet["Settlement"]])
-                                end
-                            end
-                        end
-                    end
-                    update_attr["results"] = outcome_attr
-                end
-            else
-                if market.has_key?("Providers")
-                    market["Providers"].each do |provider|
-                        if provider.has_key?("Bets")
-                            provider["Bets"].each do |bet|
+        if market.has_key?("Providers")
+            market["Providers"].each do |provider|
+                if provider.has_key?("Bets")
+                    if provider["Bets"].any? { |el| el.has_key?("BaseLine") }
+                        bets = provider["Bets"].group_by{ |vl| vl["BaseLine"]}
+                        bets.each do |key, value|
+                            mkt_entry = model_name.constantize.find_by(fixture_id: fixture_id, market_identifier: market["Id"], specifier: key)
+                            update_attr["specifier"] = key
+                            value.each do |bet|
                                 outcome_attr.store(bet["Name"],settlement_status[bet["Settlement"]])
                             end
+
+                            update_attr["results"] = outcome_attr
+
+                            ##Save the market with specifier
+                            if mkt_entry
+                                mkt_entry.assign_attributes(update_attr)
+                                mkt_entry.save
+                            else
+                                mkt_entry = model_name.constantize.new(update_attr)
+                                mkt_entry.fixture_id = fixture_id
+                                mkt_entry.market_identifier = market["Id"]
+                                mkt_entry.save
+                            end
+
+                            settle_bets(fixture_id, product, market["Id"], update_attr["results"], update_attr["specifier"])
+
+                            outcome_attr = {}
+                            update_attr = {
+                                "status" => "Settled"
+                            }
                         end
+                    else
+                        mkt_entry = model_name.constantize.find_by(fixture_id: fixture_id, market_identifier: market["Id"])
+
+                        provider["Bets"].each do |bet|
+                            outcome_attr.store(bet["Name"],settlement_status[bet["Settlement"]])
+                        end
+                        update_attr["results"] = outcome_attr
+
+                        if mkt_entry
+                            mkt_entry.assign_attributes(update_attr)
+                            mkt_entry.save
+                        else
+                            mkt_entry = model_name.constantize.new(update_attr)
+                            mkt_entry.fixture_id = fixture_id
+                            mkt_entry.market_identifier = market["Id"]
+                            mkt_entry.save
+                        end
+
+                        settle_bets(fixture_id, product, market["Id"], update_attr["results"], update_attr["specifier"])
+
+                        outcome_attr = {}
+                        update_attr = {
+                            "status" => "Settled"
+                        }
                     end
-                    update_attr["results"] = outcome_attr
                 end
             end
-
-            if mkt_entry
-                mkt_entry.assign_attributes(update_attr)
-                mkt_entry.save
-            else
-                mkt_entry = model_name.constantize.new(update_attr)
-                mkt_entry.fixture_id = fixture_id
-                mkt_entry.market_identifier = market["Id"]
-                mkt_entry.save
-            end
-
-            settle_bets(fixture_id, product, market["Id"], update_attr["results"])
         end
 
     end
 
-    def settle_bets(fixture_id, product, market_id, outcome)
+    def settle_bets(fixture_id, product, market_id, outcome, specifier=nil)
         #call worker to settle these bets
-        CloseSettledBetsWorker.perform_async(fixture_id, product, market_id, outcome)
+        CloseSettledBetsWorker.perform_async(fixture_id, product, market_id, outcome, specifier)
     end
     
 end

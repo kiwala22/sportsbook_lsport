@@ -5,14 +5,14 @@ class CloseSettledBetsWorker
    sidekiq_options queue: "high"
    sidekiq_options retry: false
    
-   def perform(fixture_id, product, market_id, outcome)
+   def perform(fixture_id, product, market_id, outcome, specifier)
 
       #Factors that could bring about bet being void
       void_factors = ["Cancelled", "Refund"]
 
       #find the fixture
       fixture = Fixture.find(fixture_id)
-      bets = fixture.bets.where(product: product, market_identifier: market_id, status: "Active")
+      bets = fixture.bets.where(product: product, market_identifier: market_id, status: "Active", specifier: specifier)
       # outcome = ActiveSupport::JSON.decode(outcome)
       winning_bets = outcome.select {|key, value| value == "Winner"}.keys
       
