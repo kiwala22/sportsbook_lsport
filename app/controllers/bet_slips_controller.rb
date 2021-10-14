@@ -47,15 +47,16 @@ class BetSlipsController < ApplicationController
         @cart.line_bets.each do |bet|
           product = bet.market.include?('Pre') ? '3' : '1'
           market_id = bet.market_identifier.to_i #extract only the numbers in the market number
-          if fetch_market_status(bet.market, bet.market_identifier, bet.fixture_id) == 'Active'
+          if fetch_market_status(bet.market, bet.market_identifier, bet.fixture_id, bet.specifier) == 'Active'
             odd =
               fetch_current_odd(
                 bet.market,
                 bet.market_identifier,
                 bet.fixture_id,
-                bet.outcome
+                bet.outcome,
+                bet.specifier
               ).to_f
-            specifier = fetch_specifier(bet.market, bet.market_identifier, bet.fixture_id)
+            specifier = bet.specifier
             bets_arr << {
               user_id: current_user.id,
               bet_slip_id: bet_slip.id,

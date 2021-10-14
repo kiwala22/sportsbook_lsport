@@ -322,7 +322,8 @@ const PreviewPreVirtual = (props) => {
                                   "PreMarket",
                                   fixture.id,
                                   "Handicap 1 FT - HW",
-                                  "3"
+                                  "3",
+                                  "-1.0 (0-0)"
                                 )
                               }
                             >
@@ -348,7 +349,8 @@ const PreviewPreVirtual = (props) => {
                                   "PreMarket",
                                   fixture.id,
                                   "Handicap 1 FT - AW",
-                                  "3"
+                                  "3",
+                                  "-1.0 (0-0)"
                                 )
                               }
                             >
@@ -406,7 +408,8 @@ const PreviewPreVirtual = (props) => {
                                   "PreMarket",
                                   fixture.id,
                                   "Total 2.5 FT - Under 2.5",
-                                  "2"
+                                  "2",
+                                  "2.5"
                                 )
                               }
                             >
@@ -430,7 +433,8 @@ const PreviewPreVirtual = (props) => {
                                   "PreMarket",
                                   fixture.id,
                                   "Total 2.5 FT - Over 2.5",
-                                  "2"
+                                  "2",
+                                  "2.5"
                                 )
                               }
                             >

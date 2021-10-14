@@ -2,19 +2,31 @@ class LineBetsController < ApplicationController
   protect_from_forgery except: %i[refresh line_bet_delete create destroy]
   include CurrentCart
   include BetslipCartHelper
-  before_action :set_cart, only: %i[create destroy refresh close_betslip_button_display cart_fixtures ]
+  before_action :set_cart,
+                only: %i[
+                  create
+                  destroy
+                  refresh
+                  close_betslip_button_display
+                  cart_fixtures
+                ]
 
   # before_action :set_line_item, only: [:show, :edit, :update, :destroy]
 
   def create
-    outcome = params[:outcome_id]
+    outcome = params[:outcome_id] ## Ex: "X"
     market = params[:market] ## Ex: PreMarket or LiveMarket
-    identifier = params[:identifier]
-    fixture_id = params[:fixture_id].to_i
-    description = params[:outcome_desc]
+    identifier = params[:identifier] ## Ex: "1"
+    fixture_id = params[:fixture_id].to_i ## Ex: 1090
+    description = params[:outcome_desc] ## Ex: "1X2 FT - 2"
 
     fixture = Fixture.find(fixture_id)
-    market_entry = market.constantize.find_by(fixture_id: fixture_id, market_identifier: identifier)
+
+    if params[:specifier].present?
+      market_entry = market.constantize.find_by(fixture_id: fixture_id, market_identifier: identifier, specifier: params[:specifier])
+    else
+      market_entry = market.constantize.find_by(fixture_id: fixture_id, market_identifier: identifier)
+    end
 
     #check if the bet already exists
     @line_bet = LineBet.find_by(fixture_id: fixture.id, cart_id: @cart.id)
@@ -23,8 +35,9 @@ class LineBetsController < ApplicationController
         outcome: outcome,
         market: market,
         market_identifier: identifier,
-        odd: market_entry.send('odds')["outcome_#{outcome}"].to_f.round(2),
-        description: description
+        odd: market_entry.send("odds")["outcome_#{outcome}"].to_f.round(2),
+        description: description,
+        specifier: params[:specifier]
       )
     else
       @line_bet =
@@ -33,8 +46,9 @@ class LineBetsController < ApplicationController
           outcome: outcome,
           market: market,
           market_identifier: identifier,
-          odd: market_entry.send('odds')["outcome_#{outcome}"].to_f.round(2),
-          description: description
+          odd: market_entry.send("odds")["outcome_#{outcome}"].to_f.round(2),
+          description: description,
+          specifier: params[:specifier]
         )
     end
 
@@ -57,7 +71,7 @@ class LineBetsController < ApplicationController
     @games = @cart.line_bets
     fixtures = []
     @games.each do |bet|
-      if fetch_market_status(bet.market, bet.market_identifier, bet.fixture_id) == 'Active'
+      if fetch_market_status(bet.market, bet.market_identifier, bet.fixture_id, bet.specifier) == 'Active'
         fixtures << {
           'cartId': bet.cart_id,
           'fixtureId': bet.fixture_id,
@@ -68,7 +82,7 @@ class LineBetsController < ApplicationController
           'marketIdentifier': bet.market_identifier,
           'description': bet.description,
           'outcome': bet.outcome,
-          'odd': fetch_current_odd(bet.market, bet.market_identifier, bet.fixture_id, bet.outcome),
+          'odd': fetch_current_odd(bet.market, bet.market_identifier, bet.fixture_id, bet.outcome, bet.specifier),
           "market_#{bet.market_identifier}_status": "Active"
         }
       end
@@ -83,12 +97,4 @@ class LineBetsController < ApplicationController
     render json: { 'status': 'OK' }
   end
 
-
-  # def close_betslip_button_display
-  #   games_on_slip = @cart.line_bets.count
-
-  #   respond_to do |format|
-  #     format.json { render json: { games: games_on_slip } }
-  #   end
-  # end
 end
