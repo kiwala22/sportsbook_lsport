@@ -407,7 +407,7 @@ module Lsports
         end
     end
 
-    def order_live_event(fixture_id, sports_id)
+    def order_live_event(event_id, sport_id)
         url = @@live_end_point + "schedule/OrderFixtures"
 
         uri = URI(url)
@@ -415,8 +415,8 @@ module Lsports
             username: @@username,
             password: @@password,
             packageid: @@livematch_pkg_id,
-            sportids: sports_id,
-            fixtureids: fixture_id
+            sportids: sport_id,
+            fixtureids: event_id
         }
         uri.query = URI.encode_www_form(params)
 
@@ -439,7 +439,7 @@ module Lsports
         end
     end
 
-    def cancel_live_event_order(fixture_id, sports_id)
+    def cancel_live_event_order(event_id, sport_id)
         url = @@live_end_point + "schedule/CancelFixtureOrders"
 
         uri = URI(url)
@@ -447,8 +447,8 @@ module Lsports
             username: @@username,
             password: @@password,
             packageid: @@livematch_pkg_id,
-            sportids: sports_id,
-            fixtureids: fixture_id
+            sportids: sport_id,
+            fixtureids: event_id
         }
         uri.query = URI.encode_www_form(params)
 
