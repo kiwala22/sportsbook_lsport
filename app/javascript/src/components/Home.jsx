@@ -167,7 +167,13 @@ const Home = (props) => {
       title: "1",
       render: (_, fixture) => (
         <a
-          className="btnn intialise_input"
+          className={
+            fixture.market_1_odds === undefined ||
+            oddsFormatter(fixture.market_1_odds["outcome_1"]) ==
+              parseFloat(1.0).toFixed(2)
+              ? "btnn intialise_input disabled"
+              : "btnn intialise_input"
+          }
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
           onClick={() =>
             addBet(dispatcher, "1", "LiveMarket", fixture.id, "1X2 FT - 1", "1")
@@ -183,7 +189,13 @@ const Home = (props) => {
       title: "X",
       render: (_, fixture) => (
         <a
-          className="btnn intialise_input"
+          className={
+            fixture.market_1_odds === undefined ||
+            oddsFormatter(fixture.market_1_odds["outcome_X"]) ==
+              parseFloat(1.0).toFixed(2)
+              ? "btnn intialise_input disabled"
+              : "btnn intialise_input"
+          }
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
           onClick={() =>
             addBet(dispatcher, "X", "LiveMarket", fixture.id, "1X2 FT - X", "1")
@@ -199,7 +211,13 @@ const Home = (props) => {
       title: "2",
       render: (_, fixture) => (
         <a
-          className="btnn intialise_input"
+          className={
+            fixture.market_1_odds === undefined ||
+            oddsFormatter(fixture.market_1_odds["outcome_2"]) ==
+              parseFloat(1.0).toFixed(2)
+              ? "btnn intialise_input disabled"
+              : "btnn intialise_input"
+          }
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
           onClick={() =>
             addBet(dispatcher, "2", "LiveMarket", fixture.id, "1X2 FT - 2", "1")
@@ -287,7 +305,13 @@ const Home = (props) => {
       title: "1",
       render: (_, fixture) => (
         <a
-          className="btnn intialise_input"
+          className={
+            fixture.market_1_odds === undefined ||
+            oddsFormatter(fixture.market_1_odds["outcome_1"]) ==
+              parseFloat(1.0).toFixed(2)
+              ? "btnn intialise_input disabled"
+              : "btnn intialise_input"
+          }
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
           onClick={() =>
             addBet(dispatcher, "1", "PreMarket", fixture.id, "1X2 FT - 1", "1")
@@ -303,7 +327,13 @@ const Home = (props) => {
       title: "X",
       render: (_, fixture) => (
         <a
-          className="btnn intialise_input"
+          className={
+            fixture.market_1_odds === undefined ||
+            oddsFormatter(fixture.market_1_odds["outcome_X"]) ==
+              parseFloat(1.0).toFixed(2)
+              ? "btnn intialise_input disabled"
+              : "btnn intialise_input"
+          }
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
           onClick={() =>
             addBet(dispatcher, "X", "PreMarket", fixture.id, "1X2 FT - X", "1")
@@ -319,7 +349,13 @@ const Home = (props) => {
       title: "2",
       render: (_, fixture) => (
         <a
-          className="btnn intialise_input"
+          className={
+            fixture.market_1_odds === undefined ||
+            oddsFormatter(fixture.market_1_odds["outcome_2"]) ==
+              parseFloat(1.0).toFixed(2)
+              ? "btnn intialise_input disabled"
+              : "btnn intialise_input"
+          }
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
           onClick={() =>
             addBet(dispatcher, "2", "PreMarket", fixture.id, "1X2 FT - 2", "1")
@@ -407,7 +443,13 @@ const Home = (props) => {
       title: "1",
       render: (_, fixture) => (
         <a
-          className="btnn intialise_input"
+          className={
+            fixture.market_1_odds === undefined ||
+            oddsFormatter(fixture.market_1_odds["outcome_1"]) ==
+              parseFloat(1.0).toFixed(2)
+              ? "btnn intialise_input disabled"
+              : "btnn intialise_input"
+          }
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
           onClick={() =>
             addBet(dispatcher, "1", "PreMarket", fixture.id, "1X2 FT - 1", "1")
@@ -423,7 +465,13 @@ const Home = (props) => {
       title: "X",
       render: (_, fixture) => (
         <a
-          className="btnn intialise_input"
+          className={
+            fixture.market_1_odds === undefined ||
+            oddsFormatter(fixture.market_1_odds["outcome_X"]) ==
+              parseFloat(1.0).toFixed(2)
+              ? "btnn intialise_input disabled"
+              : "btnn intialise_input"
+          }
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
           onClick={() =>
             addBet(dispatcher, "X", "PreMarket", fixture.id, "1X2 FT - X", "1")
@@ -439,7 +487,13 @@ const Home = (props) => {
       title: "2",
       render: (_, fixture) => (
         <a
-          className="btnn intialise_input"
+          className={
+            fixture.market_1_odds === undefined ||
+            oddsFormatter(fixture.market_1_odds["outcome_2"]) ==
+              parseFloat(1.0).toFixed(2)
+              ? "btnn intialise_input disabled"
+              : "btnn intialise_input"
+          }
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
           onClick={() =>
             addBet(dispatcher, "2", "PreMarket", fixture.id, "1X2 FT - 2", "1")
@@ -470,200 +524,227 @@ const Home = (props) => {
               </div>
             </div>
           )}
-          <br />
-          <div
-            className={
-              Mobile.isMobile() ? "game-box mobile-table-padding" : "game-box"
-            }
-            id="live"
-          >
-            <div className="card">
-              <div className="card-header">
-                <h3>
-                  Live Fixtures - Soccer{" "}
-                  <i className=" blinking match-time fas fa-bolt fa-lg fa-fw mr-2"></i>
-                </h3>
-              </div>
-              <div className="card-body">
-                <div className="tab-content" id="">
-                  <div
-                    className="tab-pane fade show active"
-                    role="tabpanel"
-                    aria-labelledby="home-tab"
-                  >
-                    <Table
-                      className="table-striped-rows"
-                      columns={columns_live}
-                      dataSource={liveGames}
-                      size="middle"
-                      rowClassName={(record) =>
-                        record.market_1_status == "Active"
-                          ? "show-row"
-                          : "hide-row"
-                      }
-                      rowKey={() => {
-                        return shortUUID.generate();
-                      }}
-                      locale={{
-                        emptyText: (
-                          <>
-                            <span>
-                              <DropboxOutlined className="font-40" />
-                            </span>
-                            <br />
-                            <span className="font-18">No Fixtures Found</span>
-                          </>
-                        ),
-                      }}
-                      pagination={false}
-                    />
+          {liveGames.length != 0 && (
+            <>
+              <br />
+              <div
+                className={
+                  Mobile.isMobile()
+                    ? "game-box mobile-table-padding"
+                    : "game-box"
+                }
+                id="live"
+              >
+                <div className="card">
+                  <div className="card-header">
+                    <h3>
+                      Live Fixtures - Soccer{" "}
+                      <i className=" blinking match-time fas fa-bolt fa-lg fa-fw mr-2"></i>
+                    </h3>
+                  </div>
+                  <div className="card-body">
+                    <div className="tab-content" id="">
+                      <div
+                        className="tab-pane fade show active"
+                        role="tabpanel"
+                        aria-labelledby="home-tab"
+                      >
+                        <Table
+                          className="table-striped-rows"
+                          columns={columns_live}
+                          dataSource={liveGames}
+                          size="middle"
+                          rowClassName={(record) =>
+                            record.market_1_status == "Active"
+                              ? "show-row"
+                              : "hide-row"
+                          }
+                          rowKey={() => {
+                            return shortUUID.generate();
+                          }}
+                          locale={{
+                            emptyText: (
+                              <>
+                                <span>
+                                  <DropboxOutlined className="font-40" />
+                                </span>
+                                <br />
+                                <span className="font-18">
+                                  No Fixtures Found
+                                </span>
+                              </>
+                            ),
+                          }}
+                          pagination={false}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="text-center mb-2 mt-2 custom-anchor">
+                    <Link
+                      className="match-time show-more"
+                      to={"/fixtures/soccer/lives/"}
+                    >
+                      Show More
+                    </Link>
                   </div>
                 </div>
               </div>
-              <div className="text-center mb-2 mt-2 custom-anchor">
-                <Link
-                  className="match-time show-more"
-                  to={"/fixtures/soccer/lives/"}
-                >
-                  Show More
-                </Link>
-              </div>
-            </div>
-          </div>
+            </>
+          )}
 
           {/* <!-- Start Featured Fixtures Table --> */}
-          {Mobile.isMobile() && (
-            <div className="card ">
-              <div className="card-header side-banner ">
-                <img src={MobileBanner2} className="banner-image" />
-              </div>
-            </div>
-          )}
-          <br />
-
-          <div
-            className={
-              Mobile.isMobile() ? "game-box mobile-table-padding" : "game-box"
-            }
-            id="featured"
-          >
-            <div className="card">
-              <div className="card-header">
-                <h3>
-                  Featured Fixtures - Soccer{" "}
-                  <i className="fas fa-fire fa-lg fa-fw mr-2 match-time"></i>{" "}
-                </h3>
-              </div>
-              <div className="card-body">
-                <div className="tab-content" id="">
-                  <div
-                    className="tab-pane fade show active"
-                    role="tabpanel"
-                    aria-labelledby="home-tab"
-                  >
-                    <Table
-                      className="table-striped-rows"
-                      columns={columns_feat}
-                      dataSource={featuredGames}
-                      size="middle"
-                      rowClassName={(record) =>
-                        record.market_1_status == "Active"
-                          ? "show-row"
-                          : "hide-row"
-                      }
-                      rowKey={() => {
-                        return shortUUID.generate();
-                      }}
-                      locale={{
-                        emptyText: (
-                          <>
-                            <span>
-                              <DropboxOutlined className="font-40" />
-                            </span>
-                            <br />
-                            <span className="font-18">No Fixtures Found</span>
-                          </>
-                        ),
-                      }}
-                      pagination={{ pageSize: 10 }}
-                    />
-                  </div>
+          {Mobile.isMobile() &&
+            liveGames.length != 0 &&
+            featuredGames.length != 0 && (
+              <div className="card ">
+                <div className="card-header side-banner ">
+                  <img src={MobileBanner2} className="banner-image" />
                 </div>
               </div>
-            </div>
-          </div>
-
-          {/* <!-- End Featured Fixtures Table --> */}
-
-          {/* <!-- Start All Fixtures Table --> */}
-          {Mobile.isMobile() && (
-            <div className="card ">
-              <div className="card-header side-banner ">
-                <img src={MobileBanner3} className="banner-image" />
-              </div>
-            </div>
-          )}
-          <br />
-          <div
-            className={
-              Mobile.isMobile() ? "game-box mobile-table-padding" : "game-box"
-            }
-          >
-            <div className="card">
-              <div className="card-header">
-                <h3>
-                  Upcoming Fixtures - Soccer{" "}
-                  <i className="fas fa-futbol fa-lg fa-fw mr-2 match-time"></i>
-                </h3>
-              </div>
-              <div className="card-body">
-                <div className="tab-content" id="myTabContent">
-                  <div
-                    className="tab-pane fade show active"
-                    id="home"
-                    role="tabpanel"
-                    aria-labelledby="home-tab"
-                    data-controller=""
-                  >
-                    <Table
-                      className="table-striped-rows"
-                      columns={columns_pre}
-                      dataSource={prematchGames}
-                      size="middle"
-                      rowClassName={(record) =>
-                        record.market_1_status == "Active"
-                          ? "show-row"
-                          : "hide-row"
-                      }
-                      rowKey={() => {
-                        return shortUUID.generate();
-                      }}
-                      locale={{
-                        emptyText: (
-                          <>
-                            <span>
-                              <DropboxOutlined className="font-40" />
-                            </span>
-                            <br />
-                            <span className="font-18">No Fixtures Found</span>
-                          </>
-                        ),
-                      }}
-                      pagination={{ defaultPageSize: 50 }}
-                    />
-                    <div className="text-center mb-2 mt-2 custom-anchor">
-                      <Link
-                        className="match-time show-more"
-                        to={"/fixtures/soccer/pres/"}
+            )}
+          {featuredGames.length != 0 && (
+            <>
+              <br />
+              <div
+                className={
+                  Mobile.isMobile()
+                    ? "game-box mobile-table-padding"
+                    : "game-box"
+                }
+                id="featured"
+              >
+                <div className="card">
+                  <div className="card-header">
+                    <h3>
+                      Featured Fixtures - Soccer{" "}
+                      <i className="fas fa-fire fa-lg fa-fw mr-2 match-time"></i>{" "}
+                    </h3>
+                  </div>
+                  <div className="card-body">
+                    <div className="tab-content" id="">
+                      <div
+                        className="tab-pane fade show active"
+                        role="tabpanel"
+                        aria-labelledby="home-tab"
                       >
-                        Show More
-                      </Link>
+                        <Table
+                          className="table-striped-rows"
+                          columns={columns_feat}
+                          dataSource={featuredGames}
+                          size="middle"
+                          rowClassName={(record) =>
+                            record.market_1_status == "Active"
+                              ? "show-row"
+                              : "hide-row"
+                          }
+                          rowKey={() => {
+                            return shortUUID.generate();
+                          }}
+                          locale={{
+                            emptyText: (
+                              <>
+                                <span>
+                                  <DropboxOutlined className="font-40" />
+                                </span>
+                                <br />
+                                <span className="font-18">
+                                  No Fixtures Found
+                                </span>
+                              </>
+                            ),
+                          }}
+                          pagination={{ pageSize: 10 }}
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
+            </>
+          )}
+
+          {/* <!-- End Featured Fixtures Table --> */}
+
+          {/* <!-- Start All Fixtures Table --> */}
+          {Mobile.isMobile() &&
+            featuredGames.length != 0 &&
+            prematchGames.length != 0 && (
+              <div className="card ">
+                <div className="card-header side-banner ">
+                  <img src={MobileBanner3} className="banner-image" />
+                </div>
+              </div>
+            )}
+          {prematchGames.length != 0 && (
+            <>
+              <br />
+              <div
+                className={
+                  Mobile.isMobile()
+                    ? "game-box mobile-table-padding"
+                    : "game-box"
+                }
+              >
+                <div className="card">
+                  <div className="card-header">
+                    <h3>
+                      Upcoming Fixtures - Soccer{" "}
+                      <i className="fas fa-futbol fa-lg fa-fw mr-2 match-time"></i>
+                    </h3>
+                  </div>
+                  <div className="card-body">
+                    <div className="tab-content" id="myTabContent">
+                      <div
+                        className="tab-pane fade show active"
+                        id="home"
+                        role="tabpanel"
+                        aria-labelledby="home-tab"
+                        data-controller=""
+                      >
+                        <Table
+                          className="table-striped-rows"
+                          columns={columns_pre}
+                          dataSource={prematchGames}
+                          size="middle"
+                          rowClassName={(record) =>
+                            record.market_1_status == "Active"
+                              ? "show-row"
+                              : "hide-row"
+                          }
+                          rowKey={() => {
+                            return shortUUID.generate();
+                          }}
+                          locale={{
+                            emptyText: (
+                              <>
+                                <span>
+                                  <DropboxOutlined className="font-40" />
+                                </span>
+                                <br />
+                                <span className="font-18">
+                                  No Fixtures Found
+                                </span>
+                              </>
+                            ),
+                          }}
+                          pagination={{ defaultPageSize: 50 }}
+                        />
+                        <div className="text-center mb-2 mt-2 custom-anchor">
+                          <Link
+                            className="match-time show-more"
+                            to={"/fixtures/soccer/pres/"}
+                          >
+                            Show More
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
         </>
       )}
       {pageLoading && <Preview />}

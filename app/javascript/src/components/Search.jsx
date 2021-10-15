@@ -12,6 +12,7 @@ import PreOddsChannel from "../../channels/preOddsChannel";
 import addBet from "../redux/actions";
 import * as DataUpdate from "../utilities/DataUpdate";
 import Mobile from "../utilities/Mobile";
+import oddsFormatter from "../utilities/oddsFormatter";
 import Requests from "../utilities/Requests";
 import Preview from "./Skeleton";
 
@@ -67,8 +68,8 @@ const Search = (props) => {
             <Moment local={true} format="HH:mm">
               {date}
             </Moment>
-            <br />  
-            <Moment format="DD-MMM">{date}</Moment>           
+            <br />
+            <Moment format="DD-MMM">{date}</Moment>
           </a>
         </>
       ),
@@ -80,7 +81,7 @@ const Search = (props) => {
           channel="MarketsChannel"
           fixture={fixture.id}
           received={(data) => {
-            updateMatchInfo(data, games, setGames, "1","Market");
+            updateMatchInfo(data, games, setGames, "1", "Market");
           }}
         >
           <Link
@@ -118,13 +119,21 @@ const Search = (props) => {
       title: "1",
       render: (_, fixture) => (
         <a
-          className="btnn intialise_input"
+          className={
+            fixture.market_1_odds === undefined ||
+            oddsFormatter(fixture.market_1_odds["outcome_1"]) ==
+              parseFloat(1.0).toFixed(2)
+              ? "btnn intialise_input disabled"
+              : "btnn intialise_input"
+          }
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
           onClick={() =>
             addBet(dispatcher, "1", "PreMarket", fixture.id, "1X2 FT - 1", "1")
           }
         >
-          {parseFloat(fixture.market_1_odds["outcome_1"]).toFixed(2)}
+          {fixture.market_1_odds === undefined
+            ? parseFloat(1.0).toFixed(2)
+            : oddsFormatter(fixture.market_1_odds["outcome_1"])}
         </a>
       ),
     },
@@ -132,13 +141,21 @@ const Search = (props) => {
       title: "X",
       render: (_, fixture) => (
         <a
-          className="btnn intialise_input"
+          className={
+            fixture.market_1_odds === undefined ||
+            oddsFormatter(fixture.market_1_odds["outcome_X"]) ==
+              parseFloat(1.0).toFixed(2)
+              ? "btnn intialise_input disabled"
+              : "btnn intialise_input"
+          }
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
           onClick={() =>
             addBet(dispatcher, "X", "PreMarket", fixture.id, "1X2 FT - X", "1")
           }
         >
-          {parseFloat(fixture.market_1_odds["outcome_X"]).toFixed(2)}
+          {fixture.market_1_odds === undefined
+            ? parseFloat(1.0).toFixed(2)
+            : oddsFormatter(fixture.market_1_odds["outcome_X"])}
         </a>
       ),
     },
@@ -146,13 +163,21 @@ const Search = (props) => {
       title: "2",
       render: (_, fixture) => (
         <a
-          className="btnn intialise_input"
+          className={
+            fixture.market_1_odds === undefined ||
+            oddsFormatter(fixture.market_1_odds["outcome_2"]) ==
+              parseFloat(1.0).toFixed(2)
+              ? "btnn intialise_input disabled"
+              : "btnn intialise_input"
+          }
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
           onClick={() =>
             addBet(dispatcher, "2", "PreMarket", fixture.id, "1X2 FT - 2", "1")
           }
         >
-          {parseFloat(fixture.market_1_odds["outcome_2"]).toFixed(2)}
+          {fixture.market_1_odds === undefined
+            ? parseFloat(1.0).toFixed(2)
+            : oddsFormatter(fixture.market_1_odds["outcome_2"])}
         </a>
       ),
     },

@@ -206,6 +206,8 @@ module Lsports
     end
 
     def fetch_fixture_markets(sports_id)
+        required_markets = ["1", "2", "3", "7", "17", "25", "28", "41", "42", "43", "44", "49", "52", "53", "63", "77", "113", "282"]
+        markets = required_markets.join(",")
 
         url = @@end_point + "GetFixtureMarkets"
 
@@ -244,7 +246,7 @@ module Lsports
                     @@market_description = market["Name"]
                     attrs = {}
                     outcomes = {}
-                    
+
                     if fixture
                         if market.has_key?("Markets") && market["Markets"].is_a?(Array)
                             market["Markets"].each do |event|

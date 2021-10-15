@@ -10,13 +10,8 @@ class DeactivateMarketsWorker
          "3" => "Pre"
       }
       
-      markets.each do |market|
-         model_name = "Market" + producer_type[product]
-         entries = model_name.constantize.where(status: "Active")
-         if entries
-            entries.update(status: "Deactivated")
-         end
-      end
+      model_name = producer_type[product] + "Market" 
+      model_name.constantize.where(status: "Active").update_all(status: "Deactivated"
    end
    
 end

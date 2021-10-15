@@ -35,7 +35,7 @@ class LineBetsController < ApplicationController
         outcome: outcome,
         market: market,
         market_identifier: identifier,
-        odd: market_entry.send("odds")["outcome_#{outcome}"].to_f.round(2),
+        odd: fetch_current_odd(market, identifier, fixture_id, outcome, params[:specifier]),
         description: description,
         specifier: params[:specifier]
       )
@@ -46,7 +46,7 @@ class LineBetsController < ApplicationController
           outcome: outcome,
           market: market,
           market_identifier: identifier,
-          odd: market_entry.send("odds")["outcome_#{outcome}"].to_f.round(2),
+          odd: fetch_current_odd(market, identifier, fixture_id, outcome, params[:specifier]),
           description: description,
           specifier: params[:specifier]
         )

@@ -260,6 +260,13 @@ h6 {
   background: #f6ae2d !important;
 }
 
+.disabled {
+  pointer-events: none !important;
+  cursor: default !important;
+  opacity: 0.6 !important;
+  text-decoration: none !important;
+}
+
 .game-box .card .card-body table tr td a.btnn {
   padding: 4px 17px !important;
   border-radius: 5px !important;

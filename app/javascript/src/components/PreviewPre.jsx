@@ -108,7 +108,14 @@ const PreviewPre = (props) => {
                         <div className="row">
                           <div className="col-lg-4">
                             <a
-                              className="btn btn-light wagger-btn intialise_input"
+                              className={
+                                fixture.market_1_odds === undefined ||
+                                oddsFormatter(
+                                  fixture.market_1_odds["outcome_1"]
+                                ) == parseFloat(1.0).toFixed(2)
+                                  ? "btn btn-light wagger-btn intialise_input disabled"
+                                  : "btn btn-light wagger-btn intialise_input"
+                              }
                               onClick={() =>
                                 addBet(
                                   dispatcher,
@@ -132,7 +139,14 @@ const PreviewPre = (props) => {
                           </div>
                           <div className="col-lg-4">
                             <a
-                              className="btn btn-light wagger-btn intialise_input"
+                              className={
+                                fixture.market_1_odds === undefined ||
+                                oddsFormatter(
+                                  fixture.market_1_odds["outcome_X"]
+                                ) == parseFloat(1.0).toFixed(2)
+                                  ? "btn btn-light wagger-btn intialise_input disabled"
+                                  : "btn btn-light wagger-btn intialise_input"
+                              }
                               onClick={() =>
                                 addBet(
                                   dispatcher,
@@ -156,7 +170,14 @@ const PreviewPre = (props) => {
                           </div>
                           <div className="col-lg-4">
                             <a
-                              className="btn btn-light wagger-btn intialise_input"
+                              className={
+                                fixture.market_1_odds === undefined ||
+                                oddsFormatter(
+                                  fixture.market_1_odds["outcome_2"]
+                                ) == parseFloat(1.0).toFixed(2)
+                                  ? "btn btn-light wagger-btn intialise_input disabled"
+                                  : "btn btn-light wagger-btn intialise_input"
+                              }
                               onClick={() =>
                                 addBet(
                                   dispatcher,
@@ -210,7 +231,14 @@ const PreviewPre = (props) => {
                         <div className="row market">
                           <div className="col-lg-4">
                             <a
-                              className="btn btn-light wagger-btn intialise_input"
+                              className={
+                                fixture.market_7_odds === undefined ||
+                                oddsFormatter(
+                                  fixture.market_7_odds["outcome_1X"]
+                                ) == parseFloat(1.0).toFixed(2)
+                                  ? "btn btn-light wagger-btn intialise_input disabled"
+                                  : "btn btn-light wagger-btn intialise_input"
+                              }
                               onClick={() =>
                                 addBet(
                                   dispatcher,
@@ -234,7 +262,14 @@ const PreviewPre = (props) => {
                           </div>
                           <div className="col-lg-4">
                             <a
-                              className="btn btn-light wagger-btn intialise_input"
+                              className={
+                                fixture.market_7_odds === undefined ||
+                                oddsFormatter(
+                                  fixture.market_7_odds["outcome_12"]
+                                ) == parseFloat(1.0).toFixed(2)
+                                  ? "btn btn-light wagger-btn intialise_input disabled"
+                                  : "btn btn-light wagger-btn intialise_input"
+                              }
                               onClick={() =>
                                 addBet(
                                   dispatcher,
@@ -258,7 +293,14 @@ const PreviewPre = (props) => {
                           </div>
                           <div className="col-lg-4">
                             <a
-                              className="btn btn-light wagger-btn intialise_input"
+                              className={
+                                fixture.market_7_odds === undefined ||
+                                oddsFormatter(
+                                  fixture.market_7_odds["outcome_X2"]
+                                ) == parseFloat(1.0).toFixed(2)
+                                  ? "btn btn-light wagger-btn intialise_input disabled"
+                                  : "btn btn-light wagger-btn intialise_input"
+                              }
                               onClick={() =>
                                 addBet(
                                   dispatcher,
@@ -314,7 +356,14 @@ const PreviewPre = (props) => {
                         <div className="row">
                           <div className="col-lg-6">
                             <a
-                              className="btn btn-light wagger-btn intialise_input"
+                              className={
+                                fixture.market_3_odds === undefined ||
+                                oddsFormatter(
+                                  fixture.market_3_odds["outcome_1"]
+                                ) == parseFloat(1.0).toFixed(2)
+                                  ? "btn btn-light wagger-btn intialise_input disabled"
+                                  : "btn btn-light wagger-btn intialise_input"
+                              }
                               onClick={() =>
                                 addBet(
                                   dispatcher,
@@ -341,7 +390,14 @@ const PreviewPre = (props) => {
                           </div>
                           <div className="col-lg-6">
                             <a
-                              className="btn btn-light wagger-btn intialise_input"
+                              className={
+                                fixture.market_3_odds === undefined ||
+                                oddsFormatter(
+                                  fixture.market_3_odds["outcome_2"]
+                                ) == parseFloat(1.0).toFixed(2)
+                                  ? "btn btn-light wagger-btn intialise_input disabled"
+                                  : "btn btn-light wagger-btn intialise_input"
+                              }
                               onClick={() =>
                                 addBet(
                                   dispatcher,
@@ -400,7 +456,14 @@ const PreviewPre = (props) => {
                         <div className="row">
                           <div className="col-lg-6">
                             <a
-                              className="btn btn-light wagger-btn intialise_input"
+                              className={
+                                fixture.market_2_odds === undefined ||
+                                oddsFormatter(
+                                  fixture.market_2_odds["outcome_Under"]
+                                ) == parseFloat(1.0).toFixed(2)
+                                  ? "btn btn-light wagger-btn intialise_input disabled"
+                                  : "btn btn-light wagger-btn intialise_input"
+                              }
                               onClick={() =>
                                 addBet(
                                   dispatcher,
@@ -425,7 +488,14 @@ const PreviewPre = (props) => {
                           </div>
                           <div className="col-lg-6">
                             <a
-                              className="btn btn-light wagger-btn intialise_input"
+                              className={
+                                fixture.market_2_odds === undefined ||
+                                oddsFormatter(
+                                  fixture.market_2_odds["outcome_Over"]
+                                ) == parseFloat(1.0).toFixed(2)
+                                  ? "btn btn-light wagger-btn intialise_input disabled"
+                                  : "btn btn-light wagger-btn intialise_input"
+                              }
                               onClick={() =>
                                 addBet(
                                   dispatcher,
@@ -481,7 +551,14 @@ const PreviewPre = (props) => {
                         <div className="row">
                           <div className="col-lg-6">
                             <a
-                              className="btn btn-light wagger-btn intialise_input"
+                              className={
+                                fixture.market_17_odds === undefined ||
+                                oddsFormatter(
+                                  fixture.market_17_odds["outcome_Yes"]
+                                ) == parseFloat(1.0).toFixed(2)
+                                  ? "btn btn-light wagger-btn intialise_input disabled"
+                                  : "btn btn-light wagger-btn intialise_input"
+                              }
                               onClick={() =>
                                 addBet(
                                   dispatcher,
@@ -505,7 +582,14 @@ const PreviewPre = (props) => {
                           </div>
                           <div className="col-lg-6">
                             <a
-                              className="btn btn-light wagger-btn intialise_input"
+                              className={
+                                fixture.market_17_odds === undefined ||
+                                oddsFormatter(
+                                  fixture.market_17_odds["outcome_No"]
+                                ) == parseFloat(1.0).toFixed(2)
+                                  ? "btn btn-light wagger-btn intialise_input disabled"
+                                  : "btn btn-light wagger-btn intialise_input"
+                              }
                               onClick={() =>
                                 addBet(
                                   dispatcher,
