@@ -28,64 +28,36 @@ module Recovery
 
         #try and activate the markets again
         if product == "1"
-            code , message = start_livematch
+            code , message = start_livematch_distribution
             if code == 200 && message.include?("Value was already set")
                 system('systemctl restart sneakers && systemctl restart lsport-inplay-lsport_inplay.1.service')
                 sleep 3
-                response = get_live_events()
+                response = get_live()
 
             end
         end
 
         if product == "3"
-            code , message = start_prematch
+            code , message = start_prematch_distribution
             if code == 200 && message.include?("Value was already set")
                 system('systemctl restart sneakers && systemctl restart lsport-prematch-lsport_prematch.1.service')
                 sleep 3
-                response = fetch_fixture_markets()
+                response = fetch_fixtures()
 
             end
         end 
             
     end
 
+    def get_live(sports_id = @sports_id)
+        url = @@live_end_point + "Snapshot/GetSnapshotJson"
 
-    def start_prematch
-
-        url = @@end_point + "EnablePackage"
         uri = URI(url)
         params = {
             username: @@username,
             password: @@password,
-            guid: @@prematch_guid
-        }
-
-        uri.query = URI.encode_www_form(params)
-
-        req = Net::HTTP::Get.new(uri)
-
-        res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https') do |http|
-
-            http.request(req)
-
-        end
-
-        # process the body
-        message = JSON.parse(res.body)
-
-        message = message["Body"][0]["Response"]
-
-        return res.code, message
-
-    end
-
-    def start_livematch
-        url = @@live_end_point + "Package/EnablePackage"
-        uri = URI(url)
-        params = {
-            username: @@username,
-            password: @@password,
-            packageid: @@livematch_pkg_id
+            packageid: @@livematch_pkg_id,
+            sportids: sports_id
         }
         uri.query = URI.encode_www_form(params)
 
@@ -97,11 +69,169 @@ module Recovery
 
         end
 
-        # process the body
-        message = JSON.parse(res.body)
-        message = message["Body"]["Message"]
+        response = res.code
 
-        return res.code, message
-
+        if response == "200"
+            return JSON.parse(res.body)
+        else
+            @@logger.error(res.body)
+            return JSON.parse(res.body)
+        end
     end
+
+    def fetch_fixtures(sports_id = @@sports_id)
+        required_markets = ["1", "2", "3", "7", "17", "25", "28", "41", "42", "43", "44", "49", "52", "53", "63", "77", "113", "282"]
+        markets = required_markets.join(",")
+
+        url = @@end_point + "GetFixtureMarkets"
+
+        uri = URI(url)
+        params= {
+            username: @@username,
+            password: @@password,
+            guid: @@prematch_guid,
+            sports: sports_id
+        }
+        uri.query = URI.encode_www_form(params)
+
+        req = Net::HTTP::Get.new(uri)
+
+        res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https') do |http|
+
+            http.request(req)
+
+        end
+
+        response = res.code
+
+        if response == "200"
+            ## Create Fixture markets
+            markets = JSON.parse(res.body).as_json
+            
+            markets["Body"].each do |market|
+                if market.has_key?("FixtureId")
+                    event_id = market["FixtureId"]
+                    fixture = Fixture.find_by(event_id: event_id)
+                    market_status = {
+                        1 => "Active",
+                        2 => "Suspended",
+                        3 => "Settled"
+                    }
+                    @@market_description = market["Name"]
+                    attrs = {}
+                    outcomes = {}
+
+                    if fixture
+                        if market.has_key?("Markets") && market["Markets"].is_a?(Array)
+                            market["Markets"].each do |event|
+                                # mkt = "Market" + (event["Id"]).to_s + "Pre"
+                                mkt = "PreMarket"
+                                if event.has_key?("Providers") && event["Providers"].is_a?(Array)
+                                    event["Providers"].each do |provider|
+                                        if provider.has_key?("Bets") && provider["Bets"].is_a?(Array)
+                                            if provider["Bets"].any? { |el| el.has_key?("BaseLine") }
+                                                bets = provider["Bets"].group_by{ |vl| vl["BaseLine"]}
+                                                bets.each do |key, value|
+                                                    attrs["specifier"] = key
+                                                    value.each do |bet|
+                                                        outcomes.store("outcome_#{bet["Name"]}", bet["Price"])
+                                                        attrs["status"] = market_status[bet["Status"]]
+                                                    end
+                                                    ##Save the market with specifier
+                                                    attrs["odds"] = outcomes
+
+                                                    mkt_entry = mkt.constantize.new(attrs)
+                                                    mkt_entry.market_identifier = event["Id"]
+                                                    mkt_entry.fixture_id = fixture.id
+                                                    mkt_entry.save
+
+                                                    outcomes = {}
+                                                    attrs = {}
+                                                end
+                                            else
+                                                provider["Bets"].each do |bet|
+                                                    outcomes.store("outcome_#{bet["Name"]}", bet["Price"])
+                                                    attrs["status"] = market_status[bet["Status"]]
+                                                end
+
+                                                ##Save the market with no specifier
+                                                attrs["odds"] = outcomes
+                                                mkt_entry = mkt.constantize.new(attrs)
+                                                mkt_entry.market_identifier = event["Id"]
+                                                mkt_entry.fixture_id = fixture.id
+                                                mkt_entry.save
+                                                
+                                                outcomes = {}
+                                                attrs = {}
+                                            end
+                                        end
+                                    end
+                                end
+                            end
+                        end
+                    end
+                end
+            end
+
+            return response
+        else
+            @@logger.error(res.body)
+            return JSON.parse(res.body)
+        end
+    end
+
+    # def start_prematch
+
+    #     url = @@end_point + "EnablePackage"
+    #     uri = URI(url)
+    #     params = {
+    #         username: @@username,
+    #         password: @@password,
+    #         guid: @@prematch_guid
+    #     }
+
+    #     uri.query = URI.encode_www_form(params)
+
+    #     req = Net::HTTP::Get.new(uri)
+
+    #     res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https') do |http|
+
+    #         http.request(req)
+
+    #     end
+
+    #     # process the body
+    #     message = JSON.parse(res.body)
+
+    #     message = message["Body"][0]["Response"]
+
+    #     return res.code, message
+
+    # end
+
+    # def start_livematch
+    #     url = @@live_end_point + "Package/EnablePackage"
+    #     uri = URI(url)
+    #     params = {
+    #         username: @@username,
+    #         password: @@password,
+    #         packageid: @@livematch_pkg_id
+    #     }
+    #     uri.query = URI.encode_www_form(params)
+
+    #     req = Net::HTTP::Get.new(uri)
+
+    #     res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https') do |http|
+
+    #         http.request(req)
+
+    #     end
+
+    #     # process the body
+    #     message = JSON.parse(res.body)
+    #     message = message["Body"]["Message"]
+
+    #     return res.code, message
+
+    # end
 end

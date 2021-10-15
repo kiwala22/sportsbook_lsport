@@ -11,7 +11,7 @@ class DeactivateMarketsWorker
       }
       
       model_name = producer_type[product] + "Market" 
-      model_name.constantize.where(status: "Active").update_all(status: "Deactivated"
+      model_name.constantize.where(status: "Active").update_all(status: "Deactivated")
    end
    
 end

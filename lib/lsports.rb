@@ -47,9 +47,9 @@ module Lsports
 
         end
 
-        puts res.body
+        # puts res.body
 
-        return res.code
+        return res.code, res.body
 
     end
 
@@ -71,7 +71,7 @@ module Lsports
 
         end
 
-        return res.code
+        return res.code, res.body
 
     end
 
@@ -205,7 +205,7 @@ module Lsports
         end
     end
 
-    def fetch_fixture_markets(sports_id)
+    def fetch_fixture_markets(sports_id = @@sports_id)
         required_markets = ["1", "2", "3", "7", "17", "25", "28", "41", "42", "43", "44", "49", "52", "53", "63", "77", "113", "282"]
         markets = required_markets.join(",")
 
@@ -473,7 +473,7 @@ module Lsports
         end
     end
 
-    def get_live_events(sports_id)
+    def get_live_events(sports_id = @sports_id)
         url = @@live_end_point + "Snapshot/GetSnapshotJson"
 
         uri = URI(url)
