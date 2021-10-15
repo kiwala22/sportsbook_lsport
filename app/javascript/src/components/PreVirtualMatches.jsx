@@ -137,7 +137,7 @@ const PreVirtualMatches = (props) => {
             oddsFormatter(fixture.market_1_odds["outcome_1"]) ==
               parseFloat(1.0).toFixed(2)
               ? "btnn intialise_input disabled"
-              : "btnn intialise_input"
+              : "btnn intialise_input btn btn-light wagger-btn"
           }
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
           onClick={() =>
@@ -159,7 +159,7 @@ const PreVirtualMatches = (props) => {
             oddsFormatter(fixture.market_1_odds["outcome_X"]) ==
               parseFloat(1.0).toFixed(2)
               ? "btnn intialise_input disabled"
-              : "btnn intialise_input"
+              : "btnn intialise_input btn btn-light wagger-btn"
           }
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
           onClick={() =>
@@ -181,7 +181,7 @@ const PreVirtualMatches = (props) => {
             oddsFormatter(fixture.market_1_odds["outcome_2"]) ==
               parseFloat(1.0).toFixed(2)
               ? "btnn intialise_input disabled"
-              : "btnn intialise_input"
+              : "btnn intialise_input btn btn-light wagger-btn"
           }
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
           onClick={() =>

@@ -133,7 +133,8 @@ const PreviewLive = (props) => {
                                 fixture.market_1_odds === undefined ||
                                 oddsFormatter(
                                   fixture.market_1_odds["outcome_1"]
-                                ) == parseFloat(1.0).toFixed(2)
+                                ) == parseFloat(1.0).toFixed(2) ||
+                                fixture.market_1_status != "Active"
                                   ? "btn btn-light wagger-btn intialise_input disabled"
                                   : "btn btn-light wagger-btn intialise_input"
                               }
@@ -164,7 +165,8 @@ const PreviewLive = (props) => {
                                 fixture.market_1_odds === undefined ||
                                 oddsFormatter(
                                   fixture.market_1_odds["outcome_X"]
-                                ) == parseFloat(1.0).toFixed(2)
+                                ) == parseFloat(1.0).toFixed(2) ||
+                                fixture.market_1_status != "Active"
                                   ? "btn btn-light wagger-btn intialise_input disabled"
                                   : "btn btn-light wagger-btn intialise_input"
                               }
@@ -195,7 +197,8 @@ const PreviewLive = (props) => {
                                 fixture.market_1_odds === undefined ||
                                 oddsFormatter(
                                   fixture.market_1_odds["outcome_2"]
-                                ) == parseFloat(1.0).toFixed(2)
+                                ) == parseFloat(1.0).toFixed(2) ||
+                                fixture.market_1_status != "Active"
                                   ? "btn btn-light wagger-btn intialise_input disabled"
                                   : "btn btn-light wagger-btn intialise_input"
                               }
@@ -256,7 +259,8 @@ const PreviewLive = (props) => {
                                 fixture.market_7_odds === undefined ||
                                 oddsFormatter(
                                   fixture.market_7_odds["outcome_1X"]
-                                ) == parseFloat(1.0).toFixed(2)
+                                ) == parseFloat(1.0).toFixed(2) ||
+                                fixture.market_7_status != "Active"
                                   ? "btn btn-light wagger-btn intialise_input disabled"
                                   : "btn btn-light wagger-btn intialise_input"
                               }
@@ -287,7 +291,8 @@ const PreviewLive = (props) => {
                                 fixture.market_7_odds === undefined ||
                                 oddsFormatter(
                                   fixture.market_7_odds["outcome_12"]
-                                ) == parseFloat(1.0).toFixed(2)
+                                ) == parseFloat(1.0).toFixed(2) ||
+                                fixture.market_7_status != "Active"
                                   ? "btn btn-light wagger-btn intialise_input disabled"
                                   : "btn btn-light wagger-btn intialise_input"
                               }
@@ -318,7 +323,8 @@ const PreviewLive = (props) => {
                                 fixture.market_7_odds === undefined ||
                                 oddsFormatter(
                                   fixture.market_7_odds["outcome_X2"]
-                                ) == parseFloat(1.0).toFixed(2)
+                                ) == parseFloat(1.0).toFixed(2) ||
+                                fixture.market_7_status != "Active"
                                   ? "btn btn-light wagger-btn intialise_input disabled"
                                   : "btn btn-light wagger-btn intialise_input"
                               }
@@ -381,7 +387,8 @@ const PreviewLive = (props) => {
                                 fixture.market_3_odds === undefined ||
                                 oddsFormatter(
                                   fixture.market_3_odds["outcome_1"]
-                                ) == parseFloat(1.0).toFixed(2)
+                                ) == parseFloat(1.0).toFixed(2) ||
+                                fixture.market_3_status != "Active"
                                   ? "btn btn-light wagger-btn intialise_input disabled"
                                   : "btn btn-light wagger-btn intialise_input"
                               }
@@ -415,7 +422,8 @@ const PreviewLive = (props) => {
                                 fixture.market_3_odds === undefined ||
                                 oddsFormatter(
                                   fixture.market_3_odds["outcome_2"]
-                                ) == parseFloat(1.0).toFixed(2)
+                                ) == parseFloat(1.0).toFixed(2) ||
+                                fixture.market_3_status != "Active"
                                   ? "btn btn-light wagger-btn intialise_input disabled"
                                   : "btn btn-light wagger-btn intialise_input"
                               }
@@ -481,7 +489,8 @@ const PreviewLive = (props) => {
                                 fixture.market_2_odds === undefined ||
                                 oddsFormatter(
                                   fixture.market_2_odds["outcome_Under"]
-                                ) == parseFloat(1.0).toFixed(2)
+                                ) == parseFloat(1.0).toFixed(2) ||
+                                fixture.market_2_status != "Active"
                                   ? "btn btn-light wagger-btn intialise_input disabled"
                                   : "btn btn-light wagger-btn intialise_input"
                               }
@@ -513,7 +522,8 @@ const PreviewLive = (props) => {
                                 fixture.market_2_odds === undefined ||
                                 oddsFormatter(
                                   fixture.market_2_odds["outcome_Over"]
-                                ) == parseFloat(1.0).toFixed(2)
+                                ) == parseFloat(1.0).toFixed(2) ||
+                                fixture.market_2_status != "Active"
                                   ? "btn btn-light wagger-btn intialise_input disabled"
                                   : "btn btn-light wagger-btn intialise_input"
                               }
@@ -576,7 +586,8 @@ const PreviewLive = (props) => {
                                 fixture.market_17_odds === undefined ||
                                 oddsFormatter(
                                   fixture.market_17_odds["outcome_Yes"]
-                                ) == parseFloat(1.0).toFixed(2)
+                                ) == parseFloat(1.0).toFixed(2) ||
+                                fixture.market_17_status != "Active"
                                   ? "btn btn-light wagger-btn intialise_input disabled"
                                   : "btn btn-light wagger-btn intialise_input"
                               }
@@ -607,7 +618,8 @@ const PreviewLive = (props) => {
                                 fixture.market_17_odds === undefined ||
                                 oddsFormatter(
                                   fixture.market_17_odds["outcome_No"]
-                                ) == parseFloat(1.0).toFixed(2)
+                                ) == parseFloat(1.0).toFixed(2) ||
+                                fixture.market_17_status != "Active"
                                   ? "btn btn-light wagger-btn intialise_input disabled"
                                   : "btn btn-light wagger-btn intialise_input"
                               }
