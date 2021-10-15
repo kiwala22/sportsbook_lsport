@@ -268,14 +268,21 @@ h6 {
 }
 
 .game-box .card .card-body table tr td a.btnn {
-  padding: 4px 17px !important;
+  padding: 0.25rem 0.5rem !important;
   border-radius: 5px !important;
   display: inline-block !important;
   color: #ffffff !important;
-  width: 75px !important;
+  width: 100% !important;
   background: #7690a7 !important;
   box-shadow: 0px 7px 20px -14px rgb(34 54 60 / 74%) !important;
-  margin-top: 10px !important;
+  margin-top: 0px !important;
+}
+
+.game-box .card .card-body table tr td {
+    font-size: 13px;
+    font-weight: 500;
+    text-transform: capitalize;
+    padding: 0.5rem 0.25rem;
 }
 
 .game-box .card .card-body ul li a.active {
