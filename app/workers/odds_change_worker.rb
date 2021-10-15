@@ -83,8 +83,6 @@ class OddsChangeWorker
 
         model_name = producer_type[product] + "Market"
 
-        mkt_entry = model_name.constantize.find_by(fixture_id: fixture_id, market_identifier: market["Id"])
-        
         update_attr = {}
         outcomes = {}
 
@@ -94,6 +92,7 @@ class OddsChangeWorker
                     if provider["Bets"].any? { |el| el.has_key?("BaseLine") }
                         bets = provider["Bets"].group_by{ |vl| vl["BaseLine"]}
                         bets.each do |key, value|
+                            mkt_entry = model_name.constantize.find_by(fixture_id: fixture_id, market_identifier: market["Id"], specifier: key)
                             update_attr["specifier"] = key
                             value.each do |bet|
                                 outcomes.store("outcome_#{bet["Name"]}", bet["Price"])
@@ -118,6 +117,8 @@ class OddsChangeWorker
                             update_attr = {}
                         end
                     else
+                        mkt_entry = model_name.constantize.find_by(fixture_id: fixture_id, market_identifier: market["Id"])
+
                         provider["Bets"].each do |bet|
                             outcomes.store("outcome_#{bet["Name"]}", bet["Price"])
                             update_attr["status"] = market_status[bet["Status"]]
