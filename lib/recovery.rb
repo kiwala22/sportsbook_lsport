@@ -7,20 +7,20 @@ module Recovery
     require 'yaml'
 
     # # Credentials for distributors
-    # @@username = "acaciabengo@skylinesms.com"
-    # @@password = "tyb54634"
-    # @@prematch_guid = "20bc3235-eb98-422c-9c32-beacc9c9303a"
+    @@username = "acaciabengo@skylinesms.com"
+    @@password = "tyb54634"
+    @@prematch_guid = "20bc3235-eb98-422c-9c32-beacc9c9303a"
 
     # # Sports
-    # @@sports_id = "6046"
+    @@sports_id = "6046"
 
     # # Package IDs
-    # @@prematch_pkg_id = "3537"
-    # @@livematch_pkg_id = "3538"
+    @@prematch_pkg_id = "3537"
+    @@livematch_pkg_id = "3538"
 
     # # Endpoints
-    # @@end_point = "https://prematch.lsports.eu/OddService/"
-    # @@live_end_point = "https://inplay.lsports.eu/api/"
+    @@end_point = "https://prematch.lsports.eu/OddService/"
+    @@live_end_point = "https://inplay.lsports.eu/api/"
     
     include Lsports
 
@@ -117,7 +117,7 @@ module Recovery
                         2 => "Suspended",
                         3 => "Settled"
                     }
-                    @@market_description = market["Name"]
+                    
                     attrs = {}
                     outcomes = {}
 
@@ -137,13 +137,16 @@ module Recovery
                                                         outcomes.store("outcome_#{bet["Name"]}", bet["Price"])
                                                         attrs["status"] = market_status[bet["Status"]]
                                                     end
-                                                    ##Save the market with specifier
-                                                    attrs["odds"] = outcomes
 
-                                                    mkt_entry = mkt.constantize.new(attrs)
-                                                    mkt_entry.market_identifier = event["Id"]
-                                                    mkt_entry.fixture_id = fixture.id
-                                                    mkt_entry.save
+                                                    ## Find the specified market in the DB
+                                                    mkt_entry = mkt.constantize.find_by(fixture_id: fixture.id, market_identifier: event["Id"], specifier: key, status: "Deactivated")
+
+                                                    if mkt_entry
+                                                        prevOdds = mkt_entry.odds
+                                                        attrs["odds"] = prevOdds.merge!(outcomes)
+                                                        mkt_entry.assign_attributes(attrs)
+                                                        mkt_entry.save
+                                                    end
 
                                                     outcomes = {}
                                                     attrs = {}
@@ -154,12 +157,15 @@ module Recovery
                                                     attrs["status"] = market_status[bet["Status"]]
                                                 end
 
-                                                ##Save the market with no specifier
-                                                attrs["odds"] = outcomes
-                                                mkt_entry = mkt.constantize.new(attrs)
-                                                mkt_entry.market_identifier = event["Id"]
-                                                mkt_entry.fixture_id = fixture.id
-                                                mkt_entry.save
+                                                ## Find the specified market in the DB
+                                                mkt_entry = mkt.constantize.find_by(fixture_id: fixture.id, market_identifier: event["Id"], status: "Deactivated")
+
+                                                if mkt_entry
+                                                    prevOdds = mkt_entry.odds
+                                                    attrs["odds"] = prevOdds.merge!(outcomes)
+                                                    mkt_entry.assign_attributes(attrs)
+                                                    mkt_entry.save
+                                                end
                                                 
                                                 outcomes = {}
                                                 attrs = {}
