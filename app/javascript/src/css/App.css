@@ -279,10 +279,10 @@ h6 {
 }
 
 .game-box .card .card-body table tr td {
-    font-size: 13px;
-    font-weight: 500;
-    text-transform: capitalize;
-    padding: 0.5rem 0.25rem;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  text-transform: capitalize !important;
+  padding: 0.5rem 0.25rem !important;
 }
 
 .game-box .card .card-body ul li a.active {
