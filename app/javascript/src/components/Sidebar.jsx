@@ -69,7 +69,7 @@ const Sidebar = (props) => {
               <Link
                 to={{
                   pathname: "/fixtures/soccer/pres",
-                  search: `q%5Bleague_name%5D=English+Premier+League`,
+                  search: `q%5Bleague_name%5D=Premier+League&location=England`,
                 }}
               >
                 <span className="show-more">English Premier League</span>
@@ -79,7 +79,7 @@ const Sidebar = (props) => {
               <Link
                 to={{
                   pathname: "/fixtures/soccer/pres",
-                  search: `q%5Bleague_name%5D=Serie+A`,
+                  search: `q%5Bleague_name%5D=Serie+A&location=Italy`,
                 }}
               >
                 <span className="show-more">Serie A</span>
@@ -89,7 +89,7 @@ const Sidebar = (props) => {
               <Link
                 to={{
                   pathname: "/fixtures/soccer/pres",
-                  search: `q%5Bleague_name%5D=La+Liga`,
+                  search: `q%5Bleague_name%5D=LaLiga&location=Spain`,
                 }}
               >
                 <span className="show-more">La Liga</span>
@@ -99,7 +99,7 @@ const Sidebar = (props) => {
               <Link
                 to={{
                   pathname: "/fixtures/soccer/pres",
-                  search: `q%5Bleague_name%5D=Bundesliga`,
+                  search: `q%5Bleague_name%5D=Bundesliga&location=Germany`,
                 }}
               >
                 <span className="show-more">Bundesliga</span>
@@ -109,7 +109,7 @@ const Sidebar = (props) => {
               <Link
                 to={{
                   pathname: "/fixtures/soccer/pres",
-                  search: `q%5Bleague_name%5D=French+Ligue+1`,
+                  search: `q%5Bleague_name%5D=Ligue+1&location=France`,
                 }}
               >
                 <span className="show-more">French Ligue 1</span>
@@ -119,7 +119,7 @@ const Sidebar = (props) => {
               <Link
                 to={{
                   pathname: "/fixtures/soccer/pres",
-                  search: `q%5Bleague_name%5D=Portuguese+Liga`,
+                  search: `q%5Bleague_name%5D=Primeira+Liga`,
                 }}
               >
                 <span className="show-more">Portuguese Liga</span>
@@ -159,7 +159,7 @@ const Sidebar = (props) => {
               <Link
                 to={{
                   pathname: "/fixtures/soccer/pres",
-                  search: `q%5Bleague_name%5D=Brazil+Serie+A`,
+                  search: `q%5Bleague_name%5D=Série+A&location=Brazil`,
                 }}
               >
                 <span className="show-more">Brazil Serie A</span>
