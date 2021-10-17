@@ -4,8 +4,7 @@ import cogoToast from "cogo-toast";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import shortUUID from "short-uuid";
-import BetslipChannel from "../../channels/betSlipsChannel";
-import MarketsChannel from "../../channels/marketsChannel";
+import BetSlipsChannel from "../../channels/betSlipsChannel";
 import currencyFormatter from "../utilities/CurrencyFormatter";
 import Mobile from "../utilities/Mobile";
 import { default as Request, default as Requests } from "../utilities/Requests";
@@ -106,38 +105,48 @@ const BetSlip = (props) => {
       let fixtureIndex = games.findIndex((el) => data.id == el.fixtureId);
       let prefix = `${games[fixtureIndex].marketIdentifier}`;
       let gameOutcome = games[fixtureIndex].outcome;
-      games[fixtureIndex] = {
-        ...games[fixtureIndex],
-        ...{
-          [`market_${prefix}_status`]: data[`market_${prefix}_status`],
-          odd: data[`market_${prefix}_odds`][`outcome_${gameOutcome}`],
-        },
-      };
+      if (data[`market_${prefix}_odds`] === undefined) {
+        games[fixtureIndex] = {
+          ...games[fixtureIndex],
+          ...{
+            [`market_${prefix}_status`]: data[`market_${prefix}_status`],
+          },
+        };
+      } else {
+        games[fixtureIndex] = {
+          ...games[fixtureIndex],
+          ...{
+            [`market_${prefix}_status`]: data[`market_${prefix}_status`],
+            odd: data[`market_${prefix}_odds`][`outcome_${gameOutcome}`],
+          },
+        };
+      }
+
       dispatcher({ type: "addBet", payload: games });
     }
   }
 
   const slipGames = () => {
-    return games
-      .filter((el) => el[`market_${el.marketIdentifier}_status`] === "Active")
-      .map((bet) => (
-        <BetslipChannel
-          key={shortUUID.generate()}
-          channel="BetslipChannel"
-          fixture={bet.fixtureId}
-          market={bet.marketIdentifier}
-          received={(data) => {
-            updateSlipGames(data, games);
-          }}
-        >
-          <MarketsChannel
-            channel="MarketsChannel"
+    return (
+      games
+        // .filter((el) => el[`market_${el.marketIdentifier}_status`] === "Active")
+        .map((bet) => (
+          <BetSlipsChannel
+            key={shortUUID.generate()}
+            channel="BetslipChannel"
             fixture={bet.fixtureId}
+            market={bet.marketIdentifier}
             received={(data) => {
               updateSlipGames(data, games);
             }}
           >
-            <div className="row lineBet">
+            <div
+              className={
+                bet[`market_${bet.marketIdentifier}_status`] === "Active"
+                  ? "row lineBet"
+                  : "row lineBet hide-row"
+              }
+            >
               <div className="col-12 px-2">
                 <div className="single-bet">
                   <div className="col-1 px-1">
@@ -164,9 +173,9 @@ const BetSlip = (props) => {
                 </div>
               </div>
             </div>
-          </MarketsChannel>
-        </BetslipChannel>
-      ));
+          </BetSlipsChannel>
+        ))
+    );
   };
 
   const deleteLineBet = (id) => {
