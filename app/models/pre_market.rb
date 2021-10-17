@@ -11,8 +11,8 @@ class PreMarket < ApplicationRecord
    
    
    def broadcast_updates
-      # Find the corresponding fixture
-      fixture = Fixture.find(self.fixture_id).as_json
+      ## Create a fixture replica object
+      fixture = {"id": self.fixture_id}
 
       if saved_change_to_odds?
         # Add necessary odds and status to the fixture
