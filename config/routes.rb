@@ -100,6 +100,7 @@ Rails.application.routes.draw do
       get '/api_user_keys/:id', to: 'api_users#generate_api_keys', as: 'user_keys'
       resources :api_users, only: [:new, :index, :create]
       match 'users' => "bet_users#index", via: [:get]
+      match 'user' => "bet_users#show", via: [:get]
       match 'betstop_reasons' => "betstop_reasons#index", via: [:get]
       match 'betting_statuses' => "betting_statuses#index", via: [:get]
       match 'void_reasons' => "void_reasons#index", via: [:get]
@@ -108,7 +109,7 @@ Rails.application.routes.draw do
       match 'suspend' => "bet_users#deactivate_account", via: [:post]
       match 'activate' => "bet_users#activate_account", via: [:post]
       match 'bet_slips' => "bet_slips#index", via: [:get]
-      match 'bet_slips/cancel' => "bet_slips#cancel", via: [:post]
+      # match 'bet_slips/cancel' => "bet_slips#cancel", via: [:post]
       match 'bet_slip' => "bet_slips#show", via: [:get]
       match 'bets' => "bets#index", via: [:get]
    end
