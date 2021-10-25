@@ -64,6 +64,7 @@
         <th>Amount Won</th>
         <th>Status</th>
         <th>Result</th>
+        <th>User</th>
         <th>Paid</th>
 				<th>Time</th>
       </tr>
@@ -79,6 +80,7 @@
 					<td><%= bet_slip.win_amount %></td>
 					<td><%= bet_slip.status%></td>
 					<td><%= bet_slip.result %></td>
+          <td><%= link_to bet_slip.user_id, backend_user_path(id:bet_slip.user) %></td>          
 					<td><%= bet_slip.paid %></td>
           <td><%= local_time(bet_slip.created_at, format: "%d/%m/%y %l:%M%P") %></td>
 				</tr>
