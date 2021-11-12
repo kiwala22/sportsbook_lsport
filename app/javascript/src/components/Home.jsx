@@ -21,6 +21,7 @@ import * as DataUpdate from "../utilities/DataUpdate";
 import Mobile from "../utilities/Mobile";
 import oddsFormatter from "../utilities/oddsFormatter";
 import Requests from "../utilities/Requests";
+import NoData from "./NoData";
 import Preview from "./Skeleton";
 // import Spinner from "./Spinner";
 
@@ -31,7 +32,18 @@ const Home = (props) => {
   const [pageLoading, setPageLoading] = useState(true);
   const dispatcher = useDispatch();
 
+  let interval;
+
   useEffect(() => loadGames(), []);
+
+  useEffect(() => {
+    if (prematchGames.length === 0) {
+      interval = setInterval(() => {
+        loadGames();
+      }, 5000);
+    }
+    return () => clearInterval(interval);
+  }, [prematchGames]);
 
   const loadGames = () => {
     let path = "/api/v1/home";
@@ -168,7 +180,7 @@ const Home = (props) => {
       render: (_, fixture) => (
         <a
           className={
-            fixture.market_1_odds === undefined ||
+            fixture.market_1_odds === undefined || fixture.market_1_odds === null ||
             oddsFormatter(fixture.market_1_odds["outcome_1"]) ==
               parseFloat(1.0).toFixed(2)
               ? "btnn intialise_input disabled"
@@ -179,7 +191,7 @@ const Home = (props) => {
             addBet(dispatcher, "1", "LiveMarket", fixture.id, "1X2 FT - 1", "1")
           }
         >
-          {fixture.market_1_odds === undefined
+          {fixture.market_1_odds === undefined || fixture.market_1_odds === null
             ? parseFloat(1.0).toFixed(2)
             : oddsFormatter(fixture.market_1_odds["outcome_1"])}
         </a>
@@ -190,7 +202,7 @@ const Home = (props) => {
       render: (_, fixture) => (
         <a
           className={
-            fixture.market_1_odds === undefined ||
+            fixture.market_1_odds === undefined || fixture.market_1_odds === null ||
             oddsFormatter(fixture.market_1_odds["outcome_X"]) ==
               parseFloat(1.0).toFixed(2)
               ? "btnn intialise_input disabled"
@@ -201,7 +213,7 @@ const Home = (props) => {
             addBet(dispatcher, "X", "LiveMarket", fixture.id, "1X2 FT - X", "1")
           }
         >
-          {fixture.market_1_odds === undefined
+          {fixture.market_1_odds === undefined || fixture.market_1_odds === null
             ? parseFloat(1.0).toFixed(2)
             : oddsFormatter(fixture.market_1_odds["outcome_X"])}
         </a>
@@ -212,7 +224,7 @@ const Home = (props) => {
       render: (_, fixture) => (
         <a
           className={
-            fixture.market_1_odds === undefined ||
+            fixture.market_1_odds === undefined || fixture.market_1_odds === null ||
             oddsFormatter(fixture.market_1_odds["outcome_2"]) ==
               parseFloat(1.0).toFixed(2)
               ? "btnn intialise_input disabled"
@@ -223,7 +235,7 @@ const Home = (props) => {
             addBet(dispatcher, "2", "LiveMarket", fixture.id, "1X2 FT - 2", "1")
           }
         >
-          {fixture.market_1_odds === undefined
+          {fixture.market_1_odds === undefined || fixture.market_1_odds === null
             ? parseFloat(1.0).toFixed(2)
             : oddsFormatter(fixture.market_1_odds["outcome_2"])}
         </a>
@@ -306,7 +318,7 @@ const Home = (props) => {
       render: (_, fixture) => (
         <a
           className={
-            fixture.market_1_odds === undefined ||
+            fixture.market_1_odds === undefined || fixture.market_1_odds === null ||
             oddsFormatter(fixture.market_1_odds["outcome_1"]) ==
               parseFloat(1.0).toFixed(2)
               ? "btnn intialise_input disabled"
@@ -317,7 +329,7 @@ const Home = (props) => {
             addBet(dispatcher, "1", "PreMarket", fixture.id, "1X2 FT - 1", "1")
           }
         >
-          {fixture.market_1_odds === undefined
+          {fixture.market_1_odds === undefined || fixture.market_1_odds === null
             ? parseFloat(1.0).toFixed(2)
             : oddsFormatter(fixture.market_1_odds["outcome_1"])}
         </a>
@@ -328,7 +340,7 @@ const Home = (props) => {
       render: (_, fixture) => (
         <a
           className={
-            fixture.market_1_odds === undefined ||
+            fixture.market_1_odds === undefined || fixture.market_1_odds === null ||
             oddsFormatter(fixture.market_1_odds["outcome_X"]) ==
               parseFloat(1.0).toFixed(2)
               ? "btnn intialise_input disabled"
@@ -339,7 +351,7 @@ const Home = (props) => {
             addBet(dispatcher, "X", "PreMarket", fixture.id, "1X2 FT - X", "1")
           }
         >
-          {fixture.market_1_odds === undefined
+          {fixture.market_1_odds === undefined || fixture.market_1_odds === null
             ? parseFloat(1.0).toFixed(2)
             : oddsFormatter(fixture.market_1_odds["outcome_X"])}
         </a>
@@ -350,7 +362,7 @@ const Home = (props) => {
       render: (_, fixture) => (
         <a
           className={
-            fixture.market_1_odds === undefined ||
+            fixture.market_1_odds === undefined || fixture.market_1_odds === null ||
             oddsFormatter(fixture.market_1_odds["outcome_2"]) ==
               parseFloat(1.0).toFixed(2)
               ? "btnn intialise_input disabled"
@@ -361,7 +373,7 @@ const Home = (props) => {
             addBet(dispatcher, "2", "PreMarket", fixture.id, "1X2 FT - 2", "1")
           }
         >
-          {fixture.market_1_odds === undefined
+          {fixture.market_1_odds === undefined || fixture.market_1_odds === null
             ? parseFloat(1.0).toFixed(2)
             : oddsFormatter(fixture.market_1_odds["outcome_2"])}
         </a>
@@ -444,7 +456,7 @@ const Home = (props) => {
       render: (_, fixture) => (
         <a
           className={
-            fixture.market_1_odds === undefined ||
+            fixture.market_1_odds === undefined || fixture.market_1_odds === null ||
             oddsFormatter(fixture.market_1_odds["outcome_1"]) ==
               parseFloat(1.0).toFixed(2)
               ? "btnn intialise_input disabled"
@@ -455,7 +467,7 @@ const Home = (props) => {
             addBet(dispatcher, "1", "PreMarket", fixture.id, "1X2 FT - 1", "1")
           }
         >
-          {fixture.market_1_odds === undefined
+          {fixture.market_1_odds === undefined || fixture.market_1_odds === null
             ? parseFloat(1.0).toFixed(2)
             : oddsFormatter(fixture.market_1_odds["outcome_1"])}
         </a>
@@ -466,7 +478,7 @@ const Home = (props) => {
       render: (_, fixture) => (
         <a
           className={
-            fixture.market_1_odds === undefined ||
+            fixture.market_1_odds === undefined || fixture.market_1_odds === null ||
             oddsFormatter(fixture.market_1_odds["outcome_X"]) ==
               parseFloat(1.0).toFixed(2)
               ? "btnn intialise_input disabled"
@@ -477,7 +489,7 @@ const Home = (props) => {
             addBet(dispatcher, "X", "PreMarket", fixture.id, "1X2 FT - X", "1")
           }
         >
-          {fixture.market_1_odds === undefined
+          {fixture.market_1_odds === undefined || fixture.market_1_odds === null
             ? parseFloat(1.0).toFixed(2)
             : oddsFormatter(fixture.market_1_odds["outcome_X"])}
         </a>
@@ -488,7 +500,7 @@ const Home = (props) => {
       render: (_, fixture) => (
         <a
           className={
-            fixture.market_1_odds === undefined ||
+            fixture.market_1_odds === undefined || fixture.market_1_odds === null ||
             oddsFormatter(fixture.market_1_odds["outcome_2"]) ==
               parseFloat(1.0).toFixed(2)
               ? "btnn intialise_input disabled"
@@ -499,7 +511,7 @@ const Home = (props) => {
             addBet(dispatcher, "2", "PreMarket", fixture.id, "1X2 FT - 2", "1")
           }
         >
-          {fixture.market_1_odds === undefined
+          {fixture.market_1_odds === undefined || fixture.market_1_odds === null
             ? parseFloat(1.0).toFixed(2)
             : oddsFormatter(fixture.market_1_odds["outcome_2"])}
         </a>
@@ -642,17 +654,7 @@ const Home = (props) => {
                             return shortUUID.generate();
                           }}
                           locale={{
-                            emptyText: (
-                              <>
-                                <span>
-                                  <DropboxOutlined className="font-40" />
-                                </span>
-                                <br />
-                                <span className="font-18">
-                                  No Fixtures Found
-                                </span>
-                              </>
-                            ),
+                            emptyText: <>{NoData("Featured Events")}</>,
                           }}
                           pagination={{ pageSize: 10 }}
                         />
@@ -676,77 +678,77 @@ const Home = (props) => {
                 </div>
               </div>
             )}
-          {prematchGames.length != 0 && (
-            <>
-              <br />
-              <div
-                className={
-                  Mobile.isMobile()
-                    ? "game-box mobile-table-padding"
-                    : "game-box"
-                }
-              >
-                <div className="card">
-                  <div className="card-header">
-                    <h3>
-                      Upcoming Fixtures - Soccer{" "}
-                      <i className="fas fa-futbol fa-lg fa-fw mr-2 match-time"></i>
-                    </h3>
-                  </div>
-                  <div className="card-body">
-                    <div className="tab-content" id="myTabContent">
-                      <div
-                        className="tab-pane fade show active"
-                        id="home"
-                        role="tabpanel"
-                        aria-labelledby="home-tab"
-                        data-controller=""
-                      >
-                        <Table
-                          className="table-striped-rows"
-                          columns={columns_pre}
-                          dataSource={prematchGames}
-                          size="middle"
-                          rowClassName={(record) =>
-                            record.market_1_status == "Active"
-                              ? "show-row"
-                              : "hide-row"
-                          }
-                          rowKey={() => {
-                            return shortUUID.generate();
-                          }}
-                          locale={{
-                            emptyText: (
-                              <>
-                                <span>
+          {/* {prematchGames.length != 0 && (
+            <> */}
+          <br />
+          <div
+            className={
+              Mobile.isMobile() ? "game-box mobile-table-padding" : "game-box"
+            }
+          >
+            <div className="card">
+              <div className="card-header">
+                <h3>
+                  Upcoming Fixtures - Soccer{" "}
+                  <i className="fas fa-futbol fa-lg fa-fw mr-2 match-time"></i>
+                </h3>
+              </div>
+              <div className="card-body">
+                <div className="tab-content" id="myTabContent">
+                  <div
+                    className="tab-pane fade show active"
+                    id="home"
+                    role="tabpanel"
+                    aria-labelledby="home-tab"
+                    data-controller=""
+                  >
+                    <Table
+                      className="table-striped-rows"
+                      columns={columns_pre}
+                      dataSource={prematchGames}
+                      size="middle"
+                      rowClassName={(record) =>
+                        record.market_1_status == "Active"
+                          ? "show-row"
+                          : "hide-row"
+                      }
+                      rowKey={() => {
+                        return shortUUID.generate();
+                      }}
+                      locale={{
+                        emptyText: (
+                          <>
+                            {/* <span>
                                   <DropboxOutlined className="font-40" />
                                 </span>
                                 <br />
                                 <span className="font-18">
                                   No Fixtures Found
-                                </span>
-                              </>
-                            ),
-                          }}
-                          pagination={{ defaultPageSize: 50 }}
-                        />
-                        <div className="text-center mb-2 mt-2 custom-anchor">
-                          <Link
-                            className="match-time show-more"
-                            to={"/fixtures/soccer/pres/"}
-                          >
-                            Show More
-                          </Link>
-                        </div>
-                      </div>
+                                </span> */}
+                            {/* {NoData()} */}
+                            <Preview />
+                          </>
+                        ),
+                      }}
+                      pagination={{ defaultPageSize: 50 }}
+                    />
+                    <div className="text-center mb-2 mt-2 custom-anchor">
+                      <Link
+                        className="match-time show-more"
+                        to={"/fixtures/soccer/pres/"}
+                      >
+                        Show More
+                      </Link>
                     </div>
                   </div>
                 </div>
               </div>
-            </>
-          )}
+            </div>
+          </div>
         </>
       )}
+      {/* </>
+      )} */}
       {pageLoading && <Preview />}
     </>
   );

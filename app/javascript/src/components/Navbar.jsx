@@ -32,6 +32,7 @@ const Navbar = (props) => {
 
   const performSearch = (values) => {
     setShowSearch(false);
+    formRef.current.resetFields();
     props.history.push({
       pathname: "/fixtures/search",
       search: `?search=${values.search}`,

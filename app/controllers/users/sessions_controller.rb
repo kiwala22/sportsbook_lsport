@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Users::SessionsController < Devise::SessionsController
+  include Accessible
+  skip_before_action :check_user, only: :destroy
   skip_before_action :verify_authenticity_token, only: :create
   layout 'application'
   include CurrentCart

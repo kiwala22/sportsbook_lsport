@@ -86,6 +86,11 @@ button.btn.btn-block.btn-primary.mt-lg.login-btn {
   color: black;
 }
 
+button.btn.btn-primary.mt-lg.reload-btn {
+  background-color: #f6ae2d;
+  color: black;
+}
+
 button.btn.btn-block.btn-primary.mt-lg.login-btn:hover,
 button.btn.btn-block.btn-primary.mt-lg.login-btn:focus {
   background-color: #f6ae2d;
@@ -701,7 +706,7 @@ a.show-more:hover {
   border-bottom: #f6ae2d 1px solid;
 }
 
-a.wagger-btn{
+a.wagger-btn {
   font-weight: 500 !important;
   font-size: 13px !important;
 }

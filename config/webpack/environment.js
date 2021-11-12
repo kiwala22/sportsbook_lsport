@@ -45,4 +45,6 @@ const less_loader = {
 environment.loaders.append("less", less_loader);
 environment.loaders.append("webp", webp_loader);
 
+environment.splitChunks();
+
 module.exports = environment;

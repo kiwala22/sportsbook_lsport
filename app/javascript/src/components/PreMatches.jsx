@@ -1,4 +1,3 @@
-import { DropboxOutlined } from "@ant-design/icons";
 import { Table } from "antd";
 import "channels";
 import cogoToast from "cogo-toast";
@@ -14,6 +13,7 @@ import * as DataUpdate from "../utilities/DataUpdate";
 import Mobile from "../utilities/Mobile";
 import oddsFormatter from "../utilities/oddsFormatter";
 import Requests from "../utilities/Requests";
+import NoData from "./NoData";
 import Preview from "./Skeleton";
 
 const PreMatches = (props) => {
@@ -140,6 +140,7 @@ const PreMatches = (props) => {
         <a
           className={
             fixture.market_1_odds === undefined ||
+            fixture.market_1_odds === null ||
             oddsFormatter(fixture.market_1_odds["outcome_1"]) ==
               parseFloat(1.0).toFixed(2)
               ? "btnn intialise_input disabled"
@@ -150,7 +151,7 @@ const PreMatches = (props) => {
             addBet(dispatcher, "1", "PreMarket", fixture.id, "1X2 FT - 1", "1")
           }
         >
-          {fixture.market_1_odds === undefined
+          {fixture.market_1_odds === undefined || fixture.market_1_odds === null
             ? parseFloat(1.0).toFixed(2)
             : oddsFormatter(fixture.market_1_odds["outcome_1"])}
         </a>
@@ -162,6 +163,7 @@ const PreMatches = (props) => {
         <a
           className={
             fixture.market_1_odds === undefined ||
+            fixture.market_1_odds === null ||
             oddsFormatter(fixture.market_1_odds["outcome_X"]) ==
               parseFloat(1.0).toFixed(2)
               ? "btnn intialise_input disabled"
@@ -172,7 +174,7 @@ const PreMatches = (props) => {
             addBet(dispatcher, "X", "PreMarket", fixture.id, "1X2 FT - X", "1")
           }
         >
-          {fixture.market_1_odds === undefined
+          {fixture.market_1_odds === undefined || fixture.market_1_odds === null
             ? parseFloat(1.0).toFixed(2)
             : oddsFormatter(fixture.market_1_odds["outcome_X"])}
         </a>
@@ -184,6 +186,7 @@ const PreMatches = (props) => {
         <a
           className={
             fixture.market_1_odds === undefined ||
+            fixture.market_1_odds === null ||
             oddsFormatter(fixture.market_1_odds["outcome_2"]) ==
               parseFloat(1.0).toFixed(2)
               ? "btnn intialise_input disabled"
@@ -194,7 +197,7 @@ const PreMatches = (props) => {
             addBet(dispatcher, "2", "PreMarket", fixture.id, "1X2 FT - 2", "1")
           }
         >
-          {fixture.market_1_odds === undefined
+          {fixture.market_1_odds === undefined || fixture.market_1_odds === null
             ? parseFloat(1.0).toFixed(2)
             : oddsFormatter(fixture.market_1_odds["outcome_2"])}
         </a>
@@ -253,11 +256,12 @@ const PreMatches = (props) => {
                       locale={{
                         emptyText: (
                           <>
-                            <span>
+                            {NoData("Upcoming Events")}
+                            {/* <span>
                               <DropboxOutlined className="font-40" />
                             </span>
                             <br />
-                            <span className="font-18">No Fixtures Found</span>
+                            <span className="font-18">No Fixtures Found</span> */}
                           </>
                         ),
                       }}
