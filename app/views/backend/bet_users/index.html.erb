@@ -7,22 +7,18 @@
 
 <div class="table-responsive">
   <!-- table table-striped table-bordered table-hover -->
-  <table class="table table-striped table-bordered table-hoverlarge-12 columns large-centered">
+  <table class="table table-hover table-bordered table-striped">
     <thead>
       <tr>
         <th>No</th>
-        <th>Email</th>
+        <th>Phone Number</th>
         <th>First Name</th>
         <th>Last Name</th>
-        <th>Phone Number</th>
         <th>Balance</th>
-        <th>Status</th>
         <th>Sign In Count</th>
-        <th>Current Sign In At</th>
-        <th>Last Sign In At</th>
-        <th>Current Sign In IP</th>
         <th>Last Sign In IP</th>
         <th>Failed Attempts</th>
+        <th>Status</th>
         <th>Actions</th>
       </tr>
     </thead>
@@ -30,11 +26,19 @@
 			<% @users.each_with_index do |user, i| %>
 				<tr>
 					<td><%= (i+1)%></td>
-					<td><%= user.email %></td>
+          <td>
+            <a href="<%= backend_user_path(id:user) %>">
+              <%= user.phone_number %></td>
+            </a>
+          </td>
 					<td><%= user.first_name %></td>
-					<td><%= user.last_name %></td>
-					<td><%= user.phone_number %></td>
+					<td><%= user.last_name %></td> 
           <td><%= user.balance %></td>
+          
+					<td><%= user.sign_in_count %></td>
+         
+          <td><%= user.last_sign_in_ip%></td>
+					<td><%= user.failed_attempts %></td>
           <td>
             <% if user.account_active == true %>
               <div class="badge badge-success">
@@ -46,12 +50,6 @@
               </div>
             <% end %>
           </td>
-					<td><%= user.sign_in_count %></td>
-          <td><%= user.current_sign_in_at%></td>
-					<td><%= user.last_sign_in_at%></td>
-          <td><%= user.current_sign_in_ip%></td>
-          <td><%= user.last_sign_in_ip%></td>
-					<td><%= user.failed_attempts %></td>
           <td>
             <% if user.account_active == true %>
               <%= button_to "Suspend", backend_suspend_path(id: user.id), class: "btn btn-xs btn-danger", method: :post %>

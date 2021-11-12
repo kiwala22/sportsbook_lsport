@@ -7,6 +7,13 @@ class Backend::BetUsersController < ApplicationController
     @users = User.all.order('created_at DESC').page params[:page]
   end
 
+  def show
+    @user = User.find(params[:id])
+    @transactions = Transaction.where(user_id:@user).order(id: :desc).paginate(page: params[:page], per_page:35)
+    @bet_slips = BetSlip.where(user_id:@user).order(id: :desc).paginate(page: params[:page], per_page:35)
+    @bets = Bet.where(user_id:@user).order(id: :desc).paginate(page: params[:page], per_page:35)
+  end
+
   ##Methods used by the admin to active and deactivate user account
   def deactivate_account
     user = User.find(params[:id])
