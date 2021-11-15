@@ -56,6 +56,9 @@ class Api::V1::Fixtures::Soccer::PreMatchController < ApplicationController
     markets = [1, 2, 3, 7, 17]
 
     fixture = @fixture.as_json
+
+    ## Add all available markets to fixture data
+    markets = @fixture.pre_markets
     
     ## Add outcomes and market statuses to the fixture
     markets.each do |market_identifier|

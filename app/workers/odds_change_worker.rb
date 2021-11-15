@@ -4,6 +4,8 @@ class OddsChangeWorker
     include Sidekiq::Worker
     sidekiq_options queue: "critical", retry: false
 
+    include MarketNames
+
     def perform(message, routing_key)
 
         if routing_key == "pre_match"
@@ -110,6 +112,7 @@ class OddsChangeWorker
                                 mkt_entry = model_name.constantize.new(update_attr)
                                 mkt_entry.fixture_id = fixture_id
                                 mkt_entry.market_identifier = market["Id"]
+                                mkt_entry.name = market_name(market["Id"])
                                 mkt_entry.save
                             end
 
@@ -135,6 +138,7 @@ class OddsChangeWorker
                             mkt_entry = model_name.constantize.new(update_attr)
                             mkt_entry.fixture_id = fixture_id
                             mkt_entry.market_identifier = market["Id"]
+                            mkt_entry.name = market_name(market["Id"])
                             mkt_entry.save
                         end
 

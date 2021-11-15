@@ -26,6 +26,8 @@ module Lsports
     @@end_point = "https://prematch.lsports.eu/OddService/"
     @@live_end_point = "https://inplay.lsports.eu/api/"
 
+    include MarketNames
+
     # Starting/Enabling distribution
     def start_prematch_distribution
 
@@ -206,8 +208,8 @@ module Lsports
     end
 
     def fetch_fixture_markets(sports_id = @@sports_id)
-        required_markets = ["1", "2", "3", "7", "17", "25", "28", "41", "42", "43", "44", "49", "52", "53", "63", "77", "113", "282"]
-        markets = required_markets.join(",")
+        # required_markets = ["1", "2", "3", "7", "17", "25", "28", "41", "42", "43", "44", "49", "52", "53", "63", "77", "113", "282"]
+        # markets = required_markets.join(",")
 
         url = @@end_point + "GetFixtureMarkets"
 
@@ -243,14 +245,13 @@ module Lsports
                         2 => "Suspended",
                         3 => "Settled"
                     }
-                    @@market_description = market["Name"]
+                    # @@market_description = market["Name"]
                     attrs = {}
                     outcomes = {}
 
                     if fixture
                         if market.has_key?("Markets") && market["Markets"].is_a?(Array)
                             market["Markets"].each do |event|
-                                # mkt = "Market" + (event["Id"]).to_s + "Pre"
                                 mkt = "PreMarket"
                                 if event.has_key?("Providers") && event["Providers"].is_a?(Array)
                                     event["Providers"].each do |provider|
@@ -268,6 +269,7 @@ module Lsports
 
                                                     mkt_entry = mkt.constantize.new(attrs)
                                                     mkt_entry.market_identifier = event["Id"]
+                                                    mkt_entry.name = market_name(event["Id"])
                                                     mkt_entry.fixture_id = fixture.id
                                                     mkt_entry.save
 
@@ -282,8 +284,10 @@ module Lsports
 
                                                 ##Save the market with no specifier
                                                 attrs["odds"] = outcomes
+                                                
                                                 mkt_entry = mkt.constantize.new(attrs)
                                                 mkt_entry.market_identifier = event["Id"]
+                                                mkt_entry.name = market_name(event["Id"])
                                                 mkt_entry.fixture_id = fixture.id
                                                 mkt_entry.save
                                                 
