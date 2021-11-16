@@ -32,33 +32,14 @@ class Api::V1::Fixtures::Soccer::LiveMatchController < ApplicationController
   end
 
   def show
-    @fixture =Fixture.includes(:live_markets).find(params[:id])
-
-    ##Required Markets
-    markets = [1, 2, 3, 7, 17]
+    @fixture = Fixture.includes(:live_markets).find(params[:id])
 
     fixture = @fixture.as_json
-    
-    ## Add outcomes and market statuses to the fixture
-    markets.each do |market_identifier|
 
-      case market_identifier
-      when 2
-        market = @fixture.live_markets.where(market_identifier: market_identifier, specifier: "2.5").first
-      when 3
-        market = @fixture.live_markets.where(market_identifier: market_identifier, specifier: "-1.0 (0-0)").first
-      else
-        market = @fixture.live_markets.where(market_identifier: market_identifier).first
-      end
+    ## Add all available markets to fixture data
+    markets = @fixture.pre_markets
 
-      if market
-        ## Add outcomes to the data
-        fixture["market_#{market_identifier}_odds"] = market.odds
-
-        ## Add market status to the fixture
-        fixture["market_#{market_identifier}_status"] = market.status
-      end
-    end
+    fixture["markets"] = markets
 
     render json: fixture
   end
