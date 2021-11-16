@@ -28,7 +28,7 @@ module MarketNames
         45  =>  "Under/Over 2nd Period",
         50  =>  "1X2 Including Overtime",
         51  =>  "Odd/Even Including Overtime",
-        52  =>  12,
+        52  =>  "12",
         55  =>  "First Team To Score 1st Period",
         56  =>  "Last Team To Score",
         57  =>  "Last Team To Score Halftime",

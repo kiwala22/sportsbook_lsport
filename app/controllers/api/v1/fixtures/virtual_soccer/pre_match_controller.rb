@@ -40,7 +40,7 @@ class Api::V1::Fixtures::VirtualSoccer::PreMatchController < ApplicationControll
     fixture = @fixture.as_json
 
     ## Add all available markets to fixture data
-    markets = @fixture.pre_markets
+    markets = @fixture.pre_markets.order('market_identifier::integer ASC')
 
     fixture["markets"] = markets
 
