@@ -47,12 +47,21 @@ export function fixtureUpdate(data, fixture, market, channel) {
     return fixture;
   }
 
-  fixture = {
-    ...fixture,
-    ...{
-      [`market_${market}_odds`]: data[`market_${market}_odds`],
-      [`market_${market}_status`]: data[`market_${market}_status`],
-    },
+  let objIndex = fixture.markets.findIndex(
+    (element) => element.market_identifier === data.market_identifier
+  );
+
+  let currentObj = fixture.markets[objIndex];
+
+  currentObj = {
+    ...currentObj,
+    ...data,
   };
+
+  fixture.markets[objIndex] = {
+    ...fixture.markets[objIndex],
+    ...currentObj,
+  };
+
   return fixture;
 }

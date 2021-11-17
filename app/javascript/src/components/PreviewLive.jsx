@@ -13,7 +13,6 @@ import format from "../utilities/format";
 import Mobile from "../utilities/Mobile";
 import oddsFormatter from "../utilities/oddsFormatter";
 import Requests from "../utilities/Requests";
-import Strings from "../utilities/strings";
 import Preview from "./Skeleton";
 
 const PreviewLive = (props) => {
@@ -42,6 +41,7 @@ const PreviewLive = (props) => {
   }
 
   const updateMatchInfo = (data, currentState, setState, market, channel) => {
+    console.log(currentState);
     let updatedData = DataUpdate.fixtureUpdate(
       data,
       currentState,
@@ -49,6 +49,7 @@ const PreviewLive = (props) => {
       channel
     );
     setState(updatedData);
+    console.log("Setter complete");
   };
 
   return (
@@ -177,7 +178,8 @@ const PreviewLive = (props) => {
                                             }
                                           >
                                             <span>
-                                              {Strings(market.name, index)}
+                                              {/* {Strings(market.name, index)} */}
+                                              {element.substring(8)}
                                             </span>
                                             <span className="wagger-amt">
                                               {oddsFormatter(

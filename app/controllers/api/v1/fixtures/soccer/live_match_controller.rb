@@ -15,16 +15,14 @@ class Api::V1::Fixtures::Soccer::LiveMatchController < ApplicationController
       .where('live_markets.status = ? AND live_markets.market_identifier =?', 'Active', '1')
 
     @fixtures.each do |event|
-      ## convert  fixture to json
-      market = event.live_markets.where(market_identifier: 1).first
+      ## find Market 1X2
+      market = event.live_markets.where(market_identifier: 1)
+
       ## convert  fixture to json
       fixture = event.as_json
 
       ## Add outcomes to the data
-      fixture["market_#{market.market_identifier}_odds"] = market.odds
-
-      ## Add market status to the fixture
-      fixture["market_#{market.market_identifier}_status"] = market.status
+      fixture["markets"] = market
 
       @lives.push(fixture)
     end
