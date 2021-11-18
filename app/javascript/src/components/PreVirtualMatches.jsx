@@ -81,6 +81,7 @@ const PreVirtualMatches = (props) => {
         <MarketsChannel
           channel="MarketsChannel"
           fixture={fixture.id}
+          market="1"
           received={(data) => {
             updateMatchInfo(
               data,

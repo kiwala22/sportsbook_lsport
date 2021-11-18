@@ -67,6 +67,7 @@ const LiveVirtualMatches = (props) => {
         <MarketsChannel
           channel="MarketsChannel"
           fixture={fixture.id}
+          market="1"
           received={(data) => {
             updateMatchInfo(
               data,
@@ -79,7 +80,7 @@ const LiveVirtualMatches = (props) => {
         >
           <Link
             to={{
-              pathname: "/fixtures/soccer/live",
+              pathname: "/fixtures/virtual_soccer/live",
               search: `id=${fixture.id}`,
             }}
             className="show-more"

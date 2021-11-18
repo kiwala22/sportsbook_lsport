@@ -19,6 +19,7 @@ const PreviewLiveVirtual = (props) => {
   const [pageLoading, setPageLoading] = useState(true);
   const dispatcher = useDispatch();
   const isMobile = useSelector((state) => state.isMobile);
+  const [_, setGreeting] = useState("");
 
   useEffect(() => {
     getfixture();
@@ -48,6 +49,8 @@ const PreviewLiveVirtual = (props) => {
       channel
     );
     setState(updatedData);
+    // Forcing Re-render //to be reviewed
+    setGreeting(Math.random());
   };
 
   return (
@@ -99,7 +102,7 @@ const PreviewLiveVirtual = (props) => {
                                   data,
                                   fixture,
                                   setFixture,
-                                  data.market_identifier,
+                                 _,
                                   "Market"
                                 );
                               }}

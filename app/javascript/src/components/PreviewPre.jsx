@@ -18,6 +18,7 @@ const PreviewPre = (props) => {
   const [pageLoading, setPageLoading] = useState(true);
   const dispatcher = useDispatch();
   const isMobile = useSelector((state) => state.isMobile);
+  const [_, setGreeting] = useState("");
 
   useEffect(() => {
     getfixture();
@@ -49,6 +50,9 @@ const PreviewPre = (props) => {
       channel
     );
     setState(updatedData);
+    
+    // Forcing Re-render //to be reviewed
+    setGreeting(Math.random());
   };
 
   return (
@@ -66,7 +70,7 @@ const PreviewPre = (props) => {
                       data,
                       fixture,
                       setFixture,
-                      data.market_identifier,
+                      _,
                       "Market"
                     );
                   }}
