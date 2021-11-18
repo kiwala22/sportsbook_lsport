@@ -53,7 +53,7 @@ class Fixture < ApplicationRecord
     #check if match status is live and change was on either scores or match time
     if self.status == "live"
       if saved_change_to_attribute?(:home_score) || saved_change_to_attribute?(:away_score) || saved_change_to_attribute?(:match_time)
-        fixture = {"id": self.id}
+        fixture = {"fixture_id": self.id}
 
         ## Add scores and match time to the fixture object
         fixture["home_score"] = self.home_score

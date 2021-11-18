@@ -14,7 +14,6 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import currencyFormatter from "../utilities/CurrencyFormatter";
-import Mobile from "../utilities/Mobile";
 import Requests from "../utilities/Requests";
 import Login from "./Login";
 import SignUp from "./SignUp";
@@ -22,7 +21,9 @@ import SignUp from "./SignUp";
 const Navbar = (props) => {
   const dispatch = useDispatch();
   const formRef = React.createRef();
-  const { signedIn, verified, userInfo } = useSelector((state) => state);
+  const { signedIn, verified, userInfo, isMobile } = useSelector(
+    (state) => state
+  );
   const [showSearch, setShowSearch] = useState(false);
   const slipGames = useSelector((state) => {
     return state.games.filter((el) => {
@@ -170,7 +171,7 @@ const Navbar = (props) => {
 
   return (
     <>
-      {!Mobile.isMobile() && (
+      {!isMobile && (
         <div>
           <nav className="navbar navbar-expand-md main-menu">
             <div className="container-fluid">
@@ -259,7 +260,7 @@ const Navbar = (props) => {
           </nav>
         </div>
       )}
-      {Mobile.isMobile() && (
+      {isMobile && (
         <>
           <NavBar
             mode="dark"

@@ -3,9 +3,9 @@ import { Button, Table } from "antd";
 import cogoToast from "cogo-toast";
 import React, { useEffect, useState } from "react";
 import Moment from "react-moment";
+import { useSelector } from "react-redux";
 import shortUUID from "short-uuid";
 import currencyFormatter from "../utilities/CurrencyFormatter";
-import Mobile from "../utilities/Mobile";
 import Requests from "../utilities/Requests";
 import BetReceipt from "./BetReceipt";
 import Preview from "./Skeleton";
@@ -13,6 +13,7 @@ import Preview from "./Skeleton";
 const Bets = () => {
   const [bets, setBets] = useState([]);
   const [pageLoading, setPageLoading] = useState(true);
+  const isMobile = useSelector((state) => state.isMobile);
 
   useEffect(() => loadBets(), []);
 
@@ -106,9 +107,7 @@ const Bets = () => {
       {!pageLoading && (
         <>
           <div
-            className={
-              Mobile.isMobile() ? "game-box mobile-table-padding" : "game-box"
-            }
+            className={isMobile ? "game-box mobile-table-padding" : "game-box"}
           >
             <div className="card">
               <div className="card-header">

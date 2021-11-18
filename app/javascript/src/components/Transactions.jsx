@@ -2,17 +2,17 @@ import { DropboxOutlined } from "@ant-design/icons";
 import { Table } from "antd";
 import cogoToast from "cogo-toast";
 import React, { useEffect, useState } from "react";
-import { BsDash, BsPlus } from "react-icons/bs";
 import Moment from "react-moment";
+import { useSelector } from "react-redux";
 import shortUUID from "short-uuid";
 import currencyFormatter from "../utilities/CurrencyFormatter";
-import Mobile from "../utilities/Mobile";
 import Requests from "../utilities/Requests";
 import Preview from "./Skeleton";
 
 const Transactions = () => {
   const [transactions, setTransactions] = useState([]);
   const [pageLoading, setPageLoading] = useState(true);
+  const isMobile = useSelector((state) => state.isMobile);
 
   useEffect(() => loadTransactions(), []);
 
@@ -55,21 +55,13 @@ const Transactions = () => {
       dataIndex: "amount",
       render: (amount, transaction) =>
         transaction.category === "Deposit" ? (
-          <span className="deposit">            
-            {currencyFormatter(amount)}
-          </span>
+          <span className="deposit">{currencyFormatter(amount)}</span>
         ) : transaction.category === "Withdraw" ? (
-          <span className="withdraw">            
-            {currencyFormatter(amount)}
-          </span>
+          <span className="withdraw">{currencyFormatter(amount)}</span>
         ) : transaction.category === "Bet Stake" ? (
-          <span className="withdraw">            
-            {currencyFormatter(amount)}
-          </span>
+          <span className="withdraw">{currencyFormatter(amount)}</span>
         ) : (
-          <span className="deposit">            
-            {currencyFormatter(amount)}
-          </span>
+          <span className="deposit">{currencyFormatter(amount)}</span>
         ),
     },
     {
@@ -107,9 +99,7 @@ const Transactions = () => {
       {!pageLoading && (
         <>
           <div
-            className={
-              Mobile.isMobile() ? "game-box mobile-table-padding" : "game-box"
-            }
+            className={isMobile ? "game-box mobile-table-padding" : "game-box"}
           >
             <div className="card">
               <div className="card-header">

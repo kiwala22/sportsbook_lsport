@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 import shortUUID from "short-uuid";
 import BetSlipsChannel from "../../channels/betSlipsChannel";
 import currencyFormatter from "../utilities/CurrencyFormatter";
-import Mobile from "../utilities/Mobile";
 import { default as Request, default as Requests } from "../utilities/Requests";
 import Login from "./Login";
 
@@ -18,6 +17,7 @@ const BetSlip = (props) => {
   const userSignedIn = useSelector((state) => state.signedIn);
   const games = useSelector((state) => state.games);
   const show = useSelector((state) => state.showBetSlip);
+  const isMobile = useSelector((state) => state.isMobile);
   const dispatcher = useDispatch();
 
   useEffect(() => {
@@ -85,7 +85,7 @@ const BetSlip = (props) => {
           cogoToast.success("Your Betslip is now empty.", {
             hideAfter: 5,
           });
-          if (Mobile.isMobile()) {
+          if (isMobile) {
             close();
           }
         }
@@ -288,7 +288,7 @@ const BetSlip = (props) => {
 
   return (
     <>
-      {!Mobile.isMobile() && (
+      {!isMobile && (
         <>
           <>
             <div className="web-sidebar-widget" id="betSlip">
@@ -317,7 +317,7 @@ const BetSlip = (props) => {
           </>
         </>
       )}
-      {Mobile.isMobile() && (
+      {isMobile && (
         <Modal
           title={
             <>

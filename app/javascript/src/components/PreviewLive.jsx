@@ -2,15 +2,15 @@ import "channels";
 import cogoToast from "cogo-toast";
 import React, { useEffect, useState } from "react";
 import { BsDash } from "react-icons/bs";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { withRouter } from "react-router-dom";
+import shortUUID from "short-uuid";
 import FixtureChannel from "../../channels/fixturesChannel";
 import LiveOddsChannel from "../../channels/liveOddsChannel";
 import MarketsChannel from "../../channels/marketsChannel";
 import addBet from "../redux/actions";
 import * as DataUpdate from "../utilities/DataUpdate";
 import format from "../utilities/format";
-import Mobile from "../utilities/Mobile";
 import oddsFormatter from "../utilities/oddsFormatter";
 import Requests from "../utilities/Requests";
 import Preview from "./Skeleton";
@@ -18,7 +18,9 @@ import Preview from "./Skeleton";
 const PreviewLive = (props) => {
   const [fixture, setFixture] = useState([]);
   const [pageLoading, setPageLoading] = useState(true);
+  const [_, setGreeting] = useState("");
   const dispatcher = useDispatch();
+  const isMobile = useSelector((state) => state.isMobile);
 
   useEffect(() => {
     getfixture();
@@ -41,7 +43,6 @@ const PreviewLive = (props) => {
   }
 
   const updateMatchInfo = (data, currentState, setState, market, channel) => {
-    console.log(currentState);
     let updatedData = DataUpdate.fixtureUpdate(
       data,
       currentState,
@@ -49,14 +50,16 @@ const PreviewLive = (props) => {
       channel
     );
     setState(updatedData);
-    console.log("Setter complete");
+
+    // Forcing Re-render //to be reviewed
+    setGreeting(Math.random());
   };
 
   return (
     <>
       {!pageLoading && (
         <>
-          <div className={Mobile.isMobile() ? "fixture-box" : "game-box"}>
+          <div className={isMobile ? "fixture-box" : "game-box"}>
             <div className="card" id="show-markets">
               <div className="card-header">
                 <FixtureChannel
@@ -82,18 +85,16 @@ const PreviewLive = (props) => {
                   </h6>
                 </FixtureChannel>
               </div>
-              <div className={Mobile.isMobile() ? "fix-body" : "card-body"}>
+              <div className={isMobile ? "fix-body" : "card-body"}>
                 <div className="row">
-                  <div
-                    className={Mobile.isMobile() ? "col-sm-12" : "col-lg-12"}
-                  >
+                  <div className={isMobile ? "col-sm-12" : "col-lg-12"}>
                     {
                       /* Iteration to start here */
 
                       fixture.markets
                         .filter((el) => el.name !== null)
                         .map((market) => (
-                          <>
+                          <React.Fragment key={shortUUID.generate()}>
                             <MarketsChannel
                               channel="MarketsChannel"
                               fixture={fixture.id}
@@ -103,14 +104,14 @@ const PreviewLive = (props) => {
                                   data,
                                   fixture,
                                   setFixture,
-                                  data.market_identifier,
+                                  _,
                                   "Market"
                                 );
                               }}
                             >
                               <div
                                 className={
-                                  Mobile.isMobile()
+                                  isMobile
                                     ? "market-label market-label-fixture"
                                     : "market-label"
                                 }
@@ -139,7 +140,7 @@ const PreviewLive = (props) => {
                                     data,
                                     fixture,
                                     setFixture,
-                                    data.market_identifier,
+                                    _,
                                     "Live"
                                   );
                                 }}
@@ -147,7 +148,7 @@ const PreviewLive = (props) => {
                                 <div className="d-flex justify-content-around">
                                   {Object.keys(format(market.odds)).map(
                                     (element, index) => (
-                                      <>
+                                      <React.Fragment key={index}>
                                         <div
                                           className={`p-2 col-lg-${Object.keys(market.odds).length % 2 == 0 ? 6 : 4} col-sm-${Object.keys(market.odds).length % 2 == 0 ? 6 : 4}`}
                                         >
@@ -186,13 +187,13 @@ const PreviewLive = (props) => {
                                             </span>
                                           </a>
                                         </div>
-                                      </>
+                                      </React.Fragment>
                                     )
                                   )}
                                 </div>
                               </LiveOddsChannel>
                             </div>
-                          </>
+                          </React.Fragment>
                         ))
                     }
                   </div>

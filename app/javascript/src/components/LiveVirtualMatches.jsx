@@ -3,7 +3,7 @@ import "channels";
 import cogoToast from "cogo-toast";
 import React, { useEffect, useState } from "react";
 import { BsDash } from "react-icons/bs";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import shortUUID from "short-uuid";
 import FixtureChannel from "../../channels/fixturesChannel";
@@ -11,7 +11,6 @@ import LiveOddsChannel from "../../channels/liveOddsChannel";
 import MarketsChannel from "../../channels/marketsChannel";
 import addBet from "../redux/actions";
 import * as DataUpdate from "../utilities/DataUpdate";
-import Mobile from "../utilities/Mobile";
 import oddsFormatter from "../utilities/oddsFormatter";
 import Requests from "../utilities/Requests";
 import NoData from "./NoData";
@@ -21,6 +20,7 @@ const LiveVirtualMatches = (props) => {
   const [games, setGames] = useState([]);
   const [pageLoading, setPageLoading] = useState(true);
   const dispatcher = useDispatch();
+  const isMobile = useSelector((state) => state.isMobile);
 
   useEffect(() => loadLiveGames(), []);
 
@@ -108,7 +108,7 @@ const LiveVirtualMatches = (props) => {
                 </span>
               </strong>
               <strong>
-                {Mobile.isMobile() ? (
+                {isMobile ? (
                   <span className="score">
                     {fixture.home_score} - {fixture.away_score}
                   </span>
@@ -225,9 +225,7 @@ const LiveVirtualMatches = (props) => {
         <>
           <div
             className={
-              Mobile.isMobile()
-                ? "game-box mobile-table-padding-games"
-                : "game-box"
+              isMobile ? "game-box mobile-table-padding-games" : "game-box"
             }
             id="live"
           >

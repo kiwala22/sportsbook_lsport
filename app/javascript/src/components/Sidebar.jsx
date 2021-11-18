@@ -2,7 +2,6 @@ import { Button, Drawer } from "antd";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import Mobile from "../utilities/Mobile";
 import Login from "./Login";
 import SignUp from "./SignUp";
 
@@ -10,6 +9,7 @@ const Sidebar = (props) => {
   const dispatcher = useDispatch();
   const open = useSelector((state) => state.displaySider);
   const signedIn = useSelector((state) => state.signedIn);
+  const isMobile = useSelector((state) => state.isMobile);
 
   const sidebar = (
     <>
@@ -265,14 +265,14 @@ const Sidebar = (props) => {
   );
 
   function onClose() {
-    if (Mobile.isMobile()) {
+    if (isMobile) {
       dispatcher({ type: "sider", payload: false });
     }
   }
 
   return (
     <>
-      {Mobile.isMobile() && (
+      {isMobile && (
         <>
           <Drawer
             title={
@@ -313,7 +313,7 @@ const Sidebar = (props) => {
           </Drawer>
         </>
       )}
-      {!Mobile.isMobile() && sidebar}
+      {!isMobile && sidebar}
     </>
   );
 };

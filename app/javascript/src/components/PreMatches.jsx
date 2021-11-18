@@ -3,14 +3,13 @@ import "channels";
 import cogoToast from "cogo-toast";
 import React, { useEffect, useState } from "react";
 import Moment from "react-moment";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import shortUUID from "short-uuid";
 import MarketsChannel from "../../channels/marketsChannel";
 import PreOddsChannel from "../../channels/preOddsChannel";
 import addBet from "../redux/actions";
 import * as DataUpdate from "../utilities/DataUpdate";
-import Mobile from "../utilities/Mobile";
 import oddsFormatter from "../utilities/oddsFormatter";
 import Requests from "../utilities/Requests";
 import NoData from "./NoData";
@@ -20,6 +19,7 @@ const PreMatches = (props) => {
   const [games, setGames] = useState([]);
   const [pageLoading, setPageLoading] = useState(true);
   const dispatcher = useDispatch();
+  const isMobile = useSelector((state) => state.isMobile);
 
   useEffect(() => {
     loadPreMatchGames();
@@ -211,9 +211,7 @@ const PreMatches = (props) => {
         <>
           <div
             className={
-              Mobile.isMobile()
-                ? "game-box mobile-table-padding-games"
-                : "game-box"
+              isMobile ? "game-box mobile-table-padding-games" : "game-box"
             }
           >
             <div className="card">

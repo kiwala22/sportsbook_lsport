@@ -17,9 +17,7 @@ export default function format(data) {
 
   let output = {};
 
-  keys.forEach((key) => {
-    output[key] = data[key];
-  });
+  keys.forEach((key) => (output[key] = data[key]));
 
   return output;
 }
