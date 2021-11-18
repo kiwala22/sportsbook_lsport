@@ -21,12 +21,12 @@ class Api::V1::Fixtures::VirtualSoccer::LiveMatchController < ApplicationControl
     @fixtures.each do |event|
       ## convert  fixture to json
       fixture = event.as_json
-      market = event.live_markets.where(market_identifier: 1).first
+      market = event.live_markets.where(market_identifier: 1)
       ## Add outcomes to the data
-      fixture["market_#{market.market_identifier}_odds"] = market.odds
+      fixture["markets"] = market
 
       ## Add market status to the fixture
-      fixture["market_#{market.market_identifier}_status"] = market.status
+      # fixture["market_#{market.market_identifier}_status"] = market.status
       
       virtual.push(fixture)
     end
@@ -40,6 +40,7 @@ class Api::V1::Fixtures::VirtualSoccer::LiveMatchController < ApplicationControl
 
     ## Add all available markets to fixture data
     markets = @fixture.live_markets.order('market_identifier::integer ASC')
+
 
     fixture["markets"] = markets
 

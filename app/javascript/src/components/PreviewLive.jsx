@@ -144,14 +144,12 @@ const PreviewLive = (props) => {
                                   );
                                 }}
                               >
-                                <div className="row">
+                                <div className="d-flex justify-content-around">
                                   {Object.keys(format(market.odds)).map(
                                     (element, index) => (
                                       <>
                                         <div
-                                          className={`col-lg-${
-                                            12 / Object.keys(market.odds).length
-                                          }`}
+                                          className={`p-2 col-lg-${Object.keys(market.odds).length % 2 == 0 ? 6 : 4} col-sm-${Object.keys(market.odds).length % 2 == 0 ? 6 : 4}`}
                                         >
                                           <a
                                             className={

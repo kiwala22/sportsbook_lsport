@@ -12,31 +12,31 @@ class PreMarket < ApplicationRecord
    
    def broadcast_updates
       ## Create a fixture replica object
-      fixture = {"id": self.fixture_id}
+      # fixture = {"id": self.fixture_id}
 
       if saved_change_to_odds?
         # Add necessary odds and status to the fixture
-        fixture["market_#{self.market_identifier}_odds"] = self.odds
-        fixture["market_#{self.market_identifier}_status"] = self.status
+        # fixture["market_#{self.market_identifier}_odds"] = self.odds
+        # fixture["market_#{self.market_identifier}_status"] = self.status
         
-        # Specify which market
-        fixture["market_identifier"] = self.market_identifier
+        # # Specify which market
+        # fixture["market_identifier"] = self.market_identifier
 
         # Make the broadcasts
-        CableWorker.perform_async("pre_odds_#{self.market_identifier}_#{self.fixture_id}", fixture)
-        CableWorker.perform_async("betslips_#{self.market_identifier}_#{self.fixture_id}", fixture)
+        CableWorker.perform_async("pre_odds_#{self.market_identifier}_#{self.fixture_id}", self.as_json)
+        CableWorker.perform_async("betslips_#{self.market_identifier}_#{self.fixture_id}", self.as_json)
       end
       
       if saved_change_to_status?
          # Add market status to the fixture object
-         fixture["market_#{self.market_identifier}_status"] = self.status
+        #  fixture["market_#{self.market_identifier}_status"] = self.status
 
-         # Specify which market
-         fixture["market_identifier"] = self.market_identifier
+        #  # Specify which market
+        #  fixture["market_identifier"] = self.market_identifier
 
          #Make the broadcast for market and betslip
-         CableWorker.perform_async("betslips_#{self.market_identifier}_#{self.fixture_id}", fixture)
-         CableWorker.perform_async("markets_#{self.market_identifier}_#{self.fixture_id}", fixture)
+         CableWorker.perform_async("betslips_#{self.market_identifier}_#{self.fixture_id}", self.as_json)
+         CableWorker.perform_async("markets_#{self.market_identifier}_#{self.fixture_id}", self.as_json)
       end
    end
 end

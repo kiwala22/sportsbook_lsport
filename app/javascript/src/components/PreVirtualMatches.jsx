@@ -43,7 +43,7 @@ const PreVirtualMatches = (props) => {
   };
 
   const updateMatchInfo = (data, currentState, setState, market, channel) => {
-    let fixtureIndex = currentState.findIndex((el) => data.id == el.id);
+    let fixtureIndex = currentState.findIndex((el) => data.fixture_id == el.id);
     let fixture = currentState[fixtureIndex];
     let updatedFixture = DataUpdate.fixtureUpdate(
       data,
@@ -133,9 +133,9 @@ const PreVirtualMatches = (props) => {
       render: (_, fixture) => (
         <a
           className={
-            fixture.market_1_odds === undefined ||
-            fixture.market_1_odds === null ||
-            oddsFormatter(fixture.market_1_odds["outcome_1"]) ==
+            fixture.markets.length == 0 ||
+            fixture.markets[0].odds === null ||
+            oddsFormatter(fixture.markets[0].odds["outcome_1"]) ==
               parseFloat(1.0).toFixed(2)
               ? "btnn intialise_input disabled"
               : "btnn intialise_input btn btn-light wagger-btn"
@@ -145,9 +145,9 @@ const PreVirtualMatches = (props) => {
             addBet(dispatcher, "1", "PreMarket", fixture.id, "1X2 FT - 1", "1")
           }
         >
-          {fixture.market_1_odds === undefined || fixture.market_1_odds === null
+          {fixture.markets.length == 0  || fixture.markets[0].odds === null
             ? parseFloat(1.0).toFixed(2)
-            : oddsFormatter(fixture.market_1_odds["outcome_1"])}
+            : oddsFormatter(fixture.markets[0].odds["outcome_1"])}
         </a>
       ),
     },
@@ -156,9 +156,9 @@ const PreVirtualMatches = (props) => {
       render: (_, fixture) => (
         <a
           className={
-            fixture.market_1_odds === undefined ||
-            fixture.market_1_odds === null ||
-            oddsFormatter(fixture.market_1_odds["outcome_X"]) ==
+            fixture.markets.length == 0 ||
+            fixture.markets[0].odds === null ||
+            oddsFormatter(fixture.markets[0].odds["outcome_X"]) ==
               parseFloat(1.0).toFixed(2)
               ? "btnn intialise_input disabled"
               : "btnn intialise_input btn btn-light wagger-btn"
@@ -168,9 +168,9 @@ const PreVirtualMatches = (props) => {
             addBet(dispatcher, "X", "PreMarket", fixture.id, "1X2 FT - X", "1")
           }
         >
-          {fixture.market_1_odds === undefined || fixture.market_1_odds === null
+          {fixture.markets.length == 0  || fixture.markets[0].odds === null
             ? parseFloat(1.0).toFixed(2)
-            : oddsFormatter(fixture.market_1_odds["outcome_X"])}
+            : oddsFormatter(fixture.markets[0].odds["outcome_X"])}
         </a>
       ),
     },
@@ -179,9 +179,9 @@ const PreVirtualMatches = (props) => {
       render: (_, fixture) => (
         <a
           className={
-            fixture.market_1_odds === undefined ||
-            fixture.market_1_odds === null ||
-            oddsFormatter(fixture.market_1_odds["outcome_2"]) ==
+            fixture.markets.length == 0 ||
+            fixture.markets[0].odds === null ||
+            oddsFormatter(fixture.markets[0].odds["outcome_2"]) ==
               parseFloat(1.0).toFixed(2)
               ? "btnn intialise_input disabled"
               : "btnn intialise_input btn btn-light wagger-btn"
@@ -191,9 +191,9 @@ const PreVirtualMatches = (props) => {
             addBet(dispatcher, "2", "PreMarket", fixture.id, "1X2 FT - 2", "1")
           }
         >
-          {fixture.market_1_odds === undefined || fixture.market_1_odds === null
+          {fixture.markets.length == 0  || fixture.markets[0].odds === null
             ? parseFloat(1.0).toFixed(2)
-            : oddsFormatter(fixture.market_1_odds["outcome_2"])}
+            : oddsFormatter(fixture.markets[0].odds["outcome_2"])}
         </a>
       ),
     },
@@ -240,7 +240,7 @@ const PreVirtualMatches = (props) => {
                       dataSource={games}
                       size="middle"
                       rowClassName={(record) =>
-                        record.market_1_status == "Active"
+                        record.markets[0].status == "Active"
                           ? "show-row"
                           : "hide-row"
                       }
