@@ -83,7 +83,7 @@ class LineBetsController < ApplicationController
           'description': bet.description,
           'outcome': bet.outcome,
           'odd': fetch_current_odd(bet.market, bet.market_identifier, bet.fixture_id, bet.outcome, bet.specifier),
-          "market_#{bet.market_identifier}_status": "Active"
+          "status": "Active"
         }
       end
     end

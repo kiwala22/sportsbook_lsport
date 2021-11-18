@@ -27,7 +27,7 @@ const Navbar = (props) => {
   const [showSearch, setShowSearch] = useState(false);
   const slipGames = useSelector((state) => {
     return state.games.filter((el) => {
-      return el[`market_${el.marketIdentifier}_status`] === "Active";
+      return el.status === "Active";
     }).length;
   });
 
