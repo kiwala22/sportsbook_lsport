@@ -115,9 +115,9 @@ const PreviewLiveVirtual = (props) => {
                                 }
                               >
                                 <div className="row">
-                                  {market.name == "1X2" ? (
+                                  {market.name == "1X2 FT" ? (
                                     <div className="col-lg-12 ">
-                                      Match Result 1X2
+                                      Match Result 1X2 FT
                                     </div>
                                   ) : (
                                     <div className="col-lg-12 ">

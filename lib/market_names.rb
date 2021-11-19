@@ -1,7 +1,7 @@
 module MarketNames
 
     @@translations = {
-        1   =>  "1X2",
+        1   =>  "1X2 FT",
         2   =>  "Under/Over",
         3   =>  "Asian Handicap",
         4   =>  "HT/FT",
