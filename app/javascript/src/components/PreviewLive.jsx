@@ -130,7 +130,7 @@ const PreviewLive = (props) => {
                               </div>
                             </MarketsChannel>
                             {/* Iteration of Odds */}
-                            <div className="market-odds mb-3 mt-3">
+                            <div className="market-odds ">
                               <LiveOddsChannel
                                 channel="LiveOddsChannel"
                                 fixture={fixture.id}
@@ -150,7 +150,7 @@ const PreviewLive = (props) => {
                                     (element, index) => (
                                       <React.Fragment key={index}>
                                         <div
-                                          className={`p-2 col-lg-${Object.keys(market.odds).length % 2 == 0 ? 6 : 4} col-sm-${Object.keys(market.odds).length % 2 == 0 ? 6 : 4}`}
+                                          className={`p-1 col-lg-${Object.keys(market.odds).length % 2 == 0 ? 6 : 4} col-sm-${Object.keys(market.odds).length % 2 == 0 ? 6 : 4}`}
                                         >
                                           <a
                                             className={

@@ -109,7 +109,7 @@ const PreviewPreVirtual = (props) => {
                                 )}
                               </div>
                             </div>
-                            <div className="market-odds mb-3 mt-3">
+                            <div className="market-odds">
                               <PreOddsChannel
                                 channel="PreOddsChannel"
                                 fixture={fixture.id}
@@ -129,7 +129,7 @@ const PreviewPreVirtual = (props) => {
                                     (element, index) => (
                                       <React.Fragment key={index}>
                                         <div
-                                          className={`p-2 col-lg-${
+                                          className={`p-1 col-lg-${
                                             Object.keys(market.odds).length %
                                               2 ==
                                             0

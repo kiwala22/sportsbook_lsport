@@ -91,8 +91,8 @@ const PreviewLiveVirtual = (props) => {
 
                       fixture.markets
                         .filter((el) => el.name !== null)
-                        .map((market) => (
-                          <>
+                        .map((market, index) => (
+                          <React.Fragment key={index}>
                             <MarketsChannel
                               channel="MarketsChannel"
                               fixture={fixture.id}
@@ -128,7 +128,7 @@ const PreviewLiveVirtual = (props) => {
                               </div>
                             </MarketsChannel>
                             {/* Iteration of Odds */}
-                            <div className="market-odds mb-3 mt-3">
+                            <div className="market-odds">
                               <LiveOddsChannel
                                 channel="LiveOddsChannel"
                                 fixture={fixture.id}
@@ -146,21 +146,9 @@ const PreviewLiveVirtual = (props) => {
                                 <div className="d-flex justify-content-around">
                                   {Object.keys(format(market.odds)).map(
                                     (element, index) => (
-                                      <>
+                                      <React.Fragment key={index}>
                                         <div
-                                          className={`p-2 col-lg-${
-                                            Object.keys(market.odds).length %
-                                              2 ==
-                                            0
-                                              ? 6
-                                              : 4
-                                          } col-sm-${
-                                            Object.keys(market.odds).length %
-                                              2 ==
-                                            0
-                                              ? 6
-                                              : 4
-                                          }`}
+                                          className={`p-1 col-lg-${Object.keys(market.odds).length % 2 == 0 ? 6 : 4} col-sm-${Object.keys(market.odds).length % 2 == 0 ? 6 : 4}`}
                                         >
                                           <a
                                             className={
@@ -197,13 +185,13 @@ const PreviewLiveVirtual = (props) => {
                                             </span>
                                           </a>
                                         </div>
-                                      </>
+                                      </React.Fragment>
                                     )
                                   )}
                                 </div>
                               </LiveOddsChannel>
                             </div>
-                          </>
+                          </React.Fragment>
                         ))
                     }
                   </div>
