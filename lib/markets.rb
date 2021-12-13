@@ -1,4 +1,7 @@
 module Markets
+
+    include MarketNames
+
     def pre_match_market_creation(fixture_id_array)
         model_name = "PreMarket"
         fixture_id_array.each do |fixture_id|
@@ -172,6 +175,115 @@ module Markets
                         mkt_entry.fixture_id = fixture_id
                         mkt_entry.market_identifier = mkt
                         mkt_entry.status = "Active"
+                        mkt_entry.save
+                    end
+                end
+            end
+        end
+    end
+
+    def pre_match_market_creation_extra_markets(fixture_id_array)
+        model_name = "PreMarket"
+        fixture_id_array.each do |fixture_id|
+            fixture = Fixture.find(fixture_id)
+    
+            if fixture
+                # fixture.update(status: "not_started", start_date: (Date.today + 6.months))
+                fixture_id = fixture.id
+                event_id = fixture.event_id
+    
+                [13, 41, 42, 61].each do |mkt|
+                    attrs = {}
+                    market = model_name.constantize.find_by(fixture_id: fixture_id, market_identifier: mkt)
+                    if market
+                        market.update(status: "Active")
+                    else
+                        attrs["odds"] = {"outcome_1" => rand(1.00..20.00), "outcome_2" => rand(1.00..20.00), "outcome_X" => rand(1.00..20.00)}
+                        mkt_entry = model_name.constantize.new(attrs)
+                        mkt_entry.fixture_id = fixture_id
+                        mkt_entry.market_identifier = mkt
+                        mkt_entry.status = "Active"
+                        mkt_entry.name = market_name(mkt)
+                        mkt_entry.save
+                    end
+                end
+    
+                [16].each do |mkt|
+                    attrs = {}
+                    market = model_name.constantize.find_by(fixture_id: fixture_id, market_identifier: mkt)
+                    if market
+                        market.update(status: "Active")
+                    else
+                        attrs["odds"] = {"outcome_1" => rand(1.00..20.00), "outcome_2" => rand(1.00..20.00), "outcome_NoGoal" => rand(1.00..20.00)}
+                        mkt_entry = model_name.constantize.new(attrs)
+                        mkt_entry.fixture_id = fixture_id
+                        mkt_entry.market_identifier = mkt
+                        mkt_entry.status = "Active"
+                        mkt_entry.name = market_name(mkt)
+                        mkt_entry.save
+                    end
+                end
+
+                [19].each do |mkt|
+                    attrs = {}
+                    market = model_name.constantize.find_by(fixture_id: fixture_id, market_identifier: mkt)
+                    if market
+                        market.update(status: "Active")
+                    else
+                        attrs["odds"] = {"outcome_1" => rand(1.00..20.00), "outcome_2" => rand(1.00..20.00), "outcome_NoCard" => rand(1.00..20.00)}
+                        mkt_entry = model_name.constantize.new(attrs)
+                        mkt_entry.fixture_id = fixture_id
+                        mkt_entry.market_identifier = mkt
+                        mkt_entry.status = "Active"
+                        mkt_entry.name = market_name(mkt)
+                        mkt_entry.save
+                    end
+                end
+    
+                [21, 45].each do |mkt|
+                    attrs = {}
+                    market = model_name.constantize.find_by(fixture_id: fixture_id, market_identifier: mkt)
+                    if market
+                        market.update(status: "Active")
+                    else
+                        attrs["odds"] = {"outcome_Under" => rand(1.00..20.00), "outcome_Over" => rand(1.00..20.00)}
+                        mkt_entry = model_name.constantize.new(attrs)
+                        mkt_entry.fixture_id = fixture_id
+                        mkt_entry.market_identifier = mkt
+                        mkt_entry.status = "Active"
+                        mkt_entry.name = market_name(mkt)
+                        mkt_entry.save
+                    end
+                end
+    
+                [52].each do |mkt|
+                    attrs = {}
+                    market = model_name.constantize.find_by(fixture_id: fixture_id, market_identifier: mkt)
+                    if market
+                        market.update(status: "Active")
+                    else
+                        attrs["odds"] = {"outcome_1" => rand(1.00..20.00), "outcome_2" => rand(1.00..20.00)}
+                        mkt_entry = model_name.constantize.new(attrs)
+                        mkt_entry.fixture_id = fixture_id
+                        mkt_entry.market_identifier = mkt
+                        mkt_entry.status = "Active"
+                        mkt_entry.name = market_name(mkt)
+                        mkt_entry.save
+                    end
+                end
+    
+                [5].each do |mkt|
+                    attrs = {}
+                    market = model_name.constantize.find_by(fixture_id: fixture_id, market_identifier: mkt)
+                    if market
+                        market.update(status: "Active")
+                    else
+                        attrs["odds"] = {"outcome_Odd" => rand(1.00..20.00), "outcome_Even" => rand(1.00..20.00)}
+                        mkt_entry = model_name.constantize.new(attrs)
+                        mkt_entry.fixture_id = fixture_id
+                        mkt_entry.market_identifier = mkt
+                        mkt_entry.status = "Active"
+                        mkt_entry.name = market_name(mkt)
                         mkt_entry.save
                     end
                 end
