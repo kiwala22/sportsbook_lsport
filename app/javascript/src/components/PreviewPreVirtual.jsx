@@ -129,7 +129,7 @@ const PreviewPreVirtual = (props) => {
                                     (element, index) => (
                                       <React.Fragment key={index}>
                                         <div
-                                          className={`p-1 col-lg-${
+                                          className={`pl-2 pr-2 col-lg-${
                                             Object.keys(market.odds).length %
                                               2 ==
                                             0
