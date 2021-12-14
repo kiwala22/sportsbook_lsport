@@ -382,3 +382,28 @@ h6 {
   position: fixed !important;
   z-index: 1000 !important;
 }
+
+.splitter {
+  border-top: 2px solid #f6ae2d;
+}
+
+.sport-dropdown {
+  border-color: #ffffff;
+  background: #50677c;
+  width: 75%;
+}
+
+.sport-dropdown > button {
+  border-color: #d9d9d9 !important;
+  background: #50677c !important;
+  color: #fff !important;
+  width: 100%;
+}
+
+/* .sport-dropdown
+  > button.ant-btn.ant-default.ant-btn-group.ant-btn-icon-only.ant-dropdown-trigger {
+  width: 20% !important;
+} */
+.ant-btn-group .ant-btn-icon-only {
+  width: 20% !important;
+}

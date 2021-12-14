@@ -1,7 +1,9 @@
-import { Button, Drawer } from "antd";
+import { DownOutlined } from "@ant-design/icons";
+import { Button, Drawer, Dropdown, Menu } from "antd";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import titleize from "titleize";
 import Login from "./Login";
 import SignUp from "./SignUp";
 
@@ -10,14 +12,68 @@ const Sidebar = (props) => {
   const open = useSelector((state) => state.displaySider);
   const signedIn = useSelector((state) => state.signedIn);
   const isMobile = useSelector((state) => state.isMobile);
+  const sportType = useSelector((state) => state.sportType);
+
+  const menu = (
+    <Menu>
+      <Menu.Item
+        key="1"
+        icon={<i className="fas fa-futbol fa-lg fa-fw mr-2 match-time"></i>}
+      >
+        <span
+          onClick={() =>
+            dispatcher({ type: "onSportChange", payload: "football" })
+          }
+        >
+          Football
+        </span>
+      </Menu.Item>
+      <Menu.Item
+        key="2"
+        icon={
+          <i className="fas fa-basketball-ball fa-lg fa-fw mr-2 match-time"></i>
+        }
+      >
+        <span
+          onClick={() =>
+            dispatcher({ type: "onSportChange", payload: "basketball" })
+          }
+        >
+          Basketball
+        </span>
+      </Menu.Item>
+      <Menu.Item
+        key="3"
+        icon={
+          <i className="fas fa-baseball-ball fa-lg fa-fw mr-2 match-time"></i>
+        }
+      >
+        <span
+          onClick={() =>
+            dispatcher({ type: "onSportChange", payload: "tennis" })
+          }
+        >
+          Tennis
+        </span>
+      </Menu.Item>
+    </Menu>
+  );
 
   const sidebar = (
     <>
       <div className="col-xl-2 col-lg-2 mt-20 px-lg-1 px-xl-1 px-md-1">
         <aside className="content-sidebar mb-20" onClick={onClose}>
-          <Link to={"/"}>
-            <h3>Sports</h3>
-          </Link>
+          <Dropdown.Button
+            overlay={menu}
+            placement="bottomCenter"
+            icon={<DownOutlined />}
+            className="sport-dropdown"
+          >
+            {/* <h6> */}
+            <span style={{ fontSize: 16 }}>{titleize(sportType)}</span>
+            {/* </h6> */}
+          </Dropdown.Button>
+          <hr className="splitter" />
           <ul>
             <li>
               <Link className="match-time" to={"/fixtures/soccer/lives/"}>

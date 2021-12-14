@@ -1,4 +1,6 @@
 import { createStore } from "redux";
+import { persistReducer, persistStore } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 import Mobile from "../utilities/Mobile";
 
 const initialState = {
@@ -9,6 +11,7 @@ const initialState = {
   displaySider: false,
   showBetSlip: false,
   isMobile: Mobile.isMobile(),
+  sportType: "football",
 };
 
 function reducer(state = initialState, action) {
@@ -34,9 +37,20 @@ function reducer(state = initialState, action) {
       return { ...state, showBetSlip: action.payload };
     case "OnScreenChange":
       return { ...state, isMobile: Mobile.isMobile() };
+    case "onSportChange":
+      return { ...state, sportType: action.payload };
     default:
       return state;
   }
 }
 
-export default createStore(reducer);
+const persistConfig = {
+  key: "sportType",
+  storage: storage,
+  whitelist: ["sportType"], // which reducer want to store
+};
+const pReducer = persistReducer(persistConfig, reducer);
+const store = createStore(pReducer);
+const persistor = persistStore(store);
+
+export { persistor, store };
