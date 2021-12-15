@@ -7,8 +7,8 @@ class Backend::Fixtures::RecoverMessagesController < ApplicationController
   def index
 
     @q = Fixture.where(
-          'fixtures.sport_id = ? AND fixtures.status != ? AND fixtures.start_date < ?',
-          '6046',
+          'fixtures.sport_id IN (?) AND fixtures.status != ? AND fixtures.start_date < ?',
+          %w[6046, 54094, 48242],
           'finished',
           (Time.now.to_datetime - 3.hours)
         ).joins(:pre_markets).where("pre_markets.market_identifier =? AND pre_markets.status =?", '1',"Active").ransack(params[:q])

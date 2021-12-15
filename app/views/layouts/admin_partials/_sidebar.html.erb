@@ -55,13 +55,23 @@
                <span data-localize="sidebar.nav.DASHBOARD">Fixtures</span>
             </a>
             <ul id="fixtures" class="sidebar-nav sidebar-subnav collapse">
+               <li class="<%= 'active' if controller.controller_name == 'Fixtures::basketball_fixtures' %>">
+                  <a href="<%= backend_fixtures_basketball_fixtures_path %>" title="Basketball">
+                     <span>Basketball</span>
+                  </a>
+               </li>
                <li class="<%= 'active' if controller.controller_name == 'Fixtures::soccer_fixtures' %>">
                   <a href="<%= backend_fixtures_soccer_fixtures_path %>" title="Soccer">
                      <span>Soccer</span>
                   </a>
                </li>
+               <li class="<%= 'active' if controller.controller_name == 'Fixtures::tennis_fixtures' %>">
+                  <a href="<%= backend_fixtures_tennis_fixtures_path %>" title="Tennis">
+                     <span>Tennis</span>
+                  </a>
+               </li>
                <li class="<%= 'active' if controller.controller_name == 'Fixtures::virtual_soccer_fixtures' %>">
-                  <a href="<%= backend_fixtures_virtual_soccer_fixtures_path %>" title="Soccer">
+                  <a href="<%= backend_fixtures_virtual_soccer_fixtures_path %>" title="Tennis">
                      <span>Virtual Soccer</span>
                   </a>
                </li>

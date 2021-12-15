@@ -24,7 +24,22 @@ Rails.application.routes.draw do
             match 'pre_fixture' => "pre_match#show", via: [:get]
             match 'live_fixture' => "live_match#show", via: [:get]
          end
+         
          match 'search' => "search#index", via: [:get]
+
+         namespace :basketball do
+            match 'pre' => 'pre_match#index', via: [:get]
+            match 'pre_fixture' => 'pre_match#show', via: [:get]
+            match 'live' => 'live_match#index', via: [:get]
+            match 'live_fixture' => 'live_match#show', via: [:get]
+         end
+
+         namespace :tennis do
+            match 'pre' => 'pre_match#index', via: [:get]
+            match 'pre_fixture' => 'pre_match#show', via: [:get]
+            match 'live' => 'live_match#index', via: [:get]
+            match 'live_fixture' => 'live_match#show', via: [:get]
+         end
       end
    end
   end
@@ -65,9 +80,20 @@ Rails.application.routes.draw do
          match 'lives' => 'live_match#index', via: [:get]
          match 'live' => 'live_match#show', via: [:get]
          match 'featured' => 'pre_match#featured', via: [:get]
-
       end
       namespace :virtual_soccer do
+         match 'pres' => 'pre_match#index', via: [:get]
+         match 'pre' => 'pre_match#show', via: [:get]
+         match 'lives' => 'live_match#index', via: [:get]
+         match 'live' => 'live_match#show', via: [:get]
+      end
+      namespace :basketball do
+         match 'pres' => 'pre_match#index', via: [:get]
+         match 'pre' => 'pre_match#show', via: [:get]
+         match 'lives' => 'live_match#index', via: [:get]
+         match 'live' => 'live_match#show', via: [:get]
+      end
+      namespace :tennis do
          match 'pres' => 'pre_match#index', via: [:get]
          match 'pre' => 'pre_match#show', via: [:get]
          match 'lives' => 'live_match#index', via: [:get]
@@ -94,6 +120,13 @@ Rails.application.routes.draw do
          match 'soccer_fixtures_feature' => "soccer_fixtures#feature_update", via: [:put]
          match 'virtual_soccer_fixtures' => "virtual_soccer_fixtures#index", via: [:get]
          patch 'virtual_soccer_fixtures' => "virtual_soccer_fixtures#update", via: [:update]
+         match 'basketball_fixtures' => "basketball_fixtures#index", via: [:get]
+         match 'basketball_fixtures' => "basketball_fixtures#update", via: [:put]
+         match 'basketball_fixtures_feature' => "basketball_fixtures#feature_update", via: [:put]
+         match 'tennis_fixtures' => "tennis_fixtures#index", via: [:get]
+         match 'tennis_fixtures' => "tennis_fixtures#update", via: [:put]
+         match 'tennis_fixtures_feature' => "tennis_fixtures#feature_update", via: [:put]
+
       end
       resources :deposits, only: [:index]
       resources :withdraws, only: [:index]
