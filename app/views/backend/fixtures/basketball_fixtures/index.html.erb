@@ -1,13 +1,13 @@
 <div class="content-heading">
     <div>
-        <span>Unsettled Fixtures</span>
-        <small>Unsettled Fixtures</small>
+        <span>Fixtures</span>
+        <small>Basketball Fixtures</small>
     </div>
 </div>
 
 <div class="card card-default">
    <div class="card-body">
-		 <%= search_form_for @q, url: backend_fixtures_fixture_recovery_path, html: { method: :get } do |f| %>
+		 <%= search_form_for @q, url: backend_fixtures_basketball_fixtures_path, html: { method: :get } do |f| %>
       <fieldset>
           <div class="form-row">
               <div class="col-sm-6 col-md-4">
@@ -62,7 +62,12 @@
                       <%= f.search_field :start_date_lteq, {:class=>"form-control", id: "kick_off_before"}%>
                     </div>
               </div>
-              
+              <div class="col-sm-6 col-md-4">
+                <%= f.label :featured, "Featured Status", class:"col-md-4 col-form-label" %>
+                <div class="col-lg-8">
+                  <%= f.select :featured_eq, Fixture.booking_statuses.values, {}, { class: "form-control", id: "featured"} %>
+                </div>
+              </div>
           </div>
       </fieldset>
 
@@ -82,33 +87,47 @@
   <table class="fixture table table-striped table-bordered table-hoverlarge-12 columns large-centered">
     <thead>
       <tr>
+        <th >No</th>
         <th >Time</th>
         <th >Game</th>
         <th >League Name</th>
         <th >Location</th>
         <th >Event ID</th>
         <th >Status</th>
-        <th >Recover</th>
+        <th >Booked</th>
+        <th >Featured</th>
+        <th >Book</th>
+        <th >Feature</th>
         <th >Score</th>
       </tr>
     </thead>
     <tbody>
-		<% @fixtures.each_with_index do |fixture, i| %>
-            <% if fixture  %>
-                <tr>
-                    <td><%= local_time(fixture.start_date, format: "%d/%m/%y %l:%M%P") %></td>
-                    <td><%= fixture.part_one_name %>  - <%= fixture.part_two_name%> </td>
-                    <td><%= fixture.league_name %></td>
-                    <td><%= fixture.location %></td>
-                    <td><%= fixture.event_id %></td>
-                    <td><%=  fixture.status %></td>
-                    <td>
-                        <%= link_to "Recover", backend_fixtures_fixture_recovery_path(id: fixture.id), method: :put, :class => 'btn btn-xs btn-success booking', remote: true %>
-                    </td>
-                    <td><%= "#{fixture.home_score} - #{fixture.away_score} " %></td>
-                </tr>
+			<% @fixtures.each_with_index do |fixture, i| %>
+				<tr>
+          <td><%= (i+1)%></td>
+          <td><%= local_time(fixture.start_date, format: "%d/%m/%y %l:%M%P") %></td>
+          <td><%= fixture.part_one_name %>  - <%= fixture.part_two_name%> </td>
+          <td><%= fixture.league_name %></td>
+           <td><%= fixture.location %></td>
+          <td><%= fixture.event_id %></td>
+          <td><%= fixture.status %></td>
+          <td><%= fixture.booked.to_s.capitalize %></td>
+          <td><%= fixture.featured.to_s.capitalize %></td>
+          <td>
+            <% if  fixture.booked == false %>
+              <%= link_to "Book", backend_fixtures_basketball_fixtures_path(id: fixture.id), method: :put, :class => 'btn btn-xs btn-success booking', remote: true %>
             <% end %>
-		<% end %>
+          </td>
+          <td>
+            <% if fixture.featured == false %>
+              <%= link_to "Add", backend_fixtures_basketball_fixtures_feature_path(id: fixture.id, data: "Add"), method: :put, :class => 'btn btn-xs btn-success booking', remote: true %>
+            <% elsif fixture.featured == true %>
+              <%= link_to "Remove", backend_fixtures_basketball_fixtures_feature_path(id: fixture.id, data: "Remove"), method: :put, :class => 'btn btn-xs btn-danger booking', remote: true %>
+            <% end %>
+          </td>
+          <td><%= "#{fixture.home_score} - #{fixture.away_score} " %></td>
+				</tr>
+			<% end %>
     </tbody>
   </table>
 	<%= paginate @fixtures %>
