@@ -68,6 +68,7 @@ const Sidebar = (props) => {
             placement="bottomCenter"
             icon={<DownOutlined />}
             className="sport-dropdown"
+            trigger={["click"]}
           >
             {/* <h6> */}
             <span style={{ fontSize: 16 }}>{titleize(sportType)}</span>

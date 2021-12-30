@@ -1,10 +1,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { Route, Switch } from "react-router-dom";
 import BetSlip from "../BetSlip";
 import Footer from "../Footer";
 import Navbar from "../Navbar";
 import SideBanner from "../SideBanner";
 import Sidebar from "../Sidebar";
+import Home from "./Home";
 const Base = (props) => {
   const isMobile = useSelector((state) => state.isMobile);
   return (
@@ -26,7 +28,16 @@ const Base = (props) => {
                   }
                 >
                   <div>
-                    <p>This is BasketBall Page</p>
+                    <Switch>
+                      <Route
+                        exact
+                        path="/"
+                        // render={() => {
+                        //   return redirectOnUnverified(Home);
+                        // }}
+                        component={Home}
+                      />
+                    </Switch>
                   </div>
                 </div>
                 <div className="col-xl-3 col-lg-3 col-md-3 hidden-sm-down mt-20 px-lg-1 px-xl-1 px-md-1">
