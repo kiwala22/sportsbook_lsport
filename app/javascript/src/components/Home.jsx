@@ -541,6 +541,7 @@ const Home = (props) => {
           ) : (
             <div className="card ">
               <div className="card-header side-banner ">
+                {/* use mobile banner */}
                 <img src={MobileBanner2} className="banner-image" />
               </div>
             </div>
