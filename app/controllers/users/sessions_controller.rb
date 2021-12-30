@@ -18,7 +18,7 @@ class Users::SessionsController < Devise::SessionsController
   def create
     user = User.find_by_phone_number(sign_in_params[:phone_number])
 
-    if user && user.valid_password?(sign_in_params[:password])
+    if user&.valid_password?(sign_in_params[:password])
       render json: { message: 'Login Successful.' }, status: 200
     else
       render json: {

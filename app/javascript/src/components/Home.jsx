@@ -15,7 +15,7 @@ import PreOddsChannel from "../../channels/preOddsChannel";
 import MobileBanner1 from "../Images/mobile_banner_1.webp";
 import MobileBanner2 from "../Images/mobile_banner_2.webp";
 import MobileBanner3 from "../Images/mobile_banner_3.webp";
-import Banner from "../Images/web_banner_main.webp";
+// import Banner from "../Images/web_banner_main.webp";
 import addBet from "../redux/actions";
 import * as DataUpdate from "../utilities/DataUpdate";
 import Mobile from "../utilities/Mobile";
@@ -180,7 +180,8 @@ const Home = (props) => {
       render: (_, fixture) => (
         <a
           className={
-            fixture.market_1_odds === undefined || fixture.market_1_odds === null ||
+            fixture.market_1_odds === undefined ||
+            fixture.market_1_odds === null ||
             oddsFormatter(fixture.market_1_odds["outcome_1"]) ==
               parseFloat(1.0).toFixed(2)
               ? "btnn intialise_input disabled"
@@ -202,7 +203,8 @@ const Home = (props) => {
       render: (_, fixture) => (
         <a
           className={
-            fixture.market_1_odds === undefined || fixture.market_1_odds === null ||
+            fixture.market_1_odds === undefined ||
+            fixture.market_1_odds === null ||
             oddsFormatter(fixture.market_1_odds["outcome_X"]) ==
               parseFloat(1.0).toFixed(2)
               ? "btnn intialise_input disabled"
@@ -224,7 +226,8 @@ const Home = (props) => {
       render: (_, fixture) => (
         <a
           className={
-            fixture.market_1_odds === undefined || fixture.market_1_odds === null ||
+            fixture.market_1_odds === undefined ||
+            fixture.market_1_odds === null ||
             oddsFormatter(fixture.market_1_odds["outcome_2"]) ==
               parseFloat(1.0).toFixed(2)
               ? "btnn intialise_input disabled"
@@ -318,7 +321,8 @@ const Home = (props) => {
       render: (_, fixture) => (
         <a
           className={
-            fixture.market_1_odds === undefined || fixture.market_1_odds === null ||
+            fixture.market_1_odds === undefined ||
+            fixture.market_1_odds === null ||
             oddsFormatter(fixture.market_1_odds["outcome_1"]) ==
               parseFloat(1.0).toFixed(2)
               ? "btnn intialise_input disabled"
@@ -340,7 +344,8 @@ const Home = (props) => {
       render: (_, fixture) => (
         <a
           className={
-            fixture.market_1_odds === undefined || fixture.market_1_odds === null ||
+            fixture.market_1_odds === undefined ||
+            fixture.market_1_odds === null ||
             oddsFormatter(fixture.market_1_odds["outcome_X"]) ==
               parseFloat(1.0).toFixed(2)
               ? "btnn intialise_input disabled"
@@ -362,7 +367,8 @@ const Home = (props) => {
       render: (_, fixture) => (
         <a
           className={
-            fixture.market_1_odds === undefined || fixture.market_1_odds === null ||
+            fixture.market_1_odds === undefined ||
+            fixture.market_1_odds === null ||
             oddsFormatter(fixture.market_1_odds["outcome_2"]) ==
               parseFloat(1.0).toFixed(2)
               ? "btnn intialise_input disabled"
@@ -456,7 +462,8 @@ const Home = (props) => {
       render: (_, fixture) => (
         <a
           className={
-            fixture.market_1_odds === undefined || fixture.market_1_odds === null ||
+            fixture.market_1_odds === undefined ||
+            fixture.market_1_odds === null ||
             oddsFormatter(fixture.market_1_odds["outcome_1"]) ==
               parseFloat(1.0).toFixed(2)
               ? "btnn intialise_input disabled"
@@ -478,7 +485,8 @@ const Home = (props) => {
       render: (_, fixture) => (
         <a
           className={
-            fixture.market_1_odds === undefined || fixture.market_1_odds === null ||
+            fixture.market_1_odds === undefined ||
+            fixture.market_1_odds === null ||
             oddsFormatter(fixture.market_1_odds["outcome_X"]) ==
               parseFloat(1.0).toFixed(2)
               ? "btnn intialise_input disabled"
@@ -500,7 +508,8 @@ const Home = (props) => {
       render: (_, fixture) => (
         <a
           className={
-            fixture.market_1_odds === undefined || fixture.market_1_odds === null ||
+            fixture.market_1_odds === undefined ||
+            fixture.market_1_odds === null ||
             oddsFormatter(fixture.market_1_odds["outcome_2"]) ==
               parseFloat(1.0).toFixed(2)
               ? "btnn intialise_input disabled"
@@ -532,7 +541,7 @@ const Home = (props) => {
           ) : (
             <div className="card ">
               <div className="card-header side-banner ">
-                <img src={Banner} className="banner-image" />
+                <img src={MobileBanner2} className="banner-image" />
               </div>
             </div>
           )}

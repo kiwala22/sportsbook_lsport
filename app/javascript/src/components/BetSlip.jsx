@@ -65,8 +65,8 @@ const BetSlip = (props) => {
     let odds = totalOdds();
     if (
       stake !== null &&
-      parseFloat(stake) >= 1000 &&
-      parseFloat(stake) <= 1000000
+      parseFloat(stake) >= 50 &&
+      parseFloat(stake) <= 20000
     ) {
       newAmount = parseFloat(stake) * odds;
       localStorage.setItem("stake", stake);
