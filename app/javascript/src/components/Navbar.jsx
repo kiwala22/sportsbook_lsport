@@ -188,9 +188,9 @@ const Navbar = (props) => {
                   <ul className="navbar-nav mr-auto">
                     <li className="nav-item active">
                       <Link to={"/"}>
-                        <h4>
+                        {/* <h4>
                           Skyline<span className="logo-color">Bet</span>
-                        </h4>
+                        </h4> */}
                       </Link>
                     </li>
                   </ul>
