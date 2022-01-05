@@ -1,4 +1,5 @@
 import { createStore } from "redux";
+import Mobile from "../utilities/Mobile";
 
 const initialState = {
   signedIn: false,
@@ -7,6 +8,7 @@ const initialState = {
   games: [],
   displaySider: false,
   showBetSlip: false,
+  isMobile: Mobile.isMobile(),
 };
 
 function reducer(state = initialState, action) {
@@ -30,6 +32,8 @@ function reducer(state = initialState, action) {
       return { ...state, displaySider: action.payload };
     case "mobileBetSlip":
       return { ...state, showBetSlip: action.payload };
+    case "OnScreenChange":
+      return { ...state, isMobile: Mobile.isMobile() };
     default:
       return state;
   }

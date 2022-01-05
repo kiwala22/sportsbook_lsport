@@ -1,14 +1,11 @@
 import React from "react";
-import Mobile from "../utilities/Mobile";
+import { useSelector } from "react-redux";
 
 const Rules = () => {
+  const isMobile = useSelector((state) => state.isMobile);
   return (
     <>
-      <div
-        className={
-          Mobile.isMobile() ? "game-box mobile-table-padding" : "game-box"
-        }
-      >
+      <div className={isMobile ? "game-box mobile-table-padding" : "game-box"}>
         <div className="card">
           <div className="card-header">
             <h3>Betting Rules</h3>

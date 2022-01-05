@@ -17,15 +17,12 @@ class Api::V1::HomeController < ApplicationController
         
     @live_fixtures.each do |event|
       ## Find specific market
-      market = event.live_markets.where(market_identifier: 1).first
+      market = event.live_markets.where(market_identifier: 1)
       ## convert  fixture to json
       fixture = event.as_json
 
       ## Add outcomes to the data
-      fixture["market_#{market.market_identifier}_odds"] = market.odds
-
-      ## Add market status to the fixture
-      fixture["market_#{market.market_identifier}_status"] = market.status
+      fixture["markets"] = market
 
       live.push(fixture)
     end
@@ -60,15 +57,12 @@ class Api::V1::HomeController < ApplicationController
         )
     @prematch_fixtures.each do |event|
       ## Find specific market
-      market = event.pre_markets.where(market_identifier: 1).first
+      market = event.pre_markets.where(market_identifier: 1)
       ## convert  fixture to json
       fixture = event.as_json
 
       ## Add outcomes to the data
-      fixture["market_#{market.market_identifier}_odds"] = market.odds
-
-      ## Add market status to the fixture
-      fixture["market_#{market.market_identifier}_status"] = market.status
+      fixture["markets"] = market
 
       prematch.push(fixture)
     end
@@ -88,16 +82,14 @@ class Api::V1::HomeController < ApplicationController
         .limit(10)
     @featured.each do |event|
       ## Find specific market
-      market = event.pre_markets.where(market_identifier: 1).first
+      market = event.pre_markets.where(market_identifier: 1)
 
       ## convert  fixture to json
       fixture = event.as_json
 
       ## Add outcomes to the data
-      fixture["market_#{market.market_identifier}_odds"] = market.odds
+      fixture["markets"] = market
 
-      ## Add market status to the fixture
-      fixture["market_#{market.market_identifier}_status"] = market.status
 
       featured.push(fixture)
     end

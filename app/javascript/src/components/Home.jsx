@@ -5,7 +5,7 @@ import cogoToast from "cogo-toast";
 import React, { useEffect, useState } from "react";
 import { BsDash } from "react-icons/bs";
 import Moment from "react-moment";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import shortUUID from "short-uuid";
 import FixtureChannel from "../../channels/fixturesChannel";
@@ -18,7 +18,6 @@ import MobileBanner3 from "../Images/mobile_banner_3.webp";
 // import Banner from "../Images/web_banner_main.webp";
 import addBet from "../redux/actions";
 import * as DataUpdate from "../utilities/DataUpdate";
-import Mobile from "../utilities/Mobile";
 import oddsFormatter from "../utilities/oddsFormatter";
 import Requests from "../utilities/Requests";
 import NoData from "./NoData";
@@ -30,6 +29,7 @@ const Home = (props) => {
   const [featuredGames, setFeaturedGames] = useState([]);
   const [prematchGames, setPrematchGames] = useState([]);
   const [pageLoading, setPageLoading] = useState(true);
+  const isMobile = useSelector((state) => state.isMobile);
   const dispatcher = useDispatch();
 
   let interval;
@@ -71,7 +71,7 @@ const Home = (props) => {
   };
 
   const updateMatchInfo = (data, currentState, setState, market, channel) => {
-    let fixtureIndex = currentState.findIndex((el) => data.id == el.id);
+    let fixtureIndex = currentState.findIndex((el) => data.fixture_id == el.id);
     let fixture = currentState[fixtureIndex];
     let updatedFixture = DataUpdate.fixtureUpdate(
       data,
@@ -136,7 +136,7 @@ const Home = (props) => {
                 </span>
               </strong>
               <strong>
-                {Mobile.isMobile() ? (
+                {isMobile ? (
                   <span className="score">
                     {fixture.home_score} - {fixture.away_score}
                   </span>
@@ -180,9 +180,9 @@ const Home = (props) => {
       render: (_, fixture) => (
         <a
           className={
-            fixture.market_1_odds === undefined ||
-            fixture.market_1_odds === null ||
-            oddsFormatter(fixture.market_1_odds["outcome_1"]) ==
+            fixture.markets.length == 0 ||
+            fixture.markets[0].odds === null ||
+            oddsFormatter(fixture.markets[0].odds["outcome_1"]) ==
               parseFloat(1.0).toFixed(2)
               ? "btnn intialise_input disabled"
               : "btnn intialise_input btn btn-light wagger-btn"
@@ -192,9 +192,9 @@ const Home = (props) => {
             addBet(dispatcher, "1", "LiveMarket", fixture.id, "1X2 FT - 1", "1")
           }
         >
-          {fixture.market_1_odds === undefined || fixture.market_1_odds === null
+          {fixture.markets.length == 0 || fixture.markets[0].odds === null
             ? parseFloat(1.0).toFixed(2)
-            : oddsFormatter(fixture.market_1_odds["outcome_1"])}
+            : oddsFormatter(fixture.markets[0].odds["outcome_1"])}
         </a>
       ),
     },
@@ -203,9 +203,9 @@ const Home = (props) => {
       render: (_, fixture) => (
         <a
           className={
-            fixture.market_1_odds === undefined ||
-            fixture.market_1_odds === null ||
-            oddsFormatter(fixture.market_1_odds["outcome_X"]) ==
+            fixture.markets.length == 0 ||
+            fixture.markets[0].odds === null ||
+            oddsFormatter(fixture.markets[0].odds["outcome_X"]) ==
               parseFloat(1.0).toFixed(2)
               ? "btnn intialise_input disabled"
               : "btnn intialise_input btn btn-light wagger-btn"
@@ -215,9 +215,9 @@ const Home = (props) => {
             addBet(dispatcher, "X", "LiveMarket", fixture.id, "1X2 FT - X", "1")
           }
         >
-          {fixture.market_1_odds === undefined || fixture.market_1_odds === null
+          {fixture.markets.length == 0 || fixture.markets[0].odds === null
             ? parseFloat(1.0).toFixed(2)
-            : oddsFormatter(fixture.market_1_odds["outcome_X"])}
+            : oddsFormatter(fixture.markets[0].odds["outcome_X"])}
         </a>
       ),
     },
@@ -226,9 +226,9 @@ const Home = (props) => {
       render: (_, fixture) => (
         <a
           className={
-            fixture.market_1_odds === undefined ||
-            fixture.market_1_odds === null ||
-            oddsFormatter(fixture.market_1_odds["outcome_2"]) ==
+            fixture.markets.length == 0 ||
+            fixture.markets[0].odds === null ||
+            oddsFormatter(fixture.markets[0].odds["outcome_2"]) ==
               parseFloat(1.0).toFixed(2)
               ? "btnn intialise_input disabled"
               : "btnn intialise_input btn btn-light wagger-btn"
@@ -238,9 +238,9 @@ const Home = (props) => {
             addBet(dispatcher, "2", "LiveMarket", fixture.id, "1X2 FT - 2", "1")
           }
         >
-          {fixture.market_1_odds === undefined || fixture.market_1_odds === null
+          {fixture.markets.length == 0 || fixture.markets[0].odds === null
             ? parseFloat(1.0).toFixed(2)
-            : oddsFormatter(fixture.market_1_odds["outcome_2"])}
+            : oddsFormatter(fixture.markets[0].odds["outcome_2"])}
         </a>
       ),
     },
@@ -321,9 +321,9 @@ const Home = (props) => {
       render: (_, fixture) => (
         <a
           className={
-            fixture.market_1_odds === undefined ||
-            fixture.market_1_odds === null ||
-            oddsFormatter(fixture.market_1_odds["outcome_1"]) ==
+            fixture.markets.length == 0 ||
+            fixture.markets[0].odds === null ||
+            oddsFormatter(fixture.markets[0].odds["outcome_1"]) ==
               parseFloat(1.0).toFixed(2)
               ? "btnn intialise_input disabled"
               : "btnn intialise_input btn btn-light wagger-btn"
@@ -333,9 +333,9 @@ const Home = (props) => {
             addBet(dispatcher, "1", "PreMarket", fixture.id, "1X2 FT - 1", "1")
           }
         >
-          {fixture.market_1_odds === undefined || fixture.market_1_odds === null
+          {fixture.markets.length == 0 || fixture.markets[0].odds === null
             ? parseFloat(1.0).toFixed(2)
-            : oddsFormatter(fixture.market_1_odds["outcome_1"])}
+            : oddsFormatter(fixture.markets[0].odds["outcome_1"])}
         </a>
       ),
     },
@@ -344,9 +344,9 @@ const Home = (props) => {
       render: (_, fixture) => (
         <a
           className={
-            fixture.market_1_odds === undefined ||
-            fixture.market_1_odds === null ||
-            oddsFormatter(fixture.market_1_odds["outcome_X"]) ==
+            fixture.markets.length == 0 ||
+            fixture.markets[0].odds === null ||
+            oddsFormatter(fixture.markets[0].odds["outcome_X"]) ==
               parseFloat(1.0).toFixed(2)
               ? "btnn intialise_input disabled"
               : "btnn intialise_input btn btn-light wagger-btn"
@@ -356,9 +356,9 @@ const Home = (props) => {
             addBet(dispatcher, "X", "PreMarket", fixture.id, "1X2 FT - X", "1")
           }
         >
-          {fixture.market_1_odds === undefined || fixture.market_1_odds === null
+          {fixture.markets.length == 0 || fixture.markets[0].odds === null
             ? parseFloat(1.0).toFixed(2)
-            : oddsFormatter(fixture.market_1_odds["outcome_X"])}
+            : oddsFormatter(fixture.markets[0].odds["outcome_X"])}
         </a>
       ),
     },
@@ -367,9 +367,9 @@ const Home = (props) => {
       render: (_, fixture) => (
         <a
           className={
-            fixture.market_1_odds === undefined ||
-            fixture.market_1_odds === null ||
-            oddsFormatter(fixture.market_1_odds["outcome_2"]) ==
+            fixture.markets.length == 0 ||
+            fixture.markets[0].odds === null ||
+            oddsFormatter(fixture.markets[0].odds["outcome_2"]) ==
               parseFloat(1.0).toFixed(2)
               ? "btnn intialise_input disabled"
               : "btnn intialise_input btn btn-light wagger-btn"
@@ -379,9 +379,9 @@ const Home = (props) => {
             addBet(dispatcher, "2", "PreMarket", fixture.id, "1X2 FT - 2", "1")
           }
         >
-          {fixture.market_1_odds === undefined || fixture.market_1_odds === null
+          {fixture.markets.length == 0 || fixture.markets[0].odds === null
             ? parseFloat(1.0).toFixed(2)
-            : oddsFormatter(fixture.market_1_odds["outcome_2"])}
+            : oddsFormatter(fixture.markets[0].odds["outcome_2"])}
         </a>
       ),
     },
@@ -462,9 +462,9 @@ const Home = (props) => {
       render: (_, fixture) => (
         <a
           className={
-            fixture.market_1_odds === undefined ||
-            fixture.market_1_odds === null ||
-            oddsFormatter(fixture.market_1_odds["outcome_1"]) ==
+            fixture.markets.length == 0 ||
+            fixture.markets[0].odds === null ||
+            oddsFormatter(fixture.markets[0].odds["outcome_1"]) ==
               parseFloat(1.0).toFixed(2)
               ? "btnn intialise_input disabled"
               : "btnn intialise_input btn btn-light wagger-btn"
@@ -474,9 +474,9 @@ const Home = (props) => {
             addBet(dispatcher, "1", "PreMarket", fixture.id, "1X2 FT - 1", "1")
           }
         >
-          {fixture.market_1_odds === undefined || fixture.market_1_odds === null
+          {fixture.markets.length == 0 || fixture.markets[0].odds === null
             ? parseFloat(1.0).toFixed(2)
-            : oddsFormatter(fixture.market_1_odds["outcome_1"])}
+            : oddsFormatter(fixture.markets[0].odds["outcome_1"])}
         </a>
       ),
     },
@@ -485,9 +485,9 @@ const Home = (props) => {
       render: (_, fixture) => (
         <a
           className={
-            fixture.market_1_odds === undefined ||
-            fixture.market_1_odds === null ||
-            oddsFormatter(fixture.market_1_odds["outcome_X"]) ==
+            fixture.markets.length == 0 ||
+            fixture.markets[0].odds === null ||
+            oddsFormatter(fixture.markets[0].odds["outcome_X"]) ==
               parseFloat(1.0).toFixed(2)
               ? "btnn intialise_input disabled"
               : "btnn intialise_input btn btn-light wagger-btn"
@@ -497,9 +497,9 @@ const Home = (props) => {
             addBet(dispatcher, "X", "PreMarket", fixture.id, "1X2 FT - X", "1")
           }
         >
-          {fixture.market_1_odds === undefined || fixture.market_1_odds === null
+          {fixture.markets.length == 0 || fixture.markets[0].odds === null
             ? parseFloat(1.0).toFixed(2)
-            : oddsFormatter(fixture.market_1_odds["outcome_X"])}
+            : oddsFormatter(fixture.markets[0].odds["outcome_X"])}
         </a>
       ),
     },
@@ -508,9 +508,9 @@ const Home = (props) => {
       render: (_, fixture) => (
         <a
           className={
-            fixture.market_1_odds === undefined ||
-            fixture.market_1_odds === null ||
-            oddsFormatter(fixture.market_1_odds["outcome_2"]) ==
+            fixture.markets.length == 0 ||
+            fixture.markets[0].odds === null ||
+            oddsFormatter(fixture.markets[0].odds["outcome_2"]) ==
               parseFloat(1.0).toFixed(2)
               ? "btnn intialise_input disabled"
               : "btnn intialise_input btn btn-light wagger-btn"
@@ -520,9 +520,9 @@ const Home = (props) => {
             addBet(dispatcher, "2", "PreMarket", fixture.id, "1X2 FT - 2", "1")
           }
         >
-          {fixture.market_1_odds === undefined || fixture.market_1_odds === null
+          {fixture.markets.length == 0 || fixture.markets[0].odds === null
             ? parseFloat(1.0).toFixed(2)
-            : oddsFormatter(fixture.market_1_odds["outcome_2"])}
+            : oddsFormatter(fixture.markets[0].odds["outcome_2"])}
         </a>
       ),
     },
@@ -532,7 +532,7 @@ const Home = (props) => {
     <>
       {!pageLoading && (
         <>
-          {Mobile.isMobile() ? (
+          {isMobile ? (
             <div className="card ">
               <div className="card-header side-banner ">
                 <img src={MobileBanner1} className="banner-image" />
@@ -550,9 +550,7 @@ const Home = (props) => {
               <br />
               <div
                 className={
-                  Mobile.isMobile()
-                    ? "game-box mobile-table-padding"
-                    : "game-box"
+                  isMobile ? "game-box mobile-table-padding" : "game-box"
                 }
                 id="live"
               >
@@ -576,7 +574,7 @@ const Home = (props) => {
                           dataSource={liveGames}
                           size="middle"
                           rowClassName={(record) =>
-                            record.market_1_status == "Active"
+                            record.markets[0].status == "Active"
                               ? "show-row"
                               : "hide-row"
                           }
@@ -615,23 +613,19 @@ const Home = (props) => {
           )}
 
           {/* <!-- Start Featured Fixtures Table --> */}
-          {Mobile.isMobile() &&
-            liveGames.length != 0 &&
-            featuredGames.length != 0 && (
-              <div className="card ">
-                <div className="card-header side-banner ">
-                  <img src={MobileBanner2} className="banner-image" />
-                </div>
+          {isMobile && liveGames.length != 0 && featuredGames.length != 0 && (
+            <div className="card ">
+              <div className="card-header side-banner ">
+                <img src={MobileBanner2} className="banner-image" />
               </div>
-            )}
+            </div>
+          )}
           {featuredGames.length != 0 && (
             <>
               <br />
               <div
                 className={
-                  Mobile.isMobile()
-                    ? "game-box mobile-table-padding"
-                    : "game-box"
+                  isMobile ? "game-box mobile-table-padding" : "game-box"
                 }
                 id="featured"
               >
@@ -655,7 +649,7 @@ const Home = (props) => {
                           dataSource={featuredGames}
                           size="middle"
                           rowClassName={(record) =>
-                            record.market_1_status == "Active"
+                            record.markets[0].status == "Active"
                               ? "show-row"
                               : "hide-row"
                           }
@@ -678,22 +672,18 @@ const Home = (props) => {
           {/* <!-- End Featured Fixtures Table --> */}
 
           {/* <!-- Start All Fixtures Table --> */}
-          {Mobile.isMobile() &&
-            featuredGames.length != 0 &&
-            prematchGames.length != 0 && (
-              <div className="card ">
-                <div className="card-header side-banner ">
-                  <img src={MobileBanner3} className="banner-image" />
-                </div>
+          {isMobile && featuredGames.length != 0 && prematchGames.length != 0 && (
+            <div className="card ">
+              <div className="card-header side-banner ">
+                <img src={MobileBanner3} className="banner-image" />
               </div>
-            )}
+            </div>
+          )}
           {/* {prematchGames.length != 0 && (
             <> */}
           <br />
           <div
-            className={
-              Mobile.isMobile() ? "game-box mobile-table-padding" : "game-box"
-            }
+            className={isMobile ? "game-box mobile-table-padding" : "game-box"}
           >
             <div className="card">
               <div className="card-header">
@@ -717,7 +707,7 @@ const Home = (props) => {
                       dataSource={prematchGames}
                       size="middle"
                       rowClassName={(record) =>
-                        record.market_1_status == "Active"
+                        record.markets[0].status == "Active"
                           ? "show-row"
                           : "hide-row"
                       }

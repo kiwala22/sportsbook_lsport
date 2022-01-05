@@ -15,16 +15,14 @@ class Api::V1::Fixtures::Soccer::LiveMatchController < ApplicationController
       .where('live_markets.status = ? AND live_markets.market_identifier =?', 'Active', '1')
 
     @fixtures.each do |event|
-      ## convert  fixture to json
-      market = event.live_markets.where(market_identifier: 1).first
+      ## find Market 1X2
+      market = event.live_markets.where(market_identifier: 1)
+
       ## convert  fixture to json
       fixture = event.as_json
 
       ## Add outcomes to the data
-      fixture["market_#{market.market_identifier}_odds"] = market.odds
-
-      ## Add market status to the fixture
-      fixture["market_#{market.market_identifier}_status"] = market.status
+      fixture["markets"] = market
 
       @lives.push(fixture)
     end
@@ -32,34 +30,40 @@ class Api::V1::Fixtures::Soccer::LiveMatchController < ApplicationController
   end
 
   def show
-    @fixture =Fixture.includes(:live_markets).find(params[:id])
-
-    ##Required Markets
-    markets = [1, 2, 3, 7, 17]
+    @fixture = Fixture.includes(:live_markets).find(params[:id])
 
     fixture = @fixture.as_json
-    
-    ## Add outcomes and market statuses to the fixture
-    markets.each do |market_identifier|
 
-      case market_identifier
-      when 2
-        market = @fixture.live_markets.where(market_identifier: market_identifier, specifier: "2.5").first
-      when 3
-        market = @fixture.live_markets.where(market_identifier: market_identifier, specifier: "-1.0 (0-0)").first
+    ## Add all available markets to fixture data
+    markets = @fixture.live_markets.order('market_identifier::integer ASC')
+
+    filtered_markets = []
+
+    ## Filter the markets to the specifics needed
+    markets.each do |market|
+      if ["2", "21", "45"].include?(market["market_identifier"])
+        if market["specifier"] == "2.5"
+          filtered_markets << market
+        end
+
+      elsif ["3"].include?(market["market_identifier"])
+        if market["specifier"] == "-1.0 (0-0)"
+          filtered_markets << market
+        end
+
+      elsif ["13", "61"].include?(market["market_identifier"])
+        if market["specifier"] == "1:0"
+          filtered_markets << market
+        end
       else
-        market = @fixture.live_markets.where(market_identifier: market_identifier).first
-      end
-
-      if market
-        ## Add outcomes to the data
-        fixture["market_#{market_identifier}_odds"] = market.odds
-
-        ## Add market status to the fixture
-        fixture["market_#{market_identifier}_status"] = market.status
+        filtered_markets << market
       end
     end
 
+
+    fixture["markets"] = filtered_markets
+
     render json: fixture
+      
   end
 end

@@ -1,12 +1,13 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import BannerOne from "../Images/side_banner_1.webp";
 import BannerTwo from "../Images/side_banner_2.webp";
-import Mobile from "../utilities/Mobile";
 
 const SideBanner = () => {
+  const isMobile = useSelector((state) => state.isMobile);
   return (
     <>
-      {!Mobile.isMobile() && (
+      {!isMobile && (
         <>
           <div className="card ">
             <div className="card-header side-banner ">

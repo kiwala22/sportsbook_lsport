@@ -2,7 +2,6 @@ import { Button, Drawer } from "antd";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import Mobile from "../utilities/Mobile";
 import Login from "./Login";
 import SignUp from "./SignUp";
 
@@ -10,6 +9,8 @@ const Sidebar = (props) => {
   const dispatcher = useDispatch();
   const open = useSelector((state) => state.displaySider);
   const signedIn = useSelector((state) => state.signedIn);
+  const isMobile = useSelector((state) => state.isMobile);
+  const queryString = require("query-string");
 
   const sidebar = (
     <>
@@ -69,7 +70,7 @@ const Sidebar = (props) => {
               <Link
                 to={{
                   pathname: "/fixtures/soccer/pres",
-                  search: `q%5Bleague_name%5D=Premier+League&location=England`,
+                  search: `q%5Bleague_name%5D=Premier+League&q%5Blocation%5D=England`,
                 }}
               >
                 <span className="show-more">English Premier League</span>
@@ -79,7 +80,7 @@ const Sidebar = (props) => {
               <Link
                 to={{
                   pathname: "/fixtures/soccer/pres",
-                  search: `q%5Bleague_name%5D=Serie+A&location=Italy`,
+                  search: `q%5Bleague_name%5D=Serie+A&q%5Blocation%5D=Italy`,
                 }}
               >
                 <span className="show-more">Serie A</span>
@@ -89,7 +90,7 @@ const Sidebar = (props) => {
               <Link
                 to={{
                   pathname: "/fixtures/soccer/pres",
-                  search: `q%5Bleague_name%5D=LaLiga&location=Spain`,
+                  search: `q%5Bleague_name%5D=LaLiga&q%5Blocation%5D=Spain`,
                 }}
               >
                 <span className="show-more">La Liga</span>
@@ -99,7 +100,7 @@ const Sidebar = (props) => {
               <Link
                 to={{
                   pathname: "/fixtures/soccer/pres",
-                  search: `q%5Bleague_name%5D=Bundesliga&location=Germany`,
+                  search: `q%5Bleague_name%5D=Bundesliga&q%5Blocation%5D=Germany`,
                 }}
               >
                 <span className="show-more">Bundesliga</span>
@@ -109,7 +110,7 @@ const Sidebar = (props) => {
               <Link
                 to={{
                   pathname: "/fixtures/soccer/pres",
-                  search: `q%5Bleague_name%5D=Ligue+1&location=France`,
+                  search: `q%5Bleague_name%5D=Ligue+1&q%5Blocation%5D=France`,
                 }}
               >
                 <span className="show-more">French Ligue 1</span>
@@ -159,7 +160,7 @@ const Sidebar = (props) => {
               <Link
                 to={{
                   pathname: "/fixtures/soccer/pres",
-                  search: `q%5Bleague_name%5D=Série+A&location=Brazil`,
+                  search: `q%5Bleague_name%5D=Série+A&q%5Blocation%5D=Brazil`,
                 }}
               >
                 <span className="show-more">Brazil Serie A</span>
@@ -265,14 +266,14 @@ const Sidebar = (props) => {
   );
 
   function onClose() {
-    if (Mobile.isMobile()) {
+    if (isMobile) {
       dispatcher({ type: "sider", payload: false });
     }
   }
 
   return (
     <>
-      {Mobile.isMobile() && (
+      {isMobile && (
         <>
           <Drawer
             title={
@@ -313,7 +314,7 @@ const Sidebar = (props) => {
           </Drawer>
         </>
       )}
-      {!Mobile.isMobile() && sidebar}
+      {!isMobile && sidebar}
     </>
   );
 };

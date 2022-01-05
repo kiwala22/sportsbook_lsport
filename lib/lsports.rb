@@ -26,6 +26,8 @@ module Lsports
     @@end_point = "https://prematch.lsports.eu/OddService/"
     @@live_end_point = "https://inplay.lsports.eu/api/"
 
+    include MarketNames
+
     # Starting/Enabling distribution
     def start_prematch_distribution
 
@@ -206,7 +208,7 @@ module Lsports
     end
 
     def fetch_fixture_markets(sports_id = @@sports_id)
-        required_markets = ["1", "2", "3", "7", "17", "25", "28", "41", "42", "43", "44", "49", "52", "53", "63", "77", "113", "282"]
+        required_markets = ["1", "2", "3", "5", "7", "17", "13", "16", "19", "21", "25", "41", "42", "52", "55", "61", "113", "245", "45"]
         markets = required_markets.join(",")
 
         url = @@end_point + "GetFixtureMarkets"
@@ -216,7 +218,8 @@ module Lsports
             username: @@username,
             password: @@password,
             guid: @@prematch_guid,
-            sports: sports_id
+            sports: sports_id,
+            markets: markets
         }
         uri.query = URI.encode_www_form(params)
 
@@ -243,14 +246,13 @@ module Lsports
                         2 => "Suspended",
                         3 => "Settled"
                     }
-                    @@market_description = market["Name"]
+                    # @@market_description = market["Name"]
                     attrs = {}
                     outcomes = {}
 
                     if fixture
                         if market.has_key?("Markets") && market["Markets"].is_a?(Array)
                             market["Markets"].each do |event|
-                                # mkt = "Market" + (event["Id"]).to_s + "Pre"
                                 mkt = "PreMarket"
                                 if event.has_key?("Providers") && event["Providers"].is_a?(Array)
                                     event["Providers"].each do |provider|
@@ -264,12 +266,24 @@ module Lsports
                                                         attrs["status"] = market_status[bet["Status"]]
                                                     end
                                                     ##Save the market with specifier
-                                                    attrs["odds"] = outcomes
+                                                    # attrs["odds"] = outcomes
 
-                                                    mkt_entry = mkt.constantize.new(attrs)
-                                                    mkt_entry.market_identifier = event["Id"]
-                                                    mkt_entry.fixture_id = fixture.id
-                                                    mkt_entry.save
+                                                    ## Check if market already exists
+                                                    mkt_entry = mkt.constantize.find_by(fixture_id: fixture.id, market_identifier: event["Id"], specifier: key)
+
+                                                    if mkt_entry
+                                                        prevOdds = mkt_entry.odds
+                                                        attrs["odds"] = prevOdds.merge!(outcomes)
+                                                        mkt_entry.assign_attributes(attrs)
+                                                        mkt_entry.save
+                                                    else
+                                                        attrs["odds"] = outcomes
+                                                        mkt_entry = mkt.constantize.new(attrs)
+                                                        mkt_entry.market_identifier = event["Id"]
+                                                        mkt_entry.name = market_name(event["Id"])
+                                                        mkt_entry.fixture_id = fixture.id
+                                                        mkt_entry.save
+                                                    end
 
                                                     outcomes = {}
                                                     attrs = {}
@@ -281,11 +295,24 @@ module Lsports
                                                 end
 
                                                 ##Save the market with no specifier
-                                                attrs["odds"] = outcomes
-                                                mkt_entry = mkt.constantize.new(attrs)
-                                                mkt_entry.market_identifier = event["Id"]
-                                                mkt_entry.fixture_id = fixture.id
-                                                mkt_entry.save
+                                                # attrs["odds"] = outcomes
+
+                                                ## Check if Market already exists
+                                                mkt_entry = mkt.constantize.find_by(fixture_id: fixture.id, market_identifier: event["Id"])
+
+                                                if mkt_entry
+                                                    prevOdds = mkt_entry.odds
+                                                    attrs["odds"] = prevOdds.merge!(outcomes)
+                                                    mkt_entry.assign_attributes(attrs)
+                                                    mkt_entry.save
+                                                else
+                                                    attrs["odds"] = outcomes
+                                                    mkt_entry = mkt.constantize.new(attrs)
+                                                    mkt_entry.market_identifier = event["Id"]
+                                                    mkt_entry.name = market_name(event["Id"])
+                                                    mkt_entry.fixture_id = fixture.id
+                                                    mkt_entry.save
+                                                end
                                                 
                                                 outcomes = {}
                                                 attrs = {}

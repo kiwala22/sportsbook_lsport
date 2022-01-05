@@ -6,8 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import shortUUID from "short-uuid";
 import BetSlipsChannel from "../../channels/betSlipsChannel";
 import currencyFormatter from "../utilities/CurrencyFormatter";
-import Mobile from "../utilities/Mobile";
 import { default as Request, default as Requests } from "../utilities/Requests";
+import NoEvents from "./EmptySlip";
 import Login from "./Login";
 
 const BetSlip = (props) => {
@@ -18,6 +18,7 @@ const BetSlip = (props) => {
   const userSignedIn = useSelector((state) => state.signedIn);
   const games = useSelector((state) => state.games);
   const show = useSelector((state) => state.showBetSlip);
+  const isMobile = useSelector((state) => state.isMobile);
   const dispatcher = useDispatch();
 
   useEffect(() => {
@@ -53,9 +54,7 @@ const BetSlip = (props) => {
 
   const totalOdds = () => {
     let odds = games
-      .filter(
-        (bet) => bet[`market_${bet.marketIdentifier}_status`] === "Active"
-      )
+      .filter((bet) => bet.status === "Active")
       .map((el) => parseFloat(el.odd));
     return odds.reduce((a, b) => a * b, 1).toFixed(2);
   };
@@ -85,7 +84,7 @@ const BetSlip = (props) => {
           cogoToast.success("Your Betslip is now empty.", {
             hideAfter: 5,
           });
-          if (Mobile.isMobile()) {
+          if (isMobile) {
             close();
           }
         }
@@ -101,81 +100,70 @@ const BetSlip = (props) => {
   };
 
   function updateSlipGames(data, games) {
+    console.log("Called");
     if (games !== undefined) {
-      let fixtureIndex = games.findIndex((el) => data.id == el.fixtureId);
-      let prefix = `${games[fixtureIndex].marketIdentifier}`;
+      let fixtureIndex = games.findIndex(
+        (el) => data.fixture_id == el.fixtureId
+      );
       let gameOutcome = games[fixtureIndex].outcome;
-      if (data[`market_${prefix}_odds`] === undefined) {
-        games[fixtureIndex] = {
-          ...games[fixtureIndex],
-          ...{
-            [`market_${prefix}_status`]: data[`market_${prefix}_status`],
-          },
-        };
-      } else {
-        games[fixtureIndex] = {
-          ...games[fixtureIndex],
-          ...{
-            [`market_${prefix}_status`]: data[`market_${prefix}_status`],
-            odd: data[`market_${prefix}_odds`][`outcome_${gameOutcome}`],
-          },
-        };
-      }
+      games[fixtureIndex] = {
+        ...games[fixtureIndex],
+        ...{
+          status: data.status,
+          odd: data.odds[`outcome_${gameOutcome}`],
+        },
+      };
 
       dispatcher({ type: "addBet", payload: games });
+      console.log("dispatched");
     }
   }
 
   const slipGames = () => {
-    return (
-      games
-        // .filter((el) => el[`market_${el.marketIdentifier}_status`] === "Active")
-        .map((bet) => (
-          <BetSlipsChannel
-            key={shortUUID.generate()}
-            channel="BetslipChannel"
-            fixture={bet.fixtureId}
-            market={bet.marketIdentifier}
-            received={(data) => {
-              updateSlipGames(data, games);
-            }}
-          >
-            <div
-              className={
-                bet[`market_${bet.marketIdentifier}_status`] === "Active"
-                  ? "row lineBet"
-                  : "row lineBet hide-row"
-              }
-            >
-              <div className="col-12 px-2">
-                <div className="single-bet">
-                  <div className="col-1 px-1">
-                    <a onClick={() => deleteLineBet(bet.id)}>
-                      <i className="far fa-times-circle"></i>
-                    </a>
-                  </div>
-                  <div id="comp-names" className="col-9 px-1">
-                    <span>
-                      {" "}
-                      {bet.partOne} - {bet.partTwo}{" "}
-                    </span>
-                    <span>{bet.description}</span>
-                  </div>
-                  <div
-                    data-target="slips.odd"
-                    className="col-2 px-1 text-left"
-                    // id={`slip_${bet.market.match(/\d/g).join("")}_${
-                    //   bet.outcome
-                    // }_${bet.fixtureId}`}
-                  >
-                    {parseFloat(bet.odd).toFixed(2)}
-                  </div>
-                </div>
+    return games.map((bet) => (
+      <BetSlipsChannel
+        key={shortUUID.generate()}
+        channel="BetslipChannel"
+        fixture={bet.fixtureId}
+        market={bet.marketIdentifier}
+        received={(data) => {
+          console.log("Data received");
+          updateSlipGames(data, games);
+        }}
+      >
+        <div
+          className={
+            bet.status === "Active" ? "row lineBet" : "row lineBet hide-row"
+          }
+        >
+          <div className="col-12 px-2">
+            <div className="single-bet">
+              <div className="col-1 px-1">
+                <a onClick={() => deleteLineBet(bet.id)}>
+                  <i className="far fa-times-circle"></i>
+                </a>
+              </div>
+              <div id="comp-names" className="col-9 px-1">
+                <span>
+                  {" "}
+                  {bet.partOne} - {bet.partTwo}{" "}
+                </span>
+                <span>{bet.description}</span>
+              </div>
+              <div
+                data-target="slips.odd"
+                className="col-2 px-1 text-left"
+                // id={`slip_${bet.market.match(/\d/g).join("")}_${
+                //   bet.outcome
+                // }_${bet.fixtureId}`}
+              >
+                {parseFloat(bet.odd).toFixed(2)}
               </div>
             </div>
-          </BetSlipsChannel>
-        ))
-    );
+          </div>
+        </div>
+      </BetSlipsChannel>
+    ));
   };
 
   const deleteLineBet = (id) => {
@@ -288,7 +276,7 @@ const BetSlip = (props) => {
 
   return (
     <>
-      {!Mobile.isMobile() && (
+      {!isMobile && (
         <>
           <>
             <div className="web-sidebar-widget" id="betSlip">
@@ -317,7 +305,7 @@ const BetSlip = (props) => {
           </>
         </>
       )}
-      {Mobile.isMobile() && (
+      {isMobile && (
         <Modal
           title={
             <>
@@ -348,7 +336,8 @@ const BetSlip = (props) => {
               {betSlipData}
             </>
           )}
-          {games.length == 0 && <p className="MobileEmpty">Empty BetSlip...</p>}
+          {/* {games.length == 0 && <p className="MobileEmpty">Empty BetSlip...</p>} */}
+          {games.length == 0 && NoEvents()}
         </Modal>
       )}
     </>
