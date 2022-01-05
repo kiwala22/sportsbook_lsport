@@ -32,7 +32,7 @@ class AlertsWorker
         else
             
             if (timestamp.to_i - last_update[:timestamp].to_i) > threshold
-                logger.debug("timestamp: {timestamp}", "new stamp: {last_update[:timestamp]}, diff: {timestamp.to_i - last_update[:timestamp].to_i}, product: {product}")
+                logger.debug("timestamp: {timestamp}, new stamp: {last_update[:timestamp]}, diff: {timestamp.to_i - last_update[:timestamp].to_i}, product: {product}")
                 #first close all active markets 
                 DeactivateMarketsWorker.perform_async(product)
 
