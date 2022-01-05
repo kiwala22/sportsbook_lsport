@@ -61,7 +61,7 @@ const Deposit = (props) => {
                       ]}
                     >
                       <Input
-                        prefix={"UGX"}
+                        prefix={"KES"}
                         placeholder="Amount"
                         type="number"
                       />

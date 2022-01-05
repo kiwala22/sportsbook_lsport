@@ -53,7 +53,15 @@ class Fixture < ApplicationRecord
     #check if match status is live and change was on either scores or match time
     if self.status == "live"
       if saved_change_to_attribute?(:home_score) || saved_change_to_attribute?(:away_score) || saved_change_to_attribute?(:match_time)
-        CableWorker.perform_async("fixtures_#{self.id}", self.as_json)
+        fixture = {"fixture_id": self.id}
+
+        ## Add scores and match time to the fixture object
+        fixture["home_score"] = self.home_score
+        fixture["away_score"] = self.away_score
+        fixture["match_time"] = self.match_time
+
+        ## Broadcast the changes
+        CableWorker.perform_async("fixtures_#{self.id}", fixture)
       end
     end
   end

@@ -64,7 +64,7 @@
         <th>BetSlip ID</th>
         <th>Product</th>
         <th>Market</th>
-        <th>Outcome</th>>
+        <th>Outcome</th>
         <th>Description</th>
         <th>User</th>
 				<th>Time</th>
@@ -92,7 +92,7 @@
 					<td><%= bet.market_identifier %></td>
           <td><%= bet.outcome %></td>
 					<td><%= bet.outcome_desc %></td>
-          <td><%= bet.user_id %></td>
+          <td><%= link_to bet.user_id, backend_user_path(id:bet.user) %></td> 
 					<td><%= local_time(bet.created_at, format: "%d/%m/%y, %l:%M%P") %></td>
 				</tr>
 			<% end %>

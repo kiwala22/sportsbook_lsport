@@ -1,0 +1,64 @@
+
+
+<div class=" table-responsive" >
+    <table class="table table-borderless table-striped text-center">
+        <%if @transactions.present?%>
+        <thead>
+            <tr>
+                <th>#No</th>
+                <th>Phone Number</th>
+                <th>Amount</th>
+                <th>Balance Before</th>
+                <th>Balance After</th>
+                <th>Category</th>
+                <th>Status</th>
+                <th>Time</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <% @transactions.each_with_index do |transaction, i| %>
+            <tr>
+                <td>
+                    <%= (i+1) %>
+                </td>
+                <td>
+                    <%= transaction.phone_number %>
+                </td>
+                <% if transaction.category == "Deposit" %>
+                <td>+<%= number_to_currency(transaction.amount, unit: "UGX ", precision: 0) %>
+                </td>
+                <% elsif (transaction.category == "Withdraw") || (transaction.category == "Bet Stake")  %>
+                <td>-<%= number_to_currency(transaction.amount, unit: "UGX ", precision: 0) %>
+                </td>
+                <% else %>
+                <td>+
+                    <%= number_to_currency(transaction.amount, unit: "UGX ", precision: 0) %>
+                </td>
+                <% end %>
+                <td>
+                    <%= number_to_currency(transaction.balance_before, unit: "UGX ", precision: 0) %>
+                </td>
+                <td>
+                    <%= number_to_currency(transaction.balance_after, unit: "UGX ", precision: 0) %>
+                </td>
+                <td>
+                    <%= transaction.category %>
+                </td>
+                <td>
+                    <%= transaction.status %>
+                </td>
+                <td>
+                    <%= local_time(transaction.created_at, format: "%d/%m/%y %l:%M%P") %>
+                </td>
+            </tr>
+            <% end %>
+
+        </tbody>
+        <%else%>
+        <h6 class="event">No transactions.</h6>
+        <%end%>
+    </table>
+    <%= paginate @transactions if @transactions.present? %>
+</div>

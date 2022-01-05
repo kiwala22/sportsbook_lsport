@@ -14,7 +14,6 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import currencyFormatter from "../utilities/CurrencyFormatter";
-import Mobile from "../utilities/Mobile";
 import Requests from "../utilities/Requests";
 import Login from "./Login";
 import SignUp from "./SignUp";
@@ -22,16 +21,19 @@ import SignUp from "./SignUp";
 const Navbar = (props) => {
   const dispatch = useDispatch();
   const formRef = React.createRef();
-  const { signedIn, verified, userInfo } = useSelector((state) => state);
+  const { signedIn, verified, userInfo, isMobile } = useSelector(
+    (state) => state
+  );
   const [showSearch, setShowSearch] = useState(false);
   const slipGames = useSelector((state) => {
     return state.games.filter((el) => {
-      return el[`market_${el.marketIdentifier}_status`] === "Active";
+      return el.status === "Active";
     }).length;
   });
 
   const performSearch = (values) => {
     setShowSearch(false);
+    formRef.current.resetFields();
     props.history.push({
       pathname: "/fixtures/search",
       search: `?search=${values.search}`,
@@ -169,7 +171,7 @@ const Navbar = (props) => {
 
   return (
     <>
-      {!Mobile.isMobile() && (
+      {!isMobile && (
         <div>
           <nav className="navbar navbar-expand-md main-menu">
             <div className="container-fluid">
@@ -188,7 +190,7 @@ const Navbar = (props) => {
                     <li className="nav-item active">
                       <Link to={"/"}>
                         <h4>
-                          Skyline<span className="logo-color">Bet</span>
+                          Sports<span className="logo-color">Book</span>
                         </h4>
                       </Link>
                     </li>
@@ -258,7 +260,7 @@ const Navbar = (props) => {
           </nav>
         </div>
       )}
-      {Mobile.isMobile() && (
+      {isMobile && (
         <>
           <NavBar
             mode="dark"

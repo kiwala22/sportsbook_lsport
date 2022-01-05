@@ -100,6 +100,7 @@
     "pdfmake": "0.1.56",
     "popper.js": "^1.16.1",
     "prop-types": "^15.7.2",
+    "query-string": "^7.0.1",
     "raphael": "2.2.7",
     "react": "^17.0.2",
     "react-bootstrap": "^1.6.1",
@@ -133,6 +134,7 @@
     "@prettier/plugin-ruby": "^1.6.1",
     "prettier": "^2.3.2",
     "prettier-plugin-erb": "^0.4.0",
+    "webpack-bundle-analyzer": "^4.5.0",
     "webpack-dev-server": "^3.10.3"
   }
 }

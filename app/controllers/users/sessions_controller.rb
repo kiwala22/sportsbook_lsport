@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Users::SessionsController < Devise::SessionsController
+  include Accessible
+  skip_before_action :check_user, only: :destroy
   skip_before_action :verify_authenticity_token, only: :create
   layout 'application'
   include CurrentCart
@@ -16,7 +18,7 @@ class Users::SessionsController < Devise::SessionsController
   def create
     user = User.find_by_phone_number(sign_in_params[:phone_number])
 
-    if user && user.valid_password?(sign_in_params[:password])
+    if user&.valid_password?(sign_in_params[:password])
       render json: { message: 'Login Successful.' }, status: 200
     else
       render json: {

@@ -1,25 +1,25 @@
-import { DropboxOutlined } from "@ant-design/icons";
 import { Table } from "antd";
 import "channels";
 import cogoToast from "cogo-toast";
 import React, { useEffect, useState } from "react";
 import Moment from "react-moment";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import shortUUID from "short-uuid";
 import MarketsChannel from "../../channels/marketsChannel";
 import PreOddsChannel from "../../channels/preOddsChannel";
 import addBet from "../redux/actions";
 import * as DataUpdate from "../utilities/DataUpdate";
-import Mobile from "../utilities/Mobile";
 import oddsFormatter from "../utilities/oddsFormatter";
 import Requests from "../utilities/Requests";
+import NoData from "./NoData";
 import Preview from "./Skeleton";
 
 const PreVirtualMatches = (props) => {
   const [games, setGames] = useState([]);
   const [pageLoading, setPageLoading] = useState(true);
   const dispatcher = useDispatch();
+  const isMobile = useSelector((state) => state.isMobile);
 
   useEffect(() => loadPreMatchGames(), []);
 
@@ -43,7 +43,7 @@ const PreVirtualMatches = (props) => {
   };
 
   const updateMatchInfo = (data, currentState, setState, market, channel) => {
-    let fixtureIndex = currentState.findIndex((el) => data.id == el.id);
+    let fixtureIndex = currentState.findIndex((el) => data.fixture_id == el.id);
     let fixture = currentState[fixtureIndex];
     let updatedFixture = DataUpdate.fixtureUpdate(
       data,
@@ -81,6 +81,7 @@ const PreVirtualMatches = (props) => {
         <MarketsChannel
           channel="MarketsChannel"
           fixture={fixture.id}
+          market="1"
           received={(data) => {
             updateMatchInfo(
               data,
@@ -133,8 +134,9 @@ const PreVirtualMatches = (props) => {
       render: (_, fixture) => (
         <a
           className={
-            fixture.market_1_odds === undefined ||
-            oddsFormatter(fixture.market_1_odds["outcome_1"]) ==
+            fixture.markets.length == 0 ||
+            fixture.markets[0].odds === null ||
+            oddsFormatter(fixture.markets[0].odds["outcome_1"]) ==
               parseFloat(1.0).toFixed(2)
               ? "btnn intialise_input disabled"
               : "btnn intialise_input btn btn-light wagger-btn"
@@ -144,9 +146,9 @@ const PreVirtualMatches = (props) => {
             addBet(dispatcher, "1", "PreMarket", fixture.id, "1X2 FT - 1", "1")
           }
         >
-          {fixture.market_1_odds === undefined
+          {fixture.markets.length == 0  || fixture.markets[0].odds === null
             ? parseFloat(1.0).toFixed(2)
-            : oddsFormatter(fixture.market_1_odds["outcome_1"])}
+            : oddsFormatter(fixture.markets[0].odds["outcome_1"])}
         </a>
       ),
     },
@@ -155,8 +157,9 @@ const PreVirtualMatches = (props) => {
       render: (_, fixture) => (
         <a
           className={
-            fixture.market_1_odds === undefined ||
-            oddsFormatter(fixture.market_1_odds["outcome_X"]) ==
+            fixture.markets.length == 0 ||
+            fixture.markets[0].odds === null ||
+            oddsFormatter(fixture.markets[0].odds["outcome_X"]) ==
               parseFloat(1.0).toFixed(2)
               ? "btnn intialise_input disabled"
               : "btnn intialise_input btn btn-light wagger-btn"
@@ -166,9 +169,9 @@ const PreVirtualMatches = (props) => {
             addBet(dispatcher, "X", "PreMarket", fixture.id, "1X2 FT - X", "1")
           }
         >
-          {fixture.market_1_odds === undefined
+          {fixture.markets.length == 0  || fixture.markets[0].odds === null
             ? parseFloat(1.0).toFixed(2)
-            : oddsFormatter(fixture.market_1_odds["outcome_X"])}
+            : oddsFormatter(fixture.markets[0].odds["outcome_X"])}
         </a>
       ),
     },
@@ -177,8 +180,9 @@ const PreVirtualMatches = (props) => {
       render: (_, fixture) => (
         <a
           className={
-            fixture.market_1_odds === undefined ||
-            oddsFormatter(fixture.market_1_odds["outcome_2"]) ==
+            fixture.markets.length == 0 ||
+            fixture.markets[0].odds === null ||
+            oddsFormatter(fixture.markets[0].odds["outcome_2"]) ==
               parseFloat(1.0).toFixed(2)
               ? "btnn intialise_input disabled"
               : "btnn intialise_input btn btn-light wagger-btn"
@@ -188,9 +192,9 @@ const PreVirtualMatches = (props) => {
             addBet(dispatcher, "2", "PreMarket", fixture.id, "1X2 FT - 2", "1")
           }
         >
-          {fixture.market_1_odds === undefined
+          {fixture.markets.length == 0  || fixture.markets[0].odds === null
             ? parseFloat(1.0).toFixed(2)
-            : oddsFormatter(fixture.market_1_odds["outcome_2"])}
+            : oddsFormatter(fixture.markets[0].odds["outcome_2"])}
         </a>
       ),
     },
@@ -202,9 +206,7 @@ const PreVirtualMatches = (props) => {
         <>
           <div
             className={
-              Mobile.isMobile()
-                ? "game-box mobile-table-padding-games"
-                : "game-box"
+              isMobile ? "game-box mobile-table-padding-games" : "game-box"
             }
           >
             <div className="card">
@@ -237,7 +239,7 @@ const PreVirtualMatches = (props) => {
                       dataSource={games}
                       size="middle"
                       rowClassName={(record) =>
-                        record.market_1_status == "Active"
+                        record.markets[0].status == "Active"
                           ? "show-row"
                           : "hide-row"
                       }
@@ -247,11 +249,12 @@ const PreVirtualMatches = (props) => {
                       locale={{
                         emptyText: (
                           <>
-                            <span>
+                            {NoData("Upcoming Virtual Events")}
+                            {/* <span>
                               <DropboxOutlined className="font-40" />
                             </span>
                             <br />
-                            <span className="font-18">No Fixtures Found</span>
+                            <span className="font-18">No Fixtures Found</span> */}
                           </>
                         ),
                       }}

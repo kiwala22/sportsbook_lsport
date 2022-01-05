@@ -1,11 +1,12 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import Mobile from "../utilities/Mobile";
 
 const Footer = (props) => {
+  const isMobile = useSelector((state) => state.isMobile);
   return (
     <>
-      {Mobile.isMobile() && (
+      {isMobile && (
         <>
           <div className="copyright">
             <div className="container">
@@ -63,7 +64,7 @@ const Footer = (props) => {
           </div>
         </>
       )}
-      {!Mobile.isMobile() && (
+      {!isMobile && (
         <div className="copyright" id="footer">
           <div className="container">
             <>

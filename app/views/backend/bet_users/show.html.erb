@@ -1,0 +1,148 @@
+<div class="content-heading">
+  User No: #<%= @user.id %> 
+    
+</div>
+<div class="card card-default">
+   <div class="card-header">User Information  
+    <div class="card-body">
+      <p class="lead bb mb-4">Details</p>
+      <div class="row mb-3">
+         <div class="col-lg-6">
+            <form class="form-horizontal">
+               <div class="form-group row">
+                  <div class="col-md-4">First Name:</div>
+                  <div class="col-md-8">
+                     <strong><%= @user.first_name.capitalize%></strong>
+                  </div>
+               </div>
+               <div class="form-group row">
+                  <div class="col-md-4">Last Name:</div>
+                  <div class="col-md-8">
+                     <strong><%= @user.last_name.capitalize%></strong>
+                  </div>
+               </div>
+               <div class="form-group row">
+                  <div class="col-md-4">Email Address:</div>
+                  <div class="col-md-8">
+                     <strong><%= @user.email%></strong>
+                  </div>
+               </div>
+               <div class="form-group row">
+                <div class="col-md-4">Phone Number:</div>
+                <div class="col-md-8">
+                   <strong><%= @user.phone_number%></strong>
+                </div>
+             </div>
+               <div class="form-group row">
+                    <div class="col-md-4">Balance:</div>
+                    <div class="col-md-8">
+                        <strong><%= number_to_currency( @user.balance, unit:"UGX")%></strong>
+                    </div>
+                </div>
+               <div class="form-group row">
+                    <div class="col-md-4">Sign In Count:</div>
+                    <div class="col-md-8">
+                        <strong><%= @user.sign_in_count%></strong>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-4">Failed Attempts:</div>
+                    <div class="col-md-8">
+                        <strong><%= @user.failed_attempts%></strong>
+                    </div>
+                </div>
+                               
+            </form>
+
+         </div>
+         <div class="col-lg-6">
+            <form class="form-horizontal">
+                <div class="form-group row">
+                    <div class="col-md-4">Status:</div>
+                    <div class="col-md-8">
+                        <strong>
+                            <% if @user.account_active == true %>
+                                <div class="badge badge-success">
+                                    ACTIVE
+                                </div>
+                            <% else %>
+                                <div class="badge badge-warning">
+                                    SUSPENDED
+                                </div>
+                            <% end %>
+                        </strong>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-4">Current sign in IP:</div>
+                    <div class="col-md-8">
+                       <strong><%= @user.current_sign_in_ip%></strong>
+                    </div>
+                 </div>
+               
+                <div class="form-group row">
+                  <div class="col-md-4">Last sign in IP:</div>
+                  <div class="col-md-8">
+                     <strong><%= @user.last_sign_in_ip%></strong>
+                  </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-4">Current sign at:</div>
+                    <div class="col-md-8">
+                    <strong><%= @user.current_sign_in_at.strftime('%e %B , %Y %l:%M%P')%></strong>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-4">Last sign at:</div>
+                    <div class="col-md-8">
+                       <strong><%= @user.last_sign_in_at.strftime('%e %B , %Y %l:%M%P')%></strong>
+                    </div>
+                </div>
+               <div class="form-group row">
+                    <div class="col-md-4">Joined On:</div>
+                    <div class="col-md-8">
+                       <strong><%= @user.created_at.strftime('%e %B , %Y %l:%M%P')%></strong>
+                    </div>
+                </div>
+               
+            </form>
+         </div>
+      </div>
+     
+    </div>      
+   </div>
+</div>
+
+  
+<div class="game-box">
+    <div class="card">
+        <div class="card-header">
+            <h3>User Transactions & Bets</h3>
+        </div>
+        <div class="card-body">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active" id="transactions-tab" data-toggle="tab" href="#transactions" role="tab" aria-controls="transactions" aria-selected="true">Transactions</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="betslips-tab" data-toggle="tab" href="#betslips" role="tab" aria-controls="betslips" aria-selected="false">BetSlips</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="bets-tab" data-toggle="tab" href="#bets" role="tab" aria-controls="bets" aria-selected="false">Bets</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="transactions" role="tabpanel" aria-labelledby="transactions-tab">
+                    <%= render 'transactions'%>
+                </div>
+                <div class="tab-pane fade" id="betslips" role="tabpanel" aria-labelledby="betslips-tab">
+                    <%= render 'betslips' %>
+                </div>
+                <div class="tab-pane fade" id="bets" role="tabpanel" aria-labelledby="bets-tab">
+                    <%= render 'bets' %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

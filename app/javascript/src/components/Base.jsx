@@ -2,7 +2,6 @@ import cogoToast from "cogo-toast";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, Route, Switch } from "react-router-dom";
-import Mobile from "../utilities/Mobile";
 import Requests from "../utilities/Requests";
 import Bets from "./Bets";
 import BetSlip from "./BetSlip";
@@ -35,7 +34,13 @@ import Withdraw from "./Withdraw";
 
 const Base = (props) => {
   const dispatch = useDispatch();
-  const { signedIn, verified } = useSelector((state) => state);
+  const { signedIn, verified, isMobile } = useSelector((state) => state);
+
+  useEffect(() => {
+    window.addEventListener("resize", () => {
+      dispatch({ type: "OnScreenChange", payload: {} });
+    });
+  }, []);
 
   useEffect(() => {
     checkUserVerification();
@@ -83,7 +88,7 @@ const Base = (props) => {
                 <Sidebar />
                 <div
                   className={
-                    Mobile.isMobile()
+                    isMobile
                       ? "col-sm-12 mt-20 px-lg-1 px-xl-1 px-md-1"
                       : "col-xl-7 col-lg-7 col-md-7 col-sm-12 mt-20 px-lg-1 px-xl-1 px-md-1"
                   }
@@ -184,7 +189,7 @@ const Base = (props) => {
                     </Switch>
                   </div>
                 </div>
-                {!Mobile.isMobile() ? (
+                {!isMobile ? (
                   <div className="col-xl-3 col-lg-3 col-md-3 hidden-sm-down mt-20 px-lg-1 px-xl-1 px-md-1">
                     {props.location.pathname !== "/new_verify/" && <BetSlip />}
                     <br />
@@ -201,9 +206,7 @@ const Base = (props) => {
         </section>
         <footer
           className={
-            Mobile.isMobile()
-              ? "footer-container mobile-footer"
-              : "footer-container"
+            isMobile ? "footer-container mobile-footer" : "footer-container"
           }
         >
           <Footer />

@@ -1,15 +1,12 @@
 import React from "react";
 import { BsEnvelope, BsSearch } from "react-icons/bs";
-import Mobile from "../utilities/Mobile";
+import { useSelector } from "react-redux";
 
 const Support = () => {
+  const isMobile = useSelector((state) => state.isMobile);
   return (
     <>
-      <div
-        className={
-          Mobile.isMobile() ? "game-box mobile-table-padding" : "game-box"
-        }
-      >
+      <div className={isMobile ? "game-box mobile-table-padding" : "game-box"}>
         <div className="card">
           <div className="card-header">
             <h3>Contact Us</h3>

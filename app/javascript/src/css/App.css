@@ -345,6 +345,10 @@ h6 {
   font-size: 18px !important;
 }
 
+.empty-image-custom {
+  width: 100px !important;
+}
+
 .custom-dropdown-list li a {
   color: black !important;
 }
