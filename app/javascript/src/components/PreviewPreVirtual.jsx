@@ -19,7 +19,6 @@ const PreviewPreVirtual = (props) => {
   const dispatcher = useDispatch();
   const isMobile = useSelector((state) => state.isMobile);
   const [_, setGreeting] = useState("");
-    
 
   useEffect(() => {
     getfixture();
@@ -50,7 +49,7 @@ const PreviewPreVirtual = (props) => {
     );
     setState(updatedData);
     // Forcing Re-render //to be reviewed
-        setGreeting(Math.random());
+    setGreeting(Math.random());
   };
 
   return (
@@ -64,13 +63,7 @@ const PreviewPreVirtual = (props) => {
                   channel="MarketsChannel"
                   fixture={fixture.id}
                   received={(data) => {
-                    updateMatchInfo(
-                      data,
-                      fixture,
-                      setFixture,
-                      _,
-                      "Market"
-                    );
+                    updateMatchInfo(data, fixture, setFixture, _, "Market");
                   }}
                 >
                   <h6>
@@ -163,7 +156,8 @@ const PreviewPreVirtual = (props) => {
                                                   "outcome_",
                                                   market.name + " - "
                                                 ),
-                                                market.market_identifier
+                                                market.market_identifier,
+                                                market.specifier
                                               )
                                             }
                                           >

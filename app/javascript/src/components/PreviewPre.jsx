@@ -50,7 +50,7 @@ const PreviewPre = (props) => {
       channel
     );
     setState(updatedData);
-    
+
     // Forcing Re-render //to be reviewed
     setGreeting(Math.random());
   };
@@ -66,13 +66,7 @@ const PreviewPre = (props) => {
                   channel="MarketsChannel"
                   fixture={fixture.id}
                   received={(data) => {
-                    updateMatchInfo(
-                      data,
-                      fixture,
-                      setFixture,
-                      _,
-                      "Market"
-                    );
+                    updateMatchInfo(data, fixture, setFixture, _, "Market");
                   }}
                 >
                   <h6>
@@ -132,8 +126,18 @@ const PreviewPre = (props) => {
                                       <React.Fragment key={index}>
                                         <div
                                           className={`pl-2 pr-2 col-lg-${
-                                            Object.keys(market.odds).length %2 == 0 ? 6 : 4 } col-sm-${
-                                            Object.keys(market.odds).length %2 == 0 ? 6 : 4}`}
+                                            Object.keys(market.odds).length %
+                                              2 ==
+                                            0
+                                              ? 6
+                                              : 4
+                                          } col-sm-${
+                                            Object.keys(market.odds).length %
+                                              2 ==
+                                            0
+                                              ? 6
+                                              : 4
+                                          }`}
                                         >
                                           <a
                                             className={
@@ -155,7 +159,8 @@ const PreviewPre = (props) => {
                                                   "outcome_",
                                                   market.name + " - "
                                                 ),
-                                                market.market_identifier
+                                                market.market_identifier,
+                                                market.specifier
                                               )
                                             }
                                           >

@@ -58,7 +58,31 @@ class Api::V1::Fixtures::Soccer::PreMatchController < ApplicationController
     ## Add all available markets to fixture data
     markets = @fixture.pre_markets.order('market_identifier::integer ASC')
 
-    fixture["markets"] = markets
+    filtered_markets = []
+
+    ## Filter the markets to the specifics needed
+    markets.each do |market|
+      if ["2", "21", "45"].include?(market["market_identifier"])
+        if market["specifier"] == "2.5"
+          filtered_markets << market
+        end
+
+      elsif ["3"].include?(market["market_identifier"])
+        if market["specifier"] == "-1.0 (0-0)"
+          filtered_markets << market
+        end
+
+      elsif ["13", "61"].include?(market["market_identifier"])
+        if market["specifier"] == "1:0"
+          filtered_markets << market
+        end
+      else
+        filtered_markets << market
+      end
+    end
+
+
+    fixture["markets"] = filtered_markets
 
     render json: fixture
       
