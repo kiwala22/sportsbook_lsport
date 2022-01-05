@@ -35,7 +35,7 @@ class Api::V1::Fixtures::Soccer::LiveMatchController < ApplicationController
     fixture = @fixture.as_json
 
     ## Add all available markets to fixture data
-    markets = @fixture.live_markets.order('market_identifier::integer ASC')
+    markets = @fixture.live_markets.where("market_identifier IN (?)", ["1", "2", "3", "5", "7", "17", "13", "16", "19", "21", "25", "41", "42", "52", "55", "61", "113", "245", "45"]).order('market_identifier::integer ASC')
 
     filtered_markets = []
 

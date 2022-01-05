@@ -273,8 +273,13 @@ module Lsports
 
                                                     if mkt_entry
                                                         prevOdds = mkt_entry.odds
-                                                        attrs["odds"] = prevOdds.merge!(outcomes)
+                                                        if !prevOdds.nil?
+                                                            attrs["odds"] = prevOdds.merge!(outcomes)
+                                                        else
+                                                            attrs["odds"] = outcomes
+                                                        end
                                                         mkt_entry.assign_attributes(attrs)
+                                                        mkt_entry.name = market_name(event["Id"])
                                                         mkt_entry.save
                                                     else
                                                         attrs["odds"] = outcomes
@@ -302,7 +307,11 @@ module Lsports
 
                                                 if mkt_entry
                                                     prevOdds = mkt_entry.odds
-                                                    attrs["odds"] = prevOdds.merge!(outcomes)
+                                                    if !prevOdds.nil?
+                                                        attrs["odds"] = prevOdds.merge!(outcomes)
+                                                    else
+                                                        attrs["odds"] = outcomes
+                                                    end
                                                     mkt_entry.assign_attributes(attrs)
                                                     mkt_entry.save
                                                 else
@@ -311,6 +320,7 @@ module Lsports
                                                     mkt_entry.market_identifier = event["Id"]
                                                     mkt_entry.name = market_name(event["Id"])
                                                     mkt_entry.fixture_id = fixture.id
+                                                    mkt_entry.name = market_name(event["Id"])
                                                     mkt_entry.save
                                                 end
                                                 
