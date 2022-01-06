@@ -2,6 +2,7 @@ import { Button, Drawer } from "antd";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import urlFormatter from "../utilities/urlFormatter";
 import Login from "./Login";
 import SignUp from "./SignUp";
 
@@ -10,7 +11,6 @@ const Sidebar = (props) => {
   const open = useSelector((state) => state.displaySider);
   const signedIn = useSelector((state) => state.signedIn);
   const isMobile = useSelector((state) => state.isMobile);
-  const queryString = require("query-string");
 
   const sidebar = (
     <>
@@ -50,7 +50,11 @@ const Sidebar = (props) => {
               <Link
                 to={{
                   pathname: "/fixtures/soccer/pres",
-                  search: `q%5Bleague_name%5D=UEFA+Champions+League`,
+                  search: urlFormatter({
+                    q: {
+                      league_name: "UEFA Champions League",
+                    },
+                  }),
                 }}
               >
                 <span className="show-more">UEFA Champions League</span>
@@ -60,7 +64,11 @@ const Sidebar = (props) => {
               <Link
                 to={{
                   pathname: "/fixtures/soccer/pres",
-                  search: `q%5Bleague_name%5D=UEFA+Europa+League`,
+                  search: urlFormatter({
+                    q: {
+                      league_name: "UEFA Europa League",
+                    },
+                  }),
                 }}
               >
                 <span className="show-more">UEFA Europa League</span>
@@ -70,7 +78,12 @@ const Sidebar = (props) => {
               <Link
                 to={{
                   pathname: "/fixtures/soccer/pres",
-                  search: `q%5Bleague_name%5D=Premier+League&q%5Blocation%5D=England`,
+                  search: urlFormatter({
+                    q: {
+                      league_name: "Premier League",
+                      location: "England",
+                    },
+                  }),
                 }}
               >
                 <span className="show-more">English Premier League</span>
@@ -80,7 +93,12 @@ const Sidebar = (props) => {
               <Link
                 to={{
                   pathname: "/fixtures/soccer/pres",
-                  search: `q%5Bleague_name%5D=Serie+A&q%5Blocation%5D=Italy`,
+                  search: urlFormatter({
+                    q: {
+                      league_name: "Serie A",
+                      location: "Italy",
+                    },
+                  }),
                 }}
               >
                 <span className="show-more">Serie A</span>
@@ -90,7 +108,12 @@ const Sidebar = (props) => {
               <Link
                 to={{
                   pathname: "/fixtures/soccer/pres",
-                  search: `q%5Bleague_name%5D=LaLiga&q%5Blocation%5D=Spain`,
+                  search: urlFormatter({
+                    q: {
+                      league_name: "LaLiga",
+                      location: "Spain",
+                    },
+                  }),
                 }}
               >
                 <span className="show-more">La Liga</span>
@@ -100,7 +123,12 @@ const Sidebar = (props) => {
               <Link
                 to={{
                   pathname: "/fixtures/soccer/pres",
-                  search: `q%5Bleague_name%5D=Bundesliga&q%5Blocation%5D=Germany`,
+                  search: urlFormatter({
+                    q: {
+                      league_name: "Bundesliga",
+                      location: "Germany",
+                    },
+                  }),
                 }}
               >
                 <span className="show-more">Bundesliga</span>
@@ -110,7 +138,12 @@ const Sidebar = (props) => {
               <Link
                 to={{
                   pathname: "/fixtures/soccer/pres",
-                  search: `q%5Bleague_name%5D=Ligue+1&q%5Blocation%5D=France`,
+                  search: urlFormatter({
+                    q: {
+                      league_name: "Ligue 1",
+                      location: "France",
+                    },
+                  }),
                 }}
               >
                 <span className="show-more">French Ligue 1</span>
@@ -120,7 +153,11 @@ const Sidebar = (props) => {
               <Link
                 to={{
                   pathname: "/fixtures/soccer/pres",
-                  search: `q%5Bleague_name%5D=Primeira+Liga`,
+                  search: urlFormatter({
+                    q: {
+                      league_name: "Primeira Liga",
+                    },
+                  }),
                 }}
               >
                 <span className="show-more">Portuguese Liga</span>
@@ -130,7 +167,11 @@ const Sidebar = (props) => {
               <Link
                 to={{
                   pathname: "/fixtures/soccer/pres",
-                  search: `q%5Bleague_name%5D=A-league`,
+                  search: urlFormatter({
+                    q: {
+                      league_name: "A-league",
+                    },
+                  }),
                 }}
               >
                 <span className="show-more">A-League</span>
@@ -140,7 +181,11 @@ const Sidebar = (props) => {
               <Link
                 to={{
                   pathname: "/fixtures/soccer/pres",
-                  search: `q%5Bleague_name%5D=K-league`,
+                  search: urlFormatter({
+                    q: {
+                      league_name: "K-league",
+                    },
+                  }),
                 }}
               >
                 <span className="show-more">K-League</span>
@@ -150,7 +195,11 @@ const Sidebar = (props) => {
               <Link
                 to={{
                   pathname: "/fixtures/soccer/pres",
-                  search: `q%5Bleague_name%5D=J-league`,
+                  search: urlFormatter({
+                    q: {
+                      league_name: "J-league",
+                    },
+                  }),
                 }}
               >
                 <span className="show-more">J-League</span>
@@ -160,7 +209,12 @@ const Sidebar = (props) => {
               <Link
                 to={{
                   pathname: "/fixtures/soccer/pres",
-                  search: `q%5Bleague_name%5D=Série+A&q%5Blocation%5D=Brazil`,
+                  search: urlFormatter({
+                    q: {
+                      league_name: "Série A",
+                      location: "Brazil",
+                    },
+                  }),
                 }}
               >
                 <span className="show-more">Brazil Serie A</span>
@@ -176,7 +230,11 @@ const Sidebar = (props) => {
               <Link
                 to={{
                   pathname: "/fixtures/soccer/pres",
-                  search: `q%5Blocation%5D=England`,
+                  search: urlFormatter({
+                    q: {
+                      location: "England",
+                    },
+                  }),
                 }}
               >
                 <span className="show-more">England</span>
@@ -187,7 +245,11 @@ const Sidebar = (props) => {
               <Link
                 to={{
                   pathname: "/fixtures/soccer/pres",
-                  search: `q%5Blocation%5D=Spain`,
+                  search: urlFormatter({
+                    q: {
+                      location: "Spain",
+                    },
+                  }),
                 }}
               >
                 <span className="show-more">Spain</span>
@@ -198,7 +260,11 @@ const Sidebar = (props) => {
               <Link
                 to={{
                   pathname: "/fixtures/soccer/pres",
-                  search: `q%5Blocation%5D=Germany`,
+                  search: urlFormatter({
+                    q: {
+                      location: "Germany",
+                    },
+                  }),
                 }}
               >
                 <span className="show-more">Germany</span>
@@ -209,7 +275,11 @@ const Sidebar = (props) => {
               <Link
                 to={{
                   pathname: "/fixtures/soccer/pres",
-                  search: `q%5Blocation%5D=Italy`,
+                  search: urlFormatter({
+                    q: {
+                      location: "Italy",
+                    },
+                  }),
                 }}
               >
                 <span className="show-more">Italy</span>
@@ -220,7 +290,11 @@ const Sidebar = (props) => {
               <Link
                 to={{
                   pathname: "/fixtures/soccer/pres",
-                  search: `q%5Blocation%5D=France`,
+                  search: urlFormatter({
+                    q: {
+                      location: "France",
+                    },
+                  }),
                 }}
               >
                 <span className="show-more">France</span>
@@ -231,7 +305,11 @@ const Sidebar = (props) => {
               <Link
                 to={{
                   pathname: "/fixtures/soccer/pres",
-                  search: `q%5Blocation%5D=Brazil`,
+                  search: urlFormatter({
+                    q: {
+                      location: "Brazil",
+                    },
+                  }),
                 }}
               >
                 <span className="show-more">Brazil</span>
@@ -242,7 +320,11 @@ const Sidebar = (props) => {
               <Link
                 to={{
                   pathname: "/fixtures/soccer/pres",
-                  search: `q%5Blocation%5D=Australia`,
+                  search: urlFormatter({
+                    q: {
+                      location: "Australia",
+                    },
+                  }),
                 }}
               >
                 <span className="show-more">Australia</span>
@@ -253,7 +335,11 @@ const Sidebar = (props) => {
               <Link
                 to={{
                   pathname: "/fixtures/soccer/pres",
-                  search: `q%5Blocation%5D=China`,
+                  search: urlFormatter({
+                    q: {
+                      location: "China",
+                    },
+                  }),
                 }}
               >
                 <span className="show-more">China</span>
