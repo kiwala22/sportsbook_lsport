@@ -208,7 +208,7 @@ module Lsports
     end
 
     def fetch_fixture_markets(sports_id = @@sports_id)
-        required_markets = ["1", "2", "3", "5", "7", "17", "13", "16", "19", "21", "25", "41", "42", "52", "55", "61", "113", "245", "45"]
+        required_markets = ["1", "2", "3", "5", "7", "17", "13", "16", "19", "21", "25", "41", "42", "52", "55", "61", "64", "65" "113", "245", "45"]
         markets = required_markets.join(",")
 
         url = @@end_point + "GetFixtureMarkets"
