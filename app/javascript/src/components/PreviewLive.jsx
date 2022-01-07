@@ -119,11 +119,32 @@ const PreviewLive = (props) => {
                                 <div className="row">
                                   {market.name == "1X2 FT" ? (
                                     <div className="col-lg-12 ">
-                                      Match Result 1X2 FT
+                                      <strong>Match Result 1X2 FT</strong>
+                                    </div>
+                                  ) : /Under\/Over/g.test(market.name) ? (
+                                    <div className="col-lg-12 ">
+                                      <strong>
+                                        Under 2.5 / Over 2.5{"  "}
+                                        {market.name.replace("Under/Over", "")}
+                                      </strong>
+                                    </div>
+                                  ) : /Asian Handicap/g.test(market.name) ? (
+                                    <div className="col-lg-12 ">
+                                      <strong>
+                                        Asian Handicap 1 Goal{"  "}
+                                        {market.name.replace(
+                                          "Asian Handicap",
+                                          ""
+                                        )}
+                                      </strong>
+                                    </div>
+                                  ) : market.name == "12" ? (
+                                    <div className="col-lg-12 ">
+                                      <strong>Home / Away</strong>
                                     </div>
                                   ) : (
                                     <div className="col-lg-12 ">
-                                      {market.name}
+                                      <strong>{market.name}</strong>
                                     </div>
                                   )}
                                 </div>
@@ -150,7 +171,19 @@ const PreviewLive = (props) => {
                                     (element, index) => (
                                       <React.Fragment key={index}>
                                         <div
-                                          className={`pl-2 pr-2 col-lg-${Object.keys(market.odds).length % 2 == 0 ? 6 : 4} col-sm-${Object.keys(market.odds).length % 2 == 0 ? 6 : 4}`}
+                                          className={`pl-2 pr-2 col-lg-${
+                                            Object.keys(market.odds).length %
+                                              2 ==
+                                            0
+                                              ? 6
+                                              : 4
+                                          } col-sm-${
+                                            Object.keys(market.odds).length %
+                                              2 ==
+                                            0
+                                              ? 6
+                                              : 4
+                                          }`}
                                         >
                                           <a
                                             className={
