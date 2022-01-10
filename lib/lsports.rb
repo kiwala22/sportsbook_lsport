@@ -346,7 +346,7 @@ module Lsports
     # Fetch Fixtures
     ## Use unix timestamps format for parameters
     ## Method call ex: fetch_fixtures(1623479275, 1623565675)
-    def fetch_fixtures(from_date, to_date, sports_id)
+    def fetch_fixtures(from_date, to_date, sports_id = @@sports_id)
 
         url = @@end_point + "GetFixtures"
         uri = URI(url)
