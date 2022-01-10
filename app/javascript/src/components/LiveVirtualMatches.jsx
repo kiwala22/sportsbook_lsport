@@ -1,10 +1,11 @@
-import { Table } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
+import { Button, Table } from "antd";
 import "channels";
 import cogoToast from "cogo-toast";
 import React, { useEffect, useState } from "react";
 import { BsDash } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import shortUUID from "short-uuid";
 import FixtureChannel from "../../channels/fixturesChannel";
 import LiveOddsChannel from "../../channels/liveOddsChannel";
@@ -21,6 +22,7 @@ const LiveVirtualMatches = (props) => {
   const [pageLoading, setPageLoading] = useState(true);
   const dispatcher = useDispatch();
   const isMobile = useSelector((state) => state.isMobile);
+  const history = useHistory();
 
   useEffect(() => loadLiveGames(), []);
 
@@ -78,16 +80,8 @@ const LiveVirtualMatches = (props) => {
             );
           }}
         >
-          <Link
-            to={{
-              pathname: "/fixtures/virtual_soccer/live",
-              search: `id=${fixture.id}`,
-            }}
-            className="show-more"
-          >
-            {fixture.part_one_name} <br />
-            {fixture.part_two_name}
-          </Link>
+          {fixture.part_one_name} <br />
+          {fixture.part_two_name}
         </MarketsChannel>
       ),
     },
@@ -102,24 +96,20 @@ const LiveVirtualMatches = (props) => {
               updateMatchInfo(data, games, setGames, "1", "Fixture")
             }
           >
-            <a>
-              <strong>
-                <span className="blinking match-time">
-                  {fixture.match_time}
+            <strong>
+              <span className="blinking match-time">{fixture.match_time}</span>
+            </strong>
+            <strong>
+              {isMobile ? (
+                <span className="score">
+                  {fixture.home_score} - {fixture.away_score}
                 </span>
-              </strong>
-              <strong>
-                {isMobile ? (
-                  <span className="score">
-                    {fixture.home_score} - {fixture.away_score}
-                  </span>
-                ) : (
-                  <span className="score">
-                    {fixture.home_score} <BsDash /> {fixture.away_score}
-                  </span>
-                )}
-              </strong>
-            </a>
+              ) : (
+                <span className="score">
+                  {fixture.home_score} <BsDash /> {fixture.away_score}
+                </span>
+              )}
+            </strong>
           </FixtureChannel>
         </>
       ),
@@ -142,10 +132,8 @@ const LiveVirtualMatches = (props) => {
             );
           }}
         >
-          <a>
-            {fixture.league_name} <br />
-            {fixture.location}
-          </a>
+          {fixture.league_name} <br />
+          {fixture.location}
         </LiveOddsChannel>
       ),
     },
@@ -216,6 +204,18 @@ const LiveVirtualMatches = (props) => {
             ? parseFloat(1.0).toFixed(2)
             : oddsFormatter(fixture.markets[0].odds["outcome_2"])}
         </a>
+      ),
+    },
+    {
+      title: "",
+      render: (_, fixture) => (
+        <Button
+          onClick={() =>
+            history.push(`/fixtures/virtual_soccer/live?id=${fixture.id}`)
+          }
+          icon={<PlusOutlined />}
+          className="icon-more"
+        />
       ),
     },
   ];
