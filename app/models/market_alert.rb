@@ -33,7 +33,7 @@ class MarketAlert < ApplicationRecord
 				if last_update
 					if ((Time.now.to_i ) - last_update[:timestamp].to_i) > threshold
 				  		#first close all active markets 
-				  		Rails.logger.debug("timestamp: #{timestamp}, new stamp: #{last_update[:timestamp]}, product: #{product}")
+				  		puts "timestamp: #{timestamp}, new stamp: #{last_update[:timestamp]}, product: #{product}"
 				  		DeactivateMarketsWorker.perform_async(product)  
 
 					    #then request recovery
