@@ -382,3 +382,17 @@ h6 {
   position: fixed !important;
   z-index: 1000 !important;
 }
+
+.icon-top {
+  padding-top: 8px !important;
+}
+
+.icon-more {
+  background: transparent !important;
+  color: #fff !important;
+}
+
+.icon-more:hover {
+  border-color: #ffa600 !important;
+  background: transparent !important;
+}

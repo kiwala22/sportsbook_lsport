@@ -1,10 +1,11 @@
-import { Table } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
+import { Button, Table } from "antd";
 import "channels";
 import cogoToast from "cogo-toast";
 import React, { useEffect, useState } from "react";
 import Moment from "react-moment";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, withRouter } from "react-router-dom";
+import { Link, useHistory, withRouter } from "react-router-dom";
 import shortUUID from "short-uuid";
 import MarketsChannel from "../../channels/marketsChannel";
 import PreOddsChannel from "../../channels/preOddsChannel";
@@ -20,6 +21,7 @@ const PreMatches = (props) => {
   const [pageLoading, setPageLoading] = useState(true);
   const dispatcher = useDispatch();
   const isMobile = useSelector((state) => state.isMobile);
+  const history = useHistory();
 
   useEffect(() => {
     loadPreMatchGames();
@@ -71,13 +73,11 @@ const PreMatches = (props) => {
       dataIndex: "start_date",
       render: (date) => (
         <>
-          <a>
-            <Moment local={true} format="HH:mm">
-              {date}
-            </Moment>
-            <br />
-            <Moment format="DD-MMM">{date}</Moment>
-          </a>
+          <Moment local={true} format="HH:mm">
+            {date}
+          </Moment>
+          <br />
+          <Moment format="DD-MMM">{date}</Moment>
         </>
       ),
     },
@@ -98,16 +98,8 @@ const PreMatches = (props) => {
             );
           }}
         >
-          <Link
-            to={{
-              pathname: "/fixtures/soccer/pre",
-              search: `id=${fixture.id}`,
-            }}
-            className="show-more"
-          >
-            {fixture.part_one_name} <br />
-            {fixture.part_two_name}
-          </Link>
+          {fixture.part_one_name} <br />
+          {fixture.part_two_name}
         </MarketsChannel>
       ),
     },
@@ -128,10 +120,8 @@ const PreMatches = (props) => {
             );
           }}
         >
-          <a>
-            {fixture.league_name} <br />
-            {fixture.location}
-          </a>
+          {fixture.league_name} <br />
+          {fixture.location}
         </PreOddsChannel>
       ),
     },
@@ -152,7 +142,7 @@ const PreMatches = (props) => {
             addBet(dispatcher, "1", "PreMarket", fixture.id, "1X2 FT - 1", "1")
           }
         >
-          { fixture.markets.length == 0  || fixture.markets[0].odds === null
+          {fixture.markets.length == 0 || fixture.markets[0].odds === null
             ? parseFloat(1.0).toFixed(2)
             : oddsFormatter(fixture.markets[0].odds["outcome_1"])}
         </a>
@@ -162,20 +152,20 @@ const PreMatches = (props) => {
       title: "X",
       render: (_, fixture) => (
         <a
-        className={
-          fixture.markets.length == 0 ||
-          fixture.markets[0].odds === null ||
-          oddsFormatter(fixture.markets[0].odds["outcome_X"]) ==
-            parseFloat(1.0).toFixed(2)
-            ? "btnn intialise_input disabled"
-            : "btnn intialise_input btn btn-light wagger-btn"
-        }
+          className={
+            fixture.markets.length == 0 ||
+            fixture.markets[0].odds === null ||
+            oddsFormatter(fixture.markets[0].odds["outcome_X"]) ==
+              parseFloat(1.0).toFixed(2)
+              ? "btnn intialise_input disabled"
+              : "btnn intialise_input btn btn-light wagger-btn"
+          }
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
           onClick={() =>
             addBet(dispatcher, "X", "PreMarket", fixture.id, "1X2 FT - X", "1")
           }
         >
-          { fixture.markets.length == 0  || fixture.markets[0].odds === null
+          {fixture.markets.length == 0 || fixture.markets[0].odds === null
             ? parseFloat(1.0).toFixed(2)
             : oddsFormatter(fixture.markets[0].odds["outcome_X"])}
         </a>
@@ -185,23 +175,33 @@ const PreMatches = (props) => {
       title: "2",
       render: (_, fixture) => (
         <a
-        className={
-          fixture.markets.length == 0 ||
-          fixture.markets[0].odds === null ||
-          oddsFormatter(fixture.markets[0].odds["outcome_2"]) ==
-            parseFloat(1.0).toFixed(2)
-            ? "btnn intialise_input disabled"
-            : "btnn intialise_input btn btn-light wagger-btn"
-        }
+          className={
+            fixture.markets.length == 0 ||
+            fixture.markets[0].odds === null ||
+            oddsFormatter(fixture.markets[0].odds["outcome_2"]) ==
+              parseFloat(1.0).toFixed(2)
+              ? "btnn intialise_input disabled"
+              : "btnn intialise_input btn btn-light wagger-btn"
+          }
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
           onClick={() =>
             addBet(dispatcher, "2", "PreMarket", fixture.id, "1X2 FT - 2", "1")
           }
         >
-          { fixture.markets.length == 0  || fixture.markets[0].odds === null
+          {fixture.markets.length == 0 || fixture.markets[0].odds === null
             ? parseFloat(1.0).toFixed(2)
             : oddsFormatter(fixture.markets[0].odds["outcome_2"])}
         </a>
+      ),
+    },
+    {
+      title: "",
+      render: (_, fixture) => (
+        <Button
+          onClick={() => history.push(`/fixtures/soccer/pre?id=${fixture.id}`)}
+          icon={<PlusOutlined />}
+          className="icon-more"
+        />
       ),
     },
   ];

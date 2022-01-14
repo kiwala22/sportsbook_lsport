@@ -16,9 +16,9 @@ const Sidebar = (props) => {
     <>
       <div className="col-xl-2 col-lg-2 mt-20 px-lg-1 px-xl-1 px-md-1">
         <aside className="content-sidebar mb-20" onClick={onClose}>
-          <Link to={"/"}>
-            <h3>Sports</h3>
-          </Link>
+          {/* <Link to={"/"}> */}
+          <h3>Sports</h3>
+          {/* </Link> */}
           <ul>
             <li>
               <Link className="match-time" to={"/fixtures/soccer/lives/"}>
