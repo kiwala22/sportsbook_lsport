@@ -32,7 +32,7 @@ class AlertsWorker
         else
             
             if (timestamp.to_i - last_update[:timestamp].to_i) > threshold
-                puts "Deactivation::::::: timestamp: #{timestamp}, new stamp: #{last_update[:timestamp]}, product: #{product}"
+                puts "Deactivation :: WORKERS ::::: timestamp: #{timestamp}, new stamp: #{last_update[:timestamp]}, product: #{product}"
                 #first close all active markets 
                 DeactivateMarketsWorker.perform_async(product)
 
