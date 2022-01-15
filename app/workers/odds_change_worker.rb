@@ -2,7 +2,7 @@ require 'sidekiq'
 
 class OddsChangeWorker
     include Sidekiq::Worker
-    sidekiq_options queue: "critical", retry: false
+    sidekiq_options queue: "high", retry: false
 
     include MarketNames
 
