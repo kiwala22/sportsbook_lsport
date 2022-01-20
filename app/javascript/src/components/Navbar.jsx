@@ -190,7 +190,7 @@ const Navbar = (props) => {
                     <li className="nav-item active">
                       <Link to={"/"}>
                         <h4>
-                          Skyline<span className="logo-color">Bet</span>
+                          Sports<span className="logo-color">Book</span>
                         </h4>
                       </Link>
                     </li>

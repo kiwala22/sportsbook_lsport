@@ -3,4 +3,8 @@ class HomeController < ApplicationController
   before_action :set_cart
 
   def index; end
+
+  def basket_ball
+  end
+  
 end

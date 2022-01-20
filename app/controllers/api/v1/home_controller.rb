@@ -101,5 +101,35 @@ class Api::V1::HomeController < ApplicationController
            },
            status: 200
   end
+
+  def basket_ball
+    upcoming = []
+
+    @q = Fixture.joins(:pre_markets).where(
+      'fixtures.status = ? AND fixtures.sport_id = ? AND fixtures.league_id NOT IN (?) AND fixtures.start_date >= ? AND fixtures.start_date <= ? AND pre_markets.status = ? AND pre_markets.market_identifier = ?',
+      'not_started',
+      '48242',
+      %w[37364 37386 38301 37814],
+      (Time.now),
+      (Date.today.end_of_day + 10.months),
+      'Active',
+      '52'
+    ).order(start_date: :asc)
+
+    @fixtures = @q.includes(:pre_markets).where('pre_markets.status = ? AND pre_markets.market_identifier = ?', 'Active','52' )
+
+    @fixtures.each do |event|
+      ## convert  fixture to json
+      fixture = event.as_json
+
+      market = event.pre_markets.where(market_identifier: 52)
+
+      ## Add outcomes to the data
+      fixture["markets"] = market
+
+      upcoming.push(fixture)
+    end
+    render json: upcoming
+  end
   
 end

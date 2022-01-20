@@ -5,8 +5,9 @@ import BetSlip from "../BetSlip";
 import Footer from "../Footer";
 import Navbar from "../Navbar";
 import SideBanner from "../SideBanner";
-import Sidebar from "../Sidebar";
 import Home from "./Home";
+import Sidebar from "./Sidebar";
+
 const Base = (props) => {
   const isMobile = useSelector((state) => state.isMobile);
   return (
