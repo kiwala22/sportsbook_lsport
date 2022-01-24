@@ -23,13 +23,13 @@ const Sidebar = (props) => {
             <li>
               <Link className="match-time" to={"/fixtures/soccer/lives/"}>
                 <i className=" blinking match-time fas fa-bolt fa-lg fa-fw mr-2 "></i>
-                <span className="show-more">Live Games</span>
+                <span className="show-more">Live</span>
               </Link>
             </li>
             <li>
               <Link className="match-time" to={"/fixtures/soccer/pres/"}>
                 <i className="match-time far fa-futbol fa-lg fa-fw mr-2 "></i>
-                <span className="show-more">Soccer</span>
+                <span className="show-more">Upcoming</span>
               </Link>
             </li>
             <li>
@@ -47,6 +47,7 @@ const Sidebar = (props) => {
           <h3>Leagues</h3>
           <ul onClick={onClose}>
             <li className="text-gray-400">
+              <i className="flag-icon flag-icon-eu fa-fw mr-2"></i>
               <Link
                 to={{
                   pathname: "/fixtures/soccer/pres",
@@ -61,6 +62,7 @@ const Sidebar = (props) => {
               </Link>
             </li>
             <li className="text-gray-400">
+              <i className="flag-icon flag-icon-eu fa-fw mr-2"></i>
               <Link
                 to={{
                   pathname: "/fixtures/soccer/pres",
@@ -75,6 +77,7 @@ const Sidebar = (props) => {
               </Link>
             </li>
             <li className="text-gray-400">
+              <i className="flag-icon flag-icon-gb-eng fa-fw mr-2"></i>
               <Link
                 to={{
                   pathname: "/fixtures/soccer/pres",
@@ -90,6 +93,7 @@ const Sidebar = (props) => {
               </Link>
             </li>
             <li className="text-gray-400">
+              <i className="flag-icon flag-icon-it fa-fw mr-2"></i>
               <Link
                 to={{
                   pathname: "/fixtures/soccer/pres",
@@ -105,6 +109,7 @@ const Sidebar = (props) => {
               </Link>
             </li>
             <li className="text-gray-400">
+              <i className="flag-icon flag-icon-es fa-fw mr-2"></i>
               <Link
                 to={{
                   pathname: "/fixtures/soccer/pres",
@@ -120,6 +125,7 @@ const Sidebar = (props) => {
               </Link>
             </li>
             <li className="text-gray-400">
+              <i className="flag-icon flag-icon-de fa-fw mr-2"></i>
               <Link
                 to={{
                   pathname: "/fixtures/soccer/pres",
@@ -135,6 +141,7 @@ const Sidebar = (props) => {
               </Link>
             </li>
             <li className="text-gray-400">
+              <i className="flag-icon flag-icon-fr fa-fw mr-2"></i>
               <Link
                 to={{
                   pathname: "/fixtures/soccer/pres",
@@ -150,6 +157,7 @@ const Sidebar = (props) => {
               </Link>
             </li>
             <li className="text-gray-400">
+              <i className="flag-icon flag-icon-pt fa-fw mr-2"></i>
               <Link
                 to={{
                   pathname: "/fixtures/soccer/pres",
@@ -164,6 +172,7 @@ const Sidebar = (props) => {
               </Link>
             </li>
             <li className="text-gray-400">
+              <i className="flag-icon flag-icon-au fa-fw mr-2"></i>
               <Link
                 to={{
                   pathname: "/fixtures/soccer/pres",
@@ -178,6 +187,7 @@ const Sidebar = (props) => {
               </Link>
             </li>
             <li className="text-gray-400">
+              <i className="flag-icon flag-icon-sk fa-fw mr-2"></i>
               <Link
                 to={{
                   pathname: "/fixtures/soccer/pres",
@@ -192,6 +202,7 @@ const Sidebar = (props) => {
               </Link>
             </li>
             <li className="text-gray-400">
+              <i className="flag-icon flag-icon-jp fa-fw mr-2"></i>
               <Link
                 to={{
                   pathname: "/fixtures/soccer/pres",
@@ -206,6 +217,7 @@ const Sidebar = (props) => {
               </Link>
             </li>
             <li className="text-gray-400">
+              <i className="flag-icon flag-icon-br fa-fw mr-2"></i>
               <Link
                 to={{
                   pathname: "/fixtures/soccer/pres",
@@ -226,7 +238,7 @@ const Sidebar = (props) => {
           <h3>Countries</h3>
           <ul onClick={onClose}>
             <li className="text-gray-400">
-              <i className="flag-icon flag-icon-gb fa-fw mr-2"></i>
+              <i className="flag-icon flag-icon-gb-eng fa-fw mr-2"></i>
               <Link
                 to={{
                   pathname: "/fixtures/soccer/pres",
