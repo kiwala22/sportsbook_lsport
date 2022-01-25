@@ -2,8 +2,9 @@ import { DownOutlined } from "@ant-design/icons";
 import { Button, Drawer, Dropdown, Menu } from "antd";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import titleize from "titleize";
+import urlFormatter from "../../utilities/urlFormatter";
 import Login from "../Login";
 import SignUp from "../SignUp";
 
@@ -13,6 +14,7 @@ const Sidebar = (props) => {
   const signedIn = useSelector((state) => state.signedIn);
   const isMobile = useSelector((state) => state.isMobile);
   const sportType = useSelector((state) => state.sportType);
+  const history = useHistory();
 
   const menu = (
     <Menu>
@@ -23,9 +25,10 @@ const Sidebar = (props) => {
         }
       >
         <span
-          onClick={() =>
-            dispatcher({ type: "onSportChange", payload: "football" })
-          }
+          onClick={() => {
+            history.push("/");
+            dispatcher({ type: "onSportChange", payload: "football" });
+          }}
         >
           Football
         </span>
@@ -35,9 +38,9 @@ const Sidebar = (props) => {
         icon={<i className="fas fa-futbol fa-lg fa-fw mr-2 match-time"></i>}
       >
         <span
-          onClick={() =>
-            dispatcher({ type: "onSportChange", payload: "basketball" })
-          }
+          onClick={() => {
+            dispatcher({ type: "onSportChange", payload: "basketball" });
+          }}
         >
           Basketball
         </span>
@@ -83,7 +86,7 @@ const Sidebar = (props) => {
               </Link>
             </li>
             <li>
-              <Link className="match-time" to={"/fixtures/soccer/pres/"}>
+              <Link className="match-time" to={"/fixtures/basketball/pres/"}>
                 <i className="match-time fas fa-basketball-ball fa-lg fa-fw mr-2 "></i>
                 <span className="show-more">Upcoming</span>
               </Link>
@@ -234,8 +237,12 @@ const Sidebar = (props) => {
               <i className="flag-icon flag-icon-us fa-fw mr-2"></i>
               <Link
                 to={{
-                  pathname: "/fixtures/soccer/pres",
-                  search: `q%5Blocation%5D=England`,
+                  pathname: "/fixtures/basketball/pres",
+                  search: urlFormatter({
+                    q: {
+                      location: "United States",
+                    },
+                  }),
                 }}
               >
                 <span className="show-more">USA</span>
@@ -245,8 +252,12 @@ const Sidebar = (props) => {
               <i className="flag-icon flag-icon-es fa-fw mr-2"></i>
               <Link
                 to={{
-                  pathname: "/fixtures/soccer/pres",
-                  search: `q%5Blocation%5D=Spain`,
+                  pathname: "/fixtures/basketball/pres",
+                  search: urlFormatter({
+                    q: {
+                      location: "Spain",
+                    },
+                  }),
                 }}
               >
                 <span className="show-more">SPAIN</span>
@@ -256,8 +267,12 @@ const Sidebar = (props) => {
               <i className="flag-icon flag-icon-se fa-fw mr-2"></i>
               <Link
                 to={{
-                  pathname: "/fixtures/soccer/pres",
-                  search: `q%5Blocation%5D=Germany`,
+                  pathname: "/fixtures/basketball/pres",
+                  search: urlFormatter({
+                    q: {
+                      location: "Sweden",
+                    },
+                  }),
                 }}
               >
                 <span className="show-more">SWEDEN</span>
@@ -267,8 +282,12 @@ const Sidebar = (props) => {
               <i className="flag-icon flag-icon-fi fa-fw mr-2"></i>
               <Link
                 to={{
-                  pathname: "/fixtures/soccer/pres",
-                  search: `q%5Blocation%5D=Germany`,
+                  pathname: "/fixtures/basketball/pres",
+                  search: urlFormatter({
+                    q: {
+                      location: "Finland",
+                    },
+                  }),
                 }}
               >
                 <span className="show-more">FINLAND</span>
@@ -278,8 +297,12 @@ const Sidebar = (props) => {
               <i className="flag-icon flag-icon-it fa-fw mr-2"></i>
               <Link
                 to={{
-                  pathname: "/fixtures/soccer/pres",
-                  search: `q%5Blocation%5D=Italy`,
+                  pathname: "/fixtures/basketball/pres",
+                  search: urlFormatter({
+                    q: {
+                      location: "Italy",
+                    },
+                  }),
                 }}
               >
                 <span className="show-more">ITALY</span>
@@ -289,44 +312,60 @@ const Sidebar = (props) => {
               <i className="flag-icon flag-icon-fr fa-fw mr-2"></i>
               <Link
                 to={{
-                  pathname: "/fixtures/soccer/pres",
-                  search: `q%5Blocation%5D=France`,
+                  pathname: "/fixtures/basketball/pres",
+                  search: urlFormatter({
+                    q: {
+                      location: "France",
+                    },
+                  }),
                 }}
               >
                 <span className="show-more">FRANCE</span>
               </Link>
             </li>
             <li className="text-gray-400">
-              <i className="flag-icon flag-icon-tw fa-fw mr-2"></i>
+              <i className="flag-icon flag-icon-br fa-fw mr-2"></i>
               <Link
                 to={{
-                  pathname: "/fixtures/soccer/pres",
-                  search: `q%5Blocation%5D=Brazil`,
+                  pathname: "/fixtures/basketball/pres",
+                  search: urlFormatter({
+                    q: {
+                      location: "Brazil",
+                    },
+                  }),
                 }}
               >
-                <span className="show-more">TAIWAN</span>
+                <span className="show-more">BRAZIL</span>
               </Link>
             </li>
             <li className="text-gray-400">
               <i className="flag-icon flag-icon-au fa-fw mr-2"></i>
               <Link
                 to={{
-                  pathname: "/fixtures/soccer/pres",
-                  search: `q%5Blocation%5D=Australia`,
+                  pathname: "/fixtures/basketball/pres",
+                  search: urlFormatter({
+                    q: {
+                      location: "Australia",
+                    },
+                  }),
                 }}
               >
                 <span className="show-more">AUSTRALIA</span>
               </Link>
             </li>
             <li className="text-gray-400">
-              <i className="flag-icon flag-icon-pt fa-fw mr-2"></i>
+              <i className="flag-icon flag-icon-cn fa-fw mr-2"></i>
               <Link
                 to={{
-                  pathname: "/fixtures/soccer/pres",
-                  search: `q%5Blocation%5D=China`,
+                  pathname: "/fixtures/basketball/pres",
+                  search: urlFormatter({
+                    q: {
+                      location: "China",
+                    },
+                  }),
                 }}
               >
-                <span className="show-more">PORTUGAL</span>
+                <span className="show-more">CHINA</span>
               </Link>
             </li>
           </ul>

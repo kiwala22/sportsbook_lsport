@@ -6,7 +6,9 @@ import Footer from "../Footer";
 import Navbar from "../Navbar";
 import SideBanner from "../SideBanner";
 import Home from "./Home";
+import PreviewUpcoming from "./PreviewUpcoming";
 import Sidebar from "./Sidebar";
+import Upcoming from "./Upcoming";
 
 const Base = (props) => {
   const isMobile = useSelector((state) => state.isMobile);
@@ -30,6 +32,20 @@ const Base = (props) => {
                 >
                   <div>
                     <Switch>
+                      <Route
+                        path="/fixtures/basketball/pre/"
+                        // render={() => {
+                        //   return redirectOnUnverified(PreviewPre);
+                        // }}
+                        component={PreviewUpcoming}
+                      />
+                      <Route
+                        path="/fixtures/basketball/pres/"
+                        // render={() => {
+                        //   return redirectOnUnverified(PreviewPre);
+                        // }}
+                        component={Upcoming}
+                      />
                       <Route
                         exact
                         path="/"

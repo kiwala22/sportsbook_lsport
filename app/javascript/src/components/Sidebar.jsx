@@ -2,7 +2,7 @@ import { DownOutlined } from "@ant-design/icons";
 import { Button, Drawer, Dropdown, Menu } from "antd";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import titleize from "titleize";
 import Login from "./Login";
 import SignUp from "./SignUp";
@@ -13,6 +13,7 @@ const Sidebar = (props) => {
   const signedIn = useSelector((state) => state.signedIn);
   const isMobile = useSelector((state) => state.isMobile);
   const sportType = useSelector((state) => state.sportType);
+  const history = useHistory();
 
   const menu = (
     <Menu>
@@ -35,9 +36,10 @@ const Sidebar = (props) => {
         }
       >
         <span
-          onClick={() =>
-            dispatcher({ type: "onSportChange", payload: "basketball" })
-          }
+          onClick={() => {
+            history.push("/");
+            dispatcher({ type: "onSportChange", payload: "basketball" });
+          }}
         >
           Basketball
         </span>
