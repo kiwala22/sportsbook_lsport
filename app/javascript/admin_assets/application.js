@@ -39,6 +39,16 @@ $(document).ready(function () {
   $("#kick_off_after").datetimepicker({
     format: "YYYY-MM-DD hh:mm a",
   });
+
+  $("#bet_before").datetimepicker({
+    format: "YYYY-MM-DD hh:mm a",
+  });
+  $("#bet_after").datetimepicker({
+    format: "YYYY-MM-DD hh:mm a",
+  });
+  $("#broadcast_schedule").datetimepicker({
+    format: "YYYY-MM-DD hh:mm a",
+  });
 });
 
 $(".booking").click("ajax:complete", function () {
@@ -47,3 +57,27 @@ $(".booking").click("ajax:complete", function () {
     $("#notice").html("");
   }, 2000);
 });
+
+
+
+$(document).ready(function(){
+  var $remaining = $('#broadcast_char_count'),
+  $messages = $remaining.next();
+  var max = 1600;
+
+  $('#broadcast_compose_message').keyup(function(){
+     var chars = this.value.length,
+     messages = Math.ceil(chars / 160),
+     remaining =  messages * 160 - (chars  % (messages * 160) || messages * 160);
+     if (chars >= max) {
+        $('#broadcast_number_of_messages').text(' you have reached the limit');
+     }
+     else{
+        $remaining.text(remaining + ' characters remaining');
+        $messages.text(messages + ' message(s)');
+     }
+
+  });
+});
+
+

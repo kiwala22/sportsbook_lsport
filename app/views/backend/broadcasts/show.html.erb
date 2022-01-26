@@ -1,0 +1,122 @@
+<div class="content-heading">
+  Broadcast No: #<%= @broadcast.id %> 
+    
+</div>
+<div class="card card-default">
+   <div class="card-header">Broadcast Information  
+    <div class="card-body">
+      <p class="lead bb mb-4">Details</p>
+      <div class="row mb-3">
+         <div class="col-lg-6">
+            <form class="form-horizontal">
+               
+               <div class="form-group row">
+                <div class="col-md-4">Contacts:</div>
+                <div class="col-md-8">
+                   <strong><%= @broadcast.contacts%></strong>
+                </div>
+             </div>
+               <div class="form-group row">
+                    <div class="col-md-4">Subject:</div>
+                    <div class="col-md-8">
+                        <strong><%=  @broadcast.subject %></strong>
+                    </div>
+                </div>
+               <div class="form-group row">
+                    <div class="col-md-4">Message:</div>
+                    <div class="col-md-8">
+                        <strong><%= @broadcast.message%></strong>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-4">Status:</div>
+                    <div class="col-md-8">
+                    <% if (@broadcast.status == "PENDING" || @broadcast.status == "PROCESSING") %>
+                        <div class="badge badge-warning">
+                            <%= @broadcast.status%>
+                        </div>
+                    <% elsif @broadcast.status == "SUCCESS" %>
+                        <div class="badge badge-success">
+                            <%= @broadcast.status%>
+                        </div>
+                    <% elsif @broadcast.status == "FAILED" %>
+                        <div class="badge badge-danger">
+                            <%= @broadcast.status%>
+                        </div>
+                    <% end %>
+                    </div>
+                </div>
+                               
+            </form>
+
+         </div>
+         <div class="col-lg-6">
+            <form class="form-horizontal">
+                
+               
+                <div class="form-group row">
+                  <div class="col-md-4">Execution Time:</div>
+                  <div class="col-md-8">
+                     <strong><%= @broadcast.execution_time.strftime('%e %B , %Y %l:%M%P') if @broadcast.execution_time != nil %></strong>
+                  </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-4">Start Date:</div>
+                    <div class="col-md-8">
+                    <strong><%= @broadcast.start_date.strftime('%e %B , %Y %l:%M%P')%></strong>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-4">End Date:</div>
+                    <div class="col-md-8">
+                       <strong><%= @broadcast.end_date.strftime('%e %B , %Y %l:%M%P')%></strong>
+                    </div>
+                </div>
+               <div class="form-group row">
+                    <div class="col-md-4">Created On:</div>
+                    <div class="col-md-8">
+                       <strong><%= @broadcast.created_at.strftime('%e %B , %Y %l:%M%P')%></strong>
+                    </div>
+                </div>
+               
+            </form>
+         </div>
+      </div>
+     
+    </div>      
+   </div>
+</div>
+
+  
+<div class="game-box">
+    <div class="card">
+        <div class="card-header">
+            <h3>Users, Betslips & Bets</h3>
+        </div>
+        <div class="card-body">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active" id="users-tab" data-toggle="tab" href="#users" role="tab" aria-controls="users" aria-selected="true">Users</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="betslips-tab" data-toggle="tab" href="#betslips" role="tab" aria-controls="betslips" aria-selected="false">BetSlips</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="bets-tab" data-toggle="tab" href="#bets" role="tab" aria-controls="bets" aria-selected="false">Bets</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="users" role="tabpanel" aria-labelledby="users-tab">
+                    <%= render 'users'%>
+                </div>
+                <div class="tab-pane fade" id="betslips" role="tabpanel" aria-labelledby="betslips-tab">
+                    <%= render 'betslips' %>
+                </div>
+                <div class="tab-pane fade" id="bets" role="tabpanel" aria-labelledby="bets-tab">
+                    <%= render 'bets' %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

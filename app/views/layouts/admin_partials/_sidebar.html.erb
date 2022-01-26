@@ -93,6 +93,25 @@
          </li>
 
          <li class="">
+            <a href="#Broadcast" title="Broadcasts" data-toggle="collapse">
+            <em class="icon-envelope-open" ></em>
+               <span data-localize="sidebar.nav.DASHBOARD">Broadcasts</span>
+            </a>
+            <ul id="Broadcast" class="sidebar-nav sidebar-subnav collapse">
+               <li class="<%= 'active' if controller.controller_name == 'broadcasts' && controller.action_name == 'new' %>">
+                  <a href="<%= new_backend_broadcast_path %>" title="Broadcasts">
+                     <span>Schedule Broadcast</span>
+                  </a>
+               </li>
+               <li class="<%= 'active' if controller.controller_name == 'broadcasts' && controller.action_name == 'index'  %>">
+                  <a href="<%= backend_broadcasts_path %>" title="Broadcasts">
+                     <span>Scheduled Broadcasts</span>
+                  </a>
+               </li>
+            </ul>
+         </li>
+
+         <li class="">
             <a href="#descriptions" title="Descriptions" data-toggle="collapse">
                <em class="fas fa-info-circle"></em>
                <span data-localize="sidebar.nav.DASHBOARD">Descriptions</span>
