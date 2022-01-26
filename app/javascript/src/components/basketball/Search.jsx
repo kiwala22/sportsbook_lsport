@@ -1,5 +1,7 @@
 import { PlusOutlined } from "@ant-design/icons";
 import { Button, Table } from "antd";
+import "channels";
+import cogoToast from "cogo-toast";
 import React, { useEffect, useState } from "react";
 import Moment from "react-moment";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,53 +9,57 @@ import { useHistory, withRouter } from "react-router-dom";
 import shortUUID from "short-uuid";
 import MarketsChannel from "../../../channels/marketsChannel";
 import PreOddsChannel from "../../../channels/preOddsChannel";
-import MobileBanner1 from "../../Images/mobile_banner_1.webp";
-import Banner from "../../Images/web_banner_main.webp";
 import addBet from "../../redux/actions";
+import * as DataUpdate from "../../utilities/DataUpdate";
 import oddsFormatter from "../../utilities/oddsFormatter";
 import Requests from "../../utilities/Requests";
 import NoData from "../NoData";
 import Preview from "../Skeleton";
 
-const Home = (props) => {
-  const [loading, setLoading] = useState(true);
-  const isMobile = useSelector((state) => state.isMobile);
-  const [fixtures, setFixtures] = useState([]);
+const Search = (props) => {
+  const [games, setGames] = useState([]);
+  const [pageLoading, setPageLoading] = useState(true);
   const dispatcher = useDispatch();
+  const isMobile = useSelector((state) => state.isMobile);
   const history = useHistory();
 
-  let interval;
+  useEffect(() => loadPreMatchGames(), [props]);
 
-  useEffect(() => getFixtures(), []);
+  useEffect(() => loadPreMatchGames(), []);
 
-  useEffect(() => {
-    if (fixtures.length === 0) {
-      interval = setInterval(() => {
-        getFixtures();
-      }, 5000);
-    }
-    return () => clearInterval(interval);
-  }, [fixtures]);
-
-  const getFixtures = () => {
-    let path = `/api/v1/home_basket_ball`;
-    let values = {};
+  const loadPreMatchGames = () => {
+    let path = `/api/v1/fixtures/search${props.location.search}`;
+    const values = {};
     Requests.isGetRequest(path, values)
       .then((response) => {
-        var events = response.data;
-        if (events instanceof Array) {
-          setFixtures(events);
-        }
-        setLoading(false);
+        var preMatch = response.data;
+        setGames(preMatch);
+        setPageLoading(false);
       })
       .catch((error) => {
-        setLoading(true);
+        setPageLoading(true);
         cogoToast.error(error.message, {
           hideAfter: 5,
         });
       });
   };
 
+  const updateMatchInfo = (data, currentState, setState, market, channel) => {
+    let fixtureIndex = currentState.findIndex((el) => data.id == el.id);
+    let fixture = currentState[fixtureIndex];
+    let updatedFixture = DataUpdate.fixtureUpdate(
+      data,
+      fixture,
+      market,
+      channel
+    );
+    currentState[fixtureIndex] = {
+      ...currentState[fixtureIndex],
+      ...updatedFixture,
+    };
+    let newState = Array.from(currentState);
+    setState(newState);
+  };
   const columns = [
     {
       title: "Date",
@@ -76,35 +82,24 @@ const Home = (props) => {
           fixture={fixture.id}
           market="52"
           received={(data) => {
-            updateMatchInfo(
-              data,
-              games,
-              setGames,
-              data.market_identifier,
-              "Market"
-            );
+            updateMatchInfo(data, games, setGames, "52", "Market");
           }}
         >
-          {fixture.part_one_name} <br />
+          {fixture.part_one_name}
+          <br />
           {fixture.part_two_name}
         </MarketsChannel>
       ),
     },
     {
-      title: "Competition",
+      title: "Tournament",
       render: (_, fixture) => (
         <PreOddsChannel
           channel="PreOddsChannel"
           fixture={fixture.id}
           market="52"
           received={(data) => {
-            updateMatchInfo(
-              data,
-              games,
-              setGames,
-              data.market_identifier,
-              "Pre"
-            );
+            updateMatchInfo(data, games, setGames, "52", "Pre");
           }}
         >
           {fixture.league_name} <br />
@@ -117,21 +112,22 @@ const Home = (props) => {
       render: (_, fixture) => (
         <a
           className={
-            fixture.markets.length == 0 ||
-            fixture.markets[0].odds === null ||
-            oddsFormatter(fixture.markets[0].odds["outcome_1"]) ==
+            fixture.market_52_odds === undefined ||
+            fixture.market_52_odds === null ||
+            oddsFormatter(fixture.market_52_odds["outcome_1"]) ==
               parseFloat(1.0).toFixed(2)
               ? "btnn intialise_input disabled"
               : "btnn intialise_input btn btn-light wagger-btn"
           }
-          //   data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
+          data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
           onClick={() =>
             addBet(dispatcher, "1", "PreMarket", fixture.id, "12 FT - 1", "52")
           }
         >
-          {fixture.markets.length == 0 || fixture.markets[0].odds === null
+          {fixture.market_52_odds === undefined ||
+          fixture.market_52_odds === null
             ? parseFloat(1.0).toFixed(2)
-            : oddsFormatter(fixture.markets[0].odds["outcome_1"])}
+            : oddsFormatter(fixture.market_52_odds["outcome_1"])}
         </a>
       ),
     },
@@ -140,21 +136,22 @@ const Home = (props) => {
       render: (_, fixture) => (
         <a
           className={
-            fixture.markets.length == 0 ||
-            fixture.markets[0].odds === null ||
-            oddsFormatter(fixture.markets[0].odds["outcome_2"]) ==
+            fixture.market_52_odds === undefined ||
+            fixture.market_52_odds === null ||
+            oddsFormatter(fixture.market_52_odds["outcome_2"]) ==
               parseFloat(1.0).toFixed(2)
               ? "btnn intialise_input disabled"
               : "btnn intialise_input btn btn-light wagger-btn"
           }
-          //   data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
+          data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
           onClick={() =>
             addBet(dispatcher, "2", "PreMarket", fixture.id, "12 FT - 2", "52")
           }
         >
-          {fixture.markets.length == 0 || fixture.markets[0].odds === null
+          {fixture.market_52_odds === undefined ||
+          fixture.market_52_odds === null
             ? parseFloat(1.0).toFixed(2)
-            : oddsFormatter(fixture.markets[0].odds["outcome_2"])}
+            : oddsFormatter(fixture.market_52_odds["outcome_2"])}
         </a>
       ),
     },
@@ -174,49 +171,33 @@ const Home = (props) => {
 
   return (
     <>
-      {!loading && (
+      {!pageLoading && (
         <>
-          {isMobile ? (
-            <div className="card ">
-              <div className="card-header side-banner ">
-                <img src={MobileBanner1} className="banner-image" />
-              </div>
-            </div>
-          ) : (
-            <div className="card ">
-              <div className="card-header side-banner ">
-                <img src={Banner} className="banner-image" />
-              </div>
-            </div>
-          )}
-          <br />
           <div
             className={
               isMobile ? "game-box mobile-table-padding-games" : "game-box"
             }
+            id="search"
           >
             <div className="card">
               <div className="card-header">
-                <h3>
-                  BasketBall - Upcoming Events{" "}
-                  <i className="fas fa-basketball-ball fa-lg fa-fw mr-2 match-time"></i>
-                </h3>
+                <h3>Search Results </h3>{" "}
+                <i className="fas fa-search fa-lg fa-fw mr-2 match-time"></i>
               </div>
               <div className="card-body">
-                <div className="tab-content" id="myTabContent">
+                <div className="tab-content" id="">
                   <div
                     className="tab-pane fade show active"
-                    id="home"
                     role="tabpanel"
                     aria-labelledby="home-tab"
                   >
                     <Table
                       className="table-striped-rows"
                       columns={columns}
-                      dataSource={fixtures}
+                      dataSource={games}
                       size="middle"
                       rowClassName={(record) =>
-                        record.markets[0].status == "Active"
+                        record.market_52_status == "Active"
                           ? "show-row"
                           : "hide-row"
                       }
@@ -224,7 +205,7 @@ const Home = (props) => {
                         return shortUUID.generate();
                       }}
                       locale={{
-                        emptyText: <>{NoData("Upcoming Events")}</>,
+                        emptyText: <>{NoData("Results")}</>,
                       }}
                       pagination={{ defaultPageSize: 50 }}
                     />
@@ -235,9 +216,9 @@ const Home = (props) => {
           </div>
         </>
       )}
-      {loading && <Preview />}
+      {pageLoading && <Preview />}
     </>
   );
 };
 
-export default withRouter(Home);
+export default withRouter(Search);

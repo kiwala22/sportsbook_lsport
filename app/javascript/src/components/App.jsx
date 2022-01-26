@@ -1,17 +1,48 @@
 import "antd-mobile/dist/antd-mobile.less";
-import React from "react";
+import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
 import "react-phone-number-input/style.css";
-import { Provider, useSelector } from "react-redux";
+import { Provider, useDispatch, useSelector } from "react-redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "../css/Antd.less";
-// import "../css/App.css";
 import { store } from "../redux/store";
+import Requests from "../utilities/Requests";
 import Base from "./Base";
 import BasketBase from "./basketball/Base";
 
 const App = (props) => {
+  const dispatch = useDispatch();
   const sportType = useSelector((state) => state.sportType);
+
+  useEffect(() => {
+    window.addEventListener("resize", () => {
+      dispatch({ type: "OnScreenChange", payload: {} });
+    });
+  }, []);
+
+  useEffect(() => {
+    checkUserVerification();
+  }, []);
+
+  function checkUserVerification() {
+    let path = "/api/v1/verification";
+    let values = {};
+    Requests.isGetRequest(path, values)
+      .then((response) => {
+        if (response.data.message == "Verified") {
+          dispatch({
+            type: "signedInVerify",
+            payload: true,
+            user: response.data.user,
+          });
+        } else if (response.data.message == "Verify") {
+          dispatch({ type: "signin", payload: true });
+        } else {
+          dispatch({ type: "notSignedInNotVerify", payload: false });
+        }
+      })
+      .catch((error) => console.log(error));
+  }
 
   return (
     <>

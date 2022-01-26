@@ -87,7 +87,7 @@ const Upcoming = (props) => {
         <MarketsChannel
           channel="MarketsChannel"
           fixture={fixture.id}
-          market="1"
+          market="52"
           received={(data) => {
             updateMatchInfo(
               data,
@@ -109,7 +109,7 @@ const Upcoming = (props) => {
         <PreOddsChannel
           channel="PreOddsChannel"
           fixture={fixture.id}
-          market="1"
+          market="52"
           received={(data) => {
             updateMatchInfo(
               data,
@@ -137,7 +137,7 @@ const Upcoming = (props) => {
               ? "btnn intialise_input disabled"
               : "btnn intialise_input btn btn-light wagger-btn"
           }
-          data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
+          //   data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
           onClick={() =>
             addBet(dispatcher, "1", "PreMarket", fixture.id, "12 FT - 1", "52")
           }
@@ -160,7 +160,7 @@ const Upcoming = (props) => {
               ? "btnn intialise_input disabled"
               : "btnn intialise_input btn btn-light wagger-btn"
           }
-          data-disable-with="<i class='fas fa-spinner fa-spin'></i>.html_safe"
+          //   data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
           onClick={() =>
             addBet(dispatcher, "2", "PreMarket", fixture.id, "12 FT - 2", "52")
           }
@@ -208,7 +208,6 @@ const Upcoming = (props) => {
                     id="home"
                     role="tabpanel"
                     aria-labelledby="home-tab"
-                    data-controller=""
                   >
                     <Table
                       className="table-striped-rows"

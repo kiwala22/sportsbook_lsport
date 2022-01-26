@@ -21,7 +21,7 @@ import SignUp from "./SignUp";
 const Navbar = (props) => {
   const dispatch = useDispatch();
   const formRef = React.createRef();
-  const { signedIn, verified, userInfo, isMobile } = useSelector(
+  const { signedIn, verified, userInfo, isMobile, sportType } = useSelector(
     (state) => state
   );
   const [showSearch, setShowSearch] = useState(false);
@@ -33,10 +33,12 @@ const Navbar = (props) => {
 
   const performSearch = (values) => {
     setShowSearch(false);
+    const [identifier, sport] =
+      sportType == "football" ? ["1", "Football"] : ["52", "Basketball"];
     formRef.current.resetFields();
     props.history.push({
       pathname: "/fixtures/search",
-      search: `?search=${values.search}`,
+      search: `?search=${values.search}&market=${identifier}&sport=${sport}`,
     });
   };
 

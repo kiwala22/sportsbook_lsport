@@ -41,8 +41,6 @@ const PreviewUpcoming = (props) => {
   }
 
   const updateMatchInfo = (data, currentState, setState, market, channel) => {
-    console.log(currentState);
-
     let updatedData = DataUpdate.fixtureUpdate(
       data,
       currentState,
@@ -62,18 +60,10 @@ const PreviewUpcoming = (props) => {
           <div className={isMobile ? "fixture-box" : "game-box"}>
             <div className="card" id="show-markets">
               <div className="card-header">
-                <MarketsChannel
-                  channel="MarketsChannel"
-                  fixture={fixture.id}
-                  received={(data) => {
-                    updateMatchInfo(data, fixture, setFixture, _, "Market");
-                  }}
-                >
-                  <h6>
-                    {fixture.part_one_name} <BsDash /> {fixture.part_two_name}{" "}
-                    {fixture.league_name} {fixture.location}
-                  </h6>
-                </MarketsChannel>
+                <h6>
+                  {fixture.part_one_name} <BsDash /> {fixture.part_two_name}{" "}
+                  {fixture.league_name} {fixture.location}
+                </h6>
               </div>
               <div className={isMobile ? "fix-body" : "card-body"}>
                 {/* first loop */}
@@ -86,25 +76,40 @@ const PreviewUpcoming = (props) => {
                         .filter((el) => el.name !== null)
                         .map((market, index) => (
                           <React.Fragment key={index}>
-                            <div
-                              className={
-                                isMobile
-                                  ? "market-label market-label-fixture"
-                                  : "market-label"
-                              }
+                            <MarketsChannel
+                              channel="MarketsChannel"
+                              fixture={fixture.id}
+                              market={market.market_identifier}
+                              received={(data) => {
+                                updateMatchInfo(
+                                  data,
+                                  fixture,
+                                  setFixture,
+                                  _,
+                                  "Market"
+                                );
+                              }}
                             >
-                              <div className="row">
-                                {market.name == "1X2 FT" ? (
-                                  <div className="col-lg-12 ">
-                                    Match Result 1X2 FT
-                                  </div>
-                                ) : (
-                                  <div className="col-lg-12 ">
-                                    {market.name}
-                                  </div>
-                                )}
+                              <div
+                                className={
+                                  isMobile
+                                    ? "market-label market-label-fixture"
+                                    : "market-label"
+                                }
+                              >
+                                <div className="row">
+                                  {market.name == "1X2 FT" ? (
+                                    <div className="col-lg-12 ">
+                                      Match Result 1X2 FT
+                                    </div>
+                                  ) : (
+                                    <div className="col-lg-12 ">
+                                      {market.name}
+                                    </div>
+                                  )}
+                                </div>
                               </div>
-                            </div>
+                            </MarketsChannel>
                             <div className="market-odds">
                               <PreOddsChannel
                                 channel="PreOddsChannel"

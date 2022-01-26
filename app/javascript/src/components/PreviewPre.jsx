@@ -50,7 +50,7 @@ const PreviewPre = (props) => {
       channel
     );
     setState(updatedData);
-    
+
     // Forcing Re-render //to be reviewed
     setGreeting(Math.random());
   };
@@ -62,24 +62,10 @@ const PreviewPre = (props) => {
           <div className={isMobile ? "fixture-box" : "game-box"}>
             <div className="card" id="show-markets">
               <div className="card-header">
-                <MarketsChannel
-                  channel="MarketsChannel"
-                  fixture={fixture.id}
-                  received={(data) => {
-                    updateMatchInfo(
-                      data,
-                      fixture,
-                      setFixture,
-                      _,
-                      "Market"
-                    );
-                  }}
-                >
-                  <h6>
-                    {fixture.part_one_name} <BsDash /> {fixture.part_two_name}{" "}
-                    {fixture.league_name} {fixture.location}
-                  </h6>
-                </MarketsChannel>
+                <h6>
+                  {fixture.part_one_name} <BsDash /> {fixture.part_two_name}{" "}
+                  {fixture.league_name} {fixture.location}
+                </h6>
               </div>
               <div className={isMobile ? "fix-body" : "card-body"}>
                 {/* first loop */}
@@ -92,25 +78,40 @@ const PreviewPre = (props) => {
                         .filter((el) => el.name !== null)
                         .map((market, index) => (
                           <React.Fragment key={index}>
-                            <div
-                              className={
-                                isMobile
-                                  ? "market-label market-label-fixture"
-                                  : "market-label"
-                              }
+                            <MarketsChannel
+                              channel="MarketsChannel"
+                              fixture={fixture.id}
+                              market={market.market_identifier}
+                              received={(data) => {
+                                updateMatchInfo(
+                                  data,
+                                  fixture,
+                                  setFixture,
+                                  _,
+                                  "Market"
+                                );
+                              }}
                             >
-                              <div className="row">
-                                {market.name == "1X2 FT" ? (
-                                  <div className="col-lg-12 ">
-                                    Match Result 1X2 FT
-                                  </div>
-                                ) : (
-                                  <div className="col-lg-12 ">
-                                    {market.name}
-                                  </div>
-                                )}
+                              <div
+                                className={
+                                  isMobile
+                                    ? "market-label market-label-fixture"
+                                    : "market-label"
+                                }
+                              >
+                                <div className="row">
+                                  {market.name == "1X2 FT" ? (
+                                    <div className="col-lg-12 ">
+                                      Match Result 1X2 FT
+                                    </div>
+                                  ) : (
+                                    <div className="col-lg-12 ">
+                                      {market.name}
+                                    </div>
+                                  )}
+                                </div>
                               </div>
-                            </div>
+                            </MarketsChannel>
                             <div className="market-odds">
                               <PreOddsChannel
                                 channel="PreOddsChannel"
@@ -132,8 +133,18 @@ const PreviewPre = (props) => {
                                       <React.Fragment key={index}>
                                         <div
                                           className={`pl-2 pr-2 col-lg-${
-                                            Object.keys(market.odds).length %2 == 0 ? 6 : 4 } col-sm-${
-                                            Object.keys(market.odds).length %2 == 0 ? 6 : 4}`}
+                                            Object.keys(market.odds).length %
+                                              2 ==
+                                            0
+                                              ? 6
+                                              : 4
+                                          } col-sm-${
+                                            Object.keys(market.odds).length %
+                                              2 ==
+                                            0
+                                              ? 6
+                                              : 4
+                                          }`}
                                         >
                                           <a
                                             className={

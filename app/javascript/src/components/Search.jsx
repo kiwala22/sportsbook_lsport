@@ -27,7 +27,7 @@ const Search = (props) => {
 
   const loadPreMatchGames = () => {
     let path = `/api/v1/fixtures/search${props.location.search}`;
-    let values = {};
+    let values = { market: "1" };
     Requests.isGetRequest(path, values)
       .then((response) => {
         var preMatch = response.data;
@@ -80,6 +80,7 @@ const Search = (props) => {
         <MarketsChannel
           channel="MarketsChannel"
           fixture={fixture.id}
+          market="1"
           received={(data) => {
             updateMatchInfo(data, games, setGames, "1", "Market");
           }}

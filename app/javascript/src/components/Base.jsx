@@ -1,8 +1,7 @@
 import cogoToast from "cogo-toast";
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 import { Redirect, Route, Switch } from "react-router-dom";
-import Requests from "../utilities/Requests";
 import Bets from "./Bets";
 import BetSlip from "./BetSlip";
 import Deposit from "./Deposit";
@@ -33,38 +32,7 @@ import Verify from "./Verify";
 import Withdraw from "./Withdraw";
 
 const Base = (props) => {
-  const dispatch = useDispatch();
   const { signedIn, verified, isMobile } = useSelector((state) => state);
-
-  useEffect(() => {
-    window.addEventListener("resize", () => {
-      dispatch({ type: "OnScreenChange", payload: {} });
-    });
-  }, []);
-
-  useEffect(() => {
-    checkUserVerification();
-  }, []);
-
-  function checkUserVerification() {
-    let path = "/api/v1/verification";
-    let values = {};
-    Requests.isGetRequest(path, values)
-      .then((response) => {
-        if (response.data.message == "Verified") {
-          dispatch({
-            type: "signedInVerify",
-            payload: true,
-            user: response.data.user,
-          });
-        } else if (response.data.message == "Verify") {
-          dispatch({ type: "signin", payload: true });
-        } else {
-          dispatch({ type: "notSignedInNotVerify", payload: false });
-        }
-      })
-      .catch((error) => console.log(error));
-  }
 
   function redirectOnUnverified(component) {
     let variable = signedIn && !verified;

@@ -16,7 +16,7 @@ const Sidebar = (props) => {
   const history = useHistory();
 
   const menu = (
-    <Menu>
+    <Menu onClick={onClose}>
       <Menu.Item
         key="1"
         icon={<i className="fas fa-futbol fa-lg fa-fw mr-2 match-time"></i>}
@@ -64,7 +64,7 @@ const Sidebar = (props) => {
   const sidebar = (
     <>
       <div className="col-xl-2 col-lg-2 mt-20 px-lg-1 px-xl-1 px-md-1">
-        <aside className="content-sidebar mb-20" onClick={onClose}>
+        <aside className="content-sidebar mb-20">
           <Dropdown.Button
             overlay={menu}
             placement="bottomCenter"
@@ -77,7 +77,7 @@ const Sidebar = (props) => {
             {/* </h6> */}
           </Dropdown.Button>
           <hr className="splitter" />
-          <ul>
+          <ul onClick={onClose}>
             <li>
               <Link className="match-time" to={"/fixtures/soccer/lives/"}>
                 <i className=" blinking match-time fas fa-bolt fa-lg fa-fw mr-2 "></i>
