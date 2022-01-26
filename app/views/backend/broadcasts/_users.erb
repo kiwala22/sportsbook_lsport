@@ -1,0 +1,63 @@
+
+
+<div class=" table-responsive" >
+    <table class="table table-borderless table-striped text-center">
+        <%if @users.present?%>
+        <thead>
+        <tr>
+            <th>No</th>
+            <th>Phone Number</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Balance</th>
+            <th>Sign In Count</th>
+            <th>Last Sign In IP</th>
+            <th>Failed Attempts</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+            <% @users.each_with_index do |user, i| %>
+                    <tr>
+                        <td><%= (i+1)%></td>
+                        <td>
+                            <a href="<%= backend_user_path(id:user) %>">
+                            <%= user.phone_number %></td>
+                            </a>
+                        </td>
+                                    <td><%= user.first_name %></td>
+                                    <td><%= user.last_name %></td> 
+                        <td><%= user.balance %></td>
+                        
+                                    <td><%= user.sign_in_count %></td>
+                        
+                        <td><%= user.last_sign_in_ip%></td>
+                                    <td><%= user.failed_attempts %></td>
+                        <td>
+                            <% if user.account_active == true %>
+                            <div class="badge badge-success">
+                                ACTIVE
+                            </div>
+                            <% else %>
+                            <div class="badge badge-warning">
+                                SUSPENDED
+                            </div>
+                            <% end %>
+                        </td>
+                        <td>
+                            <% if user.account_active == true %>
+                            <%= button_to "Suspend", backend_suspend_path(id: user.id), class: "btn btn-xs btn-danger", method: :post %>
+                            <% else %>
+                            <%= button_to "Activate", backend_activate_path(id: user.id), class: "btn btn-xs btn-success", method: :post %>
+                            <% end %>
+                        </td>
+                    </tr>
+                <% end %>
+        </tbody>
+        <%else%>
+        <h6 class="event">No users.</h6>
+        <%end%>
+    </table>
+    <%= paginate @users if @users.present? %>
+</div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_15_073406) do
+ActiveRecord::Schema.define(version: 2022_01_25_090156) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -133,6 +133,20 @@ ActiveRecord::Schema.define(version: 2021_11_15_073406) do
     t.string "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "broadcasts", force: :cascade do |t|
+    t.string "subject"
+    t.integer "contacts"
+    t.string "message"
+    t.datetime "execution_time"
+    t.bigint "admin_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "status"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.index ["admin_id"], name: "index_broadcasts_on_admin_id"
   end
 
   create_table "carts", force: :cascade do |t|
@@ -373,6 +387,7 @@ ActiveRecord::Schema.define(version: 2021_11_15_073406) do
   add_foreign_key "bets", "bet_slips"
   add_foreign_key "bets", "fixtures"
   add_foreign_key "bets", "users"
+  add_foreign_key "broadcasts", "users", column: "admin_id"
   add_foreign_key "deposits", "users"
   add_foreign_key "line_bets", "carts"
   add_foreign_key "line_bets", "fixtures"

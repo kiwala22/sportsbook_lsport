@@ -112,6 +112,8 @@ Rails.application.routes.draw do
       # match 'bet_slips/cancel' => "bet_slips#cancel", via: [:post]
       match 'bet_slip' => "bet_slips#show", via: [:get]
       match 'bets' => "bets#index", via: [:get]
+      resources :broadcasts
+
    end
 
    namespace :amqp do
