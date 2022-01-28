@@ -1,6 +1,6 @@
 import { Empty } from "antd";
 import React from "react";
-import NotFound from "../Images/empty.svg";
+import NotFound from "../../Images/empty.svg";
 
 export default function NoData(description) {
   return (

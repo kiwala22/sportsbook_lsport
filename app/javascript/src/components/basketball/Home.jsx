@@ -12,8 +12,8 @@ import Banner from "../../Images/web_banner_main.webp";
 import addBet from "../../redux/actions";
 import oddsFormatter from "../../utilities/oddsFormatter";
 import Requests from "../../utilities/Requests";
-import NoData from "../NoData";
-import Preview from "../Skeleton";
+import NoData from "../shared/NoData";
+import Preview from "../shared/Skeleton";
 
 const Home = (props) => {
   const [loading, setLoading] = useState(true);

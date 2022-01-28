@@ -13,8 +13,8 @@ import addBet from "../../redux/actions";
 import * as DataUpdate from "../../utilities/DataUpdate";
 import oddsFormatter from "../../utilities/oddsFormatter";
 import Requests from "../../utilities/Requests";
-import NoData from "../NoData";
-import Preview from "../Skeleton";
+import NoData from "../shared/NoData";
+import Preview from "../shared/Skeleton";
 
 const Upcoming = (props) => {
   const [games, setGames] = useState([]);

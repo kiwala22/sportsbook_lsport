@@ -2,36 +2,35 @@ import { Table } from "antd";
 import "channels";
 import cogoToast from "cogo-toast";
 import React, { useEffect, useState } from "react";
-import { BsDash } from "react-icons/bs";
+import Moment from "react-moment";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import shortUUID from "short-uuid";
-import FixtureChannel from "../../channels/fixturesChannel";
-import LiveOddsChannel from "../../channels/liveOddsChannel";
-import MarketsChannel from "../../channels/marketsChannel";
-import addBet from "../redux/actions";
-import * as DataUpdate from "../utilities/DataUpdate";
-import oddsFormatter from "../utilities/oddsFormatter";
-import Requests from "../utilities/Requests";
-import NoData from "./NoData";
-import Preview from "./Skeleton";
+import MarketsChannel from "../../../channels/marketsChannel";
+import PreOddsChannel from "../../../channels/preOddsChannel";
+import addBet from "../../redux/actions";
+import * as DataUpdate from "../../utilities/DataUpdate";
+import oddsFormatter from "../../utilities/oddsFormatter";
+import Requests from "../../utilities/Requests";
+import NoData from "../shared/NoData";
+import Preview from "../shared/Skeleton";
 
-const LiveMatches = (props) => {
+const PreVirtualMatches = (props) => {
   const [games, setGames] = useState([]);
   const [pageLoading, setPageLoading] = useState(true);
   const dispatcher = useDispatch();
   const isMobile = useSelector((state) => state.isMobile);
 
-  useEffect(() => loadLiveGames(), []);
+  useEffect(() => loadPreMatchGames(), []);
 
-  const loadLiveGames = () => {
-    let path = "/api/v1/fixtures/soccer/live";
+  const loadPreMatchGames = () => {
+    let path = "/api/v1/fixtures/virtual_soccer/virtual_pre";
     let values = {};
     Requests.isGetRequest(path, values)
       .then((response) => {
-        var liveGames = response.data;
-        if (liveGames instanceof Array) {
-          setGames(liveGames);
+        var preMatch = response.data;
+        if (preMatch instanceof Array) {
+          setGames(preMatch);
         }
         setPageLoading(false);
       })
@@ -62,6 +61,21 @@ const LiveMatches = (props) => {
 
   const columns = [
     {
+      title: "Date",
+      dataIndex: "start_date",
+      render: (date) => (
+        <>
+          <a>
+            <Moment local={true} format="HH:mm">
+              {date}
+            </Moment>
+            <br />
+            <Moment format="DD-MMM">{date}</Moment>
+          </a>
+        </>
+      ),
+    },
+    {
       title: "Teams",
       render: (_, fixture) => (
         <MarketsChannel
@@ -80,7 +94,7 @@ const LiveMatches = (props) => {
         >
           <Link
             to={{
-              pathname: "/fixtures/soccer/live",
+              pathname: "/fixtures/virtual_soccer/pre",
               search: `id=${fixture.id}`,
             }}
             className="show-more"
@@ -92,44 +106,10 @@ const LiveMatches = (props) => {
       ),
     },
     {
-      title: "Score",
-      render: (_, fixture) => (
-        <>
-          <FixtureChannel
-            channel="FixtureChannel"
-            fixture={fixture.id}
-            received={(data) =>
-              updateMatchInfo(data, games, setGames, "1", "Fixture")
-            }
-          >
-            <a>
-              <strong>
-                <span className="blinking match-time">
-                  {fixture.match_time}
-                </span>
-              </strong>
-              <strong>
-                {isMobile ? (
-                  <span className="score">
-                    {fixture.home_score} - {fixture.away_score}
-                  </span>
-                ) : (
-                  <span className="score">
-                    {fixture.home_score} <BsDash /> {fixture.away_score}
-                  </span>
-                )}
-              </strong>
-            </a>
-          </FixtureChannel>
-        </>
-      ),
-    },
-    {
       title: "Tournament",
-      responsive: ["md"],
       render: (_, fixture) => (
-        <LiveOddsChannel
-          channel="LiveOddsChannel"
+        <PreOddsChannel
+          channel="PreOddsChannel"
           fixture={fixture.id}
           market="1"
           received={(data) => {
@@ -138,7 +118,7 @@ const LiveMatches = (props) => {
               games,
               setGames,
               data.market_identifier,
-              "Live"
+              "Pre"
             );
           }}
         >
@@ -146,7 +126,7 @@ const LiveMatches = (props) => {
             {fixture.league_name} <br />
             {fixture.location}
           </a>
-        </LiveOddsChannel>
+        </PreOddsChannel>
       ),
     },
     {
@@ -163,7 +143,7 @@ const LiveMatches = (props) => {
           }
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
           onClick={() =>
-            addBet(dispatcher, "1", "LiveMarket", fixture.id, "1X2 FT - 1", "1")
+            addBet(dispatcher, "1", "PreMarket", fixture.id, "1X2 FT - 1", "1")
           }
         >
           {fixture.markets.length == 0 || fixture.markets[0].odds === null
@@ -186,7 +166,7 @@ const LiveMatches = (props) => {
           }
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
           onClick={() =>
-            addBet(dispatcher, "X", "LiveMarket", fixture.id, "1X2 FT - X", "1")
+            addBet(dispatcher, "X", "PreMarket", fixture.id, "1X2 FT - X", "1")
           }
         >
           {fixture.markets.length == 0 || fixture.markets[0].odds === null
@@ -209,7 +189,7 @@ const LiveMatches = (props) => {
           }
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
           onClick={() =>
-            addBet(dispatcher, "2", "LiveMarket", fixture.id, "1X2 FT - 2", "1")
+            addBet(dispatcher, "2", "PreMarket", fixture.id, "1X2 FT - 2", "1")
           }
         >
           {fixture.markets.length == 0 || fixture.markets[0].odds === null
@@ -228,53 +208,61 @@ const LiveMatches = (props) => {
             className={
               isMobile ? "game-box mobile-table-padding-games" : "game-box"
             }
-            id="live"
           >
             <div className="card">
               <div className="card-header">
                 <h3>
-                  Live Fixtures - Soccer{" "}
-                  <i className=" blinking match-time fas fa-bolt fa-lg fa-fw mr-2"></i>
+                  Upcoming Fixtures - Virtual Soccer{" "}
+                  <i className="fas fa-futbol fa-lg fa-fw mr-2 match-time"></i>
                 </h3>
-                <span className="float-right">
+                <span className="float-right custom-span">
                   <Link
                     className="btnn btn-blink"
-                    to={"/fixtures/soccer/pres/"}
+                    to={"/fixtures/virtual_soccer/lives"}
                   >
-                    <i className="fas fa-futbol"></i> Pre-Match
+                    <i className="fas fa-bolt"></i> Live
                   </Link>
                 </span>
               </div>
-              <>
-                <div className="card-body">
-                  <div className="tab-content" id="">
-                    <div
-                      className="tab-pane fade show active"
-                      role="tabpanel"
-                      aria-labelledby="home-tab"
-                    >
-                      <Table
-                        className="table-striped-rows"
-                        columns={columns}
-                        dataSource={games}
-                        size="middle"
-                        rowClassName={(record) =>
-                          record.markets[0].status == "Active"
-                            ? "show-row"
-                            : "hide-row"
-                        }
-                        rowKey={() => {
-                          return shortUUID.generate();
-                        }}
-                        locale={{
-                          emptyText: <>{NoData("Live Events")}</>,
-                        }}
-                        pagination={{ defaultPageSize: 50 }}
-                      />
-                    </div>
+              <div className="card-body">
+                <div className="tab-content" id="myTabContent">
+                  <div
+                    className="tab-pane fade show active"
+                    id="home"
+                    role="tabpanel"
+                    aria-labelledby="home-tab"
+                    data-controller=""
+                  >
+                    <Table
+                      className="table-striped-rows"
+                      columns={columns}
+                      dataSource={games}
+                      size="middle"
+                      rowClassName={(record) =>
+                        record.markets[0].status == "Active"
+                          ? "show-row"
+                          : "hide-row"
+                      }
+                      rowKey={() => {
+                        return shortUUID.generate();
+                      }}
+                      locale={{
+                        emptyText: (
+                          <>
+                            {NoData("Upcoming Virtual Events")}
+                            {/* <span>
+                              <DropboxOutlined className="font-40" />
+                            </span>
+                            <br />
+                            <span className="font-18">No Fixtures Found</span> */}
+                          </>
+                        ),
+                      }}
+                      pagination={{ defaultPageSize: 50 }}
+                    />
                   </div>
                 </div>
-              </>
+              </div>
             </div>
           </div>
         </>
@@ -285,4 +273,4 @@ const LiveMatches = (props) => {
   );
 };
 
-export default LiveMatches;
+export default PreVirtualMatches;

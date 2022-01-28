@@ -5,8 +5,8 @@ import React, { useEffect, useState } from "react";
 import Moment from "react-moment";
 import { useSelector } from "react-redux";
 import shortUUID from "short-uuid";
-import currencyFormatter from "../utilities/CurrencyFormatter";
-import Requests from "../utilities/Requests";
+import currencyFormatter from "../../utilities/CurrencyFormatter";
+import Requests from "../../utilities/Requests";
 import Preview from "./Skeleton";
 
 const Transactions = () => {

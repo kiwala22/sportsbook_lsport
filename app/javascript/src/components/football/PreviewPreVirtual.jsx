@@ -4,16 +4,16 @@ import React, { useEffect, useState } from "react";
 import { BsDash } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { withRouter } from "react-router-dom";
-import MarketsChannel from "../../channels/marketsChannel";
-import PreOddsChannel from "../../channels/preOddsChannel";
-import addBet from "../redux/actions";
-import * as DataUpdate from "../utilities/DataUpdate";
-import format from "../utilities/format";
-import oddsFormatter from "../utilities/oddsFormatter";
-import Requests from "../utilities/Requests";
-import Preview from "./Skeleton";
+import MarketsChannel from "../../../channels/marketsChannel";
+import PreOddsChannel from "../../../channels/preOddsChannel";
+import addBet from "../../redux/actions";
+import * as DataUpdate from "../../utilities/DataUpdate";
+import format from "../../utilities/format";
+import oddsFormatter from "../../utilities/oddsFormatter";
+import Requests from "../../utilities/Requests";
+import Preview from "../shared/Skeleton";
 
-const PreviewPre = (props) => {
+const PreviewPreVirtual = (props) => {
   const [fixture, setFixture] = useState([]);
   const [pageLoading, setPageLoading] = useState(true);
   const dispatcher = useDispatch();
@@ -25,7 +25,7 @@ const PreviewPre = (props) => {
   }, [props]);
 
   function getfixture() {
-    var path = `/api/v1/fixtures/soccer/pre_fixture${props.location.search}`;
+    var path = `/api/v1/fixtures/virtual_soccer/pre_fixture${props.location.search}`;
     var values = {};
     Requests.isGetRequest(path, values)
       .then((response) => {
@@ -41,8 +41,6 @@ const PreviewPre = (props) => {
   }
 
   const updateMatchInfo = (data, currentState, setState, market, channel) => {
-    console.log(currentState);
-
     let updatedData = DataUpdate.fixtureUpdate(
       data,
       currentState,
@@ -50,7 +48,6 @@ const PreviewPre = (props) => {
       channel
     );
     setState(updatedData);
-
     // Forcing Re-render //to be reviewed
     setGreeting(Math.random());
   };
@@ -202,4 +199,4 @@ const PreviewPre = (props) => {
   );
 };
 
-export default withRouter(PreviewPre);
+export default withRouter(PreviewPreVirtual);

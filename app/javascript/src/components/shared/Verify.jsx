@@ -4,7 +4,7 @@ import cogoToast from "cogo-toast";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { withRouter } from "react-router";
-import Requests from "../utilities/Requests";
+import Requests from "../../utilities/Requests";
 
 const Verify = (props) => {
   const [form] = Form.useForm();

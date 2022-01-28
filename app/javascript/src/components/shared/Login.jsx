@@ -3,8 +3,8 @@ import { Button, Checkbox, Form, Input, Modal } from "antd";
 import cogoToast from "cogo-toast";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import PhoneFormat from "../utilities/phoneNumber";
-import Requests from "../utilities/Requests";
+import PhoneFormat from "../../utilities/phoneNumber";
+import Requests from "../../utilities/Requests";
 import PhoneInput from "./PhoneInput";
 import SignUp from "./SignUp";
 

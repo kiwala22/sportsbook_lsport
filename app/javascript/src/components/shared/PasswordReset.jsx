@@ -1,30 +1,37 @@
-import { BarcodeOutlined } from "@ant-design/icons";
-import { Button, Form, Input } from "antd";
+import { Button, Form } from "antd";
 import cogoToast from "cogo-toast";
 import React, { useState } from "react";
-import Requests from "../utilities/Requests";
+import PhoneFormat from "../../utilities/phoneNumber";
+import Requests from "../../utilities/Requests";
+import PhoneInput from "./PhoneInput";
 
-const PasswordCode = (props) => {
+const PasswordReset = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [form] = Form.useForm();
 
-  const handleVerification = (data) => {
+  const submit = (data) => {
     setIsLoading(true);
-    let path = "/password_update";
-    let values = { reset_code: data.resetCode };
+    if (data.phone_number.code !== 256) {
+      cogoToast.error("Invalid Country Code.", 5);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 2000);
+      return;
+    }
+    let phoneNumber = PhoneFormat(data.phone_number.phone);
+    let path = "/reset";
+    let values = { phone_number: phoneNumber };
     Requests.isPostRequest(path, values)
       .then((response) => {
-        cogoToast.success(response.data.message, { hideAfter: 5 });
         setIsLoading(false);
-        props.history.push(
-          `/users/password/edit?reset_password_token=${response.data.token}`
-        );
+        cogoToast.success(response.data.message, { hideAfter: 5 });
+        props.history.push("/verify_reset/");
       })
       .catch((error) => {
         cogoToast.error(
           error.response ? error.response.data.message : error.message,
           {
-            hideAfter: 10,
+            hideAfter: 5,
           }
         );
         setIsLoading(false);
@@ -38,28 +45,26 @@ const PasswordCode = (props) => {
             <div className="col-xl-7 col-lg-7 col-md-7 col-sm-12">
               <div className="web-sidebar-widget login-widget">
                 <div className="widget-head">
-                  <h3 className="heading-center">Enter Reset Code</h3>
+                  <h3 className="heading-center">Recover With Phone Number</h3>
                 </div>
                 <div className="widget-body">
                   <Form
                     form={form}
                     layout="vertical"
-                    onFinish={handleVerification}
+                    onFinish={submit}
+                    initialValues={{ phone_number: { short: "UG" } }}
                   >
                     <Form.Item
-                      name="resetCode"
-                      label="Reset Code"
+                      name="phone_number"
+                      label="Phone Number"
                       rules={[
                         {
                           required: true,
-                          message: "Please provide a Reset Code!",
+                          message: "Please provide a Phone Number!",
                         },
                       ]}
                     >
-                      <Input
-                        prefix={<BarcodeOutlined />}
-                        placeholder="Reset Code"
-                      />
+                      <PhoneInput />
                     </Form.Item>
                     <br />
                     <Button
@@ -68,7 +73,7 @@ const PasswordCode = (props) => {
                       className="btn btn-block btn-primary mt-lg login-btn"
                       loading={isLoading}
                     >
-                      Confirm
+                      Send Reset Code
                     </Button>
                   </Form>
                 </div>
@@ -81,4 +86,4 @@ const PasswordCode = (props) => {
   );
 };
 
-export default PasswordCode;
+export default PasswordReset;

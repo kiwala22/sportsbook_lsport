@@ -6,17 +6,17 @@ import { BsDash } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import shortUUID from "short-uuid";
-import FixtureChannel from "../../channels/fixturesChannel";
-import LiveOddsChannel from "../../channels/liveOddsChannel";
-import MarketsChannel from "../../channels/marketsChannel";
-import addBet from "../redux/actions";
-import * as DataUpdate from "../utilities/DataUpdate";
-import oddsFormatter from "../utilities/oddsFormatter";
-import Requests from "../utilities/Requests";
-import NoData from "./NoData";
-import Preview from "./Skeleton";
+import FixtureChannel from "../../../channels/fixturesChannel";
+import LiveOddsChannel from "../../../channels/liveOddsChannel";
+import MarketsChannel from "../../../channels/marketsChannel";
+import addBet from "../../redux/actions";
+import * as DataUpdate from "../../utilities/DataUpdate";
+import oddsFormatter from "../../utilities/oddsFormatter";
+import Requests from "../../utilities/Requests";
+import NoData from "../shared/NoData";
+import Preview from "../shared/Skeleton";
 
-const LiveVirtualMatches = (props) => {
+const LiveMatches = (props) => {
   const [games, setGames] = useState([]);
   const [pageLoading, setPageLoading] = useState(true);
   const dispatcher = useDispatch();
@@ -25,7 +25,7 @@ const LiveVirtualMatches = (props) => {
   useEffect(() => loadLiveGames(), []);
 
   const loadLiveGames = () => {
-    let path = "/api/v1/fixtures/virtual_soccer/virtual_live";
+    let path = "/api/v1/fixtures/soccer/live";
     let values = {};
     Requests.isGetRequest(path, values)
       .then((response) => {
@@ -80,7 +80,7 @@ const LiveVirtualMatches = (props) => {
         >
           <Link
             to={{
-              pathname: "/fixtures/virtual_soccer/live",
+              pathname: "/fixtures/soccer/live",
               search: `id=${fixture.id}`,
             }}
             className="show-more"
@@ -233,15 +233,15 @@ const LiveVirtualMatches = (props) => {
             <div className="card">
               <div className="card-header">
                 <h3>
-                  Live Fixtures - Virtual Soccer{" "}
+                  Live Fixtures - Soccer{" "}
                   <i className=" blinking match-time fas fa-bolt fa-lg fa-fw mr-2"></i>
                 </h3>
-                <span className="float-right custom-span">
+                <span className="float-right">
                   <Link
                     className="btnn btn-blink"
-                    to={"/fixtures/virtual_soccer/pres/"}
+                    to={"/fixtures/soccer/pres/"}
                   >
-                    <i className="fas fa-futbol"></i> PreMatch
+                    <i className="fas fa-futbol"></i> Pre-Match
                   </Link>
                 </span>
               </div>
@@ -267,16 +267,7 @@ const LiveVirtualMatches = (props) => {
                           return shortUUID.generate();
                         }}
                         locale={{
-                          emptyText: (
-                            <>
-                              {NoData("Virtual Live Events")}
-                              {/* <span>
-                                <DropboxOutlined className="font-40" />
-                              </span>
-                              <br />
-                              <span className="font-18">No Fixtures Found</span> */}
-                            </>
-                          ),
+                          emptyText: <>{NoData("Live Events")}</>,
                         }}
                         pagination={{ defaultPageSize: 50 }}
                       />
@@ -294,4 +285,4 @@ const LiveVirtualMatches = (props) => {
   );
 };
 
-export default LiveVirtualMatches;
+export default LiveMatches;

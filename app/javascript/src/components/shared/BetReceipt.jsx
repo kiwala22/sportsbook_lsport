@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { BsDash } from "react-icons/bs";
 import Moment from "react-moment";
 import shortUUID from "short-uuid";
-import currencyFormatter from "../utilities/CurrencyFormatter";
+import currencyFormatter from "../../utilities/CurrencyFormatter";
 
 const BetReceipt = (props) => {
   const [show, setShow] = useState(false);
@@ -40,8 +40,7 @@ const BetReceipt = (props) => {
                   <strong>Fixture:</strong>
                 </span>
                 <span className="float-right">
-                  {bet.fixture.part_one_name} - {" "}
-                  {bet.fixture.part_two_name}
+                  {bet.fixture.part_one_name} - {bet.fixture.part_two_name}
                 </span>
               </div>
               <div>

@@ -1,11 +1,23 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Route, Switch } from "react-router-dom";
-import BetSlip from "../BetSlip";
-import Footer from "../Footer";
-import Navbar from "../Navbar";
-import SideBanner from "../SideBanner";
-import Verify from "../Verify";
+import Bets from "../shared/Bets";
+import BetSlip from "../shared/BetSlip";
+import Deposit from "../shared/Deposit";
+import Faqs from "../shared/Faqs";
+import Footer from "../shared/Footer";
+import Navbar from "../shared/Navbar";
+import NewPassword from "../shared/NewPassword";
+import PasswordCode from "../shared/PasswordCode";
+import PasswordReset from "../shared/PasswordReset";
+import Privacy from "../shared/Privacy";
+import Rules from "../shared/Rules";
+import SideBanner from "../shared/SideBanner";
+import Support from "../shared/Support";
+import Terms from "../shared/Terms";
+import Transactions from "../shared/Transactions";
+import Verify from "../shared/Verify";
+import Withdraw from "../shared/Withdraw";
 import Home from "./Home";
 import PreviewUpcoming from "./PreviewUpcoming";
 import Search from "./Search";
@@ -44,6 +56,15 @@ const Base = (props) => {
                 >
                   <div>
                     <Switch>
+                      <Route path="/bet_slips/" component={Bets} />
+                      <Route path="/transactions/" component={Transactions} />
+                      <Route path="/deposit/" component={Deposit} />
+                      <Route path="/withdraw/" component={Withdraw} />
+                      <Route path="/faqs/" component={Faqs} />
+                      <Route path="/privacy/" component={Privacy} />
+                      <Route path="/rules/" component={Rules} />
+                      <Route path="/terms/" component={Terms} />
+                      <Route path="/contacts/" component={Support} />
                       <Route
                         path="/fixtures/search/"
                         render={() => {
@@ -74,6 +95,15 @@ const Base = (props) => {
                             <Verify />
                           );
                         }}
+                      />
+                      <Route
+                        path="/users/password/edit"
+                        component={NewPassword}
+                      />
+                      <Route path="/verify_reset/" component={PasswordCode} />
+                      <Route
+                        path="/password_reset/"
+                        component={PasswordReset}
                       />
                       <Route
                         exact

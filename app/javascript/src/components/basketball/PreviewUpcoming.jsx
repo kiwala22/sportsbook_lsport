@@ -11,7 +11,7 @@ import * as DataUpdate from "../../utilities/DataUpdate";
 import format from "../../utilities/format";
 import oddsFormatter from "../../utilities/oddsFormatter";
 import Requests from "../../utilities/Requests";
-import Preview from "../Skeleton";
+import Preview from "../shared/Skeleton";
 
 const PreviewUpcoming = (props) => {
   const [fixture, setFixture] = useState([]);

@@ -8,20 +8,20 @@ import Moment from "react-moment";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import shortUUID from "short-uuid";
-import FixtureChannel from "../../channels/fixturesChannel";
-import LiveOddsChannel from "../../channels/liveOddsChannel";
-import MarketsChannel from "../../channels/marketsChannel";
-import PreOddsChannel from "../../channels/preOddsChannel";
-import MobileBanner1 from "../Images/mobile_banner_1.webp";
-import MobileBanner2 from "../Images/mobile_banner_2.webp";
-import MobileBanner3 from "../Images/mobile_banner_3.webp";
-import Banner from "../Images/web_banner_main.webp";
-import addBet from "../redux/actions";
-import * as DataUpdate from "../utilities/DataUpdate";
-import oddsFormatter from "../utilities/oddsFormatter";
-import Requests from "../utilities/Requests";
-import NoData from "./NoData";
-import Preview from "./Skeleton";
+import FixtureChannel from "../../../channels/fixturesChannel";
+import LiveOddsChannel from "../../../channels/liveOddsChannel";
+import MarketsChannel from "../../../channels/marketsChannel";
+import PreOddsChannel from "../../../channels/preOddsChannel";
+import MobileBanner1 from "../../Images/mobile_banner_1.webp";
+import MobileBanner2 from "../../Images/mobile_banner_2.webp";
+import MobileBanner3 from "../../Images/mobile_banner_3.webp";
+import Banner from "../../Images/web_banner_main.webp";
+import addBet from "../../redux/actions";
+import * as DataUpdate from "../../utilities/DataUpdate";
+import oddsFormatter from "../../utilities/oddsFormatter";
+import Requests from "../../utilities/Requests";
+import NoData from "../shared/NoData";
+import Preview from "../shared/Skeleton";
 // import Spinner from "./Spinner";
 
 const Home = (props) => {
@@ -333,7 +333,7 @@ const Home = (props) => {
             addBet(dispatcher, "1", "PreMarket", fixture.id, "1X2 FT - 1", "1")
           }
         >
-           {fixture.markets.length == 0 || fixture.markets[0].odds === null
+          {fixture.markets.length == 0 || fixture.markets[0].odds === null
             ? parseFloat(1.0).toFixed(2)
             : oddsFormatter(fixture.markets[0].odds["outcome_1"])}
         </a>

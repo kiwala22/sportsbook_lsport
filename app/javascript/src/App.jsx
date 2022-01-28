@@ -4,11 +4,11 @@ import ReactDOM from "react-dom";
 import "react-phone-number-input/style.css";
 import { Provider, useDispatch, useSelector } from "react-redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import "../css/Antd.less";
-import { store } from "../redux/store";
-import Requests from "../utilities/Requests";
-import Base from "./Base";
-import BasketBase from "./basketball/Base";
+import BasketBase from "./components/basketball/Base";
+import Base from "./components/football/Base";
+import "./css/Antd.less";
+import { store } from "./redux/store";
+import Requests from "./utilities/Requests";
 
 const App = (props) => {
   const dispatch = useDispatch();

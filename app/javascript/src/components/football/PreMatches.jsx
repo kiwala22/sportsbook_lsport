@@ -6,32 +6,38 @@ import Moment from "react-moment";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import shortUUID from "short-uuid";
-import MarketsChannel from "../../channels/marketsChannel";
-import PreOddsChannel from "../../channels/preOddsChannel";
-import addBet from "../redux/actions";
-import * as DataUpdate from "../utilities/DataUpdate";
-import oddsFormatter from "../utilities/oddsFormatter";
-import Requests from "../utilities/Requests";
-import NoData from "./NoData";
-import Preview from "./Skeleton";
+import MarketsChannel from "../../../channels/marketsChannel";
+import PreOddsChannel from "../../../channels/preOddsChannel";
+import addBet from "../../redux/actions";
+import * as DataUpdate from "../../utilities/DataUpdate";
+import oddsFormatter from "../../utilities/oddsFormatter";
+import Requests from "../../utilities/Requests";
+import NoData from "../shared/NoData";
+import Preview from "../shared/Skeleton";
 
-const Search = (props) => {
+const PreMatches = (props) => {
   const [games, setGames] = useState([]);
   const [pageLoading, setPageLoading] = useState(true);
   const dispatcher = useDispatch();
   const isMobile = useSelector((state) => state.isMobile);
 
-  useEffect(() => loadPreMatchGames(), [props]);
+  useEffect(() => {
+    loadPreMatchGames();
+  }, [props.location]);
 
-  useEffect(() => loadPreMatchGames(), []);
+  useEffect(() => {
+    loadPreMatchGames();
+  }, []);
 
   const loadPreMatchGames = () => {
-    let path = `/api/v1/fixtures/search${props.location.search}`;
-    let values = { market: "1" };
+    let path = `/api/v1/fixtures/soccer/pre${props.location.search}`;
+    let values = {};
     Requests.isGetRequest(path, values)
       .then((response) => {
         var preMatch = response.data;
-        setGames(preMatch);
+        if (preMatch instanceof Array) {
+          setGames(preMatch);
+        }
         setPageLoading(false);
       })
       .catch((error) => {
@@ -43,7 +49,7 @@ const Search = (props) => {
   };
 
   const updateMatchInfo = (data, currentState, setState, market, channel) => {
-    let fixtureIndex = currentState.findIndex((el) => data.id == el.id);
+    let fixtureIndex = currentState.findIndex((el) => data.fixture_id == el.id);
     let fixture = currentState[fixtureIndex];
     let updatedFixture = DataUpdate.fixtureUpdate(
       data,
@@ -58,6 +64,7 @@ const Search = (props) => {
     let newState = Array.from(currentState);
     setState(newState);
   };
+
   const columns = [
     {
       title: "Date",
@@ -82,7 +89,13 @@ const Search = (props) => {
           fixture={fixture.id}
           market="1"
           received={(data) => {
-            updateMatchInfo(data, games, setGames, "1", "Market");
+            updateMatchInfo(
+              data,
+              games,
+              setGames,
+              data.market_identifier,
+              "Market"
+            );
           }}
         >
           <Link
@@ -90,9 +103,9 @@ const Search = (props) => {
               pathname: "/fixtures/soccer/pre",
               search: `id=${fixture.id}`,
             }}
+            className="show-more"
           >
-            {fixture.part_one_name}
-            <br />
+            {fixture.part_one_name} <br />
             {fixture.part_two_name}
           </Link>
         </MarketsChannel>
@@ -106,7 +119,13 @@ const Search = (props) => {
           fixture={fixture.id}
           market="1"
           received={(data) => {
-            updateMatchInfo(data, games, setGames, "1", "Pre");
+            updateMatchInfo(
+              data,
+              games,
+              setGames,
+              data.market_identifier,
+              "Pre"
+            );
           }}
         >
           <a>
@@ -121,9 +140,9 @@ const Search = (props) => {
       render: (_, fixture) => (
         <a
           className={
-            fixture.market_1_odds === undefined ||
-            fixture.market_1_odds === null ||
-            oddsFormatter(fixture.market_1_odds["outcome_1"]) ==
+            fixture.markets.length == 0 ||
+            fixture.markets[0].odds === null ||
+            oddsFormatter(fixture.markets[0].odds["outcome_1"]) ==
               parseFloat(1.0).toFixed(2)
               ? "btnn intialise_input disabled"
               : "btnn intialise_input btn btn-light wagger-btn"
@@ -133,9 +152,9 @@ const Search = (props) => {
             addBet(dispatcher, "1", "PreMarket", fixture.id, "1X2 FT - 1", "1")
           }
         >
-          {fixture.market_1_odds === undefined || fixture.market_1_odds === null
+          {fixture.markets.length == 0 || fixture.markets[0].odds === null
             ? parseFloat(1.0).toFixed(2)
-            : oddsFormatter(fixture.market_1_odds["outcome_1"])}
+            : oddsFormatter(fixture.markets[0].odds["outcome_1"])}
         </a>
       ),
     },
@@ -144,9 +163,9 @@ const Search = (props) => {
       render: (_, fixture) => (
         <a
           className={
-            fixture.market_1_odds === undefined ||
-            fixture.market_1_odds === null ||
-            oddsFormatter(fixture.market_1_odds["outcome_X"]) ==
+            fixture.markets.length == 0 ||
+            fixture.markets[0].odds === null ||
+            oddsFormatter(fixture.markets[0].odds["outcome_X"]) ==
               parseFloat(1.0).toFixed(2)
               ? "btnn intialise_input disabled"
               : "btnn intialise_input btn btn-light wagger-btn"
@@ -156,9 +175,9 @@ const Search = (props) => {
             addBet(dispatcher, "X", "PreMarket", fixture.id, "1X2 FT - X", "1")
           }
         >
-          {fixture.market_1_odds === undefined || fixture.market_1_odds === null
+          {fixture.markets.length == 0 || fixture.markets[0].odds === null
             ? parseFloat(1.0).toFixed(2)
-            : oddsFormatter(fixture.market_1_odds["outcome_X"])}
+            : oddsFormatter(fixture.markets[0].odds["outcome_X"])}
         </a>
       ),
     },
@@ -167,9 +186,9 @@ const Search = (props) => {
       render: (_, fixture) => (
         <a
           className={
-            fixture.market_1_odds === undefined ||
-            fixture.market_1_odds === null ||
-            oddsFormatter(fixture.market_1_odds["outcome_2"]) ==
+            fixture.markets.length == 0 ||
+            fixture.markets[0].odds === null ||
+            oddsFormatter(fixture.markets[0].odds["outcome_2"]) ==
               parseFloat(1.0).toFixed(2)
               ? "btnn intialise_input disabled"
               : "btnn intialise_input btn btn-light wagger-btn"
@@ -179,9 +198,9 @@ const Search = (props) => {
             addBet(dispatcher, "2", "PreMarket", fixture.id, "1X2 FT - 2", "1")
           }
         >
-          {fixture.market_1_odds === undefined || fixture.market_1_odds === null
+          {fixture.markets.length == 0 || fixture.markets[0].odds === null
             ? parseFloat(1.0).toFixed(2)
-            : oddsFormatter(fixture.market_1_odds["outcome_2"])}
+            : oddsFormatter(fixture.markets[0].odds["outcome_2"])}
         </a>
       ),
     },
@@ -195,19 +214,30 @@ const Search = (props) => {
             className={
               isMobile ? "game-box mobile-table-padding-games" : "game-box"
             }
-            id="search"
           >
             <div className="card">
               <div className="card-header">
-                <h3>Search Results </h3>{" "}
-                <i className="fas fa-search fa-lg fa-fw mr-2 match-time"></i>
+                <h3>
+                  Upcoming Fixtures - Soccer{" "}
+                  <i className="fas fa-futbol fa-lg fa-fw mr-2 match-time"></i>
+                </h3>
+                <span className="float-right ">
+                  <Link
+                    className="btnn btn-blink"
+                    to={"/fixtures/soccer/lives"}
+                  >
+                    <i className="fas fa-bolt"></i> Live
+                  </Link>
+                </span>
               </div>
               <div className="card-body">
-                <div className="tab-content" id="">
+                <div className="tab-content" id="myTabContent">
                   <div
                     className="tab-pane fade show active"
+                    id="home"
                     role="tabpanel"
                     aria-labelledby="home-tab"
+                    data-controller=""
                   >
                     <Table
                       className="table-striped-rows"
@@ -215,7 +245,7 @@ const Search = (props) => {
                       dataSource={games}
                       size="middle"
                       rowClassName={(record) =>
-                        record.market_1_status == "Active"
+                        record.markets[0].status == "Active"
                           ? "show-row"
                           : "hide-row"
                       }
@@ -225,7 +255,7 @@ const Search = (props) => {
                       locale={{
                         emptyText: (
                           <>
-                            {NoData("Results")}
+                            {NoData("Upcoming Events")}
                             {/* <span>
                               <DropboxOutlined className="font-40" />
                             </span>
@@ -249,4 +279,4 @@ const Search = (props) => {
   );
 };
 
-export default withRouter(Search);
+export default withRouter(PreMatches);

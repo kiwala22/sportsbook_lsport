@@ -27,4 +27,4 @@ LocalTime.start();
 require("@rails/activestorage").start();
 
 require("user_assets/application");
-require("src/components/App");
+require("src/App");

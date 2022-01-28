@@ -5,8 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import titleize from "titleize";
 import urlFormatter from "../../utilities/urlFormatter";
-import Login from "../Login";
-import SignUp from "../SignUp";
+import Login from "../shared/Login";
+import SignUp from "../shared/SignUp";
 
 const Sidebar = (props) => {
   const dispatcher = useDispatch();

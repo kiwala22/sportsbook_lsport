@@ -13,8 +13,8 @@ import cogoToast from "cogo-toast";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
-import currencyFormatter from "../utilities/CurrencyFormatter";
-import Requests from "../utilities/Requests";
+import currencyFormatter from "../../utilities/CurrencyFormatter";
+import Requests from "../../utilities/Requests";
 import Login from "./Login";
 import SignUp from "./SignUp";
 

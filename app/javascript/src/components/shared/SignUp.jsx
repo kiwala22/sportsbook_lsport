@@ -4,8 +4,8 @@ import cogoToast from "cogo-toast";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
-import PhoneFormat from "../utilities/phoneNumber";
-import Requests from "../utilities/Requests";
+import PhoneFormat from "../../utilities/phoneNumber";
+import Requests from "../../utilities/Requests";
 import PhoneInput from "./PhoneInput";
 
 const SignUp = (props) => {

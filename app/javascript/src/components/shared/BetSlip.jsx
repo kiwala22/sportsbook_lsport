@@ -4,9 +4,9 @@ import cogoToast from "cogo-toast";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import shortUUID from "short-uuid";
-import BetSlipsChannel from "../../channels/betSlipsChannel";
-import currencyFormatter from "../utilities/CurrencyFormatter";
-import { default as Request, default as Requests } from "../utilities/Requests";
+import BetSlipsChannel from "../../../channels/betSlipsChannel";
+import currencyFormatter from "../../utilities/CurrencyFormatter";
+import Requests from "../../utilities/Requests";
 import NoEvents from "./EmptySlip";
 import Login from "./Login";
 
@@ -37,7 +37,7 @@ const BetSlip = (props) => {
   const loadCartGames = () => {
     let path = "/cart_fixtures";
     let values = {};
-    Request.isGetRequest(path, values)
+    Requests.isGetRequest(path, values)
       .then((response) => {
         let data = response.data;
         dispatcher({ type: "addBet", payload: data });
@@ -77,7 +77,7 @@ const BetSlip = (props) => {
     localStorage.removeItem("stake");
     let path = "/clear_slip";
     let values = {};
-    Request.isDeleteRequest(path, values)
+    Requests.isDeleteRequest(path, values)
       .then((response) => {
         if (response.data.status == "OK") {
           dispatcher({ type: "addBet", payload: [] });
@@ -169,7 +169,7 @@ const BetSlip = (props) => {
   const deleteLineBet = (id) => {
     const path = `/clear_bet?id=${id}`;
     const values = {};
-    Request.isDeleteRequest(path, values)
+    Requests.isDeleteRequest(path, values)
       .then((response) => {
         if (response.data.status == "OK") {
           loadCartGames();

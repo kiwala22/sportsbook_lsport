@@ -2,7 +2,7 @@ import { LockOutlined } from "@ant-design/icons";
 import { Button, Form, Input } from "antd";
 import cogoToast from "cogo-toast";
 import React, { useState } from "react";
-import Requests from "../utilities/Requests";
+import Requests from "../../utilities/Requests";
 
 const NewPassword = (props) => {
   const [isLoading, setIsLoading] = useState(false);
