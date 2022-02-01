@@ -24,17 +24,18 @@ class Backend::BroadcastsController < ApplicationController
             status: "PENDING",
             admin_id: current_admin.id
             )
+            
         
          if @broadcast.save
             flash[:notice] = 'Broadcast Successfully Created.'
-            redirect_to action: "index"
-            
+            redirect_to action: "index"            
          else
             #show to error notice and show index
             flash.now[:alert] = @broadcast.errors
             render action: "new"
          end
     end
+    
  
     def destroy
        @broadcast.destroy

@@ -49,7 +49,7 @@
                 <td><%= broadcast.start_date.to_datetime.strftime("%b %d, %Y %I:%M%P") %></td>
                 <td><%= broadcast.end_date.to_datetime.strftime("%b %d, %Y %I:%M%P") %></td>
                 
-                <td><%= broadcast.created_at.to_datetime.strftime("%b %d, %Y %I:%M%P") %></td>
+                <td><%= local_time(broadcast.created_at, format: "%b %d, %Y %I:%M%P") %></td>
                 <td><%= broadcast.execution_time.to_datetime.strftime("%b %d, %Y %I:%M%P") if broadcast.execution_time != nil %></td>
                 <td>
                     <% if broadcast.status == "PENDING" %>

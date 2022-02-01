@@ -75,7 +75,7 @@
                <div class="form-group row">
                     <div class="col-md-4">Created On:</div>
                     <div class="col-md-8">
-                       <strong><%= @broadcast.created_at.strftime('%e %B , %Y %l:%M%P')%></strong>
+                       <strong><%= local_time(@broadcast.created_at, format: "%e %B, %Y %l:%M%P") %></strong>
                     </div>
                 </div>
                
