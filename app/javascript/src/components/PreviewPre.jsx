@@ -62,18 +62,10 @@ const PreviewPre = (props) => {
           <div className={isMobile ? "fixture-box" : "game-box"}>
             <div className="card" id="show-markets">
               <div className="card-header">
-                <MarketsChannel
-                  channel="MarketsChannel"
-                  fixture={fixture.id}
-                  received={(data) => {
-                    updateMatchInfo(data, fixture, setFixture, _, "Market");
-                  }}
-                >
-                  <h6>
-                    {fixture.part_one_name} <BsDash /> {fixture.part_two_name}{" "}
-                    {fixture.league_name} {fixture.location}
-                  </h6>
-                </MarketsChannel>
+                <h6>
+                  {fixture.part_one_name} <BsDash /> {fixture.part_two_name}{" "}
+                  {fixture.league_name} {fixture.location}
+                </h6>
               </div>
               <div className={isMobile ? "fix-body" : "card-body"}>
                 {/* first loop */}
@@ -86,46 +78,61 @@ const PreviewPre = (props) => {
                         .filter((el) => el.name !== null)
                         .map((market, index) => (
                           <React.Fragment key={index}>
-                            <div
-                              className={
-                                isMobile
-                                  ? "market-label market-label-fixture"
-                                  : "market-label"
-                              }
+                            <MarketsChannel
+                              channel="MarketsChannel"
+                              fixture={fixture.id}
+                              market="1"
+                              received={(data) => {
+                                updateMatchInfo(
+                                  data,
+                                  fixture,
+                                  setFixture,
+                                  _,
+                                  "Market"
+                                );
+                              }}
                             >
-                              <div className="row">
-                                {market.name == "1X2 FT" ? (
-                                  <div className="col-lg-12 ">
-                                    <strong>Match Result 1X2 FT</strong>
-                                  </div>
-                                ) : /Under\/Over/g.test(market.name) ? (
-                                  <div className="col-lg-12 ">
-                                    <strong>
-                                      Under 2.5 / Over 2.5{"  "}
-                                      {market.name.replace("Under/Over", "")}
-                                    </strong>
-                                  </div>
-                                ) : /Asian Handicap/g.test(market.name) ? (
-                                  <div className="col-lg-12 ">
-                                    <strong>
-                                      Asian Handicap 1 Goal{"  "}
-                                      {market.name.replace(
-                                        "Asian Handicap",
-                                        ""
-                                      )}
-                                    </strong>
-                                  </div>
-                                ) : market.name == "12" ? (
-                                  <div className="col-lg-12 ">
-                                    <strong>Home / Away</strong>
-                                  </div>
-                                ) : (
-                                  <div className="col-lg-12 ">
-                                    <strong>{market.name}</strong>
-                                  </div>
-                                )}
+                              <div
+                                className={
+                                  isMobile
+                                    ? "market-label market-label-fixture"
+                                    : "market-label"
+                                }
+                              >
+                                <div className="row">
+                                  {market.name == "1X2 FT" ? (
+                                    <div className="col-lg-12 ">
+                                      <strong>Match Result 1X2 FT</strong>
+                                    </div>
+                                  ) : /Under\/Over/g.test(market.name) ? (
+                                    <div className="col-lg-12 ">
+                                      <strong>
+                                        Under 2.5 / Over 2.5{"  "}
+                                        {market.name.replace("Under/Over", "")}
+                                      </strong>
+                                    </div>
+                                  ) : /Asian Handicap/g.test(market.name) ? (
+                                    <div className="col-lg-12 ">
+                                      <strong>
+                                        Asian Handicap 1 Goal{"  "}
+                                        {market.name.replace(
+                                          "Asian Handicap",
+                                          ""
+                                        )}
+                                      </strong>
+                                    </div>
+                                  ) : market.name == "12" ? (
+                                    <div className="col-lg-12 ">
+                                      <strong>Home / Away</strong>
+                                    </div>
+                                  ) : (
+                                    <div className="col-lg-12 ">
+                                      <strong>{market.name}</strong>
+                                    </div>
+                                  )}
+                                </div>
                               </div>
-                            </div>
+                            </MarketsChannel>
                             <div className="market-odds">
                               <PreOddsChannel
                                 channel="PreOddsChannel"
