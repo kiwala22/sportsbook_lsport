@@ -1,7 +1,7 @@
 require 'sidekiq'
 class CableWorker
    include Sidekiq::Worker
-   sidekiq_options queue: "critical"
+   sidekiq_options queue: "default"
    sidekiq_options retry: false
    
    def perform(channel, data)

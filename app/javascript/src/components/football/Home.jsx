@@ -1,12 +1,12 @@
-import { DropboxOutlined } from "@ant-design/icons";
-import { Table } from "antd";
+import { DropboxOutlined, PlusOutlined } from "@ant-design/icons";
+import { Button, Table } from "antd";
 import "channels";
 import cogoToast from "cogo-toast";
 import React, { useEffect, useState } from "react";
 import { BsDash } from "react-icons/bs";
 import Moment from "react-moment";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, withRouter } from "react-router-dom";
+import { Link, useHistory, withRouter } from "react-router-dom";
 import shortUUID from "short-uuid";
 import FixtureChannel from "../../../channels/fixturesChannel";
 import LiveOddsChannel from "../../../channels/liveOddsChannel";
@@ -15,7 +15,6 @@ import PreOddsChannel from "../../../channels/preOddsChannel";
 import MobileBanner1 from "../../Images/mobile_banner_1.webp";
 import MobileBanner2 from "../../Images/mobile_banner_2.webp";
 import MobileBanner3 from "../../Images/mobile_banner_3.webp";
-import Banner from "../../Images/web_banner_main.webp";
 import addBet from "../../redux/actions";
 import * as DataUpdate from "../../utilities/DataUpdate";
 import oddsFormatter from "../../utilities/oddsFormatter";
@@ -31,6 +30,7 @@ const Home = (props) => {
   const [pageLoading, setPageLoading] = useState(true);
   const isMobile = useSelector((state) => state.isMobile);
   const dispatcher = useDispatch();
+  const history = useHistory();
 
   let interval;
 
@@ -105,16 +105,8 @@ const Home = (props) => {
             );
           }}
         >
-          <Link
-            to={{
-              pathname: "/fixtures/soccer/live",
-              search: `id=${fixture.id}`,
-            }}
-            className="show-more"
-          >
-            {fixture.part_one_name} <br />
-            {fixture.part_two_name}
-          </Link>
+          {fixture.part_one_name} <br />
+          {fixture.part_two_name}
         </MarketsChannel>
       ),
     },
@@ -129,24 +121,20 @@ const Home = (props) => {
               updateMatchInfo(data, liveGames, setLiveGames, "1", "Fixture");
             }}
           >
-            <a>
-              <strong>
-                <span className="blinking match-time">
-                  {fixture.match_time}
+            <strong>
+              <span className="blinking match-time">{fixture.match_time}</span>
+            </strong>
+            <strong>
+              {isMobile ? (
+                <span className="score">
+                  {fixture.home_score} - {fixture.away_score}
                 </span>
-              </strong>
-              <strong>
-                {isMobile ? (
-                  <span className="score">
-                    {fixture.home_score} - {fixture.away_score}
-                  </span>
-                ) : (
-                  <span className="score">
-                    {fixture.home_score} <BsDash /> {fixture.away_score}
-                  </span>
-                )}
-              </strong>
-            </a>
+              ) : (
+                <span className="score">
+                  {fixture.home_score} <BsDash /> {fixture.away_score}
+                </span>
+              )}
+            </strong>
           </FixtureChannel>
         </>
       ),
@@ -168,10 +156,8 @@ const Home = (props) => {
             );
           }}
         >
-          <a>
-            {fixture.league_name} <br />
-            {fixture.location}
-          </a>
+          {fixture.league_name} <br />
+          {fixture.location}
         </LiveOddsChannel>
       ),
     },
@@ -244,6 +230,16 @@ const Home = (props) => {
         </a>
       ),
     },
+    {
+      title: "",
+      render: (_, fixture) => (
+        <Button
+          onClick={() => history.push(`/fixtures/soccer/live?id=${fixture.id}`)}
+          icon={<PlusOutlined />}
+          className="icon-more"
+        />
+      ),
+    },
   ];
 
   const columns_pre = [
@@ -252,13 +248,11 @@ const Home = (props) => {
       dataIndex: "start_date",
       render: (date) => (
         <>
-          <a>
-            <Moment local={true} format="HH:mm">
-              {date}
-            </Moment>
-            <br />
-            <Moment format="DD-MMM">{date}</Moment>
-          </a>
+          <Moment local={true} format="HH:mm">
+            {date}
+          </Moment>
+          <br />
+          <Moment format="DD-MMM">{date}</Moment>
         </>
       ),
     },
@@ -279,16 +273,8 @@ const Home = (props) => {
             );
           }}
         >
-          <Link
-            to={{
-              pathname: "/fixtures/soccer/pre",
-              search: `id=${fixture.id}`,
-            }}
-            className="show-more"
-          >
-            {fixture.part_one_name} <br />
-            {fixture.part_two_name}
-          </Link>
+          {fixture.part_one_name} <br />
+          {fixture.part_two_name}
         </MarketsChannel>
       ),
     },
@@ -309,10 +295,8 @@ const Home = (props) => {
             );
           }}
         >
-          <a>
-            {fixture.league_name} <br />
-            {fixture.location}
-          </a>
+          {fixture.league_name} <br />
+          {fixture.location}
         </PreOddsChannel>
       ),
     },
@@ -383,6 +367,16 @@ const Home = (props) => {
             ? parseFloat(1.0).toFixed(2)
             : oddsFormatter(fixture.markets[0].odds["outcome_2"])}
         </a>
+      ),
+    },
+    {
+      title: "",
+      render: (_, fixture) => (
+        <Button
+          onClick={() => history.push(`/fixtures/soccer/pre?id=${fixture.id}`)}
+          icon={<PlusOutlined />}
+          className="icon-more"
+        />
       ),
     },
   ];
@@ -393,13 +387,11 @@ const Home = (props) => {
       dataIndex: "start_date",
       render: (date) => (
         <>
-          <a>
-            <Moment local={true} format="HH:mm">
-              {date}
-            </Moment>
-            <br />
-            <Moment format="DD-MMM">{date}</Moment>
-          </a>
+          <Moment local={true} format="HH:mm">
+            {date}
+          </Moment>
+          <br />
+          <Moment format="DD-MMM">{date}</Moment>
         </>
       ),
     },
@@ -420,16 +412,8 @@ const Home = (props) => {
             );
           }}
         >
-          <Link
-            to={{
-              pathname: "/fixtures/soccer/pre",
-              search: `id=${fixture.id}`,
-            }}
-            className="show-more"
-          >
-            {fixture.part_one_name} <br />
-            {fixture.part_two_name}
-          </Link>
+          {fixture.part_one_name} <br />
+          {fixture.part_two_name}
         </MarketsChannel>
       ),
     },
@@ -450,10 +434,8 @@ const Home = (props) => {
             );
           }}
         >
-          <a>
-            {fixture.league_name} <br />
-            {fixture.location}
-          </a>
+          {fixture.league_name} <br />
+          {fixture.location}
         </PreOddsChannel>
       ),
     },
@@ -524,6 +506,16 @@ const Home = (props) => {
             ? parseFloat(1.0).toFixed(2)
             : oddsFormatter(fixture.markets[0].odds["outcome_2"])}
         </a>
+      ),
+    },
+    {
+      title: "",
+      render: (_, fixture) => (
+        <Button
+          onClick={() => history.push(`/fixtures/soccer/pre?id=${fixture.id}`)}
+          icon={<PlusOutlined />}
+          className="icon-more"
+        />
       ),
     },
   ];
@@ -541,7 +533,7 @@ const Home = (props) => {
           ) : (
             <div className="card ">
               <div className="card-header side-banner ">
-                <img src={Banner} className="banner-image" />
+                <img src={MobileBanner2} className="banner-image" />
               </div>
             </div>
           )}

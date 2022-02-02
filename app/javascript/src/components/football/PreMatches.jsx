@@ -1,10 +1,11 @@
-import { Table } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
+import { Button, Table } from "antd";
 import "channels";
 import cogoToast from "cogo-toast";
 import React, { useEffect, useState } from "react";
 import Moment from "react-moment";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, withRouter } from "react-router-dom";
+import { Link, useHistory, withRouter } from "react-router-dom";
 import shortUUID from "short-uuid";
 import MarketsChannel from "../../../channels/marketsChannel";
 import PreOddsChannel from "../../../channels/preOddsChannel";
@@ -20,6 +21,7 @@ const PreMatches = (props) => {
   const [pageLoading, setPageLoading] = useState(true);
   const dispatcher = useDispatch();
   const isMobile = useSelector((state) => state.isMobile);
+  const history = useHistory();
 
   useEffect(() => {
     loadPreMatchGames();
@@ -71,13 +73,11 @@ const PreMatches = (props) => {
       dataIndex: "start_date",
       render: (date) => (
         <>
-          <a>
-            <Moment local={true} format="HH:mm">
-              {date}
-            </Moment>
-            <br />
-            <Moment format="DD-MMM">{date}</Moment>
-          </a>
+          <Moment local={true} format="HH:mm">
+            {date}
+          </Moment>
+          <br />
+          <Moment format="DD-MMM">{date}</Moment>
         </>
       ),
     },
@@ -98,16 +98,8 @@ const PreMatches = (props) => {
             );
           }}
         >
-          <Link
-            to={{
-              pathname: "/fixtures/soccer/pre",
-              search: `id=${fixture.id}`,
-            }}
-            className="show-more"
-          >
-            {fixture.part_one_name} <br />
-            {fixture.part_two_name}
-          </Link>
+          {fixture.part_one_name} <br />
+          {fixture.part_two_name}
         </MarketsChannel>
       ),
     },
@@ -128,10 +120,8 @@ const PreMatches = (props) => {
             );
           }}
         >
-          <a>
-            {fixture.league_name} <br />
-            {fixture.location}
-          </a>
+          {fixture.league_name} <br />
+          {fixture.location}
         </PreOddsChannel>
       ),
     },
@@ -202,6 +192,16 @@ const PreMatches = (props) => {
             ? parseFloat(1.0).toFixed(2)
             : oddsFormatter(fixture.markets[0].odds["outcome_2"])}
         </a>
+      ),
+    },
+    {
+      title: "",
+      render: (_, fixture) => (
+        <Button
+          onClick={() => history.push(`/fixtures/soccer/pre?id=${fixture.id}`)}
+          icon={<PlusOutlined />}
+          className="icon-more"
+        />
       ),
     },
   ];

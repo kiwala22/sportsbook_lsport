@@ -10,10 +10,12 @@ class AlertsWorker
 
         if routing_key == "pre_match"
             product = "3"
+            threshold = 60
         end
 
         if routing_key == "in_play"
             product = "1"
+            threshold = 20
         end
 
         #extract the timestamp
@@ -29,7 +31,8 @@ class AlertsWorker
             last_update = MarketAlert.create(product: product, timestamp:  timestamp, status:  recovery_status)
         else
             
-            if (timestamp.to_i - last_update[:timestamp].to_i) > 20
+            if (timestamp.to_i - last_update[:timestamp].to_i) > threshold
+                puts "Deactivation :: WORKERS ::::: timestamp: #{timestamp}, new stamp: #{last_update[:timestamp]}, product: #{product}"
                 #first close all active markets 
                 DeactivateMarketsWorker.perform_async(product)
 

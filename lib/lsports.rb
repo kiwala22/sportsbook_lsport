@@ -208,8 +208,8 @@ module Lsports
     end
 
     def fetch_fixture_markets(sports_id = @@sports_id)
-        # required_markets = ["1", "2", "3", "7", "17", "25", "28", "41", "42", "43", "44", "49", "52", "53", "63", "77", "113", "282"]
-        # markets = required_markets.join(",")
+        required_markets = ["1", "2", "3", "5", "7", "17", "13", "16", "19", "21", "25", "41", "42", "52", "55", "61", "64", "65" "113", "245", "45"]
+        markets = required_markets.join(",")
 
         url = @@end_point + "GetFixtureMarkets"
 
@@ -218,7 +218,8 @@ module Lsports
             username: @@username,
             password: @@password,
             guid: @@prematch_guid,
-            sports: sports_id
+            sports: sports_id,
+            markets: markets
         }
         uri.query = URI.encode_www_form(params)
 
@@ -265,13 +266,29 @@ module Lsports
                                                         attrs["status"] = market_status[bet["Status"]]
                                                     end
                                                     ##Save the market with specifier
-                                                    attrs["odds"] = outcomes
+                                                    # attrs["odds"] = outcomes
 
-                                                    mkt_entry = mkt.constantize.new(attrs)
-                                                    mkt_entry.market_identifier = event["Id"]
-                                                    mkt_entry.name = market_name(event["Id"])
-                                                    mkt_entry.fixture_id = fixture.id
-                                                    mkt_entry.save
+                                                    ## Check if market already exists
+                                                    mkt_entry = mkt.constantize.find_by(fixture_id: fixture.id, market_identifier: event["Id"], specifier: key)
+
+                                                    if mkt_entry
+                                                        prevOdds = mkt_entry.odds
+                                                        if !prevOdds.nil?
+                                                            attrs["odds"] = prevOdds.merge!(outcomes)
+                                                        else
+                                                            attrs["odds"] = outcomes
+                                                        end
+                                                        mkt_entry.assign_attributes(attrs)
+                                                        mkt_entry.name = market_name(event["Id"])
+                                                        mkt_entry.save
+                                                    else
+                                                        attrs["odds"] = outcomes
+                                                        mkt_entry = mkt.constantize.new(attrs)
+                                                        mkt_entry.market_identifier = event["Id"]
+                                                        mkt_entry.name = market_name(event["Id"])
+                                                        mkt_entry.fixture_id = fixture.id
+                                                        mkt_entry.save
+                                                    end
 
                                                     outcomes = {}
                                                     attrs = {}
@@ -283,13 +300,29 @@ module Lsports
                                                 end
 
                                                 ##Save the market with no specifier
-                                                attrs["odds"] = outcomes
-                                                
-                                                mkt_entry = mkt.constantize.new(attrs)
-                                                mkt_entry.market_identifier = event["Id"]
-                                                mkt_entry.name = market_name(event["Id"])
-                                                mkt_entry.fixture_id = fixture.id
-                                                mkt_entry.save
+                                                # attrs["odds"] = outcomes
+
+                                                ## Check if Market already exists
+                                                mkt_entry = mkt.constantize.find_by(fixture_id: fixture.id, market_identifier: event["Id"])
+
+                                                if mkt_entry
+                                                    prevOdds = mkt_entry.odds
+                                                    if !prevOdds.nil?
+                                                        attrs["odds"] = prevOdds.merge!(outcomes)
+                                                    else
+                                                        attrs["odds"] = outcomes
+                                                    end
+                                                    mkt_entry.assign_attributes(attrs)
+                                                    mkt_entry.save
+                                                else
+                                                    attrs["odds"] = outcomes
+                                                    mkt_entry = mkt.constantize.new(attrs)
+                                                    mkt_entry.market_identifier = event["Id"]
+                                                    mkt_entry.name = market_name(event["Id"])
+                                                    mkt_entry.fixture_id = fixture.id
+                                                    mkt_entry.name = market_name(event["Id"])
+                                                    mkt_entry.save
+                                                end
                                                 
                                                 outcomes = {}
                                                 attrs = {}
@@ -313,7 +346,7 @@ module Lsports
     # Fetch Fixtures
     ## Use unix timestamps format for parameters
     ## Method call ex: fetch_fixtures(1623479275, 1623565675)
-    def fetch_fixtures(from_date, to_date, sports_id)
+    def fetch_fixtures(from_date, to_date, sports_id = @@sports_id)
 
         url = @@end_point + "GetFixtures"
         uri = URI(url)
