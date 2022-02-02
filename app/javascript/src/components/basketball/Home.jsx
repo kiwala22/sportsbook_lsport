@@ -124,7 +124,7 @@ const Home = (props) => {
               ? "btnn intialise_input disabled"
               : "btnn intialise_input btn btn-light wagger-btn"
           }
-          //   data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
+          data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
           onClick={() =>
             addBet(dispatcher, "1", "PreMarket", fixture.id, "12 FT - 1", "52")
           }
@@ -147,7 +147,7 @@ const Home = (props) => {
               ? "btnn intialise_input disabled"
               : "btnn intialise_input btn btn-light wagger-btn"
           }
-          //   data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
+          data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
           onClick={() =>
             addBet(dispatcher, "2", "PreMarket", fixture.id, "12 FT - 2", "52")
           }

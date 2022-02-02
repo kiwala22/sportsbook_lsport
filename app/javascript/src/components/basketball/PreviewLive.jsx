@@ -4,8 +4,10 @@ import React, { useEffect, useState } from "react";
 import { BsDash } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { withRouter } from "react-router-dom";
+import shortUUID from "short-uuid";
+import FixtureChannel from "../../../channels/fixturesChannel";
+import LiveOddsChannel from "../../../channels/liveOddsChannel";
 import MarketsChannel from "../../../channels/marketsChannel";
-import PreOddsChannel from "../../../channels/preOddsChannel";
 import addBet from "../../redux/actions";
 import * as DataUpdate from "../../utilities/DataUpdate";
 import format from "../../utilities/format";
@@ -13,19 +15,19 @@ import oddsFormatter from "../../utilities/oddsFormatter";
 import Requests from "../../utilities/Requests";
 import Preview from "../shared/Skeleton";
 
-const PreviewUpcoming = (props) => {
+const PreviewLive = (props) => {
   const [fixture, setFixture] = useState([]);
   const [pageLoading, setPageLoading] = useState(true);
+  const [_, setGreeting] = useState("");
   const dispatcher = useDispatch();
   const isMobile = useSelector((state) => state.isMobile);
-  const [_, setGreeting] = useState("");
 
   useEffect(() => {
     getfixture();
   }, [props]);
 
   function getfixture() {
-    var path = `/api/v1/fixtures/basketball/pre_fixture${props.location.search}`;
+    var path = `/api/v1/fixtures/basketball/live_fixture${props.location.search}`;
     var values = {};
     Requests.isGetRequest(path, values)
       .then((response) => {
@@ -60,13 +62,30 @@ const PreviewUpcoming = (props) => {
           <div className={isMobile ? "fixture-box" : "game-box"}>
             <div className="card" id="show-markets">
               <div className="card-header">
-                <h6>
-                  {fixture.part_one_name} <BsDash /> {fixture.part_two_name}{" "}
-                  {fixture.league_name} {fixture.location}
-                </h6>
+                <FixtureChannel
+                  channel="FixtureChannel"
+                  fixture={fixture.id}
+                  received={(data) => {
+                    updateMatchInfo(data, fixture, setFixture, _, "Fixture");
+                  }}
+                >
+                  <h6>
+                    <span className="float-left">
+                      <span>
+                        {fixture.part_one_name}{" "}
+                        <span className="score">
+                          {fixture.home_score} <BsDash /> {fixture.away_score}{" "}
+                        </span>
+                        {fixture.part_two_name}
+                      </span>
+                    </span>
+                    <span className="float-right blinking match-time">
+                      {fixture.match_time}
+                    </span>
+                  </h6>
+                </FixtureChannel>
               </div>
               <div className={isMobile ? "fix-body" : "card-body"}>
-                {/* first loop */}
                 <div className="row">
                   <div className={isMobile ? "col-sm-12" : "col-lg-12"}>
                     {
@@ -74,8 +93,8 @@ const PreviewUpcoming = (props) => {
 
                       fixture.markets
                         .filter((el) => el.name !== null)
-                        .map((market, index) => (
-                          <React.Fragment key={index}>
+                        .map((market) => (
+                          <React.Fragment key={shortUUID.generate()}>
                             <MarketsChannel
                               channel="MarketsChannel"
                               fixture={fixture.id}
@@ -104,9 +123,10 @@ const PreviewUpcoming = (props) => {
                                 </div>
                               </div>
                             </MarketsChannel>
-                            <div className="market-odds">
-                              <PreOddsChannel
-                                channel="PreOddsChannel"
+                            {/* Iteration of Odds */}
+                            <div className="market-odds ">
+                              <LiveOddsChannel
+                                channel="LiveOddsChannel"
                                 fixture={fixture.id}
                                 market={market.market_identifier}
                                 received={(data) => {
@@ -114,8 +134,8 @@ const PreviewUpcoming = (props) => {
                                     data,
                                     fixture,
                                     setFixture,
-                                    market.market_identifier,
-                                    "Pre"
+                                    _,
+                                    "Live"
                                   );
                                 }}
                               >
@@ -151,19 +171,20 @@ const PreviewUpcoming = (props) => {
                                             onClick={() =>
                                               addBet(
                                                 dispatcher,
-                                                element.replace("outcome_", ""),
-                                                "PreMarket",
+                                                element.substring(8),
+                                                "LiveMarket",
                                                 fixture.id,
-                                                element.replace(
-                                                  "outcome_",
-                                                  market.name + " - "
-                                                ),
-                                                market.market_identifier
+                                                `${
+                                                  market.name
+                                                } - ${element.substring(8)}`,
+                                                market.market_identifier,
+                                                market.specifier
                                               )
                                             }
                                           >
                                             <span>
-                                              {element.replace("outcome_", "")}
+                                              {/* {Strings(market.name, index)} */}
+                                              {element.substring(8)}
                                             </span>
                                             <span className="wagger-amt">
                                               {oddsFormatter(
@@ -176,7 +197,7 @@ const PreviewUpcoming = (props) => {
                                     )
                                   )}
                                 </div>
-                              </PreOddsChannel>
+                              </LiveOddsChannel>
                             </div>
                           </React.Fragment>
                         ))
@@ -188,10 +209,9 @@ const PreviewUpcoming = (props) => {
           </div>
         </>
       )}
-      {/* {pageLoading && <Spinner />} */}
       {pageLoading && <Preview />}
     </>
   );
 };
 
-export default withRouter(PreviewUpcoming);
+export default withRouter(PreviewLive);

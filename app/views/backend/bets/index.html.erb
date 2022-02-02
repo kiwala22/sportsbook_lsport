@@ -66,6 +66,7 @@
         <th>Market</th>
         <th>Outcome</th>
         <th>Description</th>
+        <th>Sport</th>
         <th>User</th>
 				<th>Time</th>
       </tr>
@@ -92,6 +93,7 @@
 					<td><%= bet.market_identifier %></td>
           <td><%= bet.outcome %></td>
 					<td><%= bet.outcome_desc %></td>
+          <td><%= bet.sport %></td>
           <td><%= link_to bet.user_id, backend_user_path(id:bet.user) %></td> 
 					<td><%= local_time(bet.created_at, format: "%d/%m/%y, %l:%M%P") %></td>
 				</tr>

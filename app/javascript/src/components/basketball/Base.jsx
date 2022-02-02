@@ -19,6 +19,7 @@ import Transactions from "../shared/Transactions";
 import Verify from "../shared/Verify";
 import Withdraw from "../shared/Withdraw";
 import Home from "./Home";
+import Live from "./Live";
 import PreviewUpcoming from "./PreviewUpcoming";
 import Search from "./Search";
 import Sidebar from "./Sidebar";
@@ -26,6 +27,7 @@ import Upcoming from "./Upcoming";
 
 const Base = (props) => {
   const { signedIn, verified, isMobile } = useSelector((state) => state);
+  const mainUrl = "/fixtures/basketball";
 
   function redirectOnUnverified(component) {
     let variable = signedIn && !verified;
@@ -66,23 +68,29 @@ const Base = (props) => {
                       <Route path="/terms/" component={Terms} />
                       <Route path="/contacts/" component={Support} />
                       <Route
-                        path="/fixtures/search/"
+                        path={`/${mainUrl.split("/")[1]}/search/`}
                         render={() => {
                           return redirectOnUnverified(Search);
                         }}
                       />
                       <Route
-                        path="/fixtures/basketball/pre/"
+                        path={`${mainUrl}/pre/`}
                         render={() => {
                           return redirectOnUnverified(PreviewUpcoming);
                         }}
                       />
                       <Route
-                        path="/fixtures/basketball/pres/"
+                        path={`${mainUrl}/pres/`}
                         render={() => {
                           return redirectOnUnverified(Upcoming);
                         }}
                         component={Upcoming}
+                      />
+                      <Route
+                        path={`${mainUrl}/lives/`}
+                        render={() => {
+                          return redirectOnUnverified(Live);
+                        }}
                       />
                       <Route
                         path="/new_verify/"

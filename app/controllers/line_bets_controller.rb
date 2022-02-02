@@ -48,7 +48,8 @@ class LineBetsController < ApplicationController
           market_identifier: identifier,
           odd: fetch_current_odd(market, identifier, fixture_id, outcome, params[:specifier]),
           description: description,
-          specifier: params[:specifier]
+          specifier: params[:specifier],
+          sport: fixture.sport
         )
     end
 

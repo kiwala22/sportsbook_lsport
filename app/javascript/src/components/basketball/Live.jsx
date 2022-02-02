@@ -3,12 +3,13 @@ import { Button, Table } from "antd";
 import "channels";
 import cogoToast from "cogo-toast";
 import React, { useEffect, useState } from "react";
-import Moment from "react-moment";
+import { BsDash } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, withRouter } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import shortUUID from "short-uuid";
+import FixtureChannel from "../../../channels/fixturesChannel";
+import LiveOddsChannel from "../../../channels/liveOddsChannel";
 import MarketsChannel from "../../../channels/marketsChannel";
-import PreOddsChannel from "../../../channels/preOddsChannel";
 import addBet from "../../redux/actions";
 import * as DataUpdate from "../../utilities/DataUpdate";
 import oddsFormatter from "../../utilities/oddsFormatter";
@@ -16,29 +17,23 @@ import Requests from "../../utilities/Requests";
 import NoData from "../shared/NoData";
 import Preview from "../shared/Skeleton";
 
-const Upcoming = (props) => {
+const Live = (props) => {
   const [games, setGames] = useState([]);
   const [pageLoading, setPageLoading] = useState(true);
   const dispatcher = useDispatch();
   const isMobile = useSelector((state) => state.isMobile);
   const history = useHistory();
 
-  useEffect(() => {
-    loadPreMatchGames();
-  }, [props.location]);
+  useEffect(() => loadLiveGames(), []);
 
-  useEffect(() => {
-    loadPreMatchGames();
-  }, []);
-
-  const loadPreMatchGames = () => {
-    let path = `/api/v1/fixtures/basketball/pre${props.location.search}`;
+  const loadLiveGames = () => {
+    let path = "/api/v1/fixtures/basketball/live";
     let values = {};
     Requests.isGetRequest(path, values)
       .then((response) => {
-        var preMatch = response.data;
-        if (preMatch instanceof Array) {
-          setGames(preMatch);
+        var liveGames = response.data;
+        if (liveGames instanceof Array) {
+          setGames(liveGames);
         }
         setPageLoading(false);
       })
@@ -69,19 +64,6 @@ const Upcoming = (props) => {
 
   const columns = [
     {
-      title: "Date",
-      dataIndex: "start_date",
-      render: (date) => (
-        <>
-          <Moment local={true} format="HH:mm">
-            {date}
-          </Moment>
-          <br />
-          <Moment format="DD-MMM">{date}</Moment>
-        </>
-      ),
-    },
-    {
       title: "Teams",
       render: (_, fixture) => (
         <MarketsChannel
@@ -104,10 +86,40 @@ const Upcoming = (props) => {
       ),
     },
     {
-      title: "Competition",
+      title: "Score",
       render: (_, fixture) => (
-        <PreOddsChannel
-          channel="PreOddsChannel"
+        <>
+          <FixtureChannel
+            channel="FixtureChannel"
+            fixture={fixture.id}
+            received={(data) =>
+              updateMatchInfo(data, games, setGames, "52", "Fixture")
+            }
+          >
+            <strong>
+              <span className="blinking match-time">{fixture.match_time}</span>
+            </strong>
+            <strong>
+              {isMobile ? (
+                <span className="score">
+                  {fixture.home_score} - {fixture.away_score}
+                </span>
+              ) : (
+                <span className="score">
+                  {fixture.home_score} <BsDash /> {fixture.away_score}
+                </span>
+              )}
+            </strong>
+          </FixtureChannel>
+        </>
+      ),
+    },
+    {
+      title: "Competition",
+      responsive: ["md"],
+      render: (_, fixture) => (
+        <LiveOddsChannel
+          channel="LiveOddsChannel"
           fixture={fixture.id}
           market="52"
           received={(data) => {
@@ -116,13 +128,13 @@ const Upcoming = (props) => {
               games,
               setGames,
               data.market_identifier,
-              "Pre"
+              "Live"
             );
           }}
         >
           {fixture.league_name} <br />
           {fixture.location}
-        </PreOddsChannel>
+        </LiveOddsChannel>
       ),
     },
     {
@@ -139,7 +151,7 @@ const Upcoming = (props) => {
           }
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
           onClick={() =>
-            addBet(dispatcher, "1", "PreMarket", fixture.id, "12 FT - 1", "52")
+            addBet(dispatcher, "1", "LiveMarket", fixture.id, "12 FT - 1", "52")
           }
         >
           {fixture.markets.length == 0 || fixture.markets[0].odds === null
@@ -162,7 +174,7 @@ const Upcoming = (props) => {
           }
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
           onClick={() =>
-            addBet(dispatcher, "2", "PreMarket", fixture.id, "12 FT - 2", "52")
+            addBet(dispatcher, "2", "LiveMarket", fixture.id, "12 FT - 2", "52")
           }
         >
           {fixture.markets.length == 0 || fixture.markets[0].odds === null
@@ -172,11 +184,11 @@ const Upcoming = (props) => {
       ),
     },
     {
-      title: " ",
+      title: "",
       render: (_, fixture) => (
         <Button
           onClick={() =>
-            history.push(`/fixtures/basketball/pre?id=${fixture.id}`)
+            history.push(`/fixtures/basketball/live?id=${fixture.id}`)
           }
           icon={<PlusOutlined />}
           className="icon-more"
@@ -193,60 +205,60 @@ const Upcoming = (props) => {
             className={
               isMobile ? "game-box mobile-table-padding-games" : "game-box"
             }
+            id="live"
           >
             <div className="card">
               <div className="card-header">
                 <h3>
-                  BasketBall - Upcoming Events{" "}
-                  <i className="fas fa-basketball-ball fa-lg fa-fw mr-2 match-time"></i>
+                  Live - Basketball{" "}
+                  <i className=" blinking match-time fas fa-bolt fa-lg fa-fw mr-2"></i>
                 </h3>
-              </div>
-              <div className="card-body">
-                <div className="tab-content" id="myTabContent">
-                  <div
-                    className="tab-pane fade show active"
-                    id="home"
-                    role="tabpanel"
-                    aria-labelledby="home-tab"
+                <span className="float-right">
+                  <Link
+                    className="btnn btn-blink"
+                    to={"/fixtures/basketball/pres/"}
                   >
-                    <Table
-                      className="table-striped-rows"
-                      columns={columns}
-                      dataSource={games}
-                      size="middle"
-                      rowClassName={(record) =>
-                        record.markets[0].status == "Active"
-                          ? "show-row"
-                          : "hide-row"
-                      }
-                      rowKey={() => {
-                        return shortUUID.generate();
-                      }}
-                      locale={{
-                        emptyText: (
-                          <>
-                            {NoData("Upcoming Events")}
-                            {/* <span>
-                              <DropboxOutlined className="font-40" />
-                            </span>
-                            <br />
-                            <span className="font-18">No Fixtures Found</span> */}
-                          </>
-                        ),
-                      }}
-                      pagination={{ defaultPageSize: 50 }}
-                    />
+                    <i className="fas fa-basketball-ball"></i> Upcoming
+                  </Link>
+                </span>
+              </div>
+              <>
+                <div className="card-body">
+                  <div className="tab-content" id="">
+                    <div
+                      className="tab-pane fade show active"
+                      role="tabpanel"
+                      aria-labelledby="home-tab"
+                    >
+                      <Table
+                        className="table-striped-rows"
+                        columns={columns}
+                        dataSource={games}
+                        size="middle"
+                        rowClassName={(record) =>
+                          record.markets[0].status == "Active"
+                            ? "show-row"
+                            : "hide-row"
+                        }
+                        rowKey={() => {
+                          return shortUUID.generate();
+                        }}
+                        locale={{
+                          emptyText: <>{NoData("Live Events")}</>,
+                        }}
+                        pagination={{ defaultPageSize: 50 }}
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
+              </>
             </div>
           </div>
         </>
       )}
-      {/* {pageLoading && <Spinner />} */}
       {pageLoading && <Preview />}
     </>
   );
 };
 
-export default withRouter(Upcoming);
+export default Live;

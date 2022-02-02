@@ -33,6 +33,8 @@ import Sidebar from "./Sidebar";
 
 const Base = (props) => {
   const { signedIn, verified, isMobile } = useSelector((state) => state);
+  const soccerPath = "/fixtures/soccer";
+  const virtualPath = "/fixtures/virtual_soccer";
 
   function redirectOnUnverified(component) {
     let variable = signedIn && !verified;
@@ -73,55 +75,55 @@ const Base = (props) => {
                       <Route path="/terms/" component={Terms} />
                       <Route path="/contacts/" component={Support} />
                       <Route
-                        path="/fixtures/search/"
+                        path={`/${soccerPath.split("/")[1]}/search/`}
                         render={() => {
                           return redirectOnUnverified(Search);
                         }}
                       />
                       <Route
-                        path="/fixtures/soccer/pre/"
+                        path={`${soccerPath}/pre/`}
                         render={() => {
                           return redirectOnUnverified(PreviewPre);
                         }}
                       />
                       <Route
-                        path="/fixtures/virtual_soccer/pre/"
+                        path={`${virtualPath}/pre/`}
                         render={() => {
                           return redirectOnUnverified(PreviewPreVirtual);
                         }}
                       />
                       <Route
-                        path="/fixtures/soccer/live/"
+                        path={`${soccerPath}/live/`}
                         render={() => {
                           return redirectOnUnverified(PreviewLive);
                         }}
                       />
                       <Route
-                        path="/fixtures/virtual_soccer/live/"
+                        path={`${virtualPath}/live/`}
                         render={() => {
                           return redirectOnUnverified(PreviewLiveVirtual);
                         }}
                       />
                       <Route
-                        path="/fixtures/virtual_soccer/pres/"
+                        path={`${virtualPath}/pres/`}
                         render={() => {
                           return redirectOnUnverified(PreVirtualMatches);
                         }}
                       />
                       <Route
-                        path="/fixtures/virtual_soccer/lives/"
+                        path={`${virtualPath}/lives/`}
                         render={() => {
                           return redirectOnUnverified(LiveVirtualMatches);
                         }}
                       />
                       <Route
-                        path="/fixtures/soccer/pres/"
+                        path={`${soccerPath}/pres/`}
                         render={() => {
                           return redirectOnUnverified(PreMatches);
                         }}
                       />
                       <Route
-                        path="/fixtures/soccer/lives"
+                        path={`${soccerPath}/lives/`}
                         render={() => {
                           return redirectOnUnverified(LiveMatches);
                         }}

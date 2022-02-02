@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_25_090156) do
+ActiveRecord::Schema.define(version: 2022_02_02_112743) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -116,6 +116,7 @@ ActiveRecord::Schema.define(version: 2022_01_25_090156) do
     t.string "specifier"
     t.string "outcome"
     t.string "market_identifier"
+    t.string "sport"
     t.index ["bet_slip_id"], name: "index_bets_on_bet_slip_id"
     t.index ["fixture_id"], name: "index_bets_on_fixture_id"
     t.index ["user_id"], name: "index_bets_on_user_id"
@@ -229,6 +230,7 @@ ActiveRecord::Schema.define(version: 2022_01_25_090156) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "market_identifier"
     t.string "specifier"
+    t.string "sport"
     t.index ["cart_id"], name: "index_line_bets_on_cart_id"
     t.index ["fixture_id"], name: "index_line_bets_on_fixture_id"
   end

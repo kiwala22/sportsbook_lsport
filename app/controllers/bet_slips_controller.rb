@@ -67,7 +67,8 @@ class BetSlipsController < ApplicationController
               status: 'Active',
               product: product,
               outcome_desc: bet.description,
-              specifier: specifier
+              specifier: specifier,
+              sport: bet.sport
             }
           end
         end
