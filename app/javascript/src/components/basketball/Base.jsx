@@ -1,6 +1,6 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import { Route, Switch } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Route, Switch, useHistory, withRouter } from "react-router-dom";
 import Bets from "../shared/Bets";
 import BetSlip from "../shared/BetSlip";
 import Deposit from "../shared/Deposit";
@@ -26,8 +26,23 @@ import Sidebar from "./Sidebar";
 import Upcoming from "./Upcoming";
 
 const Base = (props) => {
-  const { signedIn, verified, isMobile } = useSelector((state) => state);
+  const { signedIn, verified, isMobile, sportType } = useSelector(
+    (state) => state
+  );
   const mainUrl = "/fixtures/basketball";
+  const history = useHistory();
+  const dispatcher = useDispatch();
+
+  useEffect(() => {
+    return () => {
+      if (/soccer/g.test(history.location.pathname)) {
+        dispatcher({ type: "onSportChange", payload: "football" });
+      }
+      if (history.action === "POP") {
+        history.replace(history.location.pathname, "/");
+      }
+    };
+  }, [history.location, history.action]);
 
   function redirectOnUnverified(component) {
     let variable = signedIn && !verified;
@@ -114,7 +129,7 @@ const Base = (props) => {
                         component={PasswordReset}
                       />
                       <Route
-                        exact
+                        // exact
                         path="/"
                         render={() => {
                           return redirectOnUnverified(Home);
@@ -150,4 +165,4 @@ const Base = (props) => {
   );
 };
 
-export default Base;
+export default withRouter(Base);

@@ -1,5 +1,5 @@
 require("@rails/ujs").start();
-require("turbolinks").start();
+// require("turbolinks").start();
 // we don't use animated progress
 // Turbolinks.ProgressBar.prototype.refresh = function() {}
 // // custom css
