@@ -65,8 +65,8 @@ const Sidebar = (props) => {
 
   const sidebar = (
     <>
-      <div className="col-xl-2 col-lg-2 mt-20 px-lg-1 px-xl-1 px-md-1">
-        <aside className="content-sidebar mb-20">
+      <div className="col-xl-2 col-lg-2 px-lg-1 px-xl-1 px-md-1 secondary-bb-color">
+        <aside className="content-sidebar secondary-bb-color">
           <Dropdown.Button
             overlay={menu}
             placement="bottomCenter"
@@ -102,8 +102,8 @@ const Sidebar = (props) => {
               </Link>
             </li>
           </ul>
-        </aside>
-        <aside className="content-sidebar mb-20">
+          {/* </aside>
+        <aside className="content-sidebar mb-20"> */}
           <h3>Leagues</h3>
           <ul onClick={onClose}>
             <li className="text-gray-400">
@@ -293,8 +293,8 @@ const Sidebar = (props) => {
               </Link>
             </li>
           </ul>
-        </aside>
-        <aside className="content-sidebar mb-20">
+          {/* </aside>
+        <aside className="content-sidebar mb-20"> */}
           <h3>Countries</h3>
           <ul onClick={onClose}>
             <li className="text-gray-400">

@@ -300,7 +300,7 @@ h6 {
   border-radius: 4px !important;
   display: inline-block !important;
   color: #ffffff !important;
-  background: #f6ae2d !important;
+  background: #6fbb7a !important;
 }
 
 .btn-blink {
@@ -308,8 +308,8 @@ h6 {
 }
 
 .ant-btn.ant-btn-background-ghost {
-  color: #f6ae2d !important;
-  border-color: #f6ae2d !important;
+  color: #6fbb7a !important;
+  border-color: #6fbb7a !important;
 }
 
 .input-color {
@@ -317,7 +317,7 @@ h6 {
 }
 
 .register-btn {
-  background: #f6ae2d !important;
+  background: #6fbb7a !important;
   color: #fff !important;
 }
 
@@ -384,7 +384,11 @@ h6 {
 }
 
 .splitter {
-  border-top: 2px solid #f6ae2d;
+  border-top: 2px solid #6fbb7a;
+}
+
+.content-sidebar h3::before {
+  background: #6fbb7a !important;
 }
 
 .sport-dropdown {
@@ -420,4 +424,28 @@ h6 {
 .icon-more:hover {
   border-color: #ffa600 !important;
   background: transparent !important;
+}
+
+.navbar-expand-md .navbar-collapse {
+  padding: 0 0.6rem !important;
+}
+
+.content-sidebar {
+  padding: 1.2rem 0.3rem 0 1.24rem !important;
+}
+
+.content-wrapper {
+  margin-bottom: 0px !important;
+}
+
+.secondary-bb-color {
+  background-color: #28333e !important;
+}
+
+.footer-container {
+  position: fixed !important;
+}
+
+.heading {
+  height: 70px !important;
 }
