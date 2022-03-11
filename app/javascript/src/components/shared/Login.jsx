@@ -20,6 +20,13 @@ const Login = (props) => {
 
   const handleLogin = (values) => {
     setIsLoading(true);
+    if (!values.phone_number.phone) {
+      cogoToast.error("Phone Number is Required.", 3);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 1000);
+      return;
+    }
     if (values.phone_number.code !== 256) {
       cogoToast.error("Invalid Country Code.", 5);
       setTimeout(() => {

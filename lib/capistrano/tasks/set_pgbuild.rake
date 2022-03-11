@@ -7,4 +7,4 @@ namespace :bundler do
        execute 'bundle config build.pg --with-pg-config=/usr/pgsql-11/bin/pg_config'
      end
    end
- end
+end

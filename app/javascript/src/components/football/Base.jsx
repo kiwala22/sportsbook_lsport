@@ -49,6 +49,9 @@ const Base = (props) => {
       if (/basketball/g.test(history.location.pathname)) {
         dispatcher({ type: "onSportChange", payload: "basketball" });
       }
+      if (/tennis/g.test(history.location.pathname)) {
+        dispatcher({ type: "onSportChange", payload: "tennis" });
+      }
       if (history.action === "POP") {
         history.replace(history.location.pathname, "/");
       }

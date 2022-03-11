@@ -52,9 +52,10 @@ const Sidebar = (props) => {
         }
       >
         <span
-          onClick={() =>
-            dispatcher({ type: "onSportChange", payload: "tennis" })
-          }
+          onClick={() => {
+            history.push("/");
+            dispatcher({ type: "onSportChange", payload: "tennis" });
+          }}
         >
           Tennis
         </span>

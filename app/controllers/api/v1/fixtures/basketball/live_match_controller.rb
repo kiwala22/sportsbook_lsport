@@ -2,10 +2,9 @@ class Api::V1::Fixtures::Basketball::LiveMatchController < ApplicationController
   
   def index
     @q = Fixture.joins(:live_markets).where(
-      'fixtures.status = ? AND fixtures.sport_id = ? AND fixtures.league_id NOT IN (?) AND live_markets.status = ? AND live_markets.market_identifier = ?',
+      'fixtures.status = ? AND fixtures.sport_id = ? AND live_markets.status = ? AND live_markets.market_identifier = ?',
       'live',
       '48242',
-      %w[37364 37386 38301 37814],
       'Active',
       '52'
     ).order(start_date: :asc)

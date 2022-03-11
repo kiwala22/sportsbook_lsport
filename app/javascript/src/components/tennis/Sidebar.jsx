@@ -39,6 +39,7 @@ const Sidebar = (props) => {
       >
         <span
           onClick={() => {
+            history.push("/");
             dispatcher({ type: "onSportChange", payload: "basketball" });
           }}
         >
@@ -52,10 +53,9 @@ const Sidebar = (props) => {
         }
       >
         <span
-          onClick={() => {
-            history.push("/");
-            dispatcher({ type: "onSportChange", payload: "tennis" });
-          }}
+          onClick={() =>
+            dispatcher({ type: "onSportChange", payload: "tennis" })
+          }
         >
           Tennis
         </span>
@@ -87,8 +87,8 @@ const Sidebar = (props) => {
               </Link>
             </li>
             <li>
-              <Link className="match-time" to={"/fixtures/basketball/pres/"}>
-                <i className="match-time fas fa-basketball-ball fa-lg fa-fw mr-2 "></i>
+              <Link className="match-time" to={"/fixtures/tennis/pres/"}>
+                <i className="match-time fas fa-baseball-ball fa-lg fa-fw mr-2 "></i>
                 <span className="show-more">Upcoming</span>
               </Link>
             </li>
@@ -101,192 +101,15 @@ const Sidebar = (props) => {
               <i className="flag-icon flag-icon-eu fa-fw mr-2"></i>
               <Link
                 to={{
-                  pathname: "/fixtures/basketball/pres",
+                  pathname: "/fixtures/tennis/pres",
                   search: urlFormatter({
                     q: {
-                      league_name: "Euroleague",
                       location: "International",
                     },
                   }),
                 }}
               >
-                <span className="show-more">EUROLEAGUE</span>
-              </Link>
-            </li>
-            <li className="text-gray-400">
-              <i className="flag-icon flag-icon-eu fa-fw mr-2"></i>
-              <Link
-                to={{
-                  pathname: "/fixtures/basketball/pres",
-                  search: urlFormatter({
-                    q: {
-                      league_name: "Fiba champions league",
-                      location: "International",
-                    },
-                  }),
-                }}
-              >
-                <span className="show-more">FIBA CHAMPIONS LEAGUE</span>
-              </Link>
-            </li>
-            <li className="text-gray-400">
-              <i className="flag-icon flag-icon-us fa-fw mr-2"></i>
-              <Link
-                to={{
-                  pathname: "/fixtures/basketball/pres",
-                  search: urlFormatter({
-                    q: {
-                      league_name: "NBA",
-                      location: "United States",
-                    },
-                  }),
-                }}
-              >
-                <span className="show-more">USA NBA</span>
-              </Link>
-            </li>
-            <li className="text-gray-400">
-              <i className="flag-icon flag-icon-us fa-fw mr-2"></i>
-              <Link
-                to={{
-                  pathname: "/fixtures/basketball/pres",
-                  search: urlFormatter({
-                    q: {
-                      league_name: "NCAA Basketball",
-                      location: "United States",
-                    },
-                  }),
-                }}
-              >
-                <span className="show-more">NCAA</span>
-              </Link>
-            </li>
-            <li className="text-gray-400">
-              <i className="flag-icon flag-icon-fr fa-fw mr-2"></i>
-              <Link
-                to={{
-                  pathname: "/fixtures/basketball/pres",
-                  search: urlFormatter({
-                    q: {
-                      league_name: "LNB PRO A",
-                      location: "France",
-                    },
-                  }),
-                }}
-              >
-                <span className="show-more">FRANCE LNB PRO A</span>
-              </Link>
-            </li>
-            <li className="text-gray-400">
-              <i className="flag-icon flag-icon-cn fa-fw mr-2"></i>
-              <Link
-                to={{
-                  pathname: "/fixtures/basketball/pres",
-                  search: urlFormatter({
-                    q: {
-                      league_name: "CBA",
-                      location: "China",
-                    },
-                  }),
-                }}
-              >
-                <span className="show-more">CHINA CBA</span>
-              </Link>
-            </li>
-            <li className="text-gray-400">
-              <i className="flag-icon flag-icon-es fa-fw mr-2"></i>
-              <Link
-                to={{
-                  pathname: "/fixtures/basketball/pres",
-                  search: urlFormatter({
-                    q: {
-                      league_name: "Liga ACB Endesa",
-                      location: "Spain",
-                    },
-                  }),
-                }}
-              >
-                <span className="show-more">LIGA ACB</span>
-              </Link>
-            </li>
-            <li className="text-gray-400">
-              <i className="flag-icon flag-icon-pt fa-fw mr-2"></i>
-              <Link
-                to={{
-                  pathname: "/fixtures/basketball/pres",
-                  search: urlFormatter({
-                    q: {
-                      league_name: "LPB",
-                      location: "Portugal",
-                    },
-                  }),
-                }}
-              >
-                <span className="show-more">PORTUGAL LPB</span>
-              </Link>
-            </li>
-            <li className="text-gray-400">
-              <i className="flag-icon flag-icon-it fa-fw mr-2"></i>
-              <Link
-                to={{
-                  pathname: "/fixtures/basketball/pres",
-                  search: urlFormatter({
-                    q: {
-                      league_name: "Serie A",
-                      location: "Italy",
-                    },
-                  }),
-                }}
-              >
-                <span className="show-more">ITALY SERIE A</span>
-              </Link>
-            </li>
-            <li className="text-gray-400">
-              <i className="flag-icon flag-icon-se fa-fw mr-2"></i>
-              <Link
-                to={{
-                  pathname: "/fixtures/basketball/pres",
-                  search: urlFormatter({
-                    q: {
-                      league_name: "Basketligan",
-                      location: "Sweden",
-                    },
-                  }),
-                }}
-              >
-                <span className="show-more">BASKET LIGAN</span>
-              </Link>
-            </li>
-            <li className="text-gray-400">
-              <i className="flag-icon flag-icon-jp fa-fw mr-2"></i>
-              <Link
-                to={{
-                  pathname: "/fixtures/basketball/pres",
-                  search: urlFormatter({
-                    q: {
-                      league_name: "B.League - B1",
-                      location: "Japan",
-                    },
-                  }),
-                }}
-              >
-                <span className="show-more">JAPAN B LEAGUE</span>
-              </Link>
-            </li>
-            <li className="text-gray-400">
-              <i className="flag-icon flag-icon-kr fa-fw mr-2"></i>
-              <Link
-                to={{
-                  pathname: "/fixtures/basketball/pres",
-                  search: urlFormatter({
-                    q: {
-                      league_name: "KBL",
-                      location: "South Korea",
-                    },
-                  }),
-                }}
-              >
-                <span className="show-more">SOUTH KOREA KBL</span>
+                <span className="show-more">INTERNATIONAL</span>
               </Link>
             </li>
           </ul>
@@ -298,7 +121,7 @@ const Sidebar = (props) => {
               <i className="flag-icon flag-icon-us fa-fw mr-2"></i>
               <Link
                 to={{
-                  pathname: "/fixtures/basketball/pres",
+                  pathname: "/fixtures/tennis/pres",
                   search: urlFormatter({
                     q: {
                       location: "United States",
@@ -313,7 +136,7 @@ const Sidebar = (props) => {
               <i className="flag-icon flag-icon-es fa-fw mr-2"></i>
               <Link
                 to={{
-                  pathname: "/fixtures/basketball/pres",
+                  pathname: "/fixtures/tennis/pres",
                   search: urlFormatter({
                     q: {
                       location: "Spain",
@@ -325,70 +148,70 @@ const Sidebar = (props) => {
               </Link>
             </li>
             <li className="text-gray-400">
-              <i className="flag-icon flag-icon-pt fa-fw mr-2"></i>
+              <i className="flag-icon flag-icon-gb-eng fa-fw mr-2"></i>
               <Link
                 to={{
-                  pathname: "/fixtures/basketball/pres",
+                  pathname: "/fixtures/tennis/pres",
                   search: urlFormatter({
                     q: {
-                      location: "Portugal",
+                      location: "England",
                     },
                   }),
                 }}
               >
-                <span className="show-more">PORTUGAL</span>
+                <span className="show-more">ENGLAND</span>
               </Link>
             </li>
             <li className="text-gray-400">
-              <i className="flag-icon flag-icon-se fa-fw mr-2"></i>
+              <i className="flag-icon flag-icon-nl fa-fw mr-2"></i>
               <Link
                 to={{
-                  pathname: "/fixtures/basketball/pres",
+                  pathname: "/fixtures/tennis/pres",
                   search: urlFormatter({
                     q: {
-                      location: "Sweden",
+                      location: "Netherlands",
                     },
                   }),
                 }}
               >
-                <span className="show-more">SWEDEN</span>
+                <span className="show-more">NETHERLANDS</span>
               </Link>
             </li>
             <li className="text-gray-400">
-              <i className="flag-icon flag-icon-fi fa-fw mr-2"></i>
+              <i className="flag-icon flag-icon-ar fa-fw mr-2"></i>
               <Link
                 to={{
-                  pathname: "/fixtures/basketball/pres",
+                  pathname: "/fixtures/tennis/pres",
                   search: urlFormatter({
                     q: {
-                      location: "Finland",
+                      location: "Argentina",
                     },
                   }),
                 }}
               >
-                <span className="show-more">FINLAND</span>
+                <span className="show-more">ARGENTINA</span>
               </Link>
             </li>
             <li className="text-gray-400">
-              <i className="flag-icon flag-icon-it fa-fw mr-2"></i>
+              <i className="flag-icon flag-icon-ru fa-fw mr-2"></i>
               <Link
                 to={{
-                  pathname: "/fixtures/basketball/pres",
+                  pathname: "/fixtures/tennis/pres",
                   search: urlFormatter({
                     q: {
-                      location: "Italy",
+                      location: "Russia",
                     },
                   }),
                 }}
               >
-                <span className="show-more">ITALY</span>
+                <span className="show-more">RUSSIA</span>
               </Link>
             </li>
             <li className="text-gray-400">
               <i className="flag-icon flag-icon-fr fa-fw mr-2"></i>
               <Link
                 to={{
-                  pathname: "/fixtures/basketball/pres",
+                  pathname: "/fixtures/tennis/pres",
                   search: urlFormatter({
                     q: {
                       location: "France",
@@ -400,25 +223,25 @@ const Sidebar = (props) => {
               </Link>
             </li>
             <li className="text-gray-400">
-              <i className="flag-icon flag-icon-br fa-fw mr-2"></i>
+              <i className="flag-icon flag-icon-mx fa-fw mr-2"></i>
               <Link
                 to={{
-                  pathname: "/fixtures/basketball/pres",
+                  pathname: "/fixtures/tennis/pres",
                   search: urlFormatter({
                     q: {
-                      location: "Brazil",
+                      location: "Mexico",
                     },
                   }),
                 }}
               >
-                <span className="show-more">BRAZIL</span>
+                <span className="show-more">MEXICO</span>
               </Link>
             </li>
             <li className="text-gray-400">
               <i className="flag-icon flag-icon-au fa-fw mr-2"></i>
               <Link
                 to={{
-                  pathname: "/fixtures/basketball/pres",
+                  pathname: "/fixtures/tennis/pres",
                   search: urlFormatter({
                     q: {
                       location: "Australia",
@@ -430,48 +253,63 @@ const Sidebar = (props) => {
               </Link>
             </li>
             <li className="text-gray-400">
-              <i className="flag-icon flag-icon-cn fa-fw mr-2"></i>
+              <i className="flag-icon flag-icon-eg fa-fw mr-2"></i>
               <Link
                 to={{
-                  pathname: "/fixtures/basketball/pres",
+                  pathname: "/fixtures/tennis/pres",
                   search: urlFormatter({
                     q: {
-                      location: "China",
+                      location: "Egypt",
                     },
                   }),
                 }}
               >
-                <span className="show-more">CHINA</span>
+                <span className="show-more">EGYPT</span>
               </Link>
             </li>
             <li className="text-gray-400">
-              <i className="flag-icon flag-icon-jp fa-fw mr-2"></i>
+              <i className="flag-icon flag-icon-tn fa-fw mr-2"></i>
               <Link
                 to={{
-                  pathname: "/fixtures/basketball/pres",
+                  pathname: "/fixtures/tennis/pres",
                   search: urlFormatter({
                     q: {
-                      location: "Japan",
+                      location: "Tunisia",
                     },
                   }),
                 }}
               >
-                <span className="show-more">JAPAN</span>
+                <span className="show-more">TUNISIA</span>
               </Link>
             </li>
             <li className="text-gray-400">
-              <i className="flag-icon flag-icon-kr fa-fw mr-2"></i>
+              <i className="flag-icon flag-icon-tr fa-fw mr-2"></i>
               <Link
                 to={{
-                  pathname: "/fixtures/basketball/pres",
+                  pathname: "/fixtures/tennis/pres",
                   search: urlFormatter({
                     q: {
-                      location: "South Korea",
+                      location: "Turkey",
                     },
                   }),
                 }}
               >
-                <span className="show-more">SOUTH KOREA</span>
+                <span className="show-more">TURKEY</span>
+              </Link>
+            </li>
+            <li className="text-gray-400">
+              <i className="flag-icon flag-icon-in fa-fw mr-2"></i>
+              <Link
+                to={{
+                  pathname: "/fixtures/tennis/pres",
+                  search: urlFormatter({
+                    q: {
+                      location: "India",
+                    },
+                  }),
+                }}
+              >
+                <span className="show-more">INDIA</span>
               </Link>
             </li>
           </ul>

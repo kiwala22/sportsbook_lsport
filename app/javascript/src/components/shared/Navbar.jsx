@@ -33,8 +33,13 @@ const Navbar = (props) => {
 
   const performSearch = (values) => {
     setShowSearch(false);
+    console.log(sportType);
     const [identifier, sport] =
-      sportType == "football" ? ["1", "Football"] : ["52", "Basketball"];
+      sportType == "football"
+        ? ["1", "Football"]
+        : sportType == "basketball"
+        ? ["52", "Basketball"]
+        : ["52", "Tennis"];
     formRef.current.resetFields();
     props.history.push({
       pathname: "/fixtures/search",

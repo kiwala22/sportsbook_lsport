@@ -19,7 +19,7 @@ import Transactions from "../shared/Transactions";
 import Verify from "../shared/Verify";
 import Withdraw from "../shared/Withdraw";
 import Home from "./Home";
-import Live from "./Live";
+// import Live from "./Live";
 import PreviewUpcoming from "./PreviewUpcoming";
 import Search from "./Search";
 import Sidebar from "./Sidebar";
@@ -29,7 +29,7 @@ const Base = (props) => {
   const { signedIn, verified, isMobile, sportType } = useSelector(
     (state) => state
   );
-  const mainUrl = "/fixtures/basketball";
+  const mainUrl = "/fixtures/tennis";
   const history = useHistory();
   const dispatcher = useDispatch();
 
@@ -38,8 +38,8 @@ const Base = (props) => {
       if (/soccer/g.test(history.location.pathname)) {
         dispatcher({ type: "onSportChange", payload: "football" });
       }
-      if (/tennis/g.test(history.location.pathname)) {
-        dispatcher({ type: "onSportChange", payload: "tennis" });
+      if (/basketball/g.test(history.location.pathname)) {
+        dispatcher({ type: "onSportChange", payload: "basketball" });
       }
       if (history.action === "POP") {
         history.replace(history.location.pathname, "/");
@@ -104,12 +104,12 @@ const Base = (props) => {
                         }}
                         component={Upcoming}
                       />
-                      <Route
+                      {/* <Route
                         path={`${mainUrl}/lives/`}
                         render={() => {
                           return redirectOnUnverified(Live);
                         }}
-                      />
+                      /> */}
                       <Route
                         path="/new_verify/"
                         render={() => {

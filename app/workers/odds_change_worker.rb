@@ -31,14 +31,14 @@ class OddsChangeWorker
                             if event.has_key?("Markets") && event["Markets"].is_a?(Array)
                                 event["Markets"].each do |market|
                                     #process the market
-                                    process_market(fixture.id, market, product)
+                                    process_market(fixture.id, market, product, fixture.sport)
                                 end
 
                             end
                             if event.has_key?("Markets") && event["Markets"].is_a?(Hash)
                                 market = event["Markets"]
                                 #process the market
-                                process_market(fixture.id, market, product)
+                                process_market(fixture.id, market, product, fixture.sport)
                             end
                         end
                     end
@@ -55,14 +55,14 @@ class OddsChangeWorker
                         if event.has_key?("Markets") && event["Markets"].is_a?(Array)
                             event["Markets"].each do |market|
                                 #process the market
-                                process_market(fixture.id, market, product)
+                                process_market(fixture.id, market, product, fixture.sport)
                             end
 
                         end
                         if event.has_key?("Markets") && event["Markets"].is_a?(Hash)
                             market = event["Markets"]
                             #process the market
-                            process_market(fixture.id, market, product)
+                            process_market(fixture.id, market, product, fixture.sport)
                         end
                     end
                 end 
@@ -70,7 +70,7 @@ class OddsChangeWorker
         end
     end
 
-    def process_market(fixture_id, market, product)
+    def process_market(fixture_id, market, product, sport)
         
         market_status = {
             1 => "Active",
@@ -112,7 +112,7 @@ class OddsChangeWorker
                                 mkt_entry = model_name.constantize.new(update_attr)
                                 mkt_entry.fixture_id = fixture_id
                                 mkt_entry.market_identifier = market["Id"]
-                                mkt_entry.name = market_name(market["Id"])
+                                mkt_entry.name = market_name(market["Id"], sport)
                                 mkt_entry.save
                             end
 
@@ -138,7 +138,7 @@ class OddsChangeWorker
                             mkt_entry = model_name.constantize.new(update_attr)
                             mkt_entry.fixture_id = fixture_id
                             mkt_entry.market_identifier = market["Id"]
-                            mkt_entry.name = market_name(market["Id"])
+                            mkt_entry.name = market_name(market["Id"], sport)
                             mkt_entry.save
                         end
 

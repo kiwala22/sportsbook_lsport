@@ -6,5 +6,8 @@ class HomeController < ApplicationController
 
   def basket_ball
   end
+
+  def tennis
+  end
   
 end

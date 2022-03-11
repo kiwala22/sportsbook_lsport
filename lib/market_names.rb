@@ -453,9 +453,33 @@ module MarketNames
         1965 =>  "Double Chance - Goal Kick",
         1966 =>  "Odd/Even Goal Kick",
         1967 =>  "Goal Kick Handicap"
-     }  
+     }
 
-       def market_name(identifier)
-            return @@translations[identifier]
+     @@basketball = {
+       52 => "Match Winner",
+       63 => "HalfTime Winner",
+       3 => "Asian Handicap - FT",
+       2 => "Under/Over"
+     }
+
+     @@tennis = {
+      2 => "Under/Over",
+      52 => "Match Winner",
+      3 => "Asian Handicap - FT",
+      41 => "1st Set Winner",
+      42 => "2nd Set Winner",
+    }
+
+       def market_name(identifier, sport)
+          case sport
+          when "Football"
+            return @@transactions[identifier]
+          when "Basketball"
+            return @@basketball[identifier]
+          when "Tennis"
+            return @@tennis[identifier]
+          else
+            return nil
+          end
        end
 end     

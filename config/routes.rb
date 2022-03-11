@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   root to: 'home#index'
   match 'basket_ball' => "home#basket_ball", via: [:get]
+  match 'tennis' => "home#tennis", via: [:get]
 
   ##React routes
   match "cart_fixtures" => "line_bets#cart_fixtures", via: [:get]
@@ -11,6 +12,7 @@ Rails.application.routes.draw do
       match 'verification' => "current_user#user_verification", via: [:get]
       match 'home' => "home#index", via: [:get]
       match 'home_basket_ball' => "home#basket_ball", via: [:get]
+      match 'home_tennis' => "home#tennis", via: [:get]
       match 'transactions' => "transactions#index", via: [:get]
       match 'bets' => "bets#index", via: [:get]
       namespace :fixtures do

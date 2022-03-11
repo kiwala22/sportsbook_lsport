@@ -208,7 +208,16 @@ module Lsports
     end
 
     def fetch_fixture_markets(sports_id = @@sports_id)
-        required_markets = ["1", "2", "3", "5", "7", "17", "13", "16", "19", "21", "25", "41", "42", "52", "55", "61", "64", "65" "113", "245", "45"]
+
+        case sports_id
+        when "48242"
+            required_markets = ["2", "3", "52", "63"]
+        when "6046"
+            required_markets = ["1", "2", "3", "5", "7", "17", "13", "16", "19", "21", "25", "41", "42", "52", "55", "61", "64", "65" "113", "245", "45"]
+        when "54094"
+            required_markets = ["2", "3", "41", "42", "52"]
+        end
+
         markets = required_markets.join(",")
 
         url = @@end_point + "GetFixtureMarkets"
@@ -219,7 +228,9 @@ module Lsports
             password: @@password,
             guid: @@prematch_guid,
             sports: sports_id,
-            markets: markets
+            markets: markets,
+            fromdate: Time.now.to_i,
+            todate: (Time.now + 3.days).to_i
         }
         uri.query = URI.encode_www_form(params)
 
@@ -279,13 +290,13 @@ module Lsports
                                                             attrs["odds"] = outcomes
                                                         end
                                                         mkt_entry.assign_attributes(attrs)
-                                                        mkt_entry.name = market_name(event["Id"])
+                                                        mkt_entry.name = market_name(event["Id"], fixture.sport)
                                                         mkt_entry.save
                                                     else
                                                         attrs["odds"] = outcomes
                                                         mkt_entry = mkt.constantize.new(attrs)
                                                         mkt_entry.market_identifier = event["Id"]
-                                                        mkt_entry.name = market_name(event["Id"])
+                                                        mkt_entry.name = market_name(event["Id"], fixture.sport)
                                                         mkt_entry.fixture_id = fixture.id
                                                         mkt_entry.save
                                                     end
@@ -318,9 +329,8 @@ module Lsports
                                                     attrs["odds"] = outcomes
                                                     mkt_entry = mkt.constantize.new(attrs)
                                                     mkt_entry.market_identifier = event["Id"]
-                                                    mkt_entry.name = market_name(event["Id"])
+                                                    mkt_entry.name = market_name(event["Id"], fixture.sport)
                                                     mkt_entry.fixture_id = fixture.id
-                                                    mkt_entry.name = market_name(event["Id"])
                                                     mkt_entry.save
                                                 end
                                                 

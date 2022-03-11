@@ -32,14 +32,14 @@ class BetSettlementWorker
                             if event.has_key?("Markets") && event["Markets"].is_a?(Array)
                                 event["Markets"].each do |market|
                                     #process the market
-                                    process_settlement(fixture.id, market, product, event_id)
+                                    process_settlement(fixture.id, market, product, event_id, fixture.sport)
                                 end
 
                             end
                             if event.has_key?("Markets") && event["Markets"].is_a?(Hash)
                                 market = event["Markets"]
                                 #process the market
-                                process_settlement(fixture.id, market, product, event_id)
+                                process_settlement(fixture.id, market, product, event_id, fixture.sport)
                             end
                         end
                     end
@@ -57,14 +57,14 @@ class BetSettlementWorker
                         if event.has_key?("Markets") && event["Markets"].is_a?(Array)
                             event["Markets"].each do |market|
                                 #process the market
-                                process_settlement(fixture.id, market, product, event_id)
+                                process_settlement(fixture.id, market, product, event_id, fixture.sport)
                             end
 
                         end
                         if event.has_key?("Markets") && event["Markets"].is_a?(Hash)
                             market = event["Markets"]
                             #process the market
-                            process_settlement(fixture.id, market, product, event_id)
+                            process_settlement(fixture.id, market, product, event_id, fixture.sport)
                         end
                     end
                 end 
@@ -72,7 +72,7 @@ class BetSettlementWorker
         end
     end
 
-    def process_settlement(fixture_id, market, product, event_id)
+    def process_settlement(fixture_id, market, product, event_id, sport)
 
         settlement_status = {
             -1 => "Cancelled",
@@ -120,7 +120,7 @@ class BetSettlementWorker
                                 mkt_entry = model_name.constantize.new(update_attr)
                                 mkt_entry.fixture_id = fixture_id
                                 mkt_entry.market_identifier = market["Id"]
-                                mkt_entry.name = market_name(market["Id"])
+                                mkt_entry.name = market_name(market["Id"], sport)
                                 mkt_entry.save
                             end
 
@@ -146,7 +146,7 @@ class BetSettlementWorker
                             mkt_entry = model_name.constantize.new(update_attr)
                             mkt_entry.fixture_id = fixture_id
                             mkt_entry.market_identifier = market["Id"]
-                            mkt_entry.name = market_name(market["Id"])
+                            mkt_entry.name = market_name(market["Id"], sport)
                             mkt_entry.save
                         end
 

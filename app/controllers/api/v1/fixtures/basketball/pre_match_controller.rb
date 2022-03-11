@@ -4,7 +4,6 @@ class Api::V1::Fixtures::Basketball::PreMatchController < ApplicationController
         parameters = [
           "fixtures.status= 'not_started'",
           "fixtures.sport_id='48242'",
-          "fixtures.league_id NOT IN ('37364', '37386', '38301', '37814')",
           "pre_markets.status = 'Active'",
           "pre_markets.market_identifier = '52'",
           "fixtures.start_date >= '#{Time.now}'"
@@ -19,10 +18,9 @@ class Api::V1::Fixtures::Basketball::PreMatchController < ApplicationController
         @q = Fixture.joins(:pre_markets).where(conditions).order(start_date: :asc)
       else
         @q = Fixture.joins(:pre_markets).where(
-          'fixtures.status = ? AND fixtures.sport_id = ? AND fixtures.league_id NOT IN (?) AND fixtures.start_date >= ? AND fixtures.start_date <= ? AND pre_markets.status = ? AND pre_markets.market_identifier = ?',
+          'fixtures.status = ? AND fixtures.sport_id = ? AND fixtures.start_date >= ? AND fixtures.start_date <= ? AND pre_markets.status = ? AND pre_markets.market_identifier = ?',
           'not_started',
           '48242',
-          %w[37364 37386 38301 37814],
           (Time.now),
           (Date.today.end_of_day + 10.months),
           'Active',
@@ -54,7 +52,7 @@ class Api::V1::Fixtures::Basketball::PreMatchController < ApplicationController
       fixture = @fixture.as_json
   
       ## Add all available markets to fixture data
-      markets = @fixture.pre_markets.order('market_identifier::integer ASC')
+      markets = @fixture.pre_markets.where("market_identifier IN (?) AND status = ?", ["2", "3", "52", "63"], "Active").order('market_identifier::integer ASC')
   
       fixture["markets"] = markets
   

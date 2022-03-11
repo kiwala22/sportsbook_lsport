@@ -6,6 +6,7 @@ import { Provider, useDispatch, useSelector } from "react-redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import BasketBase from "./components/basketball/Base";
 import Base from "./components/football/Base";
+import TennisBase from "./components/tennis/Base";
 import "./css/Antd.less";
 import { store } from "./redux/store";
 import Requests from "./utilities/Requests";
@@ -54,11 +55,19 @@ const App = (props) => {
             </Switch>
           </Router>
         </>
-      ) : (
+      ) : sportType == "basketball" ? (
         <>
           <Router>
             <Switch>
               <Route path="/" component={BasketBase} />
+            </Switch>
+          </Router>
+        </>
+      ) : (
+        <>
+          <Router>
+            <Switch>
+              <Route path="/" component={TennisBase} />
             </Switch>
           </Router>
         </>
