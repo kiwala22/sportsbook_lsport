@@ -13,6 +13,7 @@ import cogoToast from "cogo-toast";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
+import MainLogo from "../../Images/logo.webp";
 import currencyFormatter from "../../utilities/CurrencyFormatter";
 import Requests from "../../utilities/Requests";
 import Login from "./Login";
@@ -195,11 +196,12 @@ const Navbar = (props) => {
                 <div className="navbar-nav">
                   <ul className="navbar-nav mr-auto">
                     <li className="nav-item active">
-                      <Link to={"/"}>
-                        <h4>
+                      {/* <Link to={"/"}> */}
+                      <img src={MainLogo} className="heading-logo" />
+                      {/* <h4>
                           Sports<span className="logo-color">Book</span>
-                        </h4>
-                      </Link>
+                        </h4> */}
+                      {/* </Link> */}
                     </li>
                   </ul>
                 </div>
@@ -290,7 +292,7 @@ const Navbar = (props) => {
                       key="1"
                       showZero
                       className="mr-3"
-                      color="#F6AE2D"
+                      color="#6fbb7a"
                       onClick={showMobileBetSlip}
                     >
                       <FileDoneOutlined className="font-18 c-white" />
@@ -332,7 +334,7 @@ const Navbar = (props) => {
                       key="1"
                       showZero
                       className="mr-3"
-                      color="#F6AE2D"
+                      color="#6fbb7a"
                       onClick={showMobileBetSlip}
                     >
                       <FileDoneOutlined className="font-18 c-white" />
@@ -340,11 +342,7 @@ const Navbar = (props) => {
                   ]
             }
           >
-            <Link to={"/"}>
-              <h4>
-                Skyline<span className="logo-color">Bet</span>
-              </h4>
-            </Link>
+            <img src={MainLogo} className="heading-mobile-logo" />
           </NavBar>
           {showSearch && <div className="mobile-search">{search}</div>}
         </>

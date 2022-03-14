@@ -19,7 +19,7 @@ config.resolve.alias = {
 const webp_loader = {
   rules: [
     {
-      test: /\.(jpe?g|png)$/i,
+      test: /\.(jpeg|png)$/i,
       loaders: ["file-loader", "webp-loader"],
     },
   ],
@@ -44,10 +44,7 @@ const less_loader = {
   ],
 };
 const sass_loader = {
-  test: [/\.scss$/, /\.css$/],
-  issuer: {
-    exclude: /\.less$/,
-  },
+  test: /\.s[ac]ss$/,
   use: ["style-loader", "css-loader", "sass-loader"],
   // ... other settings
 };

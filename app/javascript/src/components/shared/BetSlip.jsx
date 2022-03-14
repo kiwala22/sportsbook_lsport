@@ -227,7 +227,6 @@ const BetSlip = (props) => {
             placeholder="Min Stake: UGX 1,000"
             className="input-color"
             value={stake}
-            id="stakeInput"
             onChange={(event) => {
               setStake(event.target.value);
             }}
@@ -286,7 +285,7 @@ const BetSlip = (props) => {
                   <div id="close-button">
                     <a className="float-right" onClick={() => clearBetSlip()}>
                       <i
-                        className="far fa-times-circle fa-2x"
+                        className="far fa-times-circle fa-2x betslip-close-button"
                         data-toggle="tooltip"
                         data-placement="top"
                         title="Clear BetSlip"

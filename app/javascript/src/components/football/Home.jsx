@@ -539,7 +539,6 @@ const Home = (props) => {
           )}
           {liveGames.length != 0 && (
             <>
-              <br />
               <div
                 className={
                   isMobile ? "game-box mobile-table-padding" : "game-box"
@@ -614,7 +613,6 @@ const Home = (props) => {
           )}
           {featuredGames.length != 0 && (
             <>
-              <br />
               <div
                 className={
                   isMobile ? "game-box mobile-table-padding" : "game-box"
@@ -673,7 +671,6 @@ const Home = (props) => {
           )}
           {/* {prematchGames.length != 0 && (
             <> */}
-          <br />
           <div
             className={isMobile ? "game-box mobile-table-padding" : "game-box"}
           >

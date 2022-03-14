@@ -48,6 +48,7 @@
     "components-jqueryui": "^1.12.1",
     "cropper": "4.0.0",
     "d3": "3.5.16",
+    "dart-sass": "^1.25.0",
     "datatables.net": "1.10.20",
     "datatables.net-bs": "1.10.20",
     "datatables.net-bs4": "1.10.20",

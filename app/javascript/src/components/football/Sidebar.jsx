@@ -4,6 +4,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import titleize from "titleize";
+import MainLogo from "../../Images/logo.webp";
 import urlFormatter from "../../utilities/urlFormatter";
 import Login from "../shared/Login";
 import SignUp from "../shared/SignUp";
@@ -434,13 +435,7 @@ const Sidebar = (props) => {
       {isMobile && (
         <>
           <Drawer
-            title={
-              <Link to={"/"} onClick={onClose}>
-                <h4>
-                  Skyline<span className="logo-color">Bet</span>
-                </h4>
-              </Link>
-            }
+            title={<img src={MainLogo} className="heading-mobile-logo" />}
             placement="left"
             closable={true}
             onClose={() => onClose()}
@@ -449,7 +444,7 @@ const Sidebar = (props) => {
             className="drawer-bg"
           >
             {!signedIn && (
-              <span>
+              <div>
                 <SignUp>
                   <Button
                     id="signup"
@@ -466,7 +461,7 @@ const Sidebar = (props) => {
                     <i className="fas fa-lock fa-fw"></i> Login
                   </Button>
                 </Login>
-              </span>
+              </div>
             )}
             {sidebar}
           </Drawer>
