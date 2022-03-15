@@ -37,7 +37,7 @@ body {
 }
 
 .ant-drawer-content-wrapper {
-  width: 90% !important;
+  width: 90%;
 }
 
 .am-drawer-sidebar {
@@ -126,20 +126,8 @@ h6 {
   color: @heading-color;
   background: @secondary-background;
   border-radius: 5px 5px 0 0;
-  border-bottom: 2px solid @primary-background;
 }
 
-.ant-modal-close-x {
-    color: @primary-background;
-}
-
-.ant-drawer-close {
-    color: @primary-background;
-}
-
-.mobile-login-reg-buttons {
-    padding-left: 1.2rem;
-}
 .ant-modal-content {
   background-color: @secondary-background;
   color: @heading-color;
@@ -481,6 +469,10 @@ h6 {
   position: fixed;
 }
 
+.heading {
+  height: 70px;
+}
+
 .copyright ul li {
   color: @primary-background;
   a {
@@ -534,11 +526,10 @@ button.btn.btn-block.btn-primary.mt-lg.login-btn {
 
 .heading {
   position: fixed;
-  height: 75px;
 }
 
 .topping {
-  padding-top: 75px;
+  padding-top: 70px;
 }
 
 .login > .content-center,
@@ -1181,12 +1172,15 @@ a:visited {
 }
 
 .heading-logo {
-  height: 60px;
+  height: 15vh;
 }
 
 .heading-mobile-logo {
-  padding-top: 1px;
-  height: 40px;
+  height: 10vh;
+}
+
+.header-area {
+  padding: 0;
 }
 
 .banner-img-mbl {

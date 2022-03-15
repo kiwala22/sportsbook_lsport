@@ -444,7 +444,7 @@ const Sidebar = (props) => {
             className="drawer-bg"
           >
             {!signedIn && (
-              <div className="mobile-login-reg-buttons">
+              <div>
                 <SignUp>
                   <Button
                     id="signup"
