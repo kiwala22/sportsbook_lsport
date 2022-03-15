@@ -32,7 +32,7 @@ const Faqs = () => {
                 role="tabpanel"
                 aria-labelledby="home-tab"
               >
-                <div className="heads">{/* Faqs body here */}</div>
+                <div className="heads paragraph">{/* Faqs body here */}</div>
               </div>
             </div>
           </div>

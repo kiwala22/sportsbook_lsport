@@ -196,12 +196,9 @@ const Navbar = (props) => {
                 <div className="navbar-nav">
                   <ul className="navbar-nav mr-auto">
                     <li className="nav-item active">
-                      {/* <Link to={"/"}> */}
-                      <img src={MainLogo} className="heading-logo" />
-                      {/* <h4>
-                          Sports<span className="logo-color">Book</span>
-                        </h4> */}
-                      {/* </Link> */}
+                      <Link to={"/"}>
+                        <img src={MainLogo} className="heading-logo" />
+                      </Link>
                     </li>
                   </ul>
                 </div>
@@ -216,7 +213,7 @@ const Navbar = (props) => {
                         </a>
                       </li>
                     </ul>
-                    <Link to={"/deposit/"} className="bttn-small btn-fill">
+                    <Link to={"/deposit/"} className="bttn-small btn-fill border-transparent">
                       Deposit
                     </Link>
                     <Dropdown
@@ -342,7 +339,9 @@ const Navbar = (props) => {
                   ]
             }
           >
-            <img src={MainLogo} className="heading-mobile-logo" />
+            <Link to={"/"}>
+                <img src={MainLogo} className="heading-mobile-logo" />
+            </Link>
           </NavBar>
           {showSearch && <div className="mobile-search">{search}</div>}
         </>

@@ -19,7 +19,7 @@ import Transactions from "../shared/Transactions";
 import Verify from "../shared/Verify";
 import Withdraw from "../shared/Withdraw";
 import Home from "./Home";
-// import Live from "./Live";
+import Live from "./Live";
 import PreviewUpcoming from "./PreviewUpcoming";
 import Search from "./Search";
 import Sidebar from "./Sidebar";
@@ -29,7 +29,7 @@ const Base = (props) => {
   const { signedIn, verified, isMobile, sportType } = useSelector(
     (state) => state
   );
-  const mainUrl = "/fixtures/tennis";
+  const mainUrl = "/fixtures/basketball";
   const history = useHistory();
   const dispatcher = useDispatch();
 
@@ -38,8 +38,8 @@ const Base = (props) => {
       if (/soccer/g.test(history.location.pathname)) {
         dispatcher({ type: "onSportChange", payload: "football" });
       }
-      if (/basketball/g.test(history.location.pathname)) {
-        dispatcher({ type: "onSportChange", payload: "basketball" });
+      if (/tennis/g.test(history.location.pathname)) {
+        dispatcher({ type: "onSportChange", payload: "tennis" });
       }
       if (history.action === "POP") {
         history.replace(history.location.pathname, "/");
@@ -70,8 +70,8 @@ const Base = (props) => {
                 <div
                   className={
                     isMobile
-                      ? "col-sm-12 px-lg-1 px-xl-1 px-md-1"
-                      : "col-xl-7 col-lg-7 col-md-7 col-sm-12 px-lg-1 px-xl-1 px-md-1"
+                      ? "col-sm-12 mt-20 px-lg-1 px-xl-1 px-md-1"
+                      : "col-xl-7 col-lg-7 col-md-7 col-sm-12 mt-20 px-lg-1 px-xl-1 px-md-1"
                   }
                 >
                   <div>
@@ -104,12 +104,12 @@ const Base = (props) => {
                         }}
                         component={Upcoming}
                       />
-                      {/* <Route
+                      <Route
                         path={`${mainUrl}/lives/`}
                         render={() => {
                           return redirectOnUnverified(Live);
                         }}
-                      /> */}
+                      />
                       <Route
                         path="/new_verify/"
                         render={() => {
@@ -142,7 +142,7 @@ const Base = (props) => {
                   </div>
                 </div>
                 {!isMobile ? (
-                  <div className="col-xl-3 col-lg-3 col-md-3 hidden-sm-down pl-1 pr-4 secondary-bb-color">
+                  <div className="col-xl-3 col-lg-3 col-md-3 hidden-sm-down mt-20 px-lg-1 px-xl-1 px-md-1">
                     {props.location.pathname !== "/new_verify/" && <BetSlip />}
                     <br />
                     <SideBanner />

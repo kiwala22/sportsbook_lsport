@@ -7,6 +7,7 @@ import titleize from "titleize";
 import urlFormatter from "../../utilities/urlFormatter";
 import Login from "../shared/Login";
 import SignUp from "../shared/SignUp";
+import MainLogo from "../../Images/logo.webp";
 
 const Sidebar = (props) => {
   const dispatcher = useDispatch();
@@ -65,8 +66,8 @@ const Sidebar = (props) => {
 
   const sidebar = (
     <>
-      <div className="col-xl-2 col-lg-2 mt-20 px-lg-1 px-xl-1 px-md-1">
-        <aside className="content-sidebar mb-20">
+      <div className="col-xl-2 col-lg-2 px-lg-1 px-xl-1 px-md-1 secondary-bb-color">
+        <aside className="content-sidebar secondary-bb-color">
           <Dropdown.Button
             overlay={menu}
             placement="bottomCenter"
@@ -93,8 +94,6 @@ const Sidebar = (props) => {
               </Link>
             </li>
           </ul>
-        </aside>
-        <aside className="content-sidebar mb-20">
           <h3>Tournaments</h3>
           <ul onClick={onClose}>
             <li className="text-gray-400">
@@ -290,8 +289,6 @@ const Sidebar = (props) => {
               </Link>
             </li>
           </ul>
-        </aside>
-        <aside className="content-sidebar mb-20">
           <h3>Countries</h3>
           <ul onClick={onClose}>
             <li className="text-gray-400">
@@ -491,13 +488,7 @@ const Sidebar = (props) => {
       {isMobile && (
         <>
           <Drawer
-            title={
-              <Link to={"/"} onClick={onClose}>
-                <h4>
-                  Sports<span className="logo-color">Book</span>
-                </h4>
-              </Link>
-            }
+            title={<img src={MainLogo} className="heading-mobile-logo" />}
             placement="left"
             closable={true}
             onClose={() => onClose()}
@@ -506,7 +497,7 @@ const Sidebar = (props) => {
             className="drawer-bg"
           >
             {!signedIn && (
-              <span>
+              <div className="mobile-login-reg-buttons">
                 <SignUp>
                   <Button
                     id="signup"
@@ -523,7 +514,7 @@ const Sidebar = (props) => {
                     <i className="fas fa-lock fa-fw"></i> Login
                   </Button>
                 </Login>
-              </span>
+              </div>
             )}
             {sidebar}
           </Drawer>

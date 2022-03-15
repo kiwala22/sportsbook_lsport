@@ -182,7 +182,7 @@ const Base = (props) => {
                   </div>
                 </div>
                 {!isMobile ? (
-                  <div className="col-xl-3 col-lg-3 col-md-3 hidden-sm-down px-lg-1 px-xl-1 px-md-1 secondary-bb-color">
+                  <div className="col-xl-3 col-lg-3 col-md-3 hidden-sm-down pl-1 pr-4 secondary-bb-color">
                     {props.location.pathname !== "/new_verify/" && <BetSlip />}
                     <br />
                     <SideBanner />

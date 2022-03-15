@@ -85,7 +85,7 @@ const Terms = () => {
                       </p>
 
                       <h6>GENERAL TERMS</h6>
-                      <span className="paragraph">
+                      <span>
                         1. The company accepts bets on sports and other events.
                         <br />
                         <br />

@@ -531,8 +531,8 @@ const Home = (props) => {
               </div>
             </div>
           ) : (
-            <div className="card mt-1">
-              <div className="card-header side-banner">
+            <div className="card ">
+              <div className="card-header side-banner ">
                 <img src={MobileBanner2} className="banner-image" />
               </div>
             </div>

@@ -177,18 +177,19 @@ const Home = (props) => {
       {!loading && (
         <>
           {isMobile ? (
-            <div className="card">
+            <div className="card ">
               <div className="card-header side-banner ">
                 <img src={MobileBanner1} className="banner-image" />
               </div>
             </div>
           ) : (
-            <div className="card mt-1 ">
+            <div className="card ">
               <div className="card-header side-banner ">
                 <img src={Banner} className="banner-image" />
               </div>
             </div>
           )}
+          <br />
           <div
             className={
               isMobile ? "game-box mobile-table-padding-games" : "game-box"

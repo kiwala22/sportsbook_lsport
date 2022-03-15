@@ -70,8 +70,8 @@ const Base = (props) => {
                 <div
                   className={
                     isMobile
-                      ? "col-sm-12 mt-20 px-lg-1 px-xl-1 px-md-1"
-                      : "col-xl-7 col-lg-7 col-md-7 col-sm-12 mt-20 px-lg-1 px-xl-1 px-md-1"
+                      ? "col-sm-12 px-lg-1 px-xl-1 px-md-1"
+                      : "col-xl-7 col-lg-7 col-md-7 col-sm-12 px-lg-1 px-xl-1 px-md-1"
                   }
                 >
                   <div>
@@ -142,7 +142,7 @@ const Base = (props) => {
                   </div>
                 </div>
                 {!isMobile ? (
-                  <div className="col-xl-3 col-lg-3 col-md-3 hidden-sm-down mt-20 px-lg-1 px-xl-1 px-md-1">
+                  <div className="col-xl-3 col-lg-3 col-md-3 hidden-sm-down pl-1 pr-4 secondary-bb-color">
                     {props.location.pathname !== "/new_verify/" && <BetSlip />}
                     <br />
                     <SideBanner />

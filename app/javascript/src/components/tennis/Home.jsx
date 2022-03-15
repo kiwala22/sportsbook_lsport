@@ -181,7 +181,7 @@ const Home = (props) => {
               </div>
             </div>
           ) : (
-            <div className="card ">
+            <div className="card mt-1">
               <div className="card-header side-banner ">
                 <img src={Banner} className="banner-image" />
               </div>

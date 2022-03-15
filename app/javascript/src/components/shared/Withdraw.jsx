@@ -39,7 +39,7 @@ const Withdraw = (props) => {
                       ]}
                     >
                       <Input
-                        prefix={"KES"}
+                        prefix={"UGX"}
                         placeholder="Amount"
                         type="number"
                       />

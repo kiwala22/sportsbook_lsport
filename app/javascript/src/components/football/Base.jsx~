@@ -1,6 +1,13 @@
+import cogoToast from "cogo-toast";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Route, Switch, useHistory, withRouter } from "react-router-dom";
+import {
+  Redirect,
+  Route,
+  Switch,
+  useHistory,
+  withRouter,
+} from "react-router-dom";
 import Bets from "../shared/Bets";
 import BetSlip from "../shared/BetSlip";
 import Deposit from "../shared/Deposit";
@@ -19,27 +26,31 @@ import Transactions from "../shared/Transactions";
 import Verify from "../shared/Verify";
 import Withdraw from "../shared/Withdraw";
 import Home from "./Home";
-// import Live from "./Live";
-import PreviewUpcoming from "./PreviewUpcoming";
+import LiveMatches from "./LiveMatches";
+import LiveVirtualMatches from "./LiveVirtualMatches";
+import PreMatches from "./PreMatches";
+import PreviewLive from "./PreviewLive";
+import PreviewLiveVirtual from "./PreviewLiveVirtual";
+import PreviewPre from "./PreviewPre";
+import PreviewPreVirtual from "./PreviewPreVirtual";
+import PreVirtualMatches from "./PreVirtualMatches";
 import Search from "./Search";
 import Sidebar from "./Sidebar";
-import Upcoming from "./Upcoming";
 
 const Base = (props) => {
-  const { signedIn, verified, isMobile, sportType } = useSelector(
-    (state) => state
-  );
-  const mainUrl = "/fixtures/tennis";
-  const history = useHistory();
+  const { signedIn, verified, isMobile } = useSelector((state) => state);
   const dispatcher = useDispatch();
+  const history = useHistory();
+  const soccerPath = "/fixtures/soccer";
+  const virtualPath = "/fixtures/virtual_soccer";
 
   useEffect(() => {
     return () => {
-      if (/soccer/g.test(history.location.pathname)) {
-        dispatcher({ type: "onSportChange", payload: "football" });
-      }
       if (/basketball/g.test(history.location.pathname)) {
         dispatcher({ type: "onSportChange", payload: "basketball" });
+      }
+      if (/tennis/g.test(history.location.pathname)) {
+        dispatcher({ type: "onSportChange", payload: "tennis" });
       }
       if (history.action === "POP") {
         history.replace(history.location.pathname, "/");
@@ -81,35 +92,64 @@ const Base = (props) => {
                       <Route path="/deposit/" component={Deposit} />
                       <Route path="/withdraw/" component={Withdraw} />
                       <Route path="/faqs/" component={Faqs} />
-                      <Route path="/privacy/" component={Privacy} />
                       <Route path="/rules/" component={Rules} />
+                      <Route path="/privacy/" component={Privacy} />
                       <Route path="/terms/" component={Terms} />
                       <Route path="/contacts/" component={Support} />
                       <Route
-                        path={`/${mainUrl.split("/")[1]}/search/`}
+                        path={`/${soccerPath.split("/")[1]}/search/`}
                         render={() => {
                           return redirectOnUnverified(Search);
                         }}
                       />
                       <Route
-                        path={`${mainUrl}/pre/`}
+                        path={`${soccerPath}/pre/`}
                         render={() => {
-                          return redirectOnUnverified(PreviewUpcoming);
+                          return redirectOnUnverified(PreviewPre);
                         }}
                       />
                       <Route
-                        path={`${mainUrl}/pres/`}
+                        path={`${virtualPath}/pre/`}
                         render={() => {
-                          return redirectOnUnverified(Upcoming);
+                          return redirectOnUnverified(PreviewPreVirtual);
                         }}
-                        component={Upcoming}
                       />
-                      {/* <Route
-                        path={`${mainUrl}/lives/`}
+                      <Route
+                        path={`${soccerPath}/live/`}
                         render={() => {
-                          return redirectOnUnverified(Live);
+                          return redirectOnUnverified(PreviewLive);
                         }}
-                      /> */}
+                      />
+                      <Route
+                        path={`${virtualPath}/live/`}
+                        render={() => {
+                          return redirectOnUnverified(PreviewLiveVirtual);
+                        }}
+                      />
+                      <Route
+                        path={`${virtualPath}/pres/`}
+                        render={() => {
+                          return redirectOnUnverified(PreVirtualMatches);
+                        }}
+                      />
+                      <Route
+                        path={`${virtualPath}/lives/`}
+                        render={() => {
+                          return redirectOnUnverified(LiveVirtualMatches);
+                        }}
+                      />
+                      <Route
+                        path={`${soccerPath}/pres/`}
+                        render={() => {
+                          return redirectOnUnverified(PreMatches);
+                        }}
+                      />
+                      <Route
+                        path={`${soccerPath}/lives/`}
+                        render={() => {
+                          return redirectOnUnverified(LiveMatches);
+                        }}
+                      />
                       <Route
                         path="/new_verify/"
                         render={() => {
@@ -142,7 +182,7 @@ const Base = (props) => {
                   </div>
                 </div>
                 {!isMobile ? (
-                  <div className="col-xl-3 col-lg-3 col-md-3 hidden-sm-down pl-1 pr-4 secondary-bb-color">
+                  <div className="col-xl-3 col-lg-3 col-md-3 hidden-sm-down px-lg-1 px-xl-1 px-md-1 secondary-bb-color">
                     {props.location.pathname !== "/new_verify/" && <BetSlip />}
                     <br />
                     <SideBanner />

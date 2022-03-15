@@ -1,15 +1,14 @@
 import React from "react";
-import { BsEnvelope, BsSearch } from "react-icons/bs";
 import { useSelector } from "react-redux";
 
-const Support = () => {
+const Faqs = () => {
   const isMobile = useSelector((state) => state.isMobile);
   return (
     <>
       <div className={isMobile ? "game-box mobile-table-padding" : "game-box"}>
         <div className="card">
           <div className="card-header">
-            <h3>Contact Us</h3>
+            <h3>Frequently Asked Questions</h3>
           </div>
           <div className="card-body">
             <ul className="nav nav-tabs" id="myTab" role="tablist">
@@ -22,7 +21,7 @@ const Support = () => {
                   aria-controls="home"
                   aria-selected="true"
                 >
-                  Contacts
+                  FAQs
                 </a>
               </li>
             </ul>
@@ -33,13 +32,7 @@ const Support = () => {
                 role="tabpanel"
                 aria-labelledby="home-tab"
               >
-                <div className="heads paragraph">
-                  <BsSearch className="contact-icons"/> <a>www.example.com</a> <br /> <br />
-                  <BsEnvelope className="contact-icons" /> info@example.ug <br />
-                  <br />
-                  <i className="fas fa-phone contact-icons" aria-hidden="true"></i>{" "}
-                  +256700123123 / +256700123123
-                </div>
+                <div className="heads">{/* Faqs body here */}</div>
               </div>
             </div>
           </div>
@@ -49,4 +42,4 @@ const Support = () => {
   );
 };
 
-export default Support;
+export default Faqs;

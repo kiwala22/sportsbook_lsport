@@ -299,7 +299,8 @@ h6 {
 }
 
 .game-box {
-  padding: 0.6rem 0 0 0;
+  padding: 0.4rem 0 0 0;
+  margin-bottom: 5px;
 }
 
 .game-box .card .card-body table tr td a.btnn {
@@ -354,6 +355,16 @@ h6 {
 .register-btn {
   background: @primary-background;
   color: @text-color-secondary;
+}
+
+
+.btn-fill:hover {
+    background: @primary-background;
+    color: @text-color-secondary;
+}
+
+a.bttn-small.btn-fill.border-transparent {
+    color: @text-color-secondary;
 }
 
 .drawer-bg {
@@ -539,6 +550,9 @@ button.btn.btn-block.btn-primary.mt-lg.login-btn {
 
 .topping {
   padding-top: 75px;
+}
+
+.advert-banner {
 }
 
 .login > .content-center,
@@ -771,8 +785,8 @@ table.fixture-table {
   max-width: 100%;
   flex-basis: 100%;
   width: 100%;
-  background-color: #7690a7;
-  border-color: #7690a7;
+  background-color: @secondary-background;
+  border-color: @primary-background;
   line-height: 1.2rem;
   font-size: 12px;
   font-weight: 600;
@@ -789,11 +803,14 @@ strong {
 
 .market-odds {
   padding: 7px 15px;
+  color: @primary-background;
+  
 }
 
 .market-label {
   padding: 8px 15px;
   background-color: @secondary-background;
+  color: @primary-background;
   font-size: 12px;
 }
 
@@ -1040,9 +1057,8 @@ strong {
 }
 
 .search {
-  // margin-left: 200px; Change this after test
-  margin-left: 200px;
-  width: 30%;
+  padding-left: 25%;
+  width: 50%;
 }
 
 #glass {
@@ -1117,6 +1133,11 @@ a:visited {
 .paragraph {
   padding: 12px;
   line-height: 2.3;
+  color: @heading-color;
+}
+
+.contact-icons {
+    color: @primary-background;
 }
 
 .lists {
@@ -1224,7 +1245,6 @@ a.wagger-btn {
 .web-sidebar-widget {
   border: 2px solid @primary-background;
   border-radius: 2px;
-  margin-top: 5px;
   .widget-head {
     background: @secondary-background;
     padding: 15px;

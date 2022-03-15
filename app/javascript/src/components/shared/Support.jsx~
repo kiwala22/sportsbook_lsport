@@ -33,11 +33,11 @@ const Support = () => {
                 role="tabpanel"
                 aria-labelledby="home-tab"
               >
-                <div className="heads paragraph">
-                  <BsSearch className="contact-icons"/> <a>www.example.com</a> <br /> <br />
-                  <BsEnvelope className="contact-icons" /> info@example.ug <br />
+                <div className="heads">
+                  <BsSearch /> <a>www.example.com</a> <br /> <br />
+                  <BsEnvelope /> info@example.ug <br />
                   <br />
-                  <i className="fas fa-phone contact-icons" aria-hidden="true"></i>{" "}
+                  <i className="fas fa-phone" aria-hidden="true"></i>{" "}
                   +256700123123 / +256700123123
                 </div>
               </div>
