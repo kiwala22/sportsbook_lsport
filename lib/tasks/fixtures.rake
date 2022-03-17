@@ -1,9 +1,9 @@
 namespace :fixtures do
-   include Lsports
-
    desc "Pull Fixtures between dates"
    task pull_fixtures: :environment do
       puts "Starting Fixture Pull"
+      include Lsports
+
       start_date = Date.today.strftime("%F").to_time.to_i
 
       end_date = (Date.today + 3.day).strftime("%F").to_time.to_i
@@ -21,6 +21,7 @@ namespace :fixtures do
    desc "Pull Fixtures and markets between dates"
    task pull_markets: :environment do
       puts "Starting Fixture Pull"
+      include Lsports
       start_date = Date.today.strftime("%F").to_time.to_i
 
       end_date = (Date.today + 3.day).strftime("%F").to_time.to_i
