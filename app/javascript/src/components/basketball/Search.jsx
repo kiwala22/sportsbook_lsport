@@ -82,7 +82,7 @@ const Search = (props) => {
           fixture={fixture.id}
           market="52"
           received={(data) => {
-            updateMatchInfo(data, games, setGames, "52", "Market");
+            updateMatchInfo(data, games, setGames, "226", "Market");
           }}
         >
           {fixture.part_one_name}
@@ -99,7 +99,7 @@ const Search = (props) => {
           fixture={fixture.id}
           market="52"
           received={(data) => {
-            updateMatchInfo(data, games, setGames, "52", "Pre");
+            updateMatchInfo(data, games, setGames, "226", "Pre");
           }}
         >
           {fixture.league_name} <br />
@@ -112,22 +112,22 @@ const Search = (props) => {
       render: (_, fixture) => (
         <a
           className={
-            fixture.market_52_odds === undefined ||
-            fixture.market_52_odds === null ||
-            oddsFormatter(fixture.market_52_odds["outcome_1"]) ==
+            fixture.market_226_odds === undefined ||
+            fixture.market_226_odds === null ||
+            oddsFormatter(fixture.market_226_odds["outcome_1"]) ==
               parseFloat(1.0).toFixed(2)
               ? "btnn intialise_input disabled"
               : "btnn intialise_input btn btn-light wagger-btn"
           }
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
           onClick={() =>
-            addBet(dispatcher, "1", "PreMarket", fixture.id, "12 FT - 1", "52")
+            addBet(dispatcher, "1", "PreMarket", fixture.id, "12 OT - 1", "226")
           }
         >
-          {fixture.market_52_odds === undefined ||
-          fixture.market_52_odds === null
+          {fixture.market_226_odds === undefined ||
+          fixture.market_226_odds === null
             ? parseFloat(1.0).toFixed(2)
-            : oddsFormatter(fixture.market_52_odds["outcome_1"])}
+            : oddsFormatter(fixture.market_226_odds["outcome_1"])}
         </a>
       ),
     },
@@ -136,22 +136,22 @@ const Search = (props) => {
       render: (_, fixture) => (
         <a
           className={
-            fixture.market_52_odds === undefined ||
-            fixture.market_52_odds === null ||
-            oddsFormatter(fixture.market_52_odds["outcome_2"]) ==
+            fixture.market_226_odds === undefined ||
+            fixture.market_226_odds === null ||
+            oddsFormatter(fixture.market_226_odds["outcome_2"]) ==
               parseFloat(1.0).toFixed(2)
               ? "btnn intialise_input disabled"
               : "btnn intialise_input btn btn-light wagger-btn"
           }
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
           onClick={() =>
-            addBet(dispatcher, "2", "PreMarket", fixture.id, "12 FT - 2", "52")
+            addBet(dispatcher, "2", "PreMarket", fixture.id, "12 OT - 2", "226")
           }
         >
-          {fixture.market_52_odds === undefined ||
-          fixture.market_52_odds === null
+          {fixture.market_226_odds === undefined ||
+          fixture.market_226_odds === null
             ? parseFloat(1.0).toFixed(2)
-            : oddsFormatter(fixture.market_52_odds["outcome_2"])}
+            : oddsFormatter(fixture.market_226_odds["outcome_2"])}
         </a>
       ),
     },
@@ -197,7 +197,7 @@ const Search = (props) => {
                       dataSource={games}
                       size="middle"
                       rowClassName={(record) =>
-                        record.market_52_status == "Active"
+                        record.market_226_status == "Active"
                           ? "show-row"
                           : "hide-row"
                       }

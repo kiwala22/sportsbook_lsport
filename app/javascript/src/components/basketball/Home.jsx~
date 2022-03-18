@@ -74,7 +74,7 @@ const Home = (props) => {
         <MarketsChannel
           channel="MarketsChannel"
           fixture={fixture.id}
-          market="226"
+          market="52"
           received={(data) => {
             updateMatchInfo(
               data,
@@ -96,7 +96,7 @@ const Home = (props) => {
         <PreOddsChannel
           channel="PreOddsChannel"
           fixture={fixture.id}
-          market="226"
+          market="52"
           received={(data) => {
             updateMatchInfo(
               data,
@@ -126,7 +126,7 @@ const Home = (props) => {
           }
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
           onClick={() =>
-            addBet(dispatcher, "1", "PreMarket", fixture.id, "12 OT - 1", "226")
+            addBet(dispatcher, "1", "PreMarket", fixture.id, "12 FT - 1", "52")
           }
         >
           {fixture.markets.length == 0 || fixture.markets[0].odds === null
@@ -149,7 +149,7 @@ const Home = (props) => {
           }
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
           onClick={() =>
-            addBet(dispatcher, "2", "PreMarket", fixture.id, "12 OT - 2", "226")
+            addBet(dispatcher, "2", "PreMarket", fixture.id, "12 FT - 2", "52")
           }
         >
           {fixture.markets.length == 0 || fixture.markets[0].odds === null

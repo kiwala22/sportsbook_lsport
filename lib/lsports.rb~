@@ -211,7 +211,7 @@ module Lsports
 
         case sports_id
         when "48242"
-            required_markets = ["2", "3", "226", "63"]
+            required_markets = ["2", "3", "52", "63"]
         when "6046"
             required_markets = ["1", "2", "3", "5", "7", "17", "13", "16", "19", "21", "25", "41", "42", "52", "55", "61", "64", "65" "113", "245", "45"]
         when "54094"

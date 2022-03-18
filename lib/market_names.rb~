@@ -473,7 +473,7 @@ module MarketNames
        def market_name(identifier, sport)
           case sport
           when "Football"
-            return @@transactions[identifier]
+            return @@translations[identifier]
           when "Basketball"
             return @@basketball[identifier]
           when "Tennis"
