@@ -1,14 +1,39 @@
-desc "Run Fixture Update Code"
-task pull_fixture: :environment do
-   date_today = Date.today.strftime("%F").to_time.to_i
+namespace :fixtures do
+   desc "Pull Fixtures between dates"
+   task pull_fixtures: :environment do
+      puts "Starting Fixture Pull"
+      include Lsports
 
-   date_three = (Date.today + 3.day).strftime("%F").to_time.to_i
-   
-   sportsIds = ["6046", "48242", "54094"]
-   
-   #Fetching fixtures for all the 3 sport types
-   sportsIds.each do |sport|
-        fixture_today = Fixture.new.fetch_fixtures(date_today, date_three, sport)
+      start_date = Date.today.strftime("%F").to_time.to_i
+
+      end_date = (Date.today + 3.day).strftime("%F").to_time.to_i
+
+      sportsIds = ["6046", "48242", "54094"]
+
+      #Fetching fixtures for all the 3 sport types
+      sportsIds.each do |sport|
+         puts "Starting #{sport} Pull"
+         fixture_today = fetch_fixtures(start_date, end_date, sport)
+      end
+
    end
-   
+
+   desc "Pull Fixtures and markets between dates"
+   task pull_markets: :environment do
+      puts "Starting Fixture Pull"
+      include Lsports
+      start_date = Date.today.strftime("%F").to_time.to_i
+
+      end_date = (Date.today + 3.day).strftime("%F").to_time.to_i
+
+      sportsIds = ["6046", "48242", "54094"]
+
+      #Fetching fixtures for all the 3 sport types
+      sportsIds.each do |sport|
+         puts "Starting #{sport} Pull"
+         fixture_today = fetch_fixture_markets(sport)
+      end
+
+   end
+
 end
