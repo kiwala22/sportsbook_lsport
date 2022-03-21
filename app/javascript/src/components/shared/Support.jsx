@@ -34,7 +34,7 @@ const Support = () => {
                 aria-labelledby="home-tab"
               >
                 <div className="heads paragraph">
-                  <BsSearch className="contact-icons"/> <a>www.example.com</a> <br /> <br />
+                  <BsSearch className="contact-icons"/> <a href="https://www.betsports.ug">BetSports Website</a> <br /> <br />
                   <BsEnvelope className="contact-icons" /> info@example.ug <br />
                   <br />
                   <i className="fas fa-phone contact-icons" aria-hidden="true"></i>{" "}

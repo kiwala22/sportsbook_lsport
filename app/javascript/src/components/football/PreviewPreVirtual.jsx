@@ -97,36 +97,9 @@ const PreviewPreVirtual = (props) => {
                                 }
                               >
                                 <div className="row">
-                                  {market.name == "1X2 FT" ? (
                                     <div className="col-lg-12 ">
-                                      <strong>Match Result 1X2 FT</strong>
+                                      <strong>{market.name} {market.specifier !== null? `-${market.specifier}`:""}</strong>
                                     </div>
-                                  ) : /Under\/Over/g.test(market.name) ? (
-                                    <div className="col-lg-12 ">
-                                      <strong>
-                                        Under 2.5 / Over 2.5{"  "}
-                                        {market.name.replace("Under/Over", "")}
-                                      </strong>
-                                    </div>
-                                  ) : /Asian Handicap/g.test(market.name) ? (
-                                    <div className="col-lg-12 ">
-                                      <strong>
-                                        Asian Handicap 1 Goal{"  "}
-                                        {market.name.replace(
-                                          "Asian Handicap",
-                                          ""
-                                        )}
-                                      </strong>
-                                    </div>
-                                  ) : market.name == "12" ? (
-                                    <div className="col-lg-12 ">
-                                      <strong>Home / Away</strong>
-                                    </div>
-                                  ) : (
-                                    <div className="col-lg-12 ">
-                                      <strong>{market.name}</strong>
-                                    </div>
-                                  )}
                                 </div>
                               </div>
                             </MarketsChannel>

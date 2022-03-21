@@ -93,7 +93,7 @@ const Base = (props) => {
                       <Route path="/withdraw/" component={Withdraw} />
                       <Route path="/faqs/" component={Faqs} />
                       <Route path="/rules/" component={Rules} />
-                      <Route path="/privacy/" component={Privacy} />
+                      <Route path="/responsible_gambling/" component={Privacy} />
                       <Route path="/terms/" component={Terms} />
                       <Route path="/contacts/" component={Support} />
                       <Route

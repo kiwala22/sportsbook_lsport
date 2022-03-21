@@ -25,7 +25,7 @@ const Footer = (props) => {
                             <Link to={"/faqs/"}>Faqs</Link>
                           </li>
                           <li className="col-3">
-                            <Link to={"/privacy/"}>Privacy</Link>
+                          <Link to={"/responsible_gambling/"}>Responsible Gambling</Link>
                           </li>
                           <li className="col-4">
                             <Link to={"/terms/"}>{`T & Cs`}</Link>
@@ -75,20 +75,20 @@ const Footer = (props) => {
                       <Link to={"/faqs/"}>Faqs</Link>
                     </li>
                     <li>
-                      <Link to={"/privacy/"}>Privacy</Link>
+                      <Link to={"/responsible_gambling/"}>Responsible Gambling</Link>
                     </li>
                     <li>
                       <Link to={"/rules/"}>Game Rules</Link>
                     </li>
                     <li>
-                      <Link to={"/terms/"}>Terms and Condition</Link>
+                      <Link to={"/terms/"}>Terms and Conditions</Link>
                     </li>
                     <li>
                       <Link to={"/contacts/"}>Support Contacts</Link>
                     </li>
                     <li>
-                      SkylineBet is licensed by the National Gaming Board of
-                      Uganda. Licence #__ Reg. Number:__ . You have to be 18
+                      BetSports is licensed by the National Gaming Board of
+                      Uganda. License #: <strong>GB-69-056</strong>. You have to be 25
                       years and above to bet. Betting is addictive and can be
                       psychologically harmful.
                     </li>

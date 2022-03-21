@@ -8,7 +8,7 @@ const Privacy = () => {
       <div className={isMobile ? "game-box mobile-table-padding" : "game-box"}>
         <div className="card">
           <div className="card-header">
-            <h3>SkylineBet Privacy</h3>
+            <h3>BetSports Responsible Gambling</h3>
           </div>
           <div className="card-body">
             <ul className="nav nav-tabs" id="myTab" role="tablist">
@@ -21,7 +21,7 @@ const Privacy = () => {
                   aria-controls="home"
                   aria-selected="true"
                 >
-                  Privacy
+                  Responsible Gambling
                 </a>
               </li>
             </ul>
@@ -36,100 +36,86 @@ const Privacy = () => {
                   <ul>
                     <li>
                       <div>
-                        <h6>PRIVACY</h6>
+                        <h4>RESPONSIBLE GAMBLING</h4>
                         <p className="paragraph">
-                          We will take all reasonable steps to ensure that your
-                          information is kept secure and protected. All personal
-                          data is stored in the database of the company and will
-                          not be passed on to third parties except as required
-                          by Ugandan law. The company reserves the right to
-                          relay suspected offender’s details to sporting bodies
-                          or authorities which deal with the investigation of
-                          offences concerning match fixing or price manipulation{" "}
+                        We believe in responsible gambling and want you to always enjoy playing 
+                        with us by staying in control and only betting what you can afford. 
+                        If you ever feel like gambling has become a problem, 
+                        tell us and we’ll be in touch to help.{" "}
                         </p>
-                        <br />
-                        <h6>1) COLLECTION AND USAGE OF INFORMATION</h6>
+                        <h5>1) MAINTAINING CONTROL</h5>
                         <span className="paragraph">
                           <ul className="lists">
                             <li>
-                              • The information and data about you which we may
-                              collect, use and process includes the following
+                              • Consider gambling a form of entertainment, not a source of income.
                             </li>
                             <li>
-                              • Information that you provide to us by filling in
-                              forms on the website or any other information you
-                              submit to us via the website or email.
+                              • Accept gambling as a game of chance with no formulas to guarantee success.
                             </li>
                             <li>
-                              • Records of correspondence whether via the
-                              website, email, telephone or other means.
+                              • Don’t let gambling interfere with daily life activities and family responsibilities.
                             </li>
                             <li>
-                              • Your responses to surveys or customer research
-                              that we carry out.
+                              • Avoid gambling when under the influence of alcohol or emotional stress.
                             </li>
                             <li>
-                              • Details of the transactions you carry out with
-                              us, whether via website , telephone or other means
+                              • Establish affordable daily/weekly/month deposit levels and stick to them.
                             </li>
                             <li>
-                              • Details of your visits on the website including,
-                              but not limited to, traffic data, location data,
-                              weblogs and other communication data.
+                              • Never chase your losses or try to recoup debts.
+                            </li>
+                            <li>
+                              • Take regular breaks and track your betting activity.
+                            </li>
+                            <li>
+                            <h6>Monitor your betting activity</h6>
+                             <p>Check your account statement regularly to stay in control of your betting activity, deposits and withdrawals.</p>
                             </li>
                           </ul>
                         </span>
                         <span className="paragraph">
+                          <h5>2) WARNING SIGNS</h5>
                           <p className="paragraph">
-                            We may use your personal information and data
-                            together with other information for the purposes of
+                          If gambling feels like a burden but you can’t stop, it’s likely to indicate a problem. These are some signs to look out for, though there may be others.
+                          If you recognise a few, we recommend seeking help:
                           </p>
                           <ul className="lists">
-                            <li> 1) Processing your bets and payments.</li>
-                            <li>
-                              2) Setting up , operating and managing your
-                              account
-                            </li>
-                            <li>
-                              3) Complying with our legal and regulatory duties.
-                            </li>
-                            <li>4) Carrying out customer analysis.</li>
-                            <li>
-                              5) Providing you with information about
-                              promotional offers and our products and services
-                              where you have consented. 6) Monitoring
-                              transactions for the purposes of preventing fraud,
-                              irregular betting, cheating and money laundering.
-                            </li>
+                            <li>• You perceive gambling solely as a way of making money</li>
+                            <li>• Gambling negatively affects your daily life and family responsibilities</li>
+                            <li>• You are neglecting personal needs like food and sleep because of it</li>
+                            <li>• You are betting more than you can afford</li>
+                            <li>• You steal or borrow to try to rectify the results of your gambling</li>
+                            <li>• You gamble because of frustration or other negative feelings</li>
+                            <li>• You are trying to conceal your gambling or its consequences</li>
+                            <li>• You have repeatedly failed in efforts to control your gambling</li>
+                            <li>• Others say you have a gambling addiction</li>
                           </ul>
                         </span>
-                        <br />
-                        <h6>DISCLOSURE</h6>
-                        <p className="paragraph">
-                          We are entitled to share the information we hold on
-                          you which includes personal data and betting history
-                          with the regulator, sporting bodies and other bodies,
-                          including the police in order to investigate fraud and
-                          money laundering.
-                        </p>
-                        <br />
-                        <h6>SECURITY</h6>
-                        <p className="paragraph">
-                          We will take all the reasonable steps as required by
-                          law to ensure that the personal information we collect
-                          is accurately recorded and kept securely. All personal
-                          information will be destroyed when it is no longer
-                          required to be retained or by law.
-                        </p>
-                        <p className="paragraph">
-                          We do not warrant the security of any information
-                          which you transmit to us over the Internet. Any
-                          information which you transmit to us is transmitted at
-                          your own risk. However, once we receive your
-                          transmission, we will take reasonable steps to protect
-                          your personal information from misuse, loss or
-                          unauthorized access.
-                        </p>
+                        <span className="paragraph">
+                          <h5>3) Self-exclusion</h5>
+                          <p className="paragraph">If you believe you may have a gambling problem, please consider self-exclusion.</p>
+                          <h6>What is self-exclusion?</h6>
+                          <p className="paragraph">Self-exclusion is where we close your account at your request. There are two options: temporary and permanent. Temporary exclusion makes your account inaccessible until you’re ready to go back to it. 
+                            Permanent exclusion is irreversible, meaning you can never access it again.</p>
+                          <p>Whenever a customer self-excludes, we do everything in our power to ensure this is honoured. 
+                            Please don’t try to bypass our measures to start betting again as we’re not liable if this happens.</p>
+                          <h6>Want to self-exclude?</h6>
+                          <p className="paragraph">We’ll give you a call to make it happen</p>
+                          <h6>Why self-exclude?</h6>
+                          <p className="paragra[h">It’s a proven method of helping overcome gambling problems. Once your account is closed, we advise returning to any daily activities that were affected by gambling, and seeking further help if needed. </p>
+                        </span>
+
+                        <span className="paragraph">
+                          <h5>4) Preventing Underage Gambling</h5>
+                          <p className="paragraph">
+                          By registering and betting with BetSports , you confirm that you’re at least 18 years old. We reserve the right to verify your age and exclude you from our services if there are any doubts over your age. 
+                          If you’re found to be underage, all your winnings will be forfeited and your account disabled.
+                          </p>
+                          <p className="paragraph">
+                          Any Client using the Company services who is identified as underage shall have all winnings forfeited and his betting account disabled.
+                          </p>
+                        </span>
+                        
                       </div>
                     </li>
                   </ul>

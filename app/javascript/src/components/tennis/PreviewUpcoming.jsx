@@ -99,7 +99,7 @@ const PreviewUpcoming = (props) => {
                               >
                                 <div className="row">
                                   <div className="col-lg-12 ">
-                                    {market.name}
+                                  {market.name} {market.specifier !== null? `-${market.specifier}`:""}
                                   </div>
                                 </div>
                               </div>

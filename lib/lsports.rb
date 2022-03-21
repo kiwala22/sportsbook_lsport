@@ -11,16 +11,16 @@ module Lsports
 
 
     # Credentials for distributors
-    @@username = "acaciabengo@skylinesms.com"
-    @@password = "tyb54634"
-    @@prematch_guid = "20bc3235-eb98-422c-9c32-beacc9c9303a"
+    @@username = "jamal.sultan@gmail.com" #"acaciabengo@skylinesms.com"
+    @@password = "G388@d39sE" #"tyb54634"
+    @@prematch_guid = "73421406-5d00-4cee-b6fe-3abbf2469db1" #"20bc3235-eb98-422c-9c32-beacc9c9303a"
 
     # Sports
     @@sports_id = "6046"
 
     # Package IDs
-    @@prematch_pkg_id = "3537"
-    @@livematch_pkg_id = "3538"
+    @@prematch_pkg_id = "4372" #"3537"
+    @@livematch_pkg_id = "4373" #"3538"
 
     # Endpoints
     @@end_point = "https://prematch.lsports.eu/OddService/"
@@ -210,12 +210,12 @@ module Lsports
     def fetch_fixture_markets(sports_id = @@sports_id)
 
         case sports_id
-        when "48242"
-            required_markets = ["2", "3", "226", "63"]
-        when "6046"
+        when "48242" #basketball
+            required_markets = ["2", "3", "226", "63", "53", "28", "21", "342", "282"]
+        when "6046" #football
             required_markets = ["1", "2", "3", "5", "7", "17", "13", "16", "19", "21", "25", "41", "42", "52", "55", "61", "64", "65" "113", "245", "45"]
-        when "54094"
-            required_markets = ["2", "3", "41", "42", "52"]
+        when "54094" #tennis
+            required_markets = ["2", "3", "41", "42", "52", "21", "45", "65", "166", "201"]
         end
 
         markets = required_markets.join(",")

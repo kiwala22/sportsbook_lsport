@@ -456,18 +456,28 @@ module MarketNames
      }
 
      @@basketball = {
-       226 => "Match Winner OT",
+       226 => "Match Winner - OT",
        63 => "HalfTime Winner",
        3 => "Asian Handicap - FT",
-       2 => "Under/Over"
+       2 => "Under/Over - FT",
+       53 => "Asian Handicap - HT",
+       28 => "Under/Over - OT",
+       21 => "Under/Over First Period",
+       342 => "Asian Handicap - OT",
+       282 => "1X2 - HT"
      }
 
      @@tennis = {
-      2 => "Under/Over",
-      52 => "Match Winner",
+      2 => "Under/Over - FT",
+      52 => "Match Winner - FT",
       3 => "Asian Handicap - FT",
       41 => "1st Set Winner",
       42 => "2nd Set Winner",
+      21 => "Under/Over First Period",
+      45 => "Under/Over Second Period",
+      65 => "Asian Handicap Second Period",
+      166 => "Under/Over Games",
+      201 => "Asian Handicap Games"
     }
 
        def market_name(identifier, sport)
