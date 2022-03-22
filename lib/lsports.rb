@@ -42,11 +42,9 @@ module Lsports
         uri.query = URI.encode_www_form(params)
 
         req = Net::HTTP::Get.new(uri)
-
+        
         res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https') do |http|
-
             http.request(req)
-
         end
 
         # puts res.body

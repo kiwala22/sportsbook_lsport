@@ -3,16 +3,16 @@ class MarketAlert < ApplicationRecord
     include Recovery
 
 	# Credentials for distributors
-	@@username = "acaciabengo@skylinesms.com"
-	@@password = "tyb54634"
-	@@prematch_guid = "20bc3235-eb98-422c-9c32-beacc9c9303a"
+	@@username = "jamal.sultan@gmail.com" #"acaciabengo@skylinesms.com"
+    @@password = "G388@d39sE" #"tyb54634"
+    @@prematch_guid = "73421406-5d00-4cee-b6fe-3abbf2469db1" #"20bc3235-eb98-422c-9c32-beacc9c9303a"
 
 	# Sports
 	@@sports_id = "6046"
 
 	# Package IDs
-	@@prematch_pkg_id = "3537"
-	@@livematch_pkg_id = "3538"
+	@@prematch_pkg_id = "4372" #"3537"
+    @@livematch_pkg_id = "4373" #"3538"
 
 	# Endpoints
 	@@end_point = "https://prematch.lsports.eu/OddService/"
