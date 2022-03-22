@@ -98,7 +98,7 @@ const PreviewPreVirtual = (props) => {
                               >
                                 <div className="row">
                                     <div className="col-lg-12 ">
-                                      <strong>{market.name} {market.specifier !== null? `-${market.specifier}`:""}</strong>
+                                    <strong>{market.name} {market.specifier !== null? ` ${<BsDash/>} ${market.specifier}`:""}</strong>
                                     </div>
                                 </div>
                               </div>

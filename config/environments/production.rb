@@ -1,8 +1,8 @@
 Rails.application.configure do
   # Specify AnyCable WebSocket server URL to use by JS client
-  config.after_initialize do
-    config.action_cable.url = ActionCable.server.config.url = ENV.fetch("CABLE_URL") if AnyCable::Rails.enabled?
-  end
+  # config.after_initialize do
+  #   config.action_cable.url = ActionCable.server.config.url = ENV.fetch("CABLE_URL") if AnyCable::Rails.enabled?
+  # end
   # Specify AnyCable WebSocket server URL to use by JS client
   # Specify AnyCable WebSocket server URL to use by JS client
   #commented out 1/10/20 - Acacia
@@ -56,8 +56,10 @@ Rails.application.configure do
   # config.action_cable.allowed_request_origins = [ 'http://localhost:3000', 'http://127.0.0.1:3000', 'http://0.0.0.0' ]
   # config.action_cable.disable_request_forgery_protection = true
   # config.action_cable.mount_path = '/cable'
-  config.action_cable.url = "ws://35.197.221.190:6565/cable"
-  config.action_cable.allowed_request_origins = [ 'http://35.197.221.190' ]
+
+  # Action cable change by Martin
+  config.action_cable.url = "https://betsports.ug/cable"
+  config.action_cable.allowed_request_origins = [ 'https://35.197.221.190', 'https://betsports.ug', 'https://www.betsports.ug' ]
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # config.force_ssl = true

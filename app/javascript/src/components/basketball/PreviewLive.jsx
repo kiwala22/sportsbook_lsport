@@ -118,7 +118,7 @@ const PreviewLive = (props) => {
                               >
                                 <div className="row">
                                   <div className="col-lg-12 ">
-                                  {market.name} {market.specifier !== null? `-${market.specifier}`:""}
+                                    <strong>{market.name} {market.specifier !== null? ` ${<BsDash/>} ${market.specifier}`:""}</strong>
                                   </div>
                                 </div>
                               </div>
