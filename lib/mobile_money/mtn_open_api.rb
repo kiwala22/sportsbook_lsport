@@ -339,93 +339,93 @@ module MobileMoney
 
 		end
 
+		def self.register_api_user(user_id)
+			api_user = ApiUser.find_by(api_id: user_id)
+			if api_user.user_type == 'collections'
+				sub_key = @@collection_sub_key
+			end
+			if api_user.user_type == 'transfer'
+				sub_key = @@transfer_sub_key
+			end
 
-	end
+			url = "https://ericssonbasicapi1.azure-api.net/provisioning/v1_0/apiuser"
+			uri = URI(url)
 
-end
+			req = Net::HTTP::Post.new(uri)
 
-def self.register_api_user(user_id)
-	api_user = ApiUser.find_by(api_id: user_id)
-	if api_user.user_type == 'collections'
-		sub_key = @@collection_sub_key
-	end
-	if api_user.user_type == 'transfer'
-		sub_key = @@transfer_sub_key
-	end
+			#set the transaction reference
+			req['X-Reference-Id'] = user_id
 
-	url = "https://ericssonbasicapi1.azure-api.net/provisioning/v1_0/apiuser"
-	uri = URI(url)
+			#set content type
+			req['Content-Type'] = "application/json"
 
-	req = Net::HTTP::Post.new(uri)
+			#set the subscription keys
+			req['Ocp-Apim-Subscription-Key'] = sub_key
 
-	#set the transaction reference
-	req['X-Reference-Id'] = user_id
+			request_body = {
+				providerCallbackHost: "betcity.co.ug"
+			}
 
-	#set content type
-	req['Content-Type'] = "application/json"
+			req.body = request_body.to_json
 
-	#set the subscription keys
-	req['Ocp-Apim-Subscription-Key'] = sub_key
+			res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https') do |http|
 
-	request_body = {
-		providerCallbackHost: "betcity.co.ug"
-	}
+			  http.request(req)
 
-	req.body = request_body.to_json
+			end
 
-	res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https') do |http|
+			case res.code
 
-	  http.request(req)
+			when '201'
+				api_user.update(registered: true)
+				return true
 
-	end
+			else
+				return res
+			end
 
-	case res.code
+		end
 
-	when '201'
-		api_user.update(registered: true)
-		return true
+		def self.receive_api_key(user_id)
+			api_user = ApiUser.find_by(api_id: user_id)
+			if api_user.user_type == 'collections'
+				sub_key = @@collection_sub_key
+			end
+			if api_user.user_type == 'transfer'
+				sub_key = @@transfer_sub_key
+			end
+			api_user = ApiUser.find_by(api_id: user_id)
+			url = "https://sandbox.momodeveloper.mtn.com/v1_0/apiuser/#{user_id}/apikey"
+			uri = URI(url)
 
-	else
-		return res
-	end
-
-end
-
-def self.receive_api_key(user_id)
-	api_user = ApiUser.find_by(api_id: user_id)
-	if api_user.user_type == 'collections'
-		sub_key = @@collection_sub_key
-	end
-	if api_user.user_type == 'transfer'
-		sub_key = @@transfer_sub_key
-	end
-	api_user = ApiUser.find_by(api_id: user_id)
-	url = "https://sandbox.momodeveloper.mtn.com/v1_0/apiuser/#{user_id}/apikey"
-	uri = URI(url)
-
-	req = Net::HTTP::Post.new(uri)
+			req = Net::HTTP::Post.new(uri)
 
 
-	#set the subscription keys
-	req['Ocp-Apim-Subscription-Key'] = sub_key
+			#set the subscription keys
+			req['Ocp-Apim-Subscription-Key'] = sub_key
 
 
-	res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https') do |http|
+			res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https') do |http|
 
-	  http.request(req)
+			  http.request(req)
 
-	end
+			end
 
-	result = JSON.parse(res.body)
+			result = JSON.parse(res.body)
 
-	case res.code
+			case res.code
 
-	when '201'
-		api_key = result['apiKey']
-		return api_key
+			when '201'
+				api_key = result['apiKey']
+				return api_key
 
-	else
-		return nil
+			else
+				return nil
+			end
+
+		end
+
+
 	end
 
 end
