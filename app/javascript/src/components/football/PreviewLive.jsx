@@ -174,9 +174,10 @@ const PreviewLive = (props) => {
                                                 element.substring(8),
                                                 "LiveMarket",
                                                 fixture.id,
-                                                `${
-                                                  market.name
-                                                } - ${element.substring(8)}`,
+                                                element.replace(
+                                                  "outcome_",
+                                                  market.name + " - "
+                                                ) + `${market.specifier !== null? market.specifier : ""}`,
                                                 market.market_identifier,
                                                 market.specifier
                                               )

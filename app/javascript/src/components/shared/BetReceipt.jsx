@@ -79,6 +79,12 @@ const BetReceipt = (props) => {
               </div>
               <div>
                 <span>
+                  <strong>Sport:</strong>
+                </span>
+                <span className="float-right">{bet.sport}</span>
+              </div>
+              <div>
+                <span>
                   <strong>Result:</strong>
                 </span>
                 <span className="float-right">
