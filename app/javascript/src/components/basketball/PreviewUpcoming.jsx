@@ -157,7 +157,7 @@ const PreviewUpcoming = (props) => {
                                                 element.replace(
                                                   "outcome_",
                                                   market.name + " - "
-                                                ) + `${market.specifier !== null? market.specifier : ""}`,
+                                                ) + `${market.specifier !== null? ` ${market.specifier}` : ""}`,
                                                 market.market_identifier,
                                                 market.specifier
                                               )
