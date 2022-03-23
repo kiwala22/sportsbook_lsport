@@ -13,12 +13,14 @@ module MobileMoney
 		@@transfer_api_id 		=  ENV['TRANSFER_API_ID']
 		@@transfer_api_key 		=  ENV['TRANSFER_API_KEY']
 
+		@@base_url = "https://sandbox.momodeveloper.mtn.com/"
+
 		def self.request_payments(amount, ext_reference, phone_number)
 			token = process_request_token()
 			if token
-				url = "https://proxy.momoapi.mtn.com/collection/v1_0/requesttopay"
+				url = @@base_url + "collection/v1_0/requesttopay"
 				#callback_url = "https://betcity.co.ug"
-				callback_url = "http://104.248.165.210:8030/confirmation/mtn/payment"
+				callback_url = "https://betsports.ug/confirmation/mtn/payment"
 
 				uri = URI(url)
 
@@ -51,8 +53,8 @@ module MobileMoney
 				   	partyIdType: "MSISDN",
 				   	partyId: phone_number
 				  	},
-				  	payerMessage: "BetCity",
-				  	payeeNote: "BetCity"
+				  	payerMessage: "BetSports",
+				  	payeeNote: "BetSports"
 				}
 
 				req.body = request_body.to_json
@@ -73,7 +75,7 @@ module MobileMoney
 		def self.check_collection_status(ext_reference)
 			token = process_request_token()
 			if token
-				url = "https://proxy.momoapi.mtn.com/collection/v1_0/requesttopay/#{ext_reference}"
+				url = @@base_url + "collection/v1_0/requesttopay/#{ext_reference}"
 
 				uri = URI(url)
 
@@ -105,7 +107,7 @@ module MobileMoney
 		def self.check_collections_balance
 			token = process_request_token()
 			if token
-				url = "https://proxy.momoapi.mtn.com/collection/v1_0/account/balance"
+				url = @@base_url + "collection/v1_0/account/balance"
 
 				uri = URI(url)
 
@@ -137,9 +139,9 @@ module MobileMoney
 		def self.make_transfer(amount, ext_reference, phone_number )
 			token = process_transfer_token()
 			if token
-				url = "https://proxy.momoapi.mtn.com/disbursement/v1_0/transfer"
-				callback_url = "https://betcity.co.ug"
-				#callback_url = "http://104.248.165.210:8030/confirmation/mtn/payment"
+				url = @@base_url + "disbursement/v1_0/transfer"
+				# callback_url = "https://betcity.co.ug"
+				callback_url = "https://betsports.ug/confirmation/mtn/payment"
 				uri = URI(url)
 
 				req = Net::HTTP::Post.new(uri)
@@ -171,8 +173,8 @@ module MobileMoney
 				   	partyIdType: "MSISDN",
 				   	partyId: phone_number
 				  	},
-				  	payerMessage: "BetCity",
-				  	payeeNote: "BetCity"
+				  	payerMessage: "BetSports",
+				  	payeeNote: "BetSports"
 				}
 
 				req.body = request_body.to_json
@@ -194,7 +196,7 @@ module MobileMoney
 		def self.check_transfer_status(ext_reference)
 			token = process_request_token()
 			if token
-				url = "https://proxy.momoapi.mtn.com/disbursement/v1_0/transfer/#{ext_reference}"
+				url = @@base_url + "disbursement/v1_0/transfer/#{ext_reference}"
 
 				uri = URI(url)
 
@@ -227,7 +229,7 @@ module MobileMoney
 		def self.check_disbursement_balance
 			token = process_transfer_token()
 			if token
-				url = "https://proxy.momoapi.mtn.com/disbursement/v1_0/account/balance"
+				url = @@base_url + "disbursement/v1_0/account/balance"
 
 				uri = URI(url)
 
@@ -263,7 +265,7 @@ module MobileMoney
 				api_id = @@collection_api_id
 				api_key = @@collection_api_key
 
-				url = "https://proxy.momoapi.mtn.com/collection/token/"
+				url = @@base_url + "collection/token/"
 
 				uri = URI(url)
 
@@ -304,7 +306,7 @@ module MobileMoney
 				api_id = @@transfer_api_id
 				api_key = @@transfer_api_key
 
-				url = "https://proxy.momoapi.mtn.com/disbursement/token/"
+				url = @@base_url + "disbursement/token/"
 
 				uri = URI(url)
 
