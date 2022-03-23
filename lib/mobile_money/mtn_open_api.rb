@@ -343,3 +343,89 @@ module MobileMoney
 	end
 
 end
+
+def self.register_api_user(user_id)
+	api_user = ApiUser.find_by(api_id: user_id)
+	if api_user.user_type == 'collections'
+		sub_key = @@collection_sub_key
+	end
+	if api_user.user_type == 'transfer'
+		sub_key = @@transfer_sub_key
+	end
+
+	url = "https://ericssonbasicapi1.azure-api.net/provisioning/v1_0/apiuser"
+	uri = URI(url)
+
+	req = Net::HTTP::Post.new(uri)
+
+	#set the transaction reference
+	req['X-Reference-Id'] = user_id
+
+	#set content type
+	req['Content-Type'] = "application/json"
+
+	#set the subscription keys
+	req['Ocp-Apim-Subscription-Key'] = sub_key
+
+	request_body = {
+		providerCallbackHost: "betcity.co.ug"
+	}
+
+	req.body = request_body.to_json
+
+	res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https') do |http|
+
+	  http.request(req)
+
+	end
+
+	case res.code
+
+	when '201'
+		api_user.update(registered: true)
+		return true
+
+	else
+		return res
+	end
+
+end
+
+def self.receive_api_key(user_id)
+	api_user = ApiUser.find_by(api_id: user_id)
+	if api_user.user_type == 'collections'
+		sub_key = @@collection_sub_key
+	end
+	if api_user.user_type == 'transfer'
+		sub_key = @@transfer_sub_key
+	end
+	api_user = ApiUser.find_by(api_id: user_id)
+	url = "https://sandbox.momodeveloper.mtn.com/v1_0/apiuser/#{user_id}/apikey"
+	uri = URI(url)
+
+	req = Net::HTTP::Post.new(uri)
+
+
+	#set the subscription keys
+	req['Ocp-Apim-Subscription-Key'] = sub_key
+
+
+	res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https') do |http|
+
+	  http.request(req)
+
+	end
+
+	result = JSON.parse(res.body)
+
+	case res.code
+
+	when '201'
+		api_key = result['apiKey']
+		return api_key
+
+	else
+		return nil
+	end
+
+end
