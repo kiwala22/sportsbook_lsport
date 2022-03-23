@@ -348,7 +348,8 @@ module MobileMoney
 				sub_key = @@transfer_sub_key
 			end
 
-			url = "https://ericssonbasicapi1.azure-api.net/provisioning/v1_0/apiuser"
+			url = "https://sandbox.momodeveloper.mtn.com/v1_0/apiuser"
+
 			uri = URI(url)
 
 			req = Net::HTTP::Post.new(uri)
