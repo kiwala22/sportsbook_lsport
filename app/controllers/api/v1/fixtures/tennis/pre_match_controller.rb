@@ -22,7 +22,7 @@ class Api::V1::Fixtures::Tennis::PreMatchController < ApplicationController
         'not_started',
         '54094',
         (Time.now),
-        (Date.today.end_of_day + 2.days),
+        (Date.today.end_of_day + 10.months),
         'Active',
         '52'
       ).order(start_date: :asc)
