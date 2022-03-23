@@ -13,12 +13,13 @@ module MobileMoney
 		@@transfer_api_id 		=  ENV['TRANSFER_API_ID']
 		@@transfer_api_key 		=  ENV['TRANSFER_API_KEY']
 
+		@@base_url = "https://sandbox.momodeveloper.mtn.com/"
+
 		def self.request_payments(amount, ext_reference, phone_number)
 			token = process_request_token()
 			if token
-				url = "https://proxy.momoapi.mtn.com/collection/v1_0/requesttopay"
-				#callback_url = "https://betcity.co.ug"
-				callback_url = "http://104.248.165.210:8030/confirmation/mtn/payment"
+				url = @@base_url + "collection/v1_0/requesttopay"
+				callback_url = "https://betsports.ug/confirmation/mtn/payment"
 
 				uri = URI(url)
 
@@ -45,21 +46,21 @@ module MobileMoney
 
 				request_body = {
 					amount: amount,
-				   currency: "UGX",
-				   externalId: ext_reference,
-				   payer: {
-				   	partyIdType: "MSISDN",
-				   	partyId: phone_number
-				  	},
-				  	payerMessage: "BetCity",
-				  	payeeNote: "BetCity"
+					currency: "UGX",
+					externalId: ext_reference,
+					payer: {
+						partyIdType: "MSISDN",
+						partyId: phone_number
+					},
+					payerMessage: "BetSports",
+					payeeNote: "BetSports"
 				}
 
 				req.body = request_body.to_json
 
 				res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https') do |http|
 
-				  http.request(req)
+					http.request(req)
 
 				end
 
@@ -73,7 +74,7 @@ module MobileMoney
 		def self.check_collection_status(ext_reference)
 			token = process_request_token()
 			if token
-				url = "https://proxy.momoapi.mtn.com/collection/v1_0/requesttopay/#{ext_reference}"
+				url = @@base_url + "collection/v1_0/requesttopay/#{ext_reference}"
 
 				uri = URI(url)
 
@@ -91,7 +92,7 @@ module MobileMoney
 
 				res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https') do |http|
 
-				  http.request(req)
+					http.request(req)
 
 				end
 				result = JSON.parse(res.body)
@@ -105,7 +106,7 @@ module MobileMoney
 		def self.check_collections_balance
 			token = process_request_token()
 			if token
-				url = "https://proxy.momoapi.mtn.com/collection/v1_0/account/balance"
+				url = @@base_url + "collection/v1_0/account/balance"
 
 				uri = URI(url)
 
@@ -124,7 +125,7 @@ module MobileMoney
 
 				res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https') do |http|
 
-				  http.request(req)
+					http.request(req)
 
 				end
 				result = JSON.parse(res.body)
@@ -137,9 +138,8 @@ module MobileMoney
 		def self.make_transfer(amount, ext_reference, phone_number )
 			token = process_transfer_token()
 			if token
-				url = "https://proxy.momoapi.mtn.com/disbursement/v1_0/transfer"
-				callback_url = "https://betcity.co.ug"
-				#callback_url = "http://104.248.165.210:8030/confirmation/mtn/payment"
+				url = @@base_url + "disbursement/v1_0/transfer"
+				callback_url = "https://betsports.ug/confirmation/mtn/payment"
 				uri = URI(url)
 
 				req = Net::HTTP::Post.new(uri)
@@ -165,21 +165,21 @@ module MobileMoney
 
 				request_body = {
 					amount: amount,
-				   currency: "UGX",
-				   externalId: ext_reference,
-				   payee: {
-				   	partyIdType: "MSISDN",
-				   	partyId: phone_number
-				  	},
-				  	payerMessage: "BetCity",
-				  	payeeNote: "BetCity"
+					currency: "UGX",
+					externalId: ext_reference,
+					payee: {
+						partyIdType: "MSISDN",
+						partyId: phone_number
+					},
+					payerMessage: "BetSports",
+					payeeNote: "BetSports"
 				}
 
 				req.body = request_body.to_json
 
 				res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https') do |http|
 
-				  http.request(req)
+					http.request(req)
 
 				end
 
@@ -194,7 +194,7 @@ module MobileMoney
 		def self.check_transfer_status(ext_reference)
 			token = process_request_token()
 			if token
-				url = "https://proxy.momoapi.mtn.com/disbursement/v1_0/transfer/#{ext_reference}"
+				url = @@base_url + "disbursement/v1_0/transfer/#{ext_reference}"
 
 				uri = URI(url)
 
@@ -213,7 +213,7 @@ module MobileMoney
 
 				res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https') do |http|
 
-				  http.request(req)
+					http.request(req)
 
 				end
 				result = JSON.parse(res.body)
@@ -227,7 +227,7 @@ module MobileMoney
 		def self.check_disbursement_balance
 			token = process_transfer_token()
 			if token
-				url = "https://proxy.momoapi.mtn.com/disbursement/v1_0/account/balance"
+				url = @@base_url + "disbursement/v1_0/account/balance"
 
 				uri = URI(url)
 
@@ -246,7 +246,7 @@ module MobileMoney
 
 				res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https') do |http|
 
-				  http.request(req)
+					http.request(req)
 
 				end
 				result = JSON.parse(res.body)
@@ -263,7 +263,7 @@ module MobileMoney
 				api_id = @@collection_api_id
 				api_key = @@collection_api_key
 
-				url = "https://proxy.momoapi.mtn.com/collection/token/"
+				url = @@base_url + "collection/token/"
 
 				uri = URI(url)
 
@@ -279,7 +279,7 @@ module MobileMoney
 
 				res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https') do |http|
 
-				  http.request(req)
+					http.request(req)
 
 				end
 				result = JSON.parse(res.body)
@@ -304,7 +304,7 @@ module MobileMoney
 				api_id = @@transfer_api_id
 				api_key = @@transfer_api_key
 
-				url = "https://proxy.momoapi.mtn.com/disbursement/token/"
+				url = @@base_url + "disbursement/token/"
 
 				uri = URI(url)
 
@@ -320,7 +320,7 @@ module MobileMoney
 
 				res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https') do |http|
 
-				  http.request(req)
+					http.request(req)
 
 				end
 				result = JSON.parse(res.body)
@@ -339,92 +339,93 @@ module MobileMoney
 
 		end
 
-		# def self.register_api_user(user_id)
-		# 	api_user = ApiUser.find_by(api_id: user_id)
-		# 	if api_user.user_type == 'collections'
-		# 		sub_key = @@collection_sub_key
-		# 	end
-		# 	if api_user.user_type == 'transfer'
-		# 		sub_key = @@transfer_sub_key
-		# 	end
-		#
-		# 	url = "https://ericssonbasicapi1.azure-api.net/provisioning/v1_0/apiuser"
-		# 	uri = URI(url)
-		#
-		# 	req = Net::HTTP::Post.new(uri)
-		#
-		# 	#set the transaction reference
-		# 	req['X-Reference-Id'] = user_id
-		#
-		# 	#set content type
-		# 	req['Content-Type'] = "application/json"
-		#
-		# 	#set the subscription keys
-		# 	req['Ocp-Apim-Subscription-Key'] = sub_key
-		#
-		# 	request_body = {
-		# 		providerCallbackHost: "betcity.co.ug"
-		# 	}
-		#
-		# 	req.body = request_body.to_json
-		#
-		# 	res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https') do |http|
-		#
-		# 	  http.request(req)
-		#
-		# 	end
-		#
-		# 	case res.code
-		#
-		# 	when '201'
-		# 		api_user.update(registered: true)
-		# 		return true
-		#
-		# 	else
-		# 		return res
-		# 	end
-		#
-		# end
 
-	# 	def self.receive_api_key(user_id)
-	# 		api_user = ApiUser.find_by(api_id: user_id)
-	# 		if api_user.user_type == 'collections'
-	# 			sub_key = @@collection_sub_key
-	# 		end
-	# 		if api_user.user_type == 'transfer'
-	# 			sub_key = @@transfer_sub_key
-	# 		end
-	# 		api_user = ApiUser.find_by(api_id: user_id)
-	# 		url = "https://sandbox.momodeveloper.mtn.com/v1_0/apiuser/#{user_id}/apikey"
-	# 		uri = URI(url)
-	#
-	# 		req = Net::HTTP::Post.new(uri)
-	#
-	#
-	# 		#set the subscription keys
-	# 		req['Ocp-Apim-Subscription-Key'] = sub_key
-	#
-	#
-	# 		res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https') do |http|
-	#
-	# 		  http.request(req)
-	#
-	# 		end
-	#
-	# 		result = JSON.parse(res.body)
-	#
-	# 		case res.code
-	#
-	# 		when '201'
-	# 			api_key = result['apiKey']
-	# 			return api_key
-	#
-	# 		else
-	# 			return nil
-	# 		end
-	#
-	# 	end
-	#
+	end
+
+end
+
+def self.register_api_user(user_id)
+	api_user = ApiUser.find_by(api_id: user_id)
+	if api_user.user_type == 'collections'
+		sub_key = @@collection_sub_key
+	end
+	if api_user.user_type == 'transfer'
+		sub_key = @@transfer_sub_key
+	end
+
+	url = "https://ericssonbasicapi1.azure-api.net/provisioning/v1_0/apiuser"
+	uri = URI(url)
+
+	req = Net::HTTP::Post.new(uri)
+
+	#set the transaction reference
+	req['X-Reference-Id'] = user_id
+
+	#set content type
+	req['Content-Type'] = "application/json"
+
+	#set the subscription keys
+	req['Ocp-Apim-Subscription-Key'] = sub_key
+
+	request_body = {
+		providerCallbackHost: "betcity.co.ug"
+	}
+
+	req.body = request_body.to_json
+
+	res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https') do |http|
+
+	  http.request(req)
+
+	end
+
+	case res.code
+
+	when '201'
+		api_user.update(registered: true)
+		return true
+
+	else
+		return res
+	end
+
+end
+
+def self.receive_api_key(user_id)
+	api_user = ApiUser.find_by(api_id: user_id)
+	if api_user.user_type == 'collections'
+		sub_key = @@collection_sub_key
+	end
+	if api_user.user_type == 'transfer'
+		sub_key = @@transfer_sub_key
+	end
+	api_user = ApiUser.find_by(api_id: user_id)
+	url = "https://sandbox.momodeveloper.mtn.com/v1_0/apiuser/#{user_id}/apikey"
+	uri = URI(url)
+
+	req = Net::HTTP::Post.new(uri)
+
+
+	#set the subscription keys
+	req['Ocp-Apim-Subscription-Key'] = sub_key
+
+
+	res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https') do |http|
+
+	  http.request(req)
+
+	end
+
+	result = JSON.parse(res.body)
+
+	case res.code
+
+	when '201'
+		api_key = result['apiKey']
+		return api_key
+
+	else
+		return nil
 	end
 
 end
