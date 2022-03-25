@@ -22,7 +22,8 @@ class Api::V1::Fixtures::Basketball::PreMatchController < ApplicationController
           'not_started',
           '48242',
           (Time.now),
-          (Date.today.end_of_day + 10.months),
+          (Date.today.end_of_day + 2.days), #production
+          # (Date.today.end_of_day + 10.months), #development
           'Active',
           '226'
         ).order(start_date: :asc)

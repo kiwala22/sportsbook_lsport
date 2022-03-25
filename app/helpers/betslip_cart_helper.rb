@@ -1,7 +1,8 @@
 module BetslipCartHelper
    
    def fetch_market_status(market, identifier, fixture_id, specifier = nil)
-      status = market.constantize.find_by(fixture_id: fixture_id, market_identifier: identifier, specifier: specifier).status
+      market = market.constantize.find_by(fixture_id: fixture_id, market_identifier: identifier, specifier: specifier)
+      status = market.nil? ? nil : market.status
       return status
    end
    
@@ -12,7 +13,8 @@ module BetslipCartHelper
    end
    
    def fetch_specifier(market, identifier, fixture_id)
-      specifier = market.constantize.find_by(fixture_id: fixture_id, market_identifier: identifier).specifier
+      market = market.constantize.find_by(fixture_id: fixture_id, market_identifier: identifier)
+      specifier = market.nil? ? nil : market.specifier
       return specifier
    end
    

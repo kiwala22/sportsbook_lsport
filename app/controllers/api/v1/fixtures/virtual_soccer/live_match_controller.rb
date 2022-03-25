@@ -44,28 +44,28 @@ class Api::V1::Fixtures::VirtualSoccer::LiveMatchController < ApplicationControl
     filtered_markets = []
 
     ## Filter the markets to the specifics needed
-    markets.each do |market|
-      if ["2", "21", "45"].include?(market["market_identifier"])
-        if market["specifier"] == "2.5"
-          filtered_markets << market
-        end
+    # markets.each do |market|
+    #   if ["2", "21", "45"].include?(market["market_identifier"])
+    #     if market["specifier"] == "2.5"
+    #       filtered_markets << market
+    #     end
 
-      elsif ["3", "64", "65"].include?(market["market_identifier"])
-        if market["specifier"] == "-1.0 (0-0)"
-          filtered_markets << market
-        end
+    #   elsif ["3", "64", "65"].include?(market["market_identifier"])
+    #     if market["specifier"] == "-1.0 (0-0)"
+    #       filtered_markets << market
+    #     end
 
-      elsif ["13", "61"].include?(market["market_identifier"])
-        if market["specifier"] == "1:0"
-          filtered_markets << market
-        end
-      else
-        filtered_markets << market
-      end
-    end
+    #   elsif ["13", "61"].include?(market["market_identifier"])
+    #     if market["specifier"] == "1:0"
+    #       filtered_markets << market
+    #     end
+    #   else
+    #     filtered_markets << market
+    #   end
+    # end
 
 
-    fixture["markets"] = filtered_markets
+    fixture["markets"] = markets
 
     render json: fixture
       

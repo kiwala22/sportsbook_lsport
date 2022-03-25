@@ -39,7 +39,7 @@ class Api::V1::HomeController < ApplicationController
           '6046',
           %w[37364 37386 38301 37814],
           (Time.now),
-          (Date.today.end_of_day + 2.days),
+          (Date.today.end_of_day + 10.months),
           'Active',
           '1'
         )

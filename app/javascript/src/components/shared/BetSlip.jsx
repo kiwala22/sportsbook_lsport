@@ -81,6 +81,7 @@ const BetSlip = (props) => {
       .then((response) => {
         if (response.data.status == "OK") {
           dispatcher({ type: "addBet", payload: [] });
+          dispatcher({ type: "betSelected", payload: [] });
           cogoToast.success("Your Betslip is now empty.", {
             hideAfter: 5,
           });
@@ -100,7 +101,6 @@ const BetSlip = (props) => {
   };
 
   function updateSlipGames(data, games) {
-    console.log("Called");
     if (games !== undefined) {
       let fixtureIndex = games.findIndex(
         (el) => data.fixture_id == el.fixtureId
@@ -115,7 +115,6 @@ const BetSlip = (props) => {
       };
 
       dispatcher({ type: "addBet", payload: games });
-      console.log("dispatched");
     }
   }
 
@@ -127,7 +126,6 @@ const BetSlip = (props) => {
         fixture={bet.fixtureId}
         market={bet.marketIdentifier}
         received={(data) => {
-          console.log("Data received");
           updateSlipGames(data, games);
         }}
       >
@@ -139,7 +137,7 @@ const BetSlip = (props) => {
           <div className="col-12 px-2">
             <div className="single-bet">
               <div className="col-1 px-1">
-                <a onClick={() => deleteLineBet(bet.id)}>
+                <a onClick={() => deleteLineBet(bet.id, bet.fixtureId)}>
                   <i className="far fa-times-circle"></i>
                 </a>
               </div>
@@ -166,13 +164,14 @@ const BetSlip = (props) => {
     ));
   };
 
-  const deleteLineBet = (id) => {
+  const deleteLineBet = (id, fixtureId) => {
     const path = `/clear_bet?id=${id}`;
     const values = {};
     Requests.isDeleteRequest(path, values)
       .then((response) => {
         if (response.data.status == "OK") {
           loadCartGames();
+          setTimeout(() => dispatcher({ type: "removeSelected", payload: fixtureId }), 500)
         }
       })
       .catch((error) => {
@@ -195,6 +194,7 @@ const BetSlip = (props) => {
       .then((response) => {
         dispatcher({ type: "addBet", payload: [] });
         dispatcher({ type: "userUpdate", payload: response.data.user });
+        dispatcher({ type: "betSelected", payload: [] });
         cogoToast.success(response.data.message, {
           hideAfter: 5,
         });

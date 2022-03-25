@@ -1,3 +1,4 @@
+import { element } from "prop-types";
 import { createStore } from "redux";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
@@ -8,6 +9,7 @@ const initialState = {
   verified: false,
   userInfo: {},
   games: [],
+  selectedChoices: [],
   displaySider: false,
   showBetSlip: false,
   isMobile: Mobile.isMobile(),
@@ -39,16 +41,45 @@ function reducer(state = initialState, action) {
       return { ...state, isMobile: Mobile.isMobile() };
     case "onSportChange":
       return { ...state, sportType: action.payload };
+    case "betSelected":
+      return { ...state, selectedChoices: dataMerger(state.selectedChoices, action.payload) };
+    case "removeSelected":
+      return { ...state, selectedChoices: betRemoval(state.selectedChoices, action.payload) }
     default:
       return state;
   }
 }
 
+function dataMerger (oldData, newData) {
+  if (newData.length === 0) {
+    return []
+  }
+
+  let objIndex = oldData.findIndex(element => element.Id === newData[0].Id)
+
+  if (objIndex !== -1) {
+    let data = betRemoval(oldData, newData[0].Id)
+
+    return updatedData = [...data, ...newData]
+  }
+
+  let updatedData = [...oldData, ...newData]
+
+  return updatedData;
+
+}
+
+function betRemoval (oldData, Id) {
+  let newVal = oldData.filter(element => element.Id !== Id)
+  return newVal
+}
+
 const persistConfig = {
   key: "sportType",
   storage: storage,
-  whitelist: ["sportType"], // which reducer want to store
+  whitelist: ["sportType", "selectedChoices"], // which reducer you want to persist in store
 };
+
 const pReducer = persistReducer(persistConfig, reducer);
 const store = createStore(pReducer);
 const persistor = persistStore(store);

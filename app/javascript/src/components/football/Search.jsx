@@ -1,10 +1,11 @@
-import { Table } from "antd";
+import { Button, Table } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
 import "channels";
 import cogoToast from "cogo-toast";
 import React, { useEffect, useState } from "react";
 import Moment from "react-moment";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, withRouter } from "react-router-dom";
+import { Link, withRouter, useHistory } from "react-router-dom";
 import shortUUID from "short-uuid";
 import MarketsChannel from "../../../channels/marketsChannel";
 import PreOddsChannel from "../../../channels/preOddsChannel";
@@ -19,6 +20,7 @@ const Search = (props) => {
   const [games, setGames] = useState([]);
   const [pageLoading, setPageLoading] = useState(true);
   const dispatcher = useDispatch();
+  const history = useHistory();
   const isMobile = useSelector((state) => state.isMobile);
 
   useEffect(() => loadPreMatchGames(), [props]);
@@ -64,13 +66,11 @@ const Search = (props) => {
       dataIndex: "start_date",
       render: (date) => (
         <>
-          <a>
             <Moment local={true} format="HH:mm">
               {date}
             </Moment>
             <br />
             <Moment format="DD-MMM">{date}</Moment>
-          </a>
         </>
       ),
     },
@@ -85,16 +85,9 @@ const Search = (props) => {
             updateMatchInfo(data, games, setGames, "1", "Market");
           }}
         >
-          <Link
-            to={{
-              pathname: "/fixtures/soccer/pre",
-              search: `id=${fixture.id}`,
-            }}
-          >
             {fixture.part_one_name}
             <br />
             {fixture.part_two_name}
-          </Link>
         </MarketsChannel>
       ),
     },
@@ -109,10 +102,8 @@ const Search = (props) => {
             updateMatchInfo(data, games, setGames, "1", "Pre");
           }}
         >
-          <a>
             {fixture.league_name} <br />
             {fixture.location}
-          </a>
         </PreOddsChannel>
       ),
     },
@@ -183,6 +174,16 @@ const Search = (props) => {
             ? parseFloat(1.0).toFixed(2)
             : oddsFormatter(fixture.market_1_odds["outcome_2"])}
         </a>
+      ),
+    },
+    {
+      title: "",
+      render: (_, fixture) => (
+        <Button
+          onClick={() => history.push(`/fixtures/soccer/pre?id=${fixture.id}`)}
+          icon={<PlusOutlined />}
+          className="icon-more"
+        />
       ),
     },
   ];

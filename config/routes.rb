@@ -48,11 +48,11 @@ Rails.application.routes.draw do
    end
   end
 
-  match '/faqs', to: "footer_tabs#faqs", via: [:get]
+  match '/about', to: "footer_tabs#faqs", via: [:get]
   match '/rules', to: "footer_tabs#rules", via: [:get]
   match '/contacts', to: "footer_tabs#contacts", via: [:get]
   match '/terms', to: "footer_tabs#terms", via: [:get]
-  match '/privacy', to: "footer_tabs#privacy", via: [:get]
+  match '/responsible_gambling', to: "footer_tabs#privacy", via: [:get]
    # Serve websocket cable requests in-process
    mount ActionCable.server => '/cable'
 

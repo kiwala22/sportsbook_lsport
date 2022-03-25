@@ -22,7 +22,7 @@ const Footer = (props) => {
                           className="d-flex justify-content-between custom-anchor"
                         >
                           <li className="col-2">
-                            <Link to={"/faqs/"}>Faqs</Link>
+                            <Link to={"/about/"}>About Us</Link>
                           </li>
                           <li className="col-3">
                           <Link to={"/responsible_gambling/"}>Responsible Gambling</Link>
@@ -43,7 +43,7 @@ const Footer = (props) => {
                       <Link to={"/rules/"}>Game Rules</Link>
                     </li>
                     <li>
-                      <Link to={"/contacts/"}>Support Contacts</Link>
+                      <Link to={"/contacts/"}>Support Info</Link>
                     </li>
                     <li>
                       <a
@@ -72,7 +72,7 @@ const Footer = (props) => {
                 <div className="col-xl-12 col-lg-12 col-md-12 col-sm-6">
                   <ul className="footer-size custom-anchor">
                     <li>
-                      <Link to={"/faqs/"}>Faqs</Link>
+                      <Link to={"/about/"}>About Us</Link>
                     </li>
                     <li>
                       <Link to={"/responsible_gambling/"}>Responsible Gambling</Link>
@@ -84,7 +84,7 @@ const Footer = (props) => {
                       <Link to={"/terms/"}>Terms and Conditions</Link>
                     </li>
                     <li>
-                      <Link to={"/contacts/"}>Support Contacts</Link>
+                      <Link to={"/contacts/"}>Support Info</Link>
                     </li>
                     <li>
                       BetSports is licensed by the National Gaming Board of

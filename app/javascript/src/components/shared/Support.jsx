@@ -1,5 +1,9 @@
 import React from "react";
-import { BsEnvelope, BsSearch } from "react-icons/bs";
+import { BsEnvelope } from "react-icons/bs";
+import { BiSupport } from "react-icons/bi"
+import { GrMapLocation } from "react-icons/gr";
+import { GoLocation } from "react-icons/go"
+import { FiPhoneIncoming } from "react-icons/fi"
 import { useSelector } from "react-redux";
 
 const Support = () => {
@@ -22,7 +26,7 @@ const Support = () => {
                   aria-controls="home"
                   aria-selected="true"
                 >
-                  Contacts
+                  Support Info
                 </a>
               </li>
             </ul>
@@ -34,11 +38,22 @@ const Support = () => {
                 aria-labelledby="home-tab"
               >
                 <div className="heads paragraph">
-                  <BsSearch className="contact-icons"/> <a href="https://www.betsports.ug">BetSports Website</a> <br /> <br />
-                  <BsEnvelope className="contact-icons" /> info@example.ug <br />
-                  <br />
-                  <i className="fas fa-phone contact-icons" aria-hidden="true"></i>{" "}
-                  +256700123123 / +256700123123
+                  <h5>Call Us:</h5>
+                  <p>Email: {" "}<BsEnvelope className="contact-icons" />{" "}<a>info@betsports.ug</a></p>
+                  <p>Customer Service: {" "}<BiSupport className="contact-icons" />{" "}<a>info@betsports.ug</a></p>
+                  <p>Telephone: {" "}<FiPhoneIncoming className="contact-icons" />{" "}+256776225922 / +256753941009</p>
+                </div>
+
+                <div className="heads paragraph">
+                  <h5>Post:</h5>
+                  <p>Box:{" "}PO.Box 520023</p>
+                  <p>Kampala, Uganda</p>
+                </div>
+
+                <div className="heads paragraph">
+                  <h5>Visit Us:</h5>
+                  <p>Location: {" "}<GoLocation className="contact-icons" />{" "}Plot 83, Turfnell road</p>
+                  <p>Kamwokya, Kampala Uganda</p>
                 </div>
               </div>
             </div>

@@ -21,6 +21,7 @@ import oddsFormatter from "../../utilities/oddsFormatter";
 import Requests from "../../utilities/Requests";
 import NoData from "../shared/NoData";
 import Preview from "../shared/Skeleton";
+import useDynamicRefs from 'use-dynamic-refs';
 // import Spinner from "./Spinner";
 
 const Home = (props) => {
@@ -29,8 +30,10 @@ const Home = (props) => {
   const [prematchGames, setPrematchGames] = useState([]);
   const [pageLoading, setPageLoading] = useState(true);
   const isMobile = useSelector((state) => state.isMobile);
+  const selectedChoices = useSelector((state) => state.selectedChoices)
   const dispatcher = useDispatch();
   const history = useHistory();
+  const [getRef, setRef] =  useDynamicRefs();
 
   let interval;
 
@@ -44,6 +47,37 @@ const Home = (props) => {
     }
     return () => clearInterval(interval);
   }, [prematchGames]);
+
+  useEffect(() => {
+    // let interval
+    if (selectedChoices.length !== 0) {
+      interval = setInterval(() => {
+        highLightSelected(selectedChoices);
+      }, 500);
+    }
+    return () => clearInterval(interval);
+  }, [selectedChoices]);
+
+  useEffect(() => {
+    // let interval
+    setTimeout(()=> {
+      if (selectedChoices.length !== 0) {
+        interval = setInterval(() => {
+          highLightSelected(selectedChoices);
+        }, 500);
+      }
+    },1000)
+    return () => clearInterval(interval);
+  }, []);
+
+  const highLightSelected = (choices) => {
+    choices.map((element, index) => {
+      let ref = getRef(element.choice)
+      if (ref !== undefined && ref !== null) {
+        ref.current.style.backgroundColor = '#f6ae2d'
+      }
+    })
+  }
 
   const loadGames = () => {
     let path = "/api/v1/home";
@@ -174,8 +208,11 @@ const Home = (props) => {
               : "btnn intialise_input btn btn-light wagger-btn"
           }
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
-          onClick={() =>
-            addBet(dispatcher, "1", "LiveMarket", fixture.id, "1X2 FT - 1", "1")
+          ref={setRef(`${fixture.id}_market_1_1`)}
+          
+        onClick={() => {
+            addBet(dispatcher, "1", "LiveMarket", fixture.id, "1X2 FT - 1", "1", null, `${fixture.id}_market_1_1`);
+        }
           }
         >
           {fixture.markets.length == 0 || fixture.markets[0].odds === null
@@ -197,8 +234,9 @@ const Home = (props) => {
               : "btnn intialise_input btn btn-light wagger-btn"
           }
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
+          ref={setRef(`${fixture.id}_market_1_X`)}
           onClick={() =>
-            addBet(dispatcher, "X", "LiveMarket", fixture.id, "1X2 FT - X", "1")
+            addBet(dispatcher, "X", "LiveMarket", fixture.id, "1X2 FT - X", "1", null, `${fixture.id}_market_1_X`)
           }
         >
           {fixture.markets.length == 0 || fixture.markets[0].odds === null
@@ -220,8 +258,9 @@ const Home = (props) => {
               : "btnn intialise_input btn btn-light wagger-btn"
           }
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
+          ref={setRef(`${fixture.id}_market_1_2`)}
           onClick={() =>
-            addBet(dispatcher, "2", "LiveMarket", fixture.id, "1X2 FT - 2", "1")
+            addBet(dispatcher, "2", "LiveMarket", fixture.id, "1X2 FT - 2", "1", null, `${fixture.id}_market_1_2`)
           }
         >
           {fixture.markets.length == 0 || fixture.markets[0].odds === null
@@ -313,8 +352,9 @@ const Home = (props) => {
               : "btnn intialise_input btn btn-light wagger-btn"
           }
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
+          ref={setRef(`${fixture.id}_market_1_1`)}
           onClick={() =>
-            addBet(dispatcher, "1", "PreMarket", fixture.id, "1X2 FT - 1", "1")
+            addBet(dispatcher, "1", "PreMarket", fixture.id, "1X2 FT - 1", "1", null, `${fixture.id}_market_1_1`)
           }
         >
           {fixture.markets.length == 0 || fixture.markets[0].odds === null
@@ -336,8 +376,9 @@ const Home = (props) => {
               : "btnn intialise_input btn btn-light wagger-btn"
           }
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
+          ref={setRef(`${fixture.id}_market_1_X`)}
           onClick={() =>
-            addBet(dispatcher, "X", "PreMarket", fixture.id, "1X2 FT - X", "1")
+            addBet(dispatcher, "X", "PreMarket", fixture.id, "1X2 FT - X", "1", null, `${fixture.id}_market_1_X`)
           }
         >
           {fixture.markets.length == 0 || fixture.markets[0].odds === null
@@ -359,8 +400,9 @@ const Home = (props) => {
               : "btnn intialise_input btn btn-light wagger-btn"
           }
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
+          ref={setRef(`${fixture.id}_market_1_2`)}
           onClick={() =>
-            addBet(dispatcher, "2", "PreMarket", fixture.id, "1X2 FT - 2", "1")
+            addBet(dispatcher, "2", "PreMarket", fixture.id, "1X2 FT - 2", "1", null, `${fixture.id}_market_1_2`)
           }
         >
           {fixture.markets.length == 0 || fixture.markets[0].odds === null
@@ -452,8 +494,9 @@ const Home = (props) => {
               : "btnn intialise_input btn btn-light wagger-btn"
           }
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
+          ref={setRef(`${fixture.id}_market_1_1`)}
           onClick={() =>
-            addBet(dispatcher, "1", "PreMarket", fixture.id, "1X2 FT - 1", "1")
+            addBet(dispatcher, "1", "PreMarket", fixture.id, "1X2 FT - 1", "1", null, `${fixture.id}_market_1_1`)
           }
         >
           {fixture.markets.length == 0 || fixture.markets[0].odds === null
@@ -475,8 +518,9 @@ const Home = (props) => {
               : "btnn intialise_input btn btn-light wagger-btn"
           }
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
+          ref={setRef(`${fixture.id}_market_1_X`)}
           onClick={() =>
-            addBet(dispatcher, "X", "PreMarket", fixture.id, "1X2 FT - X", "1")
+            addBet(dispatcher, "X", "PreMarket", fixture.id, "1X2 FT - X", "1", null, `${fixture.id}_market_1_X`)
           }
         >
           {fixture.markets.length == 0 || fixture.markets[0].odds === null
@@ -498,8 +542,9 @@ const Home = (props) => {
               : "btnn intialise_input btn btn-light wagger-btn"
           }
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
+          ref={setRef(`${fixture.id}_market_1_2`)}
           onClick={() =>
-            addBet(dispatcher, "2", "PreMarket", fixture.id, "1X2 FT - 2", "1")
+            addBet(dispatcher, "2", "PreMarket", fixture.id, "1X2 FT - 2", "1", null, `${fixture.id}_market_1_2`)
           }
         >
           {fixture.markets.length == 0 || fixture.markets[0].odds === null
