@@ -36,7 +36,7 @@ module MobileMoney
 				req['X-Reference-Id'] = ext_reference
 
 				#set Enviroment
-				req['X-Target-Environment'] = "mtnuganda"
+				req['X-Target-Environment'] = "sandbox" #"mtnuganda"
 
 				#set content type
 				req['Content-Type'] = "application/json"
@@ -85,7 +85,7 @@ module MobileMoney
 				req['Authorization'] = "Bearer #{token}"
 
 				#set Enviroment
-				req['X-Target-Environment'] = "mtnuganda"
+				req['X-Target-Environment'] = "sandbox" #"mtnuganda"
 
 				#set the subscription keys
 				req['Ocp-Apim-Subscription-Key'] = @@collection_sub_key
@@ -117,7 +117,7 @@ module MobileMoney
 				req['Authorization'] = "Bearer #{token}"
 
 				#set Enviroment
-				req['X-Target-Environment'] = "mtnuganda"
+				req['X-Target-Environment'] = "sandbox" #"mtnuganda"
 
 				#set the subscription keys
 				req['Ocp-Apim-Subscription-Key'] = @@collection_sub_key
@@ -155,7 +155,7 @@ module MobileMoney
 				req['X-Reference-Id'] = ext_reference
 
 				#set Enviroment
-				req['X-Target-Environment'] = "mtnuganda"
+				req['X-Target-Environment'] = "sandbox" #"mtnuganda"
 
 				#set content type
 				req['Content-Type'] = "application/json"
@@ -205,7 +205,7 @@ module MobileMoney
 				req['Authorization'] = "Bearer #{token}"
 
 				#set Enviroment
-				req['X-Target-Environment'] = "mtnuganda"
+				req['X-Target-Environment'] = "sandbox" #"mtnuganda"
 
 				#set the subscription keys
 				req['Ocp-Apim-Subscription-Key'] = @@transfer_sub_key
@@ -238,7 +238,7 @@ module MobileMoney
 				req['Authorization'] = "Bearer #{token}"
 
 				#set Enviroment
-				req['X-Target-Environment'] = "mtnuganda"
+				req['X-Target-Environment'] = "sandbox" #"mtnuganda"
 
 				#set the subscription keys
 				req['Ocp-Apim-Subscription-Key'] = @@transfer_sub_key
@@ -348,7 +348,8 @@ module MobileMoney
 				sub_key = @@transfer_sub_key
 			end
 
-			url = "https://ericssonbasicapi1.azure-api.net/provisioning/v1_0/apiuser"
+			url = "https://sandbox.momodeveloper.mtn.com/v1_0/apiuser"
+
 			uri = URI(url)
 
 			req = Net::HTTP::Post.new(uri)
