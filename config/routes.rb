@@ -15,6 +15,8 @@ Rails.application.routes.draw do
       match 'home_tennis' => "home#tennis", via: [:get]
       match 'transactions' => "transactions#index", via: [:get]
       match 'bets' => "bets#index", via: [:get]
+      match 'deposit' => 'deposits#create', via: [:post]
+      match 'withdraw' => 'withdraws#create', via: [:post]
       namespace :fixtures do
          namespace :soccer do
            match 'live' => "live_match#index", via: [:get]
@@ -28,7 +30,7 @@ Rails.application.routes.draw do
             match 'pre_fixture' => "pre_match#show", via: [:get]
             match 'live_fixture' => "live_match#show", via: [:get]
          end
-         
+
          match 'search' => "search#index", via: [:get]
 
          namespace :basketball do
