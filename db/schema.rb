@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_02_112743) do
+ActiveRecord::Schema.define(version: 2022_03_27_184014) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -248,6 +248,608 @@ ActiveRecord::Schema.define(version: 2022_02_02_112743) do
     t.index ["fixture_id"], name: "index_live_markets_on_fixture_id"
   end
 
+  create_table "market113_lives", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "outcome_Yes", precision: 8, scale: 2, default: "1.0"
+    t.decimal "outcome_No", precision: 8, scale: 2, default: "1.0"
+    t.string "status"
+    t.string "void_reason"
+    t.json "outcome"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "fixture_id", null: false
+    t.string "specifier"
+    t.index ["event_id"], name: "index_market113_lives_on_event_id", unique: true
+    t.index ["fixture_id"], name: "index_market113_lives_on_fixture_id"
+    t.index ["status"], name: "index_market113_lives_on_status"
+  end
+
+  create_table "market113_pres", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "outcome_Yes", precision: 8, scale: 2, default: "1.0"
+    t.decimal "outcome_No", precision: 8, scale: 2, default: "1.0"
+    t.string "status"
+    t.string "void_reason"
+    t.json "outcome"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "fixture_id", null: false
+    t.string "specifier"
+    t.index ["event_id"], name: "index_market113_pres_on_event_id", unique: true
+    t.index ["fixture_id"], name: "index_market113_pres_on_fixture_id"
+    t.index ["status"], name: "index_market113_pres_on_status"
+  end
+
+  create_table "market17_lives", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "outcome_Yes", precision: 8, scale: 2, default: "1.0"
+    t.decimal "outcome_No", precision: 8, scale: 2, default: "1.0"
+    t.string "status"
+    t.string "void_reason"
+    t.json "outcome"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "fixture_id", null: false
+    t.string "specifier"
+    t.index ["event_id"], name: "index_market17_lives_on_event_id", unique: true
+    t.index ["fixture_id"], name: "index_market17_lives_on_fixture_id"
+    t.index ["status"], name: "index_market17_lives_on_status"
+  end
+
+  create_table "market17_pres", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "outcome_Yes", precision: 8, scale: 2, default: "1.0"
+    t.decimal "outcome_No", precision: 8, scale: 2, default: "1.0"
+    t.string "status"
+    t.string "void_reason"
+    t.json "outcome"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "fixture_id", null: false
+    t.string "specifier"
+    t.index ["event_id"], name: "index_market17_pres_on_event_id", unique: true
+    t.index ["fixture_id"], name: "index_market17_pres_on_fixture_id"
+    t.index ["status"], name: "index_market17_pres_on_status"
+  end
+
+  create_table "market1_lives", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "outcome_1", precision: 8, scale: 2, default: "1.0"
+    t.decimal "outcome_2", precision: 8, scale: 2, default: "1.0"
+    t.decimal "outcome_X", precision: 8, scale: 2, default: "1.0"
+    t.string "status"
+    t.string "void_reason"
+    t.json "outcome"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "fixture_id", null: false
+    t.string "specifier"
+    t.index ["event_id"], name: "index_market1_lives_on_event_id", unique: true
+    t.index ["fixture_id"], name: "index_market1_lives_on_fixture_id"
+    t.index ["status"], name: "index_market1_lives_on_status"
+  end
+
+  create_table "market1_pres", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "outcome_1", precision: 8, scale: 2, default: "1.0"
+    t.decimal "outcome_2", precision: 8, scale: 2, default: "1.0"
+    t.decimal "outcome_X", precision: 8, scale: 2, default: "1.0"
+    t.string "status"
+    t.string "void_reason"
+    t.json "outcome"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "fixture_id", null: false
+    t.string "specifier"
+    t.index ["event_id"], name: "index_market1_pres_on_event_id", unique: true
+    t.index ["fixture_id"], name: "index_market1_pres_on_fixture_id"
+    t.index ["status"], name: "index_market1_pres_on_status"
+  end
+
+  create_table "market25_lives", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "outcome_12", precision: 8, scale: 2, default: "1.0"
+    t.decimal "outcome_1X", precision: 8, scale: 2, default: "1.0"
+    t.decimal "outcome_X2", precision: 8, scale: 2, default: "1.0"
+    t.string "status"
+    t.string "void_reason"
+    t.json "outcome"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "fixture_id", null: false
+    t.string "specifier"
+    t.index ["event_id"], name: "index_market25_lives_on_event_id", unique: true
+    t.index ["fixture_id"], name: "index_market25_lives_on_fixture_id"
+    t.index ["status"], name: "index_market25_lives_on_status"
+  end
+
+  create_table "market25_pres", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "outcome_12", precision: 8, scale: 2, default: "1.0"
+    t.decimal "outcome_1X", precision: 8, scale: 2, default: "1.0"
+    t.decimal "outcome_X2", precision: 8, scale: 2, default: "1.0"
+    t.string "status"
+    t.string "void_reason"
+    t.json "outcome"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "fixture_id", null: false
+    t.string "specifier"
+    t.index ["event_id"], name: "index_market25_pres_on_event_id", unique: true
+    t.index ["fixture_id"], name: "index_market25_pres_on_fixture_id"
+    t.index ["status"], name: "index_market25_pres_on_status"
+  end
+
+  create_table "market282_lives", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "outcome_1", precision: 8, scale: 2, default: "1.0"
+    t.decimal "outcome_2", precision: 8, scale: 2, default: "1.0"
+    t.decimal "outcome_X", precision: 8, scale: 2, default: "1.0"
+    t.string "status"
+    t.string "void_reason"
+    t.json "outcome"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "fixture_id", null: false
+    t.string "specifier"
+    t.index ["event_id"], name: "index_market282_lives_on_event_id", unique: true
+    t.index ["fixture_id"], name: "index_market282_lives_on_fixture_id"
+    t.index ["status"], name: "index_market282_lives_on_status"
+  end
+
+  create_table "market282_pres", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "outcome_1", precision: 8, scale: 2, default: "1.0"
+    t.decimal "outcome_2", precision: 8, scale: 2, default: "1.0"
+    t.decimal "outcome_X", precision: 8, scale: 2, default: "1.0"
+    t.string "status"
+    t.string "void_reason"
+    t.json "outcome"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "fixture_id", null: false
+    t.string "specifier"
+    t.index ["event_id"], name: "index_market282_pres_on_event_id", unique: true
+    t.index ["fixture_id"], name: "index_market282_pres_on_fixture_id"
+    t.index ["status"], name: "index_market282_pres_on_status"
+  end
+
+  create_table "market28_lives", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "outcome_Under", precision: 8, scale: 2, default: "1.0"
+    t.decimal "outcome_Over", precision: 8, scale: 2, default: "1.0"
+    t.string "status"
+    t.string "void_reason"
+    t.string "specifier"
+    t.json "outcome"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "fixture_id", null: false
+    t.index ["event_id"], name: "index_market28_lives_on_event_id", unique: true
+    t.index ["fixture_id"], name: "index_market28_lives_on_fixture_id"
+    t.index ["status"], name: "index_market28_lives_on_status"
+  end
+
+  create_table "market28_pres", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "outcome_Under", precision: 8, scale: 2, default: "1.0"
+    t.decimal "outcome_Over", precision: 8, scale: 2, default: "1.0"
+    t.string "status"
+    t.string "void_reason"
+    t.string "specifier"
+    t.json "outcome"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "fixture_id", null: false
+    t.index ["event_id"], name: "index_market28_pres_on_event_id", unique: true
+    t.index ["fixture_id"], name: "index_market28_pres_on_fixture_id"
+    t.index ["status"], name: "index_market28_pres_on_status"
+  end
+
+  create_table "market2_lives", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "outcome_Under", precision: 8, scale: 2, default: "1.0"
+    t.decimal "outcome_Over", precision: 8, scale: 2, default: "1.0"
+    t.string "status"
+    t.decimal "total", precision: 5, scale: 2
+    t.string "void_reason"
+    t.json "outcome"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "fixture_id", null: false
+    t.string "specifier"
+    t.index ["event_id"], name: "index_market2_lives_on_event_id", unique: true
+    t.index ["fixture_id"], name: "index_market2_lives_on_fixture_id"
+    t.index ["status"], name: "index_market2_lives_on_status"
+  end
+
+  create_table "market2_pres", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "outcome_Under", precision: 8, scale: 2, default: "1.0"
+    t.decimal "outcome_Over", precision: 8, scale: 2, default: "1.0"
+    t.string "status"
+    t.decimal "total", precision: 5, scale: 2
+    t.string "void_reason"
+    t.json "outcome"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "fixture_id", null: false
+    t.string "specifier"
+    t.index ["event_id"], name: "index_market2_pres_on_event_id", unique: true
+    t.index ["fixture_id"], name: "index_market2_pres_on_fixture_id"
+    t.index ["status"], name: "index_market2_pres_on_status"
+  end
+
+  create_table "market3_lives", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "outcome_1", precision: 8, scale: 2, default: "1.0"
+    t.decimal "outcome_2", precision: 8, scale: 2, default: "1.0"
+    t.integer "hcp"
+    t.string "status"
+    t.string "void_reason"
+    t.json "outcome"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "fixture_id", null: false
+    t.string "specifier"
+    t.index ["event_id"], name: "index_market3_lives_on_event_id", unique: true
+    t.index ["fixture_id"], name: "index_market3_lives_on_fixture_id"
+    t.index ["status"], name: "index_market3_lives_on_status"
+  end
+
+  create_table "market3_pres", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "outcome_1", precision: 8, scale: 2, default: "1.0"
+    t.decimal "outcome_2", precision: 8, scale: 2, default: "1.0"
+    t.integer "hcp"
+    t.string "status"
+    t.string "void_reason"
+    t.json "outcome"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "fixture_id", null: false
+    t.string "specifier"
+    t.index ["event_id"], name: "index_market3_pres_on_event_id", unique: true
+    t.index ["fixture_id"], name: "index_market3_pres_on_fixture_id"
+    t.index ["status"], name: "index_market3_pres_on_status"
+  end
+
+  create_table "market41_lives", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "outcome_1", precision: 8, scale: 2, default: "1.0"
+    t.decimal "outcome_2", precision: 8, scale: 2, default: "1.0"
+    t.decimal "outcome_X", precision: 8, scale: 2, default: "1.0"
+    t.string "status"
+    t.string "void_reason"
+    t.string "specifier"
+    t.json "outcome"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "fixture_id", null: false
+    t.index ["event_id"], name: "index_market41_lives_on_event_id", unique: true
+    t.index ["fixture_id"], name: "index_market41_lives_on_fixture_id"
+    t.index ["status"], name: "index_market41_lives_on_status"
+  end
+
+  create_table "market41_pres", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "outcome_1", precision: 8, scale: 2, default: "1.0"
+    t.decimal "outcome_2", precision: 8, scale: 2, default: "1.0"
+    t.decimal "outcome_X", precision: 8, scale: 2, default: "1.0"
+    t.string "status"
+    t.string "void_reason"
+    t.string "specifier"
+    t.json "outcome"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "fixture_id", null: false
+    t.index ["event_id"], name: "index_market41_pres_on_event_id", unique: true
+    t.index ["fixture_id"], name: "index_market41_pres_on_fixture_id"
+    t.index ["status"], name: "index_market41_pres_on_status"
+  end
+
+  create_table "market42_lives", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "outcome_1", precision: 8, scale: 2, default: "1.0"
+    t.decimal "outcome_2", precision: 8, scale: 2, default: "1.0"
+    t.decimal "outcome_X", precision: 8, scale: 2, default: "1.0"
+    t.string "status"
+    t.string "void_reason"
+    t.string "specifier"
+    t.json "outcome"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "fixture_id", null: false
+    t.index ["event_id"], name: "index_market42_lives_on_event_id", unique: true
+    t.index ["fixture_id"], name: "index_market42_lives_on_fixture_id"
+    t.index ["status"], name: "index_market42_lives_on_status"
+  end
+
+  create_table "market42_pres", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "outcome_1", precision: 8, scale: 2, default: "1.0"
+    t.decimal "outcome_2", precision: 8, scale: 2, default: "1.0"
+    t.decimal "outcome_X", precision: 8, scale: 2, default: "1.0"
+    t.string "status"
+    t.string "void_reason"
+    t.string "specifier"
+    t.json "outcome"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "fixture_id", null: false
+    t.index ["event_id"], name: "index_market42_pres_on_event_id", unique: true
+    t.index ["fixture_id"], name: "index_market42_pres_on_fixture_id"
+    t.index ["status"], name: "index_market42_pres_on_status"
+  end
+
+  create_table "market43_lives", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "outcome_1", precision: 8, scale: 2, default: "1.0"
+    t.decimal "outcome_2", precision: 8, scale: 2, default: "1.0"
+    t.decimal "outcome_X", precision: 8, scale: 2, default: "1.0"
+    t.string "status"
+    t.string "void_reason"
+    t.string "specifier"
+    t.json "outcome"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "fixture_id", null: false
+    t.index ["event_id"], name: "index_market43_lives_on_event_id", unique: true
+    t.index ["fixture_id"], name: "index_market43_lives_on_fixture_id"
+    t.index ["status"], name: "index_market43_lives_on_status"
+  end
+
+  create_table "market43_pres", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "outcome_1", precision: 8, scale: 2, default: "1.0"
+    t.decimal "outcome_2", precision: 8, scale: 2, default: "1.0"
+    t.decimal "outcome_X", precision: 8, scale: 2, default: "1.0"
+    t.string "status"
+    t.string "void_reason"
+    t.string "specifier"
+    t.json "outcome"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "fixture_id", null: false
+    t.index ["event_id"], name: "index_market43_pres_on_event_id", unique: true
+    t.index ["fixture_id"], name: "index_market43_pres_on_fixture_id"
+    t.index ["status"], name: "index_market43_pres_on_status"
+  end
+
+  create_table "market44_lives", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "outcome_1", precision: 8, scale: 2, default: "1.0"
+    t.decimal "outcome_2", precision: 8, scale: 2, default: "1.0"
+    t.decimal "outcome_X", precision: 8, scale: 2, default: "1.0"
+    t.string "status"
+    t.string "void_reason"
+    t.string "specifier"
+    t.json "outcome"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "fixture_id", null: false
+    t.index ["event_id"], name: "index_market44_lives_on_event_id", unique: true
+    t.index ["fixture_id"], name: "index_market44_lives_on_fixture_id"
+    t.index ["status"], name: "index_market44_lives_on_status"
+  end
+
+  create_table "market44_pres", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "outcome_1", precision: 8, scale: 2, default: "1.0"
+    t.decimal "outcome_2", precision: 8, scale: 2, default: "1.0"
+    t.decimal "outcome_X", precision: 8, scale: 2, default: "1.0"
+    t.string "status"
+    t.string "void_reason"
+    t.string "specifier"
+    t.json "outcome"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "fixture_id", null: false
+    t.index ["event_id"], name: "index_market44_pres_on_event_id", unique: true
+    t.index ["fixture_id"], name: "index_market44_pres_on_fixture_id"
+    t.index ["status"], name: "index_market44_pres_on_status"
+  end
+
+  create_table "market49_lives", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "outcome_1", precision: 8, scale: 2, default: "1.0"
+    t.decimal "outcome_2", precision: 8, scale: 2, default: "1.0"
+    t.decimal "outcome_X", precision: 8, scale: 2, default: "1.0"
+    t.string "status"
+    t.string "void_reason"
+    t.string "specifier"
+    t.json "outcome"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "fixture_id", null: false
+    t.index ["event_id"], name: "index_market49_lives_on_event_id", unique: true
+    t.index ["fixture_id"], name: "index_market49_lives_on_fixture_id"
+    t.index ["status"], name: "index_market49_lives_on_status"
+  end
+
+  create_table "market49_pres", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "outcome_1", precision: 8, scale: 2, default: "1.0"
+    t.decimal "outcome_2", precision: 8, scale: 2, default: "1.0"
+    t.decimal "outcome_X", precision: 8, scale: 2, default: "1.0"
+    t.string "status"
+    t.string "void_reason"
+    t.string "specifier"
+    t.json "outcome"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "fixture_id", null: false
+    t.index ["event_id"], name: "index_market49_pres_on_event_id", unique: true
+    t.index ["fixture_id"], name: "index_market49_pres_on_fixture_id"
+    t.index ["status"], name: "index_market49_pres_on_status"
+  end
+
+  create_table "market52_lives", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "outcome_1", precision: 8, scale: 2, default: "1.0"
+    t.decimal "outcome_2", precision: 8, scale: 2, default: "1.0"
+    t.string "status"
+    t.string "void_reason"
+    t.string "specifier"
+    t.json "outcome"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "fixture_id", null: false
+    t.index ["event_id"], name: "index_market52_lives_on_event_id", unique: true
+    t.index ["fixture_id"], name: "index_market52_lives_on_fixture_id"
+    t.index ["status"], name: "index_market52_lives_on_status"
+  end
+
+  create_table "market52_pres", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "outcome_1", precision: 8, scale: 2, default: "1.0"
+    t.decimal "outcome_2", precision: 8, scale: 2, default: "1.0"
+    t.string "status"
+    t.string "void_reason"
+    t.string "specifier"
+    t.json "outcome"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "fixture_id", null: false
+    t.index ["event_id"], name: "index_market52_pres_on_event_id", unique: true
+    t.index ["fixture_id"], name: "index_market52_pres_on_fixture_id"
+    t.index ["status"], name: "index_market52_pres_on_status"
+  end
+
+  create_table "market53_lives", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "outcome_1", precision: 8, scale: 2, default: "1.0"
+    t.decimal "outcome_2", precision: 8, scale: 2, default: "1.0"
+    t.integer "hcp"
+    t.string "status"
+    t.string "void_reason"
+    t.json "outcome"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "fixture_id", null: false
+    t.string "specifier"
+    t.index ["event_id"], name: "index_market53_lives_on_event_id", unique: true
+    t.index ["fixture_id"], name: "index_market53_lives_on_fixture_id"
+    t.index ["status"], name: "index_market53_lives_on_status"
+  end
+
+  create_table "market53_pres", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "outcome_1", precision: 8, scale: 2, default: "1.0"
+    t.decimal "outcome_2", precision: 8, scale: 2, default: "1.0"
+    t.integer "hcp"
+    t.string "status"
+    t.string "void_reason"
+    t.json "outcome"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "fixture_id", null: false
+    t.string "specifier"
+    t.index ["event_id"], name: "index_market53_pres_on_event_id", unique: true
+    t.index ["fixture_id"], name: "index_market53_pres_on_fixture_id"
+    t.index ["status"], name: "index_market53_pres_on_status"
+  end
+
+  create_table "market63_lives", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "outcome_1", precision: 8, scale: 2, default: "1.0"
+    t.decimal "outcome_2", precision: 8, scale: 2, default: "1.0"
+    t.string "status"
+    t.string "void_reason"
+    t.string "specifier"
+    t.json "outcome"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "fixture_id", null: false
+    t.index ["event_id"], name: "index_market63_lives_on_event_id", unique: true
+    t.index ["fixture_id"], name: "index_market63_lives_on_fixture_id"
+    t.index ["status"], name: "index_market63_lives_on_status"
+  end
+
+  create_table "market63_pres", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "outcome_1", precision: 8, scale: 2, default: "1.0"
+    t.decimal "outcome_2", precision: 8, scale: 2, default: "1.0"
+    t.string "status"
+    t.string "void_reason"
+    t.string "specifier"
+    t.json "outcome"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "fixture_id", null: false
+    t.index ["event_id"], name: "index_market63_pres_on_event_id", unique: true
+    t.index ["fixture_id"], name: "index_market63_pres_on_fixture_id"
+    t.index ["status"], name: "index_market63_pres_on_status"
+  end
+
+  create_table "market77_lives", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "outcome_Under", precision: 8, scale: 2, default: "1.0"
+    t.decimal "outcome_Over", precision: 8, scale: 2, default: "1.0"
+    t.string "status"
+    t.decimal "total", precision: 5, scale: 2
+    t.string "void_reason"
+    t.json "outcome"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "fixture_id", null: false
+    t.string "specifier"
+    t.index ["event_id"], name: "index_market77_lives_on_event_id", unique: true
+    t.index ["fixture_id"], name: "index_market77_lives_on_fixture_id"
+    t.index ["status"], name: "index_market77_lives_on_status"
+  end
+
+  create_table "market77_pres", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "outcome_Under", precision: 8, scale: 2, default: "1.0"
+    t.decimal "outcome_Over", precision: 8, scale: 2, default: "1.0"
+    t.string "status"
+    t.decimal "total", precision: 5, scale: 2
+    t.string "void_reason"
+    t.json "outcome"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "fixture_id", null: false
+    t.string "specifier"
+    t.index ["event_id"], name: "index_market77_pres_on_event_id", unique: true
+    t.index ["fixture_id"], name: "index_market77_pres_on_fixture_id"
+    t.index ["status"], name: "index_market77_pres_on_status"
+  end
+
+  create_table "market7_lives", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "outcome_12", precision: 8, scale: 2, default: "1.0"
+    t.decimal "outcome_1X", precision: 8, scale: 2, default: "1.0"
+    t.decimal "outcome_X2", precision: 8, scale: 2, default: "1.0"
+    t.string "status"
+    t.string "void_reason"
+    t.json "outcome"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "fixture_id", null: false
+    t.string "specifier"
+    t.index ["event_id"], name: "index_market7_lives_on_event_id", unique: true
+    t.index ["fixture_id"], name: "index_market7_lives_on_fixture_id"
+    t.index ["status"], name: "index_market7_lives_on_status"
+  end
+
+  create_table "market7_pres", force: :cascade do |t|
+    t.string "event_id"
+    t.decimal "outcome_12", precision: 8, scale: 2, default: "1.0"
+    t.decimal "outcome_1X", precision: 8, scale: 2, default: "1.0"
+    t.decimal "outcome_X2", precision: 8, scale: 2, default: "1.0"
+    t.string "status"
+    t.string "void_reason"
+    t.json "outcome"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "fixture_id", null: false
+    t.string "specifier"
+    t.index ["event_id"], name: "index_market7_pres_on_event_id", unique: true
+    t.index ["fixture_id"], name: "index_market7_pres_on_fixture_id"
+    t.index ["status"], name: "index_market7_pres_on_status"
+  end
+
   create_table "market_alerts", force: :cascade do |t|
     t.bigint "timestamp"
     t.integer "product"
@@ -255,6 +857,9 @@ ActiveRecord::Schema.define(version: 2022_02_02_112743) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "status", default: false
+    t.index ["product"], name: "index_market_alerts_on_product"
+    t.index ["subscribed"], name: "index_market_alerts_on_subscribed"
+    t.index ["timestamp"], name: "index_market_alerts_on_timestamp"
   end
 
   create_table "markets", force: :cascade do |t|
@@ -344,6 +949,8 @@ ActiveRecord::Schema.define(version: 2022_02_02_112743) do
     t.datetime "password_reset_sent_at"
     t.boolean "account_active", default: true
     t.boolean "agreement"
+    t.string "nationality"
+    t.string "id_number"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["phone_number"], name: "index_users_on_phone_number", unique: true
@@ -394,6 +1001,42 @@ ActiveRecord::Schema.define(version: 2022_02_02_112743) do
   add_foreign_key "line_bets", "carts"
   add_foreign_key "line_bets", "fixtures"
   add_foreign_key "live_markets", "fixtures"
+  add_foreign_key "market113_lives", "fixtures"
+  add_foreign_key "market113_pres", "fixtures"
+  add_foreign_key "market17_lives", "fixtures"
+  add_foreign_key "market17_pres", "fixtures"
+  add_foreign_key "market1_lives", "fixtures"
+  add_foreign_key "market1_pres", "fixtures"
+  add_foreign_key "market25_lives", "fixtures"
+  add_foreign_key "market25_pres", "fixtures"
+  add_foreign_key "market282_lives", "fixtures"
+  add_foreign_key "market282_pres", "fixtures"
+  add_foreign_key "market28_lives", "fixtures"
+  add_foreign_key "market28_pres", "fixtures"
+  add_foreign_key "market2_lives", "fixtures"
+  add_foreign_key "market2_pres", "fixtures"
+  add_foreign_key "market3_lives", "fixtures"
+  add_foreign_key "market3_pres", "fixtures"
+  add_foreign_key "market41_lives", "fixtures"
+  add_foreign_key "market41_pres", "fixtures"
+  add_foreign_key "market42_lives", "fixtures"
+  add_foreign_key "market42_pres", "fixtures"
+  add_foreign_key "market43_lives", "fixtures"
+  add_foreign_key "market43_pres", "fixtures"
+  add_foreign_key "market44_lives", "fixtures"
+  add_foreign_key "market44_pres", "fixtures"
+  add_foreign_key "market49_lives", "fixtures"
+  add_foreign_key "market49_pres", "fixtures"
+  add_foreign_key "market52_lives", "fixtures"
+  add_foreign_key "market52_pres", "fixtures"
+  add_foreign_key "market53_lives", "fixtures"
+  add_foreign_key "market53_pres", "fixtures"
+  add_foreign_key "market63_lives", "fixtures"
+  add_foreign_key "market63_pres", "fixtures"
+  add_foreign_key "market77_lives", "fixtures"
+  add_foreign_key "market77_pres", "fixtures"
+  add_foreign_key "market7_lives", "fixtures"
+  add_foreign_key "market7_pres", "fixtures"
   add_foreign_key "pre_markets", "fixtures"
   add_foreign_key "withdraws", "users"
 end

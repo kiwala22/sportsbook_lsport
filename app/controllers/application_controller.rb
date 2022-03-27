@@ -7,10 +7,10 @@ class ApplicationController < ActionController::Base
   before_action :set_current_user
   # before_action :detect_device_variant
   before_action :set_no_cache
-  
+
 
   private
-  
+
   def set_current_user
     if user_signed_in?
       current_user && return
@@ -42,6 +42,8 @@ class ApplicationController < ActionController::Base
       first_name
       last_name
       agreement
+      nationality
+      id_number
     ]
     devise_parameter_sanitizer.permit :sign_up, keys: added_attrs
     devise_parameter_sanitizer.permit :account_update, keys: added_attrs
