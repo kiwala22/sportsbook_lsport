@@ -1,7 +1,6 @@
 import CountryPhoneInput, { ConfigProvider } from "antd-country-phone-input";
 import React, { useState } from "react";
-import en from "world_countries_lists/data/en/world.json";
-//change for production
+import en from "world_countries_lists/data/countries/en/world.json";
 
 const PhoneInput = (props) => {
   const [value, setValue] = useState({ short: "UG" });
