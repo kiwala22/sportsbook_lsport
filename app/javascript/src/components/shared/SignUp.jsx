@@ -1,5 +1,6 @@
 import { LockOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Form, Row, Col, Input, Modal } from "antd";
+import { Button, Checkbox, Form, Row, Col, Input, Modal, Select } from "antd";
+const { Option } = Select;
 import cogoToast from "cogo-toast";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -7,6 +8,7 @@ import { Link, withRouter } from "react-router-dom";
 import PhoneFormat from "../../utilities/phoneNumber";
 import Requests from "../../utilities/Requests";
 import PhoneInput from "./PhoneInput";
+import CountryData from "../../utilities/data/countries.json"
 
 const SignUp = (props) => {
    const [show, setShow] = useState(false);
@@ -29,6 +31,9 @@ const SignUp = (props) => {
       }
       let phoneNumber = PhoneFormat(values.phone_number.phone);
       let path = "/users";
+      console.log(values)
+      return
+     
       let variables = {
          user: {
             email: values.email,
@@ -182,8 +187,19 @@ const SignUp = (props) => {
          <Form.Item
          name="nationality"
          label="Nationality"
+         hasFeedback
+         rules={[
+           {
+             required: true,
+             message: 'Please select your country!',
+           },
+         ]}
          >
-         <Input className="form-control" />
+         <Select placeholder="Please select a country">
+            {CountryData.map(country => (
+               <Option key={country["code"]} value={country["name"]}>{country["name"]}</Option>
+            ))}
+        </Select>
          </Form.Item>
          </Col>
       </Row>
@@ -191,11 +207,11 @@ const SignUp = (props) => {
          <Col span={12}>
          <Form.Item
          name="id_number"
-         label="NIN / Refugee Number"
+         label="NIN / ID Number"
          rules={[
             {
                required: true,
-               message: "Please input your NIN / Refugee Number!",
+               message: "Please input your NIN / ID Number!",
                whitespace: true,
             },
          ]}
@@ -218,14 +234,10 @@ const SignUp = (props) => {
          ]}
          >
          <Checkbox>
-         I am over 18 years of age and I accept SkylineBet’s{" "}
+         I am over 18 years of age and I accept BetSports'{" "}
          <Link to={"/terms/"} className="terms" onClick={close}>
          Terms And Conditions
          </Link>{" "}
-         and{" "}
-         <Link to={"/privacy/"} className="terms" onClick={close}>
-         Privacy Policy
-         </Link>
          </Checkbox>
          </Form.Item>
       </Row>

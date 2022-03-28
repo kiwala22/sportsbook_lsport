@@ -7,8 +7,7 @@ import { useHistory, withRouter } from "react-router-dom";
 import shortUUID from "short-uuid";
 import MarketsChannel from "../../../channels/marketsChannel";
 import PreOddsChannel from "../../../channels/preOddsChannel";
-import MobileBanner1 from "../../Images/mobile_banner_1.webp";
-import Banner from "../../Images/web_banner_main.webp";
+import WebBanner from "../../Images/betsports-head.webp";
 import addBet from "../../redux/actions";
 import oddsFormatter from "../../utilities/oddsFormatter";
 import Requests from "../../utilities/Requests";
@@ -177,13 +176,13 @@ const Home = (props) => {
           {isMobile ? (
             <div className="card ">
               <div className="card-header side-banner ">
-                <img src={MobileBanner1} className="banner-image" />
+                <img src={WebBanner} className="banner-image" />
               </div>
             </div>
           ) : (
             <div className="card mt-1">
               <div className="card-header side-banner ">
-                <img src={Banner} className="banner-image" />
+                <img src={WebBanner} className="banner-image" />
               </div>
             </div>
           )}

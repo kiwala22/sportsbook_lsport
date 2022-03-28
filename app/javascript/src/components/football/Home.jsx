@@ -12,9 +12,7 @@ import FixtureChannel from "../../../channels/fixturesChannel";
 import LiveOddsChannel from "../../../channels/liveOddsChannel";
 import MarketsChannel from "../../../channels/marketsChannel";
 import PreOddsChannel from "../../../channels/preOddsChannel";
-import MobileBanner1 from "../../Images/mobile_banner_1.webp";
-import MobileBanner2 from "../../Images/mobile_banner_2.webp";
-import MobileBanner3 from "../../Images/mobile_banner_3.webp";
+import WebBanner from "../../Images/betsports-head.webp";
 import addBet from "../../redux/actions";
 import * as DataUpdate from "../../utilities/DataUpdate";
 import oddsFormatter from "../../utilities/oddsFormatter";
@@ -572,13 +570,13 @@ const Home = (props) => {
           {isMobile ? (
             <div className="card ">
               <div className="card-header side-banner ">
-                <img src={MobileBanner1} className="banner-image" />
+                <img src={WebBanner} className="banner-image" />
               </div>
             </div>
           ) : (
             <div className="card mt-1">
               <div className="card-header side-banner">
-                <img src={MobileBanner2} className="banner-image" />
+                <img src={WebBanner} className="banner-image" />
               </div>
             </div>
           )}
@@ -649,13 +647,13 @@ const Home = (props) => {
           )}
 
           {/* <!-- Start Featured Fixtures Table --> */}
-          {isMobile && liveGames.length != 0 && featuredGames.length != 0 && (
+          {/* {isMobile && liveGames.length != 0 && featuredGames.length != 0 && (
             <div className="card ">
               <div className="card-header side-banner ">
                 <img src={MobileBanner2} className="banner-image" />
               </div>
             </div>
-          )}
+          )} */}
           {featuredGames.length != 0 && (
             <>
               <div
@@ -707,13 +705,13 @@ const Home = (props) => {
           {/* <!-- End Featured Fixtures Table --> */}
 
           {/* <!-- Start All Fixtures Table --> */}
-          {isMobile && featuredGames.length != 0 && prematchGames.length != 0 && (
+          {/* {isMobile && featuredGames.length != 0 && prematchGames.length != 0 && (
             <div className="card ">
               <div className="card-header side-banner ">
                 <img src={MobileBanner3} className="banner-image" />
               </div>
             </div>
-          )}
+          )} */}
           {/* {prematchGames.length != 0 && (
             <> */}
           <div
