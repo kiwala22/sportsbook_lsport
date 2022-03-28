@@ -234,7 +234,7 @@ const SignUp = (props) => {
          ]}
          >
          <Checkbox>
-         I am over 18 years of age and I accept BetSports'{" "}
+         I am over 25 years of age and I accept BetSports'{" "}
          <Link to={"/terms/"} className="terms" onClick={close}>
          Terms And Conditions
          </Link>{" "}
