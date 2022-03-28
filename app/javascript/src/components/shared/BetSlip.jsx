@@ -171,7 +171,10 @@ const BetSlip = (props) => {
       .then((response) => {
         if (response.data.status == "OK") {
           loadCartGames();
-          setTimeout(() => dispatcher({ type: "removeSelected", payload: fixtureId }), 500)
+          setTimeout(
+            () => dispatcher({ type: "removeSelected", payload: fixtureId }),
+            500
+          );
         }
       })
       .catch((error) => {

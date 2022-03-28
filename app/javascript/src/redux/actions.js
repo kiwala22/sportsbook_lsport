@@ -24,9 +24,10 @@ export default function addBet(
   Requests.isPostRequest(path, values)
     .then((response) => {
       dispatch({ type: "addBet", payload: response.data });
-      dispatch({ type: "betSelected", payload: [{"Id": fixtureId, "choice": choice}] })
+      dispatch({
+        type: "betSelected",
+        payload: [{ Id: fixtureId, choice: choice }],
+      });
     })
     .catch((error) => console.log(error));
-  
-
 }

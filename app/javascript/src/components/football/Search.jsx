@@ -23,7 +23,7 @@ const Search = (props) => {
   const history = useHistory();
   const isMobile = useSelector((state) => state.isMobile);
 
-  useEffect(() => loadPreMatchGames(), [props]);
+  useEffect(() => loadPreMatcshGames(), [props]);
 
   useEffect(() => loadPreMatchGames(), []);
 
@@ -66,11 +66,11 @@ const Search = (props) => {
       dataIndex: "start_date",
       render: (date) => (
         <>
-            <Moment local={true} format="HH:mm">
-              {date}
-            </Moment>
-            <br />
-            <Moment format="DD-MMM">{date}</Moment>
+          <Moment local={true} format="HH:mm">
+            {date}
+          </Moment>
+          <br />
+          <Moment format="DD-MMM">{date}</Moment>
         </>
       ),
     },
@@ -85,9 +85,9 @@ const Search = (props) => {
             updateMatchInfo(data, games, setGames, "1", "Market");
           }}
         >
-            {fixture.part_one_name}
-            <br />
-            {fixture.part_two_name}
+          {fixture.part_one_name}
+          <br />
+          {fixture.part_two_name}
         </MarketsChannel>
       ),
     },
@@ -102,8 +102,8 @@ const Search = (props) => {
             updateMatchInfo(data, games, setGames, "1", "Pre");
           }}
         >
-            {fixture.league_name} <br />
-            {fixture.location}
+          {fixture.league_name} <br />
+          {fixture.location}
         </PreOddsChannel>
       ),
     },

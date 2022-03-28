@@ -25,7 +25,9 @@ const Footer = (props) => {
                             <Link to={"/about/"}>About Us</Link>
                           </li>
                           <li className="col-3">
-                          <Link to={"/responsible_gambling/"}>Responsible Gambling</Link>
+                            <Link to={"/responsible_gambling/"}>
+                              Responsible Gambling
+                            </Link>
                           </li>
                           <li className="col-4">
                             <Link to={"/terms/"}>{`T & Cs`}</Link>
@@ -75,7 +77,9 @@ const Footer = (props) => {
                       <Link to={"/about/"}>About Us</Link>
                     </li>
                     <li>
-                      <Link to={"/responsible_gambling/"}>Responsible Gambling</Link>
+                      <Link to={"/responsible_gambling/"}>
+                        Responsible Gambling
+                      </Link>
                     </li>
                     <li>
                       <Link to={"/rules/"}>Game Rules</Link>
@@ -88,9 +92,9 @@ const Footer = (props) => {
                     </li>
                     <li>
                       BetSports is licensed by the National Gaming Board of
-                      Uganda. License #: <strong>GB-69-056</strong>. You have to be 25
-                      years and above to bet. Betting is addictive and can be
-                      psychologically harmful.
+                      Uganda. License #: <strong>GB-69-056</strong>. You have to
+                      be 25 years and above to bet. Betting is addictive and can
+                      be psychologically harmful.
                     </li>
                   </ul>
                 </div>

@@ -99,10 +99,19 @@ const PreviewPre = (props) => {
                                     : "market-label"
                                 }
                               >
-                             <div className="row">
-                                    <div className="col-lg-12 ">
-                                      <strong>{market.name} {market.specifier !== null? <><BsDash /> {market.specifier}</> :""}</strong>
-                                    </div>
+                                <div className="row">
+                                  <div className="col-lg-12 ">
+                                    <strong>
+                                      {market.name}{" "}
+                                      {market.specifier !== null ? (
+                                        <>
+                                          <BsDash /> {market.specifier}
+                                        </>
+                                      ) : (
+                                        ""
+                                      )}
+                                    </strong>
+                                  </div>
                                 </div>
                               </div>
                             </MarketsChannel>
@@ -159,7 +168,12 @@ const PreviewPre = (props) => {
                                                 element.replace(
                                                   "outcome_",
                                                   market.name + " - "
-                                                ) + `${market.specifier !== null? ` ${market.specifier}` : ""}`,
+                                                ) +
+                                                  `${
+                                                    market.specifier !== null
+                                                      ? ` ${market.specifier}`
+                                                      : ""
+                                                  }`,
                                                 market.market_identifier,
                                                 market.specifier
                                               )

@@ -213,7 +213,10 @@ const Navbar = (props) => {
                         </a>
                       </li>
                     </ul>
-                    <Link to={"/deposit/"} className="bttn-small btn-fill border-transparent">
+                    <Link
+                      to={"/deposit/"}
+                      className="bttn-small btn-fill border-transparent"
+                    >
                       Deposit
                     </Link>
                     <Dropdown
@@ -340,7 +343,7 @@ const Navbar = (props) => {
             }
           >
             <Link to={"/"}>
-                <img src={MainLogo} className="heading-mobile-logo" />
+              <img src={MainLogo} className="heading-mobile-logo" />
             </Link>
           </NavBar>
           {showSearch && <div className="mobile-search">{search}</div>}

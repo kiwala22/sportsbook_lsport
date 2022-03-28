@@ -70,7 +70,7 @@ const Sidebar = (props) => {
         <aside className="content-sidebar secondary-bb-color">
           <Dropdown.Button
             overlay={menu}
-            placement="bottomCenter"
+            placement="bottom"
             icon={<DownOutlined />}
             className="sport-dropdown"
             trigger={["click"]}

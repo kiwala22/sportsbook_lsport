@@ -1,9 +1,9 @@
 import React from "react";
 import { BsEnvelope } from "react-icons/bs";
-import { BiSupport } from "react-icons/bi"
+import { BiSupport } from "react-icons/bi";
 import { GrMapLocation } from "react-icons/gr";
-import { GoLocation } from "react-icons/go"
-import { FiPhoneIncoming } from "react-icons/fi"
+import { GoLocation } from "react-icons/go";
+import { FiPhoneIncoming } from "react-icons/fi";
 import { useSelector } from "react-redux";
 
 const Support = () => {
@@ -39,20 +39,32 @@ const Support = () => {
               >
                 <div className="heads paragraph">
                   <h5>Call Us:</h5>
-                  <p>Email: {" "}<BsEnvelope className="contact-icons" />{" "}<a>info@betsports.ug</a></p>
-                  <p>Customer Service: {" "}<BiSupport className="contact-icons" />{" "}<a>info@betsports.ug</a></p>
-                  <p>Telephone: {" "}<FiPhoneIncoming className="contact-icons" />{" "}+256776225922 / +256753941009</p>
+                  <p>
+                    Email: <BsEnvelope className="contact-icons" />{" "}
+                    <a>info@betsports.ug</a>
+                  </p>
+                  <p>
+                    Customer Service: <BiSupport className="contact-icons" />{" "}
+                    <a>info@betsports.ug</a>
+                  </p>
+                  <p>
+                    Telephone: <FiPhoneIncoming className="contact-icons" />{" "}
+                    +256776225922 / +256753941009
+                  </p>
                 </div>
 
                 <div className="heads paragraph">
                   <h5>Post:</h5>
-                  <p>Box:{" "}PO.Box 520023</p>
+                  <p>Box: PO.Box 520023</p>
                   <p>Kampala, Uganda</p>
                 </div>
 
                 <div className="heads paragraph">
                   <h5>Visit Us:</h5>
-                  <p>Location: {" "}<GoLocation className="contact-icons" />{" "}Plot 83, Turfnell road</p>
+                  <p>
+                    Location: <GoLocation className="contact-icons" /> Plot 83,
+                    Turfnell road
+                  </p>
                   <p>Kamwokya, Kampala Uganda</p>
                 </div>
               </div>

@@ -42,36 +42,41 @@ function reducer(state = initialState, action) {
     case "onSportChange":
       return { ...state, sportType: action.payload };
     case "betSelected":
-      return { ...state, selectedChoices: dataMerger(state.selectedChoices, action.payload) };
+      return {
+        ...state,
+        selectedChoices: dataMerger(state.selectedChoices, action.payload),
+      };
     case "removeSelected":
-      return { ...state, selectedChoices: betRemoval(state.selectedChoices, action.payload) }
+      return {
+        ...state,
+        selectedChoices: betRemoval(state.selectedChoices, action.payload),
+      };
     default:
       return state;
   }
 }
 
-function dataMerger (oldData, newData) {
+function dataMerger(oldData, newData) {
   if (newData.length === 0) {
-    return []
+    return [];
   }
 
-  let objIndex = oldData.findIndex(element => element.Id === newData[0].Id)
+  let objIndex = oldData.findIndex((element) => element.Id === newData[0].Id);
 
   if (objIndex !== -1) {
-    let data = betRemoval(oldData, newData[0].Id)
+    let data = betRemoval(oldData, newData[0].Id);
 
-    return updatedData = [...data, ...newData]
+    return (updatedData = [...data, ...newData]);
   }
 
-  let updatedData = [...oldData, ...newData]
+  let updatedData = [...oldData, ...newData];
 
   return updatedData;
-
 }
 
-function betRemoval (oldData, Id) {
-  let newVal = oldData.filter(element => element.Id !== Id)
-  return newVal
+function betRemoval(oldData, Id) {
+  let newVal = oldData.filter((element) => element.Id !== Id);
+  return newVal;
 }
 
 const persistConfig = {
