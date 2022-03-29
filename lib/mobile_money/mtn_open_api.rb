@@ -16,10 +16,6 @@ module MobileMoney
 
 		@@base_url = "https://sandbox.momodeveloper.mtn.com/"
 
-		## Error Logging
-    	@@logger ||= Logger.new("#{Rails.root}/log/mtn-mobile-prod.log")
-    	@@logger.level = Logger::ERROR
-
 		def self.request_payments(amount, ext_reference, phone_number)
 			token = process_request_token()
 			if token
@@ -35,7 +31,7 @@ module MobileMoney
 				req['Authorization'] = "Bearer #{token}"
 
 				#set transactions callback url
-				req['X-Callback-Url'] = callback_url
+				#req['X-Callback-Url'] = callback_url
 
 				#set the transaction reference
 				req['X-Reference-Id'] = ext_reference
@@ -51,7 +47,7 @@ module MobileMoney
 
 				request_body = {
 					amount: amount,
-					currency: "UGX",
+					currency: "EUR", #UGX
 					externalId: ext_reference,
 					payer: {
 						partyIdType: "MSISDN",
@@ -157,7 +153,7 @@ module MobileMoney
 				req['Authorization'] = "Bearer #{token}"
 
 				#set transactions callback url
-				req['X-Callback-Url'] = callback_url
+				#req['X-Callback-Url'] = callback_url
 
 				#set the transaction reference
 				req['X-Reference-Id'] = ext_reference
@@ -173,7 +169,7 @@ module MobileMoney
 
 				request_body = {
 					amount: amount,
-					currency: "UGX",
+					currency: "EUR", #UGX
 					externalId: ext_reference,
 					payee: {
 						partyIdType: "MSISDN",
