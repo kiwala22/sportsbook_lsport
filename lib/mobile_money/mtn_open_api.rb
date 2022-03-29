@@ -72,8 +72,6 @@ module MobileMoney
 
 				return res.code #Expecting code to be 202 on successfull transaction
 
-				rescue StandardError => e
-            		@@logger.error(e.message)
 			else
 				return nil
 			end
@@ -106,8 +104,7 @@ module MobileMoney
 				end
 				result = JSON.parse(res.body)
 				return result
-				rescue StandardError => e
-            		@@logger.error(e.message)
+
 			else
 				return nil
 			end
@@ -195,9 +192,6 @@ module MobileMoney
 				end
 
 				return res.code
-				rescue StandardError => e
-            		@@logger.error(e.message)
-
 			else
 				return nil
 			end
@@ -231,8 +225,6 @@ module MobileMoney
 				end
 				result = JSON.parse(res.body)
 				return result
-				rescue StandardError => e
-            		@@logger.error(e.message)
 			else
 				return nil
 			end
@@ -266,8 +258,6 @@ module MobileMoney
 				end
 				result = JSON.parse(res.body)
 				return result
-				rescue StandardError => e
-            		@@logger.error(e.message)
 			else
 				return nil
 			end
