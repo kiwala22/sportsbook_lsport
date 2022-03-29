@@ -44,7 +44,11 @@ const Deposit = (props) => {
         }, 1000);
       })
       .catch((error) => {
-        cogoToast.warn("Oops, something is wrong, please try again.", 5);
+        if (error.response) {
+          cogoToast.warn(error.response.data.errors, 4);
+        } else {
+          cogoToast.warn("Oops, something is wong, please try again.", 5);
+        }
         setIsLoading(false);
       });
   };
