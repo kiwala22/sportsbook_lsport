@@ -5,8 +5,9 @@ module MobileMoney
 		require 'json'
 		require 'uri'
 		require 'net/http'
+		require 'logger'
 
-		@@collection_sub_key  =  ENV['COLLECTION_SUB_KEY']
+		@@collection_sub_key  	=  ENV['COLLECTION_SUB_KEY']
 		@@transfer_sub_key		=  ENV['TRANSFER_SUB_KEY']
 		@@collection_api_id 	=  ENV['COLLECTION_API_ID']
 		@@collection_api_key 	=  ENV['COLLECTION_API_KEY']
@@ -14,6 +15,10 @@ module MobileMoney
 		@@transfer_api_key 		=  ENV['TRANSFER_API_KEY']
 
 		@@base_url = "https://sandbox.momodeveloper.mtn.com/"
+
+		## Error Logging
+    	@@logger ||= Logger.new("#{Rails.root}/log/mtn-mobile-prod.log")
+    	@@logger.level = Logger::ERROR
 
 		def self.request_payments(amount, ext_reference, phone_number)
 			token = process_request_token()
@@ -63,8 +68,12 @@ module MobileMoney
 					http.request(req)
 
 				end
+				@@logger.error(res.body)
 
 				return res.code #Expecting code to be 202 on successfull transaction
+
+				rescue StandardError => e
+            		@@logger.error(e.message)
 			else
 				return nil
 			end
@@ -97,6 +106,8 @@ module MobileMoney
 				end
 				result = JSON.parse(res.body)
 				return result
+				rescue StandardError => e
+            		@@logger.error(e.message)
 			else
 				return nil
 			end
@@ -184,6 +195,8 @@ module MobileMoney
 				end
 
 				return res.code
+				rescue StandardError => e
+            		@@logger.error(e.message)
 
 			else
 				return nil
@@ -218,6 +231,8 @@ module MobileMoney
 				end
 				result = JSON.parse(res.body)
 				return result
+				rescue StandardError => e
+            		@@logger.error(e.message)
 			else
 				return nil
 			end
@@ -251,6 +266,8 @@ module MobileMoney
 				end
 				result = JSON.parse(res.body)
 				return result
+				rescue StandardError => e
+            		@@logger.error(e.message)
 			else
 				return nil
 			end

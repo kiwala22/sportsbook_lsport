@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import PhoneInput from "./PhoneInput";
 import Requests from "../../utilities/Requests";
+import PhoneFormat from "../../utilities/phoneNumber";
 
 const Deposit = (props) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -28,9 +29,10 @@ const Deposit = (props) => {
       return;
     }
     // process deposit here
+    let phoneNumber = PhoneFormat(values.phone_number.phone);
     let variables = {
       amount: values.amount,
-      phone_number: values.phone_number.phone,
+      phone_number: phoneNumber,
     };
     Requests.isPostRequest(baseUrl, variables)
       .then((response) => {

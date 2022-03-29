@@ -31,8 +31,6 @@ const SignUp = (props) => {
     }
     let phoneNumber = PhoneFormat(values.phone_number.phone);
     let path = "/users";
-    console.log(values);
-    return;
 
     let variables = {
       user: {
