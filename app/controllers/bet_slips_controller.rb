@@ -13,8 +13,8 @@ class BetSlipsController < ApplicationController
     stake = bet_slips_params[:stake].to_f
 
     #First check if stake is with in the limits
-    if stake > 20000 || stake < 50
-      render json: {message: "Amount should be between 50 and 20,000"}, status: 400
+    if stake > 50000 || stake < 1000
+      render json: {message: "Amount should be between 1,000 and 50,000"}, status: 400
     end
 
     #check if the stake is present and contains only digits
@@ -32,7 +32,7 @@ class BetSlipsController < ApplicationController
             balance_after: balance_after,
             phone_number: current_user.phone_number,
             status: 'SUCCESS',
-            currency: 'KES',
+            currency: 'UGX',
             amount: stake,
             category: 'Bet Stake'
           )
@@ -76,7 +76,7 @@ class BetSlipsController < ApplicationController
         #initiate the betslip
         odds_arr = bets_arr.map { |x| x[:odds].to_f }
         total_odds = odds_arr.inject(:*).round(2)
-        potential_win_amount = (stake.to_f * total_odds.to_f)
+        potential_win_amount = (stake.to_f * total_odds.to_f) * 0.85
 
         BetSlip.transaction do
           current_user.save!

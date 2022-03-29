@@ -7,6 +7,9 @@ import currencyFormatter from "../../utilities/CurrencyFormatter";
 
 const BetReceipt = (props) => {
   const [show, setShow] = useState(false);
+  const winnings = props.data.stake * props.data.odds;
+  const payout = props.data.potential_win_amount;
+  const tax = winnings * 0.15;
 
   const close = () => {
     setShow(false);
@@ -107,10 +110,16 @@ const BetReceipt = (props) => {
           <span id="total-odds">{currencyFormatter(props.data.stake)}</span>
         </div>
         <div className="total-wins">
-          <span>Possible Win Amount</span>
-          <span id="total-wins">
-            {currencyFormatter(props.data.potential_win_amount)}
-          </span>
+          <span>Winnings</span>
+          <span id="total-wins">{currencyFormatter(winnings)}</span>
+        </div>
+        <div className="total-wins">
+          <span>Tax (15%)</span>
+          <span id="total-wins">{currencyFormatter(tax)}</span>
+        </div>
+        <div className="total-wins">
+          <span>Payout</span>
+          <span id="total-wins">{currencyFormatter(payout)}</span>
         </div>
       </Modal>
       {React.cloneElement(props.children, {
