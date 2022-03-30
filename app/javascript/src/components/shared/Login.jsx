@@ -2,6 +2,7 @@ import { LockOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input, Modal } from "antd";
 import cogoToast from "cogo-toast";
 import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import PhoneFormat from "../../utilities/phoneNumber";
 import Requests from "../../utilities/Requests";
@@ -13,6 +14,8 @@ const Login = (props) => {
   const [form] = Form.useForm();
   const signUpRef = React.createRef();
   const [isLoading, setIsLoading] = useState(false);
+  const isMobile = useSelector((state) => state.isMobile);
+  const dispatcher = useDispatch();
 
   const close = () => {
     setShow(false);
@@ -65,6 +68,9 @@ const Login = (props) => {
   };
 
   const passwordReset = () => {
+    if (isMobile) {
+      dispatcher({ type: "sider", payload: false });
+    }
     cogoToast.success("Provide Your Phone Number.", { hideAfter: 5 });
     close();
   };

@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   ##React routes
   match "cart_fixtures" => "line_bets#cart_fixtures", via: [:get]
+  match 'check_bonus' => "line_bets#check_bonus", via: [:get]
   namespace :api do
    namespace :v1 do
       match 'check_user' => "current_user#check_current_user", via: [:get]
@@ -50,6 +51,8 @@ Rails.application.routes.draw do
    end
   end
 
+  match 'sign_up_bonuses' => "auto_jobs#check_signup_bonuses", via: [:post]
+  match 'deposit_bonuses' => "auto_jobs#check_first_deposit_bonuses", via: [:post]
   match '/about', to: "footer_tabs#faqs", via: [:get]
   match '/rules', to: "footer_tabs#rules", via: [:get]
   match '/contacts', to: "footer_tabs#contacts", via: [:get]
@@ -138,6 +141,9 @@ Rails.application.routes.draw do
       resources :withdraws, only: [:index]
       get '/api_user_keys/:id', to: 'api_users#generate_api_keys', as: 'user_keys'
       resources :api_users, only: [:new, :index, :create]
+      resources :sign_up_bonuses, only: [:new, :index, :create]
+      resources :topup_bonuses, only: [:new, :index, :create]
+      resources :slip_bonuses, only: [:new, :index, :create]
       match 'users' => "bet_users#index", via: [:get]
       match 'user' => "bet_users#show", via: [:get]
       match 'betstop_reasons' => "betstop_reasons#index", via: [:get]

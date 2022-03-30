@@ -58,13 +58,13 @@ const Bets = () => {
       dataIndex: "odds",
     },
     {
-      title: "Possible Win",
-      dataIndex: "potential_win_amount",
+      title: "Win Amount",
+      dataIndex: "win_amount",
       render: (win) => currencyFormatter(win),
     },
     {
-      title: "Amount Won",
-      dataIndex: "win_amount",
+      title: "Payout",
+      dataIndex: "payout",
       render: (amount) => currencyFormatter(amount),
     },
     {

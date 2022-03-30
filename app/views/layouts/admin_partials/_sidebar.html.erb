@@ -42,6 +42,45 @@
             </ul>
          </li>
 
+         <li>
+            <a href="#bonuses" title="Finances" data-toggle="collapse">
+               <em class="fas fa-coins"></em>
+               <span data-localize="sidebar.nav.DASHBOARD">Bonus</span>
+            </a>
+            <ul id="bonuses" class="sidebar-nav sidebar-subnav collapse">
+               <li class="<%= 'active' if controller.controller_name == 'sign_up_bonuses' && controller.action_name == 'new'%>">
+                  <a href="<%= new_backend_sign_up_bonus_path %>" title="Bonus">
+                     <span>New Signup Bonus</span>
+                  </a>
+               </li>
+               <li class="<%= 'active' if controller.controller_name == 'sign_up_bonuses' && controller.action_name == 'index'%>">
+                  <a href="<%= backend_sign_up_bonuses_path %>" title="Bonus">
+                     <span>Signup Bonuses</span>
+                  </a>
+               </li>
+               <li class="<%= 'active' if controller.controller_name == 'topup_bonuses' && controller.action_name == 'new'%>">
+                  <a href="<%= new_backend_topup_bonus_path %>" title="Bonus">
+                     <span>New Deposit Bonus</span>
+                  </a>
+               </li>
+               <li class="<%= 'active' if controller.controller_name == 'topup_bonuses' && controller.action_name == 'index'%>">
+                  <a href="<%= backend_topup_bonuses_path %>" title="Bonus">
+                     <span>Deposit Bonuses</span>
+                  </a>
+               </li>
+               <li class="<%= 'active' if controller.controller_name == 'slip_bonuses' && controller.action_name == 'new'%>">
+                  <a href="<%= new_backend_slip_bonus_path %>" title="Bonus">
+                     <span>New BetSlip Bonus</span>
+                  </a>
+               </li>
+               <li class="<%= 'active' if controller.controller_name == 'slip_bonuses' && controller.action_name == 'index'%>">
+                  <a href="<%= backend_slip_bonuses_path %>" title="Bonus">
+                     <span>BetSlip Bonuses</span>
+                  </a>
+               </li>
+            </ul>
+         </li>
+
          <li class="<%= 'active' if controller.controller_name == 'bet_users' %>">
             <a href="<%= backend_users_path %>" title="Users">
                <em class="fas fa-users"></em>

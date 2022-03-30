@@ -1,0 +1,38 @@
+<div class="content-heading">
+    <div>
+        <span>New Slip Bonus</span>
+        <small>Slip Bonus</small>
+    </div>
+</div>
+
+
+<div class="block-center mt-4 wd-xl">
+   <!-- START card-->
+   <div class="card card-dark card-default">
+      <div class="card-body">
+         <p class="text-center py-2">New Slip Bonus</p>
+         <%= form_for([:backend, @slip_bonus],  :html => {:"data-parsley-validate" => '', class: "mb-lg"}) do |f| %>
+
+         <div class="form-group has-feedback">
+           <%= f.label :min_accumulator, "Min Accumulator", class: "text-muted" %>
+           <%= f.number_field :min_accumulator, class: "form-control", placeholder: "Minimum Number of games", required: "true", min: 1 %>
+         </div>
+         <div class="form-group has-feedback">
+           <%= f.label :max_accumulator, "Max Accumulator", class: "text-muted" %>
+           <%= f.number_field :max_accumulator, class: "form-control", placeholder: "Maximum Number of games", required: "true", min: 1 %>
+         </div>
+         <div class="form-group has-feedback">
+           <%= f.label :multiplier,"Multiplier %", class: "text-muted" %>
+           <%= f.number_field :multiplier, class: "form-control", required:"true", step: :any, min: 0 %>
+         </div>
+         <div class="form-group has-feedback">
+           <%= f.label :expiry,"Expiry", class: "text-muted" %>
+           <%= f.datetime_field :expiry, class: "form-control", required: "true", min: Date.today %>
+         </div>
+
+         <%= f.submit "Submit" , class: "btn btn-block btn-danger mt-lg" %>
+         <% end %>
+      </div>
+   </div>
+   <!-- END card-->
+</div>

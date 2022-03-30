@@ -14,6 +14,7 @@ class User < ApplicationRecord
 
 
    after_save :send_pin!
+   before_create :process_signup_bonus
 
    def login
       @login || self.phone_number
@@ -50,7 +51,7 @@ class User < ApplicationRecord
    end
 
    def send_password_reset_code
-     message = "Your SkylineBet Password Reset Code is #{self.password_reset_code}"
+     message = "Your BetSports Password Reset Code is #{self.password_reset_code}"
      SendSMS.process_sms_now(receiver: self.phone_number, content: message, sender_id: ENV['DEFAULT_SENDER'])
      self.touch(:password_reset_sent_at)
    end
@@ -74,11 +75,21 @@ class User < ApplicationRecord
     def resend_user_pin!
       reset_pin!
       unverify!
-      message = "Your SkylineBet verification code is #{self.pin}"
+      message = "Your BetSports verification code is #{self.pin}"
       SendSMS.process_sms_now(receiver: self.phone_number, content: message, sender_id: ENV['DEFAULT_SENDER'])
       #In scenarios of automatic emails, uncomment the line below
       #VerifyMailer.with(id: self.id).verification_email.deliver_now
       self.touch(:pin_sent_at)
+    end
+
+    def process_signup_bonus
+      if SignUpBonus.exists? && SignUpBonus.last.status == "Active" #check if there are any bonuses on offer and if the last one is active
+        #if the is present and last bonus is active
+        #change the balance to the amount in the bonus
+        bonus = SignUpBonus.last
+        new_balance = (self.balance + bonus.amount.to_f)
+        self.balance = new_balance
+      end
     end
 
     def generate_codes
