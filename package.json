@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "",
   "author": "",
-  "license": "https://wrapbootstrap.com/help/licenses",
+  "license": "",
   "private": true,
   "scripts": {
     "modernizr": "modernizr -c modernizr-config.json -d node_modules/modernizr/modernizr.custom.js",
@@ -130,7 +130,7 @@
     "webp-loader": "^0.6.0",
     "webpack-jquery-ui": "^2.0.1",
     "whirl": "^1.2.0",
-    "world_countries_lists": "^2.2.0",
+    "world_countries_lists": "2.2.0",
     "x-editable": "1.5.1"
   },
   "devDependencies": {

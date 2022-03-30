@@ -11758,10 +11758,10 @@ worker-farm@^1.7.0:
   dependencies:
     errno "~0.1.7"
 
-world_countries_lists@^2.2.0:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/world_countries_lists/-/world_countries_lists-2.4.0.tgz#8b5dba9fdbdc02b36b4304d17c244828351b5664"
-  integrity sha512-AfOzix7V1uJlEj/FnxBRwEO0ptIt3JAFIeDc5SxxAIpCGBKEY0jrrJKD7dKLka8w1aNb3jL4hN7okzqP1gaQ9A==
+world_countries_lists@2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/world_countries_lists/-/world_countries_lists-2.2.0.tgz#d9b57b5949e53c6f8e5cf3b582f2ce52bb27275e"
+  integrity sha512-qRT0tHsqjS0DJy6iurjccOcfCjfArOVK2KC3+SGvXAqlWop3GHabQlycrw96U5iZUe8iN4AYPEk2Rbg5YhOCMQ==
 
 wrap-ansi@^5.1.0:
   version "5.1.0"

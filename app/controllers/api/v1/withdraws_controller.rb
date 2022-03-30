@@ -34,7 +34,7 @@ class Api::V1::WithdrawsController < ApplicationController
             end
          end
       else
-         render json: {errors: "You need to make a Deposit or place a bet before any withdraw."}, status: 400
+         render json: {errors: "You need to make a deposit or place a bet before any withdraw."}, status: 400
       end
    end
 
