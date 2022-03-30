@@ -26,7 +26,7 @@ const Withdraw = (props) => {
       })
       .catch((error) => {
         if (error.response) {
-          cogoToast.warn(error.response.data["errors"]);
+          cogoToast.warn(error.response.data.errors, 4);
         } else {
           cogoToast.warn("Oops, something is wong, please try again.", 5);
         }

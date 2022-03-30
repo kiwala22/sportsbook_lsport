@@ -10,7 +10,7 @@ class Api::V1::DepositsController < ApplicationController
       phone_number = deposit_params[:phone_number]
 
       #create a deposit transaction
-      @transaction = Transaction.new(
+      @transaction = Transaction.create(
          reference: ext_reference,
          amount: amount,
          phone_number: phone_number,
@@ -19,12 +19,12 @@ class Api::V1::DepositsController < ApplicationController
          currency: "UGX",
          user_id: current_user.id
       )
-      if @transaction.save
+      if @transaction.persisted?
          DepositsWorker.perform_async(@transaction.id)
          render json: {}, status: 200
       else
          logger.error(@transaction.errors.full_messages)
-         render json: { :errors => @transaction.errors.full_messages } , status: 400
+         render json: { errors: @transaction.errors.full_messages } , status: 400
       end
    end
 

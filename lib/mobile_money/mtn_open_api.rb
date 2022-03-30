@@ -5,8 +5,9 @@ module MobileMoney
 		require 'json'
 		require 'uri'
 		require 'net/http'
+		require 'logger'
 
-		@@collection_sub_key  =  ENV['COLLECTION_SUB_KEY']
+		@@collection_sub_key  	=  ENV['COLLECTION_SUB_KEY']
 		@@transfer_sub_key		=  ENV['TRANSFER_SUB_KEY']
 		@@collection_api_id 	=  ENV['COLLECTION_API_ID']
 		@@collection_api_key 	=  ENV['COLLECTION_API_KEY']
@@ -30,7 +31,7 @@ module MobileMoney
 				req['Authorization'] = "Bearer #{token}"
 
 				#set transactions callback url
-				req['X-Callback-Url'] = callback_url
+				#req['X-Callback-Url'] = callback_url
 
 				#set the transaction reference
 				req['X-Reference-Id'] = ext_reference
@@ -46,7 +47,7 @@ module MobileMoney
 
 				request_body = {
 					amount: amount,
-					currency: "UGX",
+					currency: "EUR", #UGX
 					externalId: ext_reference,
 					payer: {
 						partyIdType: "MSISDN",
@@ -63,8 +64,10 @@ module MobileMoney
 					http.request(req)
 
 				end
+				@@logger.error(res.body)
 
 				return res.code #Expecting code to be 202 on successfull transaction
+
 			else
 				return nil
 			end
@@ -97,6 +100,7 @@ module MobileMoney
 				end
 				result = JSON.parse(res.body)
 				return result
+
 			else
 				return nil
 			end
@@ -149,7 +153,7 @@ module MobileMoney
 				req['Authorization'] = "Bearer #{token}"
 
 				#set transactions callback url
-				req['X-Callback-Url'] = callback_url
+				#req['X-Callback-Url'] = callback_url
 
 				#set the transaction reference
 				req['X-Reference-Id'] = ext_reference
@@ -165,7 +169,7 @@ module MobileMoney
 
 				request_body = {
 					amount: amount,
-					currency: "UGX",
+					currency: "EUR", #UGX
 					externalId: ext_reference,
 					payee: {
 						partyIdType: "MSISDN",
@@ -184,7 +188,6 @@ module MobileMoney
 				end
 
 				return res.code
-
 			else
 				return nil
 			end

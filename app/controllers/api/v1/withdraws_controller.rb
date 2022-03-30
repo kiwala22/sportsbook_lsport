@@ -7,15 +7,14 @@ class Api::V1::WithdrawsController < ApplicationController
    def create
       ext_reference = generate_reference()
       amount = params[:amount].to_i
-      phone_number = params[:phone_number]
 
       ##First check if user has any deposit and bet
       if current_user.deposits.any? # && current_user.bets.any?
          #create a withdrawal transaction
-         @transaction = Transaction.new(
+         @transaction = Transaction.create(
             reference: ext_reference,
             amount: amount,
-            phone_number: phone_number,
+            phone_number: current_user.phone_number,
             category: "Withdraw",
             status: "PENDING",
             currency: "UGX",
@@ -23,14 +22,15 @@ class Api::V1::WithdrawsController < ApplicationController
          )
          #Before saving transaction check if requested amount is more than user balance
          user_balance = current_user.balance
-         if (@transaction.amount > user_balance)
-            render json: {errors: "You have insufficient funds on your account."}, stauts: 400
+         
+         if (@transaction.amount.to_i > user_balance.to_i)
+            render json: {errors: "You have insufficient funds on your account."}, status: 400
          else
-            if @transaction.save
+            if @transaction.persisted?
                WithdrawsWorker.perform_async(@transaction.id)
                render json: {}, status: 200
             else
-               render json: {errors: "Transaction has failed please try again."}, stauts: 400
+               render json: {errors: "Transaction has failed please try again."}, status: 400
             end
          end
       else
@@ -40,7 +40,7 @@ class Api::V1::WithdrawsController < ApplicationController
 
    private
    def withdraws_params
-      params.permit(:phone_number, :amount)
+      params.permit(:amount)
    end
 
    def generate_reference

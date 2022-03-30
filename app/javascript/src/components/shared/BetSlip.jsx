@@ -70,7 +70,16 @@ const BetSlip = (props) => {
       newAmount = parseFloat(stake) * odds;
       localStorage.setItem("stake", stake);
     }
-    return currencyFormatter(newAmount);
+    return newAmount;
+  };
+
+  const taxCalculation = (amount) => {
+    let deduction = parseFloat(amount) * 0.15;
+    let payout = parseFloat(amount) - deduction;
+    return {
+      deduction,
+      payout,
+    };
   };
 
   const clearBetSlip = () => {
@@ -148,13 +157,7 @@ const BetSlip = (props) => {
                 </span>
                 <span>{bet.description}</span>
               </div>
-              <div
-                data-target="slips.odd"
-                className="col-2 px-1 text-left"
-                // id={`slip_${bet.market.match(/\d/g).join("")}_${
-                //   bet.outcome
-                // }_${bet.fixtureId}`}
-              >
+              <div data-target="slips.odd" className="col-2 px-1 text-left">
                 {parseFloat(bet.odd).toFixed(2)}
               </div>
             </div>
@@ -243,9 +246,21 @@ const BetSlip = (props) => {
         <span id="amount-limits" className="limits"></span>
       </div>
       <div className="total-wins">
+        <span>Winnings</span>
+        <span id="total-wins" data-target="slips.wins">
+          {currencyFormatter(calculateWin())}
+        </span>
+      </div>
+      <div className="total-wins">
+        <span>Tax (15%)</span>
+        <span id="total-wins" data-target="slips.wins">
+          {currencyFormatter(taxCalculation(calculateWin()).deduction)}
+        </span>
+      </div>
+      <div className="total-wins">
         <span>Payout</span>
         <span id="total-wins" data-target="slips.wins">
-          {calculateWin()}
+          {currencyFormatter(taxCalculation(calculateWin()).payout)}
         </span>
       </div>
       {userSignedIn && (
