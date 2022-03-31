@@ -68,7 +68,9 @@ const Home = (props) => {
     choices.map((element, index) => {
       let ref = getRef(element.choice);
       if (ref !== undefined && ref !== null) {
-        ref.current.style.backgroundColor = "#f6ae2d";
+        if (ref.current !== null) {
+          ref.current.style.backgroundColor = "#f6ae2d";
+        }
       }
     });
   };
