@@ -12,7 +12,7 @@
 			<tr>
 				<th>No #</th>
 				<th>Amount</th>
-				<th>Multipler</th>
+				<th>Multipler %</th>
 				<th>Expiry</th>
 				<th>Status</th>
 				<th>Created At</th>
@@ -22,9 +22,9 @@
 		<tbody>
 			<% @topup_bonuses.each_with_index do |bonus, index| %>
 			<tr>
-				<td><%= (index+1) %></td>
+				<td><%= (index + 1) %></td>
 				<td><%= bonus.amount %></td>
-				<td><%= bonus.multiplier %></td>
+				<td><%= number_to_percentage(bonus.multiplier, :precision => 1) %></td>
 				<td><%= local_time(bonus.expiry,"%d/%m/%Y %H:%M") %></td>
 				<td>
 					<% if bonus.status == 'Active'%>

@@ -29,15 +29,15 @@ const Home = (props) => {
   const [pageLoading, setPageLoading] = useState(true);
   const isMobile = useSelector((state) => state.isMobile);
   const selectedChoices = useSelector((state) => state.selectedChoices);
+  const games = useSelector((state) => state.games);
   const dispatcher = useDispatch();
   const history = useHistory();
   const [getRef, setRef] = useDynamicRefs();
 
-  let interval;
-
   useEffect(() => loadGames(), []);
 
   useEffect(() => {
+    let interval;
     if (prematchGames.length === 0) {
       interval = setInterval(() => {
         loadGames();
@@ -47,7 +47,7 @@ const Home = (props) => {
   }, [prematchGames]);
 
   useEffect(() => {
-    // let interval
+    let interval;
     if (selectedChoices.length !== 0) {
       interval = setInterval(() => {
         highLightSelected(selectedChoices);
@@ -57,16 +57,12 @@ const Home = (props) => {
   }, [selectedChoices]);
 
   useEffect(() => {
-    // let interval
-    setTimeout(() => {
-      if (selectedChoices.length !== 0) {
-        interval = setInterval(() => {
-          highLightSelected(selectedChoices);
-        }, 500);
-      }
-    }, 1000);
-    return () => clearInterval(interval);
+    highLightSelected(selectedChoices);
   }, []);
+
+  useEffect(() => {
+    highLightSelected(selectedChoices);
+  }, [games]);
 
   const highLightSelected = (choices) => {
     choices.map((element, index) => {

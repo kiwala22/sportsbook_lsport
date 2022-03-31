@@ -15,11 +15,11 @@
 
          <div class="form-group has-feedback">
            <%= f.label :amount,"Amount", class: "text-muted" %>
-           <%= f.number_field :amount, class: "form-control", autofocus: true, required: "true", min: 1000, max: 5000  %>
+           <%= f.number_field :amount, class: "form-control", autofocus: true, min: 1000, max: 5000  %>
          </div>
          <div class="form-group has-feedback">
-           <%= f.label :multiplier,"Multiplier", class: "text-muted" %>
-           <%= f.number_field :multiplier, class: "form-control", required:"true",min: 1, max: 5 %>
+           <%= f.label :multiplier,"Multiplier %", class: "text-muted" %>
+           <%= f.number_field :multiplier, class: "form-control", min: 1, max: 100 %>
          </div>
          <div class="form-group has-feedback">
            <%= f.label :expiry,"Expiry", class: "text-muted" %>

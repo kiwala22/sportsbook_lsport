@@ -22,12 +22,14 @@ class User < ApplicationRecord
 
    validates :phone_number, presence: true
    validates :phone_number, uniqueness: true
-   validates :email, uniqueness: true
+   validates :id_number, presence: true
+   validates :id_number, uniqueness: true
+  #  validates :email, uniqueness: true
    validates :phone_number, format: {with: /\A(256)\d{9}\z/}
    validates :first_name, presence: true
    validates :last_name, presence: true
    validates :agreement, acceptance: { accept: true }
-   #validate :password_complexity
+   # validate :password_complexity
 
     def active_for_authentication?
       super && account_active?
@@ -75,20 +77,21 @@ class User < ApplicationRecord
     def resend_user_pin!
       reset_pin!
       unverify!
-      message = "Your BetSports verification code is #{self.pin}"
+      message = "Your BetSports Account verification code is #{self.pin}"
       SendSMS.process_sms_now(receiver: self.phone_number, content: message, sender_id: ENV['DEFAULT_SENDER'])
-      #In scenarios of automatic emails, uncomment the line below
-      #VerifyMailer.with(id: self.id).verification_email.deliver_now
+      # In scenarios of automatic emails, uncomment the line below
+      # VerifyMailer.with(id: self.id).verification_email.deliver_now
       self.touch(:pin_sent_at)
     end
 
     def process_signup_bonus
-      if SignUpBonus.exists? && SignUpBonus.last.status == "Active" #check if there are any bonuses on offer and if the last one is active
-        #if the is present and last bonus is active
-        #change the balance to the amount in the bonus
-        bonus = SignUpBonus.last
-        new_balance = (self.balance + bonus.amount.to_f)
-        self.balance = new_balance
+      if SignUpBonus.exists? && SignUpBonus.last.status == "Active" # check if there are any bonuses on offer and if the last one is active
+        # if the is present and last bonus is active
+        # change the balance to the amount in the bonus
+        bonus_amount = SignUpBonus.last.amount
+        self.balance =  bonus_amount.to_f
+        self.activated_signup_bonus = true
+        self.signup_bonus_amount = bonus_amount
       end
     end
 

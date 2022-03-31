@@ -13,7 +13,7 @@
 				<th>No #</th>
         		<th>Min Accumulator</th>
         		<th>Max Accumulator</th>
-				<th>Multipler</th>
+				<th>Multipler %</th>
 				<th>Expiry</th>
 				<th>Status</th>
 				<th>Create Time</th>
@@ -26,7 +26,7 @@
 				<td><%= (index + 1) %></td>
         		<td><%= bonus.min_accumulator %></td>
         		<td><%= bonus.max_accumulator %></td>
-				<td><%= bonus.multiplier %></td>
+                <td><%= number_to_percentage(bonus.multiplier, :precision => 1) %></td>
 				<td><%= local_time(bonus.expiry,"%d/%m/%Y %H:%M %p") %></td>
 				<td>
 					<% if bonus.status == 'Active'%>

@@ -34,7 +34,7 @@ const SignUp = (props) => {
 
     let variables = {
       user: {
-        email: values.email,
+        // email: values.email,
         phone_number: phoneNumber,
         first_name: values.first_name,
         last_name: values.last_name,
@@ -146,7 +146,9 @@ const SignUp = (props) => {
                 ]}
                 hasFeedback
               >
-                <Input className="form-control" />
+                <Input.Password
+                  prefix={<LockOutlined className="site-form-item-icon" />}
+                />
               </Form.Item>
             </Col>
           </Row>

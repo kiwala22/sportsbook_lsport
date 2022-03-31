@@ -16,8 +16,8 @@ class Backend::SignUpBonusesController < ApplicationController
   def create
   	@signup_bonus = SignUpBonus.new(signup_bonus_params)
 
-    status_active = SignUpBonus.where(status:'Active')
-    if status_active.blank?
+    active_bonus = SignUpBonus.where(status:'Active')
+    if active_bonus.blank?
       @signup_bonus.status = 'Active'
     else
       flash[:alert] = 'You already have an Active Bonus.'

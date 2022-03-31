@@ -32,11 +32,41 @@ class CompleteMtnTransactionsWorker
     if ext_transaction_id && status == "SUCCESSFUL"
       @deposit.update(ext_transaction_id: ext_transaction_id, network: "MTN Uganda", status: "SUCCESS", balance_before: balance_before, balance_after: balance_after)
       @transaction.update(balance_before: balance_before, balance_after: balance_after, status: "COMPLETED")
-      ##Then you can Credit user account with the specified amount
-      user.update(balance: balance_after)
+
+      ## Check if there is a top up bonus in the moment and offer the user a bonus
+      if TopUpBonus.exists? && TopUpBonus.last.status == "Active"
+        bonus_amount = (TopUpBonus.last.multiplier /  100) * @transaction.amount
+        balance_after_bonus = balance_after + bonus_amount.to_i
+
+        ## Create a bonus transaction
+        Transaction.create(
+          reference: generate_reference(),
+          amount: bonus_amount,
+          phone_number: @transaction.phone_number,
+          category: "Top Up Bonus",
+          status: "COMPLETED",
+          currency: "UGX",
+          user_id: @transaction.user_id,
+          balance_before: balance_after,
+          balance_after: balance_after_bonus
+        )
+
+        ## Then you can Credit user account with the specified amount + bonus
+        user.update(balance: balance_after_bonus)
+      else
+        ## Then you can Credit user account with the specified amount
+        user.update(balance: balance_after)
+      end
     else
       @deposit.update(network: "MTN Uganda", status: "FAILED")
       @transaction.update(status: "FAILED")
+    end
+  end
+
+  def generate_reference
+    loop do
+        reference = SecureRandom.uuid
+        break reference = reference unless Transaction.where(reference: reference).exists?
     end
   end
 end
