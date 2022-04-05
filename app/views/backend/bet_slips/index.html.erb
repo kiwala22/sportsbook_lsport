@@ -60,8 +60,10 @@
         <th>Games</th>
         <th>Stake</th>
         <th>Odds</th>
-        <th>Potential Win</th>
-        <th>Amount Won</th>
+        <th>Win Amount</th>
+        <th>Bonus</th>
+        <th>Tax</th>
+        <th>Payout</th>
         <th>Status</th>
         <th>Result</th>
         <th>User</th>
@@ -76,8 +78,10 @@
 					<td><%= bet_slip.bet_count %></td>
 					<td><%= bet_slip.stake %></td>
 					<td><%= bet_slip.odds %></td>
-					<td><%= bet_slip.potential_win_amount %></td>
 					<td><%= bet_slip.win_amount %></td>
+					<td><%= bet_slip.bonus %></td>
+          <td><%= bet_slip.tax %></td>
+          <td><%= bet_slip.payout %></td>
 					<td><%= bet_slip.status%></td>
 					<td><%= bet_slip.result %></td>
           <td><%= link_to bet_slip.user_id, backend_user_path(id:bet_slip.user) %></td>          

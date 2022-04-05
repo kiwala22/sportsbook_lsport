@@ -130,7 +130,7 @@
     "webp-loader": "^0.6.0",
     "webpack-jquery-ui": "^2.0.1",
     "whirl": "^1.2.0",
-    "world_countries_lists": "2.2.0",
+    "world_countries_lists": "^2.2.0",
     "x-editable": "1.5.1"
   },
   "devDependencies": {

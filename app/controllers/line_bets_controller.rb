@@ -9,6 +9,7 @@ class LineBetsController < ApplicationController
                   refresh
                   close_betslip_button_display
                   cart_fixtures
+                  check_bonus
                 ]
 
   # before_action :set_line_item, only: [:show, :edit, :update, :destroy]
@@ -96,6 +97,19 @@ class LineBetsController < ApplicationController
     @cart.destroy if @cart.id == session[:cart_id]
     session[:cart_id] = nil
     render json: { 'status': 'OK' }
+  end
+
+  ## Method to check if there is any bonus and return results to the JS controller
+  def check_bonus
+    number_of_games = @cart.line_bets.count()
+    slip_obj = SlipBonus.where("status = ? AND min_accumulator <= ? AND max_accumulator >= ?", "Active", number_of_games, number_of_games).last
+    if !slip_obj.nil?
+      multiplier = (slip_obj.multiplier / 100).to_f
+    else
+      multiplier = 0.0
+    end
+
+    render json: multiplier, status: 200
   end
 
 end

@@ -1,5 +1,5 @@
 import React from "react";
-import { BsEnvelope } from "react-icons/bs";
+import { BsEnvelope, BsFacebook, BsTwitter, BsInstagram } from "react-icons/bs";
 import { BiSupport } from "react-icons/bi";
 import { GrMapLocation } from "react-icons/gr";
 import { GoLocation } from "react-icons/go";
@@ -45,11 +45,40 @@ const Support = () => {
                   </p>
                   <p>
                     Customer Service: <BiSupport className="contact-icons" />{" "}
-                    <a>info@betsports.ug</a>
+                    <a>cs@betsports.ug</a>
                   </p>
                   <p>
                     Telephone: <FiPhoneIncoming className="contact-icons" />{" "}
                     +256776225922 / +256753941009
+                  </p>
+                </div>
+
+                <div className="heads paragraph">
+                  <h5>Social Media Platforms:</h5>
+                  <p>
+                    <BsFacebook className="social-media-icons" />
+                    {"  "}
+                    <strong>
+                      <a href="https://www.facebook.com/BetSports.ug">
+                        FaceBook
+                      </a>
+                    </strong>
+                  </p>
+                  <p>
+                    <BsTwitter className="social-media-icons" />
+                    {"  "}
+                    <strong>
+                      <a href="https://twitter.com/BetsportsU">Twitter</a>
+                    </strong>
+                  </p>
+                  <p>
+                    <BsInstagram className="social-media-icons" />
+                    {"  "}
+                    <strong>
+                      <a href="https://www.instagram.com/betsportsug/">
+                        Instagram
+                      </a>
+                    </strong>
                   </p>
                 </div>
 

@@ -1,15 +1,16 @@
 import { Modal } from "antd";
 import React, { useState } from "react";
-import { BsDash } from "react-icons/bs";
+import { BsDash, BsPlus } from "react-icons/bs";
 import Moment from "react-moment";
 import shortUUID from "short-uuid";
 import currencyFormatter from "../../utilities/CurrencyFormatter";
 
 const BetReceipt = (props) => {
   const [show, setShow] = useState(false);
-  const winnings = props.data.stake * props.data.odds;
-  const payout = props.data.potential_win_amount;
-  const tax = winnings * 0.15;
+  const winnings = props.data.win_amount;
+  const payout = props.data.payout;
+  const tax = props.data.tax;
+  const bonus = props.data.bonus;
 
   const close = () => {
     setShow(false);
@@ -114,8 +115,28 @@ const BetReceipt = (props) => {
           <span id="total-wins">{currencyFormatter(winnings)}</span>
         </div>
         <div className="total-wins">
-          <span>Tax (15%)</span>
-          <span id="total-wins">{currencyFormatter(tax)}</span>
+          <span>Bonus</span>
+          <span id="total-wins">{currencyFormatter(bonus)}</span>
+        </div>
+        <div className="total-wins">
+          <span>
+            <BsDash />
+            Tax (15%)
+          </span>
+          <span id="total-wins">
+            <BsDash />
+            {currencyFormatter(tax)}
+          </span>
+        </div>
+        <div className="total-wins">
+          <span>
+            <BsPlus />
+            Tax (15%)
+          </span>
+          <span id="total-wins">
+            <BsPlus />
+            {currencyFormatter(tax)}
+          </span>
         </div>
         <div className="total-wins">
           <span>Payout</span>

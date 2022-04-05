@@ -1,4 +1,6 @@
 import { Button, Modal } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
+import { BsDash, BsPlus } from "react-icons/bs";
 import "channels";
 import cogoToast from "cogo-toast";
 import React, { useEffect, useState } from "react";
@@ -19,6 +21,7 @@ const BetSlip = (props) => {
   const games = useSelector((state) => state.games);
   const show = useSelector((state) => state.showBetSlip);
   const isMobile = useSelector((state) => state.isMobile);
+  const multiplier = useSelector((state) => state.multiplier);
   const dispatcher = useDispatch();
 
   useEffect(() => {
@@ -34,6 +37,14 @@ const BetSlip = (props) => {
     calculateWin();
   }, [stake]);
 
+  useEffect(() => {
+    checkBetSlipBonus();
+  }, []);
+
+  useEffect(() => {
+    checkBetSlipBonus();
+  }, [games]);
+
   const loadCartGames = () => {
     let path = "/cart_fixtures";
     let values = {};
@@ -41,6 +52,24 @@ const BetSlip = (props) => {
       .then((response) => {
         let data = response.data;
         dispatcher({ type: "addBet", payload: data });
+      })
+      .catch((error) => {
+        cogoToast.error(
+          error.response ? error.response.data.message : error.message,
+          {
+            hideAfter: 5,
+          }
+        );
+      });
+  };
+
+  const checkBetSlipBonus = () => {
+    let path = "/check_bonus";
+    let values = {};
+    Requests.isGetRequest(path, values)
+      .then((response) => {
+        let multiplier = response.data;
+        dispatcher({ type: "multiplier", payload: parseFloat(multiplier) });
       })
       .catch((error) => {
         cogoToast.error(
@@ -251,16 +280,53 @@ const BetSlip = (props) => {
           {currencyFormatter(calculateWin())}
         </span>
       </div>
+      {multiplier > 0 && (
+        <div className="total-wins">
+          <span>Bonus</span>
+          <span id="total-wins" data-target="slips.wins">
+            <PlusOutlined />
+            {currencyFormatter(calculateWin() * multiplier)}
+          </span>
+        </div>
+      )}
       <div className="total-wins">
-        <span>Tax (15%)</span>
+        <span>
+          <BsDash />
+          Tax (15%)
+        </span>
         <span id="total-wins" data-target="slips.wins">
-          {currencyFormatter(taxCalculation(calculateWin()).deduction)}
+          <BsDash />
+          {currencyFormatter(
+            multiplier > 0
+              ? taxCalculation(calculateWin() + calculateWin() * multiplier)
+                  .deduction
+              : taxCalculation(calculateWin()).deduction
+          )}
+        </span>
+      </div>
+      <div className="total-wins">
+        <span>
+          <BsPlus />
+          Tax (15%)
+        </span>
+        <span id="total-wins" data-target="slips.wins">
+          <BsPlus />
+          {currencyFormatter(
+            multiplier > 0
+              ? taxCalculation(calculateWin() + calculateWin() * multiplier)
+                  .deduction
+              : taxCalculation(calculateWin()).deduction
+          )}
         </span>
       </div>
       <div className="total-wins">
         <span>Payout</span>
         <span id="total-wins" data-target="slips.wins">
-          {currencyFormatter(taxCalculation(calculateWin()).payout)}
+          {currencyFormatter(
+            multiplier > 0
+              ? calculateWin() + calculateWin() * multiplier
+              : calculateWin()
+          )}
         </span>
       </div>
       {userSignedIn && (

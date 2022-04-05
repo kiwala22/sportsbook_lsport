@@ -22,14 +22,29 @@ class BetslipsWorker
                   user = User.find(slip.user_id)
                   #mark as a win and payout winning and top up balance all under a transaction
                   total_odds = slip.bets.pluck(:odds).map(&:to_f).inject(:*).round(2)
-                  win_amount = (slip.stake * total_odds ) * 0.85
+                  win_amount = (slip.stake * total_odds)
+                  slip_bonus = SlipBonus.where('min_accumulator <= ? AND max_accumulator >= ?', bets_arr.count, bets_arr.count)
+
+                  if slip_bonus.exists? && slip_bonus.last.status == "Active"
+                     case bets_arr.count
+                        when (slip_bonus.last.min_accumulator)..(slip_bonus.last.max_accumulator)
+                           bonus_win = (slip_bonus.last.multiplier / 100) * win_amount
+                        else
+                           bonus_win = 0
+                     end
+                  else
+                     bonus_win = 0
+                  end
+
+                  payout = (bonus_win.to_f + win_amount)
+
                   ActiveRecord::Base.transaction do
-                     slip.update(status: "Closed" ,result: "Win", win_amount: win_amount, paid: true)
+                     slip.update(status: "Closed" ,result: "Win", payout: payout, paid: true)
                      #update the account balances through transactions under an active record transaction
                      previous_balance = user.balance
                      user.balance = (user.balance + win_amount)
                      user.save!
-                     transaction = user.transactions.create!(balance_before: previous_balance, balance_after: user.balance, phone_number: user.phone_number, status: "SUCCESS", currency: "UGX", amount: win_amount, category: "Win - #{slip.id}" )
+                     transaction = user.transactions.create!(balance_before: previous_balance, balance_after: user.balance, phone_number: user.phone_number, status: "SUCCESS", currency: "UGX", amount: payout, category: "Win - #{slip.id}" )
                   end
                   
                elsif bet_results.all? {|res| res == "Void"}
@@ -39,12 +54,12 @@ class BetslipsWorker
                   total_odds = 1.0
                   win_amount = (slip.stake * total_odds )
                   ActiveRecord::Base.transaction do
-                     slip.update(status: "Closed" ,result: "Void", win_amount: win_amount, paid: true)
+                     slip.update(status: "Closed" ,result: "Void", payout: win_amount, paid: true)
                      #update the account balances through transactions under an active record transaction
                      previous_balance = user.balance
                      user.balance = (user.balance + win_amount)
                      user.save!
-                     transaction = user.transactions.create!(balance_before: previous_balance, balance_after: user.balance, phone_number: user.phone_number, status: "SUCCESS", currency: "UGX", amount:win_amount, category: "Win - #{slip.id}" )
+                     transaction = user.transactions.create!(balance_before: previous_balance, balance_after: user.balance, phone_number: user.phone_number, status: "SUCCESS", currency: "UGX", amount: win_amount, category: "Win - #{slip.id}" )
                   end
                   
                else
@@ -53,14 +68,29 @@ class BetslipsWorker
                   no_void_bet_results = slip.bets.where(result: "Win")
                   if no_void_bet_results.present?
                      total_odds = no_void_bet_results.pluck(:odds).map(&:to_f).inject(:*).round(2)
-                     win_amount = (slip.stake * total_odds ) * 0.85
+                     win_amount = (slip.stake * total_odds )
+
+                     slip_bonus = SlipBonus.where('min_accumulator <= ? AND max_accumulator >= ?', bets_arr.count, bets_arr.count)
+
+                     if slip_bonus.exists? && slip_bonus.last.status == "Active"
+                        case bets_arr.count
+                           when (slip_bonus.last.min_accumulator)..(slip_bonus.last.max_accumulator)
+                              bonus_win = (slip_bonus.last.multiplier / 100) * win_amount
+                           else
+                              bonus_win = 0
+                        end
+                     else
+                        bonus_win = 0
+                     end
+
+                     payout = (bonus_win.to_f + win_amount)
                      ActiveRecord::Base.transaction do
-                        slip.update(status: "Closed" ,result: "Win", win_amount: win_amount, paid: true)
+                        slip.update(status: "Closed" ,result: "Win", payout: payout, paid: true)
                         #update the account balances through transactions under an active record transaction
                         previous_balance = user.balance
-                        user.balance = (user.balance + win_amount)
+                        user.balance = (user.balance + payout)
                         user.save!
-                        transaction = user.transactions.create!(balance_before: previous_balance, balance_after: user.balance, phone_number: user.phone_number, status: "SUCCESS", currency: "UGX", amount:win_amount, category: "Win - #{slip.id}" )
+                        transaction = user.transactions.create!(balance_before: previous_balance, balance_after: user.balance, phone_number: user.phone_number, status: "SUCCESS", currency: "UGX", amount: payout, category: "Win - #{slip.id}" )
                      end
                   end
                   

@@ -3,6 +3,7 @@ import cogoToast from "cogo-toast";
 import React, { useState } from "react";
 import Requests from "../../utilities/Requests";
 import { useHistory } from "react-router-dom";
+import AcceptedPayment from "../../Images/mobile-money-acc.webp";
 
 const Withdraw = (props) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -45,6 +46,7 @@ const Withdraw = (props) => {
                   <h3>Withdraw</h3>
                 </div>
                 <div className="widget-body">
+                  <img src={AcceptedPayment} className="mobile-money-logos" />
                   <Form
                     form={form}
                     layout="vertical"

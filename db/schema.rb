@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_27_184014) do
+ActiveRecord::Schema.define(version: 2022_03_31_084528) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -89,7 +89,7 @@ ActiveRecord::Schema.define(version: 2022_03_27_184014) do
     t.decimal "stake", precision: 12, scale: 2
     t.decimal "win_amount", precision: 12, scale: 2, default: "0.0"
     t.decimal "odds", precision: 10, scale: 2
-    t.decimal "potential_win_amount", precision: 12, scale: 2
+    t.decimal "payout", precision: 12, scale: 2
     t.string "status"
     t.boolean "paid", default: false
     t.datetime "created_at", precision: 6, null: false
@@ -97,6 +97,8 @@ ActiveRecord::Schema.define(version: 2022_03_27_184014) do
     t.bigint "user_id", null: false
     t.string "result"
     t.string "reason"
+    t.decimal "bonus", precision: 10, scale: 2
+    t.decimal "tax", precision: 10, scale: 2
     t.index ["user_id"], name: "index_bet_slips_on_user_id"
   end
 
@@ -299,6 +301,33 @@ ActiveRecord::Schema.define(version: 2022_03_27_184014) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "sign_up_bonuses", force: :cascade do |t|
+    t.decimal "amount", precision: 10, scale: 2
+    t.string "status"
+    t.datetime "expiry"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "slip_bonuses", force: :cascade do |t|
+    t.decimal "multiplier", precision: 5, scale: 2
+    t.decimal "min_accumulator"
+    t.decimal "max_accumulator"
+    t.string "status"
+    t.datetime "expiry"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "topup_bonuses", force: :cascade do |t|
+    t.decimal "amount", precision: 10, scale: 2
+    t.decimal "multiplier", precision: 5, scale: 2
+    t.string "status"
+    t.datetime "expiry"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "transactions", force: :cascade do |t|
     t.integer "user_id"
     t.string "category"
@@ -346,8 +375,9 @@ ActiveRecord::Schema.define(version: 2022_03_27_184014) do
     t.boolean "agreement"
     t.string "nationality"
     t.string "id_number"
+    t.boolean "activated_signup_bonus", default: false
+    t.decimal "signup_bonus_amount", precision: 10, scale: 2, default: "0.0"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
-    t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["phone_number"], name: "index_users_on_phone_number", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true

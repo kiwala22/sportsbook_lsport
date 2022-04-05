@@ -13,8 +13,8 @@ class BetSlipsController < ApplicationController
     stake = bet_slips_params[:stake].to_f
 
     #First check if stake is with in the limits
-    if stake > 50000 || stake < 1000
-      render json: {message: "Amount should be between 1,000 and 50,000"}, status: 400
+    if stake > 1000000 || stake < 1000
+      render json: {message: "Amount should be between 1,000 and 1,000,000"}, status: 400
     end
 
     #check if the stake is present and contains only digits
@@ -76,7 +76,23 @@ class BetSlipsController < ApplicationController
         #initiate the betslip
         odds_arr = bets_arr.map { |x| x[:odds].to_f }
         total_odds = odds_arr.inject(:*).round(2)
-        potential_win_amount = (stake.to_f * total_odds.to_f) * 0.85
+        win_amount = (stake.to_f * total_odds.to_f)
+
+        slip_bonus = SlipBonus.where('min_accumulator <= ? AND max_accumulator >= ?', bets_arr.count, bets_arr.count)
+
+				if slip_bonus.exists? && slip_bonus.last.status == "Active"
+					case bets_arr.count
+						when (slip_bonus.last.min_accumulator)..(slip_bonus.last.max_accumulator)
+							bonus_win = (slip_bonus.last.multiplier / 100) * win_amount
+						else
+							bonus_win = 0
+					end
+				else
+					bonus_win = 0
+				end
+
+				payout = (bonus_win.to_f + win_amount)
+        tax = (bonus_win.to_f + win_amount) * 0.15
 
         BetSlip.transaction do
           current_user.save!
@@ -87,7 +103,10 @@ class BetSlipsController < ApplicationController
             stake: stake,
             odds: total_odds,
             status: 'Active',
-            potential_win_amount: potential_win_amount
+            win_amount: win_amount,
+            bonus: bonus_win,
+            tax: tax,
+            payout: payout
           )
         end
 

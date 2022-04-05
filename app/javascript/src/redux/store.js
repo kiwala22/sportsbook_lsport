@@ -9,6 +9,7 @@ const initialState = {
   verified: false,
   userInfo: {},
   games: [],
+  multiplier: 0,
   selectedChoices: [],
   displaySider: false,
   showBetSlip: false,
@@ -41,6 +42,8 @@ function reducer(state = initialState, action) {
       return { ...state, isMobile: Mobile.isMobile() };
     case "onSportChange":
       return { ...state, sportType: action.payload };
+    case "multiplier":
+      return { ...state, multiplier: action.payload };
     case "betSelected":
       return {
         ...state,

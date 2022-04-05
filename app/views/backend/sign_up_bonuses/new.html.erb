@@ -1,0 +1,30 @@
+<div class="content-heading">
+    <div>
+        <span>New Signup Bonus</span>
+        <small>Signup Bonus</small>
+    </div>
+</div>
+
+
+<div class="block-center mt-4 wd-xl">
+   <!-- START card-->
+   <div class="card card-dark card-default">
+      <div class="card-body">
+         <p class="text-center py-2">New Signup Bonus</p>
+         <%= form_for([:backend, @signup_bonus],  :html => {:"data-parsley-validate" => '', class: "mb-lg"}) do |f| %>
+
+         <div class="form-group has-feedback">
+           <%= f.label :amount,"Amount", class: "text-muted" %>
+           <%= f.number_field :amount, class: "form-control", autofocus: true, required: "true", min: 1000, max: 5000  %>
+         </div>
+         <div class="form-group has-feedback">
+           <%= f.label :expiry,"Expiry", class: "text-muted" %>
+           <%= f.datetime_field :expiry, class: "form-control", required:"true", min:Date.today %>
+         </div>
+				 
+         <%= f.submit "Submit" , class: "btn btn-block btn-danger mt-lg" %>
+         <% end %>
+      </div>
+   </div>
+   <!-- END card-->
+</div>

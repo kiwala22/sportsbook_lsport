@@ -19,7 +19,7 @@ class DepositsWorker
     if @transaction && @deposit
       ##Proceed with the Deposit APIs
       case @transaction.phone_number
-      when /^(25678|25677|25639)/
+      when /^(25678|25677|25676|25639)/
         #process MTN transaction
         result = MobileMoney::MtnOpenApi.request_payments(@transaction.amount, @transaction.reference, @transaction.phone_number)
         if result
@@ -35,11 +35,12 @@ class DepositsWorker
           @deposit.update(network: "MTN Uganda", status: "FAILED")
           @transaction.update(status: "FAILED")
         end
-      when /^(25675|25670)/
+      when /^(25675|25670|25674)/
         #process Airtel transaction
-        result = MobileMoney::AirtelUganda.request_payments(@transaction.phone_number, @transaction.amount, @transaction.reference)
+        result = MobileMoney::AirtelOpenApi.request_payments(@transaction.amount, @transaction.reference, @transaction.phone_number)
+
         if result
-          if result[:status] == '200'
+          if result['data']['transaction']['status'] == 'Success' && result['data']['status']['response_code'] == 'DP00800001006'
             @deposit.update(network: "Airtel Uganda", status: "PENDING")
           else
             @deposit.update(network: "Airtel Uganda", status: "FAILED")
