@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 import PhoneInput from "./PhoneInput";
 import Requests from "../../utilities/Requests";
 import PhoneFormat from "../../utilities/phoneNumber";
+import AcceptedPayment from "../../Images/mobile-money-acc.webp";
 
 const Deposit = (props) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -63,6 +64,7 @@ const Deposit = (props) => {
                   <h3>Deposit</h3>
                 </div>
                 <div className="widget-body">
+                  <img src={AcceptedPayment} className="mobile-money-logos" />
                   <Form
                     form={form}
                     layout="vertical"

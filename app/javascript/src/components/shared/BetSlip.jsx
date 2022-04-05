@@ -1,6 +1,6 @@
 import { Button, Modal } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
-import { BsDash } from "react-icons/bs";
+import { BsDash, BsPlus } from "react-icons/bs";
 import "channels";
 import cogoToast from "cogo-toast";
 import React, { useEffect, useState } from "react";
@@ -290,9 +290,27 @@ const BetSlip = (props) => {
         </div>
       )}
       <div className="total-wins">
-        <span>Tax (15%)</span>
+        <span>
+          <BsDash />
+          Tax (15%)
+        </span>
         <span id="total-wins" data-target="slips.wins">
           <BsDash />
+          {currencyFormatter(
+            multiplier > 0
+              ? taxCalculation(calculateWin() + calculateWin() * multiplier)
+                  .deduction
+              : taxCalculation(calculateWin()).deduction
+          )}
+        </span>
+      </div>
+      <div className="total-wins">
+        <span>
+          <BsPlus />
+          Tax (15%)
+        </span>
+        <span id="total-wins" data-target="slips.wins">
+          <BsPlus />
           {currencyFormatter(
             multiplier > 0
               ? taxCalculation(calculateWin() + calculateWin() * multiplier)
@@ -306,9 +324,8 @@ const BetSlip = (props) => {
         <span id="total-wins" data-target="slips.wins">
           {currencyFormatter(
             multiplier > 0
-              ? taxCalculation(calculateWin() + calculateWin() * multiplier)
-                  .payout
-              : taxCalculation(calculateWin()).payout
+              ? calculateWin() + calculateWin() * multiplier
+              : calculateWin()
           )}
         </span>
       </div>

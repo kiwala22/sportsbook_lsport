@@ -5,7 +5,6 @@ class Api::V1::WithdrawsController < ApplicationController
    skip_before_action :verify_authenticity_token
 
    def create
-      ext_reference = generate_reference()
       amount = params[:amount].to_i
 
       # First check whether user has used up their sign up bonus before proceedind
@@ -14,9 +13,12 @@ class Api::V1::WithdrawsController < ApplicationController
       else
          ## First check if user has any deposit and bet
          if current_user.deposits.any? # && current_user.bets.any?
+            ## Check number network and return corresponding transactionid
+            reference = check_network(current_user.phone_number) == "MTN" ? mtn_reference() : airtel_reference()
+
             # create a withdrawal transaction
             @transaction = Transaction.create(
-               reference: ext_reference,
+               reference: reference,
                amount: amount,
                phone_number: current_user.phone_number,
                category: "Withdraw",
@@ -48,10 +50,28 @@ class Api::V1::WithdrawsController < ApplicationController
       params.permit(:amount)
    end
 
-   def generate_reference
+   def mtn_reference
       loop do
          reference = SecureRandom.uuid
          break reference = reference unless Transaction.where(reference: reference).exists?
+      end
+   end
+
+   def airtel_reference
+      loop do
+         reference = rand(36**8).to_s(36)
+         break reference = reference unless Transaction.where(reference: reference).exists?
+      end
+   end
+
+   def check_network(phone_number)
+      case phone_number
+      when /^(25677|25678|25639|25676)/
+         return "MTN"
+      when /^(25670|25675|25674)/
+         return "Airtel"
+      else
+         return "UNDEFINED"
       end
    end
 end

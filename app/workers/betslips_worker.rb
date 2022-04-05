@@ -36,7 +36,7 @@ class BetslipsWorker
                      bonus_win = 0
                   end
 
-                  payout = (bonus_win.to_f + win_amount) * 0.85
+                  payout = (bonus_win.to_f + win_amount)
 
                   ActiveRecord::Base.transaction do
                      slip.update(status: "Closed" ,result: "Win", payout: payout, paid: true)
@@ -83,7 +83,7 @@ class BetslipsWorker
                         bonus_win = 0
                      end
 
-                     payout = (bonus_win.to_f + win_amount) * 0.85
+                     payout = (bonus_win.to_f + win_amount)
                      ActiveRecord::Base.transaction do
                         slip.update(status: "Closed" ,result: "Win", payout: payout, paid: true)
                         #update the account balances through transactions under an active record transaction
