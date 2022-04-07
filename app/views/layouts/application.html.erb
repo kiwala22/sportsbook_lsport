@@ -11,6 +11,7 @@
             <%= yield(:title) %>
         </title>
         <%= render partial: "layouts/partials/google_analytics" %>
+        <%= render partial: "layouts/partials/trackers" %>
         <!-- Custom fonts for this template-->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
@@ -36,15 +37,6 @@
             })();
         </script>
         <!--End of Tawk.to Script-->  
-        <!-- Eskimi DSP Pixel Code -->
-            <script>
-                !function(f,e,t,u,n,s,p) {if(f.esk)return;n=f.esk=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f.___esk)f.___esk=n;n.push=n;n.loaded=!0;n.queue=[];s=e.createElement(t);s.async=!0;s.src=u;p=e.getElementsByTagName(t)[0];p.parentNode.insertBefore(s,p)}(window,document,'script', 'https://dsp-media.eskimi.com/assets/js/e/gtr.min.js?_=0.0.0.3');
-                esk('init', '22686');
-            </script>
-        <!-- End Eskimi DSP Pixel Code -->
-        <script>
-            esk('track', 'Conversion');
-        </script>
         <!-- =============== APP SCRIPTS ===============-->
             <%= javascript_packs_with_chunks_tag 'user_application', 'data-turbolinks-track': 'reload'  %>
             <%= yield :vendor_js_area %>
