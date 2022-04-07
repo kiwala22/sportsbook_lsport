@@ -38,6 +38,14 @@ class ApplicationController < ActionController::Base
     response.headers['Expires'] = 'Fri, 01 Jan 1990 00:00:00 GMT'
   end
 
+  def current_ability
+    if current_user
+      @current_ability ||=  Ability.new(current_user)
+    elsif current_admin
+      @current_ability ||=  AdminAbility.new(current_admin)
+    end
+  end
+
   protected
 
   def configure_permitted_parameters
