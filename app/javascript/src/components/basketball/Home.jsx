@@ -7,7 +7,6 @@ import { useHistory, withRouter } from "react-router-dom";
 import shortUUID from "short-uuid";
 import MarketsChannel from "../../../channels/marketsChannel";
 import PreOddsChannel from "../../../channels/preOddsChannel";
-import MobileBanner1 from "../../Images/mobile_banner_1.webp";
 import WebBanner from "../../Images/betsports-head.webp";
 import addBet from "../../redux/actions";
 import oddsFormatter from "../../utilities/oddsFormatter";

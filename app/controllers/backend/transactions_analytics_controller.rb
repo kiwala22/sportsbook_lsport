@@ -4,6 +4,7 @@ class Backend::TransactionsAnalyticsController < ApplicationController
   layout 'admin_application.html.erb'
 
   def index
+    authorize! :index, :transaction, :message => "You are not authorized to view this page..."
     withdraws = []
     deposits = []
     labels = []

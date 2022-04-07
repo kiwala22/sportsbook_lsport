@@ -14,6 +14,8 @@
         <th>Phone Number</th>
         <th>First Name</th>
         <th>Last Name</th>
+        <th>ID Number</th>
+        <th>Nationality</th>
         <th>Balance</th>
         <th>Sign In Count</th>
         <th>Last Sign In IP</th>
@@ -32,7 +34,9 @@
             </a>
           </td>
 					<td><%= user.first_name %></td>
-					<td><%= user.last_name %></td> 
+					<td><%= user.last_name %></td>
+          <td><%= user.id_number %></td> 
+          <td><%= user.nationality %></td>  
           <td><%= user.balance %></td>
           
 					<td><%= user.sign_in_count %></td>

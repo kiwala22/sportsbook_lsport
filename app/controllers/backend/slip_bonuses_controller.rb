@@ -2,6 +2,7 @@ class Backend::SlipBonusesController < ApplicationController
   before_action :authenticate_admin!
 
   layout "admin_application.html.erb"
+  load_and_authorize_resource
 
   def index
     @slip_bonuses = SlipBonus.all.order("created_at DESC")
