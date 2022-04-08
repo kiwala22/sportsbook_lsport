@@ -55,7 +55,7 @@ module MobileMoney
 
                 req.body = request_body.to_json
 
-                res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https') do |http|
+                res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https', :verify_mode => OpenSSL::SSL::VERIFY_NONE) do |http|
 
                     http.request(req)
 
@@ -92,7 +92,7 @@ module MobileMoney
                 #set currency
                 req['X-Currency'] = "UGX"
 
-                res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https') do |http|
+                res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https', :verify_mode => OpenSSL::SSL::VERIFY_NONE) do |http|
                     http.request(req)
                 end
                 result = JSON.parse(res.body)
@@ -144,7 +144,7 @@ module MobileMoney
 
                 req.body = request_body.to_json
 
-                res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https') do |http|
+                res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https', :verify_mode => OpenSSL::SSL::VERIFY_NONE) do |http|
 
                     http.request(req)
 
@@ -181,7 +181,7 @@ module MobileMoney
                 #set currency
                 req['X-Currency'] = "UGX"
 
-                res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https') do |http|
+                res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https', :verify_mode => OpenSSL::SSL::VERIFY_NONE) do |http|
                     http.request(req)
                 end
                 result = JSON.parse(res.body)
@@ -214,7 +214,7 @@ module MobileMoney
                 #set currency
                 req['X-Currency'] = "UGX"
 
-                res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https') do |http|
+                res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https', :verify_mode => OpenSSL::SSL::VERIFY_NONE) do |http|
                     http.request(req)
                 end
                 result = JSON.parse(res.body)
@@ -250,7 +250,7 @@ module MobileMoney
                 #set currency
                 req['X-Currency'] = "UGX"
 
-                res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https') do |http|
+                res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https', :verify_mode => OpenSSL::SSL::VERIFY_NONE) do |http|
                     http.request(req)
                 end
                 result = JSON.parse(res.body)
@@ -284,7 +284,7 @@ module MobileMoney
 
             req.body = request_body.to_json
 
-            res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https') do |http|
+            res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https', :verify_mode => OpenSSL::SSL::VERIFY_NONE) do |http|
                 http.request(req)
             end
 
