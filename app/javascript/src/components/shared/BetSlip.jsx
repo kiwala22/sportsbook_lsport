@@ -307,7 +307,7 @@ const BetSlip = (props) => {
       <div className="total-wins">
         <span>
           <BsPlus />
-          Tax (15%)
+          Tax Bonus (15%)
         </span>
         <span id="total-wins" data-target="slips.wins">
           <BsPlus />

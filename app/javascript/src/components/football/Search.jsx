@@ -23,7 +23,7 @@ const Search = (props) => {
   const history = useHistory();
   const isMobile = useSelector((state) => state.isMobile);
 
-  useEffect(() => loadPreMatcshGames(), [props]);
+  useEffect(() => loadPreMatchGames(), [props]);
 
   useEffect(() => loadPreMatchGames(), []);
 
