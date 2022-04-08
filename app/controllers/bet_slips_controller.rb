@@ -13,8 +13,8 @@ class BetSlipsController < ApplicationController
     stake = bet_slips_params[:stake].to_f
 
     #First check if stake is with in the limits
-    if stake > 1000000 || stake < 1000
-      render json: {message: "Amount should be between 1,000 and 1,000,000"}, status: 400
+    if stake > 4000000 || stake < 1
+      render json: {message: "Amount should be between 1 UGX and 4,000,000 UGX"}, status: 400
     end
 
     #check if the stake is present and contains only digits

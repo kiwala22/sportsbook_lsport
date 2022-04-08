@@ -34,7 +34,6 @@ const Navbar = (props) => {
 
   const performSearch = (values) => {
     setShowSearch(false);
-    console.log(sportType);
     const [identifier, sport] =
       sportType == "football"
         ? ["1", "Football"]
