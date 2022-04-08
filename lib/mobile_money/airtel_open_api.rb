@@ -8,7 +8,7 @@ module MobileMoney
         require 'base64'
 
         @@base_url_staging = "https://openapiuat.airtel.africa"
-        @@base_url_production = " https://openapi.airtel.africa"
+        @@base_url_production = "https://openapi.airtel.africa"
         @@client_id = "3f9fda05-cc1c-476d-af75-0bbcf84189ae" #"d0f63ae7-2a15-4308-8744-d797fd1fc994" # ENV["CLIENT_ID"]
         @@client_secret = "85266a7e-2125-41f9-b578-a3ed9ea7be1a" #"f5565ee8-8dbc-4207-b2ae-65e714eed27b" # ENV["CLIENT_SECRET"]
         @@pin = "4268" # ENV["PIN"]
