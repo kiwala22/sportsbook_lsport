@@ -40,7 +40,7 @@ class DepositsWorker
         result = MobileMoney::AirtelOpenApi.request_payments(@transaction.amount, @transaction.reference, @transaction.phone_number)
 
         if result
-          if result['data']['transaction']['status'] == 'Success' && result['data']['status']['response_code'] == 'DP00800001006'
+          if result['data']['transaction']['status'] == 'Success.' && result['status']['response_code'] == 'DP00800001006'
             @deposit.update(network: "Airtel Uganda", status: "PENDING")
           else
             @deposit.update(network: "Airtel Uganda", status: "FAILED")
@@ -61,3 +61,5 @@ class DepositsWorker
 		end
   end
 end
+# Example of success call from Airtel
+# {"data"=>{"transaction"=>{"id"=>"naweq7jg", "status"=>"Success."}}, "status"=>{"response_code"=>"DP00800001006", "code"=>"200", "success"=>true, "result_code"=>"ESB000010", "message"=>"Success."}}
