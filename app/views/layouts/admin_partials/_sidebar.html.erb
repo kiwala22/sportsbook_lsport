@@ -15,71 +15,76 @@
                      <span>Bet Analytics</span>
                   </a>
                </li>
-               <li class="<%= 'active' if controller.controller_name == 'transactions_analytics' %>">
-                  <a href="<%= backend_transactions_analytics_path %>" title="Transactions">
-                     <span>Transaction Analytics</span>
-                  </a>
-               </li>
+               <% if can? :manage, Transaction %>
+                  <li class="<%= 'active' if controller.controller_name == 'transactions_analytics' %>">
+                     <a href="<%= backend_transactions_analytics_path %>" title="Transactions">
+                        <span>Transaction Analytics</span>
+                     </a>
+                  </li>
+               <% end %>
             </ul>
          </li>
 
-         <li class="">
-            <a href="#finances" title="Finances" data-toggle="collapse">
-               <em class="far fa-money-bill-alt"></em>
-               <span data-localize="sidebar.nav.DASHBOARD">Finances</span>
-            </a>
-            <ul id="finances" class="sidebar-nav sidebar-subnav collapse">
-               <li class="<%= 'active' if controller.controller_name == 'withdraws' %>">
-                  <a href="<%= backend_withdraws_path %>" title="Withdraws">
-                     <span>Withdraws</span>
-                  </a>
-               </li>
-               <li class="<%= 'active' if controller.controller_name == 'deposits' %>">
-                  <a href="<%= backend_deposits_path %>" title="Deposits">
-                     <span>Deposits</span>
-                  </a>
-               </li>
-            </ul>
-         </li>
+         <% if can? :manage, Transaction %>
+            <li class="">
+               <a href="#finances" title="Finances" data-toggle="collapse">
+                  <em class="far fa-money-bill-alt"></em>
+                  <span data-localize="sidebar.nav.DASHBOARD">Finances</span>
+               </a>
+               <ul id="finances" class="sidebar-nav sidebar-subnav collapse">
+                  <li class="<%= 'active' if controller.controller_name == 'withdraws' %>">
+                     <a href="<%= backend_withdraws_path %>" title="Withdraws">
+                        <span>Withdraws</span>
+                     </a>
+                  </li>
+                  <li class="<%= 'active' if controller.controller_name == 'deposits' %>">
+                     <a href="<%= backend_deposits_path %>" title="Deposits">
+                        <span>Deposits</span>
+                     </a>
+                  </li>
+               </ul>
+            </li>
+         
 
-         <li>
-            <a href="#bonuses" title="Finances" data-toggle="collapse">
-               <em class="fas fa-coins"></em>
-               <span data-localize="sidebar.nav.DASHBOARD">Bonus</span>
-            </a>
-            <ul id="bonuses" class="sidebar-nav sidebar-subnav collapse">
-               <li class="<%= 'active' if controller.controller_name == 'sign_up_bonuses' && controller.action_name == 'new'%>">
-                  <a href="<%= new_backend_sign_up_bonus_path %>" title="Bonus">
-                     <span>New Signup Bonus</span>
-                  </a>
-               </li>
-               <li class="<%= 'active' if controller.controller_name == 'sign_up_bonuses' && controller.action_name == 'index'%>">
-                  <a href="<%= backend_sign_up_bonuses_path %>" title="Bonus">
-                     <span>Signup Bonuses</span>
-                  </a>
-               </li>
-               <li class="<%= 'active' if controller.controller_name == 'topup_bonuses' && controller.action_name == 'new'%>">
-                  <a href="<%= new_backend_topup_bonus_path %>" title="Bonus">
-                     <span>New Deposit Bonus</span>
-                  </a>
-               </li>
-               <li class="<%= 'active' if controller.controller_name == 'topup_bonuses' && controller.action_name == 'index'%>">
-                  <a href="<%= backend_topup_bonuses_path %>" title="Bonus">
-                     <span>Deposit Bonuses</span>
-                  </a>
-               </li>
-               <li class="<%= 'active' if controller.controller_name == 'slip_bonuses' && controller.action_name == 'new'%>">
-                  <a href="<%= new_backend_slip_bonus_path %>" title="Bonus">
-                     <span>New BetSlip Bonus</span>
-                  </a>
-               </li>
-               <li class="<%= 'active' if controller.controller_name == 'slip_bonuses' && controller.action_name == 'index'%>">
-                  <a href="<%= backend_slip_bonuses_path %>" title="Bonus">
-                     <span>BetSlip Bonuses</span>
-                  </a>
-               </li>
-            </ul>
-         </li>
+            <li>
+               <a href="#bonuses" title="Finances" data-toggle="collapse">
+                  <em class="fas fa-coins"></em>
+                  <span data-localize="sidebar.nav.DASHBOARD">Bonus</span>
+               </a>
+               <ul id="bonuses" class="sidebar-nav sidebar-subnav collapse">
+                  <li class="<%= 'active' if controller.controller_name == 'sign_up_bonuses' && controller.action_name == 'new'%>">
+                     <a href="<%= new_backend_sign_up_bonus_path %>" title="Bonus">
+                        <span>New Signup Bonus</span>
+                     </a>
+                  </li>
+                  <li class="<%= 'active' if controller.controller_name == 'sign_up_bonuses' && controller.action_name == 'index'%>">
+                     <a href="<%= backend_sign_up_bonuses_path %>" title="Bonus">
+                        <span>Signup Bonuses</span>
+                     </a>
+                  </li>
+                  <li class="<%= 'active' if controller.controller_name == 'topup_bonuses' && controller.action_name == 'new'%>">
+                     <a href="<%= new_backend_topup_bonus_path %>" title="Bonus">
+                        <span>New Deposit Bonus</span>
+                     </a>
+                  </li>
+                  <li class="<%= 'active' if controller.controller_name == 'topup_bonuses' && controller.action_name == 'index'%>">
+                     <a href="<%= backend_topup_bonuses_path %>" title="Bonus">
+                        <span>Deposit Bonuses</span>
+                     </a>
+                  </li>
+                  <li class="<%= 'active' if controller.controller_name == 'slip_bonuses' && controller.action_name == 'new'%>">
+                     <a href="<%= new_backend_slip_bonus_path %>" title="Bonus">
+                        <span>New BetSlip Bonus</span>
+                     </a>
+                  </li>
+                  <li class="<%= 'active' if controller.controller_name == 'slip_bonuses' && controller.action_name == 'index'%>">
+                     <a href="<%= backend_slip_bonuses_path %>" title="Bonus">
+                        <span>BetSlip Bonuses</span>
+                     </a>
+                  </li>
+               </ul>
+            </li>
+         <% end %>
 
          <li class="<%= 'active' if controller.controller_name == 'bet_users' %>">
             <a href="<%= backend_users_path %>" title="Users">
@@ -160,7 +165,7 @@
             </ul>
          </li>
 
-         <li class="">
+         <!--<li class="">
             <a href="#descriptions" title="Descriptions" data-toggle="collapse">
                <em class="fas fa-info-circle"></em>
                <span data-localize="sidebar.nav.DASHBOARD">Descriptions</span>
@@ -187,27 +192,29 @@
                   </a>
                </li>
             </ul>
-         </li>
+         </li>-->
 
-         <li class="<%= 'active' if controller.controller_name == 'api_users' %>">
-            <a href="#ai_developer" title="ApiUsers" data-toggle="collapse" id="Developers">
-               <em class="fa fa-code"></em>
-               <span>Developer</span>
-            </a>
-            <ul id="ai_developer" class="sidebar-nav sidebar-subnav collapse">
-               <li id="api_users">
-                  <a href="<%= backend_api_users_path %>" title="Api Users">
-                     <span>API Users</span>
-                  </a>
-               </li>
-               <li>
-                  <a href="<%= new_backend_api_user_path %>" title="New Api User" id='create_api_user'>
-                     <span>Create API Users</span>
-                  </a>
-               </li>
+         <% if can? :manage, ApiUser %>
+            <li class="<%= 'active' if controller.controller_name == 'api_users' %>">
+               <a href="#ai_developer" title="ApiUsers" data-toggle="collapse" id="Developers">
+                  <em class="fa fa-code"></em>
+                  <span>Developer</span>
+               </a>
+               <ul id="ai_developer" class="sidebar-nav sidebar-subnav collapse">
+                  <li id="api_users">
+                     <a href="<%= backend_api_users_path %>" title="Api Users">
+                        <span>API Users</span>
+                     </a>
+                  </li>
+                  <li>
+                     <a href="<%= new_backend_api_user_path %>" title="New Api User" id='create_api_user'>
+                        <span>Create API Users</span>
+                     </a>
+                  </li>
 
-            </ul>
-         </li>
+               </ul>
+            </li>
+         <% end %>
       </ul>
       <!-- END sidebar nav-->
    </nav>

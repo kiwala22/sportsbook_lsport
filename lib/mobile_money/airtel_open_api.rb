@@ -8,9 +8,9 @@ module MobileMoney
         require 'base64'
 
         @@base_url_staging = "https://openapiuat.airtel.africa"
-        @@base_url_production = " https://openapi.airtel.africa"
-        @@client_id = "d0f63ae7-2a15-4308-8744-d797fd1fc994" # ENV["CLIENT_ID"]
-        @@client_secret = "f5565ee8-8dbc-4207-b2ae-65e714eed27b" # ENV["CLIENT_SECRET"]
+        @@base_url_production = "https://openapi.airtel.africa"
+        @@client_id = "3f9fda05-cc1c-476d-af75-0bbcf84189ae" #"d0f63ae7-2a15-4308-8744-d797fd1fc994" # ENV["CLIENT_ID"]
+        @@client_secret = "85266a7e-2125-41f9-b578-a3ed9ea7be1a" #"f5565ee8-8dbc-4207-b2ae-65e714eed27b" # ENV["CLIENT_SECRET"]
         @@pin = "4268" # ENV["PIN"]
         @@public_key = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCkq3XbDI1s8Lu7SpUBP+bqOs/MC6PKWz6n/0UkqTiOZqKqaoZClI3BUDTrSIJsrN1Qx7ivBzsaAYfsB0CygSSWay4iyUcnMVEDrNVOJwtWvHxpyWJC5RfKBrweW9b8klFa/CfKRtkK730apy0Kxjg+7fF0tB4O3Ic9Gxuv4pFkbQIDAQAB"
 
@@ -20,7 +20,7 @@ module MobileMoney
 
             if token
                 phone_number = format_number(phone_number)
-                url = @@base_url_staging + "/merchant/v1/payments/"
+                url = @@base_url_production + "/merchant/v1/payments/"
 
                 uri = URI(url)
 
@@ -55,7 +55,7 @@ module MobileMoney
 
                 req.body = request_body.to_json
 
-                res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https') do |http|
+                res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https', :verify_mode => OpenSSL::SSL::VERIFY_NONE) do |http|
 
                     http.request(req)
 
@@ -71,7 +71,7 @@ module MobileMoney
             token = get_auth_token()
 
             if token
-                url = @@base_url_staging + "/standard/v1/payments/#{transaction_id}"
+                url = @@base_url_production + "/standard/v1/payments/#{transaction_id}"
 
                 uri = URI(url)
 
@@ -92,7 +92,7 @@ module MobileMoney
                 #set currency
                 req['X-Currency'] = "UGX"
 
-                res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https') do |http|
+                res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https', :verify_mode => OpenSSL::SSL::VERIFY_NONE) do |http|
                     http.request(req)
                 end
                 result = JSON.parse(res.body)
@@ -108,7 +108,7 @@ module MobileMoney
             if token
                 phone_number = format_number(phone_number)
                 passcode = encrypt_pin()
-                url = @@base_url_staging + "/standard/v1/disbursements/"
+                url = @@base_url_production + "/standard/v1/disbursements/"
 
                 uri = URI(url)
 
@@ -144,7 +144,7 @@ module MobileMoney
 
                 req.body = request_body.to_json
 
-                res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https') do |http|
+                res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https', :verify_mode => OpenSSL::SSL::VERIFY_NONE) do |http|
 
                     http.request(req)
 
@@ -160,7 +160,7 @@ module MobileMoney
             token = get_auth_token()
 
             if token
-                url = @@base_url_staging + "/standard/v1/disbursements/#{transaction_id}"
+                url = @@base_url_production + "/standard/v1/disbursements/#{transaction_id}"
 
                 uri = URI(url)
 
@@ -181,7 +181,7 @@ module MobileMoney
                 #set currency
                 req['X-Currency'] = "UGX"
 
-                res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https') do |http|
+                res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https', :verify_mode => OpenSSL::SSL::VERIFY_NONE) do |http|
                     http.request(req)
                 end
                 result = JSON.parse(res.body)
@@ -195,7 +195,7 @@ module MobileMoney
             token = get_auth_token()
             
             if token
-                url = @@base_url_staging + "/standard/v1/users/balance"
+                url = @@base_url_production + "/standard/v1/users/balance"
 
                 uri = URI(url)
 
@@ -214,7 +214,7 @@ module MobileMoney
                 #set currency
                 req['X-Currency'] = "UGX"
 
-                res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https') do |http|
+                res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https', :verify_mode => OpenSSL::SSL::VERIFY_NONE) do |http|
                     http.request(req)
                 end
                 result = JSON.parse(res.body)
@@ -229,7 +229,7 @@ module MobileMoney
             
             if token
                 phone_number = format_number(phone_number)
-                url = @@base_url_staging + "/standard/v1/users/#{phone_number}"
+                url = @@base_url_production + "/standard/v1/users/#{phone_number}"
 
                 uri = URI(url)
 
@@ -250,7 +250,7 @@ module MobileMoney
                 #set currency
                 req['X-Currency'] = "UGX"
 
-                res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https') do |http|
+                res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https', :verify_mode => OpenSSL::SSL::VERIFY_NONE) do |http|
                     http.request(req)
                 end
                 result = JSON.parse(res.body)
@@ -262,7 +262,7 @@ module MobileMoney
         end
 
         def self.get_auth_token
-            url = @@base_url_staging + "/auth/oauth2/token"
+            url = @@base_url_production + "/auth/oauth2/token"
 
             uri = URI(url)
 
@@ -284,7 +284,7 @@ module MobileMoney
 
             req.body = request_body.to_json
 
-            res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https') do |http|
+            res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https', :verify_mode => OpenSSL::SSL::VERIFY_NONE) do |http|
                 http.request(req)
             end
 

@@ -8,6 +8,14 @@ class ApplicationController < ActionController::Base
   # before_action :detect_device_variant
   before_action :set_no_cache
 
+  rescue_from CanCan::AccessDenied do |exception|
+    respond_to do |format|
+        format.json { head :forbidden, content_type: 'text/html' }
+        format.html { redirect_to authenticated_admins_root_url, alert: exception.message }
+        format.js   { head :forbidden, content_type: 'text/html' }
+    end
+  end
+
 
   private
 
@@ -28,6 +36,14 @@ class ApplicationController < ActionController::Base
       'no-cache, no-store, max-age=0, must-revalidate'
     response.headers['Pragma'] = 'no-cache'
     response.headers['Expires'] = 'Fri, 01 Jan 1990 00:00:00 GMT'
+  end
+
+  def current_ability
+    if current_user
+      @current_ability ||=  Ability.new(current_user)
+    elsif current_admin
+      @current_ability ||=  AdminAbility.new(current_admin)
+    end
   end
 
   protected

@@ -45,9 +45,9 @@ class WithdrawsWorker
         result = MobileMoney::AirtelOpenApi.make_payments(@transaction.amount, @transaction.reference, @transaction.phone_number)
 
         if result
-          if result[:status] == '200' #check transaction and process withdrawals
+          if result['data']['status']['response_code'] == 'DP00900001001' && result['data']['status']['success'] == true #check transaction and process withdrawals
             balance_after = (balance_before - @transaction.amount)
-            @withdraw.update(ext_transaction_id: result[:ext_transaction_id], network: "Airtel Uganda", status: "SUCCESS", balance_after: balance_after)
+            @withdraw.update(ext_transaction_id: result['data']['transaction']['reference_id'], network: "Airtel Uganda", status: "SUCCESS", balance_after: balance_after)
             user.update(balance: balance_after)
             @transaction.update(balance_before: balance_before, balance_after: balance_after, status: "COMPLETED")
           else

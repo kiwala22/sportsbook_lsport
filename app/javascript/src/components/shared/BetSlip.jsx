@@ -93,8 +93,8 @@ const BetSlip = (props) => {
     let odds = totalOdds();
     if (
       stake !== null &&
-      parseFloat(stake) >= 1000 &&
-      parseFloat(stake) <= 50000
+      parseFloat(stake) >= 1 &&
+      parseFloat(stake) <= 4000000
     ) {
       newAmount = parseFloat(stake) * odds;
       localStorage.setItem("stake", stake);
@@ -259,7 +259,7 @@ const BetSlip = (props) => {
             type="number"
             name="stake"
             id="stake-input"
-            placeholder="Min Stake: UGX 1,000"
+            placeholder="Min Stake: UGX 1"
             className="input-color"
             value={stake}
             onChange={(event) => {
@@ -307,7 +307,7 @@ const BetSlip = (props) => {
       <div className="total-wins">
         <span>
           <BsPlus />
-          Tax (15%)
+          Tax Bonus (15%)
         </span>
         <span id="total-wins" data-target="slips.wins">
           <BsPlus />

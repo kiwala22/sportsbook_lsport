@@ -2,6 +2,7 @@ class Backend::SignUpBonusesController < ApplicationController
   before_action :authenticate_admin!
 
   layout "admin_application.html.erb"
+  load_and_authorize_resource
   
   def index
   	@signup_bonuses = SignUpBonus.all.order("created_at DESC")
