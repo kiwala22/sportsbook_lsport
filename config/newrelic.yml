@@ -26,6 +26,8 @@ common:
 
   # Logging level for log/newrelic_agent.log
   log_level: info
+  # independently. If `false`, all logging-related features are disabled.
+  application_logging.enabled: false
 
 # Environment-specific settings are in this section.
 # RAILS_ENV or RACK_ENV (as appropriate) is used to determine the environment.
