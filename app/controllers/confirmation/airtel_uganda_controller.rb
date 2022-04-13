@@ -15,11 +15,17 @@ class Confirmation::AirtelUgandaController < ApplicationController
     # "airtel_uganda"=>{"transaction"=>{"status_code"=>"TF", "code"=>"DP008001016", "airtel_money_id"=>"18394473031", "id"=>"finaltesting156",
     #  "message"=>"Initiator is invalid"}}}
 
-    ## Get transaction ID from params
-    transaction_id = params["transaction"]["id"]
+    ## Get transaction params
+    args = {}
 
+    args[:transaction_id] = params["transaction"]["id"] if params["transaction"]["id"].present?
+    args[:txn_code] = params["transaction"]["code"] if params["transaction"]["code"].present?
+    args[:ext_reference] = params["transaction"]["airtel_money_id"] if params["transaction"]["airtel_money_id"].present?
+    args[:txn_status] = params["transaction"]["status_code"] if params["transaction"]["status_code"].present?
+    args[:txn_message] = params["transaction"]["message"] if params["transaction"]["message"].present?
+ 
     # When callback in initiated call the worker to complete transaction
-    CompleteAirtelTransactionsWorker.perform_async(transaction_id)
+    CompleteAirtelTransactionsWorker.perform_async(**args)
 
     render status: 200, json: { response: 'OK' }
 
