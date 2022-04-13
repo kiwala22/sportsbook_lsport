@@ -5,10 +5,10 @@ class CompleteAirtelTransactionsWorker
   sidekiq_options retry: false
 
 
-  def perform(transaction_id: nil, txn_code: nil, ext_reference: nil, txn_status: nil, txn_message: nil)
+  def perform(args)
 
     ##Find the corresponding transaction to the deposit
-    @transaction = Transaction.find_by(reference: transaction_id)
+    @transaction = Transaction.find_by(reference: args["transaction_id"])
 
     ##Find the user who made the specific transaction to track balances
     user = User.find(@transaction.user_id)
@@ -20,8 +20,8 @@ class CompleteAirtelTransactionsWorker
     ##Find the deposit and update the balance after as well
     @deposit = Deposit.find_by(transaction_id: @transaction.id)
 
-    if txn_code == "DP00800001001" && txn_status = "TS"
-      @deposit.update(ext_transaction_id: ext_reference, network: "Airtel Uganda", status: "SUCCESS", balance_before: balance_before, balance_after: balance_after)
+    if args["txn_code"] == "DP00800001001" && args["txn_status"] = "TS"
+      @deposit.update(ext_transaction_id: args["ext_reference"], network: "Airtel Uganda", status: "SUCCESS", balance_before: balance_before, balance_after: balance_after)
       @transaction.update(balance_before: balance_before, balance_after: balance_after, status: "COMPLETED")
 
       ## Check if there is a top up bonus in the moment and offer the user a bonus
