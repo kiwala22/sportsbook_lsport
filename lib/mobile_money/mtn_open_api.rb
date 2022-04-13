@@ -7,17 +7,19 @@ module MobileMoney
 		require 'net/http'
 		require 'logger'
 
-		@@collection_sub_key  	=  ENV['COLLECTION_SUB_KEY']
-		@@transfer_sub_key		=  ENV['TRANSFER_SUB_KEY']
-		@@collection_api_id 	=  ENV['COLLECTION_API_ID']
-		@@collection_api_key 	=  ENV['COLLECTION_API_KEY']
-		@@transfer_api_id 		=  ENV['TRANSFER_API_ID']
-		@@transfer_api_key 		=  ENV['TRANSFER_API_KEY']
 
-		@@base_url = "https://sandbox.momodeveloper.mtn.com/"
+		@@collection_sub_key  	=  "012c76abc9fa4803a1b09e6b51981a8a" #ENV['COLLECTION_SUB_KEY']
+		@@transfer_sub_key		=  "802b9ca720364ece9d6b080ee1896093" #ENV['TRANSFER_SUB_KEY']
+		@@collection_api_id 	=  "8a573f6d-1a71-430f-8687-ce7cee282325" #ENV['COLLECTION_API_ID']
+		@@collection_api_key 	=  "6c5fd7a7a7c844ffba8bede7383bf867" #ENV['COLLECTION_API_KEY']
+		@@transfer_api_id 		=  "8a573f6d-1a71-430f-8687-ce7cee282325" #ENV['TRANSFER_API_ID']
+		@@transfer_api_key 		=  "6c5fd7a7a7c844ffba8bede7383bf867" #ENV['TRANSFER_API_KEY']
+
+		# @@base_url = "https://sandbox.momodeveloper.mtn.com/"
+		@@base_url = "https://proxy.momoapi.mtn.com/"
 
 		def self.request_payments(amount, ext_reference, phone_number)
-			token = process_request_token()
+			token = get_collections_auth_token()
 			if token
 				url = @@base_url + "collection/v1_0/requesttopay"
 				callback_url = "https://betsports.ug/confirmation/mtn/payment"
@@ -31,13 +33,13 @@ module MobileMoney
 				req['Authorization'] = "Bearer #{token}"
 
 				#set transactions callback url
-				#req['X-Callback-Url'] = callback_url
+				req['X-Callback-Url'] = callback_url
 
 				#set the transaction reference
 				req['X-Reference-Id'] = ext_reference
 
 				#set Enviroment
-				req['X-Target-Environment'] = "sandbox" #"mtnuganda"
+				req['X-Target-Environment'] = "mtnuganda"
 
 				#set content type
 				req['Content-Type'] = "application/json"
@@ -47,7 +49,7 @@ module MobileMoney
 
 				request_body = {
 					amount: amount,
-					currency: "EUR", #UGX
+					currency: "UGX",
 					externalId: ext_reference,
 					payer: {
 						partyIdType: "MSISDN",
@@ -75,7 +77,7 @@ module MobileMoney
 		end
 
 		def self.check_collection_status(ext_reference)
-			token = process_request_token()
+			token = get_collections_auth_token()
 			if token
 				url = @@base_url + "collection/v1_0/requesttopay/#{ext_reference}"
 
@@ -88,7 +90,7 @@ module MobileMoney
 				req['Authorization'] = "Bearer #{token}"
 
 				#set Enviroment
-				req['X-Target-Environment'] = "sandbox" #"mtnuganda"
+				req['X-Target-Environment'] = "mtnuganda"
 
 				#set the subscription keys
 				req['Ocp-Apim-Subscription-Key'] = @@collection_sub_key
@@ -108,7 +110,7 @@ module MobileMoney
 		end
 
 		def self.check_collections_balance
-			token = process_request_token()
+			token = get_collections_auth_token()
 			if token
 				url = @@base_url + "collection/v1_0/account/balance"
 
@@ -121,7 +123,7 @@ module MobileMoney
 				req['Authorization'] = "Bearer #{token}"
 
 				#set Enviroment
-				req['X-Target-Environment'] = "sandbox" #"mtnuganda"
+				req['X-Target-Environment'] = "mtnuganda"
 
 				#set the subscription keys
 				req['Ocp-Apim-Subscription-Key'] = @@collection_sub_key
@@ -140,7 +142,7 @@ module MobileMoney
 		end
 
 		def self.make_transfer(amount, ext_reference, phone_number )
-			token = process_transfer_token()
+			token = get_payouts_auth_token()
 			if token
 				url = @@base_url + "disbursement/v1_0/transfer"
 				callback_url = "https://betsports.ug/confirmation/mtn/payment"
@@ -153,13 +155,13 @@ module MobileMoney
 				req['Authorization'] = "Bearer #{token}"
 
 				#set transactions callback url
-				#req['X-Callback-Url'] = callback_url
+				req['X-Callback-Url'] = callback_url
 
 				#set the transaction reference
 				req['X-Reference-Id'] = ext_reference
 
 				#set Enviroment
-				req['X-Target-Environment'] = "sandbox" #"mtnuganda"
+				req['X-Target-Environment'] = "mtnuganda"
 
 				#set content type
 				req['Content-Type'] = "application/json"
@@ -169,7 +171,7 @@ module MobileMoney
 
 				request_body = {
 					amount: amount,
-					currency: "EUR", #UGX
+					currency: "UGX",
 					externalId: ext_reference,
 					payee: {
 						partyIdType: "MSISDN",
@@ -195,7 +197,7 @@ module MobileMoney
 		end
 
 		def self.check_transfer_status(ext_reference)
-			token = process_request_token()
+			token = get_payouts_auth_token()
 			if token
 				url = @@base_url + "disbursement/v1_0/transfer/#{ext_reference}"
 
@@ -208,7 +210,7 @@ module MobileMoney
 				req['Authorization'] = "Bearer #{token}"
 
 				#set Enviroment
-				req['X-Target-Environment'] = "sandbox" #"mtnuganda"
+				req['X-Target-Environment'] = "mtnuganda"
 
 				#set the subscription keys
 				req['Ocp-Apim-Subscription-Key'] = @@transfer_sub_key
@@ -228,7 +230,7 @@ module MobileMoney
 		end
 
 		def self.check_disbursement_balance
-			token = process_transfer_token()
+			token = get_payouts_auth_token()
 			if token
 				url = @@base_url + "disbursement/v1_0/account/balance"
 
@@ -241,7 +243,7 @@ module MobileMoney
 				req['Authorization'] = "Bearer #{token}"
 
 				#set Enviroment
-				req['X-Target-Environment'] = "sandbox" #"mtnuganda"
+				req['X-Target-Environment'] = "mtnuganda"
 
 				#set the subscription keys
 				req['Ocp-Apim-Subscription-Key'] = @@transfer_sub_key
@@ -259,7 +261,7 @@ module MobileMoney
 			end
 		end
 
-		def self.process_request_token
+		def self.get_collections_auth_token
 			#api_user = ApiUser.find_by(api_id: user_id)
 			if true
 				#process the token and return the token
@@ -301,7 +303,7 @@ module MobileMoney
 
 		end
 
-		def self.process_transfer_token
+		def self.get_payouts_auth_token
 			if true
 				#process the token and return the token
 				api_id = @@transfer_api_id

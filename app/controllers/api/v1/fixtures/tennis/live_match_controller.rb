@@ -35,7 +35,7 @@ class Api::V1::Fixtures::Tennis::LiveMatchController < ApplicationController
         fixture = @fixture.as_json
     
         ## Add all available markets to fixture data
-        markets = @fixture.live_markets.order('market_identifier::integer ASC')
+        markets = @fixture.live_markets.order('market_identifier::integer ASC, specifier')
     
         fixture["markets"] = markets
     

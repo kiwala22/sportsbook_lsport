@@ -53,7 +53,7 @@ class Api::V1::Fixtures::Basketball::PreMatchController < ApplicationController
       fixture = @fixture.as_json
   
       ## Add all available markets to fixture data
-      markets = @fixture.pre_markets.where("market_identifier IN (?) AND status = ?", ["2", "3", "226", "63", "53", "28", "21", "342", "282"], "Active").order('market_identifier::integer ASC')
+      markets = @fixture.pre_markets.where("market_identifier IN (?) AND status = ?", ["2", "3", "226", "63", "53", "28", "21", "342", "282"], "Active").order('market_identifier::integer ASC, specifier')
   
       fixture["markets"] = markets
   
