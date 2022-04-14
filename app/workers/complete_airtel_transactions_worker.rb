@@ -5,9 +5,10 @@ class CompleteAirtelTransactionsWorker
   sidekiq_options retry: false
 
 
-  def perform(transaction_id)
+  def perform(args)
+
     ##Find the corresponding transaction to the deposit
-    @transaction = Transaction.find_by(reference: transaction_id)
+    @transaction = Transaction.find_by(reference: args["transaction_id"])
 
     ##Find the user who made the specific transaction to track balances
     user = User.find(@transaction.user_id)
@@ -19,21 +20,13 @@ class CompleteAirtelTransactionsWorker
     ##Find the deposit and update the balance after as well
     @deposit = Deposit.find_by(transaction_id: @transaction.id)
 
-    ##Check the transaction status
-    result = MobileMoney::AirtelOpenApi.check_collection_status(@transaction.reference)
-
-    if result["data"]["response_code"] == "DP00800001001"
-      ext_transaction_id = result['data']['transaction']['airtel_money_id']
-      status = result['data']['status']['message']
-    end
-
-    if ext_transaction_id && status == "SUCCESS"
-      @deposit.update(ext_transaction_id: ext_transaction_id, network: "Airtel Uganda", status: "SUCCESS", balance_before: balance_before, balance_after: balance_after)
+    if args["txn_code"] == "DP008001001" && args["txn_status"] = "TS"
+      @deposit.update(ext_transaction_id: args["ext_reference"], network: "Airtel Uganda", status: "SUCCESS", balance_before: balance_before, balance_after: balance_after)
       @transaction.update(balance_before: balance_before, balance_after: balance_after, status: "COMPLETED")
 
       ## Check if there is a top up bonus in the moment and offer the user a bonus
-      if TopUpBonus.exists? && TopUpBonus.last.status == "Active"
-        bonus_amount = (TopUpBonus.last.multiplier /  100) * @transaction.amount
+      if TopupBonus.exists? && TopupBonus.last.status == "Active"
+        bonus_amount = (TopupBonus.last.multiplier /  100) * @transaction.amount
         balance_after_bonus = balance_after + bonus_amount.to_i
 
         ## Create a bonus transaction

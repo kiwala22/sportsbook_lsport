@@ -11,7 +11,7 @@ module MobileMoney
         @@base_url_production = "https://openapi.airtel.africa"
         @@client_id = "3f9fda05-cc1c-476d-af75-0bbcf84189ae" #"d0f63ae7-2a15-4308-8744-d797fd1fc994" # ENV["CLIENT_ID"]
         @@client_secret = "85266a7e-2125-41f9-b578-a3ed9ea7be1a" #"f5565ee8-8dbc-4207-b2ae-65e714eed27b" # ENV["CLIENT_SECRET"]
-        @@pin = "4268" # ENV["PIN"]
+        @@pin = "5728" # ENV["PIN"]
         @@public_key = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCkq3XbDI1s8Lu7SpUBP+bqOs/MC6PKWz6n/0UkqTiOZqKqaoZClI3BUDTrSIJsrN1Qx7ivBzsaAYfsB0CygSSWay4iyUcnMVEDrNVOJwtWvHxpyWJC5RfKBrweW9b8klFa/CfKRtkK730apy0Kxjg+7fF0tB4O3Ic9Gxuv4pFkbQIDAQAB"
 
         def self.request_payments(amount, ext_reference, phone_number)

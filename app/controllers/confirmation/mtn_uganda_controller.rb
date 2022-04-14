@@ -6,8 +6,14 @@ class Confirmation::MtnUgandaController < ApplicationController
   @@mtn_logger ||= Logger.new("#{Rails.root}/log/mtn_error.log")
 
   def create
-    @@mtn_logger.error(request.body)
+    puts "====> MTN params #{params}"
 
+    args = {}
+
+    ## Assign the necessary parameters
+
+    ## Call the complete mtn transaction worker below
+    
     render status: 200, json: { response: 'OK' }
   end
 end
