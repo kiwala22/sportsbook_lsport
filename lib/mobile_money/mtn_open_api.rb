@@ -8,8 +8,8 @@ module MobileMoney
 		require 'logger'
 
 
-		@@collection_sub_key  	=  "012c76abc9fa4803a1b09e6b51981a8a" #ENV['COLLECTION_SUB_KEY']
-		@@transfer_sub_key		=  "802b9ca720364ece9d6b080ee1896093" #ENV['TRANSFER_SUB_KEY']
+		@@collection_sub_key  	=  "19617962575f45f9a602f1b33abb7496" #ENV['COLLECTION_SUB_KEY']
+		@@transfer_sub_key		=  "ddd685477cda472c88dbeee812e9b97c" #ENV['TRANSFER_SUB_KEY']
 		@@collection_api_id 	=  "8a573f6d-1a71-430f-8687-ce7cee282325" #ENV['COLLECTION_API_ID']
 		@@collection_api_key 	=  "6c5fd7a7a7c844ffba8bede7383bf867" #ENV['COLLECTION_API_KEY']
 		@@transfer_api_id 		=  "8a573f6d-1a71-430f-8687-ce7cee282325" #ENV['TRANSFER_API_ID']
@@ -435,3 +435,8 @@ module MobileMoney
 	end
 
 end
+
+
+https://accounts.google.com/signin/oauth/error?authError=ChVyZWRpcmVjdF91cmlfbWlzbWF0Y2gSsAEKWW91IGNhbid0IHNpZ24gaW4gdG8gdGhpcyBhcHAgYmVjYXVzZSBpdCBkb2Vzbid0IGNvbXBseSB3aXRoIEdvb2dsZSdzIE9BdXRoIDIuMCBwb2xpY3kuCgpJZiB5b3UncmUgdGhlIGFwcCBkZXZlbG9wZXIsIHJlZ2lzdGVyIHRoZSByZWRpcmVjdCBVUkkgaW4gdGhlIEdvb2dsZSBDbG91ZCBDb25zb2xlLgogIBptaHR0cHM6Ly9kZXZlbG9wZXJzLmdvb2dsZS5jb20vaWRlbnRpdHkvcHJvdG9jb2xzL29hdXRoMi93ZWItc2VydmVyI2F1dGhvcml6YXRpb24tZXJyb3JzLXJlZGlyZWN0LXVyaS1taXNtYXRjaCCQAypACgxyZWRpcmVjdF91cmkSMGh0dHBzOi8vc3RhZ2UuZnJpeWF5YXBwLmlvL2dvb2dsZV9jYWxlbmRhci9hdXRoLw%3D%3D&client_id=146994120666-8qenik8fum1b5l229t43akr5ghpidod1.apps.googleusercontent.com
+
+https://accounts.google.com/o/oauth2/auth/oauthchooseaccount?access_type=offline&client_id=146994120666-8qenik8fum1b5l229t43akr5ghpidod1.apps.googleusercontent.com&redirect_uri=https%3A%2F%2Fstage.friyayapp.io%2Fgoogle_calendar%2Fauth%2F&response_type=code&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcalendar&flowName=GeneralOAuthFlow
