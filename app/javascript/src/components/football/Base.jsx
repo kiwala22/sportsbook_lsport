@@ -73,7 +73,13 @@ const Base = (props) => {
         <header className="header-area gradient-bg heading">
           <Navbar />
         </header>
-        <section className="section-container topping">
+        <section
+          className={
+            isMobile
+              ? "section-container topping-mobile"
+              : "section-container topping"
+          }
+        >
           <div className="content-wrapper mobile-signup py-0">
             <div className="container-fluid">
               <div className="row">

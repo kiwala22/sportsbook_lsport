@@ -142,13 +142,6 @@ const Navbar = (props) => {
           Withdraw
         </Link>
       </Menu.Item>
-      <div className="dropdown-divider"></div>
-      <Menu.Item key="7" onClick={logOut}>
-        <a>
-          <LogoutOutlined className="custom-li-margin text-gray-400" />
-          Logout
-        </a>
-      </Menu.Item>
     </Menu>
   );
 
@@ -309,17 +302,7 @@ const Navbar = (props) => {
                     </Dropdown>,
                   ]
                 : signedIn && !verified
-                ? [
-                    <div className="navbar-nav ml-auto">
-                      <Button
-                        id="verify-logout"
-                        className="bttn-small btn-fill border-transparent register-btn"
-                        onClick={logOut}
-                      >
-                        <i className="fas fa-key fa-fw"></i> Log Out
-                      </Button>
-                    </div>,
-                  ]
+                ? []
                 : [
                     <Icon
                       key="0"
@@ -346,6 +329,68 @@ const Navbar = (props) => {
             </Link>
           </NavBar>
           {showSearch && <div className="mobile-search">{search}</div>}
+          <NavBar
+            mode="dark"
+            leftContent={
+              <strong>
+                <h6>
+                  <b>
+                    <em>
+                      BET<span style={{ color: "#6fbb7a" }}>SPORTS</span>
+                    </em>
+                  </b>
+                </h6>
+              </strong>
+            }
+            rightContent={
+              signedIn && verified
+                ? [
+                    <div className="navbar-nav ml-auto">
+                      <Button
+                        id="verify-logout"
+                        className="bttn-small btn-fill border-transparent register-btn"
+                        onClick={logOut}
+                      >
+                        Log Out
+                      </Button>
+                    </div>,
+                  ]
+                : signedIn && !verified
+                ? [
+                    <div className="navbar-nav ml-auto">
+                      <Button
+                        id="verify-logout"
+                        className="bttn-small btn-fill border-transparent register-btn"
+                        onClick={logOut}
+                      >
+                        Log Out
+                      </Button>
+                    </div>,
+                  ]
+                : [
+                    <div className="navbar-nav ml-auto">
+                      <Login>
+                        <Button
+                          id="login"
+                          className="bttn-small btn-fill ml-2 border-transparent register-btn"
+                        >
+                          Login
+                        </Button>
+                      </Login>
+                    </div>,
+                    <div className="navbar-nav ml-1">
+                      <SignUp>
+                        <Button
+                          id="signup"
+                          className="bttn-small btn-fill border-transparent register-btn"
+                        >
+                          Join
+                        </Button>
+                      </SignUp>
+                    </div>,
+                  ]
+            }
+          ></NavBar>
         </>
       )}
     </>
