@@ -142,6 +142,13 @@ const Navbar = (props) => {
           Withdraw
         </Link>
       </Menu.Item>
+      <div className="dropdown-divider"></div>
+      <Menu.Item key="7" onClick={logOut}>
+        <a>
+          <LogoutOutlined className="custom-li-margin text-gray-400" />
+          Logout
+        </a>
+      </Menu.Item>
     </Menu>
   );
 
@@ -345,15 +352,15 @@ const Navbar = (props) => {
             rightContent={
               signedIn && verified
                 ? [
-                    <div className="navbar-nav ml-auto">
-                      <Button
-                        id="verify-logout"
-                        className="bttn-small btn-fill border-transparent register-btn"
-                        onClick={logOut}
-                      >
-                        Log Out
-                      </Button>
-                    </div>,
+                    // <div className="navbar-nav ml-auto">
+                    //   <Button
+                    //     id="verify-logout"
+                    //     className="bttn-small btn-fill border-transparent register-btn"
+                    //     onClick={logOut}
+                    //   >
+                    //     Log Out
+                    //   </Button>
+                    // </div>,
                   ]
                 : signedIn && !verified
                 ? [
