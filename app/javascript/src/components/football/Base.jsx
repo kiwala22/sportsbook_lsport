@@ -75,8 +75,10 @@ const Base = (props) => {
         </header>
         <section
           className={
-            isMobile
+            isMobile && signedIn
               ? "section-container topping-mobile"
+              : isMobile && !signedIn
+              ? "section-container topping-mobile-float"
               : "section-container topping"
           }
         >

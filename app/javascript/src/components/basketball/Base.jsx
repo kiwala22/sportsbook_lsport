@@ -63,9 +63,11 @@ const Base = (props) => {
           <Navbar />
         </header>
         <section
-          className={
-            isMobile
+          lassName={
+            isMobile && signedIn
               ? "section-container topping-mobile"
+              : isMobile && !signedIn
+              ? "section-container topping-mobile-float"
               : "section-container topping"
           }
         >
