@@ -1,4 +1,5 @@
 class Withdraw < ApplicationRecord
+  audited
 
   belongs_to :user
    #Commented code is just a temporary change as we get fix

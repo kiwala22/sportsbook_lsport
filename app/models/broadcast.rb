@@ -1,4 +1,5 @@
 class Broadcast < ApplicationRecord
+  audited
 
   belongs_to :admin
 

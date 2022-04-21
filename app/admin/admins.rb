@@ -28,7 +28,7 @@ ActiveAdmin.register Admin do
         f.input :last_name
         f.input :password
         f.input :password_confirmation, label: 'Confirmation'
-        f.input :role, as: :select, collection: (["manager", "support"])
+        f.input :role, as: :select, collection: (["manager", "service manager", "customer service"])
     end
     f.actions
     end

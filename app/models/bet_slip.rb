@@ -1,4 +1,5 @@
 class BetSlip < ApplicationRecord
+  audited
    belongs_to :user
    has_many :bets
 

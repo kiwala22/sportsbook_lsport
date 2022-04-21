@@ -44,8 +44,9 @@
                   </li>
                </ul>
             </li>
+         <% end %>
          
-
+         <% if can? :manage, SignUpBonus %>
             <li>
                <a href="#bonuses" title="Finances" data-toggle="collapse">
                   <em class="fas fa-coins"></em>

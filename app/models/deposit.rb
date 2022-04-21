@@ -1,4 +1,5 @@
 class Deposit < ApplicationRecord
+  audited
 
   belongs_to :user
 
