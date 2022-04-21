@@ -33,7 +33,6 @@ const Navbar = (props) => {
   });
 
   const performSearch = (values) => {
-    setShowSearch(false);
     const [identifier, sport] =
       sportType == "football"
         ? ["1", "Football"]
@@ -45,6 +44,7 @@ const Navbar = (props) => {
       pathname: "/fixtures/search",
       search: `?search=${values.search}&market=${identifier}&sport=${sport}`,
     });
+    setShowSearch(false);
   };
 
   const logOut = () => {
