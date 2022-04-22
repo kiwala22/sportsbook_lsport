@@ -42,7 +42,7 @@ class Deposit < ApplicationRecord
      ##Check if there is any First deposit bonus offer
      if TopupBonus.exists? && TopupBonus.last.status == "Active"
        bonus = TopupBonus.last
-       trans_amount = bonus.multiplier.nil? ? bonus.amount.to_f : (bonus.multiplier * amount).to_f
+       trans_amount = bonus.multiplier.nil? ? bonus.amount.to_f : ((bonus.multiplier / 100) * amount).to_f
        balance_before = user.balance
        balance_after = (trans_amount + balance_before)
        trans_reference = generate_reference()
