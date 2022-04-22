@@ -8,7 +8,7 @@ class Api::V1::WithdrawsController < ApplicationController
       amount = params[:amount].to_i
 
       # First check whether user has used up their sign up bonus before proceedind
-      if current_user.activated_signup_bonus? && current_user.bet_slips.sum(:stake).to_f < current_user.signup_bonus_amount.to_f
+      if ((current_user.activated_signup_bonus? || current_user.activated_first_deposit_bonus?) && (current_user.bet_slips.sum(:stake).to_f < (current_user.signup_bonus_amount.to_f + current_user.first_deposit_bonus_amount.to_f)))
          render json: {errors: "First use Bonus Amount in bets before making a Withdraw."}, status: 400
       else
          ## First check if user has any deposit and bet

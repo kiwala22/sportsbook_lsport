@@ -25,6 +25,12 @@ class CompleteAirtelTransactionsWorker
       @transaction.update(balance_before: balance_before, balance_after: balance_after, status: "COMPLETED")
       user.update(balance: balance_after)
 
+      ## Check if there's a first deposit bonus
+      if TopupBonus.exists? && TopupBonus.last.status == "Active"
+        bonus = TopupBonus.last
+        bonus_amount = bonus.multiplier.nil? ? bonus.amount.to_f : ((bonus.multiplier / 100) * amount).to_f
+        process_first_deposit_bonus(bonus_amount, user.id)
+      end
       # ## Check if there is a top up bonus in the moment and offer the user a bonus
       # if TopupBonus.exists? && TopupBonus.last.status == "Active"
       #   bonus_amount = (TopupBonus.last.multiplier /  100) * @transaction.amount
@@ -52,6 +58,23 @@ class CompleteAirtelTransactionsWorker
     else
       @deposit.update(network: "Airtel Uganda", status: "FAILED")
       @transaction.update(status: "FAILED")
+    end
+  end
+
+  def process_first_deposit_bonus(amount, user_id)
+    previous_deposits = Deposit.where("user_id = ? AND status = ?", user_id, "SUCCESS").count()
+
+    if (previous_deposits == 1)
+      user = User.find(user_id)
+      balance_before = user.balance
+      balance_after = (amount + balance_before)
+      trans_reference = generate_reference()
+
+      ## First creata a transaction with category "first deposit bonus"
+      Transaction.create(reference: generate_reference(), amount: amount, phone_number: user.phone_number, category: "First Deposit Bonus", status: "SUCCESS", currency: "UGX", balance_before: balance_before, balance_after: balance_after, user_id: user_id)
+
+      ## Update the user balance with the bonus amount
+      user.update(balance: balance_after, activated_first_deposit_bonus: true, first_deposit_bonus_amount: amount)
     end
   end
 
