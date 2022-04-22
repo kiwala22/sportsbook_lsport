@@ -28,7 +28,7 @@ class CompleteAirtelTransactionsWorker
       ## Check if there's a first deposit bonus
       if TopupBonus.exists? && TopupBonus.last.status == "Active"
         bonus = TopupBonus.last
-        bonus_amount = bonus.multiplier.nil? ? bonus.amount.to_f : ((bonus.multiplier / 100) * amount).to_f
+        bonus_amount = bonus.multiplier.nil? ? bonus.amount.to_f : ((bonus.multiplier / 100) * @transaction.amount).to_f
         process_first_deposit_bonus(bonus_amount, user.id)
       end
       # ## Check if there is a top up bonus in the moment and offer the user a bonus
