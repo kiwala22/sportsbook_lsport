@@ -29,24 +29,25 @@ class BetSlip < ApplicationRecord
          limit = ( bonus.amount / 0.2)
          stakes = user.bet_slips.sum(:stake)
          if stakes >= limit
+            balance_before = user.balance
+            balance_after = (user.balance + bonus.amount)
+
             ActiveRecord::Base.transaction do
-              bonus.update!(status: "Closed")
-              balance_before = user.balance
-              balance_after = (user.balance + bonus.amount)
               #create a deposit for the user # bonus activation record
               Transaction.create(
                  { reference: generate_reference(),
-                    amount: amount,
+                    amount: bonus.amount,
                     phone_number: user.phone_number,
                     category: "First Deposit Bonus",
                     status: "SUCCESS", currency: "UGX",
                     balance_before: balance_before,
                     balance_after: balance_after ,
-                    user_id: user_id
+                    user_id: user.id
                  }
                )
               #update the user balance
               user.update!(balance: balance_after,activated_first_deposit_bonus: true, first_deposit_bonus_amount: bonus.amount)
+              bonus.update!(status: "Closed", amount: 0.0)
             end
          end
       end

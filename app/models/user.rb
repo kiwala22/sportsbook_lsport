@@ -12,7 +12,7 @@ class User < ApplicationRecord
    has_many :transactions
    has_many :deposits
    has_many :withdraws
-
+   has_many :user_bonuses
 
    after_save :send_pin!
    #before_create :process_signup_bonus
