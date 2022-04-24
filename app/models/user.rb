@@ -15,7 +15,7 @@ class User < ApplicationRecord
 
 
    after_save :send_pin!
-   before_create :process_signup_bonus
+   #before_create :process_signup_bonus
 
    def login
       @login || self.phone_number
@@ -23,8 +23,8 @@ class User < ApplicationRecord
 
    validates :phone_number, presence: true
    validates :phone_number, uniqueness: true
-   validates :id_number, presence: true
-   validates :id_number, uniqueness: true
+   # validates :id_number, presence: true
+   # validates :id_number, uniqueness: true
   #  validates :email, uniqueness: true
    validates :phone_number, format: {with: /\A(256)\d{9}\z/}
    validates :first_name, presence: true
