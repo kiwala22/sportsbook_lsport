@@ -4,7 +4,8 @@ class Backend::BetUsersController < ApplicationController
   layout 'admin_application.html.erb'
 
   def index
-    @users = User.all.order('created_at DESC').page params[:page]
+    @q = User.all.ransack(params[:q])
+    @users = @q.result.order('created_at DESC').page params[:page]
   end
 
   def show

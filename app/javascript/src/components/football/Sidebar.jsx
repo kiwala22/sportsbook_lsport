@@ -6,13 +6,10 @@ import { Link, useHistory } from "react-router-dom";
 import titleize from "titleize";
 import MainLogo from "../../Images/logo.webp";
 import urlFormatter from "../../utilities/urlFormatter";
-import Login from "../shared/Login";
-import SignUp from "../shared/SignUp";
 
 const Sidebar = (props) => {
   const dispatcher = useDispatch();
   const open = useSelector((state) => state.displaySider);
-  const signedIn = useSelector((state) => state.signedIn);
   const isMobile = useSelector((state) => state.isMobile);
   const sportType = useSelector((state) => state.sportType);
   const history = useHistory();
@@ -443,26 +440,6 @@ const Sidebar = (props) => {
             key="left"
             className="drawer-bg"
           >
-            {!signedIn && (
-              <div className="mobile-login-reg-buttons">
-                <SignUp>
-                  <Button
-                    id="signup"
-                    className="bttn-small btn-fill border-transparent register-btn"
-                  >
-                    <i className="fas fa-key fa-fw"></i> Register
-                  </Button>
-                </SignUp>
-                <Login>
-                  <Button
-                    id="login"
-                    className="bttn-small btn-fill ml-2 border-transparent register-btn"
-                  >
-                    <i className="fas fa-lock fa-fw"></i> Login
-                  </Button>
-                </Login>
-              </div>
-            )}
             {sidebar}
           </Drawer>
         </>

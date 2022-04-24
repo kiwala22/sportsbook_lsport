@@ -8,8 +8,8 @@ module MobileMoney
 		require 'logger'
 
 
-		@@collection_sub_key  	=  "012c76abc9fa4803a1b09e6b51981a8a" #ENV['COLLECTION_SUB_KEY']
-		@@transfer_sub_key		=  "802b9ca720364ece9d6b080ee1896093" #ENV['TRANSFER_SUB_KEY']
+		@@collection_sub_key  	=  "19617962575f45f9a602f1b33abb7496" #ENV['COLLECTION_SUB_KEY']
+		@@transfer_sub_key		=  "ddd685477cda472c88dbeee812e9b97c" #ENV['TRANSFER_SUB_KEY']
 		@@collection_api_id 	=  "8a573f6d-1a71-430f-8687-ce7cee282325" #ENV['COLLECTION_API_ID']
 		@@collection_api_key 	=  "6c5fd7a7a7c844ffba8bede7383bf867" #ENV['COLLECTION_API_KEY']
 		@@transfer_api_id 		=  "8a573f6d-1a71-430f-8687-ce7cee282325" #ENV['TRANSFER_API_ID']

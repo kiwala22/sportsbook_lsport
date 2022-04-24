@@ -62,7 +62,15 @@ const Base = (props) => {
         <header className="header-area gradient-bg heading">
           <Navbar />
         </header>
-        <section className="section-container topping">
+        <section
+          className={
+            isMobile && signedIn
+              ? "section-container topping-mobile"
+              : isMobile && !signedIn
+              ? "section-container topping-mobile-float"
+              : "section-container topping"
+          }
+        >
           <div className="content-wrapper mobile-signup py-0">
             <div className="container-fluid">
               <div className="row">
@@ -81,7 +89,10 @@ const Base = (props) => {
                       <Route path="/deposit/" component={Deposit} />
                       <Route path="/withdraw/" component={Withdraw} />
                       <Route path="/about/" component={Faqs} />
-                      <Route path="/responsible_gambling/" component={Privacy} />
+                      <Route
+                        path="/responsible_gambling/"
+                        component={Privacy}
+                      />
                       <Route path="/rules/" component={Rules} />
                       <Route path="/terms/" component={Terms} />
                       <Route path="/contacts/" component={Support} />

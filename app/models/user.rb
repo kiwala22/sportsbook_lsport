@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  audited
    attr_writer :login
    require 'send_sms'
    # Include default devise modules. Others available are:

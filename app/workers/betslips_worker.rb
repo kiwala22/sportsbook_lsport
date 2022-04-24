@@ -23,10 +23,10 @@ class BetslipsWorker
                   #mark as a win and payout winning and top up balance all under a transaction
                   total_odds = slip.bets.pluck(:odds).map(&:to_f).inject(:*).round(2)
                   win_amount = (slip.stake * total_odds)
-                  slip_bonus = SlipBonus.where('min_accumulator <= ? AND max_accumulator >= ?', bets_arr.count, bets_arr.count)
+                  slip_bonus = SlipBonus.where('min_accumulator <= ? AND max_accumulator >= ?', slip.bet_count, slip.bet_count)
 
                   if slip_bonus.exists? && slip_bonus.last.status == "Active"
-                     case bets_arr.count
+                     case slip.bet_count
                         when (slip_bonus.last.min_accumulator)..(slip_bonus.last.max_accumulator)
                            bonus_win = (slip_bonus.last.multiplier / 100) * win_amount
                         else
@@ -70,10 +70,10 @@ class BetslipsWorker
                      total_odds = no_void_bet_results.pluck(:odds).map(&:to_f).inject(:*).round(2)
                      win_amount = (slip.stake * total_odds )
 
-                     slip_bonus = SlipBonus.where('min_accumulator <= ? AND max_accumulator >= ?', bets_arr.count, bets_arr.count)
+                     slip_bonus = SlipBonus.where('min_accumulator <= ? AND max_accumulator >= ?', slip.bet_count, slip.bet_count)
 
                      if slip_bonus.exists? && slip_bonus.last.status == "Active"
-                        case bets_arr.count
+                        case slip.bet_count
                            when (slip_bonus.last.min_accumulator)..(slip_bonus.last.max_accumulator)
                               bonus_win = (slip_bonus.last.multiplier / 100) * win_amount
                            else

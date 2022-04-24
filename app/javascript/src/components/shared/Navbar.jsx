@@ -33,7 +33,6 @@ const Navbar = (props) => {
   });
 
   const performSearch = (values) => {
-    setShowSearch(false);
     const [identifier, sport] =
       sportType == "football"
         ? ["1", "Football"]
@@ -45,6 +44,7 @@ const Navbar = (props) => {
       pathname: "/fixtures/search",
       search: `?search=${values.search}&market=${identifier}&sport=${sport}`,
     });
+    setShowSearch(false);
   };
 
   const logOut = () => {
@@ -346,6 +346,32 @@ const Navbar = (props) => {
             </Link>
           </NavBar>
           {showSearch && <div className="mobile-search">{search}</div>}
+          {!signedIn && (
+            <NavBar mode="dark">
+              <>
+                <div className="navbar-nav ml-auto">
+                  <Login>
+                    <Button
+                      id="login"
+                      className="bttn-small btn-fill ml-2 border-transparent register-btn"
+                    >
+                      <i className="fas fa-lock fa-fw"></i> Login
+                    </Button>
+                  </Login>
+                </div>
+                <div className="navbar-nav ml-1">
+                  <SignUp>
+                    <Button
+                      id="signup"
+                      className="bttn-small btn-fill border-transparent register-btn"
+                    >
+                      <i className="fas fa-key fa-fw"></i> Register
+                    </Button>
+                  </SignUp>
+                </div>
+              </>
+            </NavBar>
+          )}
         </>
       )}
     </>

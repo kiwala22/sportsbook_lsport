@@ -36,7 +36,7 @@ class Backend::AdminLandingController < ApplicationController
             date.beginning_of_day,
             date.end_of_day
           )
-          .sum(:win_amount)
+          .sum(:payout)
 
       ##Get total bets placed per day
       bets_totals =
