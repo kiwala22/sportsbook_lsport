@@ -41,7 +41,6 @@ const SignUp = (props) => {
         password: values.password,
         password_confirmation: values.password_confirmation,
         agreement: values.agreement,
-        id_number: values.id_number,
         nationality: values.nationality,
       },
     };
@@ -204,23 +203,6 @@ const SignUp = (props) => {
                     </Option>
                   ))}
                 </Select>
-              </Form.Item>
-            </Col>
-          </Row>
-          <Row>
-            <Col span={12}>
-              <Form.Item
-                name="id_number"
-                label="NIN / ID Number"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input your NIN / ID Number!",
-                    whitespace: true,
-                  },
-                ]}
-              >
-                <Input className="form-control" />
               </Form.Item>
             </Col>
           </Row>
