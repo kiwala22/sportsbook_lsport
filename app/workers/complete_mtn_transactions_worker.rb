@@ -36,7 +36,7 @@ class CompleteMtnTransactionsWorker
 
          ## Check if there's a first deposit bonus
          if TopupBonus.exists? && TopupBonus.last.status == "Active"
-            TopupBonus.fist_deposit_bonus(user.id, @deposit.id)
+            TopupBonus.fist_deposit_bonus(user.id, @transaction.id)
          end
       else
          @deposit.update(network: "MTN Uganda", status: "FAILED")
