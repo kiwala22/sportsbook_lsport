@@ -3,7 +3,7 @@ class BetSlip < ApplicationRecord
    belongs_to :user
    has_many :bets
 
-   after_create :activate_bonuses
+   after_update :activate_bonuses, if: :saved_change_to_status?
 
    enum bet_slip_status: {
       "Select One" => "",
@@ -23,31 +23,33 @@ class BetSlip < ApplicationRecord
 
 
    def activate_bonuses
-      if UserBonus.where(user_id: self.user_id, status: "Active").exists?
-         user = User.find(self.user_id)
-         bonus = UserBonus.where(user_id: self.user_id, status: "Active").last
-         limit = ( bonus.amount / 0.2)
-         stakes = user.bet_slips.sum(:stake)
-         if stakes >= limit
-            balance_before = user.balance
-            balance_after = (user.balance + bonus.amount)
+      if self.status == "Active"
+         if UserBonus.where(user_id: self.user_id, status: "Active").exists?
+            user = User.find(self.user_id)
+            bonus = UserBonus.where(user_id: self.user_id, status: "Active").last
+            limit = ( bonus.amount / 0.2)
+            stakes = user.bet_slips.sum(:stake)
+            if stakes >= limit
+               balance_before = user.balance
+               balance_after = (user.balance + bonus.amount)
 
-            ActiveRecord::Base.transaction do
-              #create a deposit for the user # bonus activation record
-              Transaction.create(
-                 { reference: generate_reference(),
-                    amount: bonus.amount,
-                    phone_number: user.phone_number,
-                    category: "First Deposit Bonus",
-                    status: "SUCCESS", currency: "UGX",
-                    balance_before: balance_before,
-                    balance_after: balance_after ,
-                    user_id: user.id
-                 }
-               )
-              #update the user balance
-              user.update!(balance: balance_after,activated_first_deposit_bonus: true, first_deposit_bonus_amount: bonus.amount)
-              bonus.update!(status: "Closed", amount: 0.0)
+               ActiveRecord::Base.transaction do
+                 #create a deposit for the user # bonus activation record
+                 Transaction.create(
+                    { reference: generate_reference(),
+                       amount: bonus.amount,
+                       phone_number: user.phone_number,
+                       category: "First Deposit Bonus",
+                       status: "SUCCESS", currency: "UGX",
+                       balance_before: balance_before,
+                       balance_after: balance_after ,
+                       user_id: user.id
+                    }
+                  )
+                 #update the user balance
+                 user.update!(balance: balance_after,activated_first_deposit_bonus: true, first_deposit_bonus_amount: bonus.amount)
+                 bonus.update!(status: "Closed", amount: 0.0)
+               end
             end
          end
       end

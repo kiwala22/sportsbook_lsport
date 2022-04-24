@@ -73,7 +73,8 @@ RSpec.describe TopupBonus, type: :model do
          TopupBonus.fist_deposit_bonus(@user.id, @transaction.id)
       end
       #Make a bet slip of amount > 1000
-      betslip = BetSlip.create!(
+      betslip = @user.bet_slips.create!()
+      betslip.update(
          {
             bet_count: 2,
             stake: 1000,
@@ -105,7 +106,8 @@ RSpec.describe TopupBonus, type: :model do
       end
 
       #Make a bet slip of amount < 1000
-      betslip = BetSlip.create!(
+      betslip = @user.bet_slips.create!()
+      betslip.update(
          {
             bet_count: 2,
             stake: 500,
