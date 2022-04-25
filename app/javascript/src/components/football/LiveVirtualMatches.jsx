@@ -160,7 +160,7 @@ const LiveVirtualMatches = (props) => {
       ),
     },
     isMobile
-      ? {}
+      ? { className: "mobile-none-display" }
       : {
           title: "League",
           responsive: ["md"],

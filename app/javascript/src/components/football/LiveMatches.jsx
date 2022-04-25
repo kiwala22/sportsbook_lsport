@@ -160,7 +160,7 @@ const LiveMatches = (props) => {
       ),
     },
     isMobile
-      ? {}
+      ? { className: "mobile-none-display" }
       : {
           title: "League",
           render: (_, fixture) => (
@@ -307,7 +307,7 @@ const LiveMatches = (props) => {
             <div className="card">
               <div className="card-header">
                 <h3>
-                  Live Fixtures - Soccer{" "}
+                  Live - Soccer{" "}
                   <i className=" blinking match-time fas fa-bolt fa-lg fa-fw mr-2"></i>
                 </h3>
                 <span className="float-right">

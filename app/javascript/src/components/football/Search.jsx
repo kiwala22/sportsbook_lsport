@@ -62,7 +62,7 @@ const Search = (props) => {
   };
   const columns = [
     isMobile
-      ? {}
+      ? { className: "mobile-none-display" }
       : {
           title: "Date",
           dataIndex: "start_date",
@@ -81,7 +81,9 @@ const Search = (props) => {
           title: "Fixture",
           render: (_, fixture) => (
             <>
-              {/* <hr /> */}
+              <p className="date-pr-bottom">
+                <Moment format="DD-MMM HH:mm">{fixture.start_date}</Moment>
+              </p>
               <MarketsChannel
                 channel="MarketsChannel"
                 fixture={fixture.id}
@@ -94,7 +96,16 @@ const Search = (props) => {
                 {fixture.part_two_name}
               </MarketsChannel>
               <p className="tournament-pr-top">
-                <Moment format="DD-MMM HH:mm">{fixture.start_date}</Moment>
+                <PreOddsChannel
+                  channel="PreOddsChannel"
+                  fixture={fixture.id}
+                  market="1"
+                  received={(data) => {
+                    updateMatchInfo(data, games, setGames, "1", "Pre");
+                  }}
+                >
+                  {fixture.league_name}
+                </PreOddsChannel>
               </p>
             </>
           ),
@@ -115,22 +126,24 @@ const Search = (props) => {
             </MarketsChannel>
           ),
         },
-    {
-      title: "League",
-      render: (_, fixture) => (
-        <PreOddsChannel
-          channel="PreOddsChannel"
-          fixture={fixture.id}
-          market="1"
-          received={(data) => {
-            updateMatchInfo(data, games, setGames, "1", "Pre");
-          }}
-        >
-          {fixture.league_name} <br />
-          {fixture.location}
-        </PreOddsChannel>
-      ),
-    },
+    isMobile
+      ? { className: "mobile-none-display" }
+      : {
+          title: "League",
+          render: (_, fixture) => (
+            <PreOddsChannel
+              channel="PreOddsChannel"
+              fixture={fixture.id}
+              market="1"
+              received={(data) => {
+                updateMatchInfo(data, games, setGames, "1", "Pre");
+              }}
+            >
+              {fixture.league_name} <br />
+              {fixture.location}
+            </PreOddsChannel>
+          ),
+        },
     {
       title: "1",
       render: (_, fixture) => (

@@ -215,7 +215,7 @@ const Home = (props) => {
       ),
     },
     isMobile
-      ? {}
+      ? { className: "mobile-none-display" }
       : {
           title: "League",
           render: (_, fixture) => (
@@ -351,7 +351,7 @@ const Home = (props) => {
 
   const columns_pre = [
     isMobile
-      ? {}
+      ? { className: "mobile-none-display" }
       : {
           title: "Date",
           dataIndex: "start_date",
@@ -371,6 +371,9 @@ const Home = (props) => {
           render: (_, fixture) => (
             <>
               {/* <hr /> */}
+              <p className="date-pr-bottom">
+                <Moment format="DD-MMM HH:mm">{fixture.start_date}</Moment>
+              </p>
               <MarketsChannel
                 channel="MarketsChannel"
                 fixture={fixture.id}
@@ -389,7 +392,22 @@ const Home = (props) => {
                 {fixture.part_two_name}
               </MarketsChannel>
               <p className="tournament-pr-top">
-                <Moment format="DD-MMM HH:mm">{fixture.start_date}</Moment>
+                <PreOddsChannel
+                  channel="PreOddsChannel"
+                  fixture={fixture.id}
+                  market="1"
+                  received={(data) => {
+                    updateMatchInfo(
+                      data,
+                      prematchGames,
+                      setPrematchGames,
+                      data.market_identifier,
+                      "Pre"
+                    );
+                  }}
+                >
+                  {fixture.league_name}
+                </PreOddsChannel>
               </p>
             </>
           ),
@@ -416,28 +434,30 @@ const Home = (props) => {
             </MarketsChannel>
           ),
         },
-    {
-      title: "League",
-      render: (_, fixture) => (
-        <PreOddsChannel
-          channel="PreOddsChannel"
-          fixture={fixture.id}
-          market="1"
-          received={(data) => {
-            updateMatchInfo(
-              data,
-              prematchGames,
-              setPrematchGames,
-              data.market_identifier,
-              "Pre"
-            );
-          }}
-        >
-          {fixture.league_name} <br />
-          {fixture.location}
-        </PreOddsChannel>
-      ),
-    },
+    isMobile
+      ? { className: "mobile-none-display" }
+      : {
+          title: "League",
+          render: (_, fixture) => (
+            <PreOddsChannel
+              channel="PreOddsChannel"
+              fixture={fixture.id}
+              market="1"
+              received={(data) => {
+                updateMatchInfo(
+                  data,
+                  prematchGames,
+                  setPrematchGames,
+                  data.market_identifier,
+                  "Pre"
+                );
+              }}
+            >
+              {fixture.league_name} <br />
+              {fixture.location}
+            </PreOddsChannel>
+          ),
+        },
     {
       title: "1",
       render: (_, fixture) => (
@@ -551,7 +571,7 @@ const Home = (props) => {
 
   const columns_feat = [
     isMobile
-      ? {}
+      ? { className: "mobile-none-display" }
       : {
           title: "Date",
           dataIndex: "start_date",
@@ -570,7 +590,9 @@ const Home = (props) => {
           title: "Fixture",
           render: (_, fixture) => (
             <>
-              {/* <hr /> */}
+              <p className="tournament-pr-top">
+                <Moment format="DD-MMM HH:mm">{fixture.start_date}</Moment>
+              </p>
               <MarketsChannel
                 channel="MarketsChannel"
                 fixture={fixture.id}
@@ -589,7 +611,22 @@ const Home = (props) => {
                 {fixture.part_two_name}
               </MarketsChannel>
               <p className="tournament-pr-top">
-                <Moment format="DD-MMM HH:mm">{fixture.start_date}</Moment>
+                <PreOddsChannel
+                  channel="PreOddsChannel"
+                  fixture={fixture.id}
+                  market="1"
+                  received={(data) => {
+                    updateMatchInfo(
+                      data,
+                      featuredGames,
+                      setFeaturedGames,
+                      data.market_identifier,
+                      "Pre"
+                    );
+                  }}
+                >
+                  {fixture.league_name}
+                </PreOddsChannel>
               </p>
             </>
           ),
@@ -616,28 +653,30 @@ const Home = (props) => {
             </MarketsChannel>
           ),
         },
-    {
-      title: "League",
-      render: (_, fixture) => (
-        <PreOddsChannel
-          channel="PreOddsChannel"
-          fixture={fixture.id}
-          market="1"
-          received={(data) => {
-            updateMatchInfo(
-              data,
-              featuredGames,
-              setFeaturedGames,
-              data.market_identifier,
-              "Pre"
-            );
-          }}
-        >
-          {fixture.league_name} <br />
-          {fixture.location}
-        </PreOddsChannel>
-      ),
-    },
+    isMobile
+      ? { className: "mobile-none-display" }
+      : {
+          title: "League",
+          render: (_, fixture) => (
+            <PreOddsChannel
+              channel="PreOddsChannel"
+              fixture={fixture.id}
+              market="1"
+              received={(data) => {
+                updateMatchInfo(
+                  data,
+                  featuredGames,
+                  setFeaturedGames,
+                  data.market_identifier,
+                  "Pre"
+                );
+              }}
+            >
+              {fixture.league_name} <br />
+              {fixture.location}
+            </PreOddsChannel>
+          ),
+        },
     {
       title: "1",
       render: (_, fixture) => (

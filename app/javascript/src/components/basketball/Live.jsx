@@ -158,7 +158,7 @@ const Live = (props) => {
       ),
     },
     isMobile
-      ? {}
+      ? { className: "mobile-none-display" }
       : {
           title: "Competition",
           responsive: ["md"],
