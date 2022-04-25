@@ -15,7 +15,7 @@ class TopupBonus < ApplicationRecord
       #sarch for the bonus
       bonus = TopupBonus.where(status: "Active").last
 
-      if user.transactions.where(category: "Deposit").count == 1
+      if user.transactions.where(category: "Deposit", status: "SUCCESS").count == 1
 
          if user && transaction && bonus
             bonus =  ((transaction.amount.to_f) * (bonus.multiplier/100))
