@@ -32,7 +32,7 @@ RSpec.describe TopupBonus, type: :model do
          amount: 1000,
          phone_number: @user.phone_number,
          category: "Deposit",
-         status: "PENDING",
+         status: "COMPLETED",
          currency: "UGX",
          user_id: @user.id
       )
@@ -48,6 +48,7 @@ RSpec.describe TopupBonus, type: :model do
       expect(UserBonus.count).to eq(1)
       #expect user bonus to have amount 200
       expect(@user.user_bonuses.first.amount).to eq(200.00)
+      expect(User.find(@user.id).bonus).to eq(200)
 
 
    end
@@ -61,6 +62,7 @@ RSpec.describe TopupBonus, type: :model do
       end
       #expect user bonus count to not increase by 1
       expect(UserBonus.count).to eq(0)
+      expect(User.find(@user.id).bonus).to eq(0.0)
 
 
 
@@ -94,6 +96,7 @@ RSpec.describe TopupBonus, type: :model do
 
       #expect balance to become 1200
       expect(User.find(@user.id).balance).to eq(1200)
+      expect(User.find(@user.id).bonus).to eq(0.0)
 
 
    end
@@ -157,7 +160,7 @@ RSpec.describe TopupBonus, type: :model do
          amount: 1000,
          phone_number: @user.phone_number,
          category: "Deposit",
-         status: "PENDING",
+         status: "COMPLETED",
          currency: "UGX",
          user_id: @user.id
       )
@@ -182,7 +185,7 @@ RSpec.describe TopupBonus, type: :model do
       end
       sleep(2)
       #expect bonus to change to closed
-      expect(UserBonus.last.status).to eq("Closed")
+      expect(User.find(@user.id).user_bonuses.last.status).to eq("Closed")
 
       #expect balance to become 1200
       expect(User.find(@user.id).balance).to eq(1200)

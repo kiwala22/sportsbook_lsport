@@ -31,6 +31,8 @@ class TopupBonus < ApplicationRecord
                }
             )
 
+            user.update(bonus: (user.bonus + bonus))
+
          end
       end
    end
