@@ -250,7 +250,7 @@ const Live = (props) => {
             history.push(`/fixtures/basketball/live?id=${fixture.id}`)
           }
           icon={<PlusOutlined />}
-          className="icon-more"
+          className={isMobile ? "icon-more" : "icon-more-web"}
         />
       ),
     },

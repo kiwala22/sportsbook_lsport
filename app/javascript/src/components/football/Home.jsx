@@ -36,15 +36,15 @@ const Home = (props) => {
 
   useEffect(() => loadGames(), []);
 
-  useEffect(() => {
-    let interval;
-    if (prematchGames.length === 0) {
-      interval = setInterval(() => {
-        loadGames();
-      }, 5000);
-    }
-    return () => clearInterval(interval);
-  }, [prematchGames]);
+  // useEffect(() => {
+  //   let interval;
+  //   if (prematchGames.length === 0) {
+  //     interval = setInterval(() => {
+  //       loadGames();
+  //     }, 5000);
+  //   }
+  //   return () => clearInterval(interval);
+  // }, [prematchGames]);
 
   useEffect(() => {
     let interval;
@@ -343,7 +343,7 @@ const Home = (props) => {
         <Button
           onClick={() => history.push(`/fixtures/soccer/live?id=${fixture.id}`)}
           icon={<PlusOutlined />}
-          className="icon-more"
+          className={isMobile ? "icon-more" : "icon-more-web"}
         />
       ),
     },
@@ -563,7 +563,7 @@ const Home = (props) => {
         <Button
           onClick={() => history.push(`/fixtures/soccer/pre?id=${fixture.id}`)}
           icon={<PlusOutlined />}
-          className="icon-more"
+          className={isMobile ? "icon-more" : "icon-more-web"}
         />
       ),
     },
@@ -782,7 +782,7 @@ const Home = (props) => {
         <Button
           onClick={() => history.push(`/fixtures/soccer/pre?id=${fixture.id}`)}
           icon={<PlusOutlined />}
-          className="icon-more"
+          className={isMobile ? "icon-more" : "icon-more-web"}
         />
       ),
     },

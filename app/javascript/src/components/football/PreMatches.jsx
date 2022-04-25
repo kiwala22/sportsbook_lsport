@@ -280,7 +280,7 @@ const PreMatches = (props) => {
         <Button
           onClick={() => history.push(`/fixtures/soccer/pre?id=${fixture.id}`)}
           icon={<PlusOutlined />}
-          className="icon-more"
+          className={isMobile ? "icon-more" : "icon-more-web"}
         />
       ),
     },

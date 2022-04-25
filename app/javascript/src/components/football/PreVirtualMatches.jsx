@@ -246,7 +246,7 @@ const PreVirtualMatches = (props) => {
             history.push(`/fixtures/virtual_soccer/pre?id=${fixture.id}`)
           }
           icon={<PlusOutlined />}
-          className="icon-more"
+          className={isMobile ? "icon-more" : "icon-more-web"}
         />
       ),
     },

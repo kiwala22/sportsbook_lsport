@@ -261,7 +261,7 @@ const LiveVirtualMatches = (props) => {
             history.push(`/fixtures/virtual_soccer/live?id=${fixture.id}`)
           }
           icon={<PlusOutlined />}
-          className="icon-more"
+          className={isMobile ? "icon-more" : "icon-more-web"}
         />
       ),
     },

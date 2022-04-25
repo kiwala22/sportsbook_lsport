@@ -288,7 +288,7 @@ const LiveMatches = (props) => {
         <Button
           onClick={() => history.push(`/fixtures/soccer/live?id=${fixture.id}`)}
           icon={<PlusOutlined />}
-          className="icon-more"
+          className={isMobile ? "icon-more" : "icon-more-web"}
         />
       ),
     },

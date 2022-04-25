@@ -229,7 +229,7 @@ const Upcoming = (props) => {
             history.push(`/fixtures/basketball/pre?id=${fixture.id}`)
           }
           icon={<PlusOutlined />}
-          className="icon-more"
+          className={isMobile ? "icon-more" : "icon-more-web"}
         />
       ),
     },

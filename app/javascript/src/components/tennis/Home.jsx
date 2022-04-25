@@ -213,7 +213,7 @@ const Home = (props) => {
         <Button
           onClick={() => history.push(`/fixtures/tennis/pre?id=${fixture.id}`)}
           icon={<PlusOutlined />}
-          className="icon-more"
+          className={isMobile ? "icon-more" : "icon-more-web"}
         />
       ),
     },

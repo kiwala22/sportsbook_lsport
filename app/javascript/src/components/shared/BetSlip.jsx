@@ -254,7 +254,7 @@ const BetSlip = (props) => {
     <div className="bets" id="bets-row" data-controller="slips">
       {slipGames()}
       <div className="total-bet">
-        <span className="col-8 px-1">
+        <span className="col-6 px-1">
           <input
             type="number"
             name="stake"
