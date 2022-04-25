@@ -13,8 +13,8 @@ const Withdraw = (props) => {
 
   const performWithdraw = (values) => {
     setIsLoading(true);
-    if (values.amount < 500) {
-      cogoToast.error("Minimum Withdraw is 500 USH", 5);
+    if (values.amount < 1000) {
+      cogoToast.warn("Minimum Withdraw is 1,000 USH", 5);
       setIsLoading(false);
       return;
     }
