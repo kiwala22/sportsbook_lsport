@@ -25,6 +25,8 @@ const App = (props) => {
     checkUserVerification();
   }, []);
 
+  // forcing compiler
+
   function checkUserVerification() {
     let path = "/api/v1/verification";
     let values = {};
