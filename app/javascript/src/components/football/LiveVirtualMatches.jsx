@@ -63,28 +63,73 @@ const LiveVirtualMatches = (props) => {
   };
 
   const columns = [
-    {
-      title: "Teams",
-      render: (_, fixture) => (
-        <MarketsChannel
-          channel="MarketsChannel"
-          fixture={fixture.id}
-          market="1"
-          received={(data) => {
-            updateMatchInfo(
-              data,
-              games,
-              setGames,
-              data.market_identifier,
-              "Market"
-            );
-          }}
-        >
-          {fixture.part_one_name} <br />
-          {fixture.part_two_name}
-        </MarketsChannel>
-      ),
-    },
+    isMobile
+      ? {
+          title: "Fixture",
+          render: (_, fixture) => (
+            <>
+              <MarketsChannel
+                channel="MarketsChannel"
+                fixture={fixture.id}
+                market="1"
+                received={(data) => {
+                  updateMatchInfo(
+                    data,
+                    games,
+                    setGames,
+                    data.market_identifier,
+                    "Market"
+                  );
+                }}
+              >
+                {fixture.part_one_name} <br />
+                {fixture.part_two_name}
+              </MarketsChannel>
+              <p className="tournament-pr-top">
+                <LiveOddsChannel
+                  channel="LiveOddsChannel"
+                  fixture={fixture.id}
+                  market="1"
+                  received={(data) => {
+                    updateMatchInfo(
+                      data,
+                      games,
+                      setGames,
+                      data.market_identifier,
+                      "Live"
+                    );
+                  }}
+                >
+                  {fixture.league_name}
+                </LiveOddsChannel>
+              </p>
+            </>
+          ),
+        }
+      : {
+          title: "Fixture",
+          render: (_, fixture) => (
+            <>
+              <MarketsChannel
+                channel="MarketsChannel"
+                fixture={fixture.id}
+                market="1"
+                received={(data) => {
+                  updateMatchInfo(
+                    data,
+                    games,
+                    setGames,
+                    data.market_identifier,
+                    "Market"
+                  );
+                }}
+              >
+                {fixture.part_one_name} <br />
+                {fixture.part_two_name}
+              </MarketsChannel>
+            </>
+          ),
+        },
     {
       title: "Score",
       render: (_, fixture) => (
@@ -114,29 +159,31 @@ const LiveVirtualMatches = (props) => {
         </>
       ),
     },
-    {
-      title: "Tournament",
-      responsive: ["md"],
-      render: (_, fixture) => (
-        <LiveOddsChannel
-          channel="LiveOddsChannel"
-          fixture={fixture.id}
-          market="1"
-          received={(data) => {
-            updateMatchInfo(
-              data,
-              games,
-              setGames,
-              data.market_identifier,
-              "Live"
-            );
-          }}
-        >
-          {fixture.league_name} <br />
-          {fixture.location}
-        </LiveOddsChannel>
-      ),
-    },
+    isMobile
+      ? {}
+      : {
+          title: "League",
+          responsive: ["md"],
+          render: (_, fixture) => (
+            <LiveOddsChannel
+              channel="LiveOddsChannel"
+              fixture={fixture.id}
+              market="1"
+              received={(data) => {
+                updateMatchInfo(
+                  data,
+                  games,
+                  setGames,
+                  data.market_identifier,
+                  "Live"
+                );
+              }}
+            >
+              {fixture.league_name} <br />
+              {fixture.location}
+            </LiveOddsChannel>
+          ),
+        },
     {
       title: "1",
       render: (_, fixture) => (

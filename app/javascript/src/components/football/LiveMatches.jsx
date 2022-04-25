@@ -63,28 +63,73 @@ const LiveMatches = (props) => {
   };
 
   const columns = [
-    {
-      title: "Teams",
-      render: (_, fixture) => (
-        <MarketsChannel
-          channel="MarketsChannel"
-          fixture={fixture.id}
-          market="1"
-          received={(data) => {
-            updateMatchInfo(
-              data,
-              games,
-              setGames,
-              data.market_identifier,
-              "Market"
-            );
-          }}
-        >
-          {fixture.part_one_name} <br />
-          {fixture.part_two_name}
-        </MarketsChannel>
-      ),
-    },
+    isMobile
+      ? {
+          title: "Fixture",
+          render: (_, fixture) => (
+            <>
+              <MarketsChannel
+                channel="MarketsChannel"
+                fixture={fixture.id}
+                market="1"
+                received={(data) => {
+                  updateMatchInfo(
+                    data,
+                    games,
+                    setGames,
+                    data.market_identifier,
+                    "Market"
+                  );
+                }}
+              >
+                {fixture.part_one_name} <br />
+                {fixture.part_two_name}
+              </MarketsChannel>
+              <p className="tournament-pr-top">
+                <LiveOddsChannel
+                  channel="LiveOddsChannel"
+                  fixture={fixture.id}
+                  market="1"
+                  received={(data) => {
+                    updateMatchInfo(
+                      data,
+                      games,
+                      setGames,
+                      data.market_identifier,
+                      "Live"
+                    );
+                  }}
+                >
+                  {fixture.league_name}
+                </LiveOddsChannel>
+              </p>
+            </>
+          ),
+        }
+      : {
+          title: "Fixture",
+          render: (_, fixture) => (
+            <>
+              <MarketsChannel
+                channel="MarketsChannel"
+                fixture={fixture.id}
+                market="1"
+                received={(data) => {
+                  updateMatchInfo(
+                    data,
+                    games,
+                    setGames,
+                    data.market_identifier,
+                    "Market"
+                  );
+                }}
+              >
+                {fixture.part_one_name} <br />
+                {fixture.part_two_name}
+              </MarketsChannel>
+            </>
+          ),
+        },
     {
       title: "Score",
       render: (_, fixture) => (
@@ -92,9 +137,9 @@ const LiveMatches = (props) => {
           <FixtureChannel
             channel="FixtureChannel"
             fixture={fixture.id}
-            received={(data) =>
-              updateMatchInfo(data, games, setGames, "1", "Fixture")
-            }
+            received={(data) => {
+              updateMatchInfo(data, games, setGames, "1", "Fixture");
+            }}
           >
             <strong>
               <span className="blinking match-time">{fixture.match_time}</span>
@@ -114,29 +159,30 @@ const LiveMatches = (props) => {
         </>
       ),
     },
-    {
-      title: "Tournament",
-      responsive: ["md"],
-      render: (_, fixture) => (
-        <LiveOddsChannel
-          channel="LiveOddsChannel"
-          fixture={fixture.id}
-          market="1"
-          received={(data) => {
-            updateMatchInfo(
-              data,
-              games,
-              setGames,
-              data.market_identifier,
-              "Live"
-            );
-          }}
-        >
-          {fixture.league_name} <br />
-          {fixture.location}
-        </LiveOddsChannel>
-      ),
-    },
+    isMobile
+      ? {}
+      : {
+          title: "League",
+          render: (_, fixture) => (
+            <LiveOddsChannel
+              channel="LiveOddsChannel"
+              fixture={fixture.id}
+              market="1"
+              received={(data) => {
+                updateMatchInfo(
+                  data,
+                  games,
+                  setGames,
+                  data.market_identifier,
+                  "Live"
+                );
+              }}
+            >
+              {fixture.league_name} <br />
+              {fixture.location}
+            </LiveOddsChannel>
+          ),
+        },
     {
       title: "1",
       render: (_, fixture) => (
@@ -150,9 +196,19 @@ const LiveMatches = (props) => {
               : "btnn intialise_input btn btn-light wagger-btn"
           }
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
-          onClick={() =>
-            addBet(dispatcher, "1", "LiveMarket", fixture.id, "1X2 FT - 1", "1")
-          }
+          // ref={setRef(`${fixture.id}_market_1_1`)}
+          onClick={() => {
+            addBet(
+              dispatcher,
+              "1",
+              "LiveMarket",
+              fixture.id,
+              "1X2 FT - 1",
+              "1",
+              null,
+              `${fixture.id}_market_1_1`
+            );
+          }}
         >
           {fixture.markets.length == 0 || fixture.markets[0].odds === null
             ? parseFloat(1.0).toFixed(2)
@@ -173,8 +229,18 @@ const LiveMatches = (props) => {
               : "btnn intialise_input btn btn-light wagger-btn"
           }
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
+          // ref={setRef(`${fixture.id}_market_1_X`)}
           onClick={() =>
-            addBet(dispatcher, "X", "LiveMarket", fixture.id, "1X2 FT - X", "1")
+            addBet(
+              dispatcher,
+              "X",
+              "LiveMarket",
+              fixture.id,
+              "1X2 FT - X",
+              "1",
+              null,
+              `${fixture.id}_market_1_X`
+            )
           }
         >
           {fixture.markets.length == 0 || fixture.markets[0].odds === null
@@ -196,8 +262,18 @@ const LiveMatches = (props) => {
               : "btnn intialise_input btn btn-light wagger-btn"
           }
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
+          // ref={setRef(`${fixture.id}_market_1_2`)}
           onClick={() =>
-            addBet(dispatcher, "2", "LiveMarket", fixture.id, "1X2 FT - 2", "1")
+            addBet(
+              dispatcher,
+              "2",
+              "LiveMarket",
+              fixture.id,
+              "1X2 FT - 2",
+              "1",
+              null,
+              `${fixture.id}_market_1_2`
+            )
           }
         >
           {fixture.markets.length == 0 || fixture.markets[0].odds === null

@@ -12,10 +12,15 @@ const Withdraw = (props) => {
   const history = useHistory();
 
   const performWithdraw = (values) => {
+    setIsLoading(true);
+    if (values.amount < 500 || values.amount > 500000) {
+      cogoToast.error("Minimum Withdraw is 500 USH", 5);
+      setIsLoading(false);
+      return;
+    }
     let variables = {
       amount: values.amount,
     };
-    setIsLoading(true);
     Requests.isPostRequest(baseUrl, variables)
       .then((response) => {
         setIsLoading(false);
@@ -29,7 +34,7 @@ const Withdraw = (props) => {
         if (error.response) {
           cogoToast.warn(error.response.data.errors, 4);
         } else {
-          cogoToast.warn("Oops, something is wong, please try again.", 5);
+          cogoToast.warn("Oops, something is wrong, please try again.", 5);
         }
         setIsLoading(false);
       });

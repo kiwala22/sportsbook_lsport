@@ -118,28 +118,73 @@ const Home = (props) => {
   };
 
   const columns_live = [
-    {
-      title: "Teams",
-      render: (_, fixture) => (
-        <MarketsChannel
-          channel="MarketsChannel"
-          fixture={fixture.id}
-          market="1"
-          received={(data) => {
-            updateMatchInfo(
-              data,
-              liveGames,
-              setLiveGames,
-              data.market_identifier,
-              "Market"
-            );
-          }}
-        >
-          {fixture.part_one_name} <br />
-          {fixture.part_two_name}
-        </MarketsChannel>
-      ),
-    },
+    isMobile
+      ? {
+          title: "Fixture",
+          render: (_, fixture) => (
+            <>
+              <MarketsChannel
+                channel="MarketsChannel"
+                fixture={fixture.id}
+                market="1"
+                received={(data) => {
+                  updateMatchInfo(
+                    data,
+                    liveGames,
+                    setLiveGames,
+                    data.market_identifier,
+                    "Market"
+                  );
+                }}
+              >
+                {fixture.part_one_name} <br />
+                {fixture.part_two_name}
+              </MarketsChannel>
+              <p className="tournament-pr-top">
+                <LiveOddsChannel
+                  channel="LiveOddsChannel"
+                  fixture={fixture.id}
+                  market="1"
+                  received={(data) => {
+                    updateMatchInfo(
+                      data,
+                      liveGames,
+                      setLiveGames,
+                      data.market_identifier,
+                      "Live"
+                    );
+                  }}
+                >
+                  {fixture.league_name}
+                </LiveOddsChannel>
+              </p>
+            </>
+          ),
+        }
+      : {
+          title: "Fixture",
+          render: (_, fixture) => (
+            <>
+              <MarketsChannel
+                channel="MarketsChannel"
+                fixture={fixture.id}
+                market="1"
+                received={(data) => {
+                  updateMatchInfo(
+                    data,
+                    liveGames,
+                    setLiveGames,
+                    data.market_identifier,
+                    "Market"
+                  );
+                }}
+              >
+                {fixture.part_one_name} <br />
+                {fixture.part_two_name}
+              </MarketsChannel>
+            </>
+          ),
+        },
     {
       title: "Score",
       render: (_, fixture) => (
@@ -169,28 +214,30 @@ const Home = (props) => {
         </>
       ),
     },
-    {
-      title: "Tournament",
-      render: (_, fixture) => (
-        <LiveOddsChannel
-          channel="LiveOddsChannel"
-          fixture={fixture.id}
-          market="1"
-          received={(data) => {
-            updateMatchInfo(
-              data,
-              liveGames,
-              setLiveGames,
-              data.market_identifier,
-              "Live"
-            );
-          }}
-        >
-          {fixture.league_name} <br />
-          {fixture.location}
-        </LiveOddsChannel>
-      ),
-    },
+    isMobile
+      ? {}
+      : {
+          title: "League",
+          render: (_, fixture) => (
+            <LiveOddsChannel
+              channel="LiveOddsChannel"
+              fixture={fixture.id}
+              market="1"
+              received={(data) => {
+                updateMatchInfo(
+                  data,
+                  liveGames,
+                  setLiveGames,
+                  data.market_identifier,
+                  "Live"
+                );
+              }}
+            >
+              {fixture.league_name} <br />
+              {fixture.location}
+            </LiveOddsChannel>
+          ),
+        },
     {
       title: "1",
       render: (_, fixture) => (
@@ -303,43 +350,74 @@ const Home = (props) => {
   ];
 
   const columns_pre = [
+    isMobile
+      ? {}
+      : {
+          title: "Date",
+          dataIndex: "start_date",
+          render: (date) => (
+            <>
+              <Moment local={true} format="HH:mm">
+                {date}
+              </Moment>
+              <br />
+              <Moment format="DD-MMM">{date}</Moment>
+            </>
+          ),
+        },
+    isMobile
+      ? {
+          title: "Fixture",
+          render: (_, fixture) => (
+            <>
+              {/* <hr /> */}
+              <MarketsChannel
+                channel="MarketsChannel"
+                fixture={fixture.id}
+                market="1"
+                received={(data) => {
+                  updateMatchInfo(
+                    data,
+                    prematchGames,
+                    setPrematchGames,
+                    data.market_identifier,
+                    "Market"
+                  );
+                }}
+              >
+                {fixture.part_one_name} <br />
+                {fixture.part_two_name}
+              </MarketsChannel>
+              <p className="tournament-pr-top">
+                <Moment format="DD-MMM HH:mm">{fixture.start_date}</Moment>
+              </p>
+            </>
+          ),
+        }
+      : {
+          title: "Fixture",
+          render: (_, fixture) => (
+            <MarketsChannel
+              channel="MarketsChannel"
+              fixture={fixture.id}
+              market="1"
+              received={(data) => {
+                updateMatchInfo(
+                  data,
+                  prematchGames,
+                  setPrematchGames,
+                  data.market_identifier,
+                  "Market"
+                );
+              }}
+            >
+              {fixture.part_one_name} <br />
+              {fixture.part_two_name}
+            </MarketsChannel>
+          ),
+        },
     {
-      title: "Date",
-      dataIndex: "start_date",
-      render: (date) => (
-        <>
-          <Moment local={true} format="HH:mm">
-            {date}
-          </Moment>
-          <br />
-          <Moment format="DD-MMM">{date}</Moment>
-        </>
-      ),
-    },
-    {
-      title: "Teams",
-      render: (_, fixture) => (
-        <MarketsChannel
-          channel="MarketsChannel"
-          fixture={fixture.id}
-          market="1"
-          received={(data) => {
-            updateMatchInfo(
-              data,
-              prematchGames,
-              setPrematchGames,
-              data.market_identifier,
-              "Market"
-            );
-          }}
-        >
-          {fixture.part_one_name} <br />
-          {fixture.part_two_name}
-        </MarketsChannel>
-      ),
-    },
-    {
-      title: "Tournament",
+      title: "League",
       render: (_, fixture) => (
         <PreOddsChannel
           channel="PreOddsChannel"
@@ -472,43 +550,74 @@ const Home = (props) => {
   ];
 
   const columns_feat = [
+    isMobile
+      ? {}
+      : {
+          title: "Date",
+          dataIndex: "start_date",
+          render: (date) => (
+            <>
+              <Moment local={true} format="HH:mm">
+                {date}
+              </Moment>
+              <br />
+              <Moment format="DD-MMM">{date}</Moment>
+            </>
+          ),
+        },
+    isMobile
+      ? {
+          title: "Fixture",
+          render: (_, fixture) => (
+            <>
+              {/* <hr /> */}
+              <MarketsChannel
+                channel="MarketsChannel"
+                fixture={fixture.id}
+                market="1"
+                received={(data) => {
+                  updateMatchInfo(
+                    data,
+                    featuredGames,
+                    setFeaturedGames,
+                    data.market_identifier,
+                    "Market"
+                  );
+                }}
+              >
+                {fixture.part_one_name} <br />
+                {fixture.part_two_name}
+              </MarketsChannel>
+              <p className="tournament-pr-top">
+                <Moment format="DD-MMM HH:mm">{fixture.start_date}</Moment>
+              </p>
+            </>
+          ),
+        }
+      : {
+          title: "Fixture",
+          render: (_, fixture) => (
+            <MarketsChannel
+              channel="MarketsChannel"
+              fixture={fixture.id}
+              market="1"
+              received={(data) => {
+                updateMatchInfo(
+                  data,
+                  featuredGames,
+                  setFeaturedGames,
+                  data.market_identifier,
+                  "Market"
+                );
+              }}
+            >
+              {fixture.part_one_name} <br />
+              {fixture.part_two_name}
+            </MarketsChannel>
+          ),
+        },
     {
-      title: "Date",
-      dataIndex: "start_date",
-      render: (date) => (
-        <>
-          <Moment local={true} format="HH:mm">
-            {date}
-          </Moment>
-          <br />
-          <Moment format="DD-MMM">{date}</Moment>
-        </>
-      ),
-    },
-    {
-      title: "Teams",
-      render: (_, fixture) => (
-        <MarketsChannel
-          channel="MarketsChannel"
-          fixture={fixture.id}
-          market="1"
-          received={(data) => {
-            updateMatchInfo(
-              data,
-              featuredGames,
-              setFeaturedGames,
-              data.market_identifier,
-              "Market"
-            );
-          }}
-        >
-          {fixture.part_one_name} <br />
-          {fixture.part_two_name}
-        </MarketsChannel>
-      ),
-    },
-    {
-      title: "Tournament",
+      title: "League",
       render: (_, fixture) => (
         <PreOddsChannel
           channel="PreOddsChannel"

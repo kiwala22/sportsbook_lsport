@@ -68,41 +68,71 @@ const Upcoming = (props) => {
   };
 
   const columns = [
-    {
-      title: "Date",
-      dataIndex: "start_date",
-      render: (date) => (
-        <>
-          <Moment local={true} format="HH:mm">
-            {date}
-          </Moment>
-          <br />
-          <Moment format="DD-MMM">{date}</Moment>
-        </>
-      ),
-    },
-    {
-      title: "Teams",
-      render: (_, fixture) => (
-        <MarketsChannel
-          channel="MarketsChannel"
-          fixture={fixture.id}
-          market="52"
-          received={(data) => {
-            updateMatchInfo(
-              data,
-              games,
-              setGames,
-              data.market_identifier,
-              "Market"
-            );
-          }}
-        >
-          {fixture.part_one_name} <br />
-          {fixture.part_two_name}
-        </MarketsChannel>
-      ),
-    },
+    isMobile
+      ? {}
+      : {
+          title: "Date",
+          dataIndex: "start_date",
+          render: (date) => (
+            <>
+              <Moment local={true} format="HH:mm">
+                {date}
+              </Moment>
+              <br />
+              <Moment format="DD-MMM">{date}</Moment>
+            </>
+          ),
+        },
+    isMobile
+      ? {
+          title: "Fixture",
+          render: (_, fixture) => (
+            <>
+              <MarketsChannel
+                channel="MarketsChannel"
+                fixture={fixture.id}
+                market="52"
+                received={(data) => {
+                  updateMatchInfo(
+                    data,
+                    games,
+                    setGames,
+                    data.market_identifier,
+                    "Market"
+                  );
+                }}
+              >
+                {fixture.part_one_name} <br />
+                {fixture.part_two_name}
+              </MarketsChannel>
+              <p className="tournament-pr-top">
+                <Moment format="DD-MMM HH:mm">{fixture.start_date}</Moment>
+              </p>
+            </>
+          ),
+        }
+      : {
+          title: "Fixture",
+          render: (_, fixture) => (
+            <MarketsChannel
+              channel="MarketsChannel"
+              fixture={fixture.id}
+              market="52"
+              received={(data) => {
+                updateMatchInfo(
+                  data,
+                  games,
+                  setGames,
+                  data.market_identifier,
+                  "Market"
+                );
+              }}
+            >
+              {fixture.part_one_name} <br />
+              {fixture.part_two_name}
+            </MarketsChannel>
+          ),
+        },
     {
       title: "Competition",
       render: (_, fixture) => (

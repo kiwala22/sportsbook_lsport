@@ -115,8 +115,8 @@ const Navbar = (props) => {
       </Menu.Item>
       <Menu.Item key="2">
         <a>
-          <DollarOutlined className="mr-2 text-gray-400" />{" "}
-          {currencyFormatter(userInfo.balance)}
+          <DollarOutlined className="mr-2 text-gray-400" />
+          {"Bonus"} <strong>{currencyFormatter(userInfo.bonus)}</strong>
         </a>
       </Menu.Item>
       <Menu.Item key="3">
@@ -207,8 +207,15 @@ const Navbar = (props) => {
                     <ul className="navbar-nav mr-auto">
                       <li></li>
                       <li className="nav-item active">
-                        <a href="/" className="nav-link active">
+                        <a href="/" className="nav-link active nav-link-custom">
                           {currencyFormatter(userInfo.balance)}
+                          <p className="date-pr-space">
+                            <small>
+                              <strong>
+                                Bonus {currencyFormatter(userInfo.bonus)}
+                              </strong>
+                            </small>
+                          </p>
                         </a>
                       </li>
                     </ul>
@@ -346,32 +353,53 @@ const Navbar = (props) => {
             </Link>
           </NavBar>
           {showSearch && <div className="mobile-search">{search}</div>}
-          {!signedIn && (
-            <NavBar mode="dark">
-              <>
-                <div className="navbar-nav ml-auto">
-                  <Login>
-                    <Button
-                      id="login"
-                      className="bttn-small btn-fill ml-2 border-transparent register-btn"
-                    >
-                      <i className="fas fa-lock fa-fw"></i> Login
-                    </Button>
-                  </Login>
-                </div>
-                <div className="navbar-nav ml-1">
-                  <SignUp>
-                    <Button
-                      id="signup"
-                      className="bttn-small btn-fill border-transparent register-btn"
-                    >
-                      <i className="fas fa-key fa-fw"></i> Register
-                    </Button>
-                  </SignUp>
-                </div>
-              </>
-            </NavBar>
-          )}
+          <NavBar
+            mode="dark"
+            // rightContent={
+            //   signedIn && verified
+            //     ? [
+            //         <p className="date-pr-space">
+            //           <small>Bonus {currencyFormatter(userInfo.bonus)}</small>
+            //         </p>,
+            //       ]
+            //     : []
+            // }
+          >
+            <>
+              {!signedIn && (
+                <>
+                  <div className="navbar-nav ml-auto">
+                    <Login>
+                      <Button
+                        id="login"
+                        className="bttn-small btn-fill ml-2 border-transparent register-btn"
+                      >
+                        <i className="fas fa-lock fa-fw"></i> Login
+                      </Button>
+                    </Login>
+                  </div>
+                  <div className="navbar-nav ml-1">
+                    <SignUp>
+                      <Button
+                        id="signup"
+                        className="bttn-small btn-fill border-transparent register-btn"
+                      >
+                        <i className="fas fa-key fa-fw"></i> Register
+                      </Button>
+                    </SignUp>
+                  </div>
+                </>
+              )}
+              {signedIn && verified && (
+                <>
+                  <span className="row">
+                    <i className="fas fa-money-bill-wave fa-sm fa-fw mr-2 text-gray-400"></i>{" "}
+                    {currencyFormatter(userInfo.balance)}
+                  </span>
+                </>
+              )}
+            </>
+          </NavBar>
         </>
       )}
     </>

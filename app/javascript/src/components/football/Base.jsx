@@ -76,7 +76,7 @@ const Base = (props) => {
         <section
           className={
             isMobile && signedIn
-              ? "section-container topping-mobile"
+              ? "section-container topping-mobile-float"
               : isMobile && !signedIn
               ? "section-container topping-mobile-float"
               : "section-container topping"

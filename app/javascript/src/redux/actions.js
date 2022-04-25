@@ -1,4 +1,5 @@
 import Requests from "../utilities/Requests";
+import cogoToast from "cogo-toast";
 
 export default function addBet(
   dispatcher,
@@ -29,5 +30,7 @@ export default function addBet(
         payload: [{ Id: fixtureId, choice: choice }],
       });
     })
-    .catch((error) => console.log(error));
+    .catch((error) => {
+      cogoToast.warn(error.response.data.errors, 4);
+    });
 }

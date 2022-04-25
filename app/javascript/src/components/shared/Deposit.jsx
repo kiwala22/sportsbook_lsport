@@ -29,6 +29,11 @@ const Deposit = (props) => {
       }, 2000);
       return;
     }
+    if (values.amount < 500 || values.amount > 500000) {
+      cogoToast.error("Minimum Deposit is 500 USH.", 5);
+      setIsLoading(false);
+      return;
+    }
     // process deposit here
     let phoneNumber = PhoneFormat(values.phone_number.phone);
     let variables = {

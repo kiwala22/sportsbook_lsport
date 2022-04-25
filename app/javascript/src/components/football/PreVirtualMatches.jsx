@@ -62,43 +62,73 @@ const PreVirtualMatches = (props) => {
   };
 
   const columns = [
+    isMobile
+      ? {}
+      : {
+          title: "Date",
+          dataIndex: "start_date",
+          render: (date) => (
+            <>
+              <Moment local={true} format="HH:mm">
+                {date}
+              </Moment>
+              <br />
+              <Moment format="DD-MMM">{date}</Moment>
+            </>
+          ),
+        },
+    isMobile
+      ? {
+          title: "Fixture",
+          render: (_, fixture) => (
+            <>
+              <MarketsChannel
+                channel="MarketsChannel"
+                fixture={fixture.id}
+                market="1"
+                received={(data) => {
+                  updateMatchInfo(
+                    data,
+                    games,
+                    setGames,
+                    data.market_identifier,
+                    "Market"
+                  );
+                }}
+              >
+                {fixture.part_one_name} <br />
+                {fixture.part_two_name}
+              </MarketsChannel>
+              <p className="tournament-pr-top">
+                <Moment format="DD-MMM HH:mm">{fixture.start_date}</Moment>
+              </p>
+            </>
+          ),
+        }
+      : {
+          title: "Fixture",
+          render: (_, fixture) => (
+            <MarketsChannel
+              channel="MarketsChannel"
+              fixture={fixture.id}
+              market="1"
+              received={(data) => {
+                updateMatchInfo(
+                  data,
+                  games,
+                  setGames,
+                  data.market_identifier,
+                  "Market"
+                );
+              }}
+            >
+              {fixture.part_one_name} <br />
+              {fixture.part_two_name}
+            </MarketsChannel>
+          ),
+        },
     {
-      title: "Date",
-      dataIndex: "start_date",
-      render: (date) => (
-        <>
-          <Moment local={true} format="HH:mm">
-            {date}
-          </Moment>
-          <br />
-          <Moment format="DD-MMM">{date}</Moment>
-        </>
-      ),
-    },
-    {
-      title: "Teams",
-      render: (_, fixture) => (
-        <MarketsChannel
-          channel="MarketsChannel"
-          fixture={fixture.id}
-          market="1"
-          received={(data) => {
-            updateMatchInfo(
-              data,
-              games,
-              setGames,
-              data.market_identifier,
-              "Market"
-            );
-          }}
-        >
-          {fixture.part_one_name} <br />
-          {fixture.part_two_name}
-        </MarketsChannel>
-      ),
-    },
-    {
-      title: "Tournament",
+      title: "League",
       render: (_, fixture) => (
         <PreOddsChannel
           channel="PreOddsChannel"
@@ -214,7 +244,7 @@ const PreVirtualMatches = (props) => {
             <div className="card">
               <div className="card-header">
                 <h3>
-                  Upcoming Fixtures - Virtual Soccer{" "}
+                  Upcoming - Virtual Soccer{" "}
                   <i className="fas fa-futbol fa-lg fa-fw mr-2 match-time"></i>
                 </h3>
                 <span className="float-right custom-span">

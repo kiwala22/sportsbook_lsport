@@ -68,43 +68,74 @@ const PreMatches = (props) => {
   };
 
   const columns = [
+    isMobile
+      ? {}
+      : {
+          title: "Date",
+          dataIndex: "start_date",
+          render: (date) => (
+            <>
+              <Moment local={true} format="HH:mm">
+                {date}
+              </Moment>
+              <br />
+              <Moment format="DD-MMM">{date}</Moment>
+            </>
+          ),
+        },
+    isMobile
+      ? {
+          title: "Fixture",
+          render: (_, fixture) => (
+            <>
+              {/* <hr /> */}
+              <MarketsChannel
+                channel="MarketsChannel"
+                fixture={fixture.id}
+                market="1"
+                received={(data) => {
+                  updateMatchInfo(
+                    data,
+                    games,
+                    setGames,
+                    data.market_identifier,
+                    "Market"
+                  );
+                }}
+              >
+                {fixture.part_one_name} <br />
+                {fixture.part_two_name}
+              </MarketsChannel>
+              <p className="tournament-pr-top">
+                <Moment format="DD-MMM HH:mm">{fixture.start_date}</Moment>
+              </p>
+            </>
+          ),
+        }
+      : {
+          title: "Fixture",
+          render: (_, fixture) => (
+            <MarketsChannel
+              channel="MarketsChannel"
+              fixture={fixture.id}
+              market="1"
+              received={(data) => {
+                updateMatchInfo(
+                  data,
+                  games,
+                  setGames,
+                  data.market_identifier,
+                  "Market"
+                );
+              }}
+            >
+              {fixture.part_one_name} <br />
+              {fixture.part_two_name}
+            </MarketsChannel>
+          ),
+        },
     {
-      title: "Date",
-      dataIndex: "start_date",
-      render: (date) => (
-        <>
-          <Moment local={true} format="HH:mm">
-            {date}
-          </Moment>
-          <br />
-          <Moment format="DD-MMM">{date}</Moment>
-        </>
-      ),
-    },
-    {
-      title: "Teams",
-      render: (_, fixture) => (
-        <MarketsChannel
-          channel="MarketsChannel"
-          fixture={fixture.id}
-          market="1"
-          received={(data) => {
-            updateMatchInfo(
-              data,
-              games,
-              setGames,
-              data.market_identifier,
-              "Market"
-            );
-          }}
-        >
-          {fixture.part_one_name} <br />
-          {fixture.part_two_name}
-        </MarketsChannel>
-      ),
-    },
-    {
-      title: "Tournament",
+      title: "League",
       render: (_, fixture) => (
         <PreOddsChannel
           channel="PreOddsChannel"
@@ -138,8 +169,18 @@ const PreMatches = (props) => {
               : "btnn intialise_input btn btn-light wagger-btn"
           }
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
+          // ref={setRef(`${fixture.id}_market_1_1`)}
           onClick={() =>
-            addBet(dispatcher, "1", "PreMarket", fixture.id, "1X2 FT - 1", "1")
+            addBet(
+              dispatcher,
+              "1",
+              "PreMarket",
+              fixture.id,
+              "1X2 FT - 1",
+              "1",
+              null,
+              `${fixture.id}_market_1_1`
+            )
           }
         >
           {fixture.markets.length == 0 || fixture.markets[0].odds === null
@@ -161,8 +202,18 @@ const PreMatches = (props) => {
               : "btnn intialise_input btn btn-light wagger-btn"
           }
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
+          // ref={setRef(`${fixture.id}_market_1_X`)}
           onClick={() =>
-            addBet(dispatcher, "X", "PreMarket", fixture.id, "1X2 FT - X", "1")
+            addBet(
+              dispatcher,
+              "X",
+              "PreMarket",
+              fixture.id,
+              "1X2 FT - X",
+              "1",
+              null,
+              `${fixture.id}_market_1_X`
+            )
           }
         >
           {fixture.markets.length == 0 || fixture.markets[0].odds === null
@@ -184,8 +235,18 @@ const PreMatches = (props) => {
               : "btnn intialise_input btn btn-light wagger-btn"
           }
           data-disable-with="<i class='fas fa-spinner fa-spin'></i>"
+          // ref={setRef(`${fixture.id}_market_1_2`)}
           onClick={() =>
-            addBet(dispatcher, "2", "PreMarket", fixture.id, "1X2 FT - 2", "1")
+            addBet(
+              dispatcher,
+              "2",
+              "PreMarket",
+              fixture.id,
+              "1X2 FT - 2",
+              "1",
+              null,
+              `${fixture.id}_market_1_2`
+            )
           }
         >
           {fixture.markets.length == 0 || fixture.markets[0].odds === null

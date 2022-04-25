@@ -41,7 +41,12 @@ class LineBetsController < ApplicationController
         specifier: params[:specifier]
       )
     else
-      @line_bet =
+      line_bets_count = @cart.line_bets.count()
+
+      if line_bets_count > 49
+        render json: {errors: "Maximum number of bets is 50."}, status: 400 and return
+      else
+        @line_bet =
         @cart.line_bets.build(
           fixture_id: fixture.id,
           outcome: outcome,
@@ -52,6 +57,7 @@ class LineBetsController < ApplicationController
           specifier: params[:specifier],
           sport: fixture.sport
         )
+      end
     end
 
     ## After adding the line_bet to cart, send all line_bets in cart to react state
