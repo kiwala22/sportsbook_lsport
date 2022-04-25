@@ -29,7 +29,7 @@ const Deposit = (props) => {
       }, 2000);
       return;
     }
-    if (values.amount < 500 || values.amount > 500000) {
+    if (values.amount < 500) {
       cogoToast.error("Minimum Deposit is 500 USH.", 5);
       setIsLoading(false);
       return;

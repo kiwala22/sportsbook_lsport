@@ -152,7 +152,7 @@ h6 {
 
 .ant-table {
   color: @heading-color;
-  background: @secondary-background;
+  background: @secondary-background !important;
 }
 
 .hide-row {
@@ -173,11 +173,11 @@ h6 {
 }
 
 .ant-table-tbody > tr.ant-table-row:hover > td {
-  background: transparent;
+  background: @secondary-background;
 }
 
 .ant-table-tbody > tr.ant-table-placeholder:hover > td {
-  background: transparent;
+  background: @secondary-background;
 }
 
 .ant-pagination {
@@ -506,6 +506,10 @@ a.bttn-small.btn-fill.border-transparent {
 
 .ant-table table {
   text-align: left;
+}
+
+.ant-table-tbody > tr > td.ant-table-cell-row-hover {
+  background: @secondary-background;
 }
 
 .icon-more:hover {
