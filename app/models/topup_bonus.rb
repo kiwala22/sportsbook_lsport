@@ -3,7 +3,7 @@ class TopupBonus < ApplicationRecord
    validates :amount, presence: true, unless: :multiplier
    validates :multiplier, presence: true, unless: :amount
 
-   BONUS_LIMIT = 500000
+   BONUS_LIMIT = 100000
 
    def self.fist_deposit_bonus(user_id, transaction_id)
 
