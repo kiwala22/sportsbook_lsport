@@ -2,6 +2,7 @@ import { BarcodeOutlined } from "@ant-design/icons";
 import { Button, Form, Input } from "antd";
 import cogoToast from "cogo-toast";
 import React, { useState } from "react";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { withRouter } from "react-router";
 import Requests from "../../utilities/Requests";
@@ -10,6 +11,18 @@ const Verify = (props) => {
   const [form] = Form.useForm();
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    //append tag into body
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.innerHTML = "esk('track', 'Conversion');";
+    document.body.appendChild(script);
+    return () => {
+      //remove tag from body
+      document.body.remove(script);
+    };
+  }, []);
 
   const handleVerification = (data) => {
     setIsLoading(true);
