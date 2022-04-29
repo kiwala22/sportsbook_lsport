@@ -47,6 +47,7 @@ const Bets = () => {
     {
       title: "Games",
       dataIndex: "bet_count",
+      responsive: ["md"],
     },
     {
       title: "Stake",
@@ -60,11 +61,13 @@ const Bets = () => {
     {
       title: "Win Amount",
       dataIndex: "win_amount",
+      responsive: ["md"],
       render: (win) => currencyFormatter(win),
     },
     {
       title: "Payout",
       dataIndex: "payout",
+      responsive: ["md"],
       render: (amount) => currencyFormatter(amount),
     },
     {
@@ -79,11 +82,13 @@ const Bets = () => {
     {
       title: "Paid",
       dataIndex: "paid",
+      responsive: ["md"],
       render: (paid) => (paid === true ? "True" : "False"),
     },
     {
       title: "Bet Time",
       dataIndex: "created_at",
+      responsive: ["md"],
       render: (time) => (
         <Moment local={true} format=" HH:mm a DD/MMM">
           {time}

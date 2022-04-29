@@ -38,14 +38,15 @@ const Transactions = () => {
   };
 
   const columns = [
-    {
-      title: "#No",
-      render: (_, data, index) => index + 1,
-      responsive: ["md"],
-    },
+    // {
+    //   title: "#No",
+    //   render: (_, data, index) => index + 1,
+    //   responsive: ["md"],
+    // },
     {
       title: "Phone Number",
       dataIndex: "phone_number",
+      responsive: ["md"],
       render: (phone) => {
         return "0" + phone.slice(3);
       },
@@ -67,11 +68,13 @@ const Transactions = () => {
     {
       title: "Balance Before",
       dataIndex: "balance_before",
+      responsive: ["md"],
       render: (balance_before) => currencyFormatter(balance_before),
     },
     {
       title: "Balance After",
       dataIndex: "balance_after",
+      responsive: ["md"],
       render: (balance_after) => currencyFormatter(balance_after),
     },
     {
