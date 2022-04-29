@@ -68,7 +68,7 @@ RSpec.describe TopupBonus, type: :model do
 
    end
 
-   it "activates the bonus when betspip with stake greater than bonus is made" do
+   it "activates the bonus when betslip with stake is 25X the bonus is made" do
       @bonus.update!(status: "Active")
       ## Check if there's a first deposit bonus
       if TopupBonus.exists? && TopupBonus.last.status == "Active"
@@ -79,7 +79,7 @@ RSpec.describe TopupBonus, type: :model do
       betslip.update(
          {
             bet_count: 2,
-            stake: 1000,
+            stake: 5000,
             win_amount: 50000,
             odds: 100,
             status: "Active",
@@ -132,7 +132,7 @@ RSpec.describe TopupBonus, type: :model do
       expect(User.find(@user.id).balance).to eq(1000)
 
    end
-   it "Does not activate bonus on the second ticket" do
+   it "Does not activate bonus on the second ticket until the limit is hit" do
       @bonus.update!(status: "Active")
       ## Check if there's a first deposit bonus
       if TopupBonus.exists? && TopupBonus.last.status == "Active"
@@ -169,7 +169,7 @@ RSpec.describe TopupBonus, type: :model do
       betslip.update(
          {
             bet_count: 2,
-            stake: 2500,
+            stake: 4000,
             win_amount: 50000,
             odds: 100,
             status: "Active",
@@ -232,7 +232,7 @@ RSpec.describe TopupBonus, type: :model do
       betslip.update(
          {
             bet_count: 2,
-            stake: 2500,
+            stake: 4500,
             win_amount: 50000,
             odds: 100,
             status: "Active",

@@ -27,7 +27,7 @@ class BetSlip < ApplicationRecord
          if UserBonus.where(user_id: self.user_id, status: "Active").exists?
             user = User.find(self.user_id)
             bonus = UserBonus.where(user_id: self.user_id, status: "Active").last
-            limit = ( bonus.amount / 0.2)
+            limit = ( bonus.amount * 25)
             stakes = user.bet_slips.sum(:stake)
             if stakes >= limit
                balance_before = user.balance
