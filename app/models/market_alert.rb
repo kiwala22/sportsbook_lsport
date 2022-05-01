@@ -38,6 +38,7 @@ class MarketAlert < ApplicationRecord
 
                   #Restart the Feed
                   restart_feed()
+                  # suggested restart_feed(product)
 
                end
             end

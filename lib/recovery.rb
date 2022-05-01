@@ -24,6 +24,7 @@ module Recovery
 
     include Lsports
 
+    # suggested pull_latest_odds(product)
     def pull_latest_odds()
       if product == "1"
          response = get_live()
@@ -36,6 +37,7 @@ module Recovery
 
     end
 
+    # suggested restart_feed(product)
     def restart_feed()
       if product == "1"
           code , message = start_livematch_distribution

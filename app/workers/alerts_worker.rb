@@ -65,6 +65,7 @@ class AlertsWorker
 
             #pull the latest odds
             pull_latest_odds()
+            #suggested pull_latest_odds(product)
 
 
          end
