@@ -24,7 +24,12 @@ module Recovery
 
     include Lsports
 
+<<<<<<< HEAD
     def pull_latest_odds(product)
+=======
+    # suggested pull_latest_odds(product)
+    def pull_latest_odds()
+>>>>>>> origin/master
       if product == "1"
          response = get_live()
       end

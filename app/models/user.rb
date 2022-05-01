@@ -15,7 +15,7 @@ class User < ApplicationRecord
    has_many :user_bonuses
 
    after_save :send_pin!
-   #before_create :process_signup_bonus
+   before_create :process_signup_bonus
 
    def login
       @login || self.phone_number

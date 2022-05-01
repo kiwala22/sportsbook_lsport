@@ -15,7 +15,7 @@ class Backend::SignUpBonusesController < ApplicationController
 
 
   def create
-  	@signup_bonus = SignUpBonus.new(signup_bonus_params)
+  	@signup_bonus = SignUpBonus.new(sign_up_bonus_params)
 
     active_bonus = SignUpBonus.where(status:'Active')
     if active_bonus.blank?
@@ -37,7 +37,7 @@ class Backend::SignUpBonusesController < ApplicationController
 
 
   private
-    def signup_bonus_params
+    def sign_up_bonus_params
       params.require(:sign_up_bonus).permit(:amount, :expiry)
     end
 
