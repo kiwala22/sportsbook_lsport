@@ -37,7 +37,7 @@ class MarketAlert < ApplicationRecord
                   DeactivateMarketsWorker.perform_async(product)
 
                   #Restart the Feed
-                  restart_feed()
+                  restart_feed(product)
 
                end
             end

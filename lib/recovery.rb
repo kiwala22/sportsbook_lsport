@@ -24,7 +24,7 @@ module Recovery
 
     include Lsports
 
-    def pull_latest_odds()
+    def pull_latest_odds(product)
       if product == "1"
          response = get_live()
       end
@@ -36,7 +36,7 @@ module Recovery
 
     end
 
-    def restart_feed()
+    def restart_feed(product)
       if product == "1"
           code , message = start_livematch_distribution
           if code == 200 && message.include?("Value was already set")

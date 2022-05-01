@@ -61,10 +61,10 @@ class AlertsWorker
                   subscribed: "1"
                }
             )
-            
+
 
             #pull the latest odds
-            pull_latest_odds()
+            pull_latest_odds(product)
 
 
          end
