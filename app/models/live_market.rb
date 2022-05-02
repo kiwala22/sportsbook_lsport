@@ -22,8 +22,10 @@ class LiveMarket < ApplicationRecord
       # fixture["market_identifier"] = self.market_identifier
 
       # Make the broadcasts
-      CableWorker.perform_async("live_odds_#{self.market_identifier}_#{self.fixture_id}", self.as_json)
-      CableWorker.perform_async("betslips_#{self.market_identifier}_#{self.fixture_id}", self.as_json)
+      ActionCable.server.broadcast("live_odds_#{self.market_identifier}_#{self.fixture_id}", self.as_json)
+      ActionCable.server.broadcast("betslips_#{self.market_identifier}_#{self.fixture_id}", self.as_json)
+      # CableWorker.perform_async("live_odds_#{self.market_identifier}_#{self.fixture_id}", self.as_json)
+      # CableWorker.perform_async("betslips_#{self.market_identifier}_#{self.fixture_id}", self.as_json)
     end
 
     
@@ -35,8 +37,10 @@ class LiveMarket < ApplicationRecord
       #  fixture["market_identifier"] = self.market_identifier
 
        #Make the broadcast for market and betslip
-       CableWorker.perform_async("betslips_#{self.market_identifier}_#{self.fixture_id}", self.as_json)
-       CableWorker.perform_async("markets_#{self.market_identifier}_#{self.fixture_id}", self.as_json)
+       ActionCable.server.broadcast("betslips_#{self.market_identifier}_#{self.fixture_id}", self.as_json)
+       ActionCable.server.broadcast("markets_#{self.market_identifier}_#{self.fixture_id}", self.as_json)
+      #  CableWorker.perform_async("betslips_#{self.market_identifier}_#{self.fixture_id}", self.as_json)
+      #  CableWorker.perform_async("markets_#{self.market_identifier}_#{self.fixture_id}", self.as_json)
     end
  end
 end
