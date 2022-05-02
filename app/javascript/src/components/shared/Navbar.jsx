@@ -8,7 +8,10 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { Badge, Button, Dropdown, Form, Input, Menu } from "antd";
-import { Icon, NavBar } from "antd-mobile";
+import Icon from "antd-mobile/lib/icon";
+import NavBar from "antd-mobile/lib/nav-bar";
+import "antd-mobile/lib/icon/style/index.less";
+import "antd-mobile/lib/nav-bar/style/index.less";
 import cogoToast from "cogo-toast";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
