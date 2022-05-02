@@ -1,5 +1,7 @@
 const { environment } = require("@rails/webpacker");
 const webpack = require("webpack");
+const BrotliPlugin = require("brotli-webpack-plugin");
+const CompressionPlugin = require("compression-webpack-plugin");
 environment.plugins.prepend(
   "Provide",
   new webpack.ProvidePlugin({
@@ -10,6 +12,31 @@ environment.plugins.prepend(
     moment: "moment/moment",
   })
 );
+
+environment.plugins.prepend(
+  "Provide",
+  new BrotliPlugin({
+    asset: "[path].br[query]",
+    algorithm: "brotliCompress",
+    test: /\.(js|jsx|css|html|svg|webp)$/,
+    exclude: /.map$/,
+    deleteOriginalAssets: false,
+    threshold: 10240,
+    minRatio: 0.8,
+  })
+);
+
+// environment.plugins.prepend(
+//   "Provide",
+//   new CompressionPlugin({
+//     // test: /\.js(\?.*)?$/i,
+//     test: /\.(js|jsx|css|html|svg|webp)$/,
+//     filename: "[path].gz[query]",
+//     algorithm: "gzip",
+//     exclude: /.map$/,
+//     deleteOriginalAssets: false,
+//   })
+// );
 
 const config = environment.toWebpackConfig();
 config.resolve.alias = {

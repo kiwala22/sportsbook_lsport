@@ -124,15 +124,22 @@ module Lsports
     ## Get Events
     ## Dates can be in format "Date.today.strftime("%F")"
     ## Method call ex: get_events(Date.today.strftime("%F"), (Date.today + 1.day).strftime("%F"))
-    def get_events(from_date, to_date, sports_id)
+    def get_events(from_date, to_date, sports_id = @@sports_id)
 
         # Convert the date to Unix timestamps
         start_date = from_date.to_time.to_i
         end_date = to_date.to_time.to_i
 
-        # Markets we require 
-        required_markets = ["1", "2", "3", "7", "17", "25", "53", "77", "113", "282"]
-        markets = required_markets.join(",") 
+        case sports_id
+        when "48242" #basketball
+            required_markets = ["2", "3", "226", "63", "53", "28", "21", "342", "282"]
+        when "6046" #football
+            required_markets = ["1", "2", "3", "5", "7", "17", "13", "16", "19", "21", "25", "41", "42", "52", "55", "61", "64", "65" "113", "245", "45"]
+        when "54094" #tennis
+            required_markets = ["2", "3", "41", "42", "52", "21", "45", "65", "166", "201"]
+        end
+
+        markets = required_markets.join(",")
 
         url = @@end_point + "GetEvents"
 
@@ -157,13 +164,30 @@ module Lsports
         end
 
         response = res.code
-        result = JSON.parse(res.body)
+        data = JSON.parse(res.body)
 
         if response == "200"
-            return result["Body"]
+            
+            routing_key = "pre_match"
+            message_type = data["Header"]["Type"]
+
+            case message_type
+
+            when 3
+                OddsChangeWorker.perform_async(data, routing_key)
+
+            when 1
+                FixtureChangeWorker.perform_async(data, routing_key)
+
+            when 35
+                BetSettlementWorker.perform_async(data, routing_key)
+
+            when 2
+                LiveScoresWorker.perform_async(data, routing_key)
+            end
         else
-            @@logger.error(result)
-            return JSON.parse(result)
+            @@logger.error(data)
+            return JSON.parse(data)
         end
     end
 

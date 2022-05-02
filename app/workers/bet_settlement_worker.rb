@@ -3,7 +3,7 @@ require 'json'
 
 class BetSettlementWorker
     include Sidekiq::Worker
-    sidekiq_options queue: "default", retry: false
+    sidekiq_options queue: "critical", retry: false
 
     include MarketNames
 

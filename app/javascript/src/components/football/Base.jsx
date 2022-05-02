@@ -1,5 +1,5 @@
 import cogoToast from "cogo-toast";
-import React, { useEffect } from "react";
+import React, { lazy, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Redirect,
@@ -8,33 +8,35 @@ import {
   useHistory,
   withRouter,
 } from "react-router-dom";
-import Bets from "../shared/Bets";
+import lazyComponent from "../../utilities/lazy";
+const Bets = lazy(() => import("../shared/Bets"));
 import BetSlip from "../shared/BetSlip";
-import Deposit from "../shared/Deposit";
-import Faqs from "../shared/Faqs";
+const Deposit = lazy(() => import("../shared/Deposit"));
+const Faqs = lazy(() => import("../shared/Faqs"));
 import Footer from "../shared/Footer";
 import Navbar from "../shared/Navbar";
-import NewPassword from "../shared/NewPassword";
-import PasswordCode from "../shared/PasswordCode";
-import PasswordReset from "../shared/PasswordReset";
-import Privacy from "../shared/Privacy";
-import Rules from "../shared/Rules";
+const NewPassword = lazy(() => import("../shared/NewPassword"));
+const PasswordCode = lazy(() => import("../shared/PasswordCode"));
+const PasswordReset = lazy(() => import("../shared/PasswordReset"));
+const Privacy = lazy(() => import("../shared/Privacy"));
+const Rules = lazy(() => import("../shared/Rules"));
 import SideBanner from "../shared/SideBanner";
-import Support from "../shared/Support";
-import Terms from "../shared/Terms";
-import Transactions from "../shared/Transactions";
+const Support = lazy(() => import("../shared/Support"));
+const Terms = lazy(() => import("../shared/Terms"));
+const Transactions = lazy(() => import("../shared/Transactions"));
+// const Verify = lazy(() => import("../shared/Verify"));
 import Verify from "../shared/Verify";
-import Withdraw from "../shared/Withdraw";
-import Home from "./Home";
-import LiveMatches from "./LiveMatches";
-import LiveVirtualMatches from "./LiveVirtualMatches";
-import PreMatches from "./PreMatches";
-import PreviewLive from "./PreviewLive";
-import PreviewLiveVirtual from "./PreviewLiveVirtual";
-import PreviewPre from "./PreviewPre";
-import PreviewPreVirtual from "./PreviewPreVirtual";
-import PreVirtualMatches from "./PreVirtualMatches";
-import Search from "./Search";
+const Withdraw = lazy(() => import("../shared/Withdraw"));
+const Home = lazy(() => import("./Home"));
+const LiveMatches = lazy(() => import("./LiveMatches"));
+const LiveVirtualMatches = lazy(() => import("./LiveVirtualMatches"));
+const PreMatches = lazy(() => import("./PreMatches"));
+const PreviewLive = lazy(() => import("./PreviewLive"));
+const PreviewLiveVirtual = lazy(() => import("./PreviewLiveVirtual"));
+const PreviewPre = lazy(() => import("./PreviewPre"));
+const PreviewPreVirtual = lazy(() => import("./PreviewPreVirtual"));
+const PreVirtualMatches = lazy(() => import("./PreVirtualMatches"));
+const Search = lazy(() => import("./Search"));
 import Sidebar from "./Sidebar";
 
 const Base = (props) => {
@@ -95,70 +97,101 @@ const Base = (props) => {
                 >
                   <div>
                     <Switch>
-                      <Route path="/bet_slips/" component={Bets} />
-                      <Route path="/transactions/" component={Transactions} />
-                      <Route path="/deposit/" component={Deposit} />
-                      <Route path="/withdraw/" component={Withdraw} />
-                      <Route path="/about/" component={Faqs} />
-                      <Route path="/rules/" component={Rules} />
+                      <Route
+                        path="/bet_slips/"
+                        component={lazyComponent(Bets)}
+                      />
+                      <Route
+                        path="/transactions/"
+                        component={lazyComponent(Transactions)}
+                      />
+                      <Route
+                        path="/deposit/"
+                        component={lazyComponent(Deposit)}
+                      />
+                      <Route
+                        path="/withdraw/"
+                        component={lazyComponent(Withdraw)}
+                      />
+                      <Route path="/about/" component={lazyComponent(Faqs)} />
+                      <Route path="/rules/" component={lazyComponent(Rules)} />
                       <Route
                         path="/responsible_gambling/"
-                        component={Privacy}
+                        component={lazyComponent(Privacy)}
                       />
-                      <Route path="/terms/" component={Terms} />
-                      <Route path="/contacts/" component={Support} />
+                      <Route path="/terms/" component={lazyComponent(Terms)} />
+                      <Route
+                        path="/contacts/"
+                        component={lazyComponent(Support)}
+                      />
                       <Route
                         path={`/${soccerPath.split("/")[1]}/search/`}
                         render={() => {
-                          return redirectOnUnverified(Search);
+                          return redirectOnUnverified(lazyComponent(Search));
                         }}
                       />
                       <Route
                         path={`${soccerPath}/pre/`}
                         render={() => {
-                          return redirectOnUnverified(PreviewPre);
+                          return redirectOnUnverified(
+                            lazyComponent(PreviewPre)
+                          );
                         }}
                       />
                       <Route
                         path={`${virtualPath}/pre/`}
                         render={() => {
-                          return redirectOnUnverified(PreviewPreVirtual);
+                          return redirectOnUnverified(
+                            lazyComponent(PreviewPreVirtual)
+                          );
                         }}
                       />
                       <Route
                         path={`${soccerPath}/live/`}
                         render={() => {
-                          return redirectOnUnverified(PreviewLive);
+                          return redirectOnUnverified(
+                            lazyComponent(PreviewLive)
+                          );
                         }}
                       />
                       <Route
                         path={`${virtualPath}/live/`}
                         render={() => {
-                          return redirectOnUnverified(PreviewLiveVirtual);
+                          return redirectOnUnverified(
+                            lazyComponent(PreviewLiveVirtual)
+                          );
                         }}
                       />
                       <Route
                         path={`${virtualPath}/pres/`}
                         render={() => {
-                          return redirectOnUnverified(PreVirtualMatches);
+                          return redirectOnUnverified(
+                            lazyComponent(PreVirtualMatches)
+                          );
                         }}
                       />
                       <Route
                         path={`${virtualPath}/lives/`}
                         render={() => {
-                          return redirectOnUnverified(LiveVirtualMatches);
+                          return redirectOnUnverified(
+                            lazyComponent(LiveVirtualMatches)
+                          );
                         }}
                       />
                       <Route
                         path={`${soccerPath}/pres/`}
                         render={() => {
-                          return redirectOnUnverified(PreMatches);
+                          return redirectOnUnverified(
+                            lazyComponent(PreMatches)
+                          );
                         }}
                       />
                       <Route
                         path={`${soccerPath}/lives/`}
                         render={() => {
-                          return redirectOnUnverified(LiveMatches);
+                          return redirectOnUnverified(
+                            lazyComponent(LiveMatches)
+                          );
                         }}
                       />
                       <Route
@@ -175,18 +208,21 @@ const Base = (props) => {
                       />
                       <Route
                         path="/users/password/edit"
-                        component={NewPassword}
+                        component={lazyComponent(NewPassword)}
                       />
-                      <Route path="/verify_reset/" component={PasswordCode} />
+                      <Route
+                        path="/verify_reset/"
+                        component={lazyComponent(PasswordCode)}
+                      />
                       <Route
                         path="/password_reset/"
-                        component={PasswordReset}
+                        component={lazyComponent(PasswordReset)}
                       />
                       <Route
                         // exact
                         path="/"
                         render={() => {
-                          return redirectOnUnverified(Home);
+                          return redirectOnUnverified(lazyComponent(Home));
                         }}
                       />
                     </Switch>

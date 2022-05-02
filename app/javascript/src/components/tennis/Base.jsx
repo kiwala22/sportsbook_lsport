@@ -1,29 +1,38 @@
-import React, { useEffect } from "react";
+import React, { lazy, useEffect } from "react";
+import cogoToast from "cogo-toast";
 import { useDispatch, useSelector } from "react-redux";
-import { Route, Switch, useHistory, withRouter } from "react-router-dom";
-import Bets from "../shared/Bets";
+import {
+  Redirect,
+  Route,
+  Switch,
+  useHistory,
+  withRouter,
+} from "react-router-dom";
+import lazyComponent from "../../utilities/lazy";
+const Bets = lazy(() => import("../shared/Bets"));
 import BetSlip from "../shared/BetSlip";
-import Deposit from "../shared/Deposit";
-import Faqs from "../shared/Faqs";
+const Deposit = lazy(() => import("../shared/Deposit"));
+const Faqs = lazy(() => import("../shared/Faqs"));
 import Footer from "../shared/Footer";
 import Navbar from "../shared/Navbar";
-import NewPassword from "../shared/NewPassword";
-import PasswordCode from "../shared/PasswordCode";
-import PasswordReset from "../shared/PasswordReset";
-import Privacy from "../shared/Privacy";
-import Rules from "../shared/Rules";
+const NewPassword = lazy(() => import("../shared/NewPassword"));
+const PasswordCode = lazy(() => import("../shared/PasswordCode"));
+const PasswordReset = lazy(() => import("../shared/PasswordReset"));
+const Privacy = lazy(() => import("../shared/Privacy"));
+const Rules = lazy(() => import("../shared/Rules"));
 import SideBanner from "../shared/SideBanner";
-import Support from "../shared/Support";
-import Terms from "../shared/Terms";
-import Transactions from "../shared/Transactions";
+const Support = lazy(() => import("../shared/Support"));
+const Terms = lazy(() => import("../shared/Terms"));
+const Transactions = lazy(() => import("../shared/Transactions"));
+// const Verify = lazy(() => import("../shared/Verify"));
 import Verify from "../shared/Verify";
-import Withdraw from "../shared/Withdraw";
-import Home from "./Home";
-// import Live from "./Live";
-import PreviewUpcoming from "./PreviewUpcoming";
-import Search from "./Search";
+const Withdraw = lazy(() => import("../shared/Withdraw"));
+const Home = lazy(() => import("./Home"));
+// const Live = lazy(() => import("./Live"));
+const Upcoming = lazy(() => import("./Upcoming"));
+const PreviewUpcoming = lazy(() => import("./PreviewUpcoming"));
+const Search = lazy(() => import("./Search"));
 import Sidebar from "./Sidebar";
-import Upcoming from "./Upcoming";
 
 const Base = (props) => {
   const { signedIn, verified, isMobile, sportType } = useSelector(
@@ -84,36 +93,53 @@ const Base = (props) => {
                 >
                   <div>
                     <Switch>
-                      <Route path="/bet_slips/" component={Bets} />
-                      <Route path="/transactions/" component={Transactions} />
-                      <Route path="/deposit/" component={Deposit} />
-                      <Route path="/withdraw/" component={Withdraw} />
-                      <Route path="/about/" component={Faqs} />
+                      <Route
+                        path="/bet_slips/"
+                        component={lazyComponent(Bets)}
+                      />
+                      <Route
+                        path="/transactions/"
+                        component={lazyComponent(Transactions)}
+                      />
+                      <Route
+                        path="/deposit/"
+                        component={lazyComponent(Deposit)}
+                      />
+                      <Route
+                        path="/withdraw/"
+                        component={lazyComponent(Withdraw)}
+                      />
+                      <Route path="/about/" component={lazyComponent(Faqs)} />
                       <Route
                         path="/responsible_gambling/"
-                        component={Privacy}
+                        component={lazyComponent(Privacy)}
                       />
-                      <Route path="/rules/" component={Rules} />
-                      <Route path="/terms/" component={Terms} />
-                      <Route path="/contacts/" component={Support} />
+                      <Route path="/rules/" component={lazyComponent(Rules)} />
+                      <Route path="/terms/" component={lazyComponent(Terms)} />
+                      <Route
+                        path="/contacts/"
+                        component={lazyComponent(Support)}
+                      />
                       <Route
                         path={`/${mainUrl.split("/")[1]}/search/`}
                         render={() => {
-                          return redirectOnUnverified(Search);
+                          return redirectOnUnverified(lazyComponent(Search));
                         }}
                       />
                       <Route
                         path={`${mainUrl}/pre/`}
                         render={() => {
-                          return redirectOnUnverified(PreviewUpcoming);
+                          return redirectOnUnverified(
+                            lazyComponent(PreviewUpcoming)
+                          );
                         }}
                       />
                       <Route
                         path={`${mainUrl}/pres/`}
                         render={() => {
-                          return redirectOnUnverified(Upcoming);
+                          return redirectOnUnverified(lazyComponent(Upcoming));
                         }}
-                        component={Upcoming}
+                        // component={Upcoming}
                       />
                       {/* <Route
                         path={`${mainUrl}/lives/`}
@@ -135,18 +161,21 @@ const Base = (props) => {
                       />
                       <Route
                         path="/users/password/edit"
-                        component={NewPassword}
+                        component={lazyComponent(NewPassword)}
                       />
-                      <Route path="/verify_reset/" component={PasswordCode} />
+                      <Route
+                        path="/verify_reset/"
+                        component={lazyComponent(PasswordCode)}
+                      />
                       <Route
                         path="/password_reset/"
-                        component={PasswordReset}
+                        component={lazyComponent(PasswordReset)}
                       />
                       <Route
                         // exact
                         path="/"
                         render={() => {
-                          return redirectOnUnverified(Home);
+                          return redirectOnUnverified(lazyComponent(Home));
                         }}
                       />
                     </Switch>

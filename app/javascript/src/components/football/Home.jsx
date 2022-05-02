@@ -36,15 +36,15 @@ const Home = (props) => {
 
   useEffect(() => loadGames(), []);
 
-  // useEffect(() => {
-  //   let interval;
-  //   if (prematchGames.length === 0) {
-  //     interval = setInterval(() => {
-  //       loadGames();
-  //     }, 5000);
-  //   }
-  //   return () => clearInterval(interval);
-  // }, [prematchGames]);
+  useEffect(() => {
+    let interval;
+    if (prematchGames.length === 0) {
+      interval = setInterval(() => {
+        loadGames();
+      }, 5000);
+    }
+    return () => clearInterval(interval);
+  }, [prematchGames]);
 
   useEffect(() => {
     let interval;
