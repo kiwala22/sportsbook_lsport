@@ -26,6 +26,9 @@
       </fieldset>
       <!-- <div class="card-footer"> -->
          <div class="clearfix">
+            <div class="float-left">
+               <%= f.submit 'Search', :class=>'btn btn-danger mb-2' %>
+            </div>
             <div class="float-right">
                <%= f.submit 'Search', :class=>'btn btn-danger mb-2' %>
             </div>
@@ -65,12 +68,12 @@
           </td>
 					<td><%= user.first_name %></td>
 					<td><%= user.last_name %></td>
-          <td><%= user.id_number %></td> 
-          <td><%= user.nationality %></td>  
+          <td><%= user.id_number %></td>
+          <td><%= user.nationality %></td>
           <td><%= user.balance %></td>
-          
+
 					<td><%= user.sign_in_count %></td>
-         
+
           <td><%= user.last_sign_in_ip%></td>
 					<td><%= user.failed_attempts %></td>
           <td>
