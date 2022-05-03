@@ -131,16 +131,21 @@ module Lsports
         end_date = to_date.to_time.to_i unless to_date.nil?
         fixtures =  fixtures.join(",") unless fixtures.nil?
 
-        case sports_id
-        when "48242" #basketball
-            required_markets = ["2", "3", "226", "63", "53", "28", "21", "342", "282"]
-        when "6046" #football
-            required_markets = ["1", "2", "3", "5", "7", "17", "13", "16", "19", "21", "25", "41", "42", "52", "55", "61", "64", "65" "113", "245", "45"]
-        when "54094" #tennis
-            required_markets = ["2", "3", "41", "42", "52", "21", "45", "65", "166", "201"]
+        unless sport_id.nil?
+           case sports_id
+           when "48242" #basketball
+               required_markets = ["2", "3", "226", "63", "53", "28", "21", "342", "282"]
+           when "6046" #football
+               required_markets = ["1", "2", "3", "5", "7", "17", "13", "16", "19", "21", "25", "41", "42", "52", "55", "61", "64", "65" "113", "245", "45"]
+           when "54094" #tennis
+               required_markets = ["2", "3", "41", "42", "52", "21", "45", "65", "166", "201"]
+           end
+
+           markets = required_markets.join(",")
+        else
+           markets = nil
         end
 
-        markets = required_markets.join(",")
 
         url = @@end_point + "GetEvents"
 
