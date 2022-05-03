@@ -10,6 +10,8 @@ import "./css/Antd.less";
 import { store } from "./redux/store";
 import Requests from "./utilities/Requests";
 
+// Force prod compilation
+
 const App = (props) => {
   const dispatch = useDispatch();
   const sportType = useSelector((state) => state.sportType);
