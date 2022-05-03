@@ -39,33 +39,15 @@ class AlertsWorker
          )
 
       elsif (Time.now.to_i - timestamp.to_i)  <= threshold
-         #if the update is within normal time range then check if the previous one was normal too or not
-         #if previous one was normal then just create an update that is subscribed
-         if last_update.subscribed == "1" || last_update.subscribed == nil
-            alert = MarketAlert.create(
-               {
-                  product: product,
-                  timestamp: timestamp,
-                  status: recovery_status,
-                  subscribed: "1"
-               }
-            )
-
-         else
-            #if the last update was unsubscribed then request for recovery
-            RecoveryWorker.perform_async(product)
-
-            #then save the current on time alert
-            alert = MarketAlert.create(
-               {
-                  product: product,
-                  timestamp: timestamp,
-                  status: recovery_status,
-                  subscribed: "1"
-               }
-            )
-
-         end
+         #create an update subscribed
+         alert = MarketAlert.create(
+            {
+               product: product,
+               timestamp: timestamp,
+               status: recovery_status,
+               subscribed: "1"
+            }
+         )
 
       elsif (Time.now.to_i - timestamp.to_i) > threshold
          #If the new alert is later than the threshold, unsubscribe the products
@@ -74,6 +56,7 @@ class AlertsWorker
          puts "Deactivation :: WORKERS ::::: timestamp: #{timestamp}, new stamp: #{last_update[:timestamp]}, product: #{product}"
          #first close all active markets
          DeactivateMarketsWorker.perform_async(product)
+         RecoveryWorker.perform_async(product, last_update.timestamp)
          alert = MarketAlert.create(
             {
                product: product,

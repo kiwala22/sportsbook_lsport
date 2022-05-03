@@ -186,16 +186,13 @@ module Lsports
                #pass this message to the pre-written workers
 
                #fixture worker
-               # FixtureChangeWorker.perform_async(message, "pre_match")
-               # FixtureChangeWorker.perform_async(message, "in_play")
+               FixtureChangeWorker.perform_async(message, "pre_match")
 
                #odds change worker
-               # OddsChangeWorker.perform_async(message, "pre_match")
-               # OddsChangeWorker.perform_async(message, "in_play")
+               OddsChangeWorker.perform_async(message, "pre_match")
 
                #bet settlemt worker
                BetSettlementWorker.perform_async(message, "pre_match")
-               BetSettlementWorker.perform_async(message, "in_play")
             end
 
         else
@@ -584,5 +581,151 @@ module Lsports
             return JSON.parse(res.body)
         end
     end
+
+    def recover_fixture_markets(sports_id = @@sports_id, fromdate, todate)
+
+      case sports_id
+      when "48242" #basketball
+           required_markets = ["2", "3", "226", "63", "53", "28", "21", "342", "282"]
+      when "6046" #football
+           required_markets = ["1", "2", "3", "5", "7", "17", "13", "16", "19", "21", "25", "41", "42", "52", "55", "61", "64", "65" "113", "245", "45"]
+      when "54094" #tennis
+           required_markets = ["2", "3", "41", "42", "52", "21", "45", "65", "166", "201"]
+      end
+
+      markets = required_markets.join(",")
+
+      url = @@end_point + "GetFixtureMarkets"
+
+      uri = URI(url)
+      params= {
+           username: @@username,
+           password: @@password,
+           guid: @@prematch_guid,
+           sports: sports_id,
+           markets: markets,
+           fromdate: fromdate,
+           todate: todate
+      }
+      uri.query = URI.encode_www_form(params)
+
+      req = Net::HTTP::Get.new(uri)
+
+      res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https') do |http|
+
+           http.request(req)
+
+      end
+
+      response = res.code
+
+      if response == "200"
+           ## Create Fixture markets
+           markets = JSON.parse(res.body).as_json
+
+           markets["Body"].each do |market|
+               if market.has_key?("FixtureId")
+                   event_id = market["FixtureId"]
+                   fixture = Fixture.find_by(event_id: event_id)
+                   market_status = {
+                       1 => "Active",
+                       2 => "Suspended",
+                       3 => "Settled"
+                   }
+                   # @@market_description = market["Name"]
+                   attrs = {}
+                   outcomes = {}
+
+                   if fixture
+                       if market.has_key?("Markets") && market["Markets"].is_a?(Array)
+                           market["Markets"].each do |event|
+                              mkt = "PreMarket"
+                              if event.has_key?("Providers") && event["Providers"].is_a?(Array)
+                                   event["Providers"].each do |provider|
+                                       if provider.has_key?("Bets") && provider["Bets"].is_a?(Array)
+                                           if provider["Bets"].any? { |el| el.has_key?("BaseLine") }
+                                               bets = provider["Bets"].group_by{ |vl| vl["BaseLine"]}
+                                               bets.each do |key, value|
+                                                   attrs["specifier"] = key
+                                                   value.each do |bet|
+                                                       outcomes.store("outcome_#{bet["Name"]}", bet["Price"])
+                                                       attrs["status"] = market_status[bet["Status"]]
+                                                   end
+                                                   ##Save the market with specifier
+                                                   # attrs["odds"] = outcomes
+
+                                                   ## Check if market already exists
+                                                   mkt_entry = mkt.constantize.find_by(fixture_id: fixture.id, market_identifier: event["Id"], specifier: key)
+
+                                                   if mkt_entry
+                                                       prevOdds = mkt_entry.odds
+                                                       if !prevOdds.nil?
+                                                           attrs["odds"] = prevOdds.merge!(outcomes)
+                                                       else
+                                                           attrs["odds"] = outcomes
+                                                       end
+                                                       mkt_entry.assign_attributes(attrs)
+                                                       mkt_entry.name = market_name(event["Id"], fixture.sport)
+                                                       mkt_entry.save
+                                                   else
+                                                       attrs["odds"] = outcomes
+                                                       mkt_entry = mkt.constantize.new(attrs)
+                                                       mkt_entry.market_identifier = event["Id"]
+                                                       mkt_entry.name = market_name(event["Id"], fixture.sport)
+                                                       mkt_entry.fixture_id = fixture.id
+                                                       mkt_entry.save
+                                                   end
+
+                                                   outcomes = {}
+                                                   attrs = {}
+                                               end
+                                           else
+                                               provider["Bets"].each do |bet|
+                                                   outcomes.store("outcome_#{bet["Name"]}", bet["Price"])
+                                                   attrs["status"] = market_status[bet["Status"]]
+                                               end
+
+                                               ##Save the market with no specifier
+                                               # attrs["odds"] = outcomes
+
+                                               ## Check if Market already exists
+                                               mkt_entry = mkt.constantize.find_by(fixture_id: fixture.id, market_identifier: event["Id"])
+
+                                               if mkt_entry
+                                                   prevOdds = mkt_entry.odds
+                                                   if !prevOdds.nil?
+                                                       attrs["odds"] = prevOdds.merge!(outcomes)
+                                                   else
+                                                       attrs["odds"] = outcomes
+                                                   end
+                                                   mkt_entry.assign_attributes(attrs)
+                                                   mkt_entry.save
+                                               else
+                                                   attrs["odds"] = outcomes
+                                                   mkt_entry = mkt.constantize.new(attrs)
+                                                   mkt_entry.market_identifier = event["Id"]
+                                                   mkt_entry.name = market_name(event["Id"], fixture.sport)
+                                                   mkt_entry.fixture_id = fixture.id
+                                                   mkt_entry.save
+                                               end
+
+                                               outcomes = {}
+                                               attrs = {}
+                                           end
+                                       end
+                                   end
+                              end
+                           end
+                       end
+                   end
+               end
+           end
+
+           return response
+      else
+           @@logger.error(res.body)
+           return JSON.parse(res.body)
+      end
+  end
 
 end
