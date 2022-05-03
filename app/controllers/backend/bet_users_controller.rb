@@ -63,6 +63,6 @@ class Backend::BetUsersController < ApplicationController
   private
 
   def bet_user_params
-     params.require(:user).permit(:first_name, :last_name:, :password, :phone_number )
+     params.require(:user).permit(:first_name, :last_name, :password, :phone_number )
   end
 end

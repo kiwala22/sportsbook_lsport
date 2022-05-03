@@ -38,11 +38,11 @@ module Lsports
             password: @@password,
             guid: @@prematch_guid
         }
-        
+
         uri.query = URI.encode_www_form(params)
 
         req = Net::HTTP::Get.new(uri)
-        
+
         res = Net::HTTP.start(uri.hostname, uri.port,:use_ssl => uri.scheme == 'https') do |http|
             http.request(req)
         end
@@ -167,24 +167,25 @@ module Lsports
         data = JSON.parse(res.body)
 
         if response == "200"
-            
+
             routing_key = "pre_match"
-            message_type = data["Header"]["Type"]
+            events = data["Body"]
 
-            case message_type
+            #reformat the message
+            message = {"Body": {"Events": data["Body"]}}
 
-            when 3
-                OddsChangeWorker.perform_async(data, routing_key)
+            #pass this message to the pre-written workers
 
-            when 1
-                FixtureChangeWorker.perform_async(data, routing_key)
+            #fixture worker
+            FixtureChangeWorker.preform_async(message, "pre_match")
+            FixtureChangeWorker.preform_async(message, "in_play")
 
-            when 35
-                BetSettlementWorker.perform_async(data, routing_key)
+            #odds change worker
+            OddsChangeWorker.perform_async(message, "pre_match")
+            OddsChangeWorker.perform_async(message, "in_play")
 
-            when 2
-                LiveScoresWorker.perform_async(data, routing_key)
-            end
+
+
         else
             @@logger.error(data)
             return JSON.parse(data)
@@ -269,7 +270,7 @@ module Lsports
         if response == "200"
             ## Create Fixture markets
             markets = JSON.parse(res.body).as_json
-            
+
             markets["Body"].each do |market|
                 if market.has_key?("FixtureId")
                     event_id = market["FixtureId"]
@@ -355,7 +356,7 @@ module Lsports
                                                     mkt_entry.fixture_id = fixture.id
                                                     mkt_entry.save
                                                 end
-                                                
+
                                                 outcomes = {}
                                                 attrs = {}
                                             end
@@ -573,4 +574,3 @@ module Lsports
     end
 
 end
-

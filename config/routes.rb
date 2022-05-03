@@ -146,6 +146,8 @@ Rails.application.routes.draw do
       resources :slip_bonuses, only: [:new, :index, :create]
       match 'users' => "bet_users#index", via: [:get]
       match 'user' => "bet_users#show", via: [:get]
+      match 'users/new' => "bet_users#new", via: [:get]
+      match 'users' => "bet_users#create", via: [:post]
       match 'betstop_reasons' => "betstop_reasons#index", via: [:get]
       match 'betting_statuses' => "betting_statuses#index", via: [:get]
       match 'void_reasons' => "void_reasons#index", via: [:get]
