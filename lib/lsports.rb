@@ -179,7 +179,7 @@ module Lsports
             events = data["Body"]
 
             #reformat the message
-            message = {"Body": {"Events": data["Body"]}}
+            message = {"Body" => {"Events" => data["Body"]}}
             puts message
 
             #pass this message to the pre-written workers
