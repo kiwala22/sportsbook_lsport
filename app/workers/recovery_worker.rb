@@ -6,15 +6,15 @@ class RecoveryWorker
 
    include Lsports
 
-   def perform(product, timestamp)
+   def perform(product)
       if product == "3"
          #get a Snapshot
-         last_alert = MarketAlert
+         alert = MarketAlert.where(product: product, subscribed: "1").last
          sportsIds = ["6046", "48242", "54094"]
 
          #Fetching fixtures for all the 3 sport types
          sportsIds.each do |sport|
-            fixture_today = recover_fixture_markets(sport, timestamp.to_i  ,Time.now())
+            fixture_today = recover_fixture_markets(sport, alert.timestamp.to_i  ,Time.now())
          end
 
          #Re-activate all markets

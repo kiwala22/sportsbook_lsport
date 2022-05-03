@@ -38,7 +38,7 @@ class AlertsWorker
             }
          )
 
-      elsif (Time.now.to_i - timestamp.to_i)  <= threshold
+      elsif (timestamp.to_i - last_update.timestamp.to_i)  <= threshold
          #create an update subscribed
          alert = MarketAlert.create(
             {
@@ -49,14 +49,13 @@ class AlertsWorker
             }
          )
 
-      elsif (Time.now.to_i - timestamp.to_i) > threshold
+      elsif (timestamp.to_i - last_update.timestamp.to_i) > threshold
          #If the new alert is later than the threshold, unsubscribe the products
          # by setting subscribed to 0
 
          puts "Deactivation :: WORKERS ::::: timestamp: #{timestamp}, new stamp: #{last_update[:timestamp]}, product: #{product}"
          #first close all active markets
          DeactivateMarketsWorker.perform_async(product)
-         RecoveryWorker.perform_async(product, last_update.timestamp)
          alert = MarketAlert.create(
             {
                product: product,
@@ -65,6 +64,8 @@ class AlertsWorker
                subscribed: "0"
             }
          )
+         #call recovery
+         RecoveryWorker.perform_async(product)
       end
    end
 
