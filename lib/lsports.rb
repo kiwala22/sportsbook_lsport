@@ -178,25 +178,25 @@ module Lsports
             routing_key = "pre_match"
             events = data["Body"]
 
-            #reformat the message
-            message = {"Body" => {"Events" => data["Body"]}}
-            puts message
+            events.each do |event|
+               puts event
+               #reformat the message
+               message = {"Body" => {"Events" => event }}
 
-            #pass this message to the pre-written workers
+               #pass this message to the pre-written workers
 
-            #fixture worker
-            FixtureChangeWorker.perform_async(message, "pre_match")
-            FixtureChangeWorker.perform_async(message, "in_play")
+               #fixture worker
+               # FixtureChangeWorker.perform_async(message, "pre_match")
+               # FixtureChangeWorker.perform_async(message, "in_play")
 
-            #odds change worker
-            OddsChangeWorker.perform_async(message, "pre_match")
-            OddsChangeWorker.perform_async(message, "in_play")
+               #odds change worker
+               # OddsChangeWorker.perform_async(message, "pre_match")
+               # OddsChangeWorker.perform_async(message, "in_play")
 
-            #bet settlemt worker
-            BetSettlementWorker.perform_async(message, "pre_match")
-            BetSettlementWorker.perform_async(message, "in_play")
-
-
+               #bet settlemt worker
+               BetSettlementWorker.perform_async(message, "pre_match")
+               BetSettlementWorker.perform_async(message, "in_play")
+            end
 
         else
             @@logger.error(data)
