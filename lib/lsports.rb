@@ -124,13 +124,13 @@ module Lsports
     ## Get Events
     ## Dates can be in format "Date.today.strftime("%F")"
     ## Method call ex: get_events(Date.today.strftime("%F"), (Date.today + 1.day).strftime("%F"))
-    def get_events(from_date: "", to_date:  "", sports_id: "", fixtures: "")
+    def get_events(from_date: nil, to_date:  nil, sports_id: nil, fixtures: nil)
 
         # Convert the date to Unix timestamps
-        start_date = from_date.to_time.to_i unless from_date.empty?
-        end_date = to_date.to_time.to_i unless to_date.empty?
+        start_date = from_date.to_time.to_i unless from_date.nil?
+        end_date = to_date.to_time.to_i unless to_date.nil?
 
-        unless sports_id.empty?
+        unless sports_id.nil?
            case sports_id
            when "48242" #basketball
                required_markets = ["2", "3", "226", "63", "53", "28", "21", "342", "282"]
@@ -142,7 +142,7 @@ module Lsports
 
            markets = required_markets.join(",")
         else
-           markets = ""
+           markets = nil
         end
 
 
@@ -153,12 +153,14 @@ module Lsports
             username: @@username,
             password: @@password,
             guid: @@prematch_guid,
-            sports: sports_id,
-            fromdate: start_date,
-            todate: end_date,
-            markets: markets,
-            fixtures: fixtures
         }
+
+        params[:sports] = sports_id unless sports_id.nil?
+        params[:fromdate] = start_date unless start_date.nil?
+        params[:todate] = end_date unless end_date.nil?
+        params[:markets] = markets unless markets.nil?
+        params[:fixtures] = fixtures unless fixtures.nil?
+
         uri.query = URI.encode_www_form(params)
 
         req = Net::HTTP::Get.new(uri)
