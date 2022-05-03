@@ -11,7 +11,7 @@ import {
 import lazyComponent from "../../utilities/lazy";
 const Bets = lazy(() => import("../shared/Bets"));
 import BetSlip from "../shared/BetSlip";
-const Deposit = lazy(() => import("../shared/Deposit"));
+import Deposit from "../shared/Deposit";
 const Faqs = lazy(() => import("../shared/Faqs"));
 import Footer from "../shared/Footer";
 import Navbar from "../shared/Navbar";
@@ -26,7 +26,7 @@ const Terms = lazy(() => import("../shared/Terms"));
 const Transactions = lazy(() => import("../shared/Transactions"));
 // const Verify = lazy(() => import("../shared/Verify"));
 import Verify from "../shared/Verify";
-const Withdraw = lazy(() => import("../shared/Withdraw"));
+import Withdraw from "../shared/Withdraw";
 import Home from "./Home";
 import Live from "./Live";
 import Upcoming from "./Upcoming";

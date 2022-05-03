@@ -19,7 +19,11 @@ const Verify = (props) => {
     var script = document.createElement("script");
     script.type = "text/javascript";
     script.innerHTML = "esk('track', 'Conversion');";
-    document.body.appendChild(script);
+    if (document !== undefined && document !== null) {
+      if (document.body !== null) {
+        document.body.appendChild(script);
+      }
+    }
     return () => {
       //remove tag from body
       document.body.remove(script);
