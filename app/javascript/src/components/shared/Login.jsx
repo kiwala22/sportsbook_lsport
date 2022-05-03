@@ -1,5 +1,9 @@
-import { LockOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Form, Input, Modal } from "antd";
+import LockOutlined from "@ant-design/icons/lib/icons/LockOutlined";
+import Button from "antd/lib/button";
+import Checkbox from "antd/lib/checkbox";
+import Form from "antd/lib/form";
+import Input from "antd/lib/input";
+import Modal from "antd/lib/modal";
 import cogoToast from "cogo-toast";
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";

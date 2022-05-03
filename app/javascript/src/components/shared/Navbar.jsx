@@ -1,13 +1,16 @@
-import {
-  CreditCardOutlined,
-  DollarOutlined,
-  DownOutlined,
-  FileDoneOutlined,
-  LogoutOutlined,
-  MenuOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
-import { Badge, Button, Dropdown, Form, Input, Menu } from "antd";
+import CreditCardOutlined from "@ant-design/icons/lib/icons/CreditCardOutlined";
+import DollarOutlined from "@ant-design/icons/lib/icons/DollarOutlined";
+import DownOutlined from "@ant-design/icons/lib/icons/DownOutlined";
+import FileDoneOutlined from "@ant-design/icons/lib/icons/FileDoneOutlined";
+import LogoutOutlined from "@ant-design/icons/lib/icons/LogoutOutlined";
+import MenuOutlined from "@ant-design/icons/lib/icons/MenuOutlined";
+import UserOutlined from "@ant-design/icons/lib/icons/UserOutlined";
+import Badge from "antd/lib/badge";
+import Button from "antd/lib/button";
+import Dropdown from "antd/lib/dropdown";
+import Form from "antd/lib/form";
+import Input from "antd/lib/input";
+import Menu from "antd/lib/menu";
 import Icon from "antd-mobile/lib/icon";
 import NavBar from "antd-mobile/lib/nav-bar";
 import "antd-mobile/lib/icon/style/index.less";
@@ -395,7 +398,7 @@ const Navbar = (props) => {
               )}
               {signedIn && verified && (
                 <>
-                  <span className="row">
+                  <span className="row mobile-balance-wrap">
                     <i className="fas fa-money-bill-wave fa-sm fa-fw mr-2 text-gray-400"></i>{" "}
                     {currencyFormatter(userInfo.balance)}
                   </span>

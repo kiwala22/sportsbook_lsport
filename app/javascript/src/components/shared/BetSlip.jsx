@@ -1,5 +1,6 @@
-import { Button, Modal } from "antd";
-import { PlusOutlined } from "@ant-design/icons";
+import Modal from "antd/lib/modal";
+import Button from "antd/lib/button";
+import PlusOutlined from "@ant-design/icons/lib/icons/PlusOutlined";
 import { BsDash, BsPlus } from "react-icons/bs";
 import "channels";
 import cogoToast from "cogo-toast";

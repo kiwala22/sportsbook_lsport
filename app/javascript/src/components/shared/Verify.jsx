@@ -1,5 +1,7 @@
-import { BarcodeOutlined } from "@ant-design/icons";
-import { Button, Form, Input } from "antd";
+import BarcodeOutlined from "@ant-design/icons/lib/icons/BarcodeOutlined";
+import Button from "antd/lib/button";
+import Form from "antd/lib/form";
+import Input from "antd/lib/input";
 import cogoToast from "cogo-toast";
 import React, { useState } from "react";
 import { useEffect } from "react";

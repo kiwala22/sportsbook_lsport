@@ -1,5 +1,5 @@
-import { DropboxOutlined } from "@ant-design/icons";
-import { Table } from "antd";
+import DropboxOutlined from "@ant-design/icons/lib/icons/DropboxOutlined";
+import Table from "antd/lib/table";
 import cogoToast from "cogo-toast";
 import React, { useEffect, useState } from "react";
 import Moment from "react-moment";
