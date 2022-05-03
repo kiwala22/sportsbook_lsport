@@ -1,4 +1,4 @@
-import { Empty } from "antd";
+import Empty from "antd/lib/empty";
 import React from "react";
 import NotFound from "../../Images/empty.svg";
 

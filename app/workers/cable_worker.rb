@@ -5,6 +5,6 @@ class CableWorker
    sidekiq_options retry: false
    
    def perform(channel, data)
-      ActionCable.server.broadcast(channel, data)
+      # ActionCable.server.broadcast(channel, data)
    end
 end

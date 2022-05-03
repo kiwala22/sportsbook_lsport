@@ -1,6 +1,7 @@
 const { environment } = require("@rails/webpacker");
 const webpack = require("webpack");
 const BrotliPlugin = require("brotli-webpack-plugin");
+const zlib = require("zlib");
 const CompressionPlugin = require("compression-webpack-plugin");
 environment.plugins.prepend(
   "Provide",
@@ -16,10 +17,14 @@ environment.plugins.prepend(
 environment.plugins.prepend(
   "Provide",
   new BrotliPlugin({
-    asset: "[path].br[query]",
+    filename: "[path][base].br",
     algorithm: "brotliCompress",
     test: /\.(js|jsx|css|html|svg|webp)$/,
-    exclude: /.map$/,
+    compressionOptions: {
+      params: {
+        [zlib.constants.BROTLI_PARAM_QUALITY]: 11,
+      },
+    },
     deleteOriginalAssets: false,
     threshold: 10240,
     minRatio: 0.8,
@@ -90,6 +95,20 @@ environment.loaders.append("less", sass_loader_default);
 environment.loaders.append("less", less_loader);
 environment.loaders.append("webp", webp_loader);
 
-environment.splitChunks();
+// environment.splitChunks();
+environment.splitChunks((config) =>
+  Object.assign({}, config, {
+    performance: {
+      hints: false,
+    },
+    optimization: {
+      splitChunks: {
+        chunks: "all",
+        minSize: 10000,
+        maxSize: 150000,
+      },
+    },
+  })
+);
 
 module.exports = environment;

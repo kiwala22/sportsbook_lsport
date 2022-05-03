@@ -1,5 +1,7 @@
-import { DownOutlined } from "@ant-design/icons";
-import { Button, Drawer, Dropdown, Menu } from "antd";
+import DownOutlined from "@ant-design/icons/lib/icons/DownOutlined";
+import Drawer from "antd/lib/drawer";
+import Dropdown from "antd/lib/dropdown";
+import Menu from "antd/lib/menu";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";

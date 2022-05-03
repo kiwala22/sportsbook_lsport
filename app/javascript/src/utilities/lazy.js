@@ -4,7 +4,7 @@ import Preview from "../components/shared/Skeleton";
 
 function LazyComponent(Component) {
   return (props) => (
-    <Suspense fallback={<Preview />}>
+    <Suspense fallback={<></>}>
       <Component {...props} />
     </Suspense>
   );

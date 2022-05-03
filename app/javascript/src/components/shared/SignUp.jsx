@@ -1,5 +1,12 @@
-import { LockOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Form, Row, Col, Input, Modal, Select } from "antd";
+import LockOutlined from "@ant-design/icons/lib/icons/LockOutlined";
+import Button from "antd/lib/button";
+import Checkbox from "antd/lib/checkbox";
+import Modal from "antd/lib/modal";
+import Form from "antd/lib/form";
+import Input from "antd/lib/input";
+import Col from "antd/lib/col";
+import Row from "antd/lib/row";
+import Select from "antd/lib/select";
 const { Option } = Select;
 import cogoToast from "cogo-toast";
 import React, { useState } from "react";

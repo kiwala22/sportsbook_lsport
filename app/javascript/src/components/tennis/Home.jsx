@@ -1,5 +1,6 @@
-import { PlusOutlined } from "@ant-design/icons";
-import { Button, Table } from "antd";
+import PlusOutlined from "@ant-design/icons/lib/icons/PlusOutlined";
+import Button from "antd/lib/button";
+import Table from "antd/lib/table";
 import React, { useEffect, useState } from "react";
 import Moment from "react-moment";
 import { useDispatch, useSelector } from "react-redux";

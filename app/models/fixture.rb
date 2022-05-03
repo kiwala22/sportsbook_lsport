@@ -61,7 +61,8 @@ class Fixture < ApplicationRecord
         fixture["match_time"] = self.match_time
 
         ## Broadcast the changes
-        CableWorker.perform_async("fixtures_#{self.id}", fixture)
+        ActionCable.server.broadcast("fixtures_#{self.id}", fixture)
+        # CableWorker.perform_async("fixtures_#{self.id}", fixture)
       end
     end
   end

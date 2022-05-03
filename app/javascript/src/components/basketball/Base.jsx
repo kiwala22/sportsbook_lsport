@@ -27,11 +27,11 @@ const Transactions = lazy(() => import("../shared/Transactions"));
 // const Verify = lazy(() => import("../shared/Verify"));
 import Verify from "../shared/Verify";
 const Withdraw = lazy(() => import("../shared/Withdraw"));
-const Home = lazy(() => import("./Home"));
-const Live = lazy(() => import("./Live"));
-const Upcoming = lazy(() => import("./Upcoming"));
-const PreviewUpcoming = lazy(() => import("./PreviewUpcoming"));
-const Search = lazy(() => import("./Search"));
+import Home from "./Home";
+import Live from "./Live";
+import Upcoming from "./Upcoming";
+import PreviewUpcoming from "./PreviewUpcoming";
+import Search from "./Search";
 import Sidebar from "./Sidebar";
 
 const Base = (props) => {
@@ -123,27 +123,25 @@ const Base = (props) => {
                       <Route
                         path={`/${mainUrl.split("/")[1]}/search/`}
                         render={() => {
-                          return redirectOnUnverified(lazyComponent(Search));
+                          return redirectOnUnverified(Search);
                         }}
                       />
                       <Route
                         path={`${mainUrl}/pre/`}
                         render={() => {
-                          return redirectOnUnverified(
-                            lazyComponent(PreviewUpcoming)
-                          );
+                          return redirectOnUnverified(PreviewUpcoming);
                         }}
                       />
                       <Route
                         path={`${mainUrl}/pres/`}
                         render={() => {
-                          return redirectOnUnverified(lazyComponent(Upcoming));
+                          return redirectOnUnverified(Upcoming);
                         }}
                       />
                       <Route
                         path={`${mainUrl}/lives/`}
                         render={() => {
-                          return redirectOnUnverified(lazyComponent(Live));
+                          return redirectOnUnverified(Live);
                         }}
                       />
                       <Route
@@ -174,7 +172,7 @@ const Base = (props) => {
                         // exact
                         path="/"
                         render={() => {
-                          return redirectOnUnverified(lazyComponent(Home));
+                          return redirectOnUnverified(Home);
                         }}
                       />
                     </Switch>

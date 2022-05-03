@@ -1,4 +1,4 @@
-import { Modal } from "antd";
+import Modal from "antd/lib/modal";
 import React, { useState } from "react";
 import { BsDash, BsPlus } from "react-icons/bs";
 import Moment from "react-moment";

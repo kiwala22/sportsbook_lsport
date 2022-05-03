@@ -20,11 +20,10 @@ require("@rails/ujs").start();
 //   return this.progressBarTimeout = setTimeout(this.showProgressBar, 5);
 // };
 
-import "controllers";
+// import "controllers";
 import LocalTime from "local-time";
 LocalTime.start();
 
 require("@rails/activestorage").start();
-
-require("user_assets/application");
+import "@fortawesome/fontawesome-free/js/all";
 require("src/App");

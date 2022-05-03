@@ -1,4 +1,3 @@
-import "antd-mobile/dist/antd-mobile.less";
 import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
 import "react-phone-number-input/style.css";
@@ -10,6 +9,8 @@ import TennisBase from "./components/tennis/Base";
 import "./css/Antd.less";
 import { store } from "./redux/store";
 import Requests from "./utilities/Requests";
+
+// Force prod compilation
 
 const App = (props) => {
   const dispatch = useDispatch();

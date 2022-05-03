@@ -1,4 +1,5 @@
-import { Button, Form } from "antd";
+import Button from "antd/lib/button";
+import Form from "antd/lib/form";
 import cogoToast from "cogo-toast";
 import React, { useState } from "react";
 import PhoneFormat from "../../utilities/phoneNumber";

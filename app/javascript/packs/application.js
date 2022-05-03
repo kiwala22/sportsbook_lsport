@@ -10,4 +10,4 @@ LocalTime.start();
 
 require("admin_assets/application");
 
-import "controllers";
+// import "controllers";
