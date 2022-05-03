@@ -5,6 +5,7 @@ class RecoveryWorker
    sidekiq_options retry: false
 
    include Lsports
+   include Recovery
 
    def perform(product)
       if product == "3"
