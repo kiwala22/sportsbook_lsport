@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_03_214749) do
+ActiveRecord::Schema.define(version: 2022_05_03_224702) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -270,9 +270,8 @@ ActiveRecord::Schema.define(version: 2022_05_03_214749) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "specifier"
     t.string "name"
-    t.index ["fixture_id", "market_identifier"], name: "index_live_markets_on_fixture_id_and_market_identifier", unique: true
+    t.index ["fixture_id", "market_identifier", "specifier"], name: "custom_index_on_live_markets", unique: true
     t.index ["fixture_id"], name: "index_live_markets_on_fixture_id"
-    t.index ["specifier"], name: "index_live_markets_on_specifier", unique: true
   end
 
   create_table "market_alerts", force: :cascade do |t|
@@ -316,9 +315,8 @@ ActiveRecord::Schema.define(version: 2022_05_03_214749) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "specifier"
     t.string "name"
-    t.index ["fixture_id", "market_identifier"], name: "index_pre_markets_on_fixture_id_and_market_identifier", unique: true
+    t.index ["fixture_id", "market_identifier", "specifier"], name: "custom_index_on_pre_markets", unique: true
     t.index ["fixture_id"], name: "index_pre_markets_on_fixture_id"
-    t.index ["specifier"], name: "index_pre_markets_on_specifier", unique: true
   end
 
   create_table "recovery_requests", force: :cascade do |t|
