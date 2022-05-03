@@ -124,7 +124,7 @@ module Lsports
     ## Get Events
     ## Dates can be in format "Date.today.strftime("%F")"
     ## Method call ex: get_events(Date.today.strftime("%F"), (Date.today + 1.day).strftime("%F"))
-    def get_events(from_date: nil, to_date:  nil, sports_id: nil, fixtures: nil)
+    def get_events(from_date: nil, to_date:  nil, sports_id: nil)
 
         # Convert the date to Unix timestamps
         start_date = from_date.to_time.to_i unless from_date.nil?
@@ -159,7 +159,6 @@ module Lsports
         params[:fromdate] = start_date unless start_date.nil?
         params[:todate] = end_date unless end_date.nil?
         params[:markets] = markets unless markets.nil?
-        params[:fixtures] = fixtures unless fixtures.nil?
 
         uri.query = URI.encode_www_form(params)
 
