@@ -6,6 +6,7 @@ class PreMarket < ApplicationRecord
 #   validates :market_identifier, uniqueness: true
   validates :fixture_id, presence: true
 #   validates :fixture_id, uniqueness: true
+  validates :fixture_id, uniqueness: { scope: :market_identifier }
 
   after_commit :broadcast_updates, if: :persisted?
    
