@@ -131,7 +131,7 @@ module Lsports
         end_date = to_date.to_time.to_i unless to_date.nil?
         fixtures =  fixtures.join(",") unless fixtures.nil?
 
-        unless sport_id.nil?
+        unless sports_id.nil?
            case sports_id
            when "48242" #basketball
                required_markets = ["2", "3", "226", "63", "53", "28", "21", "342", "282"]
