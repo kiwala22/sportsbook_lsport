@@ -98,9 +98,14 @@ environment.loaders.append("webp", webp_loader);
 // environment.splitChunks();
 environment.splitChunks((config) =>
   Object.assign({}, config, {
+    performance: {
+      hints: false,
+    },
     optimization: {
       splitChunks: {
         chunks: "all",
+        minSize: 10000,
+        maxSize: 150000,
       },
     },
   })
