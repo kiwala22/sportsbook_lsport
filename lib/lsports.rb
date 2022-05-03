@@ -582,17 +582,15 @@ module Lsports
         end
     end
 
-    def recover_fixture_markets(sports_id = @@sports_id, fromdate, todate)
+    def recover_fixture_markets(fromdate, todate)
 
-      case sports_id
-      when "48242" #basketball
-           required_markets = ["2", "3", "226", "63", "53", "28", "21", "342", "282"]
-      when "6046" #football
-           required_markets = ["1", "2", "3", "5", "7", "17", "13", "16", "19", "21", "25", "41", "42", "52", "55", "61", "64", "65" "113", "245", "45"]
-      when "54094" #tennis
-           required_markets = ["2", "3", "41", "42", "52", "21", "45", "65", "166", "201"]
-      end
+      sports = ["48242","6046","54094"].join(",")
+      basketball = ["2", "3", "226", "63", "53", "28", "21", "342", "282"]
+      football = ["1", "2", "3", "5", "7", "17", "13", "16", "19", "21", "25", "41", "42", "52", "55", "61", "64", "65" "113", "245", "45"]
+      tennis = ["2", "3", "41", "42", "52", "21", "45", "65", "166", "201"]
 
+      required_markets = basketball + football + tennis
+      required_markets = required_markets.uniq()
       markets = required_markets.join(",")
 
       url = @@end_point + "GetFixtureMarkets"
@@ -602,7 +600,7 @@ module Lsports
            username: @@username,
            password: @@password,
            guid: @@prematch_guid,
-           sports: sports_id,
+           sports: sports,
            markets: markets,
            fromdate: fromdate,
            todate: todate
