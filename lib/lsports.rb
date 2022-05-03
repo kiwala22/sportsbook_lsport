@@ -184,8 +184,8 @@ module Lsports
             #pass this message to the pre-written workers
 
             #fixture worker
-            FixtureChangeWorker.preform_async(message, "pre_match")
-            FixtureChangeWorker.preform_async(message, "in_play")
+            FixtureChangeWorker.perform_async(message, "pre_match")
+            FixtureChangeWorker.perform_async(message, "in_play")
 
             #odds change worker
             OddsChangeWorker.perform_async(message, "pre_match")
