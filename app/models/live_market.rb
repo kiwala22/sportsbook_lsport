@@ -5,7 +5,7 @@ class LiveMarket < ApplicationRecord
 #   validates :market_identifier, uniqueness: true
   validates :fixture_id, presence: true
 #   validates :fixture_id, uniqueness: true
-  validates :fixture_id, uniqueness: { scope: :market_identifier }
+  validates :fixture_id, uniqueness: { scope: [:market_identifier, :specifier] }
 
   after_commit :broadcast_updates, if: :persisted?
    
