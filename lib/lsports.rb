@@ -124,11 +124,12 @@ module Lsports
     ## Get Events
     ## Dates can be in format "Date.today.strftime("%F")"
     ## Method call ex: get_events(Date.today.strftime("%F"), (Date.today + 1.day).strftime("%F"))
-    def get_events(from_date, to_date, sports_id = @@sports_id, fixtures = nil)
+    def get_events(from_date: nil, to_date:  nil, sports_id: nil, fixtures: nil)
 
         # Convert the date to Unix timestamps
-        start_date = from_date.to_time.to_i
-        end_date = to_date.to_time.to_i
+        start_date = from_date.to_time.to_i unless from_date.nil?
+        end_date = to_date.to_time.to_i unless to_date.nil?
+        fixtures =  fixtures.join(",") unless fixtures.nil?
 
         case sports_id
         when "48242" #basketball
