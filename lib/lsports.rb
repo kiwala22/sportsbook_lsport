@@ -124,7 +124,7 @@ module Lsports
     ## Get Events
     ## Dates can be in format "Date.today.strftime("%F")"
     ## Method call ex: get_events(Date.today.strftime("%F"), (Date.today + 1.day).strftime("%F"))
-    def get_events(from_date, to_date, sports_id = @@sports_id)
+    def get_events(from_date, to_date, sports_id = @@sports_id, fixtures = nil)
 
         # Convert the date to Unix timestamps
         start_date = from_date.to_time.to_i
@@ -151,7 +151,8 @@ module Lsports
             sports: sports_id,
             fromdate: start_date,
             todate: end_date,
-            markets: markets
+            markets: markets,
+            fixtures: fixtures
         }
         uri.query = URI.encode_www_form(params)
 
@@ -183,6 +184,10 @@ module Lsports
             #odds change worker
             OddsChangeWorker.perform_async(message, "pre_match")
             OddsChangeWorker.perform_async(message, "in_play")
+
+            #bet settlemt worker
+            BetSettlementWorker.perform_async(message, "pre_match")
+            BetSettlementWorker.perform_async(message, "in_play")
 
 
 
