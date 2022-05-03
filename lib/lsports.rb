@@ -124,14 +124,13 @@ module Lsports
     ## Get Events
     ## Dates can be in format "Date.today.strftime("%F")"
     ## Method call ex: get_events(Date.today.strftime("%F"), (Date.today + 1.day).strftime("%F"))
-    def get_events(from_date: nil, to_date:  nil, sports_id: nil, fixtures: nil)
+    def get_events(from_date: "", to_date:  "", sports_id: "", fixtures: "")
 
         # Convert the date to Unix timestamps
-        start_date = from_date.to_time.to_i unless from_date.nil?
-        end_date = to_date.to_time.to_i unless to_date.nil?
-        fixtures =  fixtures.join(",") unless fixtures.nil?
+        start_date = from_date.to_time.to_i unless from_date.empty?
+        end_date = to_date.to_time.to_i unless to_date.empty?
 
-        unless sports_id.nil?
+        unless sports_id.empty?
            case sports_id
            when "48242" #basketball
                required_markets = ["2", "3", "226", "63", "53", "28", "21", "342", "282"]
@@ -143,7 +142,7 @@ module Lsports
 
            markets = required_markets.join(",")
         else
-           markets = nil
+           markets = ""
         end
 
 
@@ -180,6 +179,7 @@ module Lsports
 
             #reformat the message
             message = {"Body": {"Events": data["Body"]}}
+            puts message
 
             #pass this message to the pre-written workers
 
