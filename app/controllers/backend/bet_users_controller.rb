@@ -1,5 +1,6 @@
 class Backend::BetUsersController < ApplicationController
   before_action :authenticate_admin!
+  #load_and_authorize_resource
 
   layout 'admin_application.html.erb'
 
@@ -8,20 +9,12 @@ class Backend::BetUsersController < ApplicationController
   end
 
   def create
-     @user = User.new(
-        {
-           first_name: bet_user_params[:first_name],
-           last_name: bet_user_params[:last_name],
-           phone_number: bet_user_params[:phone_number],
-           password: bet_user_params[:password],
-           nationality: "Ugandan",
-           verified: true
-
-        }
-     )
+     @user = User.new(bet_user_params)
+     authorize! :manage, @user
+     @user.verified = true
 
      if @user.valid? && @user.save
-        redirect_to @user , notice: "User Successfully Created"
+        redirect_to backend_users_path , notice: "User Successfully Created"
      else
         render :new , error: ""
      end
@@ -67,6 +60,6 @@ class Backend::BetUsersController < ApplicationController
   private
 
   def bet_user_params
-     params.require(:user).permit(:first_name, :last_name, :password, :phone_number )
+     params.require(:user).permit(:first_name, :last_name, :password, :phone_number, :nationality , :password, :password_confirmation)
   end
 end

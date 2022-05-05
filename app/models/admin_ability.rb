@@ -7,7 +7,7 @@ class AdminAbility
       if user.role == "customer service"
         can :manage, Broadcast
         can :manage, Fixture
-        can :manage, User
+        can :read, User
       end
       if user.role == "service manager"
         can :manage, Broadcast

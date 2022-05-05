@@ -45,7 +45,7 @@
                </ul>
             </li>
          <% end %>
-         
+
          <% if can? :manage, SignUpBonus %>
             <li>
                <a href="#bonuses" title="Finances" data-toggle="collapse">
@@ -86,12 +86,26 @@
                </ul>
             </li>
          <% end %>
-
-         <li class="<%= 'active' if controller.controller_name == 'bet_users' %>">
-            <a href="<%= backend_users_path %>" title="Users">
+         <li class="">
+            <a href="#users" title="Users" data-toggle="collapse">
                <em class="fas fa-users"></em>
                <span data-localize="sidebar.nav.DASHBOARD">Users</span>
             </a>
+            <ul id="users" class="sidebar-nav sidebar-subnav collapse">
+               <li class="<%= 'active' if controller.controller_name == 'bet_users' %>">
+                  <a href="<%= backend_users_path %>" title="Users">
+                     <em class="fas fa-users"></em>
+                     <span data-localize="sidebar.nav.DASHBOARD">Users</span>
+                  </a>
+               </li>
+               <% if can? :manage , User%>
+               <li class="<%= 'active' if controller.controller_name == 'bet_users' %>">
+                  <a href="<%= backend_users_new_path %>" title="New User">
+                     <span>New User</span>
+                  </a>
+               </li>
+               <% end %>
+            </ul>
          </li>
 
          <li class="">
