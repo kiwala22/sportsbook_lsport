@@ -16,4 +16,15 @@ class Withdraw < ApplicationRecord
    validates :transaction_id, uniqueness: true
    #validates :ext_transaction_id, uniqueness: true
    validates :resource_id, uniqueness: true
+
+   def self.to_csv
+
+      CSV.generate(headers: true) do |csv|
+         csv << column_names
+
+         all.each do |withdraw|
+            csv << withdraw.attributes.values_at(*column_names)
+         end
+      end
+   end
 end

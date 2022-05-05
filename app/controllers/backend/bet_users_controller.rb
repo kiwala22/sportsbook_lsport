@@ -30,6 +30,10 @@ class Backend::BetUsersController < ApplicationController
   def index
     @q = User.all.ransack(params[:q])
     @users = @q.result.order('created_at DESC').page params[:page]
+    respond_to do |format|
+      format.html
+      format.csv {send_data @users.to_csv, filename: "users-#{Date.today}.csv" }
+    end
   end
 
   def show

@@ -84,7 +84,7 @@
           <td><%= bet_slip.payout %></td>
 					<td><%= bet_slip.status%></td>
 					<td><%= bet_slip.result %></td>
-          <td><%= link_to bet_slip.user_id, backend_user_path(id:bet_slip.user) %></td>          
+          <td><%= link_to bet_slip.user_id, backend_user_path(id:bet_slip.user) %></td>
 					<td><%= bet_slip.paid %></td>
           <td><%= local_time(bet_slip.created_at, format: "%d/%m/%y %l:%M%P") %></td>
 				</tr>
@@ -92,4 +92,9 @@
     </tbody>
   </table>
 	<%= paginate @bet_slips %>
+   <% if current_admin.role == "manager" %>
+   <div class="">
+      <%= link_to "Download", backend_bet_slips_path(@bet_slips,format: 'csv') %>
+   </div>
+   <% end %>
 </div>

@@ -8,5 +8,9 @@ class Backend::WithdrawsController < ApplicationController
     @q = Withdraw.all.ransack(params[:q])
     @withdraws = @q.result.order('created_at DESC').page params[:page]
     @search_params = params[:q]
+    respond_to do |format|
+      format.html
+      format.csv {send_data @withdraws.to_csv, filename: "withdraws-#{Date.today}.csv" }
+    end
   end
 end

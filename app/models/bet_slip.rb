@@ -35,21 +35,21 @@ class BetSlip < ApplicationRecord
                bonus_balance = (user.bonus - bonus.amount)
 
                ActiveRecord::Base.transaction do
-                 #create a deposit for the user # bonus activation record
-                 Transaction.create(
-                    { reference: generate_reference(),
-                       amount: bonus.amount,
-                       phone_number: user.phone_number,
-                       category: "First Deposit Bonus",
-                       status: "SUCCESS", currency: "UGX",
-                       balance_before: balance_before,
-                       balance_after: balance_after ,
-                       user_id: user.id
-                    }
+                  #create a deposit for the user # bonus activation record
+                  Transaction.create(
+                     { reference: generate_reference(),
+                        amount: bonus.amount,
+                        phone_number: user.phone_number,
+                        category: "First Deposit Bonus",
+                        status: "SUCCESS", currency: "UGX",
+                        balance_before: balance_before,
+                        balance_after: balance_after ,
+                        user_id: user.id
+                     }
                   )
-                 #update the user balance
-                 user.update!(balance: balance_after,activated_first_deposit_bonus: true, first_deposit_bonus_amount: bonus.amount, bonus: bonus_balance)
-                 bonus.update!(status: "Closed")
+                  #update the user balance
+                  user.update!(balance: balance_after,activated_first_deposit_bonus: true, first_deposit_bonus_amount: bonus.amount, bonus: bonus_balance)
+                  bonus.update!(status: "Closed")
                end
             end
          end
@@ -57,10 +57,26 @@ class BetSlip < ApplicationRecord
    end
 
    def generate_reference
-     loop do
+      loop do
          reference = SecureRandom.uuid
          break reference = reference unless Transaction.where(reference: reference).exists?
-     end
+      end
+   end
+
+   def self.to_csv
+      attributes = %w{id phone_number stake bet_count odds win_amount payout status paid created_at}
+
+      CSV.generate(headers: true) do |csv|
+         csv << attributes
+
+         all.each do |slip|
+            csv << attributes.map{ |attr| slip.send(attr) }
+         end
+      end
+   end
+
+   def phone_number
+      self.user.phone_number
    end
 
 end
