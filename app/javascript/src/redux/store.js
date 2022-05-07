@@ -33,7 +33,7 @@ function reducer(state = initialState, action) {
     case "addBet":
       return { ...state, games: action.payload };
     case "userUpdate":
-      return { ...state, userInfo: action.payload };
+      return { ...state, userInfo: { ...state.userInfo, ...action.payload } };
     case "sider":
       return { ...state, displaySider: action.payload };
     case "mobileBetSlip":
