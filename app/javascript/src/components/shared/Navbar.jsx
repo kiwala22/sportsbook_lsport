@@ -24,6 +24,7 @@ import currencyFormatter from "../../utilities/CurrencyFormatter";
 import Requests from "../../utilities/Requests";
 import Login from "./Login";
 import SignUp from "./SignUp";
+import BalanceChannel from "../../../channels/balanceChannel";
 
 const Navbar = (props) => {
   const dispatch = useDispatch();
@@ -73,6 +74,10 @@ const Navbar = (props) => {
           }
         );
       });
+  };
+
+  const updateBalance = (balance) => {
+    dispatch({ type: "userUpdate", payload: { balance } });
   };
 
   const menu = (
@@ -214,7 +219,15 @@ const Navbar = (props) => {
                       <li></li>
                       <li className="nav-item active">
                         <a href="/" className="nav-link active nav-link-custom">
-                          {currencyFormatter(userInfo.balance)}
+                          <BalanceChannel
+                            channel="BalanceChannel"
+                            user={userInfo.id}
+                            received={(data) => {
+                              updateBalance(data);
+                            }}
+                          >
+                            {currencyFormatter(userInfo.balance)}
+                          </BalanceChannel>
                           <p className="date-pr-space">
                             <small>
                               <strong>

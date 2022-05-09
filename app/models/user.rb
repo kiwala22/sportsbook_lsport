@@ -16,6 +16,7 @@ class User < ApplicationRecord
 
    after_save :send_pin!
    before_create :process_signup_bonus
+   after_commit :broadcast_balance_updates, if: :persisted?
 
    def login
       @login || self.phone_number
@@ -93,6 +94,12 @@ class User < ApplicationRecord
         self.balance =  bonus_amount.to_f
         self.activated_signup_bonus = true
         self.signup_bonus_amount = bonus_amount
+      end
+    end
+
+    def broadcast_balance_updates
+      if saved_change_to_balance?
+        ActionCable.server.broadcast("balance_#{self.id}", self.balance)
       end
     end
 
