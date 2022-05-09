@@ -17,11 +17,11 @@ class OddsChangeWorker
         end
 
         update_attr = {
-            
+
         }
 
-        if message["Body"].has_key?("Events") 
-            if message["Body"]["Events"].is_a?(Array) 
+        if message["Body"].has_key?("Events")
+            if message["Body"]["Events"].is_a?(Array)
                 message["Body"]["Events"].each do |event|
                     if event.has_key?("FixtureId")
                         event_id = event["FixtureId"]
@@ -45,7 +45,7 @@ class OddsChangeWorker
                 end
             end
 
-            if message["Body"]["Events"].is_a?(Hash) 
+            if message["Body"]["Events"].is_a?(Hash)
                 event = message["Body"]["Events"]
                if event.has_key?("FixtureId")
                     event_id = event["FixtureId"]
@@ -65,13 +65,13 @@ class OddsChangeWorker
                             process_market(fixture.id, market, product, fixture.sport)
                         end
                     end
-                end 
+                end
             end
         end
     end
 
     def process_market(fixture_id, market, product, sport)
-        
+
         market_status = {
             1 => "Active",
             2 => "Suspended",
@@ -103,8 +103,12 @@ class OddsChangeWorker
 
                             ##Save the market with specifier
                             if mkt_entry
-                                prevOdds = mkt_entry.odds
-                                update_attr["odds"] = prevOdds.merge!(outcomes)
+                               if mkt_entry.odd.blank?
+                                  update_attr["odds"] = outcomes
+                               else
+                                  prevOdds = mkt_entry.odds
+                                  update_attr["odds"] = prevOdds.merge!(outcomes)
+                               end
                                 mkt_entry.assign_attributes(update_attr)
                                 mkt_entry.save
                             else
@@ -129,8 +133,12 @@ class OddsChangeWorker
 
                         ##Save the market with no specifier
                         if mkt_entry
-                            prevOdds = mkt_entry.odds
-                            update_attr["odds"] = prevOdds.merge!(outcomes)
+                           if mkt_entry.odd.blank?
+                              update_attr["odds"] = outcomes
+                           else
+                              prevOdds = mkt_entry.odds
+                              update_attr["odds"] = prevOdds.merge!(outcomes)
+                           end
                             mkt_entry.assign_attributes(update_attr)
                             mkt_entry.save
                         else
@@ -149,57 +157,57 @@ class OddsChangeWorker
             end
         end
     end
-    
-    
-    
+
+
+
     # def perform(message, sport=nil, event=nil)
-        
+
     #     soccer_markets = []
-        
+
     #     soccer_status = {
     #         "0" => "not_started",
     #         "1" => "live",
     #         "2" => "suspended",
     #         "3" => "ended",
-    #         "4" => "closed", 
+    #         "4" => "closed",
     #         "5" => "cancelled",
     #         "6" => "delayed",
     #         "7" => "interrupted",
     #         "8" => "postponed",
     #         "9" => "abandoned"
     #     }
-        
+
     #     #convert the message from the xml to an easr ruby Hash using active support
     #     event_id = message["odds_change"]["event_id"]
     #     product = message["odds_change"]["product"]
-        
+
     #     update_attr = {
-            
+
     #     }
-        
+
     #     if message["odds_change"].has_key?("sport_event_status")
     #         if message["odds_change"]["sport_event_status"].has_key?('status')
     #             status = message["odds_change"]["sport_event_status"]["status"]
-    #             update_attr["status"] = soccer_status[status] 
+    #             update_attr["status"] = soccer_status[status]
     #         end
-            
+
     #         if message["odds_change"]["sport_event_status"].has_key?('match_status')
     #             update_attr["match_status"] = message["odds_change"]["sport_event_status"]["match_status"]
     #         end
-            
+
     #         if message["odds_change"]["sport_event_status"].has_key?('home_score')
     #             update_attr["home_score"] = message["odds_change"]["sport_event_status"]["home_score"]
     #         end
-            
+
     #         if message["odds_change"]["sport_event_status"].has_key?('away_score')
     #             update_attr["away_score"] = message["odds_change"]["sport_event_status"]["away_score"]
     #         end
-    #         if message["odds_change"]["sport_event_status"].has_key?('clock') && message["odds_change"]["sport_event_status"]["clock"].has_key?('match_time') 
+    #         if message["odds_change"]["sport_event_status"].has_key?('clock') && message["odds_change"]["sport_event_status"]["clock"].has_key?('match_time')
     #             update_attr["match_time"] = message["odds_change"]["sport_event_status"]["clock"]["match_time"]
     #         end
     #     end
-        
-        
+
+
     #     #find the fixture and update the fixture
     #     fixture = Fixture.find_by(event_id: event_id)
     #     if fixture
@@ -209,21 +217,21 @@ class OddsChangeWorker
     #             if message["odds_change"]["odds"].has_key?("market") && message["odds_change"]["odds"]["market"].present?
     #                 if message["odds_change"]["odds"]["market"].is_a?(Array)
     #                     message["odds_change"]["odds"]["market"].each do |market|
-    #                         process_market(fixture.id, market, product, event_id)  
+    #                         process_market(fixture.id, market, product, event_id)
     #                     end
     #                 end
     #                 if message["odds_change"]["odds"]["market"].is_a?(Hash)
-    #                     process_market(fixture.id,message["odds_change"]["odds"]["market"], product, event_id)  
+    #                     process_market(fixture.id,message["odds_change"]["odds"]["market"], product, event_id)
     #                 end
     #             end
     #         end
-            
-            
+
+
     #     end
     # end
-    
+
     # def process_market(fixture_id, market, product, event_id)
-        
+
     #     market_status = {
     #         "1" => "Active",
     #         "-1" => "Suspended",
@@ -231,18 +239,18 @@ class OddsChangeWorker
     #         "-4" => "Cancelled",
     #         "-3" => "Settled"
     #     }
-        
+
     #     producer_type = {
     #         "1" => "Live",
     #         "3" => "Pre"
     #     }
-        
+
     #     model_name = "Market" + market["id"] + producer_type[product]
-        
+
     #     #hard code market with similar outcomes
     #     outcome_1 = outcome_2 = outcome_3 = 1.00
     #     if market["id"] == "1" || market["id"] == "60"
-            
+
     #         if market.has_key?("outcome")
     #             market["outcome"].each do |out|
     #                 if out["id"] == "1"
@@ -278,11 +286,11 @@ class OddsChangeWorker
     #             ActionCable.server.broadcast("betslips_odds_#{market["id"]}_#{fixture_id}", mkt_entry.as_json)
     #         end
     #     end
-        
+
     #     outcome_9 = outcome_10 = outcome_11 = 1.00
     #     if market["id"] == "10" || market["id"] == "63"
     #         #update or create markets double chance half time and fulltime
-            
+
     #         if market.has_key?("outcome")
     #             market["outcome"].each do |out|
     #                 if out["id"] == "9"
@@ -318,13 +326,13 @@ class OddsChangeWorker
     #             ActionCable.server.broadcast("#{producer_type[product].downcase}_odds_#{market["id"]}_#{fixture_id}", mkt_entry.as_json)
     #             ActionCable.server.broadcast("betslips_odds_#{market["id"]}_#{fixture_id}", mkt_entry.as_json)
     #         end
-            
+
     #     end
-        
+
     #     outcome_12 = outcome_13 = 1.00
     #     if (market["id"] == "18" || market["id"] == "68") && market["specifiers"] == "total=2.5"
     #         #update or create markets under and over half time and fulltime
-            
+
     #         if market.has_key?("outcome")
     #             market["outcome"].each do |out|
     #                 if out["id"] == "12"
@@ -333,7 +341,7 @@ class OddsChangeWorker
     #                 if out["id"] == "13"
     #                     outcome_13 = out["odds"].to_f unless out["odds"].nil?
     #                 end
-                    
+
     #             end
     #         end
     #         #update or create markets 1X2 half time and fulltime
@@ -358,13 +366,13 @@ class OddsChangeWorker
     #             ActionCable.server.broadcast("#{producer_type[product].downcase}_odds_#{market["id"]}_#{fixture_id}", mkt_entry.as_json)
     #             ActionCable.server.broadcast("betslips_odds_#{market["id"]}_#{fixture_id}", mkt_entry.as_json)
     #         end
-            
+
     #     end
-        
+
     #     outcome_74 = outcome_76 = 1.00
     #     if market["id"] == "29" || market["id"] == "75"
     #         #update or create markets both to score half time and fulltime
-            
+
     #         if market.has_key?("outcome")
     #             market["outcome"].each do |out|
     #                 if out["id"] == "74"
@@ -373,7 +381,7 @@ class OddsChangeWorker
     #                 if out["id"] == "76"
     #                     outcome_76 = out["odds"].to_f unless out["odds"].nil?
     #                 end
-                    
+
     #             end
     #         end
     #         #update or create markets 1X2 half time and fulltime
@@ -397,11 +405,11 @@ class OddsChangeWorker
     #             ActionCable.server.broadcast("betslips_odds_#{market["id"]}_#{fixture_id}", mkt_entry.as_json)
     #         end
     #     end
-        
+
     #     outcome_1714 = outcome_1715 = 1.00
     #     if (market["id"] == "16" || market["id"] == "66") && market["specifiers"] == "hcp=1"
     #         #update or create markets under and over half time and fulltime
-            
+
     #         if market.has_key?("outcome")
     #             market["outcome"].each do |out|
     #                 if out["id"] == "1714"
@@ -410,7 +418,7 @@ class OddsChangeWorker
     #                 if out["id"] == "1715"
     #                     outcome_1715 = out["odds"].to_f unless out["odds"].nil?
     #                 end
-                    
+
     #             end
     #         end
     #         #update or create markets 1X2 half time and fulltime
@@ -419,7 +427,7 @@ class OddsChangeWorker
     #             outcome_1714:  outcome_1714,
     #             outcome_1715: outcome_1715,
     #             hcp: 1,
-    #             specifier: market["specifiers"], 
+    #             specifier: market["specifiers"],
     #             status: market_status[market["status"]]
     #         }
     #         if mkt_entry
@@ -429,7 +437,7 @@ class OddsChangeWorker
     #             mkt_entry.fixture_id = fixture_id
     #             mkt_entry.event_id = event_id
     #             #mkt_entry.save
-    #         end  
+    #         end
     #         if mkt_entry.save
     #             #broadast this change
     #             ActionCable.server.broadcast("#{producer_type[product].downcase}_odds_#{market["id"]}_#{fixture_id}", mkt_entry.as_json)
