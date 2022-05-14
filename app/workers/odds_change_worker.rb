@@ -103,7 +103,7 @@ class OddsChangeWorker
 
                             ##Save the market with specifier
                             if mkt_entry
-                               if mkt_entry.odd.blank?
+                               if mkt_entry.odds.blank?
                                   update_attr["odds"] = outcomes
                                else
                                   prevOdds = mkt_entry.odds
@@ -133,7 +133,7 @@ class OddsChangeWorker
 
                         ##Save the market with no specifier
                         if mkt_entry
-                           if mkt_entry.odd.blank?
+                           if mkt_entry.odds.blank?
                               update_attr["odds"] = outcomes
                            else
                               prevOdds = mkt_entry.odds
