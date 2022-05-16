@@ -26,8 +26,8 @@ class WithdrawsWorker
         result = MobileMoney::MtnOpenApi.make_transfer(@transaction.amount, @transaction.reference, @transaction.phone_number)
         if result
           if result == '202'
-            balance_after = (balance_before  - @transaction.amount)
             sleep(30)
+            balance_after = (balance_before  - @transaction.amount)
             ext_transaction_id = MobileMoney::MtnOpenApi.check_transfer_status(@transaction.reference)['financialTransactionId']
             @withdraw.update(ext_transaction_id: ext_transaction_id, network: "MTN Uganda", status: "SUCCESS", balance_after: balance_after)
             user.update(balance: balance_after)
