@@ -101,7 +101,7 @@
 	<%= paginate @users %>
    <% if current_admin.role == "manager" %>
    <div class="">
-      <%= link_to "Download", backend_users_path(params.merge(format: 'csv')) %>
+      <%= link_to "Download", backend_users_path(@users,format: 'csv') %>
    </div>
    <% end %>
 </div>

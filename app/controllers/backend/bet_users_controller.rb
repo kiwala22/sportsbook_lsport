@@ -25,7 +25,7 @@ class Backend::BetUsersController < ApplicationController
     @users = @q.result.order('created_at DESC').page params[:page]
     respond_to do |format|
       format.html
-      format.csv {send_data @users.to_csv, filename: "users-#{Date.today}.csv" }
+      format.csv {send_data User.all.to_csv, filename: "users-#{Date.today}.csv" }
     end
   end
 

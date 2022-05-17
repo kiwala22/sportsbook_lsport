@@ -10,7 +10,7 @@ class Backend::DepositsController < ApplicationController
       @search_params = params[:q]
       respond_to do |format|
          format.html
-         format.csv {send_data @deposits.to_csv, filename: "deposits-#{Date.today}.csv" }
+         format.csv {send_data Deposit.all.to_csv, filename: "deposits-#{Date.today}.csv" }
       end
    end
 end

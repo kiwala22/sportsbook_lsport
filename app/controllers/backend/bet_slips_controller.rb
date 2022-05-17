@@ -9,7 +9,7 @@ class Backend::BetSlipsController < ApplicationController
 
       respond_to do |format|
          format.html
-         format.csv {send_data @bet_slips.to_csv, filename: "betslips-#{Date.today}.csv" }
+         format.csv {send_data BetSlip.all.to_csv, filename: "betslips-#{Date.today}.csv" }
       end
    end
 
