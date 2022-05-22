@@ -26,12 +26,16 @@ class WithdrawsWorker
         result = MobileMoney::MtnOpenApi.make_transfer(@transaction.amount, @transaction.reference, @transaction.phone_number)
         if result
           if result == '202'
-            sleep(30)
-            balance_after = (balance_before  - @transaction.amount)
-            ext_transaction_id = MobileMoney::MtnOpenApi.check_transfer_status(@transaction.reference)['financialTransactionId']
-            @withdraw.update(ext_transaction_id: ext_transaction_id, network: "MTN Uganda", status: "SUCCESS", balance_after: balance_after)
-            user.update(balance: balance_after)
-            @transaction.update(balance_before: balance_before, balance_after: balance_after, status: "COMPLETED")
+            user.with_lock do
+              balance_after = (balance_before  - @transaction.amount)
+              user.balance =  balance_after
+              @withdraw.update(network: "MTN Uganda", status: "SUCCESS", balance_after: balance_after)
+              @transaction.update(balance_before: balance_before, balance_after: balance_after, status: "COMPLETED")
+              sleep(30)
+              ext_transaction_id = MobileMoney::MtnOpenApi.check_transfer_status(@transaction.reference)['financialTransactionId']
+              @withdraw.update(ext_transaction_id: ext_transaction_id)
+              user.save!
+            end
           else
             @withdraw.update(network: "MTN Uganda", status: "FAILED")
             @transaction.update(status: "FAILED")
@@ -46,10 +50,13 @@ class WithdrawsWorker
 
         if result
           if result['status']['response_code'] == 'DP00900001001' && result['status']['success'] == true #check transaction and process withdrawals
-            balance_after = (balance_before - @transaction.amount)
-            @withdraw.update(ext_transaction_id: result['data']['transaction']['reference_id'], network: "Airtel Uganda", status: "SUCCESS", balance_after: balance_after)
-            user.update(balance: balance_after)
-            @transaction.update(balance_before: balance_before, balance_after: balance_after, status: "COMPLETED")
+            user.with_lock do
+              balance_after = (balance_before - @transaction.amount)
+              @withdraw.update(ext_transaction_id: result['data']['transaction']['reference_id'], network: "Airtel Uganda", status: "SUCCESS", balance_after: balance_after)
+              user.balance =  balance_after
+              @transaction.update(balance_before: balance_before, balance_after: balance_after, status: "COMPLETED")
+              user.save!
+            end
           else
             @withdraw.update(network: "Airtel Uganda", status: "FAILED")
             @transaction.update(status: "FAILED")
