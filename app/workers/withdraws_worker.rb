@@ -29,8 +29,16 @@ class WithdrawsWorker
             user.with_lock do
               balance_after = (balance_before  - @transaction.amount)
               user.balance =  balance_after
-              @withdraw.update(network: "MTN Uganda", status: "SUCCESS", balance_after: balance_after)
-              @transaction.update(balance_before: balance_before, balance_after: balance_after, status: "COMPLETED")
+              @withdraw.update(
+                network: "MTN Uganda", 
+                status: "SUCCESS", 
+                balance_after: balance_after
+              )
+              @transaction.update(
+                balance_before: balance_before, 
+                balance_after: balance_after, 
+                status: "COMPLETED"
+              )
               sleep(30)
               ext_transaction_id = MobileMoney::MtnOpenApi.check_transfer_status(@transaction.reference)['financialTransactionId']
               @withdraw.update(ext_transaction_id: ext_transaction_id)
@@ -52,7 +60,12 @@ class WithdrawsWorker
           if result['status']['response_code'] == 'DP00900001001' && result['status']['success'] == true #check transaction and process withdrawals
             user.with_lock do
               balance_after = (balance_before - @transaction.amount)
-              @withdraw.update(ext_transaction_id: result['data']['transaction']['reference_id'], network: "Airtel Uganda", status: "SUCCESS", balance_after: balance_after)
+              @withdraw.update(
+                ext_transaction_id: result['data']['transaction']['reference_id'], 
+                network: "Airtel Uganda", 
+                status: "SUCCESS", 
+                balance_after: balance_after
+              )
               user.balance =  balance_after
               @transaction.update(balance_before: balance_before, balance_after: balance_after, status: "COMPLETED")
               user.save!
